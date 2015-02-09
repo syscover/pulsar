@@ -1,0 +1,24 @@
+{
+    "name": "pulsar/pulsar",
+    "version": "2.0.0",
+    "description": "Pulsar package",
+    "keywords": ["pulsar","laravel","syscover"],
+    "type": "package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "SYSCOVER SL",
+            "email": "info@syscover.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "zendframework/zend-permissions-acl": "2.3.*@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pulsar\\": "src/Pulsar"
+        }
+    },
+    "minimum-stability": "dev"
+}

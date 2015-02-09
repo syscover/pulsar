@@ -1,0 +1,1 @@
+ $("div.buttonsDataTables").html('<a class="btn" href="javascript:deleteElements()">Borrar</a>');

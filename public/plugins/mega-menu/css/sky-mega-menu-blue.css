@@ -1,0 +1,21 @@
+.sky-mega-menu li:hover > a,
+.sky-mega-menu li.current > a {
+	background: #2a70e8;
+	color: #fff;
+}
+
+
+/**/
+/* forms */
+/**/
+.sky-mega-menu form .input:hover input,
+.sky-mega-menu form .textarea:hover textarea {
+	border-color: #94b7f3;
+}
+.sky-mega-menu form .button {
+	background-color: #2a70e8;	
+}
+.sky-mega-menu form .input input:focus,
+.sky-mega-menu form .textarea textarea:focus {
+	border-color: #2a70e8;
+}

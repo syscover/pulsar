@@ -1,0 +1,55 @@
+<?php
+/*
+|--------------------------------------------------------------------------
+| Application Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can any all of the routes for an application.
+| It's a breeze. Simply tell Laravel the URIs it should respond to
+| and give it the Closure to execute when that URI is requested.
+|
+*/
+Route::group(['middleware' => 'auth.pulsar'], function() {
+    // enter to application
+    Route::get(config('pulsar.appName'), function () {
+        return Redirect::to(config('pulsar.appName') . '/pulsar/dashboard');
+    });
+
+    // exit of application
+    Route::get(config('pulsar.appName') . '/pulsar/logout', function () {
+        Auth::logout();
+        Session::flush();
+        return Redirect::to(config('pulsar.appName'));
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | DASHBOARD
+    |--------------------------------------------------------------------------
+    */
+    Route::get(config('pulsar.appName') . '/pulsar/dashboard', ['as' => 'dashboard', 'uses' => 'Pulsar\Pulsar\Controllers\Dashboard@index']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | LANGUAGES
+    |--------------------------------------------------------------------------
+    */
+    Route::any(config('pulsar.appName') . '/pulsar/languages/{page?}',                      ['as' => 'languages',               'uses' => 'Pulsar\Pulsar\Controllers\Languages@index']);
+    Route::any(config('pulsar.appName') . '/pulsar/languages/json/data',                    ['as' => 'jsonDataLanguages',       'uses' => 'Pulsar\Pulsar\Controllers\Languages@jsonData']);
+    Route::get(config('pulsar.appName') . '/pulsar/languages/create/{page}',                ['as' => 'createLanguage',          'uses' => 'Pulsar\Pulsar\Controllers\Languages@create']);
+    Route::post(config('pulsar.appName') . '/pulsar/languages/store/{page}',                ['as' => 'storeLanguage',           'uses' => 'Pulsar\Pulsar\Controllers\Languages@store']);
+    Route::get(config('pulsar.appName') . '/pulsar/languages/{id}/edit/{page}',             ['as' => 'editLanguage',            'uses' => 'Pulsar\Pulsar\Controllers\Languages@edit']);
+    Route::post(config('pulsar.appName') . '/pulsar/languages/update/{page}',               ['as' => 'updateLanguage',          'uses' => 'Pulsar\Pulsar\Controllers\Languages@update']);
+    Route::get(config('pulsar.appName') . '/pulsar/languages/destroy/{id}',                 ['as' => 'destroyLanguage',         'uses' => 'Pulsar\Pulsar\Controllers\Languages@destroy']);
+    Route::post(config('pulsar.appName') . '/pulsar/languages/destroy/select/elements',     ['as' => 'destroySelectLanguage',   'uses' => 'Pulsar\Pulsar\Controllers\Languages@destroySelect']);
+    Route::post(config('pulsar.appName') . '/pulsar/languages/delete/image/idioma/{id}',    ['as' => 'deleteImageLanguage',     'uses' => 'Pulsar\Pulsar\Controllers\Languages@deleteImage']);
+});
+
+// LOGIN
+Route::post(config('pulsar.appName') . '/pulsar/login',                                     ['as'=>'login',                     'uses'=>'Pulsar\Pulsar\Controllers\Login@login']);
+Route::get(config('pulsar.appName') . '/pulsar/login',                                      ['as'=>'loginView',                 'uses'=>'Pulsar\Pulsar\Controllers\Login@loginView']);
+
+// PASSWORD REMINDER
+Route::post(config('pulsar.appName') . '/pulsar/password/remind',                           ['as'=>'postRemindPassword',        'uses'=>'Pulsar\Pulsar\Controllers\RemindersController@postRemind']);
+Route::get(config('pulsar.appName') . '/pulsar/password/reset/{token}',                     ['as'=>'getResetPassword',          'uses'=>'Pulsar\Pulsar\Controllers\RemindersController@getReset']);
+Route::post(config('pulsar.appName') . '/pulsar/password/reset/{token}',                    ['as'=>'postResetPassword',         'uses'=>'Pulsar\Pulsar\Controllers\RemindersController@postReset']);
