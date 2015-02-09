@@ -11,9 +11,6 @@ class PulsarServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
-		// load autoload from package composer.json
-		require realpath(__DIR__ . '/../../../vendor/autoload.php');
-
 		// include route.php file
 		include realpath(__DIR__ . '/../../routes.php');
 
