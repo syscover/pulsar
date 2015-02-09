@@ -14,14 +14,14 @@
 
 ```
 
-**2 - Register middleware auth.pulsar, on file app/Http/Kernel.php add to routeMiddleware array
+**2 - Register middleware auth.pulsar, on file app/Http/Kernel.php add to routeMiddleware array**
 
 ```
 'auth.pulsar' 	=> 'Pulsar\Pulsar\Middleware\Auth',
 
 ```
 
-**3 - To publish package, you must type on console
+**3 - To publish package, you must type on console**
 
 ```
 php artisan vendor:publish
