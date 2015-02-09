@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Pulsar\\": "src/Pulsar"
+            "Pulsar\\Pulsar\\": "src/Pulsar/Pulsar"
         }
     },
     "minimum-stability": "dev"
