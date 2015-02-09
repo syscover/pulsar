@@ -3,7 +3,6 @@
     "version": "2.0.0",
     "description": "Pulsar package",
     "keywords": ["pulsar","laravel","syscover"],
-    "type": "package",
     "license": "MIT",
     "authors": [
         {
