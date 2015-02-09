@@ -7,7 +7,7 @@
 
 ## Installation
 
-**1 - Register service provider, on file config/app.php add to providers array
+**1 - Register service provider, on file config/app.php add to providers array**
 
 ```
 'Pulsar\Pulsar\PulsarServiceProvider',
