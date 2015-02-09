@@ -1,5 +1,34 @@
 # Pulsar App para Laravel 5
 
+
+
+
+## Installation
+
+**1 - Register service provider, on file config/app.php add to providers array
+
+```
+'Pulsar\Pulsar\PulsarServiceProvider',
+
+```
+
+**2 - Register middleware auth.pulsar, on file app/Http/Kernel.php add to routeMiddleware array
+
+```
+'auth.pulsar' 	=> 'Pulsar\Pulsar\Middleware\Auth',
+
+```
+
+**3 - To publish package, you must type on console
+
+```
+php artisan vendor:publish
+
+```
+
+
+
+
 Pulsar es una aplicación que genera un panel de control donde empezar a crear soluciones personalizadas, provee de los recursos necesarios para cualquier aplicación web.
 
 ---
@@ -8,12 +37,6 @@ Pulsar es una aplicación que genera un panel de control donde empezar a crear s
 - [Gestión de usuarios](#usuarios)
 - [Gestión de localización](#registering-the-package)
 - [Gestón de tareas CRON](#cron)
-
-1 Registra service provider
-2 Registrar middleware
-
-
-## Instalación
 
 **1 - Pulsar extiende varias clases del core del Laravel, para que estas extensiones sean cargadas por Laravel es necesario poner al inicio del fichero app/start/global.php el siguinte código:**
 
