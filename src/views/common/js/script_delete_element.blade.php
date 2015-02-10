@@ -7,7 +7,7 @@
                 ]
             },
             function(buttonPressed) {
-                if(buttonPressed=='Aceptar')
+                if(buttonPressed=='{{ trans('pulsar::pulsar.accept') }}')
                 {
                     $(location).attr('href',url);
                 }

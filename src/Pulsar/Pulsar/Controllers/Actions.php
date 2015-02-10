@@ -10,7 +10,6 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -28,12 +27,11 @@ class Actions extends BaseController
     protected $folder   = 'actions';
     protected $package  = 'pulsar';
     protected $aColumns = ['id_008','name_008'];
+    protected $nameM    = 'name_008';
     protected $model    = '\Pulsar\Pulsar\Models\Action';
 
     public function jsonData()
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'access')) App::abort(403, 'Permission denied.');
-        
         $params =  Miscellaneous::paginateDataTable();
         $params =  Miscellaneous::dataTableSorting($params, $this->aColumns);
         $params =  Miscellaneous::filteringDataTable($params);
@@ -57,7 +55,7 @@ class Actions extends BaseController
             {
                 $row[] = $aObject[$aColumn];
 		    }
-            $row[] = '<input type="checkbox" class="uniform" name="element'.$i.'" value="'.$aObject['id_008'].'">';
+            $row[] = '<input type="checkbox" class="uniform" name="element'.$i.'" value="' . $aObject['id_008'] . '">';
 
             $acciones = Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . url(config('pulsar.appName') . '/pulsar/actions/' . $aObject['id_008'] . '/edit/' . Input::get('iDisplayStart')) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
             $acciones .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip" href="javascript:deleteElement(\'' . $aObject['id_008'] . '\')" data-original-title="' . trans('pulsar::pulsar.delete_record') . '"><i class="icon-trash"></i></a>' : null;
@@ -71,18 +69,9 @@ class Actions extends BaseController
         
         return view('pulsar::common.json_display',$data);
     }
-        
-    public function create($offset = 0)
-    {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
-        
-        return view('pulsar::actions.create', ['offset' => $offset]);
-    }
     
     public function store($offset = 0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
-        
         $validation = Action::validate(Input::all());
               
         if ($validation->fails())
@@ -103,20 +92,8 @@ class Actions extends BaseController
         }
     }
     
-    public function edit($id, $offset = 0)
-    {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'access')) App::abort(403, 'Permission denied.');
-        
-        $data['offset'] = $offset;
-        $data['action'] = Action::find($id);
-        
-        return view('pulsar::actions.edit',$data);
-    }
-    
     public function update($offset = 0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'edit')) App::abort(403, 'Permission denied.');
-        
         if(Input::get('id') == Input::get('idOld')) $idRule = false; else $idRule = true;
         
         $validation = Action::validate(Input::all(), $idRule);
@@ -137,19 +114,5 @@ class Actions extends BaseController
                 'txtMsg'     => trans('pulsar::pulsar.aviso_actualiza_registro', array('nombre' => Input::get('name')))
             ));
         }
-    }
-
-    public function destroy($id)
-    {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'delete')) App::abort(403, 'Permission denied.');
-        
-        $accion = Action::find($id);
-
-        Action::destroy($id);
-
-        return Redirect::route('actions')->with([
-            'msg'        => 1,
-            'txtMsg'     => trans('pulsar::pulsar.message_delete_record_successful', array('name' => $accion->name_008))
-        ]);
     }
 }

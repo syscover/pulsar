@@ -30,6 +30,8 @@ class PulsarServiceProvider extends ServiceProvider
 			realpath(__DIR__ . '/../../config/pulsar.php') => config_path('pulsar.php'),
 			realpath(__DIR__ . '/../../config/auth.php') => config_path('auth.php')
 		]);
+
+		//$handler->missing(function($exception) {return \Response::view('errors.missing', array(), 404); });
 	}
 
 	/**

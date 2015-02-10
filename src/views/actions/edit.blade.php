@@ -24,15 +24,15 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label">ID</label>
                         <div class="col-md-2">
-                            <input class="form-control required" type="text" name="id" value="{{ $action->id_008 }}" maxlength="25" rangelength="2, 25">
-                            <input name="idOld" type="hidden" value="{{ $action->id_008 }}">
+                            <input class="form-control required" type="text" name="id" value="{{ $object->id_008 }}" maxlength="25" rangelength="2, 25">
+                            <input name="idOld" type="hidden" value="{{ $object->id_008 }}">
                             {{ $errors->first('id', config('pulsar.errorDelimiters')) }}
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-2 control-label">Nombre <span class="required">*</span></label>
                         <div class="col-md-10">
-                            <input class="form-control required" type="text" name="name" value="{{ $action->name_008 }}" maxlength="50" rangelength="2, 50">
+                            <input class="form-control required" type="text" name="name" value="{{ $object->name_008 }}" maxlength="50" rangelength="2, 50">
                             {{ $errors->first('name', config('pulsar.errorDelimiters')) }}
                         </div>
                     </div>

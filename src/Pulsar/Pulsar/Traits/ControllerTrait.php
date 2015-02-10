@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Redirect;
 
 trait ControllerTrait {
 
+    /**
+     * @access	public
+     * @param   integer  $offset
+     * @return	View
+     */
     public function index($offset = 0)
     {
         if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')) App::abort(403, 'Permission denied.');
@@ -18,34 +23,84 @@ trait ControllerTrait {
         $data['offset']         = $offset;
         $data['javascriptView'] = 'pulsar::' . $this->folder . '.js.index';
 
-        return view('pulsar::' . $this->route . '.index', $data);
+        if(method_exists($this, 'indexCustom'))
+        {
+            $data = $this->indexCustom($data);
+        }
+
+        return view('pulsar::' . $this->folder . '.index', $data);
     }
 
     /**
      * @access	public
-     * @param   string  $resource
-     * @param   string  $model
-     * @return	boolean
+     * @param   integer     $offset
+     * @return	View
      */
-    public function destroyRecord($resource, $model, $id)
+    public function createRecord($offset = 0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $resource, 'delete')) App::abort(403, 'Permission denied.');
+        if(method_exists($this, 'createCustomRecord'))
+        {
+            $this->createCustomRecord();
+        }
 
-        call_user_func($model . '::destroy', $id);
+        return view('pulsar::' . $this->folder . '.create', ['offset' => $offset]);
     }
+
+    /**
+     * @access	public
+     * @param   integer     $id
+     * @param   integer     $offset
+     * @return	View
+     */
+    public function editRecord($id, $offset = 0)
+    {
+        $data['offset'] = $offset;
+        $data['object'] = call_user_func($this->model . '::find', $id);
+
+        if(method_exists($this, 'editCustomRecord'))
+        {
+            $data = $this->editCustomRecord($data);
+        }
+
+        return view('pulsar::' . $this->folder . '.edit', $data);
+    }
+
 
     /**
      * @access	public
      * @param   string  $resource
      * @param   string  $model
-     * @return	boolean
+     * @return	Redirect
+     */
+    public function destroyRecord($id)
+    {
+        $object = call_user_func($this->model . '::find', $id);
+        call_user_func($this->model . '::destroy', $id);
+
+        if(method_exists($this, 'destroyCustomRecord'))
+        {
+            $this->destroyCustomRecord($id);
+        }
+
+        return Redirect::route($this->route)->with([
+            'msg'        => 1,
+            'txtMsg'     => trans('pulsar::pulsar.message_delete_record_successful', array('name' => $object->{$this->nameM}))
+        ]);
+    }
+
+
+    /**
+     * @access	public
+     * @param   string  $resource
+     * @param   string  $model
+     * @return	Redirect
      */
     public function destroyRecordsSelect()
     {
         if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')) App::abort(403, 'Permission denied.');
 
         $nElements = Input::get('nElementsDataTable');
-        $ids = array();
+        $ids = [];
 
         for($i=0; $i < $nElements; $i++)
         {
@@ -56,6 +111,11 @@ trait ControllerTrait {
         }
 
         call_user_func($this->model . '::deleteRecords', $ids);
+
+        if(method_exists($this, 'destroyCustomRecords'))
+        {
+            $this->destroyCustomRecords($ids);
+        }
 
         return Redirect::route($this->route)->with([
             'msg'        => 1,
