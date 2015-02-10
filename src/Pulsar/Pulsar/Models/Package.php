@@ -10,12 +10,12 @@
  * @filesource
  */
 
-use Illuminate\Database\Eloquent\Model as Eloquent,
+use Illuminate\Database\Eloquent\Model,
     Illuminate\Support\Facades\Validator,
     Pulsar\Pulsar\Libraries\Miscellaneous;
 
-class Package extends Eloquent
-{
+class Package extends Model {
+
 	protected $table        = '001_012_package';
     protected $primaryKey   = 'id_012';
     public $timestamps      = true;

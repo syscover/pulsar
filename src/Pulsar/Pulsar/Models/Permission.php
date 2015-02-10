@@ -10,10 +10,10 @@
  * @filesource
  */
 
-use Illuminate\Database\Eloquent\Model as Eloquent,
+use Illuminate\Database\Eloquent\Model,
     Illuminate\Support\Facades\Validator;
 
-class Permission extends Eloquent
+class Permission extends Model
 {
 	protected $table        = '001_009_permission';
     protected $primaryKey   = 'perfil_009';

@@ -2,12 +2,7 @@
 
 use Illuminate\Routing\Controller;
 
-abstract class BaseController extends Controller
-{
-	protected $package;
-	protected $resource;
-	protected $section;
-	protected $route;
+abstract class BaseController extends Controller {
 
 	public function __construct()
 	{
@@ -35,18 +30,4 @@ abstract class BaseController extends Controller
 		//	Session::put('configPulsar', $data);
 		//}
 	}
-
-	public function index($offset = 0)
-	{
-		//if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')) App::abort(403, 'Permission denied.');
-
-		//Miscellaneous::sessionParamterSetPage($this->resource);
-
-		$data['resource']       = $this->resource;
-		$data['offset']         = $offset;
-		$data['javascriptView'] = 'pulsar::' . $this->route . '.js.index';
-
-		return view('pulsar::' . $this->route . '.index', $data);
-	}
-
 }

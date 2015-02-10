@@ -37,7 +37,7 @@
                     <li{{ Pulsar\Pulsar\Libraries\Miscellaneous::setCurrentPage('admin-user') }}><a href="{{ url(config('pulsar.appName') . '/pulsar/users') }}"><i class="icomoon-icon-users"></i>Usuarios</a></li>
                 @endif
                 @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-lang', 'access'))
-                        <li{{ Pulsar\Pulsar\Libraries\Miscellaneous::setCurrentPage('admin-lang') }}><a href="{{ url(config('pulsar.appName') . '/pulsar/languages') }}"><i class="brocco-icon-flag"></i>Idiomas</a></li>
+                        <li{{ Pulsar\Pulsar\Libraries\Miscellaneous::setCurrentPage('admin-lang') }}><a href="{{ url(config('pulsar.appName') . '/pulsar/languages') }}"><i class="brocco-icon-flag"></i>{{ trans('pulsar::pulsar.languages') }}</a></li>
                 @endif
                 @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-country', 'access'))
                         <li{{ Pulsar\Pulsar\Libraries\Miscellaneous::setCurrentPage(array('admin-country','admin-country-at1','admin-country-at2','admin-country-at3')) }}><a href="{{ url(config('pulsar.appName') . '/pulsar/countries') }}"><i class="entypo-icon-globe"></i>Países</a></li>

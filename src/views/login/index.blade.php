@@ -12,7 +12,7 @@
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
     <!-- Title -->
-    <h3 class="form-title">Accede a tu cuenta</h3>
+    <h3 class="form-title">{{ trans('pulsar::pulsar.access_your_account') }}</h3>
 
     <!-- Error Message -->
     <div class="alert fade in alert-danger" style="display: none;">
@@ -25,14 +25,14 @@
         <!--<label for="username">Username:</label>-->
         <div class="input-icon">
             <i class="icon-user"></i>
-            <input type="text" name="user" class="form-control" placeholder="{{ trans('pulsar::pulsar.usuario') }}" autofocus="autofocus" data-rule-required="true" data-msg-required="Please enter your username.">
+            <input type="text" name="user" class="form-control" placeholder="{{ trans('pulsar::pulsar.user') }}" autofocus="autofocus" data-rule-required="true" data-msg-required="Please enter your username.">
         </div>
     </div>
     <div class="form-group">
         <!--<label for="password">Password:</label>-->
         <div class="input-icon">
             <i class="icon-lock"></i>
-            <input type="password" name="pass" class="form-control" placeholder="{{ trans('pulsar::pulsar.contrasena') }}" data-rule-required="true" data-msg-required="Please enter your password.">
+            <input type="password" name="pass" class="form-control" placeholder="{{ trans('pulsar::pulsar.password') }}" data-rule-required="true" data-msg-required="Please enter your password.">
         </div>
     </div>
     <!-- /Input Fields -->
@@ -54,7 +54,7 @@
         <i class="icon-remove close hide-default"></i>
 
         <!-- Link as Toggle Button -->
-        <a href="#" class="forgot-password-link">{{ trans('pulsar::pulsar.olvido_su_contrasena') }}</a>
+        <a href="#" class="forgot-password-link">{{ trans('pulsar::pulsar.remember_password') }}</a>
 
         <!-- Forgot Password Formular -->
         <form id="forgot-password" class="form-vertical forgot-password-form hide-default" action="{{ route('postRemindPassword') }}" method="post" onsubmit="return false">
@@ -63,13 +63,13 @@
                 <!--<label for="email">Email:</label>-->
                 <div class="input-icon">
                     <i class="icon-envelope"></i>
-                    <input type="text" name="email_010" class="form-control" placeholder="Indique su dirección de email" data-rule-required="true" data-rule-email="true" data-msg-required="Por favor introduzca su email.">
+                    <input type="text" name="email_010" class="form-control" placeholder="{{ trans('pulsar::pulsar.enter_email') }}" data-rule-required="true" data-rule-email="true" data-msg-required="{{ trans('pulsar::pulsar.error_change_password') }}">
                 </div>
             </div>
             <!-- /Input Fields -->
 
             <button type="submit" class="submit btn btn-default btn-block">
-                Cambie su password
+                {{ trans('pulsar::pulsar.change_password') }}
             </button>
         </form>
         <!-- /Forgot Password Formular -->
@@ -82,7 +82,7 @@
             </div>
             <div class="forgot-password-nook">
                 <i class="icon-remove danger-icon"></i>
-                <span>Error, su usuario no existe.</span>
+                <span>{{ trans('pulsar::pulsar.error2_change_password') }}</span>
             </div>
         </div>
     </div> <!-- /.content -->

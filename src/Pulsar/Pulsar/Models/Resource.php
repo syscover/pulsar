@@ -10,12 +10,12 @@
  * @filesource
  */
 
-use Illuminate\Database\Eloquent\Model as Eloquent,
+use Illuminate\Database\Eloquent\Model,
     Illuminate\Support\Facades\Validator,
     Pulsar\Pulsar\Libraries\Miscellaneous;
 
 
-class Resource extends Eloquent
+class Resource extends Model
 {
 	protected $table        = '001_007_resource';
     protected $primaryKey   = 'id_007';

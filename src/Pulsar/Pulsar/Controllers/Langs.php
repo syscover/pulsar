@@ -1,61 +1,57 @@
 <?php
 namespace Pulsar\Pulsar\Controllers;
 
-use Illuminate\Support\Facades\App,
-    Illuminate\Support\Facades\Session,
-    Illuminate\Support\Facades\Auth,
-    Illuminate\Support\Facades\Input,
-    Illuminate\Support\Facades\URL,
-    Illuminate\Support\Facades\Config,
-    Illuminate\Support\Facades\Lang,
-    Illuminate\Support\Facades\View,
-    Illuminate\Support\Facades\Redirect,
-    Illuminate\Support\Facades\File,
-    //Pulsar\Pulsar\Libraries\Miscellaneous,
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\File;
+use Pulsar\Pulsar\Libraries\Miscellaneous;
+use Pulsar\Pulsar\Models\Lang;
+use Pulsar\Pulsar\Traits\ControllerTrait;
 
-    Pulsar\Pulsar\Models\Language;
+class Langs extends BaseController {
 
-class Languages extends BaseController
-{
+    use ControllerTrait;
+
     protected $resource = 'admin-lang';
-    protected $route    = 'languages';
+    protected $route    = 'langs';
+    protected $folder   = 'langs';
     protected $package  = 'pulsar';
+    protected $aColumns = ['id_001', 'image_001', 'name_001', 'base_001', 'active_001', 'sorting_001'];
 
-    public function jsonData()
+    public function JsonData()
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'access')) App::abort(403, 'Permission denied.');
-
-        // columns to set table filter
-        $aColumns = array('id_001','image_001','name_001','base_001','active_001','sorting_001');
-        $params = array();
+        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')) App::abort(403, 'Permission denied.');
 
         // table paginated
-        $params =  Miscellaneous::paginateDataTable($params);
+        $params =  Miscellaneous::paginateDataTable();
 
         // table sorting
-        $params =  Miscellaneous::dataTableSorting($params, $aColumns);
+        $params =  Miscellaneous::dataTableSorting($params, $this->aColumns);
 
         // quick search data table
         $params =  Miscellaneous::filteringDataTable($params);
 
         // get data to table
-        $objects        = Language::getIdiomasLimit($aColumns, $params['sLength'], $params['sStart'], $params['sOrder'], $params['sTypeOrder'], $params['sWhere']);
-        $iFilteredTotal = Language::getIdiomasLimit($aColumns, null, null, $params['sOrder'], $params['sTypeOrder'], $params['sWhere'], null, true);
-        $iTotal         = Language::count();
+        $objects        = Lang::getRecordsLimit($this->aColumns, $params['sLength'], $params['sStart'], $params['sOrder'], $params['sTypeOrder'], $params['sWhere']);
+        $iFilteredTotal = Lang::getRecordsLimit($this->aColumns, null, null, $params['sOrder'], $params['sTypeOrder'], $params['sWhere'], null, true);
+        $iTotal         = Lang::count();
 
         // instance json data
-        $output = array(
+        $output = [
             "sEcho"                 => intval(Input::get('sEcho')),
             "iTotalRecords"         => $iTotal,
             "iTotalDisplayRecords"  => $iFilteredTotal,
-            "aaData"                => array()
-        );
-        
+            "aaData"                => []
+        ];
+
         $aObjects = $objects->toArray(); $i=0;
         foreach($aObjects as $aObject)
         {
-		    $row = array();
-		    foreach ($aColumns as $aColumn)
+		    $row = [];
+		    foreach ($this->aColumns as $aColumn)
             {
                 if($aColumn == "email_010")
                 {
@@ -64,7 +60,7 @@ class Languages extends BaseController
                 elseif($aColumn == "image_001")
                 {
                     if($aObject[$aColumn] != '')
-                        $row[] = '<img src="' . URL::to('/packages/pulsar/pulsar/storage/languages/' . $aObject[$aColumn]) . '">';
+                        $row[] = '<img src="' . asset('/packages/pulsar/pulsar/storage/languages/' . $aObject[$aColumn]) . '">';
                     else
                         $row[] = '';
 
@@ -92,35 +88,35 @@ class Languages extends BaseController
 		    }
             $row[] = '<input type="checkbox" class="uniform" name="element' . $i . '" value="' . $aObject['id_001'] . '">';
 
-            $acciones = Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" title="" href="' . URL::to(Config::get('pulsar::pulsar.rootUri') . '/pulsar/languages/' . $aObject['id_001'] . '/edit/' . Input::get('iDisplayStart')) . '" data-original-title="' . Lang::get('pulsar::pulsar.editar_registro') . '"><i class="icon-pencil"></i></a>' : null;
-            $acciones .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip" title="" href="javascript:deleteElement(\''.$aObject['id_001'].'\')" data-original-title="' . Lang::get('pulsar::pulsar.borrar_registro') . '"><i class="icon-trash"></i></a>' : null;
+            $acciones = Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . url(config('pulsar.appName') . '/pulsar/languages/' . $aObject['id_001'] . '/edit/' . Input::get('iDisplayStart')) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
+            $acciones .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip" href="javascript:deleteElement(\''.$aObject['id_001'].'\')" data-original-title="' . trans('pulsar::pulsar.delete_record') . '"><i class="icon-trash"></i></a>' : null;
 		    $row[] =  $acciones;
                 
             $output['aaData'][] = $row;
             $i++;
 	    }
-                
+
         $data['json'] = json_encode($output);
         
-        return View::make('pulsar::pulsar.pulsar.common.json_display', $data);
+        return view('pulsar::common.json_display', $data);
     }
     
-    public function create($inicio)
+    public function create($offset = 0)
     {
         if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
   
-        return View::make('pulsar::pulsar.pulsar.languages.create',array('inicio' => $inicio));
+        return view('pulsar::languages.create', ['offset' => $offset]);
     }
     
-    public function store($inicio=0)
+    public function store($offset = 0)
     {
         if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
         
-        $validation = Language::validate(Input::all());
+        $validation = Lang::validate(Input::all());
               
         if ($validation->fails())
         {
-            return Redirect::route('createIdioma', $inicio)->withErrors($validation)->withInput();
+            return Redirect::route('createLang', $offset)->withErrors($validation)->withInput();
         }
         else
         {
@@ -128,25 +124,25 @@ class Languages extends BaseController
 
             if(Input::get('base'))
             {
-                Language::resetIdiomaBase();
+                Lang::resetIdiomaBase();
             }
                        
-            Language::create(array(
+            Lang::create([
                 'id_001'        => Input::get('id'),
-                'name_001'      => Input::get('nombre'),
+                'name_001'      => Input::get('name'),
                 'image_001'     => $filename,
                 'sorting_001'   => Input::get('orden'),
                 'base_001'      => Input::get('base',0),
                 'active_001'    => Input::get('activo',0)
-            )); 
+            ]);
             
             if(Input::get('base')){
-                Session::put('idiomaBase', Language::getIdiomaBase());
+                Session::put('idiomaBase', Lang::getIdiomaBase());
             }
 
-            return Redirect::route('languages', array($inicio))->with(array(
+            return Redirect::route('languages', $offset)->with(array(
                 'msg'        => 1,
-                'txtMsg'     => Lang::get('pulsar::pulsar.aviso_alta_registro',array('nombre' => Input::get('nombre')))
+                'txtMsg'     => trans('pulsar::pulsar.message_log_recorded', ['nombre' => Input::get('nombre')])
             ));
         }
     }
@@ -156,10 +152,10 @@ class Languages extends BaseController
         if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'access')) App::abort(403, 'Permission denied.');
         
         $data['inicio']             = $inicio;
-        $data['javascriptView']     = 'pulsar::pulsar.pulsar.languages.js.edit';
-        $data['idioma']             = Language::find($id);
+        $data['javascriptView']     = 'pulsar::languages.js.edit';
+        $data['idioma']             = Lang::find($id);
 
-        return View::make('pulsar::pulsar.pulsar.languages.edit',$data);
+        return view('pulsar::languages.edit',$data);
     }
     
     public function update($inicio=0)
@@ -170,7 +166,7 @@ class Languages extends BaseController
         if(Input::hasFile('imagen')) $imageRule = true; else $imageRule = false;
         if(Input::get('id') == Input::get('idOld')) $idRule = false; else $idRule = true;
         
-        $validation = Language::validate(Input::all(), $imageRule, $idRule);
+        $validation = Lang::validate(Input::all(), $imageRule, $idRule);
                 
         if ($validation->fails())
         {
@@ -198,10 +194,10 @@ class Languages extends BaseController
             
             if(Input::get('base'))
             {
-                Language::resetIdiomaBase();
+                Lang::resetIdiomaBase();
             }
             
-            Language::where('id_001','=',Input::get('idOld'))->update(array(
+            Lang::where('id_001','=',Input::get('idOld'))->update(array(
                 'id_001'        => Input::get('id'),
                 'name_001'      => Input::get('nombre'),
                 'image_001'     => $filename,
@@ -212,12 +208,12 @@ class Languages extends BaseController
 
             if(Input::get('base'))
             {
-                Session::put('idiomaBase', Language::getIdiomaBase());
+                Session::put('idiomaBase', Lang::getIdiomaBase());
             }
 
             return Redirect::route('languages', array($inicio))->with(array(
                 'msg'        => 1,
-                'txtMsg'     => Lang::get('pulsar::pulsar.aviso_actualiza_registro', array('nombre' => Input::get('nombre')))
+                'txtMsg'     => trans('pulsar::pulsar.aviso_actualiza_registro', array('nombre' => Input::get('nombre')))
             ));
         }
     }
@@ -226,13 +222,13 @@ class Languages extends BaseController
     {
         if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'access')) App::abort(403, 'Permission denied.');
         
-        $idioma = Language::find($id);
-        Language::destroy($id);
+        $idioma = Lang::find($id);
+        Lang::destroy($id);
         File::delete(public_path() . '/packages/pulsar/pulsar/storage/languages/' . $idioma->imagen_001);
 
         return Redirect::route('languages')->with(array(
             'msg'        => 1,
-            'txtMsg'     => Lang::get('pulsar::pulsar.borrado_registro', array('nombre' => $idioma->name_001))
+            'txtMsg'     => trans('pulsar::pulsar.borrado_registro', array('nombre' => $idioma->name_001))
         ));
     }
     
@@ -251,28 +247,28 @@ class Languages extends BaseController
             }
         }
         
-        $languages = Language::getIdiomasId($ids);
+        $languages = Lang::getIdiomasId($ids);
         
         foreach ($languages as $language)
         {
             File::delete(public_path() . '/packages/pulsar/pulsar/storage/languages/' . $language->image_001);
         }
 
-        Language::deleteIdiomas($ids);
+        Lang::deleteIdiomas($ids);
 
         return Redirect::route('languages')->with(array(
             'msg'        => 1,
-            'txtMsg'     => Lang::get('pulsar::pulsar.borrado_registros', array('nombre' => $idioma->name_001))
+            'txtMsg'     => trans('pulsar::pulsar.borrado_registros', array('nombre' => $idioma->name_001))
         ));
     }
 
     public function deleteImagen($id)
     {
-        $idioma = Language::find($id);
+        $idioma = Lang::find($id);
 
         File::delete(public_path() . '/packages/pulsar/pulsar/storage/languages/' . $idioma->imagen_001);
 
-        Language::where('id_001', $id)->update(array(
+        Lang::where('id_001', $id)->update(array(
             'image_001' => null,
         ));
     }

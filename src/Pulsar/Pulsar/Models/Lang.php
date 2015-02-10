@@ -1,20 +1,24 @@
-<?php
+<?php namespace Pulsar\Pulsar\Models;
 
 /**
- *
- * Este modelo representa los datos de la tabla idioma.
- *
- * @package	Pulsar
- * @author	Jose Carlos Rodríguez Palacín (http://www.syscover.com/)
+ * @package	    Pulsar
+ * @author	    Jose Carlos Rodríguez Palacín
+ * @copyright   Copyright (c) 2015, SYSCOVER, SL
+ * @license
+ * @link		http://www.syscover.com
+ * @since		Version 1.0
+ * @filesource
  */
 
-namespace Pulsar\Pulsar\Models;
 
 use Illuminate\Database\Eloquent\Model,
     Illuminate\Support\Facades\Validator,
     Pulsar\Pulsar\Libraries\Miscellaneous;
+use Pulsar\Pulsar\Traits\ModelTrait;
 
 class Lang extends Model {
+
+    use ModelTrait;
 
     protected $table        = '001_001_lang';
     protected $primaryKey   = 'id_001';
@@ -44,7 +48,7 @@ class Lang extends Model {
         return Lang::where('base_001', '=', 1)->first();
     }
 
-    public static function getIdiomasLimit($aColumns, $nResultados = null, $inicio = null, $orden = null, $tipoOrden = null, $sWhere=null, $sWhereColumns=null, $count=false)
+    public static function getRecordsLimit($aColumns, $nResultados = null, $inicio = null, $orden = null, $tipoOrden = null, $sWhere=null, $sWhereColumns=null, $count=false)
     {
         $query = Lang::query();
         
@@ -85,7 +89,7 @@ class Lang extends Model {
         return Lang::whereIn('id_001', $ids)->get();
     }
 
-    public static function deleteIdiomas($ids)
+    public static function deleteRecords($ids)
     {
         Lang::whereIn('id_001', $ids)->delete();
     }

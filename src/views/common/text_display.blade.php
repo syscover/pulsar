@@ -2,4 +2,4 @@
 /*
  * view to show text plain
  */
-    {{ $text }}
+    echo $text;

@@ -34,15 +34,30 @@ Route::group(['middleware' => 'auth.pulsar'], function() {
     | LANGUAGES
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/languages/{page?}',                      ['as' => 'languages',               'uses' => 'Pulsar\Pulsar\Controllers\Languages@index']);
-    Route::any(config('pulsar.appName') . '/pulsar/languages/json/data',                    ['as' => 'jsonDataLanguages',       'uses' => 'Pulsar\Pulsar\Controllers\Languages@jsonData']);
-    Route::get(config('pulsar.appName') . '/pulsar/languages/create/{page}',                ['as' => 'createLanguage',          'uses' => 'Pulsar\Pulsar\Controllers\Languages@create']);
-    Route::post(config('pulsar.appName') . '/pulsar/languages/store/{page}',                ['as' => 'storeLanguage',           'uses' => 'Pulsar\Pulsar\Controllers\Languages@store']);
-    Route::get(config('pulsar.appName') . '/pulsar/languages/{id}/edit/{page}',             ['as' => 'editLanguage',            'uses' => 'Pulsar\Pulsar\Controllers\Languages@edit']);
-    Route::post(config('pulsar.appName') . '/pulsar/languages/update/{page}',               ['as' => 'updateLanguage',          'uses' => 'Pulsar\Pulsar\Controllers\Languages@update']);
-    Route::get(config('pulsar.appName') . '/pulsar/languages/destroy/{id}',                 ['as' => 'destroyLanguage',         'uses' => 'Pulsar\Pulsar\Controllers\Languages@destroy']);
-    Route::post(config('pulsar.appName') . '/pulsar/languages/destroy/select/elements',     ['as' => 'destroySelectLanguage',   'uses' => 'Pulsar\Pulsar\Controllers\Languages@destroySelect']);
-    Route::post(config('pulsar.appName') . '/pulsar/languages/delete/image/idioma/{id}',    ['as' => 'deleteImageLanguage',     'uses' => 'Pulsar\Pulsar\Controllers\Languages@deleteImage']);
+    Route::any(config('pulsar.appName') . '/pulsar/languages/{page?}',                          ['as' => 'langs',               'uses' => 'Pulsar\Pulsar\Controllers\Langs@index']);
+    Route::any(config('pulsar.appName') . '/pulsar/languages/json/data',                        ['as' => 'jsonDataLangs',       'uses' => 'Pulsar\Pulsar\Controllers\Langs@jsonData']);
+    Route::get(config('pulsar.appName') . '/pulsar/languages/create/{page}',                    ['as' => 'createLang',          'uses' => 'Pulsar\Pulsar\Controllers\Langs@create']);
+    Route::post(config('pulsar.appName') . '/pulsar/languages/store/{page}',                    ['as' => 'storeLang',           'uses' => 'Pulsar\Pulsar\Controllers\Langs@store']);
+    Route::get(config('pulsar.appName') . '/pulsar/languages/{id}/edit/{page}',                 ['as' => 'editLang',            'uses' => 'Pulsar\Pulsar\Controllers\Langs@edit']);
+    Route::post(config('pulsar.appName') . '/pulsar/languages/update/{page}',                   ['as' => 'updateLang',          'uses' => 'Pulsar\Pulsar\Controllers\Langs@update']);
+    Route::get(config('pulsar.appName') . '/pulsar/languages/destroy/{id}',                     ['as' => 'destroyLang',         'uses' => 'Pulsar\Pulsar\Controllers\Langs@destroy']);
+    Route::post(config('pulsar.appName') . '/pulsar/languages/destroy/select/elements',         ['as' => 'destroySelectLang',   'uses' => 'Pulsar\Pulsar\Controllers\Langs@destroySelect']);
+    Route::post(config('pulsar.appName') . '/pulsar/languages/delete/image/language/{id}',      ['as' => 'deleteImageLang',     'uses' => 'Pulsar\Pulsar\Controllers\Langs@deleteImage']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | ACTIONS
+    |--------------------------------------------------------------------------
+    */
+    Route::any(config('pulsar.appName') . '/pulsar/actions/{page?}',                            ['as'=>'actions',               'uses'=>'Pulsar\Pulsar\Controllers\Actions@index']);
+    Route::any(config('pulsar.appName') . '/pulsar/actions/json/data',                          ['as'=>'jsonDataActions',       'uses'=>'Pulsar\Pulsar\Controllers\Actions@jsonData']);
+    Route::get(config('pulsar.appName') . '/pulsar/actions/create/{page}',                      ['as'=>'createAction',          'uses'=>'Pulsar\Pulsar\Controllers\Actions@create']);
+    Route::post(config('pulsar.appName') . '/pulsar/actions/store/{page}',                      ['as'=>'storeAction',           'uses'=>'Pulsar\Pulsar\Controllers\Actions@store']);
+    Route::get(config('pulsar.appName') . '/pulsar/actions/{id}/edit/{page}',                   ['as'=>'editAction',            'uses'=>'Pulsar\Pulsar\Controllers\Actions@edit']);
+    Route::post(config('pulsar.appName') . '/pulsar/actions/update/{page}',                     ['as'=>'updateAction',          'uses'=>'Pulsar\Pulsar\Controllers\Actions@update']);
+    Route::get(config('pulsar.appName') . '/pulsar/actions/destroy/{id}',                       ['as'=>'destroyAction',         'uses'=>'Pulsar\Pulsar\Controllers\Actions@destroyRecord']);
+    Route::post(config('pulsar.appName') . '/pulsar/actions/destroy/select/elements',           ['as'=>'destroySelectAction',   'uses'=>'Pulsar\Pulsar\Controllers\Actions@destroyRecordsSelect']);
+
 });
 
 // LOGIN

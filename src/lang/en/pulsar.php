@@ -1,32 +1,64 @@
 <?php
 
 return array(
-    
-        /*
-        |--------------------------------------------------------------------------
-        | Admin Language Lines
-        |--------------------------------------------------------------------------
-        |
-        | The following language lines are used by the paginator library to build
-        | the pagination links. You're free to change them to anything you want.
-        | If you come up with something more exciting, let us know.
-        |
-        */
+
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used by the paginator library to build
+    | the pagination links. You're free to change them to anything you want.
+    | If you come up with something more exciting, let us know.
+    |
+    */
+    'access_your_account'                   => 'Access your account',
+    'login'                                 => 'Login',
+    'logout'                                => 'Logout',
+    'user'                                  => 'User',
+    'password'                              => 'Password',
+    'remember_password'                     => 'Remenber password',
+    'enter_email'                           => 'Enter your email',
+    'change_password'                       => 'Change your password',
+    'error_change_password'                 => 'Please enter your email',
+    'error2_change_password'                => 'Error, the user doesn\'t exist',
+    'change_password_successful'            => 'Great, We\'ve sent an email',
+    'save'                                  => 'Save',
+    'delete'                                => 'Delete',
+    'accept'                                => 'Accept',
+    'cancel'                                => 'Cancel',
+    'file_not_select'                       => 'File not select',
+    'select'                                => 'Select',
+    'dashboard'                             => 'Dashboard',
+    'languages'                             => 'Languages',
+
+    'edit_record'                           => 'Edit record',
+    'delete_record'                         => 'Delete record',
+
+    'message_log_recorded'                  => 'Registration <strong>:name</strong> has been properly recorded',
+    'message_delete_record'                 => 'Do you want to delete the record with <strong>ID \' + id + \' </strong>?',
+    'message_delete_records'                => 'Do you want to delete the selected records?',
+    'message_delete_record_successful'      => 'Registration <strong>:name</strong> has been deleted successfully',
+    'message_delete_records_successful'     => 'Selected records have been deleted successfully',
+    'message_record_no_select'              => 'No record selected to perform this action',
+
+    'administration'                        => 'Administration',
+    'actions'                               => 'Actions',
+    'action'                                => 'Action',
+
+    'name'                                  => 'Name',
+
+    'action_successful'                     => 'Action successful!',
 
 
 
 
-        'administracion'                 => 'administración',
+
+
         'estas_aqui'                     => 'Estás aquí',
-        'login'                          => 'Iniciar sesión',
-        'logout'                         => 'Cerrar sesión',
-        'olvido_su_contrasena'           => '¿Olvidó su contraseña?',
-        'dashboard'                      => 'Escritorio',
-        'usuario'                        => 'Usuario',
-        'contrasena'                     => 'Contraseña',
         'pais'                           => 'País',
-        'nombre'                         => 'Nombre',
-        'acciones'                       => 'Acciones',
+
+
         'permisos'                       => 'Permisos',
         'buscar_aqui'                    => 'Buscar aquí...',
         'buscar'                         => 'Buscar',
@@ -35,19 +67,17 @@ return array(
         'imprimir'                       => 'Imprimir',
         'cerrar'                         => 'Cerrar',
         'ver_registro'                   => 'Ver registro',
-        'editar_registro'                => 'Editar registro',
         'duplicar_registro'              => 'Duplicar registro',
         'relacionar_registro'            => 'Relacionar registro',
         'editar_permisos'                => 'Editar permisos',
-        'borrar_registro'                => 'Borrar registro',
         'borrar_imagen'                  => 'Borrar imagen',
         'ver_imagen'                     => 'Ver imagen',
         'ver'                            => 'Ver',
         'ver_pais'                       => 'Ver país',
         'crear'                          => 'Crear',
-        'guardar'                        => 'Guardar',
+
         'aceptar'                        => 'Aceptar',
-        'cancelar'                       => 'Cancelar',
+
         'editar'                         => 'Editar',
         'volver'                         => 'Volver',
         'ejecutar'                       => 'Ejecutar',
@@ -71,7 +101,7 @@ return array(
         'accion_no_realizada'            => '¡Error! Acción no realizada',
         'pregunta_alta_registro'         => '¿Desea dar de alta el registro en pantalla?',
         'accion_procesada'               => 'Su petición ha sido procesada corretamente',
-        'aviso_alta_registro'            => 'El registro <strong>:nombre</strong> ha sido dado de alta correctamente',
+
         'aviso_fallo_alta_registro'      => 'El registro <strong>:nombre</strong> no ha sido dado de alta correctamente',
         'crear_permiso'                  => 'El permiso <strong>:accion</strong> para el recurso <strong>:recurso</strong> ha sido creado correctamente',
         'crear_permiso_error'            => 'El permiso <strong>:accion</strong> para el recurso <strong>:recurso</strong> no ha sido creado correctamente debido a un problema de permisos.<br><strong>Póngase en contacto con el administrador.</strong>',
@@ -83,7 +113,7 @@ return array(
         'fallo_borrado_registro'         => 'El registro <strong>:nombre</strong> no ha sido borrado correctamente',
         'error_alta_registro_remoto'     => 'El registro <strong>:nombre</strong> no ha sido dado de alta en los servidores remotos correctamente',
         'tarea_ejecutada'                => 'La tarea <strong>:nombre</strong> ha sido ejecutada correctamente',
-        'borrado_registros'              => 'Los registros seleccionados han sido borrados correctamente',
+
         'fallo_borrado_registros'        => 'Los registros seleccionados no han sido borrados correctamente',
         'imagen_eliminada'               => 'Imagen eliminada',
         'aviso_imagen_eliminada'         => 'La imagen seleccionada ha sido eliminada',

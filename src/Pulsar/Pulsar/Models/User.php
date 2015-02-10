@@ -1,5 +1,15 @@
 <?php namespace Pulsar\Pulsar\Models;
 
+/**
+ * @package	    Pulsar
+ * @author	    Jose Carlos Rodríguez Palacín
+ * @copyright   Copyright (c) 2015, SYSCOVER, SL
+ * @license
+ * @link		http://www.syscover.com
+ * @since		Version 1.0
+ * @filesource
+ */
+
 use Illuminate\Database\Eloquent\Model,
     Pulsar\Pulsar\Libraries\Miscellaneous,
     Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract,

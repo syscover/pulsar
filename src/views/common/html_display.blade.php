@@ -2,4 +2,4 @@
 /*
  * view to show html
  */
-    {{ $html }}
+    echo $html;

@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\App,
     Illuminate\Support\Facades\Session,
     Illuminate\Support\Facades\Input,
     Illuminate\Support\Facades\Auth,
-    Illuminate\Support\Facades\Redirect,
-    Illuminate\Support\Facades\Lang,
     Illuminate\Support\Facades\File;
 
 class Miscellaneous
@@ -380,7 +378,7 @@ class Miscellaneous
      * @access	public
      * @return	array
      */
-    public static function paginateDataTable($params)
+    public static function paginateDataTable($params = array())
     {
         //Paginado de un datatable
         $params['sStart'] = null; $params['sLength'] = null;
