@@ -32,7 +32,7 @@ class Permisos extends BaseController
         $data['perfil']         = Perfil::find($perfil);
         $data['javascriptView'] = 'pulsar::pulsar.pulsar.permisos.js.index';
                 
-        return View::make('pulsar::pulsar.pulsar.permisos.index',$data);
+        return view('pulsar::pulsar.pulsar.permisos.index',$data);
     }
     
     public function jsonData($perfil)
@@ -93,12 +93,12 @@ class Permisos extends BaseController
                 
         $data['json'] = json_encode($output);
         
-        return View::make('pulsar::pulsar.pulsar.common.json_display',$data);
+        return view('pulsar::pulsar.pulsar.common.json_display',$data);
     }
     
     public function jsonCreate($perfil, $recurso, $accion)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
+
         
         Permiso::create(array(
             'perfil_009'    => $perfil,
@@ -109,7 +109,6 @@ class Permisos extends BaseController
     
     public function jsonDestroy($perfil, $recurso, $accion)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'delete')) App::abort(403, 'Permission denied.');
         Permiso::deletePermiso($perfil, $recurso, $accion);
     }
 }

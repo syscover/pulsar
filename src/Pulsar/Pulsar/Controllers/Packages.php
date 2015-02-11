@@ -29,7 +29,7 @@ class Packages extends BaseController {
         $data['inicio']         = $inicio; 
         $data['javascriptView'] = 'pulsar::pulsar.pulsar.packages.js.index';
         
-        return View::make('pulsar::pulsar.pulsar.packages.index',$data);
+        return view('pulsar::pulsar.pulsar.packages.index',$data);
     }
     
     public function jsonData()
@@ -87,19 +87,19 @@ class Packages extends BaseController {
                 
         $data['json'] = json_encode($output);
         
-        return View::make('pulsar::pulsar.pulsar.common.json_display',$data);
+        return view('pulsar::pulsar.pulsar.common.json_display',$data);
     }
     
     public function create($inicio=0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
+
         
-        return View::make('pulsar::pulsar.pulsar.packages.create',array('inicio' => $inicio));
+        return view('pulsar::pulsar.pulsar.packages.create',array('inicio' => $inicio));
     }
     
     public function store($inicio=0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
+
         
         $validation = Package::validate(Input::all());
               
@@ -129,7 +129,7 @@ class Packages extends BaseController {
         $data['inicio'] = $inicio;
         $data['modulo'] = Package::find($id);
         
-        return View::make('pulsar::pulsar.pulsar.packages.edit',$data);
+        return view('pulsar::pulsar.pulsar.packages.edit',$data);
     }
     
     public function update($inicio=0)
@@ -161,7 +161,7 @@ class Packages extends BaseController {
 
     public function destroy($id)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'delete')) App::abort(403, 'Permission denied.');
+        i
         
         $modulo = Package::find($id);
         Package::destroy($id);
@@ -174,7 +174,7 @@ class Packages extends BaseController {
     
     public function destroySelect()
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'delete')) App::abort(403, 'Permission denied.');
+        i
         
         $nElements = Input::get('nElementsDataTable'); 
         $ids = array();

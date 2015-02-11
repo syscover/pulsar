@@ -36,7 +36,7 @@ class CronJobs extends BaseController
         $data['inicio']         = $inicio; 
         $data['javascriptView'] = 'pulsar::pulsar.pulsar.cron_jobs.js.index';
 
-        return View::make('pulsar::pulsar.pulsar.cron_jobs.index',$data);
+        return view('pulsar::pulsar.pulsar.cron_jobs.index',$data);
     }
     
     public function jsonData()
@@ -114,12 +114,12 @@ class CronJobs extends BaseController
                 
         $data['json'] = json_encode($output);
         
-        return View::make('pulsar::pulsar.pulsar.common.json_display',$data);
+        return view('pulsar::pulsar.pulsar.common.json_display',$data);
     }
     
     public function run($id, $inicio=0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
+
         
         $cronJob = CronJob::find($id);
         $comando = Config::get('pulsar::cron.'.$cronJob->key_043);
@@ -134,14 +134,14 @@ class CronJobs extends BaseController
     
     public function create($inicio=0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
+
         
-        return View::make('pulsar::pulsar.pulsar.cron_jobs.create',array('inicio' => $inicio, 'modulos' =>  Package::all()));
+        return view('pulsar::pulsar.pulsar.cron_jobs.create',array('inicio' => $inicio, 'modulos' =>  Package::all()));
     }
     
     public function store($inicio=0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
+
         
         $validation = CronJob::validate(Input::all());
               
@@ -182,7 +182,7 @@ class CronJobs extends BaseController
         $data['siguienteEjecucion'] = $date->setTimestamp($data['cronJob']->next_run_043)->format('d-m-Y H:i:s');
         
         
-        return View::make('pulsar::pulsar.pulsar.cron_jobs.edit',$data);
+        return view('pulsar::pulsar.pulsar.cron_jobs.edit',$data);
     }
     
     public function update($inicio=0)
@@ -215,7 +215,7 @@ class CronJobs extends BaseController
 
     public function destroy($id)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'delete')) App::abort(403, 'Permission denied.');
+        i
         
         $cronJob = CronJob::find($id);
         CronJob::destroy($id);
@@ -229,7 +229,7 @@ class CronJobs extends BaseController
     
     public function destroySelect($inicio=0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'delete')) App::abort(403, 'Permission denied.');
+        i
         
         $nElements = Input::get('nElementsDataTable'); 
         $ids = array();

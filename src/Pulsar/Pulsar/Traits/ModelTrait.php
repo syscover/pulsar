@@ -30,5 +30,16 @@ trait ModelTrait {
         $instance->whereIn($instance->getKeyName(), $ids)->delete();
     }
 
+    /**
+     * @access	public
+     * @param   array     $ids
+     * @return	Collection
+     */
+    public function getRecordsById($ids)
+    {
+        $instance = new static;
+        return $instance->whereIn($instance->getKeyName(), $ids)->get();
+
+    }
 
 }

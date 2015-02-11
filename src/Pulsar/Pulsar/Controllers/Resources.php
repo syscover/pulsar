@@ -71,17 +71,17 @@ class Resources extends BaseController {
                 
         $data['json'] = json_encode($output);
         
-        return View::make('pulsar::common.json_display', $data);
+        return view('pulsar::common.json_display', $data);
     }
     
     public function create($inicio=0){
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
+
        
-        return View::make('pulsar::pulsar.pulsar.recursos.create',array('inicio' => $inicio, 'modulos' =>  Package::get()));
+        return view('pulsar::pulsar.pulsar.recursos.create',array('inicio' => $inicio, 'modulos' =>  Package::get()));
     }
     
     public function store($inicio=0){
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
+
         
         $validation = Resource::validate(Input::all());
               
@@ -112,7 +112,7 @@ class Resources extends BaseController {
         $data['modulos'] = Package::get();
         $data['recurso'] = Resource::find($id);
                 
-        return View::make('pulsar::pulsar.pulsar.recursos.edit',$data);
+        return view('pulsar::pulsar.pulsar.recursos.edit',$data);
     }
     
     public function update($inicio=0){

@@ -25,8 +25,8 @@ class Lang extends Model {
     public $timestamps      = false;
     protected $fillable     = array('id_001', 'name_001', 'image_001', 'sorting_001', 'base_001', 'active_001');
     public static $rules    = array(
-        'nombre' => 'required|between:2,50',
-        'orden' => 'required|min:0|numeric'
+        'name'      => 'required|between:2,50',
+        'sorting'   => 'required|min:0|numeric'
     );
 
     public static function validate($data, $imageRule = true, $idRule = true)
@@ -35,36 +35,21 @@ class Lang extends Model {
             static::$rules['imagen'] = 'required|mimes:jpg,jpeg,gif,png|max:1000';
         if ($idRule)
             static::$rules['id'] = 'required|alpha|size:2|unique:001_001_lang,id_001';
+
         return Validator::make($data, static::$rules);
     }
 
-    public static function resetIdiomaBase()
-    {
-        Lang::query()->update(array('base_001' => '0'));
-    }
-
-    public static function getIdiomaBase()
+    public static function getBaseLang()
     {
         return Lang::where('base_001', '=', 1)->first();
     }
 
-    public static function getRecordsLimit($aColumns, $nResultados = null, $inicio = null, $orden = null, $tipoOrden = null, $sWhere=null, $sWhereColumns=null, $count=false)
+
+
+
+    public static function resetIdiomaBase()
     {
-        $query = Lang::query();
-        
-        $query = Miscellaneous::getQueryWhere($aColumns, $query, $sWhere, $sWhereColumns);
-
-        if($count)
-        {
-            return $query->count();
-        }
-        else
-        {
-            if($nResultados != null)    $query->take($nResultados)->skip($inicio);
-            if($orden != null)          $query->orderBy($orden, $tipoOrden);
-
-            return $query->get();
-        }
+        Lang::query()->update(array('base_001' => '0'));
     }
 
     public static function getIdiomasActivos()
@@ -83,16 +68,4 @@ class Lang extends Model {
         }
         return $ids;
     }
-
-    public static function getIdiomasId($ids)
-    {
-        return Lang::whereIn('id_001', $ids)->get();
-    }
-
-    public static function deleteRecords($ids)
-    {
-        Lang::whereIn('id_001', $ids)->delete();
-    }
 }
-/* End of file Idioma.php */
-/* Location: ./Pulsar/Pulsar/Models/Lang.php */

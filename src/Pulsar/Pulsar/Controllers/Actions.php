@@ -10,11 +10,8 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
-use Pulsar\Pulsar\Libraries\Miscellaneous;
 use Pulsar\Pulsar\Models\Action;
 use Pulsar\Pulsar\Traits\ControllerTrait;
 

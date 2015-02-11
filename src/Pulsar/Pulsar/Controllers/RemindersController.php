@@ -36,10 +36,10 @@ class RemindersController extends Controller
             )
         ){
             case Password::INVALID_USER:
-                return View::make('pulsar::pulsar.pulsar.common.json_display',array('json' => json_encode(array('response' => false))));
+                return view('pulsar::pulsar.pulsar.common.json_display',array('json' => json_encode(array('response' => false))));
 
             case Password::REMINDER_SENT:
-                return View::make('pulsar::pulsar.pulsar.common.json_display',array('json' => json_encode(array('response' => true))));
+                return view('pulsar::pulsar.pulsar.common.json_display',array('json' => json_encode(array('response' => true))));
         }
     }
 

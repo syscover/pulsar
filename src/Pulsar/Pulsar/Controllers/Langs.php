@@ -1,5 +1,14 @@
-<?php
-namespace Pulsar\Pulsar\Controllers;
+<?php namespace Pulsar\Pulsar\Controllers;
+
+/**
+ * @package	    Pulsar
+ * @author	    Jose Carlos Rodríguez Palacín
+ * @copyright   Copyright (c) 2015, SYSCOVER, SL
+ * @license
+ * @link		http://www.syscover.com
+ * @since		Version 2.0
+ * @filesource
+ */
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
@@ -20,98 +29,41 @@ class Langs extends BaseController {
     protected $folder   = 'langs';
     protected $package  = 'pulsar';
     protected $aColumns = ['id_001', 'image_001', 'name_001', 'base_001', 'active_001', 'sorting_001'];
+    protected $nameM    = 'name_001';
+    protected $model    = '\Pulsar\Pulsar\Models\Lang';
 
-    public function JsonData()
+    public function jsonDataCustomColumn($aObject, $aColumn)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')) App::abort(403, 'Permission denied.');
-
-        // table paginated
-        $params =  Miscellaneous::paginateDataTable();
-
-        // table sorting
-        $params =  Miscellaneous::dataTableSorting($params, $this->aColumns);
-
-        // quick search data table
-        $params =  Miscellaneous::filteringDataTable($params);
-
-        // get data to table
-        $objects        = Lang::getRecordsLimit($this->aColumns, $params['sLength'], $params['sStart'], $params['sOrder'], $params['sTypeOrder'], $params['sWhere']);
-        $iFilteredTotal = Lang::getRecordsLimit($this->aColumns, null, null, $params['sOrder'], $params['sTypeOrder'], $params['sWhere'], null, true);
-        $iTotal         = Lang::count();
-
-        // instance json data
-        $output = [
-            "sEcho"                 => intval(Input::get('sEcho')),
-            "iTotalRecords"         => $iTotal,
-            "iTotalDisplayRecords"  => $iFilteredTotal,
-            "aaData"                => []
-        ];
-
-        $aObjects = $objects->toArray(); $i=0;
-        foreach($aObjects as $aObject)
+        if($aColumn == "image_001")
         {
-		    $row = [];
-		    foreach ($this->aColumns as $aColumn)
-            {
-                if($aColumn == "email_010")
-                {
-                    $row[] = '<a href="mailto:'.$aObject[$aColumn].'">'.$aObject[$aColumn].'</a>';
-                }
-                elseif($aColumn == "image_001")
-                {
-                    if($aObject[$aColumn] != '')
-                        $row[] = '<img src="' . asset('/packages/pulsar/pulsar/storage/languages/' . $aObject[$aColumn]) . '">';
-                    else
-                        $row[] = '';
-
-                }
-                elseif($aColumn == "base_001")
-                {
-                    if($aObject[$aColumn] == 1)
-                        $row[] = '<i class="icomoon-icon-checkmark-3"></i>';
-                    else
-                        $row[] = '';
-
-                }
-                elseif($aColumn == "active_001")
-                {
-                    if($aObject[$aColumn] == 1)
-                        $row[] = '<i class="icomoon-icon-checkmark-3"></i>';
-                    else
-                        $row[] = '<i class="icomoon-icon-blocked"></i>';
-
-                }
-                else
-                {
-                    $row[] = $aObject[$aColumn];
-                }
-		    }
-            $row[] = '<input type="checkbox" class="uniform" name="element' . $i . '" value="' . $aObject['id_001'] . '">';
-
-            $acciones = Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . url(config('pulsar.appName') . '/pulsar/languages/' . $aObject['id_001'] . '/edit/' . Input::get('iDisplayStart')) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
-            $acciones .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip" href="javascript:deleteElement(\''.$aObject['id_001'].'\')" data-original-title="' . trans('pulsar::pulsar.delete_record') . '"><i class="icon-trash"></i></a>' : null;
-		    $row[] =  $acciones;
-                
-            $output['aaData'][] = $row;
-            $i++;
-	    }
-
-        $data['json'] = json_encode($output);
-        
-        return view('pulsar::common.json_display', $data);
+            if($aObject[$aColumn] != '')
+                return '<img src="' . asset('/packages/pulsar/pulsar/storage/languages/' . $aObject[$aColumn]) . '">';
+            else
+                return '';
+        }
+        elseif($aColumn == "base_001")
+        {
+            if($aObject[$aColumn] == 1)
+                return '<i class="icomoon-icon-checkmark-3"></i>';
+            else
+                return '';
+        }
+        elseif($aColumn == "active_001")
+        {
+            if($aObject[$aColumn] == 1)
+                return '<i class="icomoon-icon-checkmark-3"></i>';
+            else
+                return '<i class="icomoon-icon-blocked"></i>';
+        }
+        else
+        {
+            return $aObject[$aColumn];
+        }
     }
-    
-    public function create($offset = 0)
-    {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
-  
-        return view('pulsar::languages.create', ['offset' => $offset]);
-    }
+
     
     public function store($offset = 0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
-        
         $validation = Lang::validate(Input::all());
               
         if ($validation->fails())
@@ -147,15 +99,11 @@ class Langs extends BaseController {
         }
     }
     
-    public function edit($id, $inicio=0)
+    public function editCustomRecord($data)
     {
-
-        
-        $data['inicio']             = $inicio;
         $data['javascriptView']     = 'pulsar::languages.js.edit';
-        $data['idioma']             = Lang::find($id);
 
-        return view('pulsar::languages.edit',$data);
+        return $data;
     }
     
     public function update($inicio=0)
@@ -218,55 +166,26 @@ class Langs extends BaseController {
         }
     }
     
-    public function destroy($id)
+    public function destroyCustomRecord($object)
     {
-
-        
-        $idioma = Lang::find($id);
-        Lang::destroy($id);
-        File::delete(public_path() . '/packages/pulsar/pulsar/storage/languages/' . $idioma->imagen_001);
-
-        return Redirect::route('languages')->with(array(
-            'msg'        => 1,
-            'txtMsg'     => trans('pulsar::pulsar.borrado_registro', array('nombre' => $idioma->name_001))
-        ));
+        File::delete(public_path() . '/packages/pulsar/pulsar/storage/languages/' . $object->image_001);
     }
     
-    public function destroySelect($inicio=0)
+    public function destroyCustomRecords($ids)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'delete')) App::abort(403, 'Permission denied.');
+        $objects = Lang::getRecordsById($ids);
         
-        $nElements = Input::get('nElementsDataTable'); 
-        
-        $ids = array();
-        for($i=0; $i < $nElements; $i++)
+        foreach ($objects as $object)
         {
-            if(Input::has('element'.$i))
-            {
-                array_push($ids, Input::get('element'.$i));
-            }
+            File::delete(public_path() . '/packages/pulsar/pulsar/storage/languages/' . $object->image_001);
         }
-        
-        $languages = Lang::getIdiomasId($ids);
-        
-        foreach ($languages as $language)
-        {
-            File::delete(public_path() . '/packages/pulsar/pulsar/storage/languages/' . $language->image_001);
-        }
-
-        Lang::deleteIdiomas($ids);
-
-        return Redirect::route('languages')->with(array(
-            'msg'        => 1,
-            'txtMsg'     => trans('pulsar::pulsar.borrado_registros', array('nombre' => $idioma->name_001))
-        ));
     }
 
-    public function deleteImagen($id)
+    public function deleteImage($id)
     {
-        $idioma = Lang::find($id);
+        $object = Lang::find($id);
 
-        File::delete(public_path() . '/packages/pulsar/pulsar/storage/languages/' . $idioma->imagen_001);
+        File::delete(public_path() . '/packages/pulsar/pulsar/storage/languages/' . $object->image_001);
 
         Lang::where('id_001', $id)->update(array(
             'image_001' => null,

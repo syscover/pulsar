@@ -15,8 +15,6 @@ trait ControllerTrait {
      */
     public function index($offset = 0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')) App::abort(403, 'Permission denied.');
-
         Miscellaneous::setParameterSessionPage($this->resource);
 
         $data['resource']       = $this->resource;
@@ -61,9 +59,9 @@ trait ControllerTrait {
             foreach ($this->aColumns as $aColumn)
             {
                 // if controller need custom config column
-                if(method_exists($this, 'editCustomRecord'))
+                if(method_exists($this, 'jsonDataCustomColumn'))
                 {
-                    $row[] = $this->jsonDataCustomColumn($row[] , $aColumn);
+                    $row[] = $this->jsonDataCustomColumn($aObject, $aColumn);
                 }
                 else
                 {
@@ -73,7 +71,7 @@ trait ControllerTrait {
             $row[] = '<input type="checkbox" class="uniform" name="element' . $i . '" value="' . $aObject[$instance->getKeyName()] . '">';
 
             $actions = Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . url(config('pulsar.appName') . '/pulsar/' . $this->folder . '/' . $aObject[$instance->getKeyName()] . '/edit/' . Input::get('iDisplayStart')) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
-            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip" href="javascript:deleteElement(\'' . $aObject['id_008'] . '\')" data-original-title="' . trans('pulsar::pulsar.delete_record') . '"><i class="icon-trash"></i></a>' : null;
+            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip" href="javascript:deleteElement(\'' . $aObject[$instance->getKeyName()] . '\')" data-original-title="' . trans('pulsar::pulsar.delete_record') . '"><i class="icon-trash"></i></a>' : null;
             $row[] =  $actions;
 
             $output['aaData'][] = $row;
@@ -133,7 +131,7 @@ trait ControllerTrait {
 
         if(method_exists($this, 'destroyCustomRecord'))
         {
-            $this->destroyCustomRecord($id);
+            $this->destroyCustomRecord($object);
         }
 
         return Redirect::route($this->route)->with([
@@ -151,8 +149,6 @@ trait ControllerTrait {
      */
     public function destroyRecordsSelect()
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')) App::abort(403, 'Permission denied.');
-
         $nElements = Input::get('nElementsDataTable');
         $ids = [];
 

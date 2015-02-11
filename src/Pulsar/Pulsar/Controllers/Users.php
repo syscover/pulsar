@@ -31,7 +31,7 @@ class Usuarios extends BaseController {
         $data['inicio']         = $inicio; 
         $data['javascriptView'] = 'pulsar::pulsar.pulsar.usuarios.js.index';
         
-        return View::make('pulsar::pulsar.pulsar.usuarios.index',$data);
+        return view('pulsar::pulsar.pulsar.usuarios.index',$data);
     }
     
     public function jsonData()
@@ -101,23 +101,23 @@ class Usuarios extends BaseController {
                 
         $data['json'] = json_encode($output);
         
-        return View::make('pulsar::pulsar.pulsar.common.json_display',$data);
+        return view('pulsar::pulsar.pulsar.common.json_display',$data);
     }
     
     public function create($inicio=0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
+
         
         $data['idiomas']    = Idioma::getIdiomasActivos();
         $data['perfiles']   = Perfil::get();
         
         $data['inicio']     = $inicio;
-        return View::make('pulsar::pulsar.pulsar.usuarios.create',$data);
+        return view('pulsar::pulsar.pulsar.usuarios.create',$data);
     }
     
     public function store($inicio=0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
+
         
         $validation = Usuario::validate(Input::all(), true, true, true);
               
@@ -155,7 +155,7 @@ class Usuarios extends BaseController {
         $data['inicio']     = $inicio;
         $data['usuario']    = Usuario::find($id);
         
-        return View::make('pulsar::pulsar.pulsar.usuarios.edit', $data);
+        return view('pulsar::pulsar.pulsar.usuarios.edit', $data);
     }
     
     public function update($inicio=0)
@@ -198,7 +198,7 @@ class Usuarios extends BaseController {
 
     public function destroy($id)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'delete')) App::abort(403, 'Permission denied.');
+        i
         
         $usuario = Usuario::find($id);
         Usuario::destroy($id);
@@ -211,7 +211,7 @@ class Usuarios extends BaseController {
     
     public function destroySelect($inicio=0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'delete')) App::abort(403, 'Permission denied.');
+        i
         
         $nElements = Input::get('nElementsDataTable'); 
         

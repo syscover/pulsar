@@ -30,7 +30,7 @@ class TerritorialAreas1 extends BaseController {
         $data['pais']           = Pais::getPais($pais, Auth::user()->idioma_010); 
         $data['javascriptView'] = 'pulsar::pulsar.pulsar.areas_territoriales_1.js.index';
        
-        return View::make('pulsar::pulsar.pulsar.areas_territoriales_1.index',$data);
+        return view('pulsar::pulsar.pulsar.areas_territoriales_1.index',$data);
     }
     
     public function jsonData($pais){
@@ -80,19 +80,19 @@ class TerritorialAreas1 extends BaseController {
                 
         $data['json'] = json_encode($output);
         
-        return View::make('pulsar::pulsar.pulsar.common.json_display',$data);
+        return view('pulsar::pulsar.pulsar.common.json_display',$data);
     }
     
     public function create($pais, $inicio=0){
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
+
         
         $data['inicio']     = $inicio;
         $data['pais']       = Pais::getPais($pais, Session::get('idiomaBase')->id_001);
-        return View::make('pulsar::pulsar.pulsar.areas_territoriales_1.create',$data);
+        return view('pulsar::pulsar.pulsar.areas_territoriales_1.create',$data);
     }
     
     public function store($pais, $inicio=0){
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
+
         
         $validation = AreaTerritorial1::validate(Input::all());
               
@@ -123,7 +123,7 @@ class TerritorialAreas1 extends BaseController {
         $data['area_territorial_1'] = AreaTerritorial1::find($id);
         $data['pais']               = Pais::getPais($data['area_territorial_1']->pais_003, Session::get('idiomaBase')->id_001);
         
-        return View::make('pulsar::pulsar.pulsar.areas_territoriales_1.edit',$data);
+        return view('pulsar::pulsar.pulsar.areas_territoriales_1.edit',$data);
     }
     
     public function update($pais, $inicio=0){
@@ -153,7 +153,7 @@ class TerritorialAreas1 extends BaseController {
     }
 
     public function destroy($pais, $id){
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'delete')) App::abort(403, 'Permission denied.');
+        i
         
         $areaTerrirorial1 = AreaTerritorial1::find($id);
         AreaTerritorial1::destroy($id);
@@ -166,7 +166,7 @@ class TerritorialAreas1 extends BaseController {
     }
     
     public function destroySelect($pais){
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'delete')) App::abort(403, 'Permission denied.');
+        i
         
         $nElements = Input::get('nElementsDataTable'); 
         $ids = array();
@@ -188,6 +188,6 @@ class TerritorialAreas1 extends BaseController {
     public function jsonGetAreasTerritoriales1FromPais($id){
         $data['json'] = array();
         if($id!="null") $data['json'] = Pais::getPais($id, Session::get('idiomaBase')->id_001)->areasTerritoriales1()->get()->toJson();
-        return View::make('pulsar::pulsar.pulsar.common.json_display',$data);
+        return view('pulsar::pulsar.pulsar.common.json_display',$data);
     }
 }

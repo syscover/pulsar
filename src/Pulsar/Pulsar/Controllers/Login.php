@@ -1,10 +1,11 @@
 <?php namespace Pulsar\Pulsar\Controllers;
 
-use Illuminate\Support\Facades\Input,
-    Illuminate\Support\Facades\Auth,
-    Illuminate\Support\Facades\Session,
-    Pulsar\Pulsar\Libraries\PulsarAcl,
-    Pulsar\Pulsar\Models\Package;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Pulsar\Pulsar\Libraries\PulsarAcl;
+use Pulsar\Pulsar\Models\Package;
+use Pulsar\Pulsar\Models\Lang;
 
 class Login extends BaseController
 {
@@ -17,6 +18,7 @@ class Login extends BaseController
         {
             Session::put('userAcl',     PulsarAcl::getProfileAcl(Auth::user()->profile_010));
             Session::put('packages',    Package::getModulesForSession());
+            Session::put('baseLang',    Lang::getBaseLang());
 
             if (!Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'pulsar', 'access'))
             {

@@ -1,5 +1,14 @@
-<?php
-namespace Pulsar\Pulsar\Controllers;
+<?php namespace Pulsar\Pulsar\Controllers;
+
+/**
+ * @package	    Pulsar
+ * @author	    Jose Carlos Rodríguez Palacín
+ * @copyright   Copyright (c) 2015, SYSCOVER, SL
+ * @license
+ * @link		http://www.syscover.com
+ * @since		Version 2.0
+ * @filesource
+ */
 
 use Illuminate\Support\Facades\App,
     Illuminate\Support\Facades\Session,
@@ -8,39 +17,39 @@ use Illuminate\Support\Facades\App,
     Illuminate\Support\Facades\URL,
     Illuminate\Support\Facades\Config,
     Illuminate\Support\Facades\Lang,
-    Illuminate\Support\Facades\View,
     Illuminate\Support\Facades\Redirect,
     Pulsar\Pulsar\Libraries\Miscellaneous,
     Pulsar\Pulsar\Models\Lang as Language,
     Pulsar\Pulsar\Models\Pais;
+use Pulsar\Pulsar\Traits\ControllerTrait;
 
 class Countries extends BaseController {
 
+    use ControllerTrait;
+
+
     protected $resource = 'admin-country';
+    protected $route    = 'countries';
+    protected $folder   = 'countries';
+    protected $package  = 'pulsar';
+    protected $aColumns = ['id_002', 'name_001', 'name_002', 'sorting_002', 'prefix_002', 'territorial_area_1_002', 'territorial_area_2_002', 'territorial_area_3_002'];
+    protected $nameM    = 'name_001';
+    protected $model    = '\Pulsar\Pulsar\Models\Lang';
+
     protected $reArea1  = 'admin-country-at1';
     protected $reArea2  = 'admin-country-at2';
     protected $reArea3  = 'admin-country-at3';
-    protected $route    = 'countries';
-    protected $package  = 'pulsar';
+
     
-    public function index($inicio = 0)
+    public function indexCustom($data)
     {
+        $data['baseLang']     = Session::get('baseLang');
 
-        
-        Miscellaneous::sessionParamterSetPage($this->resource);
-
-        $data['recurso']        = $this->resource;
-        $data['inicio']         = $inicio;
-        $data['idiomaBase']     = Session::get('idiomaBase');
-        $data['javascriptView'] = 'pulsar::pulsar.pulsar.paises.js.index';
-
-        return View::make('pulsar::pulsar.pulsar.paises.index',$data);
+        return $data;
     }
     
     public function jsonData()
     {
-
-        
         $idiomaBase     = Session::get('idiomaBase');
         $idiomas        = Language::getIdiomasActivos();
 
@@ -171,25 +180,23 @@ class Countries extends BaseController {
                 
         $data['json'] = json_encode($output);
         
-        return View::make('pulsar::pulsar.pulsar.common.json_display',$data);
+        return view('pulsar::pulsar.pulsar.common.json_display',$data);
     }
     
     public function create($inicio=0, $idioma, $id=null)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
-        
         if($id != null)
         {
             $data['pais'] = Pais::getPais($id, Session::get('idiomaBase')->id_001);
         }
         $data['inicio'] = $inicio;
         $data['idioma'] = Language::find($idioma);
-        return View::make('pulsar::pulsar.pulsar.paises.create',$data);
+        return view('pulsar::pulsar.pulsar.paises.create',$data);
     }
     
     public function store($inicio=0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create')) App::abort(403, 'Permission denied.');
+
         
         //comprobamos si es un nuevo idioma o no para velidar el ID
         if(Input::get('idioma') != Session::get('idiomaBase')->id_001) $idRule = false; else $idRule = true;
@@ -230,7 +237,7 @@ class Countries extends BaseController {
         $data['pais']           = Pais::getPais($id, $idioma);
         $data['idioma']         = $data['pais']->idioma;
         $data['javascriptView'] = 'pulsar::pulsar.pulsar.paises.js.edit';
-        return View::make('pulsar::pulsar.pulsar.paises.edit',$data);
+        return view('pulsar::pulsar.pulsar.paises.edit',$data);
     }
     
     public function update($inicio=0)
@@ -268,7 +275,7 @@ class Countries extends BaseController {
     
     public function destroy($id)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'delete')) App::abort(403, 'Permission denied.');
+
         
         $pais = Pais::getPais($id, Session::get('idiomaBase')->id_001);
         Pais::deletePais($id);
@@ -282,7 +289,7 @@ class Countries extends BaseController {
         
     public function destroySelect($inicio=0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'delete')) App::abort(403, 'Permission denied.');
+
         
         $nElements = Input::get('nElementsDataTable'); 
         $ids = array();
@@ -302,7 +309,7 @@ class Countries extends BaseController {
     
     public function destroyLang($id, $idioma, $inicio=0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'delete')) App::abort(403, 'Permission denied.');
+
         
         $pais = Pais::getPais($id, $idioma);
         Pais::deleteLangPais($id, $idioma);
@@ -317,6 +324,6 @@ class Countries extends BaseController {
     {
         $data['json'] = array();
         if($id!="null") $data['json'] = Pais::getPais($id, Session::get('idiomaBase')->id_001)->toJson();
-        return View::make('pulsar::pulsar.pulsar.common.json_display',$data);
+        return view('pulsar::pulsar.pulsar.common.json_display',$data);
     }
 }
