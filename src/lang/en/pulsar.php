@@ -27,6 +27,8 @@ return array(
     'delete'                                => 'Delete',
     'accept'                                => 'Accept',
     'cancel'                                => 'Cancel',
+    'new'                                   => 'New',
+    'new2'                                  => 'New',
     'file_not_select'                       => 'File not select',
     'select'                                => 'Select',
     'dashboard'                             => 'Dashboard',
@@ -41,6 +43,7 @@ return array(
     'message_delete_record_successful'      => 'Registration <strong>:name</strong> has been deleted successfully',
     'message_delete_records_successful'     => 'Selected records have been deleted successfully',
     'message_record_no_select'              => 'No record selected to perform this action',
+    'message_update_record'                 => 'Registration <strong>:name</strong> has been updated successfully',
 
     'administration'                        => 'Administration',
     'actions'                               => 'Actions',
@@ -107,7 +110,7 @@ return array(
         'crear_permiso_error'            => 'El permiso <strong>:accion</strong> para el recurso <strong>:recurso</strong> no ha sido creado correctamente debido a un problema de permisos.<br><strong>Póngase en contacto con el administrador.</strong>',
         'borrar_permiso'                 => 'El permiso <strong>:accion</strong> para el recurso <strong>:recurso</strong> ha sido borrado correctamente',
         'borrar_permiso_error'           => 'El permiso <strong>:accion</strong> para el recurso <strong>:recurso</strong> no ha sido borrado correctamente debido a un problema de permisos.<br><strong>Póngase en contacto con el administrador.</strong>',
-        'aviso_actualiza_registro'       => 'El registro <strong>:nombre</strong> ha sido actualizado correctamente',
+
         'aviso_fallo_actualiza_registro' => 'El registro <strong>:nombre</strong> no ha sido actualizado correctamente',
         'borrado_registro'               => 'El registro <strong>:nombre</strong> ha sido borrado correctamente',
         'fallo_borrado_registro'         => 'El registro <strong>:nombre</strong> no ha sido borrado correctamente',

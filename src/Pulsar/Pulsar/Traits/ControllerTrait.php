@@ -17,7 +17,7 @@ trait ControllerTrait {
     {
         if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')) App::abort(403, 'Permission denied.');
 
-        Miscellaneous::sessionParamterSetPage($this->resource);
+        Miscellaneous::setParameterSessionPage($this->resource);
 
         $data['resource']       = $this->resource;
         $data['offset']         = $offset;
@@ -29,6 +29,60 @@ trait ControllerTrait {
         }
 
         return view('pulsar::' . $this->folder . '.index', $data);
+    }
+
+    public function jsonData()
+    {
+        // table paginated
+        $params =  Miscellaneous::paginateDataTable();
+        // table sorting
+        $params =  Miscellaneous::dataTableSorting($params, $this->aColumns);
+        // quick search data table
+        $params =  Miscellaneous::filteringDataTable($params);
+
+        // get data to table
+        $objects        = call_user_func($this->model . '::getRecordsLimit', $this->aColumns, $params['sLength'], $params['sStart'], $params['sOrder'], $params['sTypeOrder'], $params['sWhere']);
+        $iFilteredTotal = call_user_func($this->model . '::getRecordsLimit', $this->aColumns, null, null, $params['sOrder'], $params['sTypeOrder'], $params['sWhere'], null, true);
+        $iTotal         = call_user_func($this->model . '::count');
+
+        $output = [
+            "sEcho"                 => Input::get('sEcho'),
+            "iTotalRecords"         => $iTotal,
+            "iTotalDisplayRecords"  => $iFilteredTotal,
+            "aaData"                => []
+        ];
+
+        // instance model to get primary key
+        $instance = new $this->model;
+        $aObjects = $objects->toArray(); $i=0;
+        foreach($aObjects as $aObject)
+        {
+            $row = [];
+            foreach ($this->aColumns as $aColumn)
+            {
+                // if controller need custom config column
+                if(method_exists($this, 'editCustomRecord'))
+                {
+                    $row[] = $this->jsonDataCustomColumn($row[] , $aColumn);
+                }
+                else
+                {
+                    $row[] = $aObject[$aColumn];
+                }
+            }
+            $row[] = '<input type="checkbox" class="uniform" name="element' . $i . '" value="' . $aObject[$instance->getKeyName()] . '">';
+
+            $actions = Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . url(config('pulsar.appName') . '/pulsar/' . $this->folder . '/' . $aObject[$instance->getKeyName()] . '/edit/' . Input::get('iDisplayStart')) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
+            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip" href="javascript:deleteElement(\'' . $aObject['id_008'] . '\')" data-original-title="' . trans('pulsar::pulsar.delete_record') . '"><i class="icon-trash"></i></a>' : null;
+            $row[] =  $actions;
+
+            $output['aaData'][] = $row;
+            $i++;
+        }
+
+        $data['json'] = json_encode($output);
+
+        return view('pulsar::common.json_display',$data);
     }
 
     /**
@@ -84,7 +138,7 @@ trait ControllerTrait {
 
         return Redirect::route($this->route)->with([
             'msg'        => 1,
-            'txtMsg'     => trans('pulsar::pulsar.message_delete_record_successful', array('name' => $object->{$this->nameM}))
+            'txtMsg'     => trans('pulsar::pulsar.message_delete_record_successful', ['name' => $object->{$this->nameM}])
         ]);
     }
 

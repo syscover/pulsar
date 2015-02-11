@@ -11,61 +11,22 @@
  */
 // ------------------------------------------------------------------------
 
-use Illuminate\Support\Facades\App,
-    Illuminate\Support\Facades\Session,
-    Illuminate\Support\Facades\Input,
-    Illuminate\Support\Facades\Auth,
-    Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\File;
 
 class Miscellaneous
 {
-
-    /**
-     * @access	public
-     * @return	boolean
-     */
-    public static function destroyRecord($resource, $model)
-    {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $resource, 'delete')) App::abort(403, 'Permission denied.');
-
-        $object = call_user_func($model . '::find', $id);
-
-        Action::destroy($id);
-        call_user_func($model . '::destroy', $id);
-    }
-
-    /**
-     * @access	public
-     * @return	boolean
-     */
-    public static function destroyRecordsSelect($resource, $model)
-    {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $resource, 'delete')) App::abort(403, 'Permission denied.');
-
-        $nElements = Input::get('nElementsDataTable');
-        $ids = array();
-
-        for($i=0; $i < $nElements; $i++)
-        {
-            if(Input::get('element' . $i) != false)
-            {
-                array_push($ids, Input::get('element' . $i));
-            }
-        }
-
-        call_user_func($model . '::deleteRecords', $ids);
-    }
-
     /**
      *  Función que instancia la vista que se verá para acciones que nos interese, como menus, o reset de variable de sesión de cadena, etc.
      *
      * @access	public
      * @return	void
      */
-    public static function sessionParamterSetPage($page)
+    public static function setParameterSessionPage($page)
     {
-        if (Session::get('page') != $page) {
-            //Session::put('search_params', null); ?????????? para busquedas multiples
+        if (Session::get('page') != $page)
+        {
             Session::put('page', $page);
         }
     }
@@ -96,7 +57,7 @@ class Miscellaneous
             return ' class="open"';
     }
     
-    public static function setCurrenOpenPage($pages)
+    public static function setCurrentOpenPage($pages)
     {
         if (in_array(Session::get('page'), $pages))
            return ' class="current open"';
@@ -107,12 +68,16 @@ class Miscellaneous
         if(is_array($page))
         {
             if (in_array(Session::get('page'), $page))
+            {
                 return ' class="current"';
+            }
         }
         else
         {
             if (Session::get('page') == $page)
+            {
                 return ' class="current"';
+            }
         }
     }
 

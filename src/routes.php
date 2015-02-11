@@ -9,25 +9,25 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+
+// Enter to application
+Route::get(config('pulsar.appName'), function () { return Redirect::to(config('pulsar.appName') . '/pulsar/dashboard'); });
+
 Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
-    // enter to application
-    Route::get(config('pulsar.appName'), function () {
-        return Redirect::to(config('pulsar.appName') . '/pulsar/dashboard');
-    });
 
     // exit of application
-    Route::get(config('pulsar.appName') . '/pulsar/logout', function () {
+    Route::get(config('pulsar.appName') . '/pulsar/logout', ['resource' => 'admin-pass-actions', 'action' => 'access', function () {
         Auth::logout();
         Session::flush();
         return Redirect::to(config('pulsar.appName'));
-    });
+    }]);
 
     /*
     |--------------------------------------------------------------------------
     | DASHBOARD
     |--------------------------------------------------------------------------
     */
-    Route::get(config('pulsar.appName') . '/pulsar/dashboard', ['as' => 'dashboard', 'uses' => 'Pulsar\Pulsar\Controllers\Dashboard@index']);
+    Route::get(config('pulsar.appName') . '/pulsar/dashboard', ['as' => 'dashboard', 'uses' => 'Pulsar\Pulsar\Controllers\Dashboard@index', 'resource' => 'admin', 'action' => 'access']);
 
     /*
     |--------------------------------------------------------------------------
@@ -57,6 +57,21 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::post(config('pulsar.appName') . '/pulsar/actions/update/{page}',                     ['as'=>'updateAction',          'uses'=>'Pulsar\Pulsar\Controllers\Actions@update',                     'resource' => 'admin-pass-actions',     'action' => 'edit']);
     Route::get(config('pulsar.appName') . '/pulsar/actions/destroy/{id}',                       ['as'=>'destroyAction',         'uses'=>'Pulsar\Pulsar\Controllers\Actions@destroyRecord',              'resource' => 'admin-pass-actions',     'action' => 'delete']);
     Route::post(config('pulsar.appName') . '/pulsar/actions/destroy/select/elements',           ['as'=>'destroySelectAction',   'uses'=>'Pulsar\Pulsar\Controllers\Actions@destroyRecordsSelect',       'resource' => 'admin-pass-actions',     'action' => 'delete']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | RESOURCES
+    |--------------------------------------------------------------------------
+    */
+    Route::any(config('pulsar.appName') . '/pulsar/resources/{page?}',                          ['as'=>'resources',             'uses'=>'Pulsar\Pulsar\Controllers\Resources@index',                    'resource' => 'admin-pass-actions',     'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/resources/json/data',                        ['as'=>'jsonDataResources',     'uses'=>'Pulsar\Pulsar\Controllers\Resources@jsonData',                 'resource' => 'admin-pass-actions',     'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/resources/create/{page}',                    ['as'=>'createResource',        'uses'=>'Pulsar\Pulsar\Controllers\Resources@create',                   'resource' => 'admin-pass-actions',     'action' => 'access']);
+    Route::post(config('pulsar.appName') . '/pulsar/resources/store/{page}',                    ['as'=>'storeResource',         'uses'=>'Pulsar\Pulsar\Controllers\Resources@store',                    'resource' => 'admin-pass-actions',     'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/resources/{id}/edit/{page}',                 ['as'=>'editResource',          'uses'=>'Pulsar\Pulsar\Controllers\Resources@edit',                     'resource' => 'admin-pass-actions',     'action' => 'access']);
+    Route::post(config('pulsar.appName') . '/pulsar/resources/update/{page}',                   ['as'=>'updateResource',        'uses'=>'Pulsar\Pulsar\Controllers\Resources@update',                   'resource' => 'admin-pass-actions',     'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/resources/destroy/{id}',                     ['as'=>'destroyResource',       'uses'=>'Pulsar\Pulsar\Controllers\Resources@destroy',                  'resource' => 'admin-pass-actions',     'action' => 'access']);
+    Route::post(config('pulsar.appName') . '/pulsar/resources/destroy/select/elements',         ['as'=>'destroySelectResource', 'uses'=>'Pulsar\Pulsar\Controllers\Resources@destroySelect',            'resource' => 'admin-pass-actions',     'action' => 'access']);
+
 
 });
 

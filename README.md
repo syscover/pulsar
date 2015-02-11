@@ -15,14 +15,21 @@ Pulsar is an application that generates a control panel where you start creating
 
 ```
 
-**2 - Register middleware auth.pulsar, on file app/Http/Kernel.php add to routeMiddleware array**
+**2 - Register alias, on file config/app.php add to aliases array**
+
+```
+'Miscellaneous'	=> 'Pulsar\Pulsar\Libraries\Miscellaneous',
+
+```
+
+**3 - Register middleware auth.pulsar, on file app/Http/Kernel.php add to routeMiddleware array**
 
 ```
 'auth.pulsar' 	=> 'Pulsar\Pulsar\Middleware\Auth',
 
 ```
 
-**3 - To publish package, you must type on console**
+**4 - To publish package, you must type on console**
 
 ```
 php artisan vendor:publish

@@ -35,7 +35,7 @@ class Resource extends Model
 
     public static function getRecordsLimit($aColumns, $nResultados = null, $inicio = null, $orden = null, $tipoOrden = null, $sWhere=null, $sWhereColumns=null, $count=false)
     {
-        $query = Resource::join('001_012_module', '001_007_recurso.modulo_007', '=', '001_012_modulo.id_012')->newQuery();
+        $query = Resource::join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012')->newQuery();
 
         $query = Miscellaneous::getQueryWhere($aColumns, $query, $sWhere, $sWhereColumns);
 

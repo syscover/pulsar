@@ -9,7 +9,7 @@
     <a href="javascript:void(0);" title="">{{ trans('pulsar::pulsar.administration') }}</a>
 </li>
 <li class="current">
-    <a href="{{ url(config('pulsar.appName') . '/pulsar/actions') }}" title="">{{ trans('pulsar::pulsar.actions') }}</a>
+    <a href="{{ url(config('pulsar.appName') . '/pulsar/actions') }}">{{ trans('pulsar::pulsar.actions') }}</a>
 </li>
 @stop
 

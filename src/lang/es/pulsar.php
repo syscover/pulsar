@@ -27,6 +27,8 @@ return array(
     'delete'                                => 'Borrar',
     'accept'                                => 'Aceptar',
     'cancel'                                => 'Cancelar',
+    'new'                                   => 'Nuevo',
+    'new2'                                  => 'Nueva',
     'file_not_select'                       => 'Fichero no seleccionado',
     'select'                                => 'Seleccionar',
     'dashboard'                             => 'Escritorio',
@@ -41,6 +43,7 @@ return array(
     'message_delete_record_successful'      => 'El registro <strong>:nombre</strong> ha sido borrado correctamente',
     'message_delete_records_successful'     => 'Los registros seleccionados han sido borrados correctamente',
     'message_record_no_select'              => 'No hay ningún registro seleccionado para realizar esta acción',
+    'message_update_record'                 => 'El registro <strong>:name</strong> ha sido actualizado correctamente',
 
     'administration'                        => 'Administración',
     'actions'                               => 'Acciones',

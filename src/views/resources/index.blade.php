@@ -6,20 +6,20 @@
 
 @section('breadcrumbs')
 <li>
-    <a href="javascript:void(0);">{{ trans('pulsar::pulsar.administration') }}</a>
+    <a href="javascript:void(0);" title="">{{ Lang::get('pulsar::pulsar.administracion' )}}</a>
 </li>
 <li class="current">
-    <a href="{{ url(config('pulsar.appName') . '/pulsar/actions') }}">{{ trans('pulsar::pulsar.actions') }}</a>
+    <a href="{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/resources" title="">Resursos</a>
 </li>
 @stop
 
 @section('mainContent')
 <div class="row">
     <div class="col-md-12">
-        <a class="btn marginB10" href="{{ url(config('pulsar.appName') . '/pulsar/actions/create/' . $offset) }}"><i class="icomoon-icon-power"></i> {{ trans('pulsar::pulsar.new2') }} {{ trans('pulsar::pulsar.action') }}</a>
+        <a class="btn marginB10" href="{{ URL::to(Config::get('pulsar::pulsar.rootUri') . '/pulsar/resource/create/' . $offset) }}"><i class="icomoon-icon-database"></i> Nuevo recurso</a>
         <div class="widget box">
             <div class="widget-header">
-                <h4><i class="icon-reorder"></i> {{ trans('pulsar::pulsar.actions') }}</h4>
+                <h4><i class="icon-reorder"></i> Recursos</h4>
                 <div class="toolbar no-padding">
                     <div class="btn-group">
                         <span class="btn btn-xs widget-collapse"><i class="icon-angle-down"></i></span>
@@ -27,15 +27,15 @@
                 </div>
             </div>
             <div class="widget-content no-padding">
-                <form id="formView" method="post" action="{{ url(config('pulsar.appName') . '/pulsar/actions/destroy/select/elements') }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <form id="formView" method="post" action="{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/recursos/destroy/select/elements">
                     <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable-pulsar">
                         <thead>
                             <tr>
                                 <th data-hide="phone,tablet">ID.</th>
-                                <th data-class="expand">{{ trans('pulsar::pulsar.name') }}</th>
+                                <th data-hide="phone">Módulo</th>
+                                <th data-class="expand">{{ Lang::get('pulsar::pulsar.nombre') }}</th>
                                 <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
-                                <th>{{ trans('pulsar::pulsar.actions') }}</th>
+                                <th>{{ Lang::get('pulsar::pulsar.acciones') }}</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

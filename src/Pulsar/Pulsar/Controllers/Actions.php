@@ -30,46 +30,6 @@ class Actions extends BaseController
     protected $nameM    = 'name_008';
     protected $model    = '\Pulsar\Pulsar\Models\Action';
 
-    public function jsonData()
-    {
-        $params =  Miscellaneous::paginateDataTable();
-        $params =  Miscellaneous::dataTableSorting($params, $this->aColumns);
-        $params =  Miscellaneous::filteringDataTable($params);
-
-        $objects        = Action::getRecordsLimit($this->aColumns, $params['sLength'], $params['sStart'], $params['sOrder'], $params['sTypeOrder'], $params['sWhere']);
-        $iFilteredTotal = Action::getRecordsLimit($this->aColumns, null, null, $params['sOrder'], $params['sTypeOrder'], $params['sWhere'], null, true);
-        $iTotal         = Action::count();
-
-        $output = array(
-            "sEcho"                 => intval(Input::get('sEcho')),
-            "iTotalRecords"         => $iTotal,
-            "iTotalDisplayRecords"  => $iFilteredTotal,
-            "aaData"                => []
-        );
-        
-        $aObjects = $objects->toArray(); $i=0;
-        foreach($aObjects as $aObject)
-        {
-		    $row = [];
-		    foreach ($this->aColumns as $aColumn)
-            {
-                $row[] = $aObject[$aColumn];
-		    }
-            $row[] = '<input type="checkbox" class="uniform" name="element'.$i.'" value="' . $aObject['id_008'] . '">';
-
-            $acciones = Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . url(config('pulsar.appName') . '/pulsar/actions/' . $aObject['id_008'] . '/edit/' . Input::get('iDisplayStart')) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
-            $acciones .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip" href="javascript:deleteElement(\'' . $aObject['id_008'] . '\')" data-original-title="' . trans('pulsar::pulsar.delete_record') . '"><i class="icon-trash"></i></a>' : null;
-		    $row[] =  $acciones;
-                
-            $output['aaData'][] = $row;
-            $i++;
-	    }
-                
-        $data['json'] = json_encode($output);
-        
-        return view('pulsar::common.json_display',$data);
-    }
-    
     public function store($offset = 0)
     {
         $validation = Action::validate(Input::all());
@@ -100,19 +60,19 @@ class Actions extends BaseController
         
         if ($validation->fails())
         {
-            return Redirect::route('editAction',array(Input::get('id'), $offset))->withErrors($validation);
+            return Redirect::route('editAction', [Input::get('id'), $offset])->withErrors($validation);
         }
         else
         {
-            Action::where('id_008', Input::get('idOld'))->update(array(
-                'id_008'  => Input::get('id'),
+            Action::where('id_008', Input::get('idOld'))->update([
+                'id_008'    => Input::get('id'),
                 'name_008'  => Input::get('name')
-            ));
+            ]);
 
-            return Redirect::route('actions', array($offset))->with(array(
+            return Redirect::route('actions', $offset)->with([
                 'msg'        => 1,
-                'txtMsg'     => trans('pulsar::pulsar.aviso_actualiza_registro', array('nombre' => Input::get('name')))
-            ));
+                'txtMsg'     => trans('pulsar::pulsar.message_update_record', ['name' => Input::get('name')])
+            ]);
         }
     }
 }
