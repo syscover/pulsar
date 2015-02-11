@@ -2,7 +2,7 @@
 
 @section('script')
     <!-- App -->
-    <script type="text/javascript" src="{{ URL::asset('packages/pulsar/vinipadsalesforcefrontend/js/login.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('packages/pulsar/vinipadsalesforcefrontend/js/login.js') }}"></script>
     @include('pulsar::common.block.block_script_header_form')
 @stop
 
@@ -25,7 +25,7 @@
         <div class="input-icon">
             <i class="icon-envelope"></i>
             <input type="email" name="email_010" class="form-control" placeholder="{{ trans('pulsar::pulsar.su_email') }}" autofocus="autofocus" data-rule-required="true" data-msg-required="Por favor indique su email." />
-            {{ $errors->first('email_010',Config::get('pulsar::pulsar.errorDelimiters')) }}
+            {!! $errors->first('email_010',config('pulsar.errorDelimiters')) !!}
         </div>
     </div>
     <div class="form-group">
@@ -33,7 +33,7 @@
         <div class="input-icon">
             <i class="icon-lock"></i>
             <input type="password" name="password" class="form-control required" placeholder="{{ trans('pulsar::pulsar.contrasena') }}">
-            <?php echo $errors->first('password',Config::get('pulsar::pulsar.errorDelimiters')); ?>
+            <?php echo $errors->first('password',config('pulsar.errorDelimiters')); ?>
         </div>
     </div>
     <div class="form-group">
@@ -41,7 +41,7 @@
         <div class="input-icon">
             <i class="icon-lock"></i>
             <input type="password" name="password_confirmation" class="form-control required" placeholder="{{trans('pulsar::pulsar.repita_contrasena')}}" equalTo="[name='password']" />
-            <?php echo $errors->first('password_confirmation',Config::get('pulsar::pulsar.errorDelimiters')); ?>
+            <?php echo $errors->first('password_confirmation',config('pulsar.errorDelimiters')); ?>
         </div>
     </div>
     <!-- /Input Fields -->

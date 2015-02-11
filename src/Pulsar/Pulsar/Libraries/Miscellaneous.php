@@ -87,7 +87,7 @@ class Miscellaneous
      * @access	public
      * @return	array
      */
-    public static function sessionParamterSetSearchParams($data = array())
+    public static function sessionParamterSetSearchParams($data = [])
     {
         if (Input::get('search_params'))
         {
@@ -145,7 +145,45 @@ class Miscellaneous
         }
         return $ids;
     }
-    
+
+    /**
+     *  Función para subir ficheros
+     *
+     * @access	public
+     * @return	boolean
+     */
+    public static function uploadFiles($inputName, $path, $encryption = false, $newFilename = false)
+    {
+        $file       = Input::file($inputName);
+        $extension  = $file->getClientOriginalExtension();
+        $basename   = basename($file->getClientOriginalName(), '.' . $extension);
+
+        if ($encryption)
+        {
+            mt_srand();
+            $filename = md5(uniqid(mt_rand())) . "." . $extension;
+        }
+        elseif ($newFilename)
+        {
+            $filename = $newFilename . "." . $extension;
+        }
+        else
+        {
+            $filename = $file->getClientOriginalName();
+        }
+
+        $i = 0;
+        while (file_exists($path . '/' . $filename))
+        {
+            $i++;
+            $filename = $basename . '-' . $i . '.' . $extension;
+        }
+
+        $file->move($path, $filename);
+
+        return $filename;
+    }
+
     /**
      *  Función para mover ficheros
      *
@@ -169,13 +207,13 @@ class Miscellaneous
         }
 
         $i = 0;
-        while (File::exists($target.'/'.$fileName))
+        while (File::exists($target . '/' . $fileName))
         {
             $i++;
             $fileName = $baseName . '-' . $i . '.' . $extension;
         }
         
-        File::move($path.'/'.$fileNameOld, $target.'/'.$fileName);
+        File::move($path . '/' . $fileNameOld, $target . '/' . $fileName);
 
         return $fileName;
     }
@@ -214,7 +252,8 @@ class Miscellaneous
      * @access	public
      * @return	string
      */
-    public static function getRealIp() {
+    public static function getRealIp()
+    {
         if (!empty($_SERVER['HTTP_CLIENT_IP']))
         {
             //check ip from share internet
@@ -364,7 +403,6 @@ class Miscellaneous
      */
     public static function dataTableSorting($params, $aColumns)
     {
-        //Orden de la tabla
 	    $params['sOrder'] = null;$params['sTypeOrder'] = null;
         if(Input::get('iSortCol_0')!=null)
         {
@@ -372,8 +410,8 @@ class Miscellaneous
             {
                 if (Input::get('bSortable_'.intval(Input::get('iSortCol_'.$i))) == "true")
                 {
-                    $params['sOrder'] = $aColumns[intval( Input::get('iSortCol_'.$i))];
-                    $params['sTypeOrder'] = Input::get('sSortDir_'.$i);
+                    $params['sOrder']       = is_array($aColumns[intval(Input::get('iSortCol_'.$i))])?  $aColumns[intval(Input::get('iSortCol_'.$i))]['name'] : $aColumns[intval(Input::get('iSortCol_'.$i))];
+                    $params['sTypeOrder']   = Input::get('sSortDir_'.$i);
                 }
             }
         }
@@ -405,14 +443,13 @@ class Miscellaneous
      */
     public static function individualFilteringDataTable($params, $aColumns)
     {
-        //filtrado de la tabla por columnas
         $params['sWhereColumns'] = null;
         for($i=0; $i<count($aColumns); $i++)
         {
             if(Input::get('bSearchable_'.$i) != null && Input::get('bSearchable_'.$i) == "true" && Input::get('sSearch_'.$i) != '')
             {
                 $sWhereColumn['sWhere']     = Input::get('sSearch_'.$i);
-                $sWhereColumn['aColumn']    = $aColumns[$i];
+                $sWhereColumn['aColumn']    = is_array($aColumns[$i])? $aColumns[$i]['name'] : $aColumns[$i];
 
                 if(!is_array($params['sWhereColumns']))$params['sWhereColumns'] = array();
 
@@ -435,7 +472,8 @@ class Miscellaneous
             $query->where(function($query) use ($aColumns, $sWhere){
                 foreach($aColumns as $aColumn)
                 {
-                     $query->orWhere($aColumn, 'LIKE', '%'.$sWhere.'%');
+                    if(is_array($aColumn)) $aColumn = $aColumn['name'];
+                    $query->orWhere($aColumn, 'LIKE', '%'.$sWhere.'%');
                 }
             });
         }

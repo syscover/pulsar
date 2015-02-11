@@ -1,18 +1,18 @@
-@extends('pulsar::pulsar.pulsar.layouts.default')
+@extends('pulsar::layouts.default')
 
 @section('script')
-    @include('pulsar::pulsar.pulsar.common.block.block_script_header_form')
+    @include('pulsar::common.block.block_script_header_form')
 @stop
 
 @section('breadcrumbs')
 <li>
-    <a href="javascript:void(0);" title="">{{ucwords(Lang::get('pulsar::pulsar.administracion'))}}</a>
+    <a href="javascript:void(0);">{{ trans('pulsar::pulsar.administration') }}</a>
 </li>
 <li>
-    <a href="{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/paises" title="">Países</a>
+    <a href="{{ url(config('pulsar.appName')) }}/pulsar/paises">Países</a>
 </li>
 <li class="current">
-    <a href="{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/areasterritoriales2/{{ $pais->id_002 }}" title=""><?php echo $pais->area_territorial_2_002; ?></a>
+    <a href="{{ url(config('pulsar.appName')) }}/pulsar/areasterritoriales2/{{ $pais->id_002 }}"><?php echo $pais->area_territorial_2_002; ?></a>
 </li>
 @stop
 
@@ -22,14 +22,14 @@
         <div class="widget box">
             <div class="widget-header"><h4><i class="entypo-icon-globe"></i> <?php echo $pais->area_territorial_2_002; ?></h4></div>
             <div class="widget-content">
-                <form class="form-horizontal" method="post" action="{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/areasterritoriales2/update/{{ $pais->id_002 }}/{{ $inicio }}">
-                    {{ Form::token() }}
+                <form class="form-horizontal" method="post" action="{{ url(config('pulsar.appName')) }}/pulsar/areasterritoriales2/update/{{ $pais->id_002 }}/{{ $offset }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
                         <label class="col-md-2 control-label">ID <span class="required">*</span></label>
                         <div class="col-md-2">
                             <input class="form-control required" type="text" name="id" value="<?php echo $areaTerritorial2->id_004; ?>" rangelength="2, 10">
                             <input name="idOld" type="hidden" value="<?php echo $areaTerritorial2->id_004; ?>">
-                            <?php echo $errors->first('id',Config::get('pulsar::pulsar.errorDelimiters')); ?>
+                            <?php echo $errors->first('id',config('pulsar.errorDelimiters')); ?>
                         </div>
                     </div>
                     <div class="form-group">
@@ -47,19 +47,19 @@
                                 <option value="<?php echo $areaTerritorial1->id_003 ?>" <?php if($areaTerritorial2->area_territorial_1_004  == $areaTerritorial1->id_003) echo 'selected=""'; ?>><?php echo $areaTerritorial1->nombre_003 ?></option>
                                 <?php endforeach; ?>
                             </select>
-                            <?php echo $errors->first('modulo',Config::get('pulsar::pulsar.errorDelimiters')); ?>
+                            <?php echo $errors->first('modulo',config('pulsar.errorDelimiters')); ?>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-2 control-label">Nombre <span class="required">*</span></label>
                         <div class="col-md-10">
                             <input class="form-control required" type="text" name="nombre" value="<?php echo $areaTerritorial2->nombre_004; ?>" rangelength="2, 50">
-                            <?php echo $errors->first('nombre',Config::get('pulsar::pulsar.errorDelimiters')); ?>
+                            <?php echo $errors->first('nombre',config('pulsar.errorDelimiters')); ?>
                         </div>
                     </div>
                     <div class="form-actions">
-                        <button type="submit" class="btn marginR10">{{ Lang::get('pulsar::pulsar.guardar') }}</button>
-                        <a class="btn btn-inverse" href="{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/areasterritoriales2/{{ $pais->id_002 }}/{{ $inicio }}">{{ Lang::get('pulsar::pulsar.cancelar') }}</a>
+                        <button type="submit" class="btn marginR10">{{ trans('pulsar::pulsar.save') }}</button>
+                        <a class="btn btn-inverse" href="{{ url(config('pulsar.appName')) }}/pulsar/areasterritoriales2/{{ $pais->id_002 }}/{{ $offset }}">{{ trans('pulsar::pulsar.cancel') }}</a>
                     </div>
                 </form>
             </div>

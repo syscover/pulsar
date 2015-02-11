@@ -1,6 +1,6 @@
 <script type="text/javascript">
     function deleteElement(id){
-        var url = "{{ url(config('pulsar.appName') . '/pulsar/idiomas/destroy/') }}/" + id;
+        var url = "{{ url(config('pulsar.appName') . '/pulsar/langs/destroy/') }}/" + id;
         @include('pulsar::common.js.script_delete_element')
     }
     
@@ -22,7 +22,7 @@
                 ],
                 "bProcessing": true,
                 "bServerSide": true,
-                "sAjaxSource": "{{ url(config('pulsar.appName') . '/pulsar/languages/json/data') }}"
+                "sAjaxSource": "{{ url(config('pulsar.appName') . '/pulsar/langs/json/data') }}"
             }).fnSetFilteringDelay();
             @include('pulsar::common.js.script_button_delete')
         }

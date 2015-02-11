@@ -31,8 +31,9 @@ return array(
     'new2'                                  => 'Nueva',
     'file_not_select'                       => 'Fichero no seleccionado',
     'select'                                => 'Seleccionar',
+    'active'                                => 'Activo',
+    'sorting'                               => 'Orden',
     'dashboard'                             => 'Escritorio',
-    'languages'                             => 'Idiomas',
 
     'edit_record'                           => 'Editar registro',
     'delete_record'                         => 'Borrar registro',
@@ -44,12 +45,15 @@ return array(
     'message_delete_records_successful'     => 'Los registros seleccionados han sido borrados correctamente',
     'message_record_no_select'              => 'No hay ningún registro seleccionado para realizar esta acción',
     'message_update_record'                 => 'El registro <strong>:name</strong> ha sido actualizado correctamente',
+    'message_delete_image'                  => '¿Desea borrar la imagen del elemento seleccionado?',
 
     'administration'                        => 'Administración',
-    'actions'                               => 'Acciones',
-    'action'                                => 'Acción',
+    'action'                                => 'Acción|Acciones',
 
     'name'                                  => 'Nombre',
+    'language'                              => 'Idioma|Idiomas',
+    'base_language'                         => 'Base language',
+    'image'                                 => 'Imagen|Imágenes',
 
     'action_successful'                     => '¡Acción realizada!',
 
@@ -89,7 +93,7 @@ return array(
     'repita_contrasena'              => 'Repita su contraseña',
 
 
-    'aviso_borrado_imagen'           => '¿Desea borrar la imagen del elemento seleccionado?',
+
     'aviso_buscando_datos'           => '<strong>Un momento por favor</strong>, estamos buscando coincidencias en nuestra base de datos.',
     'accion_realizada'               => '¡Acción realizada!',
     'accion_no_realizada'            => '¡Error! Acción no realizada',

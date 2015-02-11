@@ -1,4 +1,4 @@
-@extends('pulsar::pulsar.pulsar.layouts.default')
+@extends('pulsar::layouts.default')
 
 @section('script')
     @include('pulsar::pulsar.pulsar.common.block.block_script_header_list')
@@ -6,17 +6,17 @@
 
 @section('breadcrumbs')
 <li>
-    <a href="javascript:void(0);" title="">{{ucwords(Lang::get('pulsar::pulsar.administracion'))}}</a>
+    <a href="javascript:void(0);">{{ trans('pulsar::pulsar.administration') }}</a>
 </li>
 <li class="current">
-    <a href="{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/usuarios" title="">Usuarios</a>
+    <a href="{{ url(config('pulsar.appName')) }}/pulsar/usuarios">Usuarios</a>
 </li>
 @stop
 
 @section('mainContent')
 <div class="row">
     <div class="col-md-12">
-        <a class="btn marginB10" href="{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/usuarios/create/{{ $inicio }}"><i class="icomoon-icon-users"></i> Nuevo usuario</a>
+        <a class="btn marginB10" href="{{ url(config('pulsar.appName')) }}/pulsar/usuarios/create/{{ $offset }}"><i class="icomoon-icon-users"></i> Nuevo usuario</a>
         <div class="widget box">
             <div class="widget-header">
                 <h4><i class="icon-reorder"></i> Usuarios</h4>
@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="widget-content no-padding">
-                <form id="formView" method="post" action="{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/usuarios/destroy/select/elements">
+                <form id="formView" method="post" action="{{ url(config('pulsar.appName')) }}/pulsar/usuarios/destroy/select/elements">
                     <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable-pulsar">
                         <thead>
                             <tr>
@@ -38,7 +38,7 @@
                                 <th data-hide="phone">Perfil</th>
                                 <th data-hide="phone">Acceso</th>
                                 <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
-                                <th><?php echo Lang::get('pulsar::pulsar.acciones');?></th>
+                                <th><?php echo trans('pulsar::pulsar.acciones');?></th>
                             </tr>
                         </thead>
                         <tbody></tbody>

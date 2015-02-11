@@ -1,6 +1,6 @@
 <script type="text/javascript">
     function deleteElement(id){
-        var url = "{{ URL::to(Config::get('pulsar::pulsar.rootUri') . '/pulsar/modulos/destroy/') }}/" + id;
+        var url = "{{ url(config('pulsar.appName') . '/pulsar/modulos/destroy/') }}/" + id;
         @include('pulsar::pulsar.pulsar.common.js.script_delete_element')
     }
     
@@ -12,7 +12,7 @@
         if ($.fn.dataTable)
         {
             $('.datatable-pulsar').dataTable({
-                'iDisplayStart' : {{ $inicio }},
+                'iDisplayStart' : {{ $offset }},
                 'aoColumnDefs': [
                         { 'bSortable': false, 'aTargets': [3,4]},
                         { 'sClass': 'align-center', 'aTargets': [2]},
@@ -21,7 +21,7 @@
                 ],
                 "bProcessing": true,
                 "bServerSide": true,
-                "sAjaxSource": "{{ URL::to(Config::get('pulsar::pulsar.rootUri') . '/pulsar/packages/json/data') }}"
+                "sAjaxSource": "{{ url(config('pulsar.appName') . '/pulsar/packages/json/data') }}"
             }).fnSetFilteringDelay();
             @include('pulsar::pulsar.pulsar.common.js.script_button_delete')
         }

@@ -31,8 +31,9 @@ return array(
     'new2'                                  => 'New',
     'file_not_select'                       => 'File not select',
     'select'                                => 'Select',
+    'active'                                => 'Active',
+    'sorting'                               => 'Sorting',
     'dashboard'                             => 'Dashboard',
-    'languages'                             => 'Languages',
 
     'edit_record'                           => 'Edit record',
     'delete_record'                         => 'Delete record',
@@ -44,12 +45,15 @@ return array(
     'message_delete_records_successful'     => 'Selected records have been deleted successfully',
     'message_record_no_select'              => 'No record selected to perform this action',
     'message_update_record'                 => 'Registration <strong>:name</strong> has been updated successfully',
+    'message_delete_image'                  => 'Do you want to erase the image of the selected item?',
 
     'administration'                        => 'Administration',
-    'actions'                               => 'Actions',
-    'action'                                => 'Action',
+    'action'                                => 'Action|Actions',
 
     'name'                                  => 'Name',
+    'language'                              => 'Language|Languages',
+    'base_language'                         => 'Base language',
+    'image'                                 => 'Image|Images',
 
     'action_successful'                     => 'Action successful!',
 

@@ -32,7 +32,7 @@ class Lang extends Model {
     public static function validate($data, $imageRule = true, $idRule = true)
     {
         if ($imageRule)
-            static::$rules['imagen'] = 'required|mimes:jpg,jpeg,gif,png|max:1000';
+            static::$rules['image'] = 'required|mimes:jpg,jpeg,gif,png|max:1000';
         if ($idRule)
             static::$rules['id'] = 'required|alpha|size:2|unique:001_001_lang,id_001';
 
@@ -44,13 +44,13 @@ class Lang extends Model {
         return Lang::where('base_001', '=', 1)->first();
     }
 
-
-
-
-    public static function resetIdiomaBase()
+    public static function resetBaseLang()
     {
         Lang::query()->update(array('base_001' => '0'));
     }
+
+
+
 
     public static function getIdiomasActivos()
     {

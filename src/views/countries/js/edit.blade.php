@@ -1,7 +1,7 @@
 <script type="text/javascript">
     function deleteLangElement(id, idioma, inicio){
-        var url = "{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/paises/destroy/lang/"+id+"/"+idioma+"/"+inicio;
-        $.msgbox('<?php echo Lang::get('pulsar::pulsar.aviso_borrado_registro');?>', 
+        var url = "{{ url(config('pulsar.appName')) }}/pulsar/paises/destroy/lang/"+id+"/"+idioma+"/"+inicio;
+        $.msgbox('<?php echo trans('pulsar::pulsar.aviso_borrado_registro');?>',
             {
                 type:'confirm',
                 buttons: [

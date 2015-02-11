@@ -131,7 +131,7 @@
 
 			<!-- Only visible on smartphones, menu toggle -->
 			<ul class="nav navbar-nav">
-				<li class="nav-toggle"><a href="javascript:void(0);" title=""><i class="icon-reorder"></i></a></li>
+				<li class="nav-toggle"><a href="javascript:void(0);"><i class="icon-reorder"></i></a></li>
 			</ul>
 
 			<!-- Logo -->

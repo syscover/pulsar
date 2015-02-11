@@ -4,14 +4,14 @@
         @include('pulsar::pulsar.pulsar.common.js.script_config_datatable')
         if ($.fn.dataTable) {
             $('.datatable-pulsar').dataTable({
-                'iDisplayStart' : {{ $inicio }},
+                'iDisplayStart' : {{ $offset }},
                 'aoColumnDefs': [
                         { 'bSortable': false, 'aTargets': [3]},
                         { 'sClass': 'align-center', 'aTargets': [3]}
                 ],
                 "bProcessing": true,
                 "bServerSide": true,
-                "sAjaxSource": "{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/permisos/json/data/perfil/<?php echo $perfil->id_006; ?>",
+                "sAjaxSource": "{{ url(config('pulsar.appName')) }}/pulsar/permisos/json/data/perfil/<?php echo $perfil->id_006; ?>",
                 fnDrawCallback: function() {
                     $("[id^='re']").select2({
                         placeholder: "Seleccione un permiso",
@@ -23,13 +23,13 @@
                         if(e.added){   
                             $.ajax({
                                 type: "POST",
-                                url: "<?php echo URL::to('/');?>/<?php echo Config::get('pulsar::pulsar.rootUri'); ?>/pulsar/permisos/json/create/<?php echo $perfil->id_006; ?>/"+$(this).attr('data-idrecurso')+"/"+e.added.id,
+                                url: "<?php echo url('/');?>/<?php echo config('pulsar.appName'); ?>/pulsar/permisos/json/create/<?php echo $perfil->id_006; ?>/"+$(this).attr('data-idrecurso')+"/"+e.added.id,
                                 dataType: 'text',
                                 success: function(data) {
                                     $.pnotify({
                                         type:   'success',
-                                        title:  '<?php echo Lang::get('pulsar::pulsar.accion_realizada');?>',
-                                        text:   '<?php echo Lang::get('pulsar::pulsar.crear_permiso',array('accion'=> '\'+e.added.text+\'', 'recurso'=> '\'+$(element).attr(\'data-nrecurso\')+\''));?>',
+                                        title:  '<?php echo trans('pulsar::pulsar.accion_realizada');?>',
+                                        text:   '<?php echo trans('pulsar::pulsar.crear_permiso',array('accion'=> '\'+e.added.text+\'', 'recurso'=> '\'+$(element).attr(\'data-nrecurso\')+\''));?>',
                                         icon:   'picon icon16 iconic-icon-check-alt white',
                                         opacity: 0.95,
                                         history: false,
@@ -39,8 +39,8 @@
                                 error: function (xhr, ajaxOptions, thrownError) {
                                     $.pnotify({
                                         type:   'error',
-                                        title:  '<?php echo Lang::get('pulsar::pulsar.accion_no_realizada');?>',
-                                        text:   '<?php echo Lang::get('pulsar::pulsar.crear_permiso_error',array('accion'=> '\'+e.added.text+\'', 'recurso'=> '\'+$(element).attr("data-nrecurso")+\''));?>',
+                                        title:  '<?php echo trans('pulsar::pulsar.accion_no_realizada');?>',
+                                        text:   '<?php echo trans('pulsar::pulsar.crear_permiso_error',array('accion'=> '\'+e.added.text+\'', 'recurso'=> '\'+$(element).attr("data-nrecurso")+\''));?>',
                                         icon:   'picon icon16 iconic-icon-check-alt white',
                                         opacity: 0.95,
                                         history: false,
@@ -52,13 +52,13 @@
                         if(e.removed){
                             $.ajax({
                                 type: "POST",
-                                url: "<?php echo URL::to('/');?>/<?php echo Config::get('pulsar::pulsar.rootUri'); ?>/pulsar/permisos/json/destroy/<?php echo $perfil->id_006; ?>/"+$(this).attr('data-idrecurso')+"/"+e.removed.id,
+                                url: "<?php echo url('/');?>/<?php echo config('pulsar.appName'); ?>/pulsar/permisos/json/destroy/<?php echo $perfil->id_006; ?>/"+$(this).attr('data-idrecurso')+"/"+e.removed.id,
                                 dataType: 'text',
                                 success: function(data) {
                                     $.pnotify({
                                         type:   'success',
-                                        title:  '<?php echo Lang::get('pulsar::pulsar.accion_realizada');?>',
-                                        text:   '<?php echo Lang::get('pulsar::pulsar.borrar_permiso',array('accion'=> '\'+e.removed.text+\'', 'recurso'=> '\'+$(element).attr(\'data-nrecurso\')+\''));?>',
+                                        title:  '<?php echo trans('pulsar::pulsar.accion_realizada');?>',
+                                        text:   '<?php echo trans('pulsar::pulsar.borrar_permiso',array('accion'=> '\'+e.removed.text+\'', 'recurso'=> '\'+$(element).attr(\'data-nrecurso\')+\''));?>',
                                         icon:   'picon icon16 iconic-icon-check-alt white',
                                         opacity: 0.95,
                                         history: false,
@@ -68,8 +68,8 @@
                                 error: function (xhr, ajaxOptions, thrownError) {
                                     $.pnotify({
                                         type:   'error',
-                                        title:  '<?php echo Lang::get('pulsar::pulsar.accion_no_realizada');?>',
-                                        text:   '<?php echo Lang::get('pulsar::pulsar.borrar_permiso_error',array('accion'=> '\'+e.removed.text+\'', 'recurso'=> '\'+$(element).attr(\'data-nrecurso\')+\''));?>',
+                                        title:  '<?php echo trans('pulsar::pulsar.accion_no_realizada');?>',
+                                        text:   '<?php echo trans('pulsar::pulsar.borrar_permiso_error',array('accion'=> '\'+e.removed.text+\'', 'recurso'=> '\'+$(element).attr(\'data-nrecurso\')+\''));?>',
                                         icon:   'picon icon16 iconic-icon-check-alt white',
                                         opacity: 0.95,
                                         history: false,
@@ -105,7 +105,7 @@
                     if (search_input.parent().hasClass('input-group'))
                         return;
 
-                    search_input.attr('placeholder', '<?php echo Lang::get('pulsar::datatable.bSearch'); ?>')
+                    search_input.attr('placeholder', '<?php echo trans('pulsar::datatable.bSearch'); ?>')
                     search_input.addClass('form-control')
                     search_input.wrap('<div class="input-group"></div>');
                     search_input.parent().prepend('<span class="input-group-addon"><i class="icon-search"></i></span>');

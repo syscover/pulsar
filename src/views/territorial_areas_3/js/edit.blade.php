@@ -2,7 +2,7 @@
     function getAreasTerritoriales2FromAreaTerritorial1(id){
         $.ajax({
             type: "POST",
-            url: "{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/areasterritoriales2/json/get_areas_territoriales_2_from_area_territorial_1/"+id,
+            url: "{{ url(config('pulsar.appName')) }}/pulsar/areasterritoriales2/json/get_areas_territoriales_2_from_area_territorial_1/"+id,
             dataType: 'json',
             success: function(data) {
                 $("[name='areaTerritorial2'] option").remove();

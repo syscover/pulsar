@@ -37,7 +37,7 @@
                     <li{!! Miscellaneous::setCurrentPage('admin-user') !!}><a href="{{ url(config('pulsar.appName') . '/pulsar/users') }}"><i class="icomoon-icon-users"></i>Usuarios</a></li>
                 @endif
                 @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-lang', 'access'))
-                        <li{!! Miscellaneous::setCurrentPage('admin-lang') !!}><a href="{{ url(config('pulsar.appName') . '/pulsar/languages') }}"><i class="brocco-icon-flag"></i>{{ trans('pulsar::pulsar.languages') }}</a></li>
+                        <li{!! Miscellaneous::setCurrentPage('admin-lang') !!}><a href="{{ url(config('pulsar.appName') . '/pulsar/langs') }}"><i class="brocco-icon-flag"></i>{{ trans_choice('pulsar::pulsar.language', 2) }}</a></li>
                 @endif
                 @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-country', 'access'))
                         <li{!! Miscellaneous::setCurrentPage(array('admin-country','admin-country-at1','admin-country-at2','admin-country-at3')) !!}><a href="{{ url(config('pulsar.appName') . '/pulsar/countries') }}"><i class="entypo-icon-globe"></i>Países</a></li>
@@ -59,7 +59,7 @@
                                 <li{!! Miscellaneous::setCurrentPage('admin-pass-resource') !!}><a href="{{ url(config('pulsar.appName') . '/pulsar/resources') }}"><i class="icomoon-icon-database"></i>Recursos</a></li>
                             @endif
                             @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-pass-actions', 'access'))
-                                <li{!! Miscellaneous::setCurrentPage('admin-pass-actions') !!}><a href="{{ url(config('pulsar.appName') . '/pulsar/actions') }}"><i class="icomoon-icon-power"></i>{{ trans('pulsar::pulsar.actions') }}</a></li>
+                                <li{!! Miscellaneous::setCurrentPage('admin-pass-actions') !!}><a href="{{ url(config('pulsar.appName') . '/pulsar/actions') }}"><i class="icomoon-icon-power"></i>{{ trans_choice('pulsar::pulsar.action', 2) }}</a></li>
                             @endif
                         </ul>
                     </li>

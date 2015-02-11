@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\View;
 use Pulsar\Pulsar\Libraries\Miscellaneous;
 use Illuminate\Support\Facades\Redirect;
 
@@ -58,10 +59,21 @@ trait ControllerTrait {
             $row = [];
             foreach ($this->aColumns as $aColumn)
             {
-                // if controller need custom config column
-                if(method_exists($this, 'jsonDataCustomColumn'))
+                if(is_array($aColumn))
                 {
-                    $row[] = $this->jsonDataCustomColumn($aObject, $aColumn);
+                    switch ($aColumn['type']) {
+                        case 'img':
+                            $row[] = $aObject[$aColumn['name']] != ''? '<img src="' . asset($aColumn['url'] . $aObject[$aColumn['name']]) . '">' : null;
+                            break;
+
+                        case 'check':
+                            $row[] = $aObject[$aColumn['name']]? '<i class="icomoon-icon-checkmark-3"></i>' : null;
+                            break;
+
+                        case 'active':
+                            $row[] = $aObject[$aColumn['name']]? '<i class="icomoon-icon-checkmark-3"></i>' : '<i class="icomoon-icon-blocked"></i>';
+                            break;
+                    }
                 }
                 else
                 {
@@ -108,6 +120,8 @@ trait ControllerTrait {
     {
         $data['offset'] = $offset;
         $data['object'] = call_user_func($this->model . '::find', $id);
+        if(View::exists('pulsar::' . $this->folder . '.js.edit'))
+            $data['javascriptView'] = 'pulsar::' . $this->folder . '.js.edit';
 
         if(method_exists($this, 'editCustomRecord'))
         {

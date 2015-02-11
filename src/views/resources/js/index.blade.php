@@ -1,6 +1,6 @@
 <script type="text/javascript">
     function deleteElement(id){
-        var url = "{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/recursos/destroy/"+id;
+        var url = "{{ url(config('pulsar.appName')) }}/pulsar/recursos/destroy/"+id;
         @include('pulsar::common.js.script_delete_element')
     }
     
@@ -19,7 +19,7 @@
                 ],
                 "bProcessing": true,
                 "bServerSide": true,
-                "sAjaxSource": "{{ URL::to(config('pulsar.appName') . '/pulsar/resources/json/data') }}"
+                "sAjaxSource": "{{ url(config('pulsar.appName') . '/pulsar/resources/json/data') }}"
             }).fnSetFilteringDelay();
             @include('pulsar::common.js.script_button_delete')
         }

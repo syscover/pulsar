@@ -1,4 +1,4 @@
-@extends('pulsar::pulsar.pulsar.layouts.default')
+@extends('pulsar::layouts.default')
 
 @section('script')
     @include('pulsar::pulsar.pulsar.common.block.block_script_header_list')
@@ -6,13 +6,13 @@
 
 @section('breadcrumbs')
 <li>
-    <a href="javascript:void(0);" title="">{{ucwords(Lang::get('pulsar::pulsar.administracion'))}}</a>
+    <a href="javascript:void(0);">{{ trans('pulsar::pulsar.administration') }}</a>
 </li>
 <li>
-    <a href="{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/perfiles" title="">Perfiles</a>
+    <a href="{{ url(config('pulsar.appName')) }}/pulsar/perfiles">Perfiles</a>
 </li>
 <li class="current">
-    <a href="{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/recursos" title="">Permisos</a>
+    <a href="{{ url(config('pulsar.appName')) }}/pulsar/recursos">Permisos</a>
 </li>
 @stop
 
@@ -29,14 +29,14 @@
                 </div>
             </div>
             <div class="widget-content no-padding">
-                <form id="formView" method="post" action="{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/recursos/destroy/select/elements">
+                <form id="formView" method="post" action="{{ url(config('pulsar.appName')) }}/pulsar/recursos/destroy/select/elements">
                     <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable-pulsar">
                         <thead>
                             <tr>
                                 <th data-hide="phone,tablet">ID.</th>
                                 <th data-hide="phone,tablet">Módulo</th>
-                                <th data-class="expand">{{ Lang::get('pulsar::pulsar.nombre') }}</th>
-                                <th>{{ Lang::get('pulsar::pulsar.permisos') }}</th>
+                                <th data-class="expand">{{ trans('pulsar::pulsar.nombre') }}</th>
+                                <th>{{ trans('pulsar::pulsar.permisos') }}</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
