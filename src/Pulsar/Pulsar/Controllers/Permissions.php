@@ -21,7 +21,7 @@ class Permisos extends BaseController
     
     public function index($perfil, $inicioPerfil=0, $inicio=0)
     {
-         if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'access')) App::abort(403, 'Permission denied.');
+
 
         //Inicializa las sesiones para las búsquedas rápidas desde la vista de tablas en caso de cambio de página
         Miscellaneous::sessionParamterSetPage($this->resource);
@@ -37,7 +37,7 @@ class Permisos extends BaseController
     
     public function jsonData($perfil)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'access')) App::abort(403, 'Permission denied.');
+
         
         $accionesUser   = Accion::get();
         $acl            = PulsarAcl::getAclPerfil($perfil);

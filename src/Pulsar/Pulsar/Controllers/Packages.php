@@ -21,7 +21,7 @@ class Packages extends BaseController {
     
     public function index($inicio=0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'access')) App::abort(403, 'Permission denied.');
+
 
         Miscellaneous::sessionParamterSetPage($this->resource);
         
@@ -34,7 +34,7 @@ class Packages extends BaseController {
     
     public function jsonData()
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'access')) App::abort(403, 'Permission denied.');
+
 
 	    $aColumns = array('id_012', 'name_012', 'active_012');
         $params = array();
@@ -124,7 +124,7 @@ class Packages extends BaseController {
     
     public function edit($id, $inicio=0)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'access')) App::abort(403, 'Permission denied.');
+
         
         $data['inicio'] = $inicio;
         $data['modulo'] = Package::find($id);

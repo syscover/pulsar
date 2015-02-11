@@ -106,7 +106,7 @@ class Resources extends BaseController {
     }
     
     public function edit($id, $inicio=0){
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'access')) App::abort(403, 'Permission denied.');
+
         
         $data['inicio'] = $inicio;
         $data['modulos'] = Package::get();
