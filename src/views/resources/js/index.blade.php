@@ -1,6 +1,7 @@
 <script type="text/javascript">
-    function deleteElement(id){
-        var url = "{{ url(config('pulsar.appName')) }}/pulsar/recursos/destroy/"+id;
+    function deleteElement(id)
+    {
+        var url = "{{ url(config('pulsar.appName') . '/pulsar/resources/destroy/') }}/" + id;
         @include('pulsar::common.js.script_delete_element')
     }
     

@@ -21,6 +21,7 @@
             <div class="widget-content">
                 <form class="form-horizontal" method="post" action="{{ url(config('pulsar.appName') . '/pulsar/actions/update/' . $offset) }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="_method" value="PUT">
                     <div class="form-group">
                         <label class="col-md-2 control-label">ID</label>
                         <div class="col-md-2">

@@ -10,18 +10,17 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\App,
-    Illuminate\Support\Facades\Session,
-    Illuminate\Support\Facades\Auth,
-    Illuminate\Support\Facades\Input,
-    Illuminate\Support\Facades\URL,
-    Illuminate\Support\Facades\Config,
-    Illuminate\Support\Facades\Lang,
-    Illuminate\Support\Facades\View,
-    Illuminate\Support\Facades\Redirect,
-    Pulsar\Pulsar\Libraries\Miscellaneous,
-    Pulsar\Pulsar\Models\Modulo,
-    Pulsar\Pulsar\Models\Resource;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Redirect;
+use Pulsar\Pulsar\Libraries\Miscellaneous;
+use Pulsar\Pulsar\Models\Package;
+use Pulsar\Pulsar\Models\Resource;
 use Pulsar\Pulsar\Traits\ControllerTrait;
 
 class Resources extends BaseController {
@@ -35,45 +34,7 @@ class Resources extends BaseController {
     protected $aColumns = ['id_007', 'name_012', 'name_007'];
     protected $nameM    = 'name_007';
     protected $model    = '\Pulsar\Pulsar\Models\Resource';
-    
-    public function jsonData()
-    {
-        $params =  Miscellaneous::paginateDataTable();
-        $params =  Miscellaneous::dataTableSorting($params, $this->aColumns);
-        $params =  Miscellaneous::filteringDataTable($params);
 
-        $objects       = Resource::getRecordsLimit($this->aColumns, $params['sLength'], $params['sStart'], $params['sOrder'], $params['sTypeOrder'], $params['sWhere']);
-        $iFilteredTotal = Resource::getRecordsLimit($this->aColumns, null, null, $params['sOrder'], $params['sTypeOrder'], $params['sWhere'], null, true);
-        $iTotal         = Resource::count();
-
-        $output = array(
-            "sEcho"                 => intval(Input::get('sEcho')),
-            "iTotalRecords"         => $iTotal,
-            "iTotalDisplayRecords"  => $iFilteredTotal,
-            "aaData"                => array()
-        );
-        
-        $aObjects = $objects->toArray(); $i=0;
-        foreach($aObjects as $aObject){
-		$row = array();
-		foreach ($this->aColumns as $aColumn){
-                    $row[] = $aObject[$aColumn]; 
-		}
-                $row[] = '<input type="checkbox" class="uniform" name="element'.$i.'" value="'.$aObject['id_007'].'">';
-                //Botones de acciones
-                $acciones = Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" title="" href="'.URL::to('/').'/'.Config::get('pulsar::pulsar.rootUri').'/pulsar/recursos/'.$aObject['id_007'].'/edit/'.Input::get('iDisplayStart').'" data-original-title="'.Lang::get('pulsar::pulsar.editar_registro').'"><i class="icon-pencil"></i></a>' : '';
-                $acciones .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip" title="" href="javascript:deleteElement(\''.$aObject['id_007'].'\')" data-original-title="'.Lang::get('pulsar::pulsar.borrar_registro').'"><i class="icon-trash"></i></a>' : '';
-		$row[] =  $acciones;
-                
-                $output['aaData'][] = $row;
-                $i++;
-	}
-                
-        $data['json'] = json_encode($output);
-        
-        return view('pulsar::common.json_display', $data);
-    }
-    
     public function create($inicio=0){
 
        
