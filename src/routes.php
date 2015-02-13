@@ -91,7 +91,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::post(config('pulsar.appName') . '/pulsar/profiles/store/{page}',                     ['as'=>'storeProfile',          'uses'=>'Pulsar\Pulsar\Controllers\Profiles@storeRecord',               'resource' => 'admin-perm-profile',    'action' => 'create']);
     Route::get(config('pulsar.appName') . '/pulsar/profiles/{id}/edit/{page}',                  ['as'=>'editProfile',           'uses'=>'Pulsar\Pulsar\Controllers\Profiles@editRecord',                'resource' => 'admin-perm-profile',    'action' => 'access']);
     Route::post(config('pulsar.appName') . '/pulsar/profiles/update/{page}',                    ['as'=>'updateProfile',         'uses'=>'Pulsar\Pulsar\Controllers\Profiles@updateRecord',              'resource' => 'admin-perm-profile',    'action' => 'edit']);
-    Route::get(config('pulsar.appName') . '/pulsar/profiles/destroy/{id?}',                      ['as'=>'destroyProfile',        'uses'=>'Pulsar\Pulsar\Controllers\Profiles@destroyRecord',             'resource' => 'admin-perm-profile',    'action' => 'delete']);
+    Route::get(config('pulsar.appName') . '/pulsar/profiles/destroy/{id?}',                     ['as'=>'destroyProfile',        'uses'=>'Pulsar\Pulsar\Controllers\Profiles@destroyRecord',             'resource' => 'admin-perm-profile',    'action' => 'delete']);
     Route::delete(config('pulsar.appName') . '/pulsar/profiles/destroy/select/elements',        ['as'=>'destroySelectProfile',  'uses'=>'Pulsar\Pulsar\Controllers\Profiles@destroyRecordsSelect',      'resource' => 'admin-perm-profile',    'action' => 'delete']);
 
 
