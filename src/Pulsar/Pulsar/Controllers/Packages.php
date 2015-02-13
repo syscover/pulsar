@@ -19,14 +19,14 @@ class Packages extends BaseController {
     protected $folder       = 'packages';
     protected $package    = 'pulsar';
     
-    public function index($inicio=0)
+    public function index($offset=0)
     {
 
 
         Miscellaneous::sessionParamterSetPage($this->resource);
         
         $data['recurso']        = $this->resource;
-        $data['inicio']         = $inicio; 
+        $data['inicio']         = $offset;
         $data['javascriptView'] = 'pulsar::pulsar.pulsar.packages.js.index';
         
         return view('pulsar::pulsar.pulsar.packages.index',$data);
@@ -90,14 +90,14 @@ class Packages extends BaseController {
         return view('pulsar::pulsar.pulsar.common.json_display',$data);
     }
     
-    public function create($inicio=0)
+    public function create($offset=0)
     {
 
         
-        return view('pulsar::pulsar.pulsar.packages.create',array('inicio' => $inicio));
+        return view('pulsar::pulsar.pulsar.packages.create',array('inicio' => $offset));
     }
     
-    public function store($inicio=0)
+    public function store($offset=0)
     {
 
         
@@ -105,7 +105,7 @@ class Packages extends BaseController {
               
         if ($validation->fails())
         {
-            return Redirect::route('createModulo',array($inicio))->withErrors($validation)->withInput();
+            return Redirect::route('createModulo',array($offset))->withErrors($validation)->withInput();
         }
         else
         {
@@ -115,24 +115,24 @@ class Packages extends BaseController {
                     
             )); 
 
-            return Redirect::route('packages', array($inicio))->with(array(
+            return Redirect::route('packages', array($offset))->with(array(
                 'msg'        => 1,
                 'txtMsg'     => Lang::get('pulsar::pulsar.aviso_alta_registro', array('nombre' => Input::get('nombre')))
             ));
         }
     }
     
-    public function edit($id, $inicio=0)
+    public function edit($id, $offset=0)
     {
 
         
-        $data['inicio'] = $inicio;
+        $data['inicio'] = $offset;
         $data['modulo'] = Package::find($id);
         
         return view('pulsar::pulsar.pulsar.packages.edit',$data);
     }
     
-    public function update($inicio=0)
+    public function update($offset=0)
     {
         if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'edit')) App::abort(403, 'Permission denied.');
         
@@ -140,7 +140,7 @@ class Packages extends BaseController {
         
         if ($validation->fails())
         {
-            return Redirect::route('editModulo',array(Input::get('id'), $inicio))->withErrors($validation);
+            return Redirect::route('editModulo',array(Input::get('id'), $offset))->withErrors($validation);
         }
         else
         {
@@ -152,7 +152,7 @@ class Packages extends BaseController {
             // update object packages from session
             Session::put('modulos', Package::getModulosForSession());
 
-            return Redirect::route('packages', array($inicio))->with(array(
+            return Redirect::route('packages', array($offset))->with(array(
                 'msg'        => 1,
                 'txtMsg'     => Lang::get('pulsar::pulsar.aviso_actualiza_registro', array('nombre' => Input::get('nombre')))
             ));

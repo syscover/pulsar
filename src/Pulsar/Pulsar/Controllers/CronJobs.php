@@ -26,14 +26,14 @@ class CronJobs extends BaseController
 {
     private $resource = 'admin-cron';
     
-    public function index($inicio=0)
+    public function index($offset=0)
     {
 
 
         Miscellaneous::sessionParamterSetPage($this->resource);
 
         $data['recurso']        = $this->resource;
-        $data['inicio']         = $inicio; 
+        $data['inicio']         = $offset;
         $data['javascriptView'] = 'pulsar::pulsar.pulsar.cron_jobs.js.index';
 
         return view('pulsar::pulsar.pulsar.cron_jobs.index',$data);
@@ -117,7 +117,7 @@ class CronJobs extends BaseController
         return view('pulsar::pulsar.pulsar.common.json_display',$data);
     }
     
-    public function run($id, $inicio=0)
+    public function run($id, $offset=0)
     {
 
         
@@ -126,20 +126,20 @@ class CronJobs extends BaseController
         
         $comando(); //ejecutamos la tarea
 
-        return Redirect::route('cronJobs', array($inicio))->with(array(
+        return Redirect::route('cronJobs', array($offset))->with(array(
             'msg'        => 1,
             'txtMsg'     => Lang::get('pulsar::pulsar.tarea_ejecutada',array('nombre' => $cronJob->nombre_043))
         ));
     }
     
-    public function create($inicio=0)
+    public function create($offset=0)
     {
 
         
-        return view('pulsar::pulsar.pulsar.cron_jobs.create',array('inicio' => $inicio, 'modulos' =>  Package::all()));
+        return view('pulsar::pulsar.pulsar.cron_jobs.create',array('inicio' => $offset, 'modulos' =>  Package::all()));
     }
     
-    public function store($inicio=0)
+    public function store($offset=0)
     {
 
         
@@ -147,7 +147,7 @@ class CronJobs extends BaseController
               
         if ($validation->fails())
         {
-            return Redirect::route('createCronJob',array($inicio))->withErrors($validation)->withInput();
+            return Redirect::route('createCronJob',array($offset))->withErrors($validation)->withInput();
         }
         else
         {            
@@ -166,15 +166,15 @@ class CronJobs extends BaseController
             Session::flash('msg',1);
             Session::flash('txtMsg',Lang::get('pulsar::pulsar.aviso_alta_registro',array('nombre' => Input::get('nombre'))));
             
-            return Redirect::route('cronJobs',array($inicio));
+            return Redirect::route('cronJobs',array($offset));
         }
     }
     
-    public function edit($id, $inicio=0)
+    public function edit($id, $offset=0)
     {
 
         
-        $data['inicio'] = $inicio;
+        $data['inicio'] = $offset;
         $data['cronJob'] = CronJob::find($id);
         $data['modulos'] = Package::all();
         $date = new \DateTime();
@@ -185,7 +185,7 @@ class CronJobs extends BaseController
         return view('pulsar::pulsar.pulsar.cron_jobs.edit',$data);
     }
     
-    public function update($inicio=0)
+    public function update($offset=0)
     {
         if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'edit')) App::abort(403, 'Permission denied.');
         
@@ -193,7 +193,7 @@ class CronJobs extends BaseController
         
         if ($validation->fails())
         {
-            return Redirect::route('editCronJob',array(Input::get('id'), $inicio))->withErrors($validation);
+            return Redirect::route('editCronJob',array(Input::get('id'), $offset))->withErrors($validation);
         }
         else
         {
@@ -209,7 +209,7 @@ class CronJobs extends BaseController
             Session::flash('msg',1);
             Session::flash('txtMsg', Lang::get('pulsar::pulsar.aviso_actualiza_registro',array('nombre' => Input::get('nombre'))));
             
-            return Redirect::route('cronJobs',array($inicio));
+            return Redirect::route('cronJobs',array($offset));
         }
     }
 
@@ -227,7 +227,7 @@ class CronJobs extends BaseController
         return Redirect::route('cronJobs');
     }
     
-    public function destroySelect($inicio=0)
+    public function destroySelect($offset=0)
     {
         i
         

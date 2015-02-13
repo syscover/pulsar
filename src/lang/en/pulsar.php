@@ -37,9 +37,10 @@ return array(
 
     'edit_record'                           => 'Edit record',
     'delete_record'                         => 'Delete record',
+    'edit_permissions'                      => 'Edit permissions',
 
     'message_log_recorded'                  => 'Registration <strong>:name</strong> has been properly recorded',
-    'message_delete_record'                 => 'Do you want to delete the record with <strong>ID \' + id + \' </strong>?',
+    'message_delete_record'                 => 'Do you want to delete the record with <strong>ID \' + idRecord + \' </strong>?',
     'message_delete_records'                => 'Do you want to delete the selected records?',
     'message_delete_record_successful'      => 'Registration <strong>:name</strong> has been deleted successfully',
     'message_delete_records_successful'     => 'Selected records have been deleted successfully',
@@ -49,6 +50,9 @@ return array(
 
     'administration'                        => 'Administration',
     'action'                                => 'Action|Actions',
+    'resource'                              => 'Resource|Resources',
+    'package'                               => 'Package|Packages',
+    'profile'                               => 'Profile|Profiles',
 
     'name'                                  => 'Name',
     'language'                              => 'Language|Languages',
@@ -56,6 +60,7 @@ return array(
     'image'                                 => 'Image|Images',
 
     'action_successful'                     => 'Action successful!',
+    'choose_a'                              => 'Choose a',
 
 
 

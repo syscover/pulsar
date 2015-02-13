@@ -10,13 +10,10 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Request;
 use Pulsar\Pulsar\Libraries\Miscellaneous;
 use Pulsar\Pulsar\Models\Lang;
 use Pulsar\Pulsar\Traits\ControllerTrait;
@@ -25,13 +22,13 @@ class Langs extends BaseController {
 
     use ControllerTrait;
 
-    protected $resource = 'admin-lang';
-    protected $route    = 'langs';
-    protected $folder   = 'langs';
-    protected $package  = 'pulsar';
-    protected $aColumns = ['id_001', ['name' =>'image_001', 'type' => 'img', 'url' => '/packages/pulsar/pulsar/storage/langs/'], 'name_001', ['name' => 'base_001', 'type' => 'check'], ['name' => 'active_001', 'type' => 'active'], 'sorting_001'];
-    protected $nameM    = 'name_001';
-    protected $model    = '\Pulsar\Pulsar\Models\Lang';
+    protected $resource     = 'admin-lang';
+    protected $routePrefix  = 'Lang';
+    protected $folder       = 'langs';
+    protected $package      = 'pulsar';
+    protected $aColumns     = ['id_001', ['name' =>'image_001', 'type' => 'img', 'url' => '/packages/pulsar/pulsar/storage/langs/'], 'name_001', ['name' => 'base_001', 'type' => 'check'], ['name' => 'active_001', 'type' => 'active'], 'sorting_001'];
+    protected $nameM        = 'name_001';
+    protected $model        = '\Pulsar\Pulsar\Models\Lang';
 
 
     public function store($offset = 0)

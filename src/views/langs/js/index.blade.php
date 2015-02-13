@@ -1,15 +1,10 @@
+@include('pulsar::common.js.script_datatable_config')
 <script type="text/javascript">
-    function deleteElement(id)
-    {
-        var url = "{{ url(config('pulsar.appName') . '/pulsar/langs/destroy/') }}/" + id;
-        @include('pulsar::common.js.script_delete_element')
-    }
-    
-    @include('pulsar::common.js.script_delete_elements')
+    @include('pulsar::common.js.script_delete_records')
     
     $(document).ready(function() {
-        @include('pulsar::common.js.script_success_mensaje')
-        @include('pulsar::common.js.script_config_datatable')
+        @include('pulsar::common.js.script_success_message')
+
         if ($.fn.dataTable) {
             $('.datatable-pulsar').dataTable({
                 'iDisplayStart' : {{ $offset }},
@@ -23,9 +18,9 @@
                 ],
                 "bProcessing": true,
                 "bServerSide": true,
-                "sAjaxSource": "{{ url(config('pulsar.appName') . '/pulsar/langs/json/data') }}"
+                "sAjaxSource": "{{ route('jsonDataLang') }}"
             }).fnSetFilteringDelay();
-            @include('pulsar::common.js.script_button_delete')
+
         }
     });
 </script>

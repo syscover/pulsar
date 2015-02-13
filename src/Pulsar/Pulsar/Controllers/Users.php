@@ -20,7 +20,7 @@ class Usuarios extends BaseController {
     
     private $resource = 'admin-user';
     
-    public function index($inicio=0)
+    public function index($offset=0)
     {
 
         
@@ -28,7 +28,7 @@ class Usuarios extends BaseController {
         Miscellaneous::sessionParamterSetPage($this->resource);
   
         $data['recurso']        = $this->resource; // Variable para instanciar permisos
-        $data['inicio']         = $inicio; 
+        $data['inicio']         = $offset;
         $data['javascriptView'] = 'pulsar::pulsar.pulsar.usuarios.js.index';
         
         return view('pulsar::pulsar.pulsar.usuarios.index',$data);
@@ -104,18 +104,18 @@ class Usuarios extends BaseController {
         return view('pulsar::pulsar.pulsar.common.json_display',$data);
     }
     
-    public function create($inicio=0)
+    public function create($offset=0)
     {
 
         
         $data['idiomas']    = Idioma::getIdiomasActivos();
         $data['perfiles']   = Perfil::get();
         
-        $data['inicio']     = $inicio;
+        $data['inicio']     = $offset;
         return view('pulsar::pulsar.pulsar.usuarios.create',$data);
     }
     
-    public function store($inicio=0)
+    public function store($offset=0)
     {
 
         
@@ -123,7 +123,7 @@ class Usuarios extends BaseController {
               
         if ($validation->fails())
         {
-            return Redirect::route('createUsuario',array($inicio))->withErrors($validation)->withInput();
+            return Redirect::route('createUsuario',array($offset))->withErrors($validation)->withInput();
         }
         else
         {
@@ -142,23 +142,23 @@ class Usuarios extends BaseController {
             Session::flash('msg',1);
             Session::flash('txtMsg',Lang::get('pulsar::pulsar.aviso_alta_registro',array('nombre' => Input::get('nombre'))));
             
-            return Redirect::route('usuarios', array($inicio));
+            return Redirect::route('usuarios', array($offset));
         }
     }
     
-    public function edit($id, $inicio=0)
+    public function edit($id, $offset=0)
     {
 
         
         $data['idiomas']    = Idioma::getIdiomasActivos();
         $data['perfiles']   = Perfil::get();
-        $data['inicio']     = $inicio;
+        $data['inicio']     = $offset;
         $data['usuario']    = Usuario::find($id);
         
         return view('pulsar::pulsar.pulsar.usuarios.edit', $data);
     }
     
-    public function update($inicio=0)
+    public function update($offset=0)
     {
         if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'edit')) App::abort(403, 'Permission denied.');
         
@@ -172,7 +172,7 @@ class Usuarios extends BaseController {
         
         if ($validation->fails())
         {
-            return Redirect::route('editUsuario',array(Input::get('id'), $inicio))->withErrors($validation);
+            return Redirect::route('editUsuario',array(Input::get('id'), $offset))->withErrors($validation);
         }
         else
         {
@@ -189,7 +189,7 @@ class Usuarios extends BaseController {
                 
             Usuario::where('id_010','=',Input::get('id'))->update($usuarioData);
 
-            return Redirect::route('usuarios', array($inicio))->with(array(
+            return Redirect::route('usuarios', array($offset))->with(array(
                 'msg'        => 1,
                 'txtMsg'     => Lang::get('pulsar::pulsar.aviso_actualiza_registro',array('nombre' => Input::get('nombre')))
             ));
@@ -209,7 +209,7 @@ class Usuarios extends BaseController {
         ));
     }
     
-    public function destroySelect($inicio=0)
+    public function destroySelect($offset=0)
     {
         i
         

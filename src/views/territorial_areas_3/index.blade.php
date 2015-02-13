@@ -1,7 +1,7 @@
 @extends('pulsar::layouts.default')
 
 @section('script')
-    @include('pulsar::pulsar.pulsar.common.block.block_script_header_list')
+    @include('pulsar::common.block.block_script_header_list')
 @stop
 
 @section('breadcrumbs')
@@ -44,10 +44,10 @@
                         </thead>
                         <tbody></tbody>
                     </table>
-                    <input type="hidden" name="nElementsDataTable" value="" />
+                    <input type="hidden" name="nElementsDataTable">
                 </form>
             </div>
         </div>
-    </div> <!-- /.col-md-12 -->
-</div> <!-- /.row -->
+    </div>
+</div>
 @stop

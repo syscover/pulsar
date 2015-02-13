@@ -1,28 +1,20 @@
+@include('pulsar::common.js.script_success_message')
+@include('pulsar::common.js.script_datatable_config')
 <script type="text/javascript">
-    function deleteElement(id)
-    {
-        var url = "{{ url(config('pulsar.appName') . '/pulsar/resources/destroy/') }}/" + id;
-        @include('pulsar::common.js.script_delete_element')
-    }
-    
-    @include('pulsar::common.js.script_delete_elements')
-    
     $(document).ready(function() {
-        @include('pulsar::common.js.script_success_mensaje')
-        @include('pulsar::common.js.script_config_datatable')
-        if ($.fn.dataTable) {
+        if ($.fn.dataTable)
+        {
             $('.datatable-pulsar').dataTable({
                 'iDisplayStart' : {{ $offset }},
                 'aoColumnDefs': [
-                        { 'bSortable': false, 'aTargets': [3,4]},
-                        { 'sClass': 'checkbox-column', 'aTargets': [3]},
-                        { 'sClass': 'align-center', 'aTargets': [4]}
+                    { 'bSortable': false, 'aTargets': [3,4]},
+                    { 'sClass': 'checkbox-column', 'aTargets': [3]},
+                    { 'sClass': 'align-center', 'aTargets': [4]}
                 ],
                 "bProcessing": true,
                 "bServerSide": true,
-                "sAjaxSource": "{{ url(config('pulsar.appName') . '/pulsar/resources/json/data') }}"
+                "sAjaxSource": "{{ route('jsonData' . $routeSuffix) }}"
             }).fnSetFilteringDelay();
-            @include('pulsar::common.js.script_button_delete')
         }
     });
 </script>

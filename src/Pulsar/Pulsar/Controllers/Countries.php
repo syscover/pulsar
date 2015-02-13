@@ -183,18 +183,18 @@ class Countries extends BaseController {
         return view('pulsar::pulsar.pulsar.common.json_display',$data);
     }
     
-    public function create($inicio=0, $idioma, $id=null)
+    public function create($offset = 0, $lang, $id = null)
     {
         if($id != null)
         {
             $data['pais'] = Pais::getPais($id, Session::get('idiomaBase')->id_001);
         }
-        $data['inicio'] = $inicio;
+        $data['inicio'] = $offset;
         $data['idioma'] = Language::find($idioma);
         return view('pulsar::pulsar.pulsar.paises.create',$data);
     }
     
-    public function store($inicio=0)
+    public function store($offset=0)
     {
 
         
@@ -205,7 +205,7 @@ class Countries extends BaseController {
               
         if ($validation->fails())
         {
-            return Redirect::route('createPais',array($inicio,Input::get('idioma')))->withErrors($validation)->withInput();
+            return Redirect::route('createPais',array($offset,Input::get('idioma')))->withErrors($validation)->withInput();
         }
         else
         {
@@ -225,22 +225,22 @@ class Countries extends BaseController {
             Session::flash('msg',1);
             Session::flash('txtMsg',Lang::get('pulsar::pulsar.aviso_alta_registro',array('nombre' => Input::get('nombre'))));
             
-            return Redirect::route('paises',array($inicio));  
+            return Redirect::route('paises',array($offset));
         }
     }
     
-    public function edit($id, $idioma, $inicio=0)
+    public function edit($id, $idioma, $offset=0)
     {
 
         
-        $data['inicio']         = $inicio;
+        $data['inicio']         = $offset;
         $data['pais']           = Pais::getPais($id, $idioma);
         $data['idioma']         = $data['pais']->idioma;
         $data['javascriptView'] = 'pulsar::pulsar.pulsar.paises.js.edit';
         return view('pulsar::pulsar.pulsar.paises.edit',$data);
     }
     
-    public function update($inicio=0)
+    public function update($offset=0)
     {
         if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'edit')) App::abort(403, 'Permission denied.');
         
@@ -248,7 +248,7 @@ class Countries extends BaseController {
         
         if ($validation->fails())
         {
-            return Redirect::route('editPais',array(Input::get('id'), Input::get('idioma'), $inicio))->withErrors($validation);
+            return Redirect::route('editPais',array(Input::get('id'), Input::get('idioma'), $offset))->withErrors($validation);
         }
         else
         {
@@ -269,7 +269,7 @@ class Countries extends BaseController {
             Session::flash('msg',1);
             Session::flash('txtMsg',Lang::get('pulsar::pulsar.aviso_actualiza_registro',array('nombre' => Input::get('nombre'))));
             
-            return Redirect::route('paises',array($inicio));
+            return Redirect::route('paises',array($offset));
         }
     }
     
@@ -287,7 +287,7 @@ class Countries extends BaseController {
         return Redirect::route('paises');
     }
         
-    public function destroySelect($inicio=0)
+    public function destroySelect($offset=0)
     {
 
         
@@ -307,7 +307,7 @@ class Countries extends BaseController {
         return Redirect::route('paises');
     }
     
-    public function destroyLang($id, $idioma, $inicio=0)
+    public function destroyLang($id, $idioma, $offset=0)
     {
 
         
@@ -317,7 +317,7 @@ class Countries extends BaseController {
         //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
         Session::flash('msg',1);
         Session::flash('txtMsg', Lang::get('pulsar::pulsar.borrado_registro',array('nombre' => $pais->nombre_002)));
-        return Redirect::route('paises', array($inicio));
+        return Redirect::route('paises', array($offset));
     }
     
     public function jsonGetPais($id)

@@ -10,7 +10,7 @@
     <a href="javascript:void(0);">{{ trans('pulsar::pulsar.administration') }}</a>
 </li>
 <li class="current">
-    <a href="{{ url(config('pulsar.appName') . '/pulsar/langs') }}">{{ trans_choice('pulsar::pulsar.language', 2) }}</a>
+    <a href="{{ route('Lang') }}">{{ trans_choice('pulsar::pulsar.language', 2) }}</a>
 </li>
 @stop
 
@@ -20,7 +20,7 @@
         <div class="widget box">
             <div class="widget-header"><h4><i class="brocco-icon-flag"></i> {{ trans_choice('pulsar::pulsar.language', 1) }}</h4></div>
             <div class="widget-content">
-                <form class="form-horizontal" method="post" action="{{ url(config('pulsar.appName') . '/pulsar/langs/store/' . $offset) }}" enctype="multipart/form-data">
+                <form class="form-horizontal" method="post" action="{{ route('storeLang', $offset) }}" enctype="multipart/form-data">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
                         <label class="col-md-2 control-label">ID <span class="required">*</span></label>
@@ -65,7 +65,7 @@
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="btn marginR10">{{ trans('pulsar::pulsar.save') }}</button>
-                        <a class="btn btn-inverse" href="{{ url(config('pulsar.appName') . '/pulsar/langs/' . $offset) }}">{{ trans('pulsar::pulsar.cancel') }}</a>
+                        <a class="btn btn-inverse" href="{{ route('langs', $offset) }}}">{{ trans('pulsar::pulsar.cancel') }}</a>
                     </div>
                 </form>
             </div>

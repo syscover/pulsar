@@ -19,7 +19,7 @@ class Permisos extends BaseController
     
     private $resource = 'admin-pass-pass';
     
-    public function index($perfil, $inicioPerfil=0, $inicio=0)
+    public function index($perfil, $offsetPerfil=0, $offset=0)
     {
 
 
@@ -27,8 +27,8 @@ class Permisos extends BaseController
         Miscellaneous::sessionParamterSetPage($this->resource);
                 
         //instanciamos la variable de inicio pasra sabel el punto de inicio en caso de borrado o edición, volver al mismo punto de la lista
-        $data['inicio']         = $inicio;
-        $data['inicioPerfil']   = $inicioPerfil;
+        $data['inicio']         = $offset;
+        $data['inicioPerfil']   = $offsetPerfil;
         $data['perfil']         = Perfil::find($perfil);
         $data['javascriptView'] = 'pulsar::pulsar.pulsar.permisos.js.index';
                 

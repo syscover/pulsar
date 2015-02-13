@@ -20,13 +20,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $table        = '001_010_user';
     protected $primaryKey   = 'id_010';
     public $timestamps      = true;
-    protected $fillable     = array('id_010','lang_010','profile_010','access_010','user_010','password_010','email_010','name_010','surname_010');
-    public static $rules    = array(
+    protected $fillable     = ['id_010','lang_010','profile_010','access_010','user_010','password_010','email_010','name_010','surname_010'];
+    public static $rules    = [
         'nombre'        => 'required|between:2,50',
         'apellidos'     => 'required|between:2,50',
         'idioma'        => 'not_in:null',
         'perfil'        => 'not_in:null'
-    );
+    ];
 
     /**
      * Get the unique identifier for the user.

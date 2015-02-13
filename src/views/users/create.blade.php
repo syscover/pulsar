@@ -19,7 +19,7 @@
         <div class="widget box">
             <div class="widget-header"><h4><i class="icomoon-icon-users"></i> Usuario</h4></div>
             <div class="widget-content">
-                <form class="form-horizontal" method="post" action="{{ url(config('pulsar.appName')) }}/pulsar/usuarios/store/{{ $offset }}">
+                <form class="form-horizontal" method="post" action="{{ route('storeUser', $offset) }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
                         <label class="col-md-2 control-label">ID</label>

@@ -4,22 +4,13 @@
     @include('pulsar::common.block.block_script_header_form')
 @stop
 
-@section('breadcrumbs')
-<li>
-    <a href="javascript:void(0);">{{ trans('pulsar::pulsar.administration') }}</a>
-</li>
-<li class="current">
-    <a href="{{ url(config('pulsar.appName') . '/pulsar/actions') }}">{{ trans_choice('pulsar::pulsar.action', 2) }}</a>
-</li>
-@stop
-
 @section('mainContent')
 <div class="row">
     <div class="col-md-12">
         <div class="widget box">
             <div class="widget-header"><h4><i class="icomoon-icon-power"></i> {{ trans_choice('pulsar::pulsar.action', 1) }}</h4></div>
             <div class="widget-content">
-                <form class="form-horizontal" method="post" action="{{ url(config('pulsar.appName') . '/pulsar/actions/store/' . $offset) }}">
+                <form class="form-horizontal" method="post" action="{{ route('store' . $routeSuffix, $offset) }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
                         <label class="col-md-2 control-label">ID</label>
@@ -37,7 +28,7 @@
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="btn marginR10">{{ trans('pulsar::pulsar.save') }}</button>
-                        <a class="btn btn-inverse" href="{{ url(config('pulsar.appName') . '/pulsar/actions/' . $offset) }}">{{ trans('pulsar::pulsar.cancel') }}</a>
+                        <a class="btn btn-inverse" href="{{ route($routeSuffix, $offset) }}">{{ trans('pulsar::pulsar.cancel') }}</a>
                     </div>
                 </form>
             </div>

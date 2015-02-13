@@ -20,11 +20,11 @@ class Resource extends Model
 	protected $table        = '001_007_resource';
     protected $primaryKey   = 'id_007';
     public $timestamps      = false;
-    protected $fillable     = array('id_007', 'name_007', 'module_007');
-    public static $rules    = array(
+    protected $fillable     = ['id_007', 'name_007', 'package_007'];
+    public static $rules    = [
         'module'    =>  'not_in:null',
         'name'      =>  'required|between:2,50'
-    );
+    ];
 
     public static function validate($data, $idRule=true)
     {

@@ -8,129 +8,51 @@ use Illuminate\Support\Facades\App,
     Illuminate\Support\Facades\URL,
     Illuminate\Support\Facades\Config,
     Illuminate\Support\Facades\Lang,
-    Illuminate\Support\Facades\View,
     Illuminate\Support\Facades\Redirect,
-    Pulsar\Pulsar\Libraries\Miscellaneous,
-    Pulsar\Pulsar\Models\Perfil;
+    Pulsar\Pulsar\Libraries\Miscellaneous;
+use Pulsar\Pulsar\Traits\ControllerTrait;
 
-class Perfiles extends BaseController
-{
-    private $resource    = 'admin-pass-profile';
-    private $rePermisos = 'admin-pass-pass';
-    
-    public function index($inicio=0)
+class Profiles extends BaseController {
+
+    use ControllerTrait;
+
+    protected $resource     = 'admin-perm-profile';
+    protected $routeSuffix  = 'Profile';
+    protected $folder       = 'profiles';
+    protected $package      = 'pulsar';
+    protected $aColumns     = ['id_006','name_006'];
+    protected $nameM        = 'name_006';
+    protected $model        = '\Pulsar\Pulsar\Models\Profile';
+
+    private $rePermission   = 'admin-perm-perm';
+
+    public function jsonCustomDataBeforeActions($aObject)
     {
-
-        
-        //Inicializa las sesiones para las búsquedas rápidas desde la vista de tablas en caso de cambio de página
-        Miscellaneous::sessionParamterSetPage($this->resource);
-               
-        //instanciamos la variable de inicio pasra sabel el punto de inicio en caso de borrado o edición, volver al mismo punto de la lista
-        $data['recurso']        = $this->resource;
-        $data['inicio']         = $inicio; 
-        $data['javascriptView'] = 'pulsar::pulsar.pulsar.perfiles.js.index';
-        
-        //$data['re_permisos'] = $this->re_permisos;
-        return view('pulsar::pulsar.pulsar.perfiles.index',$data);
+        return Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip" title="" href="' . route('permissions', [$aObject['id_006'], Input::get('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_permissions').'"><i class="icon-shield"></i></a>' : null;
     }
     
-    public function jsonData()
+    public function store($offset = 0)
     {
-
-        
-        //Columnas para instanciar filtos de la tabla
-	    $aColumns = array('id_006','nombre_006');
-        $params = array();
-        
-        //Paginado de la tabla
-        $params =  Miscellaneous::paginateDataTable($params);
-	    
-        //Orden de la tabla
-        $params =  Miscellaneous::dataTableSorting($params, $aColumns);
-        
-        //filtrados de la tabla
-        $params =  Miscellaneous::filteringDataTable($params);
-	        
-        //Toma de datos para la tabla
-        $objects       = Perfil::getPerfilesLimit($aColumns, $params['sLength'], $params['sStart'], $params['sOrder'], $params['sTypeOrder'], $params['sWhere']);
-        $iFilteredTotal = Perfil::getPerfilesLimit($aColumns, null, null, $params['sOrder'], $params['sTypeOrder'], $params['sWhere'])->count();
-        $iTotal         = Perfil::count();
-        
-        //cabecera JSON
-        $output = array(
-            "sEcho"                 => intval(Input::get('sEcho')),
-            "iTotalRecords"         => $iTotal,
-            "iTotalDisplayRecords"  => $iFilteredTotal,
-            "aaData"                => array()
-        );
-        
-        $aObjects = $objects->toArray(); $i=0;
-        foreach($aObjects as $aObject)
-        {
-		    $row = array();
-		    foreach ($aColumns as $aColumn)
-            {
-                $row[] = $aObject[$aColumn];
-		    }
-
-            $row[] = '<input type="checkbox" class="uniform" name="element'.$i.'" value="'.$aObject['id_006'].'">';
-            //Botones de acciones
-            $acciones = Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->rePermisos,'access')? '<a class="btn btn-xs bs-tooltip" title="" href="'.URL::to(Config::get('pulsar::pulsar.rootUri')).'/pulsar/permisos/'.$aObject['id_006'].'/'.Input::get('iDisplayStart').'" data-original-title="'.Lang::get('pulsar::pulsar.editar_permisos').'"><i class="icon-shield"></i></a>' : '';
-            $acciones .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" title="" href="'.URL::to(Config::get('pulsar::pulsar.rootUri')).'/pulsar/perfiles/'.$aObject['id_006'].'/edit/'.Input::get('iDisplayStart').'" data-original-title="'.Lang::get('pulsar::pulsar.editar_registro').'"><i class="icon-pencil"></i></a>' : '';
-            $acciones .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip" title="" href="javascript:deleteElement(\''.$aObject['id_006'].'\')" data-original-title="'.Lang::get('pulsar::pulsar.borrar_registro').'"><i class="icon-trash"></i></a>' : '';
-		    $row[] =  $acciones;
-                
-            $output['aaData'][] = $row;
-            $i++;
-	    }
-                
-        $data['json'] = json_encode($output);
-        
-        return view('pulsar::pulsar.pulsar.common.json_display',$data);
-    }
-    
-    public function create($inicio=0)
-    {
-
-        
-        $data['inicio'] = $inicio;
-        return view('pulsar::pulsar.pulsar.perfiles.create',$data);
-    }
-    
-    public function store($inicio=0)
-    {
-
-        
-        $validation = Perfil::validate(Input::all());
+        $validation = call_user_func($this->model . '::validate', Input::all());
               
         if ($validation->fails())
         {
-            return Redirect::route('createPerfil',array($inicio))->withErrors($validation)->withInput();
+            return Redirect::route('create' . $this->routeSuffix, $offset)->withErrors($validation)->withInput();
         }
         else
         {
             Perfil::create(array(
-                'nombre_006'  => Input::get('nombre')
-            )); 
-            //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
-            Session::flash('msg',1);
-            Session::flash('txtMsg',Lang::get('pulsar::pulsar.aviso_alta_registro',array('nombre' => Input::get('nombre'))));
-            
-            return Redirect::route('perfiles',array($inicio));
+                'name_006'  => Input::get('name')
+            ));
+
+            return Redirect::route($this->routeSuffix, $offset)->with([
+                'msg'        => 1,
+                'txtMsg'     => trans('pulsar::pulsar.message_log_recorded', ['name' => Input::get('name')])
+            ]);
         }
     }
     
-    public function edit($id, $inicio=0)
-    {
-
-        
-        $data['inicio'] = $inicio;
-        $data['perfil'] = Perfil::find($id);
-        
-        return view('pulsar::pulsar.pulsar.perfiles.edit',$data);
-    }
-    
-    public function update($inicio=0)
+    public function update($offset=0)
     {
         if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'edit')) App::abort(403, 'Permission denied.');
         
@@ -138,7 +60,7 @@ class Perfiles extends BaseController
         
         if ($validation->fails())
         {
-            return Redirect::route('editPerfil',array(Input::get('id'), $inicio))->withErrors($validation);
+            return Redirect::route('editPerfil',array(Input::get('id'), $offset))->withErrors($validation);
         }
         else
         {
@@ -150,42 +72,7 @@ class Perfiles extends BaseController
             Session::flash('msg',1);
             Session::flash('txtMsg',Lang::get('pulsar::pulsar.aviso_actualiza_registro',array('nombre' => Input::get('nombre'))));
             
-            return Redirect::route('perfiles',array($inicio));
+            return Redirect::route('perfiles',array($offset));
         }
-    }
-
-    public function destroy($id)
-    {
-
-        
-        $perfil = Perfil::find($id);
-        Perfil::destroy($id);
-        
-        //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
-        Session::flash('msg',1);
-        Session::flash('txtMsg', Lang::get('pulsar::pulsar.borrado_registro',array('nombre' => $perfil->nombre_006)));
-        
-        return Redirect::route('perfiles');
-    }
-    
-    public function destroySelect($inicio=0)
-    {
-
-        
-        $nElements = Input::get('nElementsDataTable'); 
-        $ids = array();
-        for($i=0;$i<$nElements;$i++){
-            if(Input::get('element'.$i) != false){
-                array_push($ids, Input::get('element'.$i));
-            }
-        }
-                
-        Perfil::deletePerfiles($ids);
-        
-        //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición        
-        Session::flash('msg',1);
-        Session::flash('txtMsg', Lang::get('pulsar::pulsar.borrado_registros'));
-        
-        return Redirect::route('perfiles');
     }
 }

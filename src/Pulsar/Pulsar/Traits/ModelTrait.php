@@ -4,7 +4,7 @@ use Pulsar\Pulsar\Libraries\Miscellaneous;
 
 trait ModelTrait {
 
-    public static function getRecordsLimit($aColumns, $nResultados = null, $inicio = null, $orden = null, $tipoOrden = null, $sWhere = null, $sWhereColumns = null, $count = false)
+    public static function getRecordsLimit($aColumns, $nRecords = null, $offset = null, $sorting = null, $typeSorting = null, $sWhere = null, $sWhereColumns = null, $count = false)
     {
         $instance = new static;
         $query = $instance->query();
@@ -17,8 +17,8 @@ trait ModelTrait {
         }
         else
         {
-            if($nResultados != null)    $query->take($nResultados)->skip($inicio);
-            if($orden != null)          $query->orderBy($orden, $tipoOrden);
+            if($nRecords != null)    $query->take($nRecords)->skip($offset);
+            if($sorting != null)          $query->orderBy($sorting, $typeSorting);
 
             return $query->get();
         }

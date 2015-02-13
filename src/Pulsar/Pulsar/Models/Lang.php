@@ -10,10 +10,8 @@
  * @filesource
  */
 
-
-use Illuminate\Database\Eloquent\Model,
-    Illuminate\Support\Facades\Validator,
-    Pulsar\Pulsar\Libraries\Miscellaneous;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
 use Pulsar\Pulsar\Traits\ModelTrait;
 
 class Lang extends Model {
@@ -23,11 +21,11 @@ class Lang extends Model {
     protected $table        = '001_001_lang';
     protected $primaryKey   = 'id_001';
     public $timestamps      = false;
-    protected $fillable     = array('id_001', 'name_001', 'image_001', 'sorting_001', 'base_001', 'active_001');
-    public static $rules    = array(
+    protected $fillable     = ['id_001', 'name_001', 'image_001', 'sorting_001', 'base_001', 'active_001'];
+    public static $rules    = [
         'name'      => 'required|between:2,50',
         'sorting'   => 'required|min:0|numeric'
-    );
+    ];
 
     public static function validate($data, $imageRule = true, $idRule = true)
     {

@@ -37,9 +37,10 @@ return array(
 
     'edit_record'                           => 'Editar registro',
     'delete_record'                         => 'Borrar registro',
+    'edit_permissions'                      => 'Editar permisos',
 
     'message_log_recorded'                  => 'Registration <strong>:name</strong> has been properly recorded',
-    'message_delete_record'                 => '¿Desea borrar el registro con <strong>ID \'+id+\' </strong>?',
+    'message_delete_record'                 => '¿Desea borrar el registro con <strong>ID \' + idRecord + \' </strong>?',
     'message_delete_records'                => '¿Desea borrar los registros seleccionados?',
     'message_delete_record_successful'      => 'El registro <strong>:nombre</strong> ha sido borrado correctamente',
     'message_delete_records_successful'     => 'Los registros seleccionados han sido borrados correctamente',
@@ -49,6 +50,9 @@ return array(
 
     'administration'                        => 'Administración',
     'action'                                => 'Acción|Acciones',
+    'resource'                              => 'Recurso|Recursos',
+    'package'                               => 'Paquete|Paquetes',
+    'profile'                               => 'Perfil|Perfiles',
 
     'name'                                  => 'Nombre',
     'language'                              => 'Idioma|Idiomas',
@@ -56,6 +60,7 @@ return array(
     'image'                                 => 'Imagen|Imágenes',
 
     'action_successful'                     => '¡Acción realizada!',
+    'choose_a'                              => 'Elija un',
 
 
 

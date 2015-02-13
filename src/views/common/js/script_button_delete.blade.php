@@ -1,1 +1,0 @@
- $("div.buttonsDataTables").html('<a class="btn" href="javascript:deleteElements()">{{ trans('pulsar::pulsar.delete') }}</a>');

@@ -9,14 +9,14 @@
     <a href="javascript:void(0);">{{ trans('pulsar::pulsar.administration') }}</a>
 </li>
 <li class="current">
-    <a href="{{ url(config('pulsar.appName') . '/pulsar/languages') }}">{{ trans_choice('pulsar::pulsar.language', 2) }}</a>
+    <a href="{{ route('Lang') }}">{{ trans_choice('pulsar::pulsar.language', 2) }}</a>
 </li>
 @stop
 
 @section('mainContent')
 <div class="row">
     <div class="col-md-12">
-        <a class="btn marginB10" href="{{ url(config('pulsar.appName') . '/pulsar/langs/create/'. $offset) }}"><i class="brocco-icon-flag"></i> {{ trans('pulsar::pulsar.new') . ' '. trans_choice('pulsar::pulsar.language', 1) }}</a>
+        <a class="btn marginB10" href="{{ route('createLang', $offset) }}"><i class="brocco-icon-flag"></i> {{ trans('pulsar::pulsar.new') . ' '. trans_choice('pulsar::pulsar.language', 1) }}</a>
         <div class="widget box">
             <div class="widget-header">
                 <h4><i class="icon-reorder"></i> {{ trans_choice('pulsar::pulsar.language', 2) }}</h4>
@@ -27,7 +27,9 @@
                 </div>
             </div>
             <div class="widget-content no-padding">
-                <form id="formView" method="post" action="{{ url(config('pulsar.appName') . '/pulsar/langs/destroy/select/elements') }}">
+                <form id="formView" method="post" action="{{ route('destroySelectLang') }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="_method" value="DELETE">
                     <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable-pulsar">
                         <thead>
                             <tr>
@@ -47,6 +49,6 @@
                 </form>
             </div>
         </div>
-    </div> <!-- /.col-md-12 -->
-</div> <!-- /.row -->
+    </div>
+</div>
 @stop

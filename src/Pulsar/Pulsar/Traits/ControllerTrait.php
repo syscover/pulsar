@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\Redirect;
 trait ControllerTrait {
 
     /**
+    * protected $resource;      Name of resource
+    * protected $routeSuffix;   Suffix of routes
+    * protected $folder;        Name of folder that contain views
+    * protected $package;       Name of package
+    * protected $aColumns;      Name of column with your data type
+    * protected $nameM;         Name to put on message
+    * protected $model;         Name of model
+    */
+
+    /**
      * @access	public
      * @param   integer  $offset
      * @return	View
@@ -18,6 +28,9 @@ trait ControllerTrait {
     {
         Miscellaneous::setParameterSessionPage($this->resource);
 
+        $data['package']        = $this->package;
+        $data['folder']         = $this->folder;
+        $data['routeSuffix']    = $this->routeSuffix;
         $data['resource']       = $this->resource;
         $data['offset']         = $offset;
         $data['javascriptView'] = 'pulsar::' . $this->folder . '.js.index';
@@ -43,6 +56,9 @@ trait ControllerTrait {
         $objects        = call_user_func($this->model . '::getRecordsLimit', $this->aColumns, $params['sLength'], $params['sStart'], $params['sOrder'], $params['sTypeOrder'], $params['sWhere']);
         $iFilteredTotal = call_user_func($this->model . '::getRecordsLimit', $this->aColumns, null, null, $params['sOrder'], $params['sTypeOrder'], $params['sWhere'], null, true);
         $iTotal         = call_user_func($this->model . '::count');
+
+        // get properties of model class
+        $class          = new \ReflectionClass($this->model);
 
         $output = [
             "sEcho"                 => Input::get('sEcho'),
@@ -82,8 +98,17 @@ trait ControllerTrait {
             }
             $row[] = '<input type="checkbox" class="uniform" name="element' . $i . '" value="' . $aObject[$instance->getKeyName()] . '">';
 
-            $actions = Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . url(config('pulsar.appName') . '/pulsar/' . $this->folder . '/' . $aObject[$instance->getKeyName()] . '/edit/' . Input::get('iDisplayStart')) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
-            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip" href="javascript:deleteElement(\'' . $aObject[$instance->getKeyName()] . '\')" data-original-title="' . trans('pulsar::pulsar.delete_record') . '"><i class="icon-trash"></i></a>' : null;
+            // check whether it is necessary to insert a data before
+            if(method_exists($this, 'jsonCustomDataBeforeActions'))
+            {
+                $actions = $this->jsonCustomDataBeforeActions($aObject);
+                $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . route('edit'. $class->getShortName(), [$aObject[$instance->getKeyName()], Input::get('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
+            }
+            else
+            {
+                $actions = Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . route('edit'. $class->getShortName(), [$aObject[$instance->getKeyName()], Input::get('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
+            }
+            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] .'" data-original-title="' . trans('pulsar::pulsar.delete_record') . '"><i class="icon-trash"></i></a>' : null;
             $row[] =  $actions;
 
             $output['aaData'][] = $row;
@@ -104,10 +129,42 @@ trait ControllerTrait {
     {
         if(method_exists($this, 'createCustomRecord'))
         {
-            $this->createCustomRecord();
+            $data = $this->createCustomRecord();
         }
 
-        return view('pulsar::' . $this->folder . '.create', ['offset' => $offset]);
+        $data['package']        = $this->package;
+        $data['folder']         = $this->folder;
+        $data['routeSuffix']    = $this->routeSuffix;
+        $data['offset']         = $offset;
+
+        return view('pulsar::' . $this->folder . '.create', $data);
+    }
+
+    /**
+     * @access	public
+     * @param   integer     $offset
+     * @return	Redirect
+     */
+    public function storeRecord($offset = 0)
+    {
+        $validation = call_user_func($this->model . '::validate', Input::all());
+
+        if ($validation->fails())
+        {
+            return Redirect::route('create' . $this->routeSuffix, $offset)->withErrors($validation)->withInput();
+        }
+        else
+        {
+            if(method_exists($this, 'storeCustomRecord'))
+            {
+                $this->storeCustomRecord();
+            }
+
+            return Redirect::route($this->routeSuffix, $offset)->with([
+                'msg'        => 1,
+                'txtMsg'     => trans('pulsar::pulsar.message_log_recorded', ['name' => Input::get('name')])
+            ]);
+        }
     }
 
     /**
@@ -118,8 +175,12 @@ trait ControllerTrait {
      */
     public function editRecord($id, $offset = 0)
     {
-        $data['offset'] = $offset;
-        $data['object'] = call_user_func($this->model . '::find', $id);
+        $data['package']        = $this->package;
+        $data['folder']         = $this->folder;
+        $data['routeSuffix']    = $this->routeSuffix;
+        $data['offset']         = $offset;
+        $data['object']         = call_user_func($this->model . '::find', $id);
+
         if(View::exists('pulsar::' . $this->folder . '.js.edit'))
             $data['javascriptView'] = 'pulsar::' . $this->folder . '.js.edit';
 
@@ -131,6 +192,43 @@ trait ControllerTrait {
         return view('pulsar::' . $this->folder . '.edit', $data);
     }
 
+    /**
+     * @access	public
+     * @param   integer     $offset
+     * @return	Redirect
+     */
+    public function updateRecord($offset = 0)
+    {
+        // check special rules
+        if(Input::has('idOld'))
+        {
+            $specialRules['idRule'] = Input::get('id') == Input::get('idOld')? false : true;
+            $id = Input::get('idOld');
+        }
+        else
+        {
+            $id = Input::get('id');
+        }
+
+        $validation = call_user_func($this->model . '::validate', Input::all(), $specialRules);
+
+        if ($validation->fails())
+        {
+            return Redirect::route('edit' . $this->routeSuffix, [$id, $offset])->withErrors($validation);
+        }
+        else
+        {
+            if(method_exists($this, 'updateCustomRecord'))
+            {
+                $this->updateCustomRecord($id);
+            }
+
+            return Redirect::route($this->routeSuffix, $offset)->with([
+                'msg'        => 1,
+                'txtMsg'     => trans('pulsar::pulsar.message_update_record', ['name' => Input::get('name')])
+            ]);
+        }
+    }
 
     /**
      * @access	public
@@ -148,7 +246,7 @@ trait ControllerTrait {
             $this->destroyCustomRecord($object);
         }
 
-        return Redirect::route($this->route)->with([
+        return Redirect::route($this->routeSuffix)->with([
             'msg'        => 1,
             'txtMsg'     => trans('pulsar::pulsar.message_delete_record_successful', ['name' => $object->{$this->nameM}])
         ]);
@@ -181,7 +279,7 @@ trait ControllerTrait {
             $this->destroyCustomRecords($ids);
         }
 
-        return Redirect::route($this->route)->with([
+        return Redirect::route($this->routeSuffix)->with([
             'msg'        => 1,
             'txtMsg'     => trans('pulsar::pulsar.message_delete_records_successful')
         ]);

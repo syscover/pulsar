@@ -1,46 +1,25 @@
 <?php namespace Pulsar\Pulsar\Controllers;
 
-use Illuminate\Support\Facades\App,
-    Illuminate\Support\Facades\Session,
-    Illuminate\Support\Facades\Auth,
-    Illuminate\Support\Facades\Input,
-    Illuminate\Support\Facades\URL,
-    Illuminate\Support\Facades\Config,
-    Illuminate\Support\Facades\Lang,
-    Illuminate\Support\Facades\View,
-    Illuminate\Support\Facades\Redirect,
-    Pulsar\Pulsar\Libraries\Miscellaneous,
-    Pulsar\Pulsar\Models\Modulo;
+/**
+ * @package	    Pulsar
+ * @author	    Jose Carlos Rodríguez Palacín
+ * @copyright   Copyright (c) 2015, SYSCOVER, SL
+ * @license
+ * @link		http://www.syscover.com
+ * @since		Version 2.0
+ * @filesource
+ */
 
 class Dashboard extends BaseController
 {
-    //Variable sin uso
-    //private $resource = 'admin-dashboard';
+    protected $folder       = 'dashboard';
+    protected $package      = 'pulsar';
     
-    public function index($inicio=0)
+    public function index()
     {
-        try
-        {
-            //
+        $data['package']        = $this->package;
+        $data['folder']         = $this->folder;
 
-            return view('pulsar::dashboard.index');
-
-            // $view =  view('pulsar::dashboard.index');
-            
-            //renderizamos la vista que para que compruebe que no varibles de recursos por dar de alta en la base de datos
-            //$view->render();
-            
-            //return $view;
-            
-        }
-        catch (\ErrorException $e)
-        {
-            {{ 'Error Falta dar de alta un recurso: <br>' . $e->getMessage(); }}
-            
-        } catch (\Zend\Permissions\Acl\Exception\InvalidArgumentException $e){
-            
-            {{ 'Error no tiene permisos para acceder al escritorio'; }}
-        }
+        return view('pulsar::dashboard.index', $data);
     }
 }
-

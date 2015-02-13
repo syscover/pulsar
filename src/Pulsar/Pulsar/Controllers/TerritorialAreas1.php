@@ -18,7 +18,7 @@ class TerritorialAreas1 extends BaseController {
         
     private $resource = 'admin-country-at1';
     
-    public function index($pais, $inicio=0){
+    public function index($pais, $offset=0){
 
         
         //Inicializa las sesiones para las búsquedas rápidas desde la vista de tablas en caso de cambio de página
@@ -26,7 +26,7 @@ class TerritorialAreas1 extends BaseController {
                 
         //instanciamos la variable de inicio pasra sabel el punto de inicio en caso de borrado o edición, volver al mismo punto de la lista
         $data['recurso']        = $this->resource;
-        $data['inicio']         = $inicio;
+        $data['inicio']         = $offset;
         $data['pais']           = Pais::getPais($pais, Auth::user()->idioma_010); 
         $data['javascriptView'] = 'pulsar::pulsar.pulsar.areas_territoriales_1.js.index';
        
@@ -83,22 +83,22 @@ class TerritorialAreas1 extends BaseController {
         return view('pulsar::pulsar.pulsar.common.json_display',$data);
     }
     
-    public function create($pais, $inicio=0){
+    public function create($pais, $offset=0){
 
         
-        $data['inicio']     = $inicio;
+        $data['inicio']     = $offset;
         $data['pais']       = Pais::getPais($pais, Session::get('idiomaBase')->id_001);
         return view('pulsar::pulsar.pulsar.areas_territoriales_1.create',$data);
     }
     
-    public function store($pais, $inicio=0){
+    public function store($pais, $offset=0){
 
         
         $validation = AreaTerritorial1::validate(Input::all());
               
         if ($validation->fails())
         {
-            return Redirect::route('createAreasTerritoriales1',array($pais, $inicio))->withErrors($validation)->withInput();
+            return Redirect::route('createAreasTerritoriales1',array($pais, $offset))->withErrors($validation)->withInput();
         }
         else
         {
@@ -112,21 +112,21 @@ class TerritorialAreas1 extends BaseController {
             Session::flash('msg',1);
             Session::flash('txtMsg',Lang::get('pulsar::pulsar.aviso_alta_registro',array('nombre' => Input::get('nombre'))));
             
-            return Redirect::route('areasTerritoriales1',array($pais, $inicio));
+            return Redirect::route('areasTerritoriales1',array($pais, $offset));
         }
     }
     
-    public function edit($id, $inicio=0){
+    public function edit($id, $offset=0){
 
         
-        $data['inicio']             = $inicio;
+        $data['inicio']             = $offset;
         $data['area_territorial_1'] = AreaTerritorial1::find($id);
         $data['pais']               = Pais::getPais($data['area_territorial_1']->pais_003, Session::get('idiomaBase')->id_001);
         
         return view('pulsar::pulsar.pulsar.areas_territoriales_1.edit',$data);
     }
     
-    public function update($pais, $inicio=0){
+    public function update($pais, $offset=0){
         if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'edit')) App::abort(403, 'Permission denied.');
         
         if(Input::get('id') == Input::get('idOld')) $idRule = false; else $idRule = true;
@@ -135,7 +135,7 @@ class TerritorialAreas1 extends BaseController {
         
         if ($validation->fails())
         {
-            return Redirect::route('editAreasTerritoriales1',array(Input::get('idOld'), $inicio))->withErrors($validation);
+            return Redirect::route('editAreasTerritoriales1',array(Input::get('idOld'), $offset))->withErrors($validation);
         }
         else
         {
@@ -148,7 +148,7 @@ class TerritorialAreas1 extends BaseController {
             Session::flash('msg',1);
             Session::flash('txtMsg',Lang::get('pulsar::pulsar.aviso_actualiza_registro',array('nombre' => Input::get('nombre'))));
             
-            return Redirect::route('areasTerritoriales1',array($pais, $inicio));
+            return Redirect::route('areasTerritoriales1',array($pais, $offset));
         }
     }
 

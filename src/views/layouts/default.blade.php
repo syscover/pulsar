@@ -135,7 +135,7 @@
 			</ul>
 
 			<!-- Logo -->
-			<a class="navbar-brand" href="{{ url(config('pulsar.appName') . '/pulsar/dashboard') }}">
+			<a class="navbar-brand" href="{{ route('dashboard') }}">
 				<!-- <img src="assets/img/logo.png" alt="logo"> -->
 				<strong>PUL</strong>SAR
 			</a>
@@ -150,7 +150,7 @@
 			<!-- Top Left Menu -->
 			<ul class="nav navbar-nav navbar-left hidden-xs hidden-sm">
 				<li>
-					<a href="{{ url(config('pulsar.appName') . '/pulsar/dashboard') }}">
+					<a href="{{ route('dashboard') }}">
 						<i class="icon-dashboard"></i> {{ trans('pulsar::pulsar.dashboard') }}
 					</a>
 				</li>
@@ -158,7 +158,7 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i> Settings <i class="icon-caret-down small"></i></a>
 					<ul class="dropdown-menu">
                         @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-google-services', 'access'))
-                            <li><a href="{{ url(config('pulsar.appName') . '/pulsar/google/services') }}"><i class="icomoon-icon-google"></i>Google Services</a></li>
+                            <li><a href="{{ route('googleServices') }}"><i class="icomoon-icon-google"></i>Google Services</a></li>
                             <!-- <li class="divider"></li> -->
                         @endif
 					</ul>
@@ -176,7 +176,7 @@
 						<i class="icon-caret-down small"></i>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="{{ url(config('pulsar.appName') . '/pulsar/logout') }}"><i class="icon-key"></i> {{ trans('pulsar::pulsar.logout') }}</a></li>
+						<li><a href="{{ route('logout') }}"><i class="icon-key"></i> {{ trans('pulsar::pulsar.logout') }}</a></li>
 					</ul>
 				</li><!-- /user login dropdown -->
 			</ul><!-- /Top Right Menu -->
@@ -200,9 +200,11 @@
                     <ul id="breadcrumbs" class="breadcrumb">
                         <li>
                             <i class="icon-home"></i>
-                            <a href="{{ url(config('pulsar.appName') . '/pulsar/dashboard') }}">{{ trans('pulsar::pulsar.dashboard') }}</a>
+                            <a href="{{ route('dashboard') }}">{{ trans('pulsar::pulsar.dashboard') }}</a>
                         </li>
-                        @yield('breadcrumbs')
+                        @if(View::exists($package . '::' . $folder . '.breadcrumbs'))
+                            @include($package . '::' . $folder . '.breadcrumbs')
+                        @endif
                     </ul>
                     @yield('crumbsButtons')
                 </div>

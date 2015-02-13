@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Pulsar\Pulsar\Libraries\PulsarAcl;
 use Pulsar\Pulsar\Models\Package;
@@ -25,7 +26,7 @@ class Login extends BaseController
                 return redirect()->to(config('pulsar.appName'))->with('loginErrors', true);
             }
 
-            return redirect()->intended(config('pulsar.appName') . '/pulsar/dashboard');
+            return redirect()->intended(route('dashboard'));
         }
         else
         {
@@ -36,6 +37,13 @@ class Login extends BaseController
     public function loginView()
     {
         return view('pulsar::login.index');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        Session::flush();
+        return Redirect::to(config('pulsar.appName'));
     }
 
 }
