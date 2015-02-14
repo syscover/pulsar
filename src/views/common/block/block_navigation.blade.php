@@ -50,13 +50,13 @@
                 @endif
                 @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-perm', 'access'))
                     <li{!! Miscellaneous::setOpenPage(['admin-perm-profile', 'admin-perm-resource', 'admin-perm-actions', 'admin-perm-profile', 'admin-perm-perm']) !!}>
-                        <a href="javascript:void(0);"><i class="icon-user"></i>Permisos<span class="arrow"></span></a>
+                        <a href="javascript:void(0);"><i class="icon-user"></i>{{ trans_choice('pulsar::pulsar.permission', 2) }}<span class="arrow"></span></a>
                         <ul class="sub-menu"{!! Miscellaneous::setDisplayPage(['admin-perm-resource', 'admin-perm-actions', 'admin-perm-profile', 'admin-perm-perm']) !!}>
                             @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-perm-profile', 'access'))
-                                <li{!! Miscellaneous::setCurrentPage(array('admin-perm-profile', 'admin-perm-perm')) !!}><a href="{{ route('Profile') }}"><i class="icomoon-icon-users-2"></i>Perfiles</a></li>
+                                <li{!! Miscellaneous::setCurrentPage(array('admin-perm-profile', 'admin-perm-perm')) !!}><a href="{{ route('Profile') }}"><i class="icomoon-icon-users-2"></i>{{ trans_choice('pulsar::pulsar.profile', 2) }}</a></li>
                             @endif
                             @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-perm-resource', 'access'))
-                                <li{!! Miscellaneous::setCurrentPage('admin-perm-resource') !!}><a href="{{ route('Resource') }}"><i class="icomoon-icon-database"></i>Recursos</a></li>
+                                <li{!! Miscellaneous::setCurrentPage('admin-perm-resource') !!}><a href="{{ route('Resource') }}"><i class="icomoon-icon-database"></i>{{ trans_choice('pulsar::pulsar.resource', 2) }}</a></li>
                             @endif
                             @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-perm-actions', 'access'))
                                 <li{!! Miscellaneous::setCurrentPage('admin-perm-actions') !!}><a href="{{ route('Action') }}"><i class="icomoon-icon-power"></i>{{ trans_choice('pulsar::pulsar.action', 2) }}</a></li>

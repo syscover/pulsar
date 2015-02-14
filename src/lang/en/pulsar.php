@@ -53,6 +53,7 @@ return array(
     'resource'                              => 'Resource|Resources',
     'package'                               => 'Package|Packages',
     'profile'                               => 'Profile|Profiles',
+    'permission'                            => 'Permission|Permissions',
 
     'name'                                  => 'Name',
     'language'                              => 'Language|Languages',
@@ -71,7 +72,7 @@ return array(
         'pais'                           => 'País',
 
 
-        'permisos'                       => 'Permisos',
+
         'buscar_aqui'                    => 'Buscar aquí...',
         'buscar'                         => 'Buscar',
         'borrar'                         => 'Borrar',

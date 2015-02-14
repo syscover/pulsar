@@ -1,40 +1,8 @@
-@extends('pulsar::layouts.default')
+@extends('pulsar::layouts.form', ['object' => trans_choice('pulsar::pulsar.action', 1), 'action' => 'update'])
 
-@section('script')
-    @include('pulsar::common.block.block_script_header_form')
-@stop
-
-@section('mainContent')
-<div class="row">
-    <div class="col-md-12">
-        <div class="widget box">
-            <div class="widget-header"><h4><i class="icomoon-icon-power"></i> {{ trans_choice('pulsar::pulsar.action', 1) }}</h4></div>
-            <div class="widget-content">
-                <form class="form-horizontal" method="post" action="{{ route('update' . $routeSuffix, $offset) }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="_method" value="PUT">
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">ID</label>
-                        <div class="col-md-2">
-                            <input class="form-control required" type="text" name="id" value="{{ $object->id_008 }}" maxlength="25" rangelength="2, 25">
-                            <input name="idOld" type="hidden" value="{{ $object->id_008 }}">
-                            {!! $errors->first('id', config('pulsar.errorDelimiters')) !!}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">{{ trans('pulsar::pulsar.name') }} <span class="required">*</span></label>
-                        <div class="col-md-10">
-                            <input class="form-control required" type="text" name="name" value="{{ $object->name_008 }}" maxlength="50" rangelength="2, 50">
-                            {!! $errors->first('name', config('pulsar.errorDelimiters')) !!}
-                        </div>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn marginR10">{{ trans('pulsar::pulsar.save') }}</button>
-                        <a class="btn btn-inverse" href="{{ route($routeSuffix, $offset) }}">{{ trans('pulsar::pulsar.cancel') }}</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>                    
+@section('rows')
+    <!-- pulsar::actions.edit -->
+    @include('pulsar::common.block.block_form_text_group', ['label' => 'ID', 'name' => 'id', 'oldName' => 'idOld', 'value' => $object->id_008, 'maxlength' => '25', 'rangelength' => '2,25', 'required' => true, 'sizeField' => 2])
+    @include('pulsar::common.block.block_form_text_group', ['label' => trans('pulsar::pulsar.name'), 'name' => 'name', 'value' => $object->name_008, 'maxlength' => '50', 'rangelength' => '2,50', 'required' => true])
+    <!-- /pulsar::actions.edit -->
 @stop

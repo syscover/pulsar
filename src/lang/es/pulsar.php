@@ -53,6 +53,7 @@ return array(
     'resource'                              => 'Recurso|Recursos',
     'package'                               => 'Paquete|Paquetes',
     'profile'                               => 'Perfil|Perfiles',
+    'permission'                            => 'Permiso|Permisos',
 
     'name'                                  => 'Nombre',
     'language'                              => 'Idioma|Idiomas',
