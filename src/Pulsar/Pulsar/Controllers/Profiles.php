@@ -13,6 +13,7 @@
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Pulsar\Pulsar\Models\Profile;
 use Pulsar\Pulsar\Traits\ControllerTrait;
 
 class Profiles extends BaseController {
@@ -31,19 +32,19 @@ class Profiles extends BaseController {
 
     public function jsonCustomDataBeforeActions($aObject)
     {
-        return Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip" title="" href="' . route('Permission', [$aObject['id_006'], Input::get('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_permissions').'"><i class="icon-shield"></i></a>' : null;
+        return Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip" title="" href="' . route('Permission', [0, $aObject['id_006'], Input::get('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_permissions').'"><i class="icon-shield"></i></a>' : null;
     }
     
     public function storeCustomRecord()
     {
-        Perfil::create(array(
+        Profile::create(array(
             'name_006'  => Input::get('name')
         ));
     }
     
-    public function updateRecord($id)
+    public function updateCustomRecord($id)
     {
-        Perfil::where('id_006', $id)->update(array(
+        Profile::where('id_006', $id)->update(array(
             'name_006'  => Input::get('name')
         ));
     }

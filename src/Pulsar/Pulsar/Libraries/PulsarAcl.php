@@ -1,4 +1,5 @@
 <?php namespace Pulsar\Pulsar\Libraries;
+
 /**
  * @package		Pulsar
  * @author		Jose Carlos Rodríguez Palacín
@@ -21,6 +22,7 @@ class PulsarAcl extends Acl
      *  Function instance the acl of a particular profile
      *
      * @access	public
+     * @param   integer     $profile
      * @return	\Zend\Permissions\Acl\Acl
      */
     public static function getProfileAcl($profile)
@@ -36,18 +38,21 @@ class PulsarAcl extends Acl
         }
         foreach($permissions as $permission)
         {
-            $acl->allow($profile, $permission->recurso_009, $permission->accion_009);
+            $acl->allow($profile, $permission->resource_009, $permission->action_009);
         }
         return $acl;
     }
     
     /**
-     *  Function that instantiates an array in javascript to identify actions that allow resource Casda
+     *  Function that instantiates an array in javascript to identify actions that allow resource
      *
      * @access	public
+     * @param   integer     $profile
+     * @param   integer     $resource
+     * @param   integer     $actions
      * @return	array
      */
-    public function getJsAccionesAllowed($profile, $resource, $actions)
+    public function getJsActionsAllowed($profile, $resource, $actions)
     {
         $actionsAllowed = '[';
         $flag = false;

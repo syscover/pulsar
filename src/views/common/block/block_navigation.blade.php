@@ -43,10 +43,10 @@
                         <li{!! Miscellaneous::setCurrentPage(array('admin-country','admin-country-at1','admin-country-at2','admin-country-at3')) !!}><a href="{{ route('Country') }}"><i class="entypo-icon-globe"></i>Países</a></li>
                 @endif
                 @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-packages', 'access'))
-                        <li{!! Miscellaneous::setCurrentPage('admin-mod') !!}><a href="{{ route('Package') }}"><i class="cut-icon-grid"></i>Paquetes</a></li>
+                        <li{!! Miscellaneous::setCurrentPage('admin-mod') !!}><a href="{{ route('Package') }}"><i class="cut-icon-grid"></i>{{ trans_choice('pulsar::pulsar.package', 2) }}</a></li>
                 @endif
                 @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-cron', 'access'))
-                        <li{!! Miscellaneous::setCurrentPage('admin-cron') !!}><a href="{{ route('CronJob') }}"><i class="icomoon-icon-stopwatch"></i>Tareas Cron</a></li>
+                        <li{!! Miscellaneous::setCurrentPage('admin-cron') !!}><a href="{{ route('CronJob') }}"><i class="icomoon-icon-stopwatch"></i>{{ trans_choice('pulsar::pulsar.cronjob', 2) }}</a></li>
                 @endif
                 @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-perm', 'access'))
                     <li{!! Miscellaneous::setOpenPage(['admin-perm-profile', 'admin-perm-resource', 'admin-perm-actions', 'admin-perm-profile', 'admin-perm-perm']) !!}>

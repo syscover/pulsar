@@ -10,17 +10,16 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\App,
-    Illuminate\Support\Facades\Session,
+use Illuminate\Support\Facades\Session,
     Illuminate\Support\Facades\Auth,
     Illuminate\Support\Facades\Input,
     Illuminate\Support\Facades\URL,
     Illuminate\Support\Facades\Config,
     Illuminate\Support\Facades\Lang,
-    Illuminate\Support\Facades\View,
+
     Illuminate\Support\Facades\Redirect,
     Cron\CronExpression,
-    Pulsar\Pulsar\Libraries\Miscellaneous,
+
     Pulsar\Pulsar\Models\Package,
     Pulsar\Pulsar\Models\CronJob;
 use Pulsar\Pulsar\Traits\ControllerTrait;
@@ -30,218 +29,70 @@ class CronJobs extends BaseController
     use ControllerTrait;
 
     protected $resource     = 'admin-cron';
-    protected $routeSuffix  = 'Action';
-    protected $folder       = 'actions';
+    protected $routeSuffix  = 'CronJob';
+    protected $folder       = 'cron_jobs';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_043', 'name_043', 'name_012', 'key_043', 'cron_expression_043', 'active_043', 'last_run_043', 'next_run_043'];
-    protected $nameM        = 'name_008';
+    protected $aColumns     = ['id_043', 'name_043', 'name_012', 'key_043', 'cron_expression_043', ['name' => 'active_043', 'type' => 'active'], ['name' => 'last_run_043', 'type' => 'date'], ['name' => 'next_run_043', 'type' => 'date']];
+    protected $nameM        = 'name_012';
     protected $model        = '\Pulsar\Pulsar\Models\CronJob';
 
-    public function jsonData()
+    public function jsonCustomDataBeforeActions($aObject)
     {
-
-
-	    $aColumns = array('id_043', 'nombre_043', 'name_012', 'key_043', 'cron_expresion_043', 'activa_043', 'last_run_043', 'next_run_043');
-        $params = array();
-        
-        //Paginado de la tabla
-        $params =  Miscellaneous::paginateDataTable($params);
-	    
-        //Orden de la tabla
-        $params =  Miscellaneous::dataTableSorting($params, $aColumns);
-        
-        //filtrados de la tabla
-        $params =  Miscellaneous::filteringDataTable($params);
-	        
-        //Toma de datos para la tabla
-        $objects        = CronJob::getCronJobsLimit($aColumns, $params['sLength'], $params['sStart'], $params['sOrder'], $params['sTypeOrder'], $params['sWhere']);
-        $iFilteredTotal = CronJob::getCronJobsLimit($aColumns, null, null, $params['sOrder'], $params['sTypeOrder'], $params['sWhere'], null, true);
-        $iTotal         = CronJob::count();
-        
-        //cabecera JSON
-        $output = array(
-            "sEcho"                 => intval(Input::get('sEcho')),
-            "iTotalRecords"         => $iTotal,
-            "iTotalDisplayRecords"  => $iFilteredTotal,
-            "aaData"                => array()
-        );
-        
-        $aObjects = $objects->toArray(); $i=0;
-        $date = new \DateTime();
-        foreach($aObjects as $aObject)
-        {
-		    $row = array();
-		    foreach ($aColumns as $aColumn)
-            {
-                if($aColumn == "activa_043")
-                {
-                    if($aObject[$aColumn] == 1)
-                    {
-                        $row[] = '<i class="icomoon-icon-checkmark-3"></i>';
-                    }
-                    else
-                    {
-                        $row[] = '<i class="icomoon-icon-blocked"></i>';
-                    }
-                }
-                elseif($aColumn == "last_run_043")
-                {
-                    $row[] = $date->setTimestamp($aObject[$aColumn])->format('d-m-Y H:i:s');
-                }
-                elseif($aColumn == "next_run_043")
-                {
-                    $row[] = $date->setTimestamp($aObject[$aColumn])->format('d-m-Y H:i:s');
-                }
-                else
-                {
-                    $row[] = $aObject[$aColumn];
-                }
-		    }
-
-            $row[] = '<input type="checkbox" class="uniform" name="element'.$i.'" value="'.$aObject['id_043'].'">';
-
-            //Botones de acciones
-            $acciones = Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')? '<a class="btn btn-xs bs-tooltip" title="" href="'.URL::to('/').'/'.Config::get('pulsar::pulsar.rootUri').'/pulsar/cron/jobs/'.$aObject['id_043'].'/run/'.Input::get('iDisplayStart').'" data-original-title="'.Lang::get('pulsar::pulsar.ejecutar').'"><i class="icon-bolt"></i></a>' : '';
-            $acciones .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" title="" href="'.URL::to('/').'/'.Config::get('pulsar::pulsar.rootUri').'/pulsar/cron/jobs/'.$aObject['id_043'].'/edit/'.Input::get('iDisplayStart').'" data-original-title="'.Lang::get('pulsar::pulsar.editar_registro').'"><i class="icon-pencil"></i></a>' : '';
-            $acciones .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip" title="" href="javascript:deleteElement(\''.$aObject['id_043'].'\')" data-original-title="'.Lang::get('pulsar::pulsar.borrar_registro').'"><i class="icon-trash"></i></a>' : '';
-		    $row[] =  $acciones;
-                
-            $output['aaData'][] = $row;
-            $i++;
-	    }
-                
-        $data['json'] = json_encode($output);
-        
-        return view('pulsar::pulsar.pulsar.common.json_display',$data);
+        return  Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('run' . $this->routeSuffix, [$aObject['id_043'], Input::get('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.run') . '"><i class="icon-bolt"></i></a>' : null;
     }
     
     public function run($id, $offset=0)
     {
+        $cronJob    = CronJob::find($id);
+        $comand     = config('cron.' . $cronJob->key_043);
 
-        
-        $cronJob = CronJob::find($id);
-        $comando = Config::get('pulsar::cron.'.$cronJob->key_043);
-        
-        $comando(); //ejecutamos la tarea
+        $comand(); // run cron
 
-        return Redirect::route('cronJobs', array($offset))->with(array(
+        return Redirect::route($this->routeSuffix, $offset)->with([
             'msg'        => 1,
-            'txtMsg'     => Lang::get('pulsar::pulsar.tarea_ejecutada',array('nombre' => $cronJob->nombre_043))
-        ));
+            'txtMsg'     => Lang::get('pulsar::pulsar.action_successful', ['name' => $cronJob->name_043])
+        ]);
     }
     
-    public function create($offset=0)
+    public function createCustomRecord()
     {
-
+        $data['packages']        = Package::all();
         
-        return view('pulsar::pulsar.pulsar.cron_jobs.create',array('inicio' => $offset, 'modulos' =>  Package::all()));
+        return $data;
     }
     
-    public function store($offset=0)
+    public function storeCustomRecord()
     {
-
-        
-        $validation = CronJob::validate(Input::all());
-              
-        if ($validation->fails())
-        {
-            return Redirect::route('createCronJob',array($offset))->withErrors($validation)->withInput();
-        }
-        else
-        {            
-            $cron = CronExpression::factory(Input::get('cronExpresion'));
-            CronJob::create(array(
-                'nombre_043'            => Input::get('nombre'),
-                'modulo_043'            => Input::get('modulo'),
-                'cron_expresion_043'    => Input::get('cronExpresion'),
-                'key_043'               => Input::get('key'),
-                'last_run_043'          => 0,
-                'next_run_043'          => $cron->getNextRunDate()->getTimestamp(),
-                'activa_043'            => Input::get('activa',0)
-            )); 
-            
-            //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
-            Session::flash('msg',1);
-            Session::flash('txtMsg',Lang::get('pulsar::pulsar.aviso_alta_registro',array('nombre' => Input::get('nombre'))));
-            
-            return Redirect::route('cronJobs',array($offset));
-        }
+        $cron = CronExpression::factory(Input::get('cronExpresion'));
+        CronJob::create([
+            'name_043'              => Input::get('name'),
+            'package_043'           => Input::get('package'),
+            'cron_expression_043'   => Input::get('cronExpression'),
+            'key_043'               => Input::get('key'),
+            'last_run_043'          => 0,
+            'next_run_043'          => $cron->getNextRunDate()->getTimestamp(),
+            'active_043'            => Input::get('active', 0)
+        ]);
     }
     
-    public function edit($id, $offset=0)
+    public function editCustomRecord($data)
     {
-
-        
-        $data['inicio'] = $offset;
-        $data['cronJob'] = CronJob::find($id);
-        $data['modulos'] = Package::all();
+        $data['packages']        = Package::all();
         $date = new \DateTime();
         $data['ultimaEjecucion'] = $date->setTimestamp($data['cronJob']->last_run_043)->format('d-m-Y H:i:s');
         $data['siguienteEjecucion'] = $date->setTimestamp($data['cronJob']->next_run_043)->format('d-m-Y H:i:s');
-        
-        
-        return view('pulsar::pulsar.pulsar.cron_jobs.edit',$data);
+
+        return $data;
     }
     
-    public function update($offset=0)
+    public function updateCustomRecord($id)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'edit')) App::abort(403, 'Permission denied.');
-        
-        $validation = CronJob::validate(Input::all());
-        
-        if ($validation->fails())
-        {
-            return Redirect::route('editCronJob',array(Input::get('id'), $offset))->withErrors($validation);
-        }
-        else
-        {
-            CronJob::where('id_043','=',Input::get('id'))->update(array(
-                'nombre_043'            => Input::get('nombre'),
-                'modulo_043'            => Input::get('modulo'),
-                'cron_expresion_043'    => Input::get('cronExpresion'),
-                'key_043'               => Input::get('key'),
-                'activa_043'            => Input::get('activa',0)
-            ));  
-            
-            //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
-            Session::flash('msg',1);
-            Session::flash('txtMsg', Lang::get('pulsar::pulsar.aviso_actualiza_registro',array('nombre' => Input::get('nombre'))));
-            
-            return Redirect::route('cronJobs',array($offset));
-        }
-    }
-
-    public function destroy($id)
-    {
-        
-        $cronJob = CronJob::find($id);
-        CronJob::destroy($id);
-        
-        //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
-        Session::flash('msg',1);
-        Session::flash('txtMsg', Lang::get('pulsar::pulsar.borrado_registro',array('nombre' => $cronJob->nombre_043)));
-        
-        return Redirect::route('cronJobs');
-    }
-    
-    public function destroySelect($offset=0)
-    {
-
-        $nElements = Input::get('nElementsDataTable'); 
-        $ids = array();
-        for($i=0;$i<$nElements;$i++)
-        {
-            if(Input::get('element'.$i) != false)
-            {
-                array_push($ids, Input::get('element'.$i));
-            }
-        }
-                
-        CronJob::deleteCronJobs($ids);
-        //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición        
-        Session::flash('msg',1);
-        Session::flash('txtMsg', Lang::get('pulsar::pulsar.borrado_registros'));
-        
-        return Redirect::route('cronJobs');
+        CronJob::where('id_043', $id)->update([
+            'name_043'              => Input::get('name'),
+            'package_043'           => Input::get('package'),
+            'cron_expression_043'   => Input::get('cronExpression'),
+            'key_043'               => Input::get('key'),
+            'active_043'            => Input::get('active', 0)
+        ]);
     }
 }

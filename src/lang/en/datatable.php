@@ -16,7 +16,7 @@ return array(
         'sInfo01'               => 'Showing _START_ to _END_ of _TOTAL_ records',
         'sInfoEmpty'            => 'Showing 0 to 0 of 0 records',
         'sEmptyTable'           => 'There are no records available',
-        'sZeroRecords'          => 'No hay registros disponibles',
+        'sZeroRecords'          => 'There are no records available',
         'sInfoFiltered'         => ' - filtering of _MAX_ records',
         'sLoadingRecords'       => 'Please wait - loading...',
         'sProcessing'           => 'Processing...',

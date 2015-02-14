@@ -23,6 +23,7 @@ return array(
     'error_change_password'                 => 'Por favor introduzca su email',
     'error2_change_password'                => 'Error, su usuario no existe',
     'change_password_successful'            => 'Estupendo, Le hemos enviado un email',
+    'run'                                   => 'Ejecutar',
     'save'                                  => 'Guardar',
     'delete'                                => 'Borrar',
     'accept'                                => 'Aceptar',
@@ -39,7 +40,7 @@ return array(
     'delete_record'                         => 'Borrar registro',
     'edit_permissions'                      => 'Editar permisos',
 
-    'message_log_recorded'                  => 'Registration <strong>:name</strong> has been properly recorded',
+    'message_create_record_successful'      => 'Registration <strong>:name</strong> has been properly recorded',
     'message_delete_record'                 => '¿Desea borrar el registro con <strong>ID \' + idRecord + \' </strong>?',
     'message_delete_records'                => '¿Desea borrar los registros seleccionados?',
     'message_delete_record_successful'      => 'El registro <strong>:nombre</strong> ha sido borrado correctamente',
@@ -48,6 +49,10 @@ return array(
     'message_update_record'                 => 'El registro <strong>:name</strong> ha sido actualizado correctamente',
     'message_delete_image'                  => '¿Desea borrar la imagen del elemento seleccionado?',
     'message_user_pass'                     => 'Indique su usuario y contraseña',
+    'message_create_permission_successful'  => 'El permiso <strong>:action</strong> para el recurso <strong>:resource</strong> ha sido creado correctamente',
+    'message_create_permission_error'       => 'El permiso <strong>:action</strong> para el recurso <strong>:resource</strong> no ha sido creado correctamente debido a un problema de permisos.<br><strong>Póngase en contacto con el administrador.</strong>',
+    'message_delete_permission_successful'  => 'El permiso <strong>:action</strong> para el recurso <strong>:resource</strong> ha sido borrado correctamente',
+    'message_delete_permission_error'       => 'El permiso <strong>:action</strong> para el recurso <strong>:resource</strong> no ha sido borrado correctamente debido a un problema de permisos.<br><strong>Póngase en contacto con el administrador.</strong>',
 
     'administration'                        => 'Administración',
     'action'                                => 'Acción|Acciones',
@@ -55,6 +60,7 @@ return array(
     'package'                               => 'Paquete|Paquetes',
     'profile'                               => 'Perfil|Perfiles',
     'permission'                            => 'Permiso|Permisos',
+    'cronjob'                               => 'Cron Job|Cron Jobs',
 
     'name'                                  => 'Nombre',
     'language'                              => 'Idioma|Idiomas',
@@ -62,7 +68,11 @@ return array(
     'image'                                 => 'Imagen|Imágenes',
 
     'action_successful'                     => '¡Acción realizada!',
+    'action_error'                          => '¡Error!',
     'choose_a'                              => 'Elija un',
+
+
+
 
 
 

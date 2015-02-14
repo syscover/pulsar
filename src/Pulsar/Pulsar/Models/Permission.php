@@ -16,13 +16,13 @@ use Illuminate\Database\Eloquent\Model,
 class Permission extends Model
 {
 	protected $table        = '001_009_permission';
-    protected $primaryKey   = 'perfil_009';
+    protected $primaryKey   = 'profile_009';
     public $timestamps      = false;
     protected $fillable     = array('profile_009', 'resource_009', 'action_009');
     public static $rules    = array(
-        'perfil_009'    =>  'required',
-        'recurso_009'   =>  'required',
-        'accion_009'    =>  'required'
+        'profile_009'   =>  'required',
+        'resource_009'  =>  'required',
+        'action_009'    =>  'required'
     );
       
     public static function validate($data)

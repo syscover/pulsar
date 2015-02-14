@@ -40,7 +40,7 @@
                     responsiveHelper.createExpandIcon(nRow);
                 },
                 fnDrawCallback: function(oSettings) {
-                    $('input[name="nElementsDataTable"]').attr('value',this.fnPagingInfo().iTotal);
+                    $('input[name="nElementsDataTable"]').attr('value', this.fnPagingInfo().iTotal);
 
                     //activacion de los tooltips en la datatables
                     if ($.fn.tooltip) {
@@ -57,6 +57,7 @@
                         });
                     }
 
+                    @if(!isset($hideDeleteDataTable))
                     $('.delete-record').bind('click', function() {
                         var idRecord = $(this).data('id')
                         var url = "{{ route('destroy' . $routeSuffix) }}/" + idRecord;
@@ -76,6 +77,7 @@
                                 }
                         );
                     });
+                    @endif
 
                     // SEARCH - Add the placeholder for Search and Turn this into in-line formcontrol
                     var search_input = $(this).closest('.dataTables_wrapper').find('div[id$=_filter] input');

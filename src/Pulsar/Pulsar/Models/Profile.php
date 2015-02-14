@@ -20,7 +20,7 @@ class Profile extends Model
 
 	protected $table        = '001_006_profile';
     protected $primaryKey   = 'id_006';
-    public $timestamps      = true;
+    public $timestamps      = false;
     protected $fillable     = array('id_006', 'name_006');
     public static $rules    = array(
         'name'    =>  'required|between:2,50'

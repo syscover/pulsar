@@ -7,7 +7,14 @@ trait ModelTrait {
     public static function getRecordsLimit($aColumns, $nRecords = null, $offset = null, $sorting = null, $typeSorting = null, $sWhere = null, $sWhereColumns = null, $count = false)
     {
         $instance = new static;
-        $query = $instance->query();
+
+        if(method_exists($instance, 'getCustomRecordsLimit'))
+        {
+            $query = $instance->getCustomRecordsLimit();
+        }
+        else{
+            $query = $instance->query();
+        }
 
         $query = Miscellaneous::getQueryWhere($aColumns, $query, $sWhere, $sWhereColumns);
 

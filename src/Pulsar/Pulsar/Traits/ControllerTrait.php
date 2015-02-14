@@ -22,7 +22,7 @@ trait ControllerTrait {
     /**
      * @access	public
      * @param   integer  $offset
-     * @return	View
+     * @return	\Illuminate\Support\Facades\View
      */
     public function index($offset = 0)
     {
@@ -35,9 +35,15 @@ trait ControllerTrait {
         $data['offset']         = $offset;
         $data['javascriptView'] = 'pulsar::' . $this->folder . '.js.index';
 
+        // if there ara more arguments, we take us and send to indexCustom
+        if(func_num_args() > 1)
+        {
+            $args = func_get_args();
+        }
+
         if(method_exists($this, 'indexCustom'))
         {
-            $data = $this->indexCustom($data);
+            $data = $this->indexCustom($data, $args);
         }
 
         return view('pulsar::' . $this->folder . '.index', $data);
@@ -89,6 +95,11 @@ trait ControllerTrait {
                         case 'active':
                             $row[] = $aObject[$aColumn['name']]? '<i class="icomoon-icon-checkmark-3"></i>' : '<i class="icomoon-icon-blocked"></i>';
                             break;
+
+                        case 'date':
+                            $date = new \DateTime();
+                            $row[] = $date->setTimestamp($aObject[$aColumn['name']])->format('d-m-Y H:i:s');
+                            break;
                     }
                 }
                 else
@@ -117,13 +128,13 @@ trait ControllerTrait {
 
         $data['json'] = json_encode($output);
 
-        return view('pulsar::common.json_display',$data);
+        return view('pulsar::common.json_display', $data);
     }
 
     /**
      * @access	public
      * @param   integer     $offset
-     * @return	View
+     * @return	\Illuminate\Support\Facades\View
      */
     public function createRecord($offset = 0)
     {
@@ -143,7 +154,7 @@ trait ControllerTrait {
     /**
      * @access	public
      * @param   integer     $offset
-     * @return	Redirect
+     * @return	\Illuminate\Support\Facades\Redirect
      */
     public function storeRecord($offset = 0)
     {
@@ -162,7 +173,7 @@ trait ControllerTrait {
 
             return Redirect::route($this->routeSuffix, $offset)->with([
                 'msg'        => 1,
-                'txtMsg'     => trans('pulsar::pulsar.message_log_recorded', ['name' => Input::get('name')])
+                'txtMsg'     => trans('pulsar::pulsar.message_create_record_successful', ['name' => Input::get('name')])
             ]);
         }
     }
@@ -171,7 +182,7 @@ trait ControllerTrait {
      * @access	public
      * @param   integer     $id
      * @param   integer     $offset
-     * @return	View
+     * @return	\Illuminate\Support\Facades\View
      */
     public function editRecord($id, $offset = 0)
     {
@@ -195,7 +206,7 @@ trait ControllerTrait {
     /**
      * @access	public
      * @param   integer     $offset
-     * @return	Redirect
+     * @return	\Illuminate\Support\Facades\Redirect
      */
     public function updateRecord($offset = 0)
     {
@@ -235,7 +246,7 @@ trait ControllerTrait {
      * @access	public
      * @param   string  $resource
      * @param   string  $model
-     * @return	Redirect
+     * @return	\Illuminate\Support\Facades\Redirect
      */
     public function destroyRecord($id)
     {
@@ -258,7 +269,7 @@ trait ControllerTrait {
      * @access	public
      * @param   string  $resource
      * @param   string  $model
-     * @return	Redirect
+     * @return	\Illuminate\Support\Facades\Redirect
      */
     public function destroyRecordsSelect()
     {

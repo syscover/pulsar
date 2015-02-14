@@ -17,12 +17,13 @@ return array(
     'logout'                                => 'Logout',
     'user'                                  => 'User',
     'password'                              => 'Password',
-    'remember_password'                     => 'Remenber password',
+    'remember_password'                     => 'Remember password',
     'enter_email'                           => 'Enter your email',
     'change_password'                       => 'Change your password',
     'error_change_password'                 => 'Please enter your email',
     'error2_change_password'                => 'Error, the user doesn\'t exist',
     'change_password_successful'            => 'Great, We\'ve sent an email',
+    'run'                                   => 'Run',
     'save'                                  => 'Save',
     'delete'                                => 'Delete',
     'accept'                                => 'Accept',
@@ -39,7 +40,7 @@ return array(
     'delete_record'                         => 'Delete record',
     'edit_permissions'                      => 'Edit permissions',
 
-    'message_log_recorded'                  => 'Registration <strong>:name</strong> has been properly recorded',
+    'message_create_record_successful'      => 'Registration <strong>:name</strong> has been properly recorded',
     'message_delete_record'                 => 'Do you want to delete the record with <strong>ID \' + idRecord + \' </strong>?',
     'message_delete_records'                => 'Do you want to delete the selected records?',
     'message_delete_record_successful'      => 'Registration <strong>:name</strong> has been deleted successfully',
@@ -48,6 +49,10 @@ return array(
     'message_update_record'                 => 'Registration <strong>:name</strong> has been updated successfully',
     'message_delete_image'                  => 'Do you want to erase the image of the selected item?',
     'message_user_pass'                     => 'Enter your username and password',
+    'message_create_permission_successful'  => '<strong>:action</strong> permission for the <strong>:resource</strong> resource has been created successfully',
+    'message_create_permission_error'       => '<strong>:action</strong> permission for the <strong>:resource</strong> was not created.<br><strong>Please, contact with administrator.</strong>',
+    'message_delete_permission_successful'  => '<strong>:action</strong> permission for the <strong>:resource</strong> resource has been deleted successfully',
+    'message_delete_permission_error'       => '<strong>:action</strong> permission for the <strong>:resource</strong> was not deleted.<br><strong>Please, contact with administrator.</strong>',
 
     'administration'                        => 'Administration',
     'action'                                => 'Action|Actions',
@@ -55,6 +60,7 @@ return array(
     'package'                               => 'Package|Packages',
     'profile'                               => 'Profile|Profiles',
     'permission'                            => 'Permission|Permissions',
+    'cronjob'                               => 'Cron Job|Cron Jobs',
 
     'name'                                  => 'Name',
     'language'                              => 'Language|Languages',
@@ -62,7 +68,9 @@ return array(
     'image'                                 => 'Image|Images',
 
     'action_successful'                     => 'Action successful!',
+    'action_error'                          => 'Action error!',
     'choose_a'                              => 'Choose a',
+
 
 
 
@@ -117,10 +125,7 @@ return array(
         'accion_procesada'               => 'Su petición ha sido procesada corretamente',
 
         'aviso_fallo_alta_registro'      => 'El registro <strong>:nombre</strong> no ha sido dado de alta correctamente',
-        'crear_permiso'                  => 'El permiso <strong>:accion</strong> para el recurso <strong>:recurso</strong> ha sido creado correctamente',
-        'crear_permiso_error'            => 'El permiso <strong>:accion</strong> para el recurso <strong>:recurso</strong> no ha sido creado correctamente debido a un problema de permisos.<br><strong>Póngase en contacto con el administrador.</strong>',
-        'borrar_permiso'                 => 'El permiso <strong>:accion</strong> para el recurso <strong>:recurso</strong> ha sido borrado correctamente',
-        'borrar_permiso_error'           => 'El permiso <strong>:accion</strong> para el recurso <strong>:recurso</strong> no ha sido borrado correctamente debido a un problema de permisos.<br><strong>Póngase en contacto con el administrador.</strong>',
+
 
         'aviso_fallo_actualiza_registro' => 'El registro <strong>:nombre</strong> no ha sido actualizado correctamente',
         'borrado_registro'               => 'El registro <strong>:nombre</strong> ha sido borrado correctamente',

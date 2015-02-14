@@ -1,114 +1,110 @@
-<?php
-namespace Pulsar\Pulsar\Controllers;
+<?php namespace Pulsar\Pulsar\Controllers;
 
-use Illuminate\Support\Facades\App,
-    Illuminate\Support\Facades\Session,
-    Illuminate\Support\Facades\Auth,
-    Illuminate\Support\Facades\Input,
-    Illuminate\Support\Facades\View,
-    Pulsar\Pulsar\Libraries\Miscellaneous,
-    Pulsar\Pulsar\Libraries\PulsarAcl,
-    Pulsar\Pulsar\Models\Perfil,
-    Pulsar\Pulsar\Models\Recurso,
-    Pulsar\Pulsar\Models\Accion,
-    Pulsar\Pulsar\Models\Permiso;
+/**
+ * @package	    Pulsar
+ * @author	    Jose Carlos Rodríguez Palacín
+ * @copyright   Copyright (c) 2015, SYSCOVER, SL
+ * @license
+ * @link		http://www.syscover.com
+ * @since		Version 2.0
+ * @filesource
+ */
+
+use Illuminate\Support\Facades\Input;
+use Pulsar\Pulsar\Libraries\Miscellaneous;
+use Pulsar\Pulsar\Libraries\PulsarAcl;
+use Pulsar\Pulsar\Models\Permission;
+use Pulsar\Pulsar\Models\Profile;
+use Pulsar\Pulsar\Models\Action;
+use Pulsar\Pulsar\Models\Resource;
+use Pulsar\Pulsar\Traits\ControllerTrait;
 
 
-class Permisos extends BaseController
+class Permissions extends BaseController
 {
+    use ControllerTrait;
+
+    protected $routeSuffixProfile   = 'Profile';
+    protected $hideDeleteDataTable = true;
+
+    protected $resource             = 'admin-perm-perm';
+    protected $routeSuffix          = 'Permission';
+    protected $folder               = 'permissions';
+    protected $package              = 'pulsar';
+    protected $aColumns             = ['id_007', 'name_012', 'name_007'];
+    protected $nameM                = 'name_008';
+    protected $model                = '\Pulsar\Pulsar\Models\Action';
     
-    private $resource = 'admin-pass-pass';
-    
-    public function index($perfil, $offsetPerfil=0, $offset=0)
+    public function indexCustom($data,  $args)
     {
+        $data['profile']                = Profile::find($args[1]);
+        $data['offsetProfile']          = $args[2];
+        $data['hideDeleteDataTable']    = $this->hideDeleteDataTable;
+        $data['routeSuffixProfile']     = $this->routeSuffixProfile;
 
-
-        //Inicializa las sesiones para las búsquedas rápidas desde la vista de tablas en caso de cambio de página
-        Miscellaneous::sessionParamterSetPage($this->resource);
-                
-        //instanciamos la variable de inicio pasra sabel el punto de inicio en caso de borrado o edición, volver al mismo punto de la lista
-        $data['inicio']         = $offset;
-        $data['inicioPerfil']   = $offsetPerfil;
-        $data['perfil']         = Perfil::find($perfil);
-        $data['javascriptView'] = 'pulsar::pulsar.pulsar.permisos.js.index';
-                
-        return view('pulsar::pulsar.pulsar.permisos.index',$data);
+        return $data;
     }
-    
-    public function jsonData($perfil)
-    {
 
-        
-        $accionesUser   = Accion::get();
-        $acl            = PulsarAcl::getAclPerfil($perfil);
-        
-        //Columnas para instanciar filtos de la tabla
-	    $aColumns = array('id_007','name_012','nombre_007');
-        $params = array();
-        
-        //Paginado de la tabla
-        $params =  Miscellaneous::paginateDataTable($params);
-	    
-        //Orden de la tabla
-        $params =  Miscellaneous::dataTableSorting($params, $aColumns);
-        
-        //filtrados de la tabla
-        $params =  Miscellaneous::filteringDataTable($params);
-	        
-        //Toma de datos para la tabla
-        $objects        = Recurso::getRecursosLimit($aColumns, $params['sLength'], $params['sStart'], $params['sOrder'], $params['sTypeOrder'], $params['sWhere']);
-        $iFilteredTotal = Recurso::getRecursosLimit($aColumns, null, null, $params['sOrder'], $params['sTypeOrder'], $params['sWhere'])->count();
-        $iTotal         = Recurso::count();
-        
-        //cabecera JSON
+    public function jsonData($profile)
+    {
+        $actionsAcl     = Action::get();
+        $acl            = PulsarAcl::getProfileAcl($profile);
+
+        $params         =  Miscellaneous::paginateDataTable();
+        $params         =  Miscellaneous::dataTableSorting($params, $this->aColumns);
+        $params         =  Miscellaneous::filteringDataTable($params);
+
+
+        $objects        = Resource::getRecordsLimit($this->aColumns, $params['sLength'], $params['sStart'], $params['sOrder'], $params['sTypeOrder'], $params['sWhere']);
+        $iFilteredTotal = Resource::getRecordsLimit($this->aColumns, null, null, $params['sOrder'], $params['sTypeOrder'], $params['sWhere'], null, true);
+        $iTotal         = Resource::count();
+
         $output = array(
             "sEcho"                 => intval(Input::get('sEcho')),
             "iTotalRecords"         => $iTotal,
             "iTotalDisplayRecords"  => $iFilteredTotal,
-            "aaData"                => array()
+            "aaData"                => []
         );
-        
+
         $aObjects = $objects->toArray(); $i=0;
         foreach($aObjects as $aObject)
         {
-		    $row = array();
-		    foreach ($aColumns as $aColumn){
+		    $row = [];
+		    foreach ($this->aColumns as $aColumn)
+            {
                 $row[] = $aObject[$aColumn];
             }
-                
-            //select de permisos
-            $acciones = '<div><select id="re'.$aObject['id_007'].'" data-idrecurso="'.$aObject['id_007'].'" data-nrecurso="'.$aObject['nombre_007'].'" multiple style="width: 100%;">';
-            foreach ($accionesUser as $accionUser){
-                $selected = $acl->isAllowed($perfil, $aObject['id_007'], $accionUser->id_008)? ' selected=""' : '';
-                $acciones .= '<option value="'.$accionUser->id_008.'"'.$selected.'>'.$accionUser->name_008.'</option>';
-            }
-            $acciones .= '</select></div>';
 
-            $row[] =   $acciones;
-            //$row[] =   'hola';
+            $actions = '<div><select id="re' . $aObject['id_007'] . '" data-resource="' . $aObject['id_007'] . '" data-nresource="' . $aObject['name_007'] . '" multiple style="width: 100%;">';
+            foreach ($actionsAcl as $actionAcl)
+            {
+                $selected = $acl->isAllowed($profile, $aObject['id_007'], $actionAcl->id_008)? ' selected' : null;
+                $actions .= '<option value="' . $actionAcl->id_008 . '"' . $selected . '>' . $actionAcl->name_008 . '</option>';
+            }
+            $actions .= '</select></div>';
+
+            $row[] =   $actions;
 
             $output['aaData'][] = $row;
             $i++;
 	    }
-                
-        $data['json'] = json_encode($output);
-        
-        return view('pulsar::pulsar.pulsar.common.json_display',$data);
-    }
-    
-    public function jsonCreate($perfil, $recurso, $accion)
-    {
 
-        
-        Permiso::create(array(
-            'perfil_009'    => $perfil,
-            'recurso_009'   => $recurso,
-            'accion_009'    => $accion
+        $data['json'] = json_encode($output);
+
+        return view('pulsar::common.json_display', $data);
+    }
+
+    public function jsonCreate($profile, $resource, $action)
+    {
+        Permission::create(array(
+            'profile_009'       => $profile,
+            'resource_009'      => $resource,
+            'action_009'        => $action
         ));
     }
     
-    public function jsonDestroy($perfil, $recurso, $accion)
+    public function jsonDestroy($profile, $resource, $action)
     {
-        Permiso::deletePermiso($perfil, $recurso, $accion);
+        Permission::deleteRecord($profile, $resource, $action);
     }
 }
