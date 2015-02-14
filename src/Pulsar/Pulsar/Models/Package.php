@@ -12,18 +12,21 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
+use Pulsar\Pulsar\Traits\ModelTrait;
 
 class Package extends Model {
 
+    use ModelTrait;
+
 	protected $table        = '001_012_package';
     protected $primaryKey   = 'id_012';
-    public $timestamps      = true;
+    public $timestamps      = false;
     protected $fillable     = ['id_012', 'name_012', 'active_012'];
     public static $rules    = [
         'name'    =>  'required|between:2,50'
     ];
         
-    public static function validate($data)
+    public static function validate($data, $specialRules = [])
     {
         return Validator::make($data, static::$rules);
 	}

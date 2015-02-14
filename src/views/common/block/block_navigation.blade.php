@@ -30,7 +30,7 @@
     @endif
 
     @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin', 'access') && $aux[2]->active_012)
-        <li{!! Miscellaneous::setCurrentOpenPage(['admin-user', 'admin-lang', 'admin-country', 'admin-country-at1', 'admin-country-at2', 'admin-country-at3', 'admin-mod', 'admin-cron', 'admin-perm-profile', 'admin-perm-resource', 'admin-perm-actions', 'admin-perm-perm']) !!}>
+        <li{!! Miscellaneous::setCurrentOpenPage(['admin-user', 'admin-lang', 'admin-country', 'admin-country-at1', 'admin-country-at2', 'admin-country-at3', 'admin-packages', 'admin-cron', 'admin-perm-profile', 'admin-perm-resource', 'admin-perm-actions', 'admin-perm-perm']) !!}>
             <a href="javascript:void(0);"><i class="icon-cog"></i>Administración</a>
             <ul class="sub-menu">
                 @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-user', 'access'))
@@ -42,7 +42,7 @@
                 @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-country', 'access'))
                         <li{!! Miscellaneous::setCurrentPage(array('admin-country','admin-country-at1','admin-country-at2','admin-country-at3')) !!}><a href="{{ route('Country') }}"><i class="entypo-icon-globe"></i>Países</a></li>
                 @endif
-                @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-mod', 'access'))
+                @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-packages', 'access'))
                         <li{!! Miscellaneous::setCurrentPage('admin-mod') !!}><a href="{{ route('Package') }}"><i class="cut-icon-grid"></i>Paquetes</a></li>
                 @endif
                 @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-cron', 'access'))

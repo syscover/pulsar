@@ -74,13 +74,39 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::get(config('pulsar.appName') . '/pulsar/profiles/create/{page}',                     ['as'=>'createProfile',         'uses'=>'Pulsar\Pulsar\Controllers\Profiles@createRecord',              'resource' => 'admin-perm-profile',    'action' => 'create']);
     Route::post(config('pulsar.appName') . '/pulsar/profiles/store/{page}',                     ['as'=>'storeProfile',          'uses'=>'Pulsar\Pulsar\Controllers\Profiles@storeRecord',               'resource' => 'admin-perm-profile',    'action' => 'create']);
     Route::get(config('pulsar.appName') . '/pulsar/profiles/{id}/edit/{page}',                  ['as'=>'editProfile',           'uses'=>'Pulsar\Pulsar\Controllers\Profiles@editRecord',                'resource' => 'admin-perm-profile',    'action' => 'access']);
-    Route::post(config('pulsar.appName') . '/pulsar/profiles/update/{page}',                    ['as'=>'updateProfile',         'uses'=>'Pulsar\Pulsar\Controllers\Profiles@updateRecord',              'resource' => 'admin-perm-profile',    'action' => 'edit']);
+    Route::put(config('pulsar.appName') . '/pulsar/profiles/update/{page}',                     ['as'=>'updateProfile',         'uses'=>'Pulsar\Pulsar\Controllers\Profiles@updateRecord',              'resource' => 'admin-perm-profile',    'action' => 'edit']);
     Route::get(config('pulsar.appName') . '/pulsar/profiles/destroy/{id?}',                     ['as'=>'destroyProfile',        'uses'=>'Pulsar\Pulsar\Controllers\Profiles@destroyRecord',             'resource' => 'admin-perm-profile',    'action' => 'delete']);
     Route::delete(config('pulsar.appName') . '/pulsar/profiles/destroy/select/elements',        ['as'=>'destroySelectProfile',  'uses'=>'Pulsar\Pulsar\Controllers\Profiles@destroyRecordsSelect',      'resource' => 'admin-perm-profile',    'action' => 'delete']);
 
+    /*
+    |--------------------------------------------------------------------------
+    | PACKAGES
+    |--------------------------------------------------------------------------
+    */
+    Route::any(config('pulsar.appName') . '/pulsar/packages/{page?}',                           ['as'=>'Package',               'uses'=>'Pulsar\Pulsar\Controllers\Packages@index',                     'resource' => 'admin-packages',         'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/packages/json/data',                         ['as'=>'jsonDataPackage',       'uses'=>'Pulsar\Pulsar\Controllers\Packages@jsonData',                  'resource' => 'admin-packages',         'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/packages/create/{page}',                     ['as'=>'createPackage',         'uses'=>'Pulsar\Pulsar\Controllers\Packages@createRecord',              'resource' => 'admin-packages',         'action' => 'create']);
+    Route::post(config('pulsar.appName') . '/pulsar/packages/store/{page}',                     ['as'=>'storePackage',          'uses'=>'Pulsar\Pulsar\Controllers\Packages@storeRecord',               'resource' => 'admin-packages',         'action' => 'create']);
+    Route::get(config('pulsar.appName') . '/pulsar/packages/{id}/edit/{page}',                  ['as'=>'editPackage',           'uses'=>'Pulsar\Pulsar\Controllers\Packages@editRecord',                'resource' => 'admin-packages',         'action' => 'access']);
+    Route::put(config('pulsar.appName') . '/pulsar/packages/update/{page}',                     ['as'=>'updatePackage',         'uses'=>'Pulsar\Pulsar\Controllers\Packages@updateRecord',              'resource' => 'admin-packages',         'action' => 'edit']);
+    Route::get(config('pulsar.appName') . '/pulsar/packages/destroy/{id?}',                     ['as'=>'destroyPackage',        'uses'=>'Pulsar\Pulsar\Controllers\Packages@destroyRecord',             'resource' => 'admin-packages',         'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/packages/destroy/select/elements',        ['as'=>'destroySelectPackage',  'uses'=>'Pulsar\Pulsar\Controllers\Packages@destroyRecordsSelect',      'resource' => 'admin-packages',         'action' => 'delete']);
 
 
-
+    /*
+    |--------------------------------------------------------------------------
+    | TAREAS CRON
+    |--------------------------------------------------------------------------
+    */
+    Route::any(config('pulsar.appName') . '/pulsar/cronjobs/{page?}',                           ['as'=>'CronJob',               'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@index',                     'resource' => 'admin-cron',             'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/cronjobs/{id}/run/{page}',                   ['as'=>'runCronJob',            'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@run',                       'resource' => 'admin-cron',             'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/cronjobs/json/data',                         ['as'=>'jsonDataCronJob',       'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@jsonData',                  'resource' => 'admin-cron',             'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/cronjobs/create/{page}',                     ['as'=>'createCronJob',         'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@create',                    'resource' => 'admin-cron',             'action' => 'create']);
+    Route::post(config('pulsar.appName') . '/pulsar/cronjobs/store/{page}',                     ['as'=>'storeCronJob',          'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@store',                     'resource' => 'admin-cron',             'action' => 'create']);
+    Route::get(config('pulsar.appName') . '/pulsar/cronjobs/{id}/edit/{page}',                  ['as'=>'editCronJob',           'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@edit',                      'resource' => 'admin-cron',             'action' => 'access']);
+    Route::put(config('pulsar.appName') . '/pulsar/cronjobs/update/{page}',                     ['as'=>'updateCronJob',         'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@update',                    'resource' => 'admin-cron',             'action' => 'edit']);
+    Route::get(config('pulsar.appName') . '/pulsar/cronjobs/destroy/{id}',                      ['as'=>'destroyCronJob',        'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@destroy',                   'resource' => 'admin-cron',             'action' => 'delete']);
+    Route::post(config('pulsar.appName') . '/pulsar/cronjobs/destroy/select/elements',          ['as'=>'destroySelectCronJob',  'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@destroySelect',             'resource' => 'admin-cron',             'action' => 'delete']);
 
 
 
@@ -97,19 +123,6 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::post(config('pulsar.appName') . '/pulsar/permissions/json/create/{num}/{num1}/{any}',            ['as'=>'jsonCreatePermission',      'uses'=>'Pulsar\Pulsar\Controllers\Permissions@jsonCreate',     'resource' => 'admin-perm-profile',    'action' => 'access']);
     Route::post(config('pulsar.appName') . '/pulsar/permissions/json/destroy/{num}/{num1}/{any}',           ['as'=>'jsonDestroyPermission',     'uses'=>'Pulsar\Pulsar\Controllers\Permissions@jsonDestroy',    'resource' => 'admin-perm-profile',    'action' => 'access']);
 
-    /*
-    |--------------------------------------------------------------------------
-    | PACKAGES
-    |--------------------------------------------------------------------------
-    */
-    Route::any(config('pulsar.appName') . '/pulsar/packages/{page?}',                           ['as'=>'Package',              'uses'=>'Pulsar\Pulsar\Controllers\Packages@index',                    'resource' => 'admin-perm-profile',    'action' => 'access']);
-    Route::any(config('pulsar.appName') . '/pulsar/packages/json/data',                         ['as'=>'jsonDataPackages',      'uses'=>'Pulsar\Pulsar\Controllers\Packages@jsonData',                    'resource' => 'admin-perm-profile',    'action' => 'access']);
-    Route::get(config('pulsar.appName') . '/pulsar/packages/create/{page}',                     ['as'=>'createPackage',         'uses'=>'Pulsar\Pulsar\Controllers\Packages@createRecord',                    'resource' => 'admin-perm-resource',    'action' => 'access']);
-    Route::post(config('pulsar.appName') . '/pulsar/packages/store/{page}',                     ['as'=>'storePackage',          'uses'=>'Pulsar\Pulsar\Controllers\Packages@store',                    'resource' => 'admin-perm-resource',    'action' => 'access']);
-    Route::get(config('pulsar.appName') . '/pulsar/packages/{id}/edit/{page}',                  ['as'=>'editPackage',           'uses'=>'Pulsar\Pulsar\Controllers\Packages@editRecord',                    'resource' => 'admin-perm-resource',    'action' => 'access']);
-    Route::post(config('pulsar.appName') . '/pulsar/packages/update/{page}',                    ['as'=>'updatePackage',         'uses'=>'Pulsar\Pulsar\Controllers\Packages@update',                    'resource' => 'admin-perm-resource',    'action' => 'access']);
-    Route::get(config('pulsar.appName') . '/pulsar/packages/destroy/{id}',                      ['as'=>'destroyPackage',        'uses'=>'Pulsar\Pulsar\Controllers\Packages@destroyRecord',                    'resource' => 'admin-perm-resource',    'action' => 'access']);
-    Route::delete(config('pulsar.appName') . '/pulsar/packages/destroy/select/elements',        ['as'=>'destroySelectPackage',  'uses'=>'Pulsar\Pulsar\Controllers\Packages@destroyRecordsSelect',                    'resource' => 'admin-perm-resource',    'action' => 'access']);
 
     /*
     |--------------------------------------------------------------------------
@@ -207,20 +220,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::post(config('pulsar.appName') . '/pulsar/users/destroy/select/elements',   array('as'=>'destroySelectUsuario', 'uses'=>'Pulsar\Pulsar\Controllers\Usuarios@destroySelect'));
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | TAREAS CRON
-    |--------------------------------------------------------------------------
-    */
-    Route::any(config('pulsar.appName') . '/pulsar/cron/jobs/{page?}',                                 array('as'=>'CronJob',                     'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@index'));
-    Route::get(config('pulsar.appName') . '/pulsar/cron/jobs/{id}/run/{page}',                         array('as'=>'runCronJob',                   'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@run'));
-    Route::any(config('pulsar.appName') . '/pulsar/cron/jobs/json/data',                               array('as'=>'jsonDataCronJob',             'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@jsonData'));
-    Route::get(config('pulsar.appName') . '/pulsar/cron/jobs/create/{page}',                           array('as'=>'createCronJob',                'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@create'));
-    Route::post(config('pulsar.appName') . '/pulsar/cron/jobs/store/{page}',                           array('as'=>'storeCronJob',                 'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@store'));
-    Route::get(config('pulsar.appName') . '/pulsar/cron/jobs/{id}/edit/{page}',                        array('as'=>'editCronJob',                  'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@edit'));
-    Route::post(config('pulsar.appName') . '/pulsar/cron/jobs/update/{page}',                          array('as'=>'updateCronJob',                'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@update'));
-    Route::get(config('pulsar.appName') . '/pulsar/cron/jobs/destroy/{id}',                            array('as'=>'destroyCronJob',               'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@destroy'));
-    Route::post(config('pulsar.appName') . '/pulsar/cron/jobs/destroy/select/elements',                array('as'=>'destroySelectTareaCronJob',    'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@destroySelect'));
+
 
     /*
     |--------------------------------------------------------------------------

@@ -11,40 +11,34 @@
 <form class="form-vertical login-form" action="{{ route('login') }}" method="post">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-    <!-- Title -->
     <h3 class="form-title">{{ trans('pulsar::pulsar.access_your_account') }}</h3>
 
     <!-- Error Message -->
     <div class="alert fade in alert-danger" style="display: none;">
         <i class="icon-remove close" data-dismiss="alert"></i>
-        Indique su usuario y contraseña.
+        {{ trans('pulsar::pulsar.message_user_pass') }}
     </div>
 
-    <!-- Input Fields -->
     <div class="form-group">
-        <!--<label for="username">Username:</label>-->
         <div class="input-icon">
             <i class="icon-user"></i>
             <input type="text" name="user" class="form-control" placeholder="{{ trans('pulsar::pulsar.user') }}" autofocus="autofocus" data-rule-required="true" data-msg-required="Please enter your username.">
         </div>
     </div>
     <div class="form-group">
-        <!--<label for="password">Password:</label>-->
         <div class="input-icon">
             <i class="icon-lock"></i>
             <input type="password" name="pass" class="form-control" placeholder="{{ trans('pulsar::pulsar.password') }}" data-rule-required="true" data-msg-required="Please enter your password.">
         </div>
     </div>
-    <!-- /Input Fields -->
 
-    <!-- Form Actions -->
     <div class="form-actions">
         <button type="submit" class="submit btn btn-primary pull-right">
             {{ trans('pulsar::pulsar.login') }} <i class="icon-angle-right"></i>
         </button>
     </div>
 </form>
-<!-- /Login Formular -->
+<!-- /Login Form -->
 @stop
 
 @section('reminder')

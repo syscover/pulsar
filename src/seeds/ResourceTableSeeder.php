@@ -13,7 +13,7 @@ class ResourceTableSeeder extends Seeder {
             ('admin-cron',                      'Tareas Cron',                      2),
             ('admin-google-services',           'Google Services',                  2),
             ('admin-lang',                      'Idiomas',                          2),
-            ('admin-package',                   'Packages',                         2),
+            ('admin-packages',                  'Packages',                         2),
             ('admin-perm',                      'Sección Permisos',                 2),
             ('admin-perm-actions',              'Permisos -- Acciones',             2),
             ('admin-perm-perm',                 'Permisos -- Permisos',             2),

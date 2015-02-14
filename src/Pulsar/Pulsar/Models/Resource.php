@@ -22,13 +22,14 @@ class Resource extends Model
     public $timestamps      = false;
     protected $fillable     = ['id_007', 'name_007', 'package_007'];
     public static $rules    = [
+        'id'        =>  'required|between:2,30|unique:001_007_resource,id_007',
         'module'    =>  'not_in:null',
         'name'      =>  'required|between:2,50'
     ];
 
-    public static function validate($data, $idRule=true)
+    public static function validate($data, $specialRules = [])
     {
-        if($idRule) static::$rules['id'] = 'required|between:2,30|unique:001_007_resource,id_007';
+        if(isset($specialRules['idRule']) && $specialRules['idRule']) static::$rules['id'] = 'required|between:2,30';
 
         return Validator::make($data, static::$rules);
     }

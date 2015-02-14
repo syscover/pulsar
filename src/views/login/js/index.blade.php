@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(document).ready(function() {
-        @if(Session::has('loginErrors'))
+        @if($errors->has('loginErrors'))
         $.pnotify({
             type:   'error',
             title:  '{{ trans('pulsar::pulsar.error_login') }}',
@@ -12,7 +12,7 @@
         });
         @endif
 
-        @if(isset($loginErrors) && $loginErrors == 1)
+        @if($errors->has('loginErrors') && $errors->first('loginErrors') == 1)
         $.pnotify({
             type:   'error',
             title:  '{{ trans('pulsar::pulsar.error_login') }}',
@@ -24,7 +24,7 @@
         });
         @endif
 
-        @if(isset($loginErrors) && $loginErrors == 2)
+        @if($errors->has('loginErrors') && $errors->first('loginErrors') == 2)
         $.pnotify({
             type:   'error',
             title:  '{{ trans('pulsar::pulsar.error_login') }}',

@@ -47,6 +47,7 @@ return array(
     'message_record_no_select'              => 'No record selected to perform this action',
     'message_update_record'                 => 'Registration <strong>:name</strong> has been updated successfully',
     'message_delete_image'                  => 'Do you want to erase the image of the selected item?',
+    'message_user_pass'                     => 'Enter your username and password',
 
     'administration'                        => 'Administration',
     'action'                                => 'Action|Actions',

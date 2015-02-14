@@ -23,14 +23,14 @@ class Login extends BaseController
 
             if (!Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'pulsar', 'access'))
             {
-                return redirect()->to(config('pulsar.appName'))->with('loginErrors', true);
+                return redirect()->to(config('pulsar.appName'))->withErrors(['loginErrors' => 2]);
             }
 
             return redirect()->intended(route('dashboard'));
         }
         else
         {
-            return redirect()->to(config('pulsar.appName'))->with('loginErrors', true);
+            return redirect()->route('login')->withErrors(['loginErrors' => 2]);
         }
     }
 

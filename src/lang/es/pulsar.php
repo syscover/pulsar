@@ -47,6 +47,7 @@ return array(
     'message_record_no_select'              => 'No hay ningún registro seleccionado para realizar esta acción',
     'message_update_record'                 => 'El registro <strong>:name</strong> ha sido actualizado correctamente',
     'message_delete_image'                  => '¿Desea borrar la imagen del elemento seleccionado?',
+    'message_user_pass'                     => 'Indique su usuario y contraseña',
 
     'administration'                        => 'Administración',
     'action'                                => 'Acción|Acciones',

@@ -202,11 +202,12 @@ trait ControllerTrait {
         // check special rules
         if(Input::has('idOld'))
         {
-            $specialRules['idRule'] = Input::get('id') == Input::get('idOld')? false : true;
+            $specialRules['idRule'] = Input::get('id') == Input::get('idOld')? true : false;
             $id = Input::get('idOld');
         }
         else
         {
+            $specialRules  = [];
             $id = Input::get('id');
         }
 

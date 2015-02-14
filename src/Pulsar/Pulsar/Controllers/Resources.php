@@ -35,11 +35,11 @@ class Resources extends BaseController {
     
     public function storeCustomRecord()
     {
-        Resource::create(array(
+        Resource::create([
             'id_007'        => Input::get('id'),
             'package_007'   => Input::get('package'),
             'name_007'      => Input::get('name')
-        ));
+        ]);
     }
     
     public function editCustomRecord($data)
@@ -50,10 +50,10 @@ class Resources extends BaseController {
     
     public function updateCustomRecord($id)
     {
-        Resource::where('id_007', $id)->update(array(
+        Resource::where('id_007', $id)->update([
             'id_007'        => Input::get('id'),
             'package_007'   => Input::get('package'),
             'name_007'      => Input::get('name')
-        ));
+        ]);
     }
 }

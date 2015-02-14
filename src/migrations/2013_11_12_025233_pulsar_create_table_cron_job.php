@@ -16,7 +16,7 @@ class PulsarCreateTableCronJob extends Migration
                 $table->increments('id_043')->unsigned();
                 $table->string('name_043', 100);
                 $table->integer('package_043')->unsigned();
-                $table->string('cron_expresion_043', 255);
+                $table->string('cron_expression_043', 255);
                 $table->string('key_043',50);
                 $table->integer('last_run_043')->unsigned();
                 $table->integer('next_run_043')->unsigned();

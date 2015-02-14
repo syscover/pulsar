@@ -13,7 +13,7 @@
                 <div class="widget-content">
                     <form class="form-horizontal" method="post" action="{{ route($action . $routeSuffix, $offset) }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        @if(isset($required)) @include('pulsar::common.block.block_put') @endif
+                        @if($action == 'update') @include('pulsar::common.block.block_put') @endif
                         @yield('rows')
                         <div class="form-actions">
                             <button type="submit" class="btn marginR10">{{ trans('pulsar::pulsar.save') }}</button>

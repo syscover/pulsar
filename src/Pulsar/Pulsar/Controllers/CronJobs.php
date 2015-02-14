@@ -1,12 +1,14 @@
-<?php
+<?php namespace Pulsar\Pulsar\Controllers;
 
 /**
- * To generic comments, please look, Pulsar/Pulsar/Controllers/Languages
- * @package	Pulsar
- * @author	SYSCOVER (http://www.syscover.com/)
+ * @package	    Pulsar
+ * @author	    Jose Carlos Rodríguez Palacín
+ * @copyright   Copyright (c) 2015, SYSCOVER, SL
+ * @license
+ * @link		http://www.syscover.com
+ * @since		Version 2.0
+ * @filesource
  */
-
-namespace Pulsar\Pulsar\Controllers;
 
 use Illuminate\Support\Facades\App,
     Illuminate\Support\Facades\Session,
@@ -21,24 +23,20 @@ use Illuminate\Support\Facades\App,
     Pulsar\Pulsar\Libraries\Miscellaneous,
     Pulsar\Pulsar\Models\Package,
     Pulsar\Pulsar\Models\CronJob;
+use Pulsar\Pulsar\Traits\ControllerTrait;
 
 class CronJobs extends BaseController
 {
-    private $resource = 'admin-cron';
-    
-    public function index($offset=0)
-    {
+    use ControllerTrait;
 
+    protected $resource     = 'admin-cron';
+    protected $routeSuffix  = 'Action';
+    protected $folder       = 'actions';
+    protected $package      = 'pulsar';
+    protected $aColumns     = ['id_043', 'name_043', 'name_012', 'key_043', 'cron_expression_043', 'active_043', 'last_run_043', 'next_run_043'];
+    protected $nameM        = 'name_008';
+    protected $model        = '\Pulsar\Pulsar\Models\CronJob';
 
-        Miscellaneous::sessionParamterSetPage($this->resource);
-
-        $data['recurso']        = $this->resource;
-        $data['inicio']         = $offset;
-        $data['javascriptView'] = 'pulsar::pulsar.pulsar.cron_jobs.js.index';
-
-        return view('pulsar::pulsar.pulsar.cron_jobs.index',$data);
-    }
-    
     public function jsonData()
     {
 
@@ -215,7 +213,6 @@ class CronJobs extends BaseController
 
     public function destroy($id)
     {
-        i
         
         $cronJob = CronJob::find($id);
         CronJob::destroy($id);
@@ -229,8 +226,7 @@ class CronJobs extends BaseController
     
     public function destroySelect($offset=0)
     {
-        i
-        
+
         $nElements = Input::get('nElementsDataTable'); 
         $ids = array();
         for($i=0;$i<$nElements;$i++)
