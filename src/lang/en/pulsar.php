@@ -61,6 +61,8 @@ return array(
     'profile'                               => 'Profile|Profiles',
     'permission'                            => 'Permission|Permissions',
     'cronjob'                               => 'Cron Job|Cron Jobs',
+    'cron_expression'                       => 'Cron Expression',
+    'key'                                   => 'Key',
 
     'name'                                  => 'Name',
     'language'                              => 'Language|Languages',
@@ -70,6 +72,9 @@ return array(
     'action_successful'                     => 'Action successful!',
     'action_error'                          => 'Action error!',
     'choose_a'                              => 'Choose a',
+
+    'last_run'                              => 'Last run',
+    'next_run'                              => 'Next run',
 
 
 

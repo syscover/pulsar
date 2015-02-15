@@ -1,90 +1,14 @@
-@extends('pulsar::pulsar.pulsar.layouts.default')
+@extends('pulsar::layouts.form', ['object' => trans_choice('pulsar::pulsar.action', 1), 'action' => 'update'])
 
-@section('script')
-    @include('pulsar::pulsar.pulsar.common.block.block_script_header_form')
-@stop
-
-@section('breadcrumbs')
-<li>
-    <a href="javascript:void(0);" title="">{{ucwords(Lang::get('pulsar::pulsar.administracion'))}}</a>
-</li>
-<li class="current">
-    <a href="{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/cron/jobs" title="">Tareas Cron</a>
-</li>
-@stop
-
-@section('mainContent')
-<div class="row">
-    <div class="col-md-12">
-        <div class="widget box">
-            <div class="widget-header"><h4><i class="icomoon-icon-stopwatch"></i> Tarea cron</h4></div>
-            <div class="widget-content">
-                <form class="form-horizontal" method="post" action="{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/cron/jobs/update/{{ $inicio }}">
-                    {{ Form::token() }}
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">ID</label>
-                        <div class="col-md-2">
-                            <input class="form-control" type="text" name="id" readonly="" value="<?php echo $cronJob->id_043; ?>">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Nombre <span class="required">*</span></label>
-                        <div class="col-md-10">
-                            <input class="form-control required" type="text" name="nombre" value="<?php echo $cronJob->nombre_043; ?>" maxlength="100" rangelength="2, 100">
-                            <?php echo $errors->first('nombre',Config::get('pulsar::pulsar.errorDelimiters')); ?>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Módulo <span class="required">*</span></label>
-                        <div class="col-md-2">
-                            <select class="form-control" name="modulo" notequal="null">
-                                <option value="null">Elija un módulo</option>
-                                <?php foreach ($modulos as $modulo): ?>
-                                <option value="<?php echo $modulo->id_012 ?>" <?php if($cronJob->modulo_043 === $modulo->id_012) echo 'selected=""'; ?>><?php echo $modulo->name_012 ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <?php echo $errors->first('modulo',Config::get('pulsar::pulsar.errorDelimiters')); ?>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Expresión Cron <span class="required">*</span></label>
-                        <div class="col-md-10">
-                            <input class="form-control required" type="text" name="cronExpresion" value="<?php echo $cronJob->cron_expresion_043; ?>" maxlength="255" rangelength="9, 255">
-                            <?php echo $errors->first('cronExpresion',Config::get('pulsar::pulsar.errorDelimiters')); ?>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Última ejecución</label>
-                        <div class="col-md-10">
-                            <input class="form-control" type="text" readonly="" value="<?php echo $ultimaEjecucion; ?>">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Siguiente ejecución</span></label>
-                        <div class="col-md-10">
-                            <input class="form-control" type="text" readonly="" value="<?php echo $siguienteEjecucion; ?>">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Activa</label>
-                        <div class="col-md-10">
-                            <input class="uniform" type="checkbox" name="activa" value="1"  <?php if($cronJob->activa_043) echo 'checked=""'; ?>>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Key <span class="required">*</span></label>
-                        <div class="col-md-10">
-                            <input class="form-control required" type="text" name="key" value="<?php echo $cronJob->key_043; ?>" maxlength="50" rangelength="1, 50">
-                            <?php echo $errors->first('key',Config::get('pulsar::pulsar.errorDelimiters')); ?>
-                        </div>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn marginR10">{{ Lang::get('pulsar::pulsar.guardar') }}</button>
-                        <a class="btn btn-inverse" href="{{ URL::to(Config::get('pulsar::pulsar.rootUri')) }}/pulsar/cron/jobs/{{ $inicio }}">{{ Lang::get('pulsar::pulsar.cancelar') }}</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>                    
+@section('rows')
+    <!-- pulsar::cron_jobs.edit -->
+    @include('pulsar::common.block.block_form_text_group', ['label' => 'ID', 'name' => 'id', 'value' => $object->id_043, 'sizeField' => 2, 'readOnly' => true])
+    @include('pulsar::common.block.block_form_text_group', ['label' => trans('pulsar::pulsar.name'), 'name' => 'name', 'value' => $object->name_043, 'maxLength' => '100', 'rangeLength' => '2,100', 'required' => true])
+    @include('pulsar::common.block.block_form_select_group', ['label' => trans_choice('pulsar::pulsar.package', 1), 'name' => 'package', 'value' => $object->package_043, 'required' => true, 'objects' => $packages, 'idSelect' => 'id_012', 'nameSelect' => 'name_012'])
+    @include('pulsar::common.block.block_form_text_group', ['label' => trans('pulsar::pulsar.cron_expression'), 'name' => 'cronExpression', 'value' => $object->cron_expression_043, 'maxLength' => '255', 'rangeLength' => '9,255', 'required' => true])
+    @include('pulsar::common.block.block_form_text_group', ['label' => trans('pulsar::pulsar.last_run'), 'name' => 'lastRun', 'value' => $lastRun, 'readOnly' => true, 'sizeField' => 6])
+    @include('pulsar::common.block.block_form_text_group', ['label' => trans('pulsar::pulsar.next_run'), 'name' => 'nextRun', 'value' => $nextRun, 'readOnly' => true, 'sizeField' => 6])
+    @include('pulsar::common.block.block_form_checkbox_group', ['label' => trans('pulsar::pulsar.active'), 'name' => 'active', 'value' => 1, 'isChecked' => $object->active_043])
+    @include('pulsar::common.block.block_form_text_group', ['label' => trans('pulsar::pulsar.key'), 'name' => 'key', 'value' => $object->key_043, 'sizeField' => 2, 'required' => true])
+    <!-- /pulsar::cron_jobs.edit -->
 @stop

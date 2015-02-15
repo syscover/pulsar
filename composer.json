@@ -12,7 +12,10 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "zendframework/zend-permissions-acl": "2.3.*@dev"
+        "zendframework/zend-permissions-acl": "2.3.*@dev",
+        "tecnick.com/tcpdf": "dev-master",
+        "mtdowling/cron-expression": "dev-master",
+        "phpoffice/phpexcel": "dev-master"
     },
     "autoload": {
         "psr-4": {

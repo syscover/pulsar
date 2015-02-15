@@ -9,7 +9,6 @@
  * @since		Version 1.0
  * @filesource  Librarie that instance helper functions
  */
-// ------------------------------------------------------------------------
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Input;

@@ -10,18 +10,14 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Session,
-    Illuminate\Support\Facades\Auth,
-    Illuminate\Support\Facades\Input,
-    Illuminate\Support\Facades\URL,
-    Illuminate\Support\Facades\Config,
-    Illuminate\Support\Facades\Lang,
-
-    Illuminate\Support\Facades\Redirect,
-    Cron\CronExpression,
-
-    Pulsar\Pulsar\Models\Package,
-    Pulsar\Pulsar\Models\CronJob;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Redirect;
+use Pulsar\Pulsar\Models\Package;
+use Pulsar\Pulsar\Models\CronJob;
+use Cron\CronExpression;
 use Pulsar\Pulsar\Traits\ControllerTrait;
 
 class CronJobs extends BaseController
@@ -40,13 +36,14 @@ class CronJobs extends BaseController
     {
         return  Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('run' . $this->routeSuffix, [$aObject['id_043'], Input::get('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.run') . '"><i class="icon-bolt"></i></a>' : null;
     }
-    
-    public function run($id, $offset=0)
+
+
+    public function run($id, $offset = 0)
     {
         $cronJob    = CronJob::find($id);
-        $comand     = config('cron.' . $cronJob->key_043);
+        $comand     = Config::get('cron.' . $cronJob->key_043); // don't use helper config to dont't marked like error
 
-        $comand(); // run cron
+        $comand(); // run task cron
 
         return Redirect::route($this->routeSuffix, $offset)->with([
             'msg'        => 1,
@@ -63,7 +60,8 @@ class CronJobs extends BaseController
     
     public function storeCustomRecord()
     {
-        $cron = CronExpression::factory(Input::get('cronExpresion'));
+        $cron = CronExpression::factory(Input::get('cronExpression'));
+
         CronJob::create([
             'name_043'              => Input::get('name'),
             'package_043'           => Input::get('package'),
@@ -79,8 +77,8 @@ class CronJobs extends BaseController
     {
         $data['packages']        = Package::all();
         $date = new \DateTime();
-        $data['ultimaEjecucion'] = $date->setTimestamp($data['cronJob']->last_run_043)->format('d-m-Y H:i:s');
-        $data['siguienteEjecucion'] = $date->setTimestamp($data['cronJob']->next_run_043)->format('d-m-Y H:i:s');
+        $data['lastRun'] = $date->setTimestamp($data['object']->last_run_043)->format('d-m-Y H:i:s');
+        $data['nextRun'] = $date->setTimestamp($data['object']->next_run_043)->format('d-m-Y H:i:s');
 
         return $data;
     }

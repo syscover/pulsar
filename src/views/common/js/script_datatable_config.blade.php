@@ -1,3 +1,4 @@
+<!-- pulsar::common.js.script_datatable_config -->
 <script type="text/javascript">
     $(document).ready(function() {
         if ($.fn.dataTable) {
@@ -57,7 +58,7 @@
                         });
                     }
 
-                    @if(!isset($hideDeleteDataTable))
+                    @if(!isset($areDeleteRecord))
                     $('.delete-record').bind('click', function() {
                         var idRecord = $(this).data('id')
                         var url = "{{ route('destroy' . $routeSuffix) }}/" + idRecord;
@@ -172,3 +173,4 @@
         }
     }
 </script>
+<!-- /pulsar::common.js.script_datatable_config -->

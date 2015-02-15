@@ -25,7 +25,7 @@ class Permissions extends BaseController
     use ControllerTrait;
 
     protected $routeSuffixProfile   = 'Profile';
-    protected $hideDeleteDataTable = true;
+    protected $areDeleteRecord      = true;
 
     protected $resource             = 'admin-perm-perm';
     protected $routeSuffix          = 'Permission';
@@ -39,7 +39,7 @@ class Permissions extends BaseController
     {
         $data['profile']                = Profile::find($args[1]);
         $data['offsetProfile']          = $args[2];
-        $data['hideDeleteDataTable']    = $this->hideDeleteDataTable;
+        $data['areDeleteRecord']        = $this->areDeleteRecord;
         $data['routeSuffixProfile']     = $this->routeSuffixProfile;
 
         return $data;

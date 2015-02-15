@@ -23,7 +23,7 @@ class Langs extends BaseController {
     use ControllerTrait;
 
     protected $resource     = 'admin-lang';
-    protected $routePrefix  = 'Lang';
+    protected $routeSuffix  = 'Lang';
     protected $folder       = 'langs';
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_001', ['name' =>'image_001', 'type' => 'img', 'url' => '/packages/pulsar/pulsar/storage/langs/'], 'name_001', ['name' => 'base_001', 'type' => 'check'], ['name' => 'active_001', 'type' => 'active'], 'sorting_001'];

@@ -1,6 +1,7 @@
 <?php namespace Pulsar\Pulsar;
 
 use Illuminate\Support\ServiceProvider;
+use Pulsar\Pulsar\Libraries\CustomValidator;
 
 class PulsarServiceProvider extends ServiceProvider
 {
@@ -28,8 +29,15 @@ class PulsarServiceProvider extends ServiceProvider
 		// register config files
 		$this->publishes([
 			realpath(__DIR__ . '/../../config/pulsar.php') => config_path('pulsar.php'),
-			realpath(__DIR__ . '/../../config/auth.php') => config_path('auth.php')
+			realpath(__DIR__ . '/../../config/auth.php') => config_path('auth.php'),
+            realpath(__DIR__ . '/../../config/cron.php') => config_path('cron.php')
 		]);
+
+        // register custom validator
+        $this->app['validator']->resolver(function($translator, $data, $rules, $messages)
+        {
+            return new CustomValidator($translator, $data, $rules, $messages);
+        });
 
 		//$handler->missing(function($exception) {return \Response::view('errors.missing', array(), 404); });
 	}
@@ -41,7 +49,7 @@ class PulsarServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-
+        //
 	}
 
 }
