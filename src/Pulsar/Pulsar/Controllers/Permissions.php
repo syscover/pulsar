@@ -52,13 +52,14 @@ class Permissions extends BaseController
         $actionsAcl     = Action::get();
         $acl            = PulsarAcl::getProfileAcl($profile);
 
-        $params         =  Miscellaneous::paginateDataTable();
-        $params         =  Miscellaneous::dataTableSorting($params, $this->aColumns);
-        $params         =  Miscellaneous::filteringDataTable($params);
+        $args         =  Miscellaneous::paginateDataTable();
+        $args         =  Miscellaneous::dataTableSorting($args, $this->aColumns);
+        $args         =  Miscellaneous::filteringDataTable($args);
 
+        $args['aColumns'] = $this->aColumns;
 
-        $objects        = Resource::getRecordsLimit($this->aColumns, $params['sLength'], $params['sStart'], $params['sOrder'], $params['sTypeOrder'], $params['sWhere']);
-        $iFilteredTotal = Resource::getRecordsLimit($this->aColumns, null, null, $params['sOrder'], $params['sTypeOrder'], $params['sWhere'], null, true);
+        $objects        = Resource::getRecordsLimit($args);
+        $iFilteredTotal = Resource::getRecordsLimit($args['count'] = true);
         $iTotal         = Resource::count();
 
         $output = array(

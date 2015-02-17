@@ -385,12 +385,12 @@ class Miscellaneous
     /**
      *  Función que formatea un texto, pensada para inputs
      *
-     * @access    public
-     * @param $text
-     * @param bool $ucwords
-     * @param bool $strtolower
-     * @param bool $trim
-     * @return string
+     * @access  public
+     * @param   string    $text
+     * @param   bool      $ucwords
+     * @param   bool      $strtolower
+     * @param   bool      $trim
+     * @return  string
      */
     public static function formatText($text, $ucwords= true, $strtolower = true, $trim = true)
     {
@@ -402,11 +402,11 @@ class Miscellaneous
     }
 
     /**
-     *  Función para stablecer los parametros de configuración de la paginación de un datatable
+     *  Function to set config arguments datatable
      *
-     * @access    public
-     * @param array $args
-     * @return array
+     * @access  public
+     * @param   array $args
+     * @return  array
      */
     public static function paginateDataTable($args = [])
     {
@@ -423,12 +423,12 @@ class Miscellaneous
     }
 
     /**
-     *  Función para stablecer los parametros de configuración del orden de la datatable
+     *  Function to set config arguments to sorting datatable
      *
-     * @access    public
-     * @param $args
-     * @param $aColumns
-     * @return array
+     * @access  public
+     * @param   array   $args
+     * @param   array   $aColumns
+     * @return  array
      */
     public static function dataTableSorting($args, $aColumns)
     {
@@ -449,11 +449,11 @@ class Miscellaneous
     }
 
     /**
-     *  Función para stablecer los parametros de para hacer búsquedas en al datatable
+     *  Function to set arguments to search on datatable
      *
-     * @access    public
-     * @param $args
-     * @return array
+     * @access  public
+     * @param   array   $args
+     * @return  array
      */
     public static function filteringDataTable($args)
     {
@@ -467,12 +467,12 @@ class Miscellaneous
     }
 
     /**
-     *  Función para stablecer los parametros de para hacer búsquedas en al datatable
+     *  Function to set arguments to search on datatable
      *
-     * @access    public
-     * @param $args
-     * @param $aColumns
-     * @return array
+     * @access  public
+     * @param   array   $args
+     * @param   array   $aColumns
+     * @return  array
      */
     public static function individualFilteringDataTable($args, $aColumns)
     {
@@ -493,14 +493,14 @@ class Miscellaneous
     }
 
     /**
-     *  Función para establecer las clausulas where para realizar las consultas
+     *  Function to set arguments to SQL query
      *
-     * @access      public
-     * @param       $query          array
-     * @param       $aColumns       array
-     * @param       $sWhere         array
-     * @param       $sWhereColumns  array
-     * @return      Model
+     * @access  public
+     * @param   array   $query
+     * @param   array   $aColumns
+     * @param   array   $sWhere
+     * @param   array   $sWhereColumns
+     * @return  Illuminate/Database/Eloquent/Builder
      */
     public static function getQueryWhere($query, $aColumns, $sWhere, $sWhereColumns)
     {
@@ -529,11 +529,11 @@ class Miscellaneous
     }
 
     /**
-     *  Función que formatea telefonos
+     *  Function to format phone
      *
-     * @access    public
-     * @param $numero
-     * @return string
+     * @access  public
+     * @param   int $numero
+     * @return  string
      */
     public static function phoneNumberFormat($numero)
     {
@@ -549,7 +549,7 @@ class Miscellaneous
     }
 
     /**
-     *  Función que formatea telefonos
+     *  Function to etract email from text
      *
      * @access	public
      * @param   string  $text

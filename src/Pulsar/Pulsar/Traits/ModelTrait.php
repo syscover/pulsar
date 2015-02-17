@@ -3,7 +3,7 @@
 use Pulsar\Pulsar\Libraries\Miscellaneous;
 
 trait ModelTrait {
-    
+
     public static function getRecordsLimit($args)
     {
         $instance = new static;
@@ -16,7 +16,7 @@ trait ModelTrait {
             $query = $instance->query();
         }
 
-        $query = Miscellaneous::getQueryWhere($query, $args['aColumns'], $args['sWhere'], isset($args['sWhereColumns'])? $args['sWhereColumns'] : null);
+        $query = Miscellaneous::getQueryWhere($query, isset($args['aColumns'])? $args['aColumns'] : null, isset($args['sWhere'])? $args['sWhere'] : null, isset($args['sWhereColumns'])? $args['sWhereColumns'] : null);
 
         if(isset($args['count']) &&  $args['count'])
         {
@@ -24,9 +24,9 @@ trait ModelTrait {
         }
         else
         {
-            if(isset($args['nRecords']))    $query->take($args['nRecords']);
-            if(isset($args['offset']))      $query->skip($args['offset']);
-            if(isset($args['sorting']))     $query->orderBy($args['sorting'], isset($args['typeSorting'])? $args['typeSorting'] : 'asc');
+            if(isset($args['sLength']))     $query->take($args['sLength']);
+            if(isset($args['sStart']))      $query->skip($args['sStart']);
+            if(isset($args['sOrder']))      $query->orderBy($args['sOrder'], isset($args['sTypeOrder'])? $args['sTypeOrder'] : 'asc');
 
             return $query->get();
         }

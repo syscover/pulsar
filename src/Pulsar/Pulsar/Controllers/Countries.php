@@ -10,17 +10,13 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\App,
-    Illuminate\Support\Facades\Session,
-    Illuminate\Support\Facades\Auth,
-    Illuminate\Support\Facades\Input,
-    Illuminate\Support\Facades\URL,
-    Illuminate\Support\Facades\Config,
-    Illuminate\Support\Facades\Lang,
-    Illuminate\Support\Facades\Redirect,
-    Pulsar\Pulsar\Libraries\Miscellaneous,
-    Pulsar\Pulsar\Models\Lang as Language;
-
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Pulsar\Pulsar\Libraries\Miscellaneous;
+use Pulsar\Pulsar\Models\Lang;
 use Pulsar\Pulsar\Models\Country;
 use Pulsar\Pulsar\Traits\ControllerTrait;
 
@@ -50,21 +46,31 @@ class Countries extends BaseController {
         return $data;
     }
     
-    public function jsonDataX()
+    public function jsonData()
     {
         $baseLang   = Session::get('baseLang');
-        $langs      = Language::getActiveLangs();
+        $langs      = Lang::getActiveLangs();
+
+        $args =  Miscellaneous::paginateDataTable();
+        $args =  Miscellaneous::dataTableSorting($args, $this->aColumns);
+        $args =  Miscellaneous::filteringDataTable($args);
+
+        $args['aColumns']   = $this->aColumns;
+        $args['lang']       = $baseLang->id_001;
+        $argsCount = $args;
+        $argsCount['count'] = true;
 
 
-        //Toma de datos para la tabla
-        $objects        = Country::getRecordsLimit($aColumns, $params['sLength'], $params['sStart'], $params['sOrder'], $params['sTypeOrder'], $params['sWhere'], ['lang' => $baseLang->id_001]);
-        $iFilteredTotal = Country::getRecordsLimit($idiomaBase->id_001, $aColumns, null, null, $params['sOrder'], $params['sTypeOrder'], $params['sWhere'], null, true, ['lang' => $baseLang->id_001]);
-        $iTotal         = Country::getRecordsLimit($idiomaBase->id_001, $aColumns)->count();
+        $objects        = call_user_func($this->model . '::getRecordsLimit', $args);
+        $iFilteredTotal = call_user_func($this->model . '::getRecordsLimit', $argsCount);
+        $iTotal         = Country::getRecordsLimit(['lang' => $args['lang']])->count();
 
-        $ids            = Miscellaneous::getIdsCollection($objects, 'id_002');
-        $paisesAllLang  = Country::getPaisesFromIds($ids);
+        $ids                = Miscellaneous::getIdsCollection($objects, 'id_002');
+        $countriesAllLang   = Country::getContriesFromIds($ids);
 
-        //cabecera JSON
+        // get properties of model class
+        $class          = new \ReflectionClass($this->model);
+
         $output = array(
             "sEcho"                 => intval(Input::get('sEcho')),
             "iTotalRecords"         => $iTotal,
@@ -72,30 +78,31 @@ class Countries extends BaseController {
             "aaData"                => array()
         );
 
+        $instance = new $this->model;
         $aObjects = $objects->toArray(); $i=0;
         foreach($aObjects as $aObject)
         {
 		    $row = array();
-		    foreach ($aColumns as $aColumn)
+		    foreach ($this->aColumns as $aColumn)
             {
                 if($aColumn == "name_001")
                 {
                     if($aObject[$aColumn] != '')
-                        $row[] = '<img src="' . URL::asset('/packages/pulsar/pulsar/storage/languages/' . $aObject["image_001"]) .'"> ' . $aObject["name_001"];
+                        $row[] = '<img src="' . asset('/packages/pulsar/pulsar/storage/langs/' . $aObject["image_001"]) .'"> ' . $aObject["name_001"];
                     else
                         $row[] = '';
                 }
-                elseif($aColumn == "area_territorial_1_002" && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->reArea1, 'access'))
+                elseif($aColumn == "territorial_area_1_002" && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->reArea1, 'access'))
                 {
-                    $row[] = '<a href="' . URL::to(Config::get('pulsar::pulsar.rootUri') . '/pulsar/areasterritoriales1/' . $aObject['id_002']) . '">' . $aObject[$aColumn] . '</a>';
+                    $row[] = '<a href="' . route('TerritorialArea1', $aObject['id_002']) . '">' . $aObject[$aColumn] . '</a>';
                 }
-                elseif($aColumn == "area_territorial_2_002" && Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->reArea2, 'access'))
+                elseif($aColumn == "territorial_area_2_002" && Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->reArea2, 'access'))
                 {
-                    $row[] = '<a href="' . URL::to(Config::get('pulsar::pulsar.rootUri')).'/pulsar/areasterritoriales2/'.$aObject['id_002'].'">' . $aObject[$aColumn].'</a>';
+                    $row[] = '<a href="' . route('TerritorialArea2', $aObject['id_002']) . '">' . $aObject[$aColumn].'</a>';
                 }
-                elseif($aColumn == "area_territorial_3_002" && Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->reArea3, 'access'))
+                elseif($aColumn == "territorial_area_3_002" && Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->reArea3, 'access'))
                 {
-                    $row[] = '<a href="' . URL::to(Config::get('pulsar::pulsar.rootUri')).'/pulsar/areasterritoriales3/'.$aObject['id_002'].'">' . $aObject[$aColumn].'</a>';
+                    $row[] = '<a href="' . route('TerritorialArea3', $aObject['id_002']) . '">' . $aObject[$aColumn].'</a>';
                 }
                 else
                 {
@@ -105,65 +112,69 @@ class Countries extends BaseController {
 
             $row[] = '<input type="checkbox" class="uniform" name="element'.$i.'" value="'.$aObject['id_002'].'">';
 
-            $acciones = '<div class="btn-group">';
-            $acciones .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" title="" href="'.URL::to(Config::get('pulsar::pulsar.rootUri')).'/pulsar/paises/'.$aObject['id_002'].'/edit/'.$idiomaBase->id_001.'/'.Input::get('iDisplayStart').'" data-original-title="'.Lang::get('pulsar::pulsar.editar_registro').'"><i class="icon-pencil"></i></a>' : '';
-            $acciones .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip" title="" href="javascript:deleteElement(\''.$aObject['id_002'].'\')" data-original-title="'.Lang::get('pulsar::pulsar.borrar_registro').'"><i class="icon-trash"></i></a>' : '';
+            $actions = '<div class="btn-group">';
+            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . route('edit'. $class->getShortName(), [$aObject[$instance->getKeyName()], Input::get('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
+            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] .'" data-original-title="' . trans('pulsar::pulsar.delete_record') . '"><i class="icon-trash"></i></a>' : null;
 
-            $colorFl="MY_green";
-
-            foreach ($idiomas as $idioma)
+            // set language to object
+            $jsonObject = json_decode($aObject['data_002']);
+            $colorFlag = "MY_red";
+            
+            foreach ($langs as $lang)
             {
-                $isNew = Miscellaneous::isCreateLanguage($aObject['id_002'], $idioma->id_001, $paisesAllLang, 'idioma_002', 'id_002');
+                $isCreated = in_array($lang->id_001, $jsonObject->langs);
 
-                if($colorFl=="MY_green" && $isNew)
+                if($isCreated)
                 {
-                    $colorFl="MY_red";
+                    $colorFlag="MY_green";
                     break;
                 }
             }
 
-            $acciones .= '<span class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
-                            <i class="brocco-icon-flag '.$colorFl.'"></i> <i class="icon-angle-down"></i>
+            $actions .= '<span class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
+                            <i class="brocco-icon-flag '.$colorFlag.'"></i> <i class="icon-angle-down"></i>
                         </span>
                         <ul class="dropdown-menu pull-right">';
 
-            $nIdiomas = count($idiomas); $j=0;
+            $nLangs = count($langs); $j=0;
 
-            foreach ($idiomas as $idioma)
+            foreach ($langs as $lang)
             {
-                $is_new = Miscellaneous::isCreateLanguage($aObject['id_002'], $idioma->id_001, $paisesAllLang, 'idioma_002', 'id_002');
+                $isCreated = in_array($lang->id_001, $jsonObject->langs);
 
-                if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'edit') && Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'create'))
+                if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit') && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'create'))
                 {
-                     $acciones .= '<li><a class="bs-tooltip" title="" href="'.URL::to(Config::get('pulsar::pulsar.rootUri')).'/pulsar/paises/';
-                     if($is_new)
-                     {
-                         $acciones .= 'create/' . Input::get('iDisplayStart') . '/' . $idioma->id_001 . '/'.$aObject['id_002'];
-                     }
-                     else
-                     {
-                         $acciones .= $aObject['id_002'].'/edit/'.$idioma->id_001.'/'.Input::get('iDisplayStart');
-                     }
-                     $acciones .= '" data-original-title="' . $idioma->name_001 . '"><img src="' . URL::asset('/packages/pulsar/pulsar/storage/languages/' . $idioma->image_001) . '"> ';
-                     if($is_new)
-                     {
-                         $acciones .= Lang::get('pulsar::pulsar.crear');
-                     }
-                     else
-                     {
-                         $acciones .= Lang::get('pulsar::pulsar.editar');
-                     }
-                     $acciones .= '</a></li>';
+                    $actions .= '<li><a class="bs-tooltip" href="';
+                    if($isCreated)
+                    {
+                        $actions .= route('editCountry', $aObject['id_002'], $lang->id_001, Input::get('iDisplayStart'));
+                    }
+                    else
+                    {
+                        $actions .= route('createCountry', Input::get('iDisplayStart'), $lang->id_001, $aObject['id_002']);
+                    }
+
+                    $actions .= '" data-original-title="' . $lang->name_001 . '"><img src="' . asset('/packages/pulsar/pulsar/storage/langs/' . $lang->image_001) . '"> ';
+
+                    if($isCreated)
+                    {
+                        $actions .= trans('pulsar::pulsar.edit');
+                    }
+                    else
+                    {
+                        $actions .= trans('pulsar::pulsar.create');
+                    }
+                    $actions .= '</a></li>';
                 }
 
                 $j++;
-                if($j < $nIdiomas) $acciones .= '<li class="divider"></li>';
+                if($j < $nLangs) $actions .= '<li class="divider"></li>';
             }
 
-            $acciones .= '</ul>';
-            $acciones .= '</div>';
+            $actions .= '</ul>';
+            $actions .= '</div>';
 
-		    $row[] =  $acciones;
+		    $row[] =  $actions;
                 
             $output['aaData'][] = $row;
             $i++;
@@ -171,8 +182,14 @@ class Countries extends BaseController {
                 
         $data['json'] = json_encode($output);
         
-        return view('pulsar::pulsar.pulsar.common.json_display',$data);
+        return view('pulsar::common.json_display',$data);
     }
+
+
+
+
+
+
     
     public function create($offset = 0, $lang, $id = null)
     {
@@ -181,7 +198,7 @@ class Countries extends BaseController {
             $data['pais'] = Pais::getPais($id, Session::get('idiomaBase')->id_001);
         }
         $data['inicio'] = $offset;
-        $data['idioma'] = Language::find($idioma);
+        $data['idioma'] = Lang::find($lang);
         return view('pulsar::pulsar.pulsar.paises.create',$data);
     }
     
@@ -202,30 +219,30 @@ class Countries extends BaseController {
         {
             $pais = array(
                 'id_002'                    => Input::get('id'),
-                'idioma_002'                => Input::get('idioma'),
+                'lang_002'                => Input::get('idioma'),
                 'nombre_002'                => Input::get('nombre'),
                 'orden_002'                 => Input::get('orden',0),
                 'prefijo_002'               => Input::get('prefijo'),
-                'area_territorial_1_002'    => Input::get('areaTerritorial1'),
-                'area_territorial_2_002'    => Input::get('areaTerritorial2'),
-                'area_territorial_3_002'    => Input::get('areaTerritorial3')
+                'territorial_area_1_002'    => Input::get('areaTerritorial1'),
+                'territorial_area_2_002'    => Input::get('areaTerritorial2'),
+                'territorial_area_3_002'    => Input::get('areaTerritorial3')
             );
             
             Pais::create($pais); 
             //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
             Session::flash('msg',1);
-            Session::flash('txtMsg',Lang::get('pulsar::pulsar.aviso_alta_registro',array('nombre' => Input::get('nombre'))));
+            Session::flash('txtMsg',trans('pulsar::pulsar.aviso_alta_registro',array('nombre' => Input::get('nombre'))));
             
             return Redirect::route('paises',array($offset));
         }
     }
     
-    public function edit($id, $idioma, $offset=0)
+    public function edit($id, $lang, $offset=0)
     {
 
         
         $data['inicio']         = $offset;
-        $data['pais']           = Pais::getPais($id, $idioma);
+        $data['pais']           = Pais::getPais($id, $lang);
         $data['idioma']         = $data['pais']->idioma;
         $data['javascriptView'] = 'pulsar::pulsar.pulsar.paises.js.edit';
         return view('pulsar::pulsar.pulsar.paises.edit',$data);
@@ -243,12 +260,12 @@ class Countries extends BaseController {
         }
         else
         {
-            Pais::where('id_002','=',Input::get('id'))->where('idioma_002','=',Input::get('idioma'))->update(array(
+            Pais::where('id_002','=',Input::get('id'))->where('lang_002','=',Input::get('idioma'))->update(array(
                 'nombre_002'                => Input::get('nombre'),
                 'orden_002'                 => Input::get('orden',0),
-                'area_territorial_1_002'    => Input::get('areaTerritorial1'),
-                'area_territorial_2_002'    => Input::get('areaTerritorial2'),
-                'area_territorial_3_002'    => Input::get('areaTerritorial3')
+                'territorial_area_1_002'    => Input::get('areaTerritorial1'),
+                'territorial_area_2_002'    => Input::get('areaTerritorial2'),
+                'territorial_area_3_002'    => Input::get('areaTerritorial3')
             ));
             
             //Datos comunes
@@ -258,7 +275,7 @@ class Countries extends BaseController {
 
             //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
             Session::flash('msg',1);
-            Session::flash('txtMsg',Lang::get('pulsar::pulsar.aviso_actualiza_registro',array('nombre' => Input::get('nombre'))));
+            Session::flash('txtMsg',trans('pulsar::pulsar.aviso_actualiza_registro',array('nombre' => Input::get('nombre'))));
             
             return Redirect::route('paises',array($offset));
         }
@@ -273,7 +290,7 @@ class Countries extends BaseController {
 
         //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
         Session::flash('msg',1);
-        Session::flash('txtMsg', Lang::get('pulsar::pulsar.borrado_registro',array('nombre' => $pais->nombre_002)));
+        Session::flash('txtMsg', trans('pulsar::pulsar.borrado_registro',array('nombre' => $pais->nombre_002)));
         
         return Redirect::route('paises');
     }
@@ -293,19 +310,19 @@ class Countries extends BaseController {
         Pais::deletePaises($ids);
         //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición        
         Session::flash('msg',1);
-        Session::flash('txtMsg', Lang::get('pulsar::pulsar.borrado_registros'));
+        Session::flash('txtMsg', trans('pulsar::pulsar.borrado_registros'));
         
         return Redirect::route('paises');
     }
     
-    public function destroyLang($id, $idioma, $offset=0)
+    public function destroyLang($id, $lang, $offset=0)
     {
-        $pais = Pais::getPais($id, $idioma);
-        Pais::deleteLangPais($id, $idioma);
+        $pais = Pais::getPais($id, $lang);
+        Pais::deleteLangPais($id, $lang);
         
         //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
         Session::flash('msg',1);
-        Session::flash('txtMsg', Lang::get('pulsar::pulsar.borrado_registro',array('nombre' => $pais->nombre_002)));
+        Session::flash('txtMsg', trans('pulsar::pulsar.borrado_registro',array('nombre' => $pais->nombre_002)));
         return Redirect::route('paises', array($offset));
     }
     

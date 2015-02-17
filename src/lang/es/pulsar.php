@@ -28,6 +28,8 @@ return array(
     'delete'                                => 'Borrar',
     'accept'                                => 'Aceptar',
     'cancel'                                => 'Cancelar',
+    'edit'                                  => 'Editar',
+    'create'                                => 'Crear',
     'new'                                   => 'Nuevo',
     'new2'                                  => 'Nueva',
     'file_not_select'                       => 'Fichero no seleccionado',

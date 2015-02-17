@@ -67,10 +67,12 @@ trait ControllerTrait {
 
         // set columns in args array
         $args['aColumns'] = $this->aColumns;
+        $argsCount = $args;
+        $argsCount['count'] = true;
 
         // get data to table
         $objects        = call_user_func($this->model . '::getRecordsLimit', $args);
-        $iFilteredTotal = call_user_func($this->model . '::getRecordsLimit', $args['count'] = true);
+        $iFilteredTotal = call_user_func($this->model . '::getRecordsLimit', $argsCount);
         $iTotal         = call_user_func($this->model . '::count');
 
         // get properties of model class
