@@ -30,6 +30,7 @@ class Action extends Model {
     public static function validate($data, $specialRules = [])
     {
         if(isset($specialRules['idRule']) && $specialRules['idRule'])   static::$rules['id'] = 'required|between:2,25';
+
         return Validator::make($data, static::$rules);
 	}
 }

@@ -31,6 +31,8 @@ class CronJobs extends BaseController
     protected $aColumns     = ['id_043', 'name_043', 'name_012', 'key_043', 'cron_expression_043', ['name' => 'active_043', 'type' => 'active'], ['name' => 'last_run_043', 'type' => 'date'], ['name' => 'next_run_043', 'type' => 'date']];
     protected $nameM        = 'name_012';
     protected $model        = '\Pulsar\Pulsar\Models\CronJob';
+    protected $icon         = 'icomoon-icon-stopwatch';
+    protected $objectTrans  = 'cronjob';
 
     public function jsonCustomDataBeforeActions($aObject)
     {

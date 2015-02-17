@@ -1,4 +1,28 @@
-@extends('pulsar::layouts.index', ['newTrans' => 'new2', 'object' => 'cronjob'])
+@extends('pulsar::layouts.index', ['newTrans' => 'new2'])
+
+@section('script')
+    @parent
+    <!-- pulsar::cron_jobs.index -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            if ($.fn.dataTable)
+            {
+                $('.datatable-pulsar').dataTable({
+                    'iDisplayStart' : {{ $offset }},
+                    'aoColumnDefs': [
+                        { 'bSortable': false, 'aTargets': [8,9]},
+                        { 'sClass': 'checkbox-column', 'aTargets': [8]},
+                        { 'sClass': 'align-center', 'aTargets': [5,9]}
+                    ],
+                    "bProcessing": true,
+                    "bServerSide": true,
+                    "sAjaxSource": "{{ route('jsonData' . $routeSuffix) }}"
+                }).fnSetFilteringDelay();
+            }
+        });
+    </script>
+    <!-- pulsar::cron_jobs.index -->
+@stop
 
 @section('tHead')
     <!-- pulsar::cron_jobs.index -->

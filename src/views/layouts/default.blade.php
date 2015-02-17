@@ -44,13 +44,9 @@
         <link href="{{ asset('packages/pulsar/pulsar/plugins/pnotify/jquery.pnotify.default.css') }}" type="text/css" rel="stylesheet">
         <link href="{{ asset('packages/pulsar/pulsar/plugins/cssloader/css/cssloader.css') }}" rel="stylesheet" type="text/css">
 
-               
         <!-- Librerías CSS y CSS inline  -->
         @yield('css')
-        
-        @if (isset($cssView) && $cssView != NULL)
-            @include($cssView)
-        @endif
+
         <!-- Css personalizadas -->
         <link href="{{ asset('packages/pulsar/pulsar/css/MY_style.css') }}" type="text/css" rel="stylesheet">
         
@@ -113,10 +109,6 @@
 
         <!-- Librerías JS y JS inline -->
         @yield('script')
-        
-        @if (isset($javascriptView) && $javascriptView != null)
-            @include($javascriptView)
-        @endif
         
         <!-- JS personalizadas -->
         <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/js/MY_script.js') }}"></script>

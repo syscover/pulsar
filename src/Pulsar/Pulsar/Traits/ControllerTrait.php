@@ -15,8 +15,10 @@ trait ControllerTrait {
     * protected $folder;        Name of folder that contain views
     * protected $package;       Name of package
     * protected $aColumns;      Name of column with your data type
-    * protected $nameM;         Name to put on message
+    * protected $nameM;         Name of database column to put on message
     * protected $model;         Name of model
+    * protected $icon;          Icon to buttom from entity
+    * protected $objectTrans;   Name of key array to translate object
     */
 
     /**
@@ -32,13 +34,18 @@ trait ControllerTrait {
         $data['folder']         = $this->folder;
         $data['routeSuffix']    = $this->routeSuffix;
         $data['resource']       = $this->resource;
+        $data['icon']           = $this->icon;
+        $data['objectTrans']    = $this->objectTrans;
         $data['offset']         = $offset;
-        $data['javascriptView'] = 'pulsar::' . $this->folder . '.js.index';
 
         // if there ara more arguments, we take us and send to indexCustom
         if(func_num_args() > 1)
         {
             $args = func_get_args();
+        }
+        else
+        {
+            $args = null;
         }
 
         if(method_exists($this, 'indexCustom'))
@@ -52,15 +59,18 @@ trait ControllerTrait {
     public function jsonData()
     {
         // table paginated
-        $params =  Miscellaneous::paginateDataTable();
+        $args =  Miscellaneous::paginateDataTable();
         // table sorting
-        $params =  Miscellaneous::dataTableSorting($params, $this->aColumns);
+        $args =  Miscellaneous::dataTableSorting($args, $this->aColumns);
         // quick search data table
-        $params =  Miscellaneous::filteringDataTable($params);
+        $args =  Miscellaneous::filteringDataTable($args);
+
+        // set columns in args array
+        $args['aColumns'] = $this->aColumns;
 
         // get data to table
-        $objects        = call_user_func($this->model . '::getRecordsLimit', $this->aColumns, $params['sLength'], $params['sStart'], $params['sOrder'], $params['sTypeOrder'], $params['sWhere']);
-        $iFilteredTotal = call_user_func($this->model . '::getRecordsLimit', $this->aColumns, null, null, $params['sOrder'], $params['sTypeOrder'], $params['sWhere'], null, true);
+        $objects        = call_user_func($this->model . '::getRecordsLimit', $args);
+        $iFilteredTotal = call_user_func($this->model . '::getRecordsLimit', $args['count'] = true);
         $iTotal         = call_user_func($this->model . '::count');
 
         // get properties of model class
@@ -146,6 +156,8 @@ trait ControllerTrait {
         $data['package']        = $this->package;
         $data['folder']         = $this->folder;
         $data['routeSuffix']    = $this->routeSuffix;
+        $data['icon']           = $this->icon;
+        $data['objectTrans']    = $this->objectTrans;
         $data['offset']         = $offset;
 
         return view('pulsar::' . $this->folder . '.create', $data);
@@ -189,11 +201,10 @@ trait ControllerTrait {
         $data['package']        = $this->package;
         $data['folder']         = $this->folder;
         $data['routeSuffix']    = $this->routeSuffix;
+        $data['icon']           = $this->icon;
+        $data['objectTrans']    = $this->objectTrans;
         $data['offset']         = $offset;
         $data['object']         = call_user_func($this->model . '::find', $id);
-
-        if(View::exists('pulsar::' . $this->folder . '.js.edit'))
-            $data['javascriptView'] = 'pulsar::' . $this->folder . '.js.edit';
 
         if(method_exists($this, 'editCustomRecord'))
         {
@@ -215,6 +226,10 @@ trait ControllerTrait {
         {
             $specialRules['idRule'] = Input::get('id') == Input::get('idOld')? true : false;
             $id = Input::get('idOld');
+        }
+        elseif(Input::hasFile('image'))
+        {
+            $specialRules['imageRule'] = true;
         }
         else
         {
@@ -284,12 +299,13 @@ trait ControllerTrait {
             }
         }
 
-        call_user_func($this->model . '::deleteRecords', $ids);
-
         if(method_exists($this, 'destroyCustomRecords'))
         {
             $this->destroyCustomRecords($ids);
         }
+
+        // destroy records after destroyCustomRecords, if we need do a select
+        call_user_func($this->model . '::deleteRecords', $ids);
 
         return Redirect::route($this->routeSuffix)->with([
             'msg'        => 1,

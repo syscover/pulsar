@@ -34,6 +34,8 @@ class Permissions extends BaseController
     protected $aColumns             = ['id_007', 'name_012', 'name_007'];
     protected $nameM                = 'name_008';
     protected $model                = '\Pulsar\Pulsar\Models\Action';
+    protected $icon                 = 'icon-shield';
+    protected $objectTrans          = 'permission';
     
     public function indexCustom($data,  $args)
     {

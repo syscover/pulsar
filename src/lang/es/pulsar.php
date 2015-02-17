@@ -35,11 +35,11 @@ return array(
     'active'                                => 'Activo',
     'sorting'                               => 'Orden',
     'dashboard'                             => 'Escritorio',
-
+    'prefix'                                => 'Prefijo',
     'edit_record'                           => 'Editar registro',
     'delete_record'                         => 'Borrar registro',
     'edit_permissions'                      => 'Editar permisos',
-
+    'territorial_area'                      => 'Area territorial',
     'message_create_record_successful'      => 'Registration <strong>:name</strong> has been properly recorded',
     'message_delete_record'                 => '¿Desea borrar el registro con <strong>ID \' + idRecord + \' </strong>?',
     'message_delete_records'                => '¿Desea borrar los registros seleccionados?',
@@ -63,7 +63,7 @@ return array(
     'cronjob'                               => 'Cron Job|Cron Jobs',
     'cron_expression'                       => 'Expression Cron',
     'key'                                   => 'Key',
-
+    'country'                               => 'País|Paises',
     'name'                                  => 'Nombre',
     'language'                              => 'Idioma|Idiomas',
     'base_language'                         => 'Base language',
@@ -75,6 +75,8 @@ return array(
 
     'last_run'                              => 'Última ejecución',
     'next_run'                              => 'Siguiente ejecución',
+
+    'show_file'                             => 'Ver fichero',
 
 
 

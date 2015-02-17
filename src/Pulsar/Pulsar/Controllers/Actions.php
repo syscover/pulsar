@@ -25,6 +25,9 @@ class Actions extends BaseController
     protected $aColumns     = ['id_008', 'name_008'];
     protected $nameM        = 'name_008';
     protected $model        = '\Pulsar\Pulsar\Models\Action';
+    protected $icon         = 'icomoon-icon-power';
+    protected $objectTrans  = 'action';
+
 
     public function storeCustomRecord()
     {

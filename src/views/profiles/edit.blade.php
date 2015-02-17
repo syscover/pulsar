@@ -1,4 +1,4 @@
-@extends('pulsar::layouts.form', ['object' => trans_choice('pulsar::pulsar.profile', 1), 'action' => 'update'])
+@extends('pulsar::layouts.form', ['action' => 'update'])
 
 @section('rows')
     <!-- pulsar::profiles.create -->

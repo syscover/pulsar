@@ -19,22 +19,24 @@ use Illuminate\Support\Facades\App,
     Illuminate\Support\Facades\Lang,
     Illuminate\Support\Facades\Redirect,
     Pulsar\Pulsar\Libraries\Miscellaneous,
-    Pulsar\Pulsar\Models\Lang as Language,
-    Pulsar\Pulsar\Models\Pais;
+    Pulsar\Pulsar\Models\Lang as Language;
+
+use Pulsar\Pulsar\Models\Country;
 use Pulsar\Pulsar\Traits\ControllerTrait;
 
 class Countries extends BaseController {
 
     use ControllerTrait;
 
-
-    protected $resource = 'admin-country';
-    protected $route    = 'countries';
-    protected $folder   = 'countries';
-    protected $package  = 'pulsar';
-    protected $aColumns = ['id_002', 'name_001', 'name_002', 'sorting_002', 'prefix_002', 'territorial_area_1_002', 'territorial_area_2_002', 'territorial_area_3_002'];
-    protected $nameM    = 'name_001';
-    protected $model    = '\Pulsar\Pulsar\Models\Lang';
+    protected $resource     = 'admin-country';
+    protected $routeSuffix  = 'Country';
+    protected $folder       = 'countries';
+    protected $package      = 'pulsar';
+    protected $aColumns     = ['id_002', 'name_001', 'name_002', 'sorting_002', 'prefix_002', 'territorial_area_1_002', 'territorial_area_2_002', 'territorial_area_3_002'];
+    protected $nameM        = 'name_002';
+    protected $model        = '\Pulsar\Pulsar\Models\Country';
+    protected $icon         = 'entypo-icon-globe';
+    protected $objectTrans  = 'country';
 
     protected $reArea1  = 'admin-country-at1';
     protected $reArea2  = 'admin-country-at2';
@@ -48,30 +50,19 @@ class Countries extends BaseController {
         return $data;
     }
     
-    public function jsonData()
+    public function jsonDataX()
     {
-        $idiomaBase     = Session::get('idiomaBase');
-        $idiomas        = Language::getIdiomasActivos();
+        $baseLang   = Session::get('baseLang');
+        $langs      = Language::getActiveLangs();
 
-        //Columnas para instanciar filtos de la tabla
-	    $aColumns = array('id_002', 'name_001', 'nombre_002', 'orden_002', 'prefijo_002', 'area_territorial_1_002', 'area_territorial_2_002', 'area_territorial_3_002');
-        $params = array();
-        
-        //Paginado de la tabla
-        $params =  Miscellaneous::paginateDataTable($params);
-	    
-        //Orden de la tabla
-        $params =  Miscellaneous::dataTableSorting($params, $aColumns);
-        
-        //filtrados de la tabla
-        $params =  Miscellaneous::filteringDataTable($params);
-	        
+
         //Toma de datos para la tabla
-        $objects        = Pais::getPaisesLimit($idiomaBase->id_001, $aColumns, $params['sLength'], $params['sStart'], $params['sOrder'], $params['sTypeOrder'], $params['sWhere']);
-        $iFilteredTotal = Pais::getPaisesLimit($idiomaBase->id_001, $aColumns, null, null, $params['sOrder'], $params['sTypeOrder'], $params['sWhere'], null, true);
-        $iTotal         = Pais::getPaisesLimit($idiomaBase->id_001, $aColumns)->count();
+        $objects        = Country::getRecordsLimit($aColumns, $params['sLength'], $params['sStart'], $params['sOrder'], $params['sTypeOrder'], $params['sWhere'], ['lang' => $baseLang->id_001]);
+        $iFilteredTotal = Country::getRecordsLimit($idiomaBase->id_001, $aColumns, null, null, $params['sOrder'], $params['sTypeOrder'], $params['sWhere'], null, true, ['lang' => $baseLang->id_001]);
+        $iTotal         = Country::getRecordsLimit($idiomaBase->id_001, $aColumns)->count();
+
         $ids            = Miscellaneous::getIdsCollection($objects, 'id_002');
-        $paisesAllLang  = Pais::getPaisesFromIds($ids);
+        $paisesAllLang  = Country::getPaisesFromIds($ids);
 
         //cabecera JSON
         $output = array(
@@ -309,8 +300,6 @@ class Countries extends BaseController {
     
     public function destroyLang($id, $idioma, $offset=0)
     {
-
-        
         $pais = Pais::getPais($id, $idioma);
         Pais::deleteLangPais($id, $idioma);
         
@@ -320,7 +309,7 @@ class Countries extends BaseController {
         return Redirect::route('paises', array($offset));
     }
     
-    public function jsonGetPais($id)
+    public function jsonCountry($id)
     {
         $data['json'] = array();
         if($id!="null") $data['json'] = Pais::getPais($id, Session::get('idiomaBase')->id_001)->toJson();

@@ -1,4 +1,28 @@
-@extends('pulsar::layouts.index', ['newTrans' => 'new', 'object' => 'profile'])
+@extends('pulsar::layouts.index', ['newTrans' => 'new'])
+
+@section('script')
+    @parent
+    <!-- pulsar::profiles.index -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            if ($.fn.dataTable)
+            {
+                $('.datatable-pulsar').dataTable({
+                    'iDisplayStart' : {{ $offset }},
+                    'aoColumnDefs': [
+                        { 'bSortable': false, 'aTargets': [2,3]},
+                        { 'sClass': 'checkbox-column', 'aTargets': [2]},
+                        { 'sClass': 'align-center', 'aTargets': [3]}
+                    ],
+                    "bProcessing": true,
+                    "bServerSide": true,
+                    "sAjaxSource": "{{ route('jsonData' . $routeSuffix) }}"
+                }).fnSetFilteringDelay();
+            }
+        });
+    </script>
+    <!-- pulsar::profiles.index -->
+@stop
 
 @section('tHead')
     <!-- pulsar::profiles.index -->

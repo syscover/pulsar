@@ -27,6 +27,8 @@ class Profiles extends BaseController {
     protected $aColumns     = ['id_006','name_006'];
     protected $nameM        = 'name_006';
     protected $model        = '\Pulsar\Pulsar\Models\Profile';
+    protected $icon         = 'icomoon-icon-users-2';
+    protected $objectTrans  = 'profile';
 
     private $rePermission   = 'admin-perm-perm';
 

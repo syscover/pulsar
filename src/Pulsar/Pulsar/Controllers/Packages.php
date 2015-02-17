@@ -26,8 +26,9 @@ class Packages extends BaseController {
     protected $aColumns     = ['id_012', 'name_012', ['name' => 'active_012', 'type' => 'active']];
     protected $nameM        = 'name_012';
     protected $model        = '\Pulsar\Pulsar\Models\Package';
+    protected $icon         = 'cut-icon-grid';
+    protected $objectTrans  = 'package';
 
-    
     public function storeCustomRecord()
     {
         Package::create([

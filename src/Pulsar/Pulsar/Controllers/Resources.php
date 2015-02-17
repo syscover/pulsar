@@ -26,6 +26,8 @@ class Resources extends BaseController {
     protected $aColumns     = ['id_007', 'name_012', 'name_007'];
     protected $nameM        = 'name_007';
     protected $model        = '\Pulsar\Pulsar\Models\Resource';
+    protected $icon         = 'icomoon-icon-database';
+    protected $objectTrans  = 'resource';
 
     public function createCustomRecord()
     {

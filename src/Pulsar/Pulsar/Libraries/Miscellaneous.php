@@ -19,8 +19,8 @@ class Miscellaneous
     /**
      *  Función que instancia la vista que se verá para acciones que nos interese, como menus, o reset de variable de sesión de cadena, etc.
      *
-     * @access	public
-     * @return	void
+     * @access    public
+     * @param $page
      */
     public static function setParameterSessionPage($page)
     {
@@ -35,8 +35,9 @@ class Miscellaneous
      *  En cada controller establecemos en que página estamos con la función Miscellaneous::sessionParamterSetPage(), en el menu simplemente dependiendo en que
      *  página nos envíe el cotroller, configura el menú de la forma apropiada
      *
-     * @access	public
-     * @return	string
+     * @access    public
+     * @param $pages
+     * @return string
      */
     public static function setDisplayPage($pages)
     {
@@ -83,8 +84,9 @@ class Miscellaneous
     /**
      *  Función que instancia varibles de sesión en caso de realizar búsquedas múltiples rápida desde la vista de tablas
      *
-     * @access	public
-     * @return	array
+     * @access    public
+     * @param array $data
+     * @return array
      */
     public static function sessionParamterSetSearchParams($data = [])
     {
@@ -111,8 +113,13 @@ class Miscellaneous
     /**
      *  Función para identificar si un registro está creado en un idioma en concreto
      *
-     * @access	public
-     * @return	array
+     * @access    public
+     * @param $id
+     * @param $idioma
+     * @param $resultados
+     * @param $parametroIdioma
+     * @param $parametroId
+     * @return array
      */
     public static function isCreateLanguage($id, $idioma, $resultados, $parametroIdioma, $parametroId)
     {
@@ -127,12 +134,14 @@ class Miscellaneous
         }
         return true;
     }
-    
+
     /**
      *  Función que devuelve en arrays los parametros de los objetos que le pasemos
      *
-     * @access	public
-     * @return	array
+     * @access    public
+     * @param $collection
+     * @param $idName
+     * @return array
      */
      public static function getIdsCollection($collection, $idName)
      {
@@ -148,8 +157,12 @@ class Miscellaneous
     /**
      *  Función para subir ficheros
      *
-     * @access	public
-     * @return	boolean
+     * @access    public
+     * @param $inputName
+     * @param $path
+     * @param bool $encryption
+     * @param bool $newFilename
+     * @return bool
      */
     public static function uploadFiles($inputName, $path, $encryption = false, $newFilename = false)
     {
@@ -186,8 +199,13 @@ class Miscellaneous
     /**
      *  Función para mover ficheros
      *
-     * @access	public
-     * @return	boolean
+     * @access    public
+     * @param $path
+     * @param $target
+     * @param $fileName
+     * @param bool $encryption
+     * @param bool $newFilename
+     * @return bool
      */
     public static function move($path, $target, $fileName, $encryption = false, $newFilename = false)
     {
@@ -220,8 +238,9 @@ class Miscellaneous
     /**
      *  Función para listar directorios
      *
-     * @access	public
-     * @return	boolean
+     * @access    public
+     * @param $path
+     * @return bool
      */
     public static function listDirectory($path)
     {
@@ -269,12 +288,13 @@ class Miscellaneous
         }
         return $ip;
     }
-    
+
     /**
      *  Función para obtener el pais del cliente según su ip
      *
-     * @access	public
-     * @return	string
+     * @access    public
+     * @param $ip
+     * @return string
      */
     public static function getCountryIp($ip)
     {
@@ -298,10 +318,10 @@ class Miscellaneous
      *  $available_languages, array with language-tag-strings (must be lowercase) that are available
      *  $http_accept_language, a HTTP_ACCEPT_LANGUAGE string (read from $_SERVER['HTTP_ACCEPT_LANGUAGE'] if left out)
      *
-     * @access	public
-     * @param   array  $available_languages
-     * @param   array  $http_accept_language
-     * @return	string
+     * @access    public
+     * @param   array $available_languages
+     * @param array|string $http_accept_language
+     * @return string
      */
     public static function preferedLanguage ($available_languages, $http_accept_language = "auto")
     {
@@ -348,23 +368,29 @@ class Miscellaneous
         }
         return $bestlang;
     }
-    
+
     /**
      *  Función para rellenar con ceros a la izquierda un número
      *
-     * @access	public
-     * @return	boolean
+     * @access    public
+     * @param $num
+     * @param $zerofill
+     * @return bool
      */
     public static function zerofill($num, $zerofill)
     {
         return str_pad($num, $zerofill, '0', STR_PAD_LEFT);
     }
-    
+
     /**
      *  Función que formatea un texto, pensada para inputs
      *
-     * @access	public
-     * @return	void
+     * @access    public
+     * @param $text
+     * @param bool $ucwords
+     * @param bool $strtolower
+     * @param bool $trim
+     * @return string
      */
     public static function formatText($text, $ucwords= true, $strtolower = true, $trim = true)
     {
@@ -374,97 +400,109 @@ class Miscellaneous
         
         return $text;
     }
-    
+
     /**
      *  Función para stablecer los parametros de configuración de la paginación de un datatable
      *
-     * @access	public
-     * @return	array
+     * @access    public
+     * @param array $args
+     * @return array
      */
-    public static function paginateDataTable($params = array())
+    public static function paginateDataTable($args = [])
     {
-        //Paginado de un datatable
-        $params['sStart'] = null; $params['sLength'] = null;
+        // Datatable paginate
+        $args['sStart'] = null;
+        $args['sLength'] = null;
 	    if(Input::get('iDisplayStart') != null && Input::get('iDisplayLength') != '-1' )
         {
-            $params['sStart']   = Input::get('iDisplayStart');
-            $params['sLength']  = Input::get('iDisplayLength');
+            $args['sStart']   = Input::get('iDisplayStart');
+            $args['sLength']  = Input::get('iDisplayLength');
         }
         
-        return $params;
+        return $args;
     }
-    
+
     /**
      *  Función para stablecer los parametros de configuración del orden de la datatable
      *
-     * @access	public
-     * @return	array
+     * @access    public
+     * @param $args
+     * @param $aColumns
+     * @return array
      */
-    public static function dataTableSorting($params, $aColumns)
+    public static function dataTableSorting($args, $aColumns)
     {
-	    $params['sOrder'] = null;$params['sTypeOrder'] = null;
+	    $args['sOrder'] = null;
+        $args['sTypeOrder'] = null;
         if(Input::get('iSortCol_0')!=null)
         {
-            for($i=0; $i<intval(Input::get('iSortingCols')); $i++)
+            for($i=0; $i < intval(Input::get('iSortingCols')); $i++)
             {
                 if (Input::get('bSortable_'.intval(Input::get('iSortCol_'.$i))) == "true")
                 {
-                    $params['sOrder']       = is_array($aColumns[intval(Input::get('iSortCol_'.$i))])?  $aColumns[intval(Input::get('iSortCol_'.$i))]['name'] : $aColumns[intval(Input::get('iSortCol_'.$i))];
-                    $params['sTypeOrder']   = Input::get('sSortDir_'.$i);
+                    $args['sOrder']       = is_array($aColumns[intval(Input::get('iSortCol_'.$i))])?  $aColumns[intval(Input::get('iSortCol_'.$i))]['name'] : $aColumns[intval(Input::get('iSortCol_'.$i))];
+                    $args['sTypeOrder']   = Input::get('sSortDir_'.$i);
                 }
             }
         }
-        return $params;
+        return $args;
     }
-    
+
     /**
      *  Función para stablecer los parametros de para hacer búsquedas en al datatable
      *
-     * @access	public
-     * @return	array
+     * @access    public
+     * @param $args
+     * @return array
      */
-    public static function filteringDataTable($params)
+    public static function filteringDataTable($args)
     {
         //filtrado de la tabla
-        $params['sWhere'] = null;
+        $args['sWhere'] = null;
         if(Input::get('sSearch') != null && Input::get('sSearch') != "")
         {
-                $params['sWhere'] = Input::get('sSearch');
+                $args['sWhere'] = Input::get('sSearch');
         }
-        return $params;
+        return $args;
     }
-    
+
     /**
      *  Función para stablecer los parametros de para hacer búsquedas en al datatable
      *
-     * @access	public
-     * @return	array
+     * @access    public
+     * @param $args
+     * @param $aColumns
+     * @return array
      */
-    public static function individualFilteringDataTable($params, $aColumns)
+    public static function individualFilteringDataTable($args, $aColumns)
     {
-        $params['sWhereColumns'] = null;
-        for($i=0; $i<count($aColumns); $i++)
+        $args['sWhereColumns'] = null;
+        for($i=0; $i < count($aColumns); $i++)
         {
             if(Input::get('bSearchable_'.$i) != null && Input::get('bSearchable_'.$i) == "true" && Input::get('sSearch_'.$i) != '')
             {
                 $sWhereColumn['sWhere']     = Input::get('sSearch_'.$i);
                 $sWhereColumn['aColumn']    = is_array($aColumns[$i])? $aColumns[$i]['name'] : $aColumns[$i];
 
-                if(!is_array($params['sWhereColumns']))$params['sWhereColumns'] = array();
+                if(!is_array($args['sWhereColumns']))$args['sWhereColumns'] = array();
 
-                array_push($params['sWhereColumns'], $sWhereColumn);
+                array_push($args['sWhereColumns'], $sWhereColumn);
             }
         }
-        return $params;
+        return $args;
     }
-    
+
     /**
      *  Función para establecer las clausulas where para realizar las consultas
      *
-     * @access	public
-     * @return	Eloquent
+     * @access      public
+     * @param       $query          array
+     * @param       $aColumns       array
+     * @param       $sWhere         array
+     * @param       $sWhereColumns  array
+     * @return      Model
      */
-    public static function getQueryWhere($aColumns, $query, $sWhere, $sWhereColumns)
+    public static function getQueryWhere($query, $aColumns, $sWhere, $sWhereColumns)
     {
         if($sWhere != null)
         {
@@ -493,8 +531,9 @@ class Miscellaneous
     /**
      *  Función que formatea telefonos
      *
-     * @access	public
-     * @return	string
+     * @access    public
+     * @param $numero
+     * @return string
      */
     public static function phoneNumberFormat($numero)
     {

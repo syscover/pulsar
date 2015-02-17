@@ -23,16 +23,16 @@ class Lang extends Model {
     public $timestamps      = false;
     protected $fillable     = ['id_001', 'name_001', 'image_001', 'sorting_001', 'base_001', 'active_001'];
     public static $rules    = [
+        'id'        => 'required|alpha|size:2|unique:001_001_lang,id_001',
         'name'      => 'required|between:2,50',
-        'sorting'   => 'required|min:0|numeric'
+        'sorting'   => 'min:0|numeric',
+        'image'     => 'required'
     ];
 
-    public static function validate($data, $imageRule = true, $idRule = true)
+    public static function validate($data, $specialRules = [])
     {
-        if ($imageRule)
-            static::$rules['image'] = 'required|mimes:jpg,jpeg,gif,png|max:1000';
-        if ($idRule)
-            static::$rules['id'] = 'required|alpha|size:2|unique:001_001_lang,id_001';
+        if(isset($specialRules['idRule']) && $specialRules['idRule']) static::$rules['id'] = 'required|alpha|size:2';
+        if(isset($specialRules['imageRule']) && $specialRules['imageRule']) static::$rules['image'] = 'required|mimes:jpg,jpeg,gif,png|max:1000';
 
         return Validator::make($data, static::$rules);
     }
@@ -47,15 +47,12 @@ class Lang extends Model {
         Lang::query()->update(array('base_001' => '0'));
     }
 
-
-
-
-    public static function getIdiomasActivos()
+    public static function getActiveLangs()
     {
         return Lang::where('active_001', 1)->get();
     }
     
-    public static function getIdsIdiomasActivos()
+    public static function getIdsActiveLangs()
     {
         $ids = array();
         $idiomas = Lang::where('active_001', 1)->get();

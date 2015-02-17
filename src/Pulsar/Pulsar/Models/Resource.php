@@ -10,13 +10,14 @@
  * @filesource
  */
 
-use Illuminate\Database\Eloquent\Model,
-    Illuminate\Support\Facades\Validator,
-    Pulsar\Pulsar\Libraries\Miscellaneous;
-
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
+use Pulsar\Pulsar\Traits\ModelTrait;
 
 class Resource extends Model
 {
+    use ModelTrait;
+
 	protected $table        = '001_007_resource';
     protected $primaryKey   = 'id_007';
     public $timestamps      = false;
@@ -34,23 +35,9 @@ class Resource extends Model
         return Validator::make($data, static::$rules);
     }
 
-    public static function getRecordsLimit($aColumns, $nResultados = null, $inicio = null, $orden = null, $tipoOrden = null, $sWhere=null, $sWhereColumns=null, $count=false)
+    public static function getCustomRecordsLimit()
     {
-        $query = Resource::join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012')->newQuery();
-
-        $query = Miscellaneous::getQueryWhere($aColumns, $query, $sWhere, $sWhereColumns);
-
-        if($count)
-        {
-            return $query->count();
-        }
-        else
-        {
-            if ($nResultados != null)   $query->take($nResultados)->skip($inicio);
-            if ($orden != null)         $query->orderBy($orden, $tipoOrden);
-
-            return $query->get();
-        }
+        return Resource::join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012')->newQuery();
     }
 
     public static function deleteRecords($ids)
