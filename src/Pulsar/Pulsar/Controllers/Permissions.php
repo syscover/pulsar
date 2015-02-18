@@ -37,14 +37,13 @@ class Permissions extends BaseController
     protected $icon                 = 'icon-shield';
     protected $objectTrans          = 'permission';
     
-    public function indexCustom($data,  $args)
+    public function indexCustom($parameters)
     {
-        $data['profile']                = Profile::find($args[1]);
-        $data['offsetProfile']          = $args[2];
-        $data['areDeleteRecord']        = $this->areDeleteRecord;
-        $data['routeSuffixProfile']     = $this->routeSuffixProfile;
+        $parameters['profile']                = Profile::find($parameters['profile']);
+        $parameters['areDeleteRecord']        = $this->areDeleteRecord;
+        $parameters['routeSuffixProfile']     = $this->routeSuffixProfile;
 
-        return $data;
+        return $parameters;
     }
 
     public function jsonData($profile)

@@ -10,7 +10,7 @@
     <!-- pulsar::layouts.index -->
     <div class="row">
         <div class="col-md-12">
-            <a class="btn marginB10" href="{{ route('create' . $routeSuffix, $offset) }}"><i class="{{ isset($icon)? $icon : 'icomoon-icon-power' }}"></i> {{ trans('pulsar::pulsar.' . $newTrans) . ' '. trans_choice('pulsar::pulsar.' . $objectTrans, 1) }}</a>
+            <a class="btn marginB10" href="{{ route('create' . $routeSuffix, [$offset, isset($baseLang->id_001)? $baseLang->id_001 : null]) }}"><i class="{{ isset($icon)? $icon : 'icomoon-icon-power' }}"></i> {{ trans('pulsar::pulsar.' . $newTrans) . ' '. trans_choice('pulsar::pulsar.' . $objectTrans, 1) }}</a>
             <div class="widget box">
                 <div class="widget-header">
                     <h4><i class="icon-reorder"></i> {{ trans_choice('pulsar::pulsar.' . $objectTrans, 2) }}</h4>

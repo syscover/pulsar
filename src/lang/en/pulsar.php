@@ -40,6 +40,7 @@ return array(
     'prefix'                                => 'Prefix',
     'edit_record'                           => 'Edit record',
     'delete_record'                         => 'Delete record',
+    'delete_translation'                    => 'Delete translation',
     'edit_permissions'                      => 'Edit permissions',
     'territorial_area'                      => 'Territorial area',
     'message_create_record_successful'      => 'Registration <strong>:name</strong> has been properly recorded',

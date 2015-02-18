@@ -111,31 +111,6 @@ class Miscellaneous
     }
 
     /**
-     *  Función para identificar si un registro está creado en un idioma en concreto
-     *
-     * @access    public
-     * @param $id
-     * @param $idioma
-     * @param $resultados
-     * @param $parametroIdioma
-     * @param $parametroId
-     * @return array
-     */
-    public static function isCreateLanguage($id, $idioma, $resultados, $parametroIdioma, $parametroId)
-    {
-        $arrayResultados = $resultados->toArray();
-
-        foreach ($arrayResultados as $resultado)
-        {
-            if ($resultado[$parametroId] == $id && $resultado[$parametroIdioma] == $idioma)
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      *  Función que devuelve en arrays los parametros de los objetos que le pasemos
      *
      * @access    public

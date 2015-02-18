@@ -40,7 +40,7 @@ class Country extends Model
 
     public function lang()
     {
-        return $this->belongsTo('Pulsar\Pulsar\Models\Lang', 'idioma_002');
+        return $this->belongsTo('Pulsar\Pulsar\Models\Lang', 'lang_002');
     }
 
     public function territorialAreas1()
@@ -57,32 +57,38 @@ class Country extends Model
         return $query;
     }
 
+    public static function getRecord($id, $lang)
+    {
+        return Country::where('id_002', $id)->where('lang_002', $lang)->first();
+    }
+
+
+
+
+
+
 
 
 
 
     //Función espejo que nos dara todos los idiomas para saber si hay que editar o crear, paises en diferentes idiomas
-    public static function getContriesFromIds($ids)
+    public static function getContriesFromIdsXXX($ids)
     {
-        if(is_array($ids) && count($ids)>0){
+        if(is_array($ids) && count($ids) > 0)
+        {
             return Country::join('001_001_lang', '001_002_country.lang_002', '=', '001_001_lang.id_001')->whereIn('id_002', $ids)->get();
         }
         return false;
     }
 
-    public static function getCountriesByLang($idioma)
+    public static function getCountriesByLangXXX($idioma)
     {
         return Country::join('001_001_lang', '001_002_country.lang_002', '=', '001_001_lang.id_001')
                 ->where('idioma_002', '=', $idioma)
                 ->orderBy('nombre_002')->get();
     }
 
-    public static function getRecord($id, $lang)
-    {
-        return Country::where('id_002', $id)->where('lang_002', $lang)->first();
-    }
-
-    public static function deleteLangRecord($id, $lang)
+    public static function deleteLangRecordXX($id, $lang)
     {
         Country::where('id_002', $id)->where('idioma_002', $lang)->delete();
     }

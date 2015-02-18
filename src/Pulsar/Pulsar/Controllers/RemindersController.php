@@ -1,13 +1,11 @@
 <?php namespace Pulsar\Pulsar\Controllers;
 
-use Illuminate\Routing\Controller,
-    Illuminate\Support\Facades\Password,
-    Illuminate\Support\Facades\Input,
-    Illuminate\Support\Facades\Redirect,
-    Illuminate\Support\Facades\Lang,
-    Illuminate\Support\Facades\View,
-    Illuminate\Support\Facades\Hash,
-    Illuminate\Support\Facades\Config;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Hash;
 
 class RemindersController extends Controller
 {

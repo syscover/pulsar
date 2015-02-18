@@ -29,10 +29,10 @@ class Resources extends BaseController {
     protected $icon         = 'icomoon-icon-database';
     protected $objectTrans  = 'resource';
 
-    public function createCustomRecord()
+    public function createCustomRecord($parameters)
     {
-        $data['packages'] = Package::get();
-        return $data;
+        $parameters['packages'] = Package::get();
+        return $parameters;
     }
     
     public function storeCustomRecord()
@@ -44,10 +44,10 @@ class Resources extends BaseController {
         ]);
     }
     
-    public function editCustomRecord($data)
+    public function editCustomRecord($parameters)
     {
-        $data['packages'] = Package::get();
-        return $data;
+        $parameters['packages'] = Package::get();
+        return $parameters;
     }
     
     public function updateCustomRecord($id)

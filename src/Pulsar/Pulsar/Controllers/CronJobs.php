@@ -53,11 +53,11 @@ class CronJobs extends BaseController
         ]);
     }
     
-    public function createCustomRecord()
+    public function createCustomRecord($parameters)
     {
-        $data['packages']        = Package::all();
+        $parameters['packages'] = Package::all();
         
-        return $data;
+        return $parameters;
     }
     
     public function storeCustomRecord()
@@ -75,14 +75,14 @@ class CronJobs extends BaseController
         ]);
     }
     
-    public function editCustomRecord($data)
+    public function editCustomRecord($parameters)
     {
-        $data['packages']        = Package::all();
+        $parameters['packages'] = Package::all();
         $date = new \DateTime();
-        $data['lastRun'] = $date->setTimestamp($data['object']->last_run_043)->format('d-m-Y H:i:s');
-        $data['nextRun'] = $date->setTimestamp($data['object']->next_run_043)->format('d-m-Y H:i:s');
+        $parameters['lastRun'] = $date->setTimestamp($parameters['object']->last_run_043)->format('d-m-Y H:i:s');
+        $parameters['nextRun'] = $date->setTimestamp($parameters['object']->next_run_043)->format('d-m-Y H:i:s');
 
-        return $data;
+        return $parameters;
     }
     
     public function updateCustomRecord($id)

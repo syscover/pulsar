@@ -34,16 +34,16 @@ class Countries extends BaseController {
     protected $icon         = 'entypo-icon-globe';
     protected $objectTrans  = 'country';
 
-    protected $reArea1  = 'admin-country-at1';
-    protected $reArea2  = 'admin-country-at2';
-    protected $reArea3  = 'admin-country-at3';
+    protected $reArea1      = 'admin-country-at1';
+    protected $reArea2      = 'admin-country-at2';
+    protected $reArea3      = 'admin-country-at3';
 
     
-    public function indexCustom($data)
+    public function indexCustom($parameters)
     {
-        $data['baseLang']     = Session::get('baseLang');
+        $parameters['baseLang']     = Session::get('baseLang');
 
-        return $data;
+        return $parameters;
     }
     
     public function jsonData()
@@ -60,13 +60,11 @@ class Countries extends BaseController {
         $argsCount = $args;
         $argsCount['count'] = true;
 
-
         $objects        = call_user_func($this->model . '::getRecordsLimit', $args);
         $iFilteredTotal = call_user_func($this->model . '::getRecordsLimit', $argsCount);
         $iTotal         = Country::getRecordsLimit(['lang' => $args['lang']])->count();
 
-        $ids                = Miscellaneous::getIdsCollection($objects, 'id_002');
-        $countriesAllLang   = Country::getContriesFromIds($ids);
+        $ids            = Miscellaneous::getIdsCollection($objects, 'id_002');
 
         // get properties of model class
         $class          = new \ReflectionClass($this->model);
@@ -113,13 +111,13 @@ class Countries extends BaseController {
             $row[] = '<input type="checkbox" class="uniform" name="element'.$i.'" value="'.$aObject['id_002'].'">';
 
             $actions = '<div class="btn-group">';
-            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . route('edit'. $class->getShortName(), [$aObject[$instance->getKeyName()], Input::get('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
+            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . route('edit'. $class->getShortName(), [$aObject[$instance->getKeyName()], $baseLang->id_001, Input::get('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
             $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] .'" data-original-title="' . trans('pulsar::pulsar.delete_record') . '"><i class="icon-trash"></i></a>' : null;
 
             // set language to object
             $jsonObject = json_decode($aObject['data_002']);
             $colorFlag = "MY_red";
-            
+
             foreach ($langs as $lang)
             {
                 $isCreated = in_array($lang->id_001, $jsonObject->langs);
@@ -147,11 +145,11 @@ class Countries extends BaseController {
                     $actions .= '<li><a class="bs-tooltip" href="';
                     if($isCreated)
                     {
-                        $actions .= route('editCountry', $aObject['id_002'], $lang->id_001, Input::get('iDisplayStart'));
+                        $actions .= route('editCountry', [$aObject['id_002'], $lang->id_001, Input::get('iDisplayStart')]);
                     }
                     else
                     {
-                        $actions .= route('createCountry', Input::get('iDisplayStart'), $lang->id_001, $aObject['id_002']);
+                        $actions .= route('createCountry', [Input::get('iDisplayStart'), $lang->id_001, $aObject['id_002']]);
                     }
 
                     $actions .= '" data-original-title="' . $lang->name_001 . '"><img src="' . asset('/packages/pulsar/pulsar/storage/langs/' . $lang->image_001) . '"> ';
@@ -185,27 +183,22 @@ class Countries extends BaseController {
         return view('pulsar::common.json_display',$data);
     }
 
-
-
-
-
-
-    
-    public function create($offset = 0, $lang, $id = null)
+    public function createCustomRecord($parameters)
     {
-        if($id != null)
+        if(isset($parameters['id']))
         {
-            $data['pais'] = Pais::getPais($id, Session::get('idiomaBase')->id_001);
+            $parameters['pais'] = Country::get($id, Session::get('idiomaBase')->id_001);
         }
-        $data['inicio'] = $offset;
-        $data['idioma'] = Lang::find($lang);
-        return view('pulsar::pulsar.pulsar.paises.create',$data);
+
+        $parameters['lang'] = Lang::find($parameters['lang']);
+
+        return $parameters;
     }
-    
+
+
+
     public function store($offset=0)
     {
-
-        
         //comprobamos si es un nuevo idioma o no para velidar el ID
         if(Input::get('idioma') != Session::get('idiomaBase')->id_001) $idRule = false; else $idRule = true;
         
@@ -237,15 +230,12 @@ class Countries extends BaseController {
         }
     }
     
-    public function edit($id, $lang, $offset=0)
+    public function editCustomRecord($parameters)
     {
+        $parameters['object']   = Country::getRecord($parameters['id'], $parameters['lang']);
+        $parameters['lang']     = $parameters['object']->lang;
 
-        
-        $data['inicio']         = $offset;
-        $data['pais']           = Pais::getPais($id, $lang);
-        $data['idioma']         = $data['pais']->idioma;
-        $data['javascriptView'] = 'pulsar::pulsar.pulsar.paises.js.edit';
-        return view('pulsar::pulsar.pulsar.paises.edit',$data);
+        return $parameters;
     }
     
     public function update($offset=0)

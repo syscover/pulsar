@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\View;
+use Illuminate\Http\Request;
 use Pulsar\Pulsar\Libraries\Miscellaneous;
 use Illuminate\Support\Facades\Redirect;
 
@@ -23,20 +23,25 @@ trait ControllerTrait {
 
     /**
      * @access	public
-     * @param   integer  $offset
+     * @param       \Illuminate\Http\Request            $request
      * @return	\Illuminate\Support\Facades\View
      */
-    public function index($offset = 0)
+    public function index(Request $request)
     {
+        // get parameters from url route
+        $parameters = $request->route()->parameters();
+
         Miscellaneous::setParameterSessionPage($this->resource);
 
-        $data['package']        = $this->package;
-        $data['folder']         = $this->folder;
-        $data['routeSuffix']    = $this->routeSuffix;
-        $data['resource']       = $this->resource;
-        $data['icon']           = $this->icon;
-        $data['objectTrans']    = $this->objectTrans;
-        $data['offset']         = $offset;
+        $parameters['package']        = $this->package;
+        $parameters['folder']         = $this->folder;
+        $parameters['routeSuffix']    = $this->routeSuffix;
+        $parameters['resource']       = $this->resource;
+        $parameters['icon']           = $this->icon;
+        $parameters['objectTrans']    = $this->objectTrans;
+
+        // check if url contain offset parameter
+        if(!isset($parameters['offset'])) $parameters['offset'] = 0;
 
         // if there ara more arguments, we take us and send to indexCustom
         if(func_num_args() > 1)
@@ -50,10 +55,10 @@ trait ControllerTrait {
 
         if(method_exists($this, 'indexCustom'))
         {
-            $data = $this->indexCustom($data, $args);
+            $parameters = $this->indexCustom($parameters);
         }
 
-        return view('pulsar::' . $this->folder . '.index', $data);
+        return view('pulsar::' . $this->folder . '.index', $parameters);
     }
 
     public function jsonData()
@@ -144,25 +149,27 @@ trait ControllerTrait {
     }
 
     /**
-     * @access	public
-     * @param   integer     $offset
-     * @return	\Illuminate\Support\Facades\View
+     * @access      public
+     * @param       \Illuminate\Http\Request            $request
+     * @return      \Illuminate\Support\Facades\View
      */
-    public function createRecord($offset = 0)
+    public function createRecord(Request $request)
     {
+        // get parameters from url route
+        $parameters = $request->route()->parameters();
+
         if(method_exists($this, 'createCustomRecord'))
         {
-            $data = $this->createCustomRecord();
+            $parameters = $this->createCustomRecord($parameters);
         }
 
-        $data['package']        = $this->package;
-        $data['folder']         = $this->folder;
-        $data['routeSuffix']    = $this->routeSuffix;
-        $data['icon']           = $this->icon;
-        $data['objectTrans']    = $this->objectTrans;
-        $data['offset']         = $offset;
+        $parameters['package']        = $this->package;
+        $parameters['folder']         = $this->folder;
+        $parameters['routeSuffix']    = $this->routeSuffix;
+        $parameters['icon']           = $this->icon;
+        $parameters['objectTrans']    = $this->objectTrans;
 
-        return view('pulsar::' . $this->folder . '.create', $data);
+        return view('pulsar::' . $this->folder . '.create', $parameters);
     }
 
     /**
@@ -194,26 +201,27 @@ trait ControllerTrait {
 
     /**
      * @access	public
-     * @param   integer     $id
-     * @param   integer     $offset
+     * @param   \Illuminate\Http\Request    $request
      * @return	\Illuminate\Support\Facades\View
      */
-    public function editRecord($id, $offset = 0)
+    public function editRecord(Request $request)
     {
-        $data['package']        = $this->package;
-        $data['folder']         = $this->folder;
-        $data['routeSuffix']    = $this->routeSuffix;
-        $data['icon']           = $this->icon;
-        $data['objectTrans']    = $this->objectTrans;
-        $data['offset']         = $offset;
-        $data['object']         = call_user_func($this->model . '::find', $id);
+        // get parameters from url route
+        $parameters = $request->route()->parameters();
+
+        $parameters['package']        = $this->package;
+        $parameters['folder']         = $this->folder;
+        $parameters['routeSuffix']    = $this->routeSuffix;
+        $parameters['icon']           = $this->icon;
+        $parameters['objectTrans']    = $this->objectTrans;
+        $parameters['object']         = call_user_func($this->model . '::find', $parameters['id']);
 
         if(method_exists($this, 'editCustomRecord'))
         {
-            $data = $this->editCustomRecord($data);
+            $parameters = $this->editCustomRecord($parameters);
         }
 
-        return view('pulsar::' . $this->folder . '.edit', $data);
+        return view('pulsar::' . $this->folder . '.edit', $parameters);
     }
 
     /**
@@ -260,10 +268,9 @@ trait ControllerTrait {
     }
 
     /**
-     * @access	public
-     * @param   string  $resource
-     * @param   string  $model
-     * @return	\Illuminate\Support\Facades\Redirect
+     * @access      public
+     * @param       integer $id
+     * @return      \Illuminate\Support\Facades\Redirect
      */
     public function destroyRecord($id)
     {
@@ -283,10 +290,8 @@ trait ControllerTrait {
 
 
     /**
-     * @access	public
-     * @param   string  $resource
-     * @param   string  $model
-     * @return	\Illuminate\Support\Facades\Redirect
+     * @access      public
+     * @return      \Illuminate\Support\Facades\Redirect
      */
     public function destroyRecordsSelect()
     {
