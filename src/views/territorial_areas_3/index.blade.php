@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="widget-content no-padding">
-                <form id="formView" method="post" action="{{ url(config('pulsar.appName')) }}/pulsar/areasterritoriales3/destroy/select/elements/{{ $pais->id_002 }}">
+                <form id="formView" method="post" action="{{ url(config('pulsar.appName')) }}/pulsar/areasterritoriales3/delete/select/elements/{{ $pais->id_002 }}">
                     <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable-pulsar">
                         <thead>
                             <tr>

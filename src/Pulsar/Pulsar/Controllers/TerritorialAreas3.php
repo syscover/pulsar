@@ -169,11 +169,11 @@ class AreasTerritoriales3 extends BaseController {
         }
     }
     
-    public function destroy($pais, $id){
+    public function delete($pais, $id){
         i
         
         $areaTerrirorial3 = AreaTerritorial3::find($id);
-        AreaTerritorial3::destroy($id);
+        AreaTerritorial3::delete($id);
         
         //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
         Session::flash('msg',1);
@@ -182,7 +182,7 @@ class AreasTerritoriales3 extends BaseController {
         return Redirect::route('areasTerritoriales3',array($areaTerrirorial3->pais_005));
     }
     
-    public function destroySelect($pais, $offset=0){
+    public function deleteSelect($pais, $offset=0){
         i
         
         $nElements = Input::get('nElementsDataTable'); 

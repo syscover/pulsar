@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="widget-content no-padding">
-                <form id="formView" method="post" action="{{ url(config('pulsar.appName')) }}/pulsar/usuarios/destroy/select/elements">
+                <form id="formView" method="post" action="{{ url(config('pulsar.appName')) }}/pulsar/usuarios/delete/select/elements">
                     <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable-pulsar">
                         <thead>
                             <tr>

@@ -152,11 +152,11 @@ class TerritorialAreas1 extends BaseController {
         }
     }
 
-    public function destroy($pais, $id){
-        i
+    public function delete($pais, $id){
+
         
         $areaTerrirorial1 = AreaTerritorial1::find($id);
-        AreaTerritorial1::destroy($id);
+        AreaTerritorial1::delete($id);
         
         //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
         Session::flash('msg',1);
@@ -165,8 +165,8 @@ class TerritorialAreas1 extends BaseController {
         return Redirect::route('areasTerritoriales1',array($pais));
     }
     
-    public function destroySelect($pais){
-        i
+    public function deleteSelect($pais){
+
         
         $nElements = Input::get('nElementsDataTable'); 
         $ids = array();

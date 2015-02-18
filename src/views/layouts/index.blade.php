@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="widget-content no-padding">
-                    <form id="formView" method="post" action="{{ route('destroySelect' . $routeSuffix) }}">
+                    <form id="formView" method="post" action="{{ route('deleteSelect' . $routeSuffix) }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="DELETE">
                         <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable-pulsar">

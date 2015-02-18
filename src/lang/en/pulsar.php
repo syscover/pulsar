@@ -45,6 +45,7 @@ return array(
     'territorial_area'                      => 'Territorial area',
     'message_create_record_successful'      => 'Registration <strong>:name</strong> has been properly recorded',
     'message_delete_record'                 => 'Do you want to delete the record with <strong>ID \' + idRecord + \' </strong>?',
+    'message_delete_translation_record'     => 'Do you want to delete the translation record with <strong>ID :id </strong>?',
     'message_delete_records'                => 'Do you want to delete the selected records?',
     'message_delete_record_successful'      => 'Registration <strong>:name</strong> has been deleted successfully',
     'message_delete_records_successful'     => 'Selected records have been deleted successfully',

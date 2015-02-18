@@ -47,8 +47,8 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::post(config('pulsar.appName') . '/pulsar/actions/store/{offset}',                    ['as'=>'storeAction',           'uses'=>'Pulsar\Pulsar\Controllers\Actions@storeRecord',                'resource' => 'admin-perm-actions',     'action' => 'create']);
     Route::get(config('pulsar.appName') . '/pulsar/actions/{id}/edit/{offset}',                 ['as'=>'editAction',            'uses'=>'Pulsar\Pulsar\Controllers\Actions@editRecord',                 'resource' => 'admin-perm-actions',     'action' => 'access']);
     Route::put(config('pulsar.appName') . '/pulsar/actions/update/{offset}',                    ['as'=>'updateAction',          'uses'=>'Pulsar\Pulsar\Controllers\Actions@updateRecord',               'resource' => 'admin-perm-actions',     'action' => 'edit']);
-    Route::get(config('pulsar.appName') . '/pulsar/actions/destroy/{id?}',                      ['as'=>'destroyAction',         'uses'=>'Pulsar\Pulsar\Controllers\Actions@destroyRecord',              'resource' => 'admin-perm-actions',     'action' => 'delete']);
-    Route::delete(config('pulsar.appName') . '/pulsar/actions/destroy/select/elements',         ['as'=>'destroySelectAction',   'uses'=>'Pulsar\Pulsar\Controllers\Actions@destroyRecordsSelect',       'resource' => 'admin-perm-actions',     'action' => 'delete']);
+    Route::get(config('pulsar.appName') . '/pulsar/actions/delete/{id?}',                       ['as'=>'deleteAction',          'uses'=>'Pulsar\Pulsar\Controllers\Actions@deleteRecord',               'resource' => 'admin-perm-actions',     'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/actions/delete/select/elements',          ['as'=>'deleteSelectAction',    'uses'=>'Pulsar\Pulsar\Controllers\Actions@deleteRecordsSelect',        'resource' => 'admin-perm-actions',     'action' => 'delete']);
 
     /*
     |--------------------------------------------------------------------------
@@ -61,8 +61,8 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::post(config('pulsar.appName') . '/pulsar/resources/store/{offset}',                  ['as'=>'storeResource',         'uses'=>'Pulsar\Pulsar\Controllers\Resources@storeRecord',              'resource' => 'admin-perm-resource',    'action' => 'create']);
     Route::get(config('pulsar.appName') . '/pulsar/resources/{id}/edit/{offset}',               ['as'=>'editResource',          'uses'=>'Pulsar\Pulsar\Controllers\Resources@editRecord',               'resource' => 'admin-perm-resource',    'action' => 'access']);
     Route::put(config('pulsar.appName') . '/pulsar/resources/update/{offset}',                  ['as'=>'updateResource',        'uses'=>'Pulsar\Pulsar\Controllers\Resources@updateRecord',             'resource' => 'admin-perm-resource',    'action' => 'edit']);
-    Route::get(config('pulsar.appName') . '/pulsar/resources/destroy/{id?}',                    ['as'=>'destroyResource',       'uses'=>'Pulsar\Pulsar\Controllers\Resources@destroyRecord',            'resource' => 'admin-perm-resource',    'action' => 'delete']);
-    Route::delete(config('pulsar.appName') . '/pulsar/resources/destroy/select/elements',       ['as'=>'destroySelectResource', 'uses'=>'Pulsar\Pulsar\Controllers\Resources@destroyRecordsSelect',     'resource' => 'admin-perm-resource',    'action' => 'delete']);
+    Route::get(config('pulsar.appName') . '/pulsar/resources/delete/{id?}',                     ['as'=>'deleteResource',        'uses'=>'Pulsar\Pulsar\Controllers\Resources@deleteRecord',             'resource' => 'admin-perm-resource',    'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/resources/delete/select/elements',        ['as'=>'deleteSelectResource',  'uses'=>'Pulsar\Pulsar\Controllers\Resources@deleteRecordsSelect',      'resource' => 'admin-perm-resource',    'action' => 'delete']);
 
     /*
     |--------------------------------------------------------------------------
@@ -75,8 +75,8 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::post(config('pulsar.appName') . '/pulsar/profiles/store/{offset}',                   ['as'=>'storeProfile',          'uses'=>'Pulsar\Pulsar\Controllers\Profiles@storeRecord',               'resource' => 'admin-perm-profile',    'action' => 'create']);
     Route::get(config('pulsar.appName') . '/pulsar/profiles/{id}/edit/{offset}',                ['as'=>'editProfile',           'uses'=>'Pulsar\Pulsar\Controllers\Profiles@editRecord',                'resource' => 'admin-perm-profile',    'action' => 'access']);
     Route::put(config('pulsar.appName') . '/pulsar/profiles/update/{offset}',                   ['as'=>'updateProfile',         'uses'=>'Pulsar\Pulsar\Controllers\Profiles@updateRecord',              'resource' => 'admin-perm-profile',    'action' => 'edit']);
-    Route::get(config('pulsar.appName') . '/pulsar/profiles/destroy/{id?}',                     ['as'=>'destroyProfile',        'uses'=>'Pulsar\Pulsar\Controllers\Profiles@destroyRecord',             'resource' => 'admin-perm-profile',    'action' => 'delete']);
-    Route::delete(config('pulsar.appName') . '/pulsar/profiles/destroy/select/elements',        ['as'=>'destroySelectProfile',  'uses'=>'Pulsar\Pulsar\Controllers\Profiles@destroyRecordsSelect',      'resource' => 'admin-perm-profile',    'action' => 'delete']);
+    Route::get(config('pulsar.appName') . '/pulsar/profiles/delete/{id?}',                      ['as'=>'deleteProfile',         'uses'=>'Pulsar\Pulsar\Controllers\Profiles@deleteRecord',              'resource' => 'admin-perm-profile',    'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/profiles/delete/select/elements',         ['as'=>'deleteSelectProfile',   'uses'=>'Pulsar\Pulsar\Controllers\Profiles@deleteRecordsSelect',       'resource' => 'admin-perm-profile',    'action' => 'delete']);
 
     /*
     |--------------------------------------------------------------------------
@@ -89,8 +89,8 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::post(config('pulsar.appName') . '/pulsar/packages/store/{offset}',                   ['as'=>'storePackage',          'uses'=>'Pulsar\Pulsar\Controllers\Packages@storeRecord',               'resource' => 'admin-packages',         'action' => 'create']);
     Route::get(config('pulsar.appName') . '/pulsar/packages/{id}/edit/{offset}',                ['as'=>'editPackage',           'uses'=>'Pulsar\Pulsar\Controllers\Packages@editRecord',                'resource' => 'admin-packages',         'action' => 'access']);
     Route::put(config('pulsar.appName') . '/pulsar/packages/update/{offset}',                   ['as'=>'updatePackage',         'uses'=>'Pulsar\Pulsar\Controllers\Packages@updateRecord',              'resource' => 'admin-packages',         'action' => 'edit']);
-    Route::get(config('pulsar.appName') . '/pulsar/packages/destroy/{id?}',                     ['as'=>'destroyPackage',        'uses'=>'Pulsar\Pulsar\Controllers\Packages@destroyRecord',             'resource' => 'admin-packages',         'action' => 'delete']);
-    Route::delete(config('pulsar.appName') . '/pulsar/packages/destroy/select/elements',        ['as'=>'destroySelectPackage',  'uses'=>'Pulsar\Pulsar\Controllers\Packages@destroyRecordsSelect',      'resource' => 'admin-packages',         'action' => 'delete']);
+    Route::get(config('pulsar.appName') . '/pulsar/packages/delete/{id?}',                      ['as'=>'deletePackage',         'uses'=>'Pulsar\Pulsar\Controllers\Packages@deleteRecord',              'resource' => 'admin-packages',         'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/packages/delete/select/elements',         ['as'=>'deleteSelectPackage',   'uses'=>'Pulsar\Pulsar\Controllers\Packages@deleteRecordsSelect',       'resource' => 'admin-packages',         'action' => 'delete']);
 
     /*
     |--------------------------------------------------------------------------
@@ -100,7 +100,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::any(config('pulsar.appName') . '/pulsar/permissions/{offset}/{profile}/{offsetProfile?}',        ['as'=>'Permission',                'uses'=>'Pulsar\Pulsar\Controllers\Permissions@index',          'resource' => 'admin-perm-perm',    'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/permissions/json/data/profile/{profile}',                ['as'=>'jsonDataPermission',        'uses'=>'Pulsar\Pulsar\Controllers\Permissions@jsonData',       'resource' => 'admin-perm-perm',    'action' => 'access']);
     Route::post(config('pulsar.appName') . '/pulsar/permissions/json/create/{num}/{num1}/{any}',            ['as'=>'jsonCreatePermission',      'uses'=>'Pulsar\Pulsar\Controllers\Permissions@jsonCreate',     'resource' => 'admin-perm-perm',    'action' => 'access']);
-    Route::post(config('pulsar.appName') . '/pulsar/permissions/json/destroy/{num}/{num1}/{any}',           ['as'=>'jsonDestroyPermission',     'uses'=>'Pulsar\Pulsar\Controllers\Permissions@jsonDestroy',    'resource' => 'admin-perm-perm',    'action' => 'access']);
+    Route::post(config('pulsar.appName') . '/pulsar/permissions/json/delete/{num}/{num1}/{any}',            ['as'=>'jsonDestroyPermission',     'uses'=>'Pulsar\Pulsar\Controllers\Permissions@jsonDestroy',    'resource' => 'admin-perm-perm',    'action' => 'access']);
 
     /*
     |--------------------------------------------------------------------------
@@ -114,8 +114,8 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::post(config('pulsar.appName') . '/pulsar/cronjobs/store/{offset}',                   ['as'=>'storeCronJob',          'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@storeRecord',               'resource' => 'admin-cron',             'action' => 'create']);
     Route::get(config('pulsar.appName') . '/pulsar/cronjobs/{id}/edit/{offset}',                ['as'=>'editCronJob',           'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@editRecord',                'resource' => 'admin-cron',             'action' => 'access']);
     Route::put(config('pulsar.appName') . '/pulsar/cronjobs/update/{offset}',                   ['as'=>'updateCronJob',         'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@updateRecord',              'resource' => 'admin-cron',             'action' => 'edit']);
-    Route::get(config('pulsar.appName') . '/pulsar/cronjobs/destroy/{id?}',                     ['as'=>'destroyCronJob',        'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@destroyRecord',             'resource' => 'admin-cron',             'action' => 'delete']);
-    Route::delete(config('pulsar.appName') . '/pulsar/cronjobs/destroy/select/elements',        ['as'=>'destroySelectCronJob',  'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@destroyRecordsSelect',      'resource' => 'admin-cron',             'action' => 'delete']);
+    Route::get(config('pulsar.appName') . '/pulsar/cronjobs/delete/{id?}',                      ['as'=>'deleteCronJob',         'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@deleteRecord',              'resource' => 'admin-cron',             'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/cronjobs/delete/select/elements',         ['as'=>'deleteSelectCronJob',   'uses'=>'Pulsar\Pulsar\Controllers\CronJobs@deleteRecordsSelect',       'resource' => 'admin-cron',             'action' => 'delete']);
 
     /*
     |--------------------------------------------------------------------------
@@ -128,8 +128,8 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::post(config('pulsar.appName') . '/pulsar/langs/store/{offset}',                      ['as' => 'storeLang',           'uses' => 'Pulsar\Pulsar\Controllers\Langs@storeRecord',                'resource' => 'admin-lang',             'action' => 'create']);
     Route::get(config('pulsar.appName') . '/pulsar/langs/{id}/edit/{offset}',                   ['as' => 'editLang',            'uses' => 'Pulsar\Pulsar\Controllers\Langs@editRecord',                 'resource' => 'admin-lang',             'action' => 'create']);
     Route::put(config('pulsar.appName') . '/pulsar/langs/update/{offset}',                      ['as' => 'updateLang',          'uses' => 'Pulsar\Pulsar\Controllers\Langs@updateRecord',               'resource' => 'admin-lang',             'action' => 'edit']);
-    Route::get(config('pulsar.appName') . '/pulsar/langs/destroy/{id?}',                        ['as' => 'destroyLang',         'uses' => 'Pulsar\Pulsar\Controllers\Langs@destroyRecord',              'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::delete(config('pulsar.appName') . '/pulsar/langs/destroy/select/elements',           ['as' => 'destroySelectLang',   'uses' => 'Pulsar\Pulsar\Controllers\Langs@destroyRecordsSelect',       'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::get(config('pulsar.appName') . '/pulsar/langs/delete/{id?}',                         ['as' => 'deleteLang',          'uses' => 'Pulsar\Pulsar\Controllers\Langs@deleteRecord',               'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/langs/delete/select/elements',            ['as' => 'deleteSelectLang',    'uses' => 'Pulsar\Pulsar\Controllers\Langs@deleteRecordsSelect',        'resource' => 'admin-lang',             'action' => 'delete']);
     Route::post(config('pulsar.appName') . '/pulsar/langs/delete/image/lang/{id}',              ['as' => 'deleteImageLang',     'uses' => 'Pulsar\Pulsar\Controllers\Langs@ajaxDeleteImage',            'resource' => 'admin-lang',             'action' => 'delete']);
 
     /*
@@ -137,16 +137,16 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     | COUNTRIES
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/countries/{offset?}',                            ['as'=>'Country',               'uses'=>'Pulsar\Pulsar\Controllers\Countries@index',                    'resource' => 'admin-country',          'action' => 'access']);
-    Route::any(config('pulsar.appName') . '/pulsar/countries/json/data',                            ['as'=>'jsonDataCountry',       'uses'=>'Pulsar\Pulsar\Controllers\Countries@jsonData',                 'resource' => 'admin-country',          'action' => 'access']);
-    Route::get(config('pulsar.appName') . '/pulsar/countries/create/{offset}/{lang}/{id?}',         ['as'=>'createCountry',         'uses'=>'Pulsar\Pulsar\Controllers\Countries@createRecord',             'resource' => 'admin-country',          'action' => 'create']);
-    Route::post(config('pulsar.appName') . '/pulsar/countries/store/{offset}',                      ['as'=>'storeCountry',          'uses'=>'Pulsar\Pulsar\Controllers\Countries@storeRecord',              'resource' => 'admin-country',          'action' => 'create']);
-    Route::get(config('pulsar.appName') . '/pulsar/countries/{id}/edit/{lang}/{offset}',            ['as'=>'editCountry',           'uses'=>'Pulsar\Pulsar\Controllers\Countries@editRecord',               'resource' => 'admin-country',          'action' => 'access']);
-    Route::put(config('pulsar.appName') . '/pulsar/countries/update/{offset}',                      ['as'=>'updateCountry',         'uses'=>'Pulsar\Pulsar\Controllers\Countries@updateRecord',             'resource' => 'admin-country',          'action' => 'edit']);
-    Route::get(config('pulsar.appName') . '/pulsar/countries/destroy/{id}',                         ['as'=>'destroyCountry',        'uses'=>'Pulsar\Pulsar\Controllers\Countries@destroyRecord',            'resource' => 'admin-country',          'action' => 'delete']);
-    Route::get(config('pulsar.appName') . '/pulsar/countries/destroy/lang/{id}/{lang}/{offset}',    ['as'=>'destroyCountryLang',    'uses'=>'Pulsar\Pulsar\Controllers\Countries@destroyLang',              'resource' => 'admin-country',          'action' => 'delete']);
-    Route::delete(config('pulsar.appName') . '/pulsar/countries/destroy/select/elements',           ['as'=>'destroySelectCountry',  'uses'=>'Pulsar\Pulsar\Controllers\Countries@destroyRecordsSelect',     'resource' => 'admin-country',          'action' => 'delete']);
-    Route::post(config('pulsar.appName') . '/pulsar/countries/json/{country?}',                     ['as'=>'jsonGetCountry',        'uses'=>'Pulsar\Pulsar\Controllers\Countries@jsonCountry',              'resource' => 'admin-country',          'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/countries/{offset?}',                                ['as'=>'Country',                   'uses'=>'Pulsar\Pulsar\Controllers\Countries@index',                    'resource' => 'admin-country',          'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/countries/json/data',                                ['as'=>'jsonDataCountry',           'uses'=>'Pulsar\Pulsar\Controllers\Countries@jsonData',                 'resource' => 'admin-country',          'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/countries/create/{offset}/{lang}/{id?}',             ['as'=>'createCountry',             'uses'=>'Pulsar\Pulsar\Controllers\Countries@createRecord',             'resource' => 'admin-country',          'action' => 'create']);
+    Route::post(config('pulsar.appName') . '/pulsar/countries/store/{offset}',                          ['as'=>'storeCountry',              'uses'=>'Pulsar\Pulsar\Controllers\Countries@storeRecord',              'resource' => 'admin-country',          'action' => 'create']);
+    Route::get(config('pulsar.appName') . '/pulsar/countries/{id}/edit/{lang}/{offset}',                ['as'=>'editCountry',               'uses'=>'Pulsar\Pulsar\Controllers\Countries@editRecord',               'resource' => 'admin-country',          'action' => 'access']);
+    Route::put(config('pulsar.appName') . '/pulsar/countries/update/{offset}',                          ['as'=>'updateCountry',             'uses'=>'Pulsar\Pulsar\Controllers\Countries@updateRecord',             'resource' => 'admin-country',          'action' => 'edit']);
+    Route::get(config('pulsar.appName') . '/pulsar/countries/delete/{id}',                              ['as'=>'deleteCountry',             'uses'=>'Pulsar\Pulsar\Controllers\Countries@deleteRecord',             'resource' => 'admin-country',          'action' => 'delete']);
+    Route::get(config('pulsar.appName') . '/pulsar/countries/delete/translation/{id}/{lang}/{offset}',  ['as'=>'deleteTranslationCountry',  'uses'=>'Pulsar\Pulsar\Controllers\Countries@deleteTranslationRecord',  'resource' => 'admin-country',          'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/countries/delete/select/elements',                ['as'=>'deleteSelectCountry',       'uses'=>'Pulsar\Pulsar\Controllers\Countries@deleteRecordsSelect',      'resource' => 'admin-country',          'action' => 'delete']);
+    Route::post(config('pulsar.appName') . '/pulsar/countries/json/{country?}',                         ['as'=>'jsonGetCountry',            'uses'=>'Pulsar\Pulsar\Controllers\Countries@jsonCountry',              'resource' => 'admin-country',          'action' => 'access']);
 
     /*
     |--------------------------------------------------------------------------
@@ -159,8 +159,8 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::post(config('pulsar.appName').'/pulsar/areasterritoriales1/store/{country}/{offset}',                                ['as'=>'storeAreasTerritoriales1', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales1@store',            'resource' => 'admin-lang',             'action' => 'delete']);
     Route::get(config('pulsar.appName').'/pulsar/areasterritoriales1/{id}/edit/{offset}',                                       ['as'=>'editAreasTerritoriales1', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales1@edit',            'resource' => 'admin-lang',             'action' => 'delete']);
     Route::post(config('pulsar.appName').'/pulsar/areasterritoriales1/update/{country}/{offset}',                               ['as'=>'updateAreasTerritoriales1', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales1@update',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::get(config('pulsar.appName').'/pulsar/areasterritoriales1/destroy/{country}/{id}',                                   ['as'=>'destroyAreasTerritoriales1', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales1@destroy',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::post(config('pulsar.appName').'/pulsar/areasterritoriales1/destroy/select/elements/{country}',                       ['as'=>'destroySelectAreasTerritoriales1', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales1@destroySelect',            'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::get(config('pulsar.appName').'/pulsar/areasterritoriales1/delete/{country}/{id}',                                    ['as'=>'deleteAreasTerritoriales1', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales1@delete',            'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::post(config('pulsar.appName').'/pulsar/areasterritoriales1/delete/select/elements/{country}',                        ['as'=>'deleteSelectAreasTerritoriales1', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales1@deleteSelect',            'resource' => 'admin-lang',             'action' => 'delete']);
     Route::post(config('pulsar.appName').'/pulsar/areasterritoriales1/json/get_areas_territoriales_1_from_pais/{country?}',     ['as'=>'jsonGetAreasTerritoriales1FromPais', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales1@jsonGetAreasTerritoriales1FromPais',            'resource' => 'admin-lang',             'action' => 'delete']);
 
     /*
@@ -174,8 +174,8 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::post(config('pulsar.appName').'/pulsar/areasterritoriales2/store/{country}/{offset}',                                        ['as'=>'storeAreasTerritoriales2', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales2@store',            'resource' => 'admin-lang',             'action' => 'delete']);
     Route::get(config('pulsar.appName').'/pulsar/areasterritoriales2/{id}/edit/{offset}',                                               ['as'=>'editAreasTerritoriales2', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales2@edit',            'resource' => 'admin-lang',             'action' => 'delete']);
     Route::post(config('pulsar.appName').'/pulsar/areasterritoriales2/update/{country}/{offset}',                                       ['as'=>'updateAreasTerritoriales2', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales2@update',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::get(config('pulsar.appName').'/pulsar/areasterritoriales2/destroy/{country}/{id}',                                           ['as'=>'destroyAreasTerritoriales2', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales2@destroy',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::post(config('pulsar.appName').'/pulsar/areasterritoriales2/destroy/select/elements/{country}',                               ['as'=>'destroySelectAreasTerritoriales2', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales2@destroySelect',            'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::get(config('pulsar.appName').'/pulsar/areasterritoriales2/delete/{country}/{id}',                                            ['as'=>'deleteAreasTerritoriales2', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales2@delete',            'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::post(config('pulsar.appName').'/pulsar/areasterritoriales2/delete/select/elements/{country}',                                ['as'=>'deleteSelectAreasTerritoriales2', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales2@deleteSelect',            'resource' => 'admin-lang',             'action' => 'delete']);
     Route::post(config('pulsar.appName').'/pulsar/areasterritoriales2/json/get_areas_territoriales_2_from_area_territorial_1/{id}',     ['as'=>'jsonAreasTerritoriales2', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales2@jsonGetAreasTerritoriales2FromAreaTerritorial1',            'resource' => 'admin-lang',             'action' => 'delete']);
 
     /*
@@ -189,8 +189,8 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::post(config('pulsar.appName').'/pulsar/areasterritoriales3/store/{country}/{offset}', ['as'=>'storeAreasTerritoriales3', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales3@store',            'resource' => 'admin-lang',             'action' => 'delete']);
     Route::get(config('pulsar.appName').'/pulsar/areasterritoriales3/{id}/edit/{offset}', ['as'=>'editAreasTerritoriales3', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales3@edit',            'resource' => 'admin-lang',             'action' => 'delete']);
     Route::post(config('pulsar.appName').'/pulsar/areasterritoriales3/update/{country}/{offset}', ['as'=>'updateAreasTerritoriales3', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales3@update',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::get(config('pulsar.appName').'/pulsar/areasterritoriales3/destroy/{country}/{id}', ['as'=>'destroyAreasTerritoriales3', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales3@destroy',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::post(config('pulsar.appName').'/pulsar/areasterritoriales3/destroy/select/elements/{country}', ['as'=>'destroySelectAreasTerritoriales3', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales3@destroySelect',            'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::get(config('pulsar.appName').'/pulsar/areasterritoriales3/delete/{country}/{id}', ['as'=>'deleteAreasTerritoriales3', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales3@delete',            'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::post(config('pulsar.appName').'/pulsar/areasterritoriales3/delete/select/elements/{country}', ['as'=>'deleteSelectAreasTerritoriales3', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales3@deleteSelect',            'resource' => 'admin-lang',             'action' => 'delete']);
     Route::post(config('pulsar.appName').'/pulsar/areasterritoriales3/json/get_areas_territoriales_3_from_area_territorial_2/{id}', ['as'=>'jsonAreasTerritoriales3', 'uses'=>'Pulsar\Pulsar\Controllers\AreasTerritoriales3@jsonGetAreasTerritoriales3FromAreaTerritorial2',            'resource' => 'admin-lang',             'action' => 'delete']);
 
     
@@ -208,8 +208,8 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::post(config('pulsar.appName') . '/pulsar/users/store/{offset}',              ['as'=>'storeUser', 'uses'=>'Pulsar\Pulsar\Controllers\Usuarios@store',            'resource' => 'admin-lang',             'action' => 'delete']);
     Route::get(config('pulsar.appName') . '/pulsar/users/{id}/edit/{offset}',           ['as'=>'editUsuario', 'uses'=>'Pulsar\Pulsar\Controllers\Usuarios@edit',            'resource' => 'admin-lang',             'action' => 'delete']);
     Route::post(config('pulsar.appName') . '/pulsar/users/update/{offset}',             ['as'=>'updateUsuario', 'uses'=>'Pulsar\Pulsar\Controllers\Usuarios@update',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::get(config('pulsar.appName') . '/pulsar/users/destroy/{id}',               ['as'=>'destroyUsuario', 'uses'=>'Pulsar\Pulsar\Controllers\Usuarios@destroy',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::post(config('pulsar.appName') . '/pulsar/users/destroy/select/elements',   ['as'=>'destroySelectUsuario', 'uses'=>'Pulsar\Pulsar\Controllers\Usuarios@destroySelect',            'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::get(config('pulsar.appName') . '/pulsar/users/delete/{id}',               ['as'=>'deleteUsuario', 'uses'=>'Pulsar\Pulsar\Controllers\Usuarios@delete',            'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::post(config('pulsar.appName') . '/pulsar/users/delete/select/elements',   ['as'=>'deleteSelectUsuario', 'uses'=>'Pulsar\Pulsar\Controllers\Usuarios@deleteSelect',            'resource' => 'admin-lang',             'action' => 'delete']);
 
 
 

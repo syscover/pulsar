@@ -4,6 +4,11 @@ use Pulsar\Pulsar\Libraries\Miscellaneous;
 
 trait ModelTrait {
 
+    /**
+     * @access	public
+     * @param   array     $args
+     * @return	array|\Illuminate\Database\Query\Builder[]
+     */
     public static function getRecordsLimit($args)
     {
         $instance = new static;
@@ -32,6 +37,35 @@ trait ModelTrait {
         }
     }
 
+    /**
+     * @access	public
+     * @param   mixed     $id
+     * @param   string    $lang
+     * @return	array|\Illuminate\Database\Query\Builder[]
+     */
+    public static function getTranslationRecord($id, $lang)
+    {
+        $instance = new static;
+        return $instance::where($instance->getKeyName(), $id)->where($instance->langKey, $lang)->first();
+    }
+
+    /**
+     * @access	public
+     * @param   mixed     $id
+     * @param   string    $lang
+     * @return	void
+     */
+    public static function deleteTranslationRecord($id, $lang)
+    {
+        $instance = new static;
+        $instance::where($instance->getKeyName(), $id)->where($instance->langKey, $lang)->delete();
+    }
+
+    /**
+     * @access	public
+     * @param   array     $ids
+     * @return	void
+     */
     public static function deleteRecords($ids)
     {
         $instance = new static;
@@ -41,7 +75,7 @@ trait ModelTrait {
     /**
      * @access	public
      * @param   array     $ids
-     * @return	Collection
+     * @return	array|\Illuminate\Database\Query\Builder[]
      */
     public static function getRecordsById($ids)
     {

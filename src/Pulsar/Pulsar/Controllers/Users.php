@@ -196,7 +196,7 @@ class Usuarios extends BaseController {
         }
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
         i
         
@@ -209,7 +209,7 @@ class Usuarios extends BaseController {
         ));
     }
     
-    public function destroySelect($offset=0)
+    public function deleteSelect($offset=0)
     {
         i
         

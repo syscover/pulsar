@@ -1,5 +1,10 @@
 @extends('pulsar::layouts.form', ['action' => 'update'])
 
+@section('script')
+    @parent
+    @include('pulsar::common.js.script_delete_translation_record')
+@stop
+
 @section('rows')
     <!-- pulsar::countries.create -->
     @include('pulsar::common.block.block_form_text_group', ['label' => 'ID', 'name' => 'id', 'value' => $object->id_002, 'maxLength' => '2', 'size' => '2', 'required' => true, 'sizeField' => 2, 'readOnly' => $lang->id_001 !=  Session::get('baseLang')->id_001? true : false])

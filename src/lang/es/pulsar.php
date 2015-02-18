@@ -45,6 +45,7 @@ return array(
     'territorial_area'                      => 'Area territorial',
     'message_create_record_successful'      => 'Registration <strong>:name</strong> has been properly recorded',
     'message_delete_record'                 => '¿Desea borrar el registro con <strong>ID \' + idRecord + \' </strong>?',
+    'message_delete_translation_record'     => '¿Desea borrar el registro traducido con <strong>ID :id </strong>?',
     'message_delete_records'                => '¿Desea borrar los registros seleccionados?',
     'message_delete_record_successful'      => 'El registro <strong>:nombre</strong> ha sido borrado correctamente',
     'message_delete_records_successful'     => 'Los registros seleccionados han sido borrados correctamente',

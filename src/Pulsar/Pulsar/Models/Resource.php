@@ -39,9 +39,4 @@ class Resource extends Model
     {
         return Resource::join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012')->newQuery();
     }
-
-    public static function deleteRecords($ids)
-    {
-        Resource::whereIn('id_007', $ids)->delete();
-    }
 }

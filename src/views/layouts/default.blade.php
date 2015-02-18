@@ -107,10 +107,9 @@
             });
         </script>
 
-        <!-- Librerías JS y JS inline -->
+        <!-- custom script -->
         @yield('script')
-        
-        <!-- JS personalizadas -->
+
         <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/js/MY_script.js') }}"></script>
     </head>
     

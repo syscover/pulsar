@@ -75,12 +75,12 @@ class Langs extends BaseController {
         if(Input::get('base')) Session::put('baseLang', Lang::getBaseLang());
     }
     
-    public function destroyCustomRecord($object)
+    public function deleteCustomRecord($object)
     {
         File::delete(public_path() . '/packages/pulsar/pulsar/storage/langs/' . $object->image_001);
     }
     
-    public function destroyCustomRecords($ids)
+    public function deleteCustomRecords($ids)
     {
         $objects = Lang::getRecordsById($ids);
         

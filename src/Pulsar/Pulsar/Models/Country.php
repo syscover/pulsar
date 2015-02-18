@@ -20,6 +20,7 @@ class Country extends Model
 
     protected $table        = '001_002_country';
     protected $primaryKey   = 'id_002';
+    protected $langKey      = 'lang_002';
     public $timestamps      = false;
     protected $fillable     = ['id_002', 'lang_002', 'name_002', 'sorting_002', 'prefix_002', 'territorial_area_1_002', 'territorial_area_2_002', 'territorial_area_3_002', 'data_002'];
     public static $rules    = [
@@ -57,13 +58,6 @@ class Country extends Model
         return $query;
     }
 
-    public static function getRecord($id, $lang)
-    {
-        return Country::where('id_002', $id)->where('lang_002', $lang)->first();
-    }
-
-
-
 
 
 
@@ -88,8 +82,5 @@ class Country extends Model
                 ->orderBy('nombre_002')->get();
     }
 
-    public static function deleteLangRecordXX($id, $lang)
-    {
-        Country::where('id_002', $id)->where('idioma_002', $lang)->delete();
-    }
+
 }

@@ -272,14 +272,40 @@ trait ControllerTrait {
      * @param       integer $id
      * @return      \Illuminate\Support\Facades\Redirect
      */
-    public function destroyRecord($id)
+    public function deleteRecord($id)
     {
         $object = call_user_func($this->model . '::find', $id);
-        call_user_func($this->model . '::destroy', $id);
 
         if(method_exists($this, 'destroyCustomRecord'))
         {
-            $this->destroyCustomRecord($object);
+            $this->deleteCustomRecord($object);
+        }
+
+        // delete records after deleteCustomRecords, if we need do a select
+        call_user_func($this->model . '::destroy', $id);
+
+        return Redirect::route($this->routeSuffix)->with([
+            'msg'        => 1,
+            'txtMsg'     => trans('pulsar::pulsar.message_delete_record_successful', ['name' => $object->{$this->nameM}])
+        ]);
+    }
+
+    /**
+     * @access      public
+     * @param       \Illuminate\Http\Request    $request
+     * @return      \Illuminate\Support\Facades\Redirect
+     */
+    public function deleteTranslationRecord(Request $request)
+    {
+        // get parameters from url route
+        $parameters = $request->route()->parameters();
+
+        $object = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], $parameters['lang']);
+        call_user_func($this->model . '::deleteTranslationRecord', $parameters['id'], $parameters['lang']);
+
+        if(method_exists($this, 'deleteCustomTranslationRecord'))
+        {
+            $this->deleteCustomTranslationRecord($object);
         }
 
         return Redirect::route($this->routeSuffix)->with([
@@ -293,7 +319,7 @@ trait ControllerTrait {
      * @access      public
      * @return      \Illuminate\Support\Facades\Redirect
      */
-    public function destroyRecordsSelect()
+    public function deleteRecordsSelect()
     {
         $nElements = Input::get('nElementsDataTable');
         $ids = [];
@@ -308,10 +334,10 @@ trait ControllerTrait {
 
         if(method_exists($this, 'destroyCustomRecords'))
         {
-            $this->destroyCustomRecords($ids);
+            $this->deleteCustomRecords($ids);
         }
 
-        // destroy records after destroyCustomRecords, if we need do a select
+        // delete records after deleteCustomRecords, if we need do a select
         call_user_func($this->model . '::deleteRecords', $ids);
 
         return Redirect::route($this->routeSuffix)->with([

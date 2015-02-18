@@ -196,7 +196,6 @@ class Countries extends BaseController {
     }
 
 
-
     public function store($offset=0)
     {
         //comprobamos si es un nuevo idioma o no para velidar el ID
@@ -232,7 +231,7 @@ class Countries extends BaseController {
     
     public function editCustomRecord($parameters)
     {
-        $parameters['object']   = Country::getRecord($parameters['id'], $parameters['lang']);
+        $parameters['object']   = Country::getTranslationRecord($parameters['id'], $parameters['lang']);
         $parameters['lang']     = $parameters['object']->lang;
 
         return $parameters;
@@ -270,56 +269,13 @@ class Countries extends BaseController {
             return Redirect::route('paises',array($offset));
         }
     }
-    
-    public function destroy($id)
-    {
 
-        
-        $pais = Pais::getPais($id, Session::get('idiomaBase')->id_001);
-        Pais::deletePais($id);
-
-        //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
-        Session::flash('msg',1);
-        Session::flash('txtMsg', trans('pulsar::pulsar.borrado_registro',array('nombre' => $pais->nombre_002)));
-        
-        return Redirect::route('paises');
-    }
-        
-    public function destroySelect($offset=0)
-    {
-
-        
-        $nElements = Input::get('nElementsDataTable'); 
-        $ids = array();
-        for($i=0;$i<$nElements;$i++){
-            if(Input::get('element'.$i) != false){
-                array_push($ids, Input::get('element'.$i));
-            }
-        }
-        
-        Pais::deletePaises($ids);
-        //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición        
-        Session::flash('msg',1);
-        Session::flash('txtMsg', trans('pulsar::pulsar.borrado_registros'));
-        
-        return Redirect::route('paises');
-    }
-    
-    public function destroyLang($id, $lang, $offset=0)
-    {
-        $pais = Pais::getPais($id, $lang);
-        Pais::deleteLangPais($id, $lang);
-        
-        //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
-        Session::flash('msg',1);
-        Session::flash('txtMsg', trans('pulsar::pulsar.borrado_registro',array('nombre' => $pais->nombre_002)));
-        return Redirect::route('paises', array($offset));
-    }
-    
     public function jsonCountry($id)
     {
-        $data['json'] = array();
-        if($id!="null") $data['json'] = Pais::getPais($id, Session::get('idiomaBase')->id_001)->toJson();
-        return view('pulsar::pulsar.pulsar.common.json_display',$data);
+        $parameters['json'] = [];
+
+        if($id!="null") $parameters['json'] = Country::getTranslationRecord($id, Session::get('baseLang')->id_001)->toJson();
+
+        return view('pulsar::common.json_display', $parameters);
     }
 }
