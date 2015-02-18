@@ -10,11 +10,9 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
 use Pulsar\Pulsar\Libraries\Miscellaneous;
 use Pulsar\Pulsar\Models\Lang;
 use Pulsar\Pulsar\Models\Country;
@@ -116,15 +114,15 @@ class Countries extends BaseController {
 
             // set language to object
             $jsonObject = json_decode($aObject['data_002']);
-            $colorFlag = "MY_red";
+            $colorFlag = "MY_green";
 
             foreach ($langs as $lang)
             {
                 $isCreated = in_array($lang->id_001, $jsonObject->langs);
 
-                if($isCreated)
+                if(!$isCreated)
                 {
-                    $colorFlag="MY_green";
+                    $colorFlag="MY_red";
                     break;
                 }
             }
@@ -187,7 +185,7 @@ class Countries extends BaseController {
     {
         if(isset($parameters['id']))
         {
-            $parameters['pais'] = Country::get($id, Session::get('idiomaBase')->id_001);
+            $parameters['object'] = Country::getTranslationRecord($parameters['id'], Session::get('baseLang')->id_001);
         }
 
         $parameters['lang'] = Lang::find($parameters['lang']);
@@ -196,37 +194,19 @@ class Countries extends BaseController {
     }
 
 
-    public function store($offset=0)
+    public function storeCustomRecord()
     {
-        //comprobamos si es un nuevo idioma o no para velidar el ID
-        if(Input::get('idioma') != Session::get('idiomaBase')->id_001) $idRule = false; else $idRule = true;
-        
-        $validation = Pais::validate(Input::all(), $idRule);
-              
-        if ($validation->fails())
-        {
-            return Redirect::route('createPais',array($offset,Input::get('idioma')))->withErrors($validation)->withInput();
-        }
-        else
-        {
-            $pais = array(
-                'id_002'                    => Input::get('id'),
-                'lang_002'                => Input::get('idioma'),
-                'nombre_002'                => Input::get('nombre'),
-                'orden_002'                 => Input::get('orden',0),
-                'prefijo_002'               => Input::get('prefijo'),
-                'territorial_area_1_002'    => Input::get('areaTerritorial1'),
-                'territorial_area_2_002'    => Input::get('areaTerritorial2'),
-                'territorial_area_3_002'    => Input::get('areaTerritorial3')
-            );
-            
-            Pais::create($pais); 
-            //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
-            Session::flash('msg',1);
-            Session::flash('txtMsg',trans('pulsar::pulsar.aviso_alta_registro',array('nombre' => Input::get('nombre'))));
-            
-            return Redirect::route('paises',array($offset));
-        }
+        Country::create([
+            'id_002'                    => Input::get('id'),
+            'lang_002'                  => Input::get('lang'),
+            'name_002'                  => Input::get('name'),
+            'orden_002'                 => Input::get('sorting', 0),
+            'prefijo_002'               => Input::get('prefix'),
+            'territorial_area_1_002'    => Input::get('territorialArea1'),
+            'territorial_area_2_002'    => Input::get('territorialArea2'),
+            'territorial_area_3_002'    => Input::get('territorialArea3'),
+            'data_002'                  => Country::addLangDataRecord(Input::get('id'), Input::get('lang'))
+        ]);
     }
     
     public function editCustomRecord($parameters)
@@ -237,37 +217,20 @@ class Countries extends BaseController {
         return $parameters;
     }
     
-    public function update($offset=0)
+    public function updateCustomRecord($id)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'edit')) App::abort(403, 'Permission denied.');
-        
-        $validation = Pais::validate(Input::all(), false);
-        
-        if ($validation->fails())
-        {
-            return Redirect::route('editPais',array(Input::get('id'), Input::get('idioma'), $offset))->withErrors($validation);
-        }
-        else
-        {
-            Pais::where('id_002','=',Input::get('id'))->where('lang_002','=',Input::get('idioma'))->update(array(
-                'nombre_002'                => Input::get('nombre'),
-                'orden_002'                 => Input::get('orden',0),
-                'territorial_area_1_002'    => Input::get('areaTerritorial1'),
-                'territorial_area_2_002'    => Input::get('areaTerritorial2'),
-                'territorial_area_3_002'    => Input::get('areaTerritorial3')
-            ));
-            
-            //Datos comunes
-            Pais::where('id_002','=',Input::get('id'))->update(array(
-                'prefijo_002'               => Input::get('prefijo')
-            ));
+        Country::where('id_002', $id)->where('lang_002', Input::get('lang'))->update([
+            'name_002'                  => Input::get('name'),
+            'sorting_002'               => Input::get('sorting', 0),
+            'territorial_area_1_002'    => Input::get('territorialArea1'),
+            'territorial_area_2_002'    => Input::get('territorialArea2'),
+            'territorial_area_3_002'    => Input::get('territorialArea3')
+        ]);
 
-            //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
-            Session::flash('msg',1);
-            Session::flash('txtMsg',trans('pulsar::pulsar.aviso_actualiza_registro',array('nombre' => Input::get('nombre'))));
-            
-            return Redirect::route('paises',array($offset));
-        }
+        // common data
+        Country::where('id_002', $id)->update([
+            'prefix_002' => Input::get('prefix')
+        ]);
     }
 
     public function jsonCountry($id)

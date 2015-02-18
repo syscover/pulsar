@@ -158,6 +158,8 @@ trait ControllerTrait {
         // get parameters from url route
         $parameters = $request->route()->parameters();
 
+        $parameters['urlParameters']  = $parameters;
+
         if(method_exists($this, 'createCustomRecord'))
         {
             $parameters = $this->createCustomRecord($parameters);
@@ -174,16 +176,30 @@ trait ControllerTrait {
 
     /**
      * @access	public
-     * @param   integer     $offset
+     * @param   \Illuminate\Http\Request    $request
      * @return	\Illuminate\Support\Facades\Redirect
      */
-    public function storeRecord($offset = 0)
+    public function storeRecord(Request $request)
     {
-        $validation = call_user_func($this->model . '::validate', Input::all());
+        // get parameters from url route
+        $parameters = $request->route()->parameters();
+
+        // check special rules
+        // check to multiple language if is new object translation or new object
+        if(Input::has('lang') && Input::get('lang') != Session::get('baseLang')->id_001)
+        {
+            $specialRules['idRule'] = true;
+        }
+        else
+        {
+            $specialRules  = [];
+        }
+
+        $validation = call_user_func($this->model . '::validate', Input::all(), $specialRules);
 
         if ($validation->fails())
         {
-            return Redirect::route('create' . $this->routeSuffix, $offset)->withErrors($validation)->withInput();
+            return Redirect::route('create' . $this->routeSuffix, $parameters)->withErrors($validation)->withInput();
         }
         else
         {
@@ -192,7 +208,7 @@ trait ControllerTrait {
                 $this->storeCustomRecord();
             }
 
-            return Redirect::route($this->routeSuffix, $offset)->with([
+            return Redirect::route($this->routeSuffix, $parameters['offset'])->with([
                 'msg'        => 1,
                 'txtMsg'     => trans('pulsar::pulsar.message_create_record_successful', ['name' => Input::get('name')])
             ]);
@@ -208,6 +224,8 @@ trait ControllerTrait {
     {
         // get parameters from url route
         $parameters = $request->route()->parameters();
+
+        $parameters['urlParameters']  = $parameters;
 
         $parameters['package']        = $this->package;
         $parameters['folder']         = $this->folder;
@@ -226,20 +244,24 @@ trait ControllerTrait {
 
     /**
      * @access	public
-     * @param   integer     $offset
+     * @param   \Illuminate\Http\Request    $request
      * @return	\Illuminate\Support\Facades\Redirect
      */
-    public function updateRecord($offset = 0)
+    public function updateRecord(Request $request)
     {
+        // get parameters from url route
+        $parameters = $request->route()->parameters();
+
         // check special rules
-        if(Input::has('idOld'))
+        if(Input::get('id') == $parameters['id'])
         {
-            $specialRules['idRule'] = Input::get('id') == Input::get('idOld')? true : false;
-            $id = Input::get('idOld');
+            $specialRules['idRule'] = true;
+            $id = $parameters['id'];
         }
         elseif(Input::hasFile('image'))
         {
             $specialRules['imageRule'] = true;
+            $id = Input::get('id');
         }
         else
         {
@@ -251,7 +273,7 @@ trait ControllerTrait {
 
         if ($validation->fails())
         {
-            return Redirect::route('edit' . $this->routeSuffix, [$id, $offset])->withErrors($validation);
+            return Redirect::route('edit' . $this->routeSuffix, $parameters)->withErrors($validation);
         }
         else
         {
@@ -260,7 +282,7 @@ trait ControllerTrait {
                 $this->updateCustomRecord($id);
             }
 
-            return Redirect::route($this->routeSuffix, $offset)->with([
+            return Redirect::route($this->routeSuffix, $parameters['offset'])->with([
                 'msg'        => 1,
                 'txtMsg'     => trans('pulsar::pulsar.message_update_record', ['name' => Input::get('name')])
             ]);

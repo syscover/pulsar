@@ -46,7 +46,7 @@ trait ModelTrait {
     public static function getTranslationRecord($id, $lang)
     {
         $instance = new static;
-        return $instance::where($instance->getKeyName(), $id)->where($instance->langKey, $lang)->first();
+        return $instance::where($instance->getKeyName(), $id)->where('lang_' . $instance->sufix, $lang)->first();
     }
 
     /**
@@ -58,7 +58,9 @@ trait ModelTrait {
     public static function deleteTranslationRecord($id, $lang)
     {
         $instance = new static;
-        $instance::where($instance->getKeyName(), $id)->where($instance->langKey, $lang)->delete();
+        $instance::where($instance->getKeyName(), $id)->where('lang_' . $instance->sufix, $lang)->delete();
+
+        $instance::deleteLangDataRecord($id, $lang);
     }
 
     /**
@@ -84,4 +86,53 @@ trait ModelTrait {
 
     }
 
+    public static function addLangDataRecord($id, $lang)
+    {
+        $instance   = new static;
+        $object     = $instance::find($id);
+
+        if($object != null)
+        {
+            $jsonObject             = json_decode($object->{'data_' . $instance->sufix});
+            $jsonObject->langs[]    = $lang;
+            $jsonString             = json_encode($jsonObject);
+
+            $instance::where($instance->getKeyName(), $id)->update([
+                'data_' . $instance->sufix  => $jsonString
+            ]);
+        }
+        else
+        {
+            $jsonString = '{"langs":["' . $lang . '"]}';
+        }
+
+        return $jsonString;
+    }
+
+    public static function deleteLangDataRecord($id, $lang)
+    {
+        $instance   = new static;
+        $object     = $instance::find($id);
+
+        if($object != null)
+        {
+            $jsonObject = json_decode($object->{'data_' . $instance->sufix});
+
+            //unset isn't correct, get error to reorder array
+            $newArrayLang = [];
+            foreach($jsonObject->langs as $keyLang)
+            {
+                if($keyLang != $lang)
+                {
+                    $newArrayLang[] = $keyLang;
+                }
+            }
+            $jsonObject->langs = $newArrayLang;
+            $jsonString = json_encode($jsonObject);
+
+            $instance::where($instance->getKeyName(), $id)->update([
+                'data_' . $instance->sufix  => $jsonString
+            ]);
+        }
+    }
 }
