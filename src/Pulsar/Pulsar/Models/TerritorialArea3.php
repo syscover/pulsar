@@ -1,23 +1,24 @@
-<?php
+<?php namespace Pulsar\Pulsar\Models;
 
 /**
- *
- * Este modelo representa los datos de la tabla 001_005_area_territorial_3.
- *
- * @package	Pulsar
- * @author	Jose Carlos Rodríguez Palacín (http://www.syscover.com/)
+ * @package	    Pulsar
+ * @author	    Jose Carlos Rodríguez Palacín
+ * @copyright   Copyright (c) 2015, SYSCOVER, SL
+ * @license
+ * @link		http://www.syscover.com
+ * @since		Version 1.0
+ * @filesource
  */
-namespace Pulsar\Pulsar\Models;
 
-use Illuminate\Database\Eloquent\Model as Eloquent,
+use Illuminate\Database\Eloquent\Model,
     Illuminate\Support\Facades\Validator,
     Pulsar\Pulsar\Libraries\Miscellaneous;
 
-class AreaTerritorial3 extends Eloquent
+class TerritorialArea3 extends Model
 {
-        protected $table        = '001_005_area_territorial_3';
+        protected $table        = '001_005_territorial_area_3';
         protected $primaryKey   = 'id_005';
-        public $timestamps      = true;
+        public $timestamps      = false;
         protected $fillable     = array('id_005','pais_005','area_territorial_1_005','area_territorial_2_005','nombre_005');
         public static $rules    = array(
             'nombre'                =>  'required|between:2,50',
@@ -51,6 +52,3 @@ class AreaTerritorial3 extends Eloquent
             AreaTerritorial3::whereIn('id_005',$ids)->delete();
         }
 }
-
-/* End of file areaterritorial3.php */
-/* Location: ./Pulsar/Pulsar/Models/AreaTerritorial3.php */

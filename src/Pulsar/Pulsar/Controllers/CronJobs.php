@@ -39,7 +39,6 @@ class CronJobs extends BaseController
         return  Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('run' . $this->routeSuffix, [$aObject['id_043'], Input::get('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.run') . '"><i class="icon-bolt"></i></a>' : null;
     }
 
-
     public function run($id, $offset = 0)
     {
         $cronJob    = CronJob::find($id);

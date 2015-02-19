@@ -40,7 +40,7 @@
                         <li{!! Miscellaneous::setCurrentPage('admin-lang') !!}><a href="{{ route('Lang') }}"><i class="brocco-icon-flag"></i>{{ trans_choice('pulsar::pulsar.language', 2) }}</a></li>
                 @endif
                 @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-country', 'access'))
-                        <li{!! Miscellaneous::setCurrentPage(array('admin-country','admin-country-at1','admin-country-at2','admin-country-at3')) !!}><a href="{{ route('Country') }}"><i class="entypo-icon-globe"></i>Países</a></li>
+                        <li{!! Miscellaneous::setCurrentPage(array('admin-country','admin-country-at1','admin-country-at2','admin-country-at3')) !!}><a href="{{ route('Country', [Session::get('baseLang')]) }}"><i class="entypo-icon-globe"></i>{{ trans_choice('pulsar::pulsar.country', 2) }}</a></li>
                 @endif
                 @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-packages', 'access'))
                         <li{!! Miscellaneous::setCurrentPage('admin-mod') !!}><a href="{{ route('Package') }}"><i class="cut-icon-grid"></i>{{ trans_choice('pulsar::pulsar.package', 2) }}</a></li>

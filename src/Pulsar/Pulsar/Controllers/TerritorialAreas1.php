@@ -10,16 +10,10 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\App,
-    Illuminate\Support\Facades\Session,
-    Illuminate\Support\Facades\Auth,
-    Illuminate\Support\Facades\Input,
-    Illuminate\Support\Facades\URL,
-    Illuminate\Support\Facades\Config,
-    Illuminate\Support\Facades\Lang,
-    Illuminate\Support\Facades\Redirect,
-    Pulsar\Pulsar\Models\Country,
-    Pulsar\Pulsar\Models\AreaTerritorial1;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Input;
+use Pulsar\Pulsar\Models\Country;
+use Pulsar\Pulsar\Models\TerritorialArea1;
 use Pulsar\Pulsar\Traits\ControllerTrait;
 
 class TerritorialAreas1 extends BaseController {
@@ -38,9 +32,16 @@ class TerritorialAreas1 extends BaseController {
     
     public function indexCustom($parameters)
     {
-        $parameters['country'] = Country::getTranslationRecord($parameters['country'], Auth::user()->lang_010);
+        $parameters['country'] = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
 
         return $parameters;
+    }
+
+    public function customActionUrlParameters($actionUrlParameters, $parameters)
+    {
+        $actionUrlParameters['country'] = $parameters['country'];
+
+        return $actionUrlParameters;
     }
     
     public function createCustomRecord($parameters)
@@ -50,103 +51,35 @@ class TerritorialAreas1 extends BaseController {
         return $parameters;
     }
 
-
-
-    public function store($pais, $offset=0){
-
-        
-        $validation = AreaTerritorial1::validate(Input::all());
-              
-        if ($validation->fails())
-        {
-            return Redirect::route('createAreasTerritoriales1',array($pais, $offset))->withErrors($validation)->withInput();
-        }
-        else
-        {
-            AreaTerritorial1::create(array(
-                'id_003'        => Input::get('id'),
-                'pais_003'      => $pais,
-                'nombre_003'    => Input::get('nombre')
-            )); 
-            
-            //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
-            Session::flash('msg',1);
-            Session::flash('txtMsg',Lang::get('pulsar::pulsar.aviso_alta_registro',array('nombre' => Input::get('nombre'))));
-            
-            return Redirect::route('areasTerritoriales1',array($pais, $offset));
-        }
+    public function storeCustomRecord($parameters)
+    {
+        TerritorialArea1::create(array(
+            'id_003'        => Input::get('id'),
+            'country_003'   => $parameters['country'],
+            'name_003'      => Input::get('name')
+        ));
     }
     
-    public function edit($id, $offset=0){
+    public function editCustomRecord($parameters)
+    {
+        $parameters['country'] = Country::getTranslationRecord($parameters['object']->country_003, Session::get('baseLang')->id_001);
 
-        
-        $data['inicio']             = $offset;
-        $data['area_territorial_1'] = AreaTerritorial1::find($id);
-        $data['pais']               = Pais::getPais($data['area_territorial_1']->pais_003, Session::get('idiomaBase')->id_001);
-        
-        return view('pulsar::pulsar.pulsar.areas_territoriales_1.edit',$data);
+        return $parameters;
     }
+
+    public function updateCustomRecord($id)
+    {
+        TerritorialArea1::where('id_003', $id)->update([
+            'id_003'    => Input::get('id'),
+            'name_003'  => Input::get('name')
+        ]);
+    }
+
+
+
     
-    public function update($pais, $offset=0){
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'edit')) App::abort(403, 'Permission denied.');
-        
-        if(Input::get('id') == Input::get('idOld')) $idRule = false; else $idRule = true;
-        
-        $validation = AreaTerritorial1::validate(Input::all(), $idRule);
-        
-        if ($validation->fails())
-        {
-            return Redirect::route('editAreasTerritoriales1',array(Input::get('idOld'), $offset))->withErrors($validation);
-        }
-        else
-        {
-            AreaTerritorial1::where('id_003','=',Input::get('idOld'))->update(array(
-                'id_003'        => Input::get('id'),
-                'nombre_003'  => Input::get('nombre')
-            ));
-                        
-            //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
-            Session::flash('msg',1);
-            Session::flash('txtMsg',Lang::get('pulsar::pulsar.aviso_actualiza_registro',array('nombre' => Input::get('nombre'))));
-            
-            return Redirect::route('areasTerritoriales1',array($pais, $offset));
-        }
-    }
-
-    public function delete($pais, $id){
-
-        
-        $areaTerrirorial1 = AreaTerritorial1::find($id);
-        AreaTerritorial1::delete($id);
-        
-        //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
-        Session::flash('msg',1);
-        Session::flash('txtMsg', Lang::get('pulsar::pulsar.borrado_registro',array('nombre' => $areaTerrirorial1->nombre_003)));
-        
-        return Redirect::route('areasTerritoriales1',array($pais));
-    }
-    
-    public function deleteSelect($pais){
-
-        
-        $nElements = Input::get('nElementsDataTable'); 
-        $ids = array();
-        for($i=0;$i<$nElements;$i++){
-            if(Input::get('element'.$i) != false){
-                array_push($ids, Input::get('element'.$i));
-            }
-        }
-                
-        AreaTerritorial1::deleteAreasTerritoriales1($ids);
-        
-        //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición        
-        Session::flash('msg',1);
-        Session::flash('txtMsg', Lang::get('pulsar::pulsar.borrado_registros'));
-        
-        return Redirect::route('areasTerritoriales1',array($pais));
-    }
-    
-    public function jsonGetAreasTerritoriales1FromPais($id){
+    public function jsonGetAreasTerritoriales1FromPais($id)
+    {
         $data['json'] = array();
         if($id!="null") $data['json'] = Pais::getPais($id, Session::get('idiomaBase')->id_001)->areasTerritoriales1()->get()->toJson();
         return view('pulsar::pulsar.pulsar.common.json_display',$data);

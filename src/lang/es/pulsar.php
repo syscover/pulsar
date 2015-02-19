@@ -44,7 +44,7 @@ return array(
     'edit_permissions'                      => 'Editar permisos',
     'territorial_area'                      => 'Area territorial|Areas territoriales',
     'message_create_record_successful'      => 'Registration <strong>:name</strong> has been properly recorded',
-    'message_delete_record'                 => '¿Desea borrar el registro con <strong>ID \' + idRecord + \' </strong>?',
+    'message_delete_record'                 => '¿Desea borrar el registro con <strong>ID \' + $(this).data("id") + \' </strong>?',
     'message_delete_translation_record'     => '¿Desea borrar el registro traducido con <strong>ID :id </strong>?',
     'message_delete_records'                => '¿Desea borrar los registros seleccionados?',
     'message_delete_record_successful'      => 'El registro <strong>:nombre</strong> ha sido borrado correctamente',

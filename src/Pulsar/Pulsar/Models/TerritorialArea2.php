@@ -1,26 +1,28 @@
-<?php
-/**
- *
- * Este modelo representa los datos de la tabla 001_004_area_territorial_2.
- *
- * @package	Pulsar
- * @author	Jose Carlos Rodríguez Palacín (http://www.syscover.com/)
- */
-namespace Pulsar\Pulsar\Models;
+<?php namespace Pulsar\Pulsar\Models;
 
-use Illuminate\Database\Eloquent\Model as Eloquent,
+/**
+ * @package	    Pulsar
+ * @author	    Jose Carlos Rodríguez Palacín
+ * @copyright   Copyright (c) 2015, SYSCOVER, SL
+ * @license
+ * @link		http://www.syscover.com
+ * @since		Version 1.0
+ * @filesource
+ */
+
+use Illuminate\Database\Eloquent\Model,
     Illuminate\Support\Facades\Validator,
     Pulsar\Pulsar\Libraries\Miscellaneous;
 
-class AreaTerritorial2 extends Eloquent
+class TerritorialArea2 extends Model
 {
-    protected $table            = '001_004_area_territorial_2';
+    protected $table            = '001_004_territorial_area_2';
     protected $primaryKey       = 'id_004';
-    public $timestamps          = true;
-    protected $fillable         = array('id_004','pais_004','area_territorial_1_004','nombre_004');
+    public $timestamps          = false;
+    protected $fillable         = ['id_004', 'country_004', 'territorial_area_1_004', 'name_004'];
     private static $rules       = array(
-        'nombre'                =>  'required|between:2,50',
-        'area_territorial_1'    =>  'not_in:null'
+        'name'                  =>  'required|between:2,50',
+        'territorial_area_1'    =>  'not_in:null'
     );
 
     public static function validate($data, $idRule=true)
@@ -58,6 +60,3 @@ class AreaTerritorial2 extends Eloquent
          AreaTerritorial2::whereIn('id_004',$ids)->delete();
     }
 }
-
-/* End of file areaterritorial2.php */
-/* Location: ./Pulsar/Pulsar/Models/AreaTerritorial2.php */

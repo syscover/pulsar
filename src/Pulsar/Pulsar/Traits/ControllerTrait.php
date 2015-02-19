@@ -34,6 +34,7 @@ trait ControllerTrait {
         // check if url contain offset parameter
         if(!isset($parameters['offset'])) $parameters['offset'] = 0;
 
+
         $parameters['urlParameters']  = $parameters;
 
         Miscellaneous::setParameterSessionPage($this->resource);
@@ -128,17 +129,22 @@ trait ControllerTrait {
             }
             $row[] = '<input type="checkbox" class="uniform" name="element' . $i . '" value="' . $aObject[$instance->getKeyName()] . '">';
 
+            $actionUrlParameters['id']        = $aObject[$instance->getKeyName()];
+            $actionUrlParameters['offset']    = Input::get('iDisplayStart');
+
+            if(method_exists($this, 'customActionUrlParameters'))
+            {
+                $actionUrlParameters = $this->customActionUrlParameters($actionUrlParameters, $parameters);
+            }
+
             // check whether it is necessary to insert a data before
+            $actions = null;
             if(method_exists($this, 'jsonCustomDataBeforeActions'))
             {
                 $actions = $this->jsonCustomDataBeforeActions($aObject);
-                $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . route('edit'. $class->getShortName(), [$aObject[$instance->getKeyName()], Input::get('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
             }
-            else
-            {
-                $actions = Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . route('edit'. $class->getShortName(), [$aObject[$instance->getKeyName()], Input::get('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
-            }
-            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] .'" data-original-title="' . trans('pulsar::pulsar.delete_record') . '"><i class="icon-trash"></i></a>' : null;
+            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . route('edit'. $class->getShortName(), $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
+            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] .'" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . $class->getShortName(), $actionUrlParameters) . '"><i class="icon-trash"></i></a>' : null;
             $row[] =  $actions;
 
             $output['aaData'][] = $row;
@@ -207,10 +213,10 @@ trait ControllerTrait {
         {
             if(method_exists($this, 'storeCustomRecord'))
             {
-                $this->storeCustomRecord();
+                $this->storeCustomRecord($parameters);
             }
 
-            return Redirect::route($this->routeSuffix, $parameters['offset'])->with([
+            return Redirect::route($this->routeSuffix, $parameters)->with([
                 'msg'        => 1,
                 'txtMsg'     => trans('pulsar::pulsar.message_create_record_successful', ['name' => Input::get('name')])
             ]);
@@ -258,17 +264,14 @@ trait ControllerTrait {
         if(Input::get('id') == $parameters['id'])
         {
             $specialRules['idRule'] = true;
-            $id = $parameters['id'];
         }
         elseif(Input::hasFile('image'))
         {
             $specialRules['imageRule'] = true;
-            $id = Input::get('id');
         }
         else
         {
             $specialRules  = [];
-            $id = Input::get('id');
         }
 
         $validation = call_user_func($this->model . '::validate', Input::all(), $specialRules);
@@ -281,10 +284,10 @@ trait ControllerTrait {
         {
             if(method_exists($this, 'updateCustomRecord'))
             {
-                $this->updateCustomRecord($id);
+                $this->updateCustomRecord($parameters['id']);
             }
 
-            return Redirect::route($this->routeSuffix, $parameters['offset'])->with([
+            return Redirect::route($this->routeSuffix, $parameters)->with([
                 'msg'        => 1,
                 'txtMsg'     => trans('pulsar::pulsar.message_update_record', ['name' => Input::get('name')])
             ]);
@@ -293,12 +296,15 @@ trait ControllerTrait {
 
     /**
      * @access      public
-     * @param       integer $id
+     * @param       \Illuminate\Http\Request    $request
      * @return      \Illuminate\Support\Facades\Redirect
      */
-    public function deleteRecord($id)
+    public function deleteRecord(Request $request)
     {
-        $object = call_user_func($this->model . '::find', $id);
+        // get parameters from url route
+        $parameters = $request->route()->parameters();
+
+        $object = call_user_func($this->model . '::find', $parameters['id']);
 
         if(method_exists($this, 'destroyCustomRecord'))
         {
@@ -306,9 +312,12 @@ trait ControllerTrait {
         }
 
         // delete records after deleteCustomRecords, if we need do a select
-        call_user_func($this->model . '::destroy', $id);
+        call_user_func($this->model . '::destroy', $parameters['id']);
 
-        return Redirect::route($this->routeSuffix)->with([
+        // delete id variable to don't send to route
+        unset($parameters['id']);
+
+        return Redirect::route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,
             'txtMsg'     => trans('pulsar::pulsar.message_delete_record_successful', ['name' => $object->{$this->nameM}])
         ]);
@@ -332,7 +341,7 @@ trait ControllerTrait {
             $this->deleteCustomTranslationRecord($object);
         }
 
-        return Redirect::route($this->routeSuffix)->with([
+        return Redirect::route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,
             'txtMsg'     => trans('pulsar::pulsar.message_delete_record_successful', ['name' => $object->{$this->nameM}])
         ]);
@@ -341,10 +350,14 @@ trait ControllerTrait {
 
     /**
      * @access      public
+     * @param       \Illuminate\Http\Request    $request
      * @return      \Illuminate\Support\Facades\Redirect
      */
-    public function deleteRecordsSelect()
+    public function deleteRecordsSelect(Request $request)
     {
+        // get parameters from url route
+        $parameters = $request->route()->parameters();
+
         $nElements = Input::get('nElementsDataTable');
         $ids = [];
 
@@ -364,7 +377,7 @@ trait ControllerTrait {
         // delete records after deleteCustomRecords, if we need do a select
         call_user_func($this->model . '::deleteRecords', $ids);
 
-        return Redirect::route($this->routeSuffix)->with([
+        return Redirect::route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,
             'txtMsg'     => trans('pulsar::pulsar.message_delete_records_successful')
         ]);

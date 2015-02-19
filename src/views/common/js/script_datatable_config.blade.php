@@ -60,8 +60,7 @@
 
                             @if(!isset($areDeleteRecord))
                             $('.delete-record').bind('click', function() {
-                                var idRecord = $(this).data('id');
-                                var url = "{{ route('delete' . $routeSuffix) }}/" + idRecord;
+                                var that = this;
                                 $.msgbox('{!! trans('pulsar::pulsar.message_delete_record') !!}',
                                     {
                                         type:'confirm',
@@ -70,10 +69,11 @@
                                             {type: 'cancel', value: '{{ trans('pulsar::pulsar.cancel') }}'}
                                         ]
                                     },
-                                    function(buttonPressed) {
+                                    function(buttonPressed)
+                                    {
                                         if(buttonPressed=='{{ trans('pulsar::pulsar.accept') }}')
                                         {
-                                            $(location).attr('href', url);
+                                            $(location).attr('href', $(that).data('delete-url'));
                                         }
                                     }
                                 );

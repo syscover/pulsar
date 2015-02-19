@@ -3,8 +3,7 @@
     $(document).ready(function() {
         $('.delete-lang-record').bind('click', function() {
 
-            var url = "{{ route('deleteTranslation' . $routeSuffix, [$id, $lang->id_001, $offset]) }}";
-
+            var that = this;
             $.msgbox('{!! trans('pulsar::pulsar.message_delete_translation_record', ['id' => $id]) !!}',
                 {
                     type:'confirm',
@@ -16,7 +15,7 @@
                 function(buttonPressed) {
                     if(buttonPressed=='{{ trans('pulsar::pulsar.accept') }}')
                     {
-                        $(location).attr('href', url);
+                        $(location).attr('href', $(that).data('delete-url'));
                     }
                 }
             );

@@ -114,9 +114,13 @@ class Countries extends BaseController {
 
             $row[] = '<input type="checkbox" class="uniform" name="element'.$i.'" value="'.$aObject['id_002'].'">';
 
+            $actionUrlParameters['id']        = $aObject[$instance->getKeyName()];
+            $actionUrlParameters['offset']    = Input::get('iDisplayStart');
+            $actionUrlParameters['lang']      = $parameters['lang'];
+
             $actions = '<div class="btn-group">';
-            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . route('edit'. $class->getShortName(), [$aObject[$instance->getKeyName()], $parameters['lang'], Input::get('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
-            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] .'" data-original-title="' . trans('pulsar::pulsar.delete_record') . '"><i class="icon-trash"></i></a>' : null;
+            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . route('edit'. $class->getShortName(), $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
+            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] .'" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . $class->getShortName(), $actionUrlParameters) . '"><i class="icon-trash"></i></a>' : null;
 
             // set language to object
             $jsonObject = json_decode($aObject['data_002']);
@@ -149,11 +153,11 @@ class Countries extends BaseController {
                     $actions .= '<li><a class="bs-tooltip" href="';
                     if($isCreated)
                     {
-                        $actions .= route('editCountry', [$aObject['id_002'], $lang->id_001, Input::get('iDisplayStart')]);
+                        $actions .= route('editCountry', ["id" => $aObject['id_002'], "lang" => $lang->id_001, "offset" => Input::get('iDisplayStart')]);
                     }
                     else
                     {
-                        $actions .= route('createCountry', [Input::get('iDisplayStart'), $lang->id_001, $aObject['id_002']]);
+                        $actions .= route('createCountry', ["id" => $aObject['id_002'], "lang" => $lang->id_001, "offset" => Input::get('iDisplayStart')]);
                     }
 
                     $actions .= '" data-original-title="' . $lang->name_001 . '"><img src="' . asset('/packages/pulsar/pulsar/storage/langs/' . $lang->image_001) . '"> ';
