@@ -81,7 +81,8 @@ class TerritorialAreas1 extends BaseController {
     public function jsonGetAreasTerritoriales1FromPais($id)
     {
         $data['json'] = array();
-        if($id!="null") $data['json'] = Pais::getPais($id, Session::get('idiomaBase')->id_001)->areasTerritoriales1()->get()->toJson();
-        return view('pulsar::pulsar.pulsar.common.json_display',$data);
+        if($id!="null") $data['json'] = Country::getTranslationRecord($id, Session::get('baseLang')->id_001)->areasTerritoriales1()->get()->toJson();
+
+        return view('pulsar::common.json_display', $data);
     }
 }

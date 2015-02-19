@@ -57,7 +57,7 @@ class TerritorialArea1 extends Model {
         return $query;
     }
 
-    public static function getAllTerritorialAreas1($country)
+    public static function getTerritorialAreas1Country($country)
     {
         return TerritorialArea1::where('country_003', $country)->orderBy('name_003', 'asc')->get();
     }
