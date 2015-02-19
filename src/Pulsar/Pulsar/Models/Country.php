@@ -50,12 +50,21 @@ class Country extends Model
         return $this->hasMany('Pulsar\Pulsar\Models\TerritorialArea1', 'country_003');
     }
     
-    public static function getCustomRecordsLimit($args)
+    public static function getCustomRecordsLimit($parameters)
     {
         $query =  Country::join('001_001_lang', '001_002_country.lang_002', '=', '001_001_lang.id_001')->newQuery();
              
-        if(isset($args['lang'])) $query->where('lang_002', $args['lang']);
+        if(isset($parameters['lang'])) $query->where('lang_002', $parameters['lang']);
         
+        return $query;
+    }
+
+    public static function customCount($parameters)
+    {
+        $query = Country::query();
+
+        if(isset($parameters['lang'])) $query->where('lang_002', $parameters['lang']);
+
         return $query;
     }
 }

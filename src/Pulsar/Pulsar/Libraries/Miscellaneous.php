@@ -380,21 +380,21 @@ class Miscellaneous
      *  Function to set config arguments datatable
      *
      * @access  public
-     * @param   array $args
+     * @param   array $parameters
      * @return  array
      */
-    public static function paginateDataTable($args = [])
+    public static function paginateDataTable($parameters = [])
     {
         // Datatable paginate
-        $args['sStart'] = null;
-        $args['sLength'] = null;
+        $parameters['sStart'] = null;
+        $parameters['sLength'] = null;
 	    if(Input::get('iDisplayStart') != null && Input::get('iDisplayLength') != '-1' )
         {
-            $args['sStart']   = Input::get('iDisplayStart');
-            $args['sLength']  = Input::get('iDisplayLength');
+            $parameters['sStart']   = Input::get('iDisplayStart');
+            $parameters['sLength']  = Input::get('iDisplayLength');
         }
         
-        return $args;
+        return $parameters;
     }
 
     /**

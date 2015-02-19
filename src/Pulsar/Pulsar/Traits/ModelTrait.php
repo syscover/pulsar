@@ -6,32 +6,32 @@ trait ModelTrait {
 
     /**
      * @access	public
-     * @param   array     $args
-     * @return	array|\Illuminate\Database\Query\Builder[]
+     * @param   array     $parameters
+     * @return	array|\Illuminate\Database\Eloquent\Model[]
      */
-    public static function getRecordsLimit($args)
+    public static function getRecordsLimit($parameters)
     {
         $instance = new static;
 
         if(method_exists($instance, 'getCustomRecordsLimit'))
         {
-            $query = $instance->getCustomRecordsLimit($args);
+            $query = $instance->getCustomRecordsLimit($parameters);
         }
         else{
             $query = $instance->query();
         }
 
-        $query = Miscellaneous::getQueryWhere($query, isset($args['aColumns'])? $args['aColumns'] : null, isset($args['sWhere'])? $args['sWhere'] : null, isset($args['sWhereColumns'])? $args['sWhereColumns'] : null);
+        $query = Miscellaneous::getQueryWhere($query, isset($parameters['aColumns'])? $parameters['aColumns'] : null, isset($parameters['sWhere'])? $parameters['sWhere'] : null, isset($parameters['sWhereColumns'])? $parameters['sWhereColumns'] : null);
 
-        if(isset($args['count']) &&  $args['count'])
+        if(isset($parameters['count']) &&  $parameters['count'])
         {
             return $query->count();
         }
         else
         {
-            if(isset($args['sLength']))     $query->take($args['sLength']);
-            if(isset($args['sStart']))      $query->skip($args['sStart']);
-            if(isset($args['sOrder']))      $query->orderBy($args['sOrder'], isset($args['sTypeOrder'])? $args['sTypeOrder'] : 'asc');
+            if(isset($parameters['sLength']))     $query->take($parameters['sLength']);
+            if(isset($parameters['sStart']))      $query->skip($parameters['sStart']);
+            if(isset($parameters['sOrder']))      $query->orderBy($parameters['sOrder'], isset($parameters['sTypeOrder'])? $parameters['sTypeOrder'] : 'asc');
 
             return $query->get();
         }
@@ -39,9 +39,29 @@ trait ModelTrait {
 
     /**
      * @access	public
+     * @param   array     $parameters
+     * @return	int
+     */
+    public static function countRecords($parameters)
+    {
+        $instance = new static;
+
+        if(method_exists($instance, 'customCount'))
+        {
+            $query = $instance->customCount($parameters);
+        }
+        else{
+            $query = $instance->query();
+        }
+
+        return $query->count();
+    }
+
+    /**
+     * @access	public
      * @param   mixed     $id
      * @param   string    $lang
-     * @return	array|\Illuminate\Database\Query\Builder[]
+     * @return	\Illuminate\Database\Eloquent\Model
      */
     public static function getTranslationRecord($id, $lang)
     {

@@ -31,6 +31,11 @@ trait ControllerTrait {
         // get parameters from url route
         $parameters = $request->route()->parameters();
 
+        // check if url contain offset parameter
+        if(!isset($parameters['offset'])) $parameters['offset'] = 0;
+
+        $parameters['urlParameters']  = $parameters;
+
         Miscellaneous::setParameterSessionPage($this->resource);
 
         $parameters['package']        = $this->package;
@@ -40,19 +45,6 @@ trait ControllerTrait {
         $parameters['icon']           = $this->icon;
         $parameters['objectTrans']    = $this->objectTrans;
 
-        // check if url contain offset parameter
-        if(!isset($parameters['offset'])) $parameters['offset'] = 0;
-
-        // if there ara more arguments, we take us and send to indexCustom
-        if(func_num_args() > 1)
-        {
-            $args = func_get_args();
-        }
-        else
-        {
-            $args = null;
-        }
-
         if(method_exists($this, 'indexCustom'))
         {
             $parameters = $this->indexCustom($parameters);
@@ -61,24 +53,32 @@ trait ControllerTrait {
         return view('pulsar::' . $this->folder . '.index', $parameters);
     }
 
-    public function jsonData()
+    /**
+     * @access      public
+     * @param       \Illuminate\Http\Request            $request
+     * @return      json
+     */
+    public function jsonData(Request $request)
     {
-        // table paginated
-        $args =  Miscellaneous::paginateDataTable();
-        // table sorting
-        $args =  Miscellaneous::dataTableSorting($args, $this->aColumns);
-        // quick search data table
-        $args =  Miscellaneous::filteringDataTable($args);
+        // get parameters from url route
+        $parameters = $request->route()->parameters();
 
-        // set columns in args array
-        $args['aColumns'] = $this->aColumns;
-        $argsCount = $args;
-        $argsCount['count'] = true;
+        // table paginated
+        $parameters =  Miscellaneous::paginateDataTable($parameters);
+        // table sorting
+        $parameters =  Miscellaneous::dataTableSorting($parameters, $this->aColumns);
+        // quick search data table
+        $parameters =  Miscellaneous::filteringDataTable($parameters);
+
+        // set columns in parameters array
+        $parameters['aColumns']     = $this->aColumns;
+        $parametersCount            = $parameters;
+        $parametersCount['count']   = true;
 
         // get data to table
-        $objects        = call_user_func($this->model . '::getRecordsLimit', $args);
-        $iFilteredTotal = call_user_func($this->model . '::getRecordsLimit', $argsCount);
-        $iTotal         = call_user_func($this->model . '::count');
+        $objects        = call_user_func($this->model . '::getRecordsLimit', $parameters);
+        $iFilteredTotal = call_user_func($this->model . '::getRecordsLimit', $parametersCount);
+        $iTotal         = call_user_func($this->model . '::countRecords', $parameters);
 
         // get properties of model class
         $class          = new \ReflectionClass($this->model);
@@ -92,6 +92,7 @@ trait ControllerTrait {
 
         // instance model to get primary key
         $instance = new $this->model;
+
         $aObjects = $objects->toArray(); $i=0;
         foreach($aObjects as $aObject)
         {
@@ -100,7 +101,8 @@ trait ControllerTrait {
             {
                 if(is_array($aColumn))
                 {
-                    switch ($aColumn['type']) {
+                    switch ($aColumn['type'])
+                    {
                         case 'img':
                             $row[] = $aObject[$aColumn['name']] != ''? '<img src="' . asset($aColumn['url'] . $aObject[$aColumn['name']]) . '">' : null;
                             break;

@@ -11,6 +11,7 @@
  */
 
 use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
 use Pulsar\Pulsar\Libraries\Miscellaneous;
 use Pulsar\Pulsar\Libraries\PulsarAcl;
 use Pulsar\Pulsar\Models\Permission;
@@ -33,7 +34,7 @@ class Permissions extends BaseController
     protected $package              = 'pulsar';
     protected $aColumns             = ['id_007', 'name_012', 'name_007'];
     protected $nameM                = 'name_008';
-    protected $model                = '\Pulsar\Pulsar\Models\Action';
+    protected $model                = '\Pulsar\Pulsar\Models\Resource';
     protected $icon                 = 'icon-shield';
     protected $objectTrans          = 'permission';
     
@@ -46,20 +47,30 @@ class Permissions extends BaseController
         return $parameters;
     }
 
-    public function jsonData($profile)
+    public function jsonData(Request $request)
     {
+        // get parameters from url route
+        $parameters = $request->route()->parameters();
+
         $actionsAcl     = Action::get();
-        $acl            = PulsarAcl::getProfileAcl($profile);
+        $acl            = PulsarAcl::getProfileAcl($parameters['profile']);
 
-        $args         =  Miscellaneous::paginateDataTable();
-        $args         =  Miscellaneous::dataTableSorting($args, $this->aColumns);
-        $args         =  Miscellaneous::filteringDataTable($args);
+        $parameters         =  Miscellaneous::paginateDataTable($parameters);
+        $parameters         =  Miscellaneous::dataTableSorting($parameters, $this->aColumns);
+        $parameters         =  Miscellaneous::filteringDataTable($parameters);
 
-        $args['aColumns'] = $this->aColumns;
+        // set columns in parameters array
+        $parameters['aColumns']     = $this->aColumns;
+        $parametersCount            = $parameters;
+        $parametersCount['count']   = true;
 
-        $objects        = Resource::getRecordsLimit($args);
-        $iFilteredTotal = Resource::getRecordsLimit($args['count'] = true);
-        $iTotal         = Resource::count();
+        // get data to table
+        $objects        = call_user_func($this->model . '::getRecordsLimit', $parameters);
+        $iFilteredTotal = call_user_func($this->model . '::getRecordsLimit', $parametersCount);
+        $iTotal         = call_user_func($this->model . '::countRecords', $parameters);
+
+        // get properties of model class
+        $class          = new \ReflectionClass($this->model);
 
         $output = array(
             "sEcho"                 => intval(Input::get('sEcho')),
@@ -67,6 +78,9 @@ class Permissions extends BaseController
             "iTotalDisplayRecords"  => $iFilteredTotal,
             "aaData"                => []
         );
+
+        // instance model to get primary key
+        $instance = new $this->model;
 
         $aObjects = $objects->toArray(); $i=0;
         foreach($aObjects as $aObject)
@@ -77,10 +91,10 @@ class Permissions extends BaseController
                 $row[] = $aObject[$aColumn];
             }
 
-            $actions = '<div><select id="re' . $aObject['id_007'] . '" data-resource="' . $aObject['id_007'] . '" data-nresource="' . $aObject['name_007'] . '" multiple style="width: 100%;">';
+            $actions = '<div><select id="re' . $aObject[$instance->getKeyName()] . '" data-resource="' . $aObject[$instance->getKeyName()] . '" data-nresource="' . $aObject['name_007'] . '" multiple style="width: 100%;">';
             foreach ($actionsAcl as $actionAcl)
             {
-                $selected = $acl->isAllowed($profile, $aObject['id_007'], $actionAcl->id_008)? ' selected' : null;
+                $selected = $acl->isAllowed($parameters['profile'], $aObject['id_007'], $actionAcl->id_008)? ' selected' : null;
                 $actions .= '<option value="' . $actionAcl->id_008 . '"' . $selected . '>' . $actionAcl->name_008 . '</option>';
             }
             $actions .= '</select></div>';

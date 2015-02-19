@@ -42,7 +42,7 @@ return array(
     'delete_record'                         => 'Delete record',
     'delete_translation'                    => 'Delete translation',
     'edit_permissions'                      => 'Edit permissions',
-    'territorial_area'                      => 'Territorial area',
+    'territorial_area'                      => 'Territorial area|Territorial areas',
     'message_create_record_successful'      => 'Registration <strong>:name</strong> has been properly recorded',
     'message_delete_record'                 => 'Do you want to delete the record with <strong>ID \' + idRecord + \' </strong>?',
     'message_delete_translation_record'     => 'Do you want to delete the translation record with <strong>ID :id </strong>?',

@@ -13,6 +13,7 @@
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
 use Pulsar\Pulsar\Libraries\Miscellaneous;
 use Pulsar\Pulsar\Models\Lang;
 use Pulsar\Pulsar\Models\Country;
@@ -39,30 +40,35 @@ class Countries extends BaseController {
     
     public function indexCustom($parameters)
     {
-        $parameters['baseLang']     = Session::get('baseLang');
+        $parameters['urlParameters']['lang']    = Session::get('baseLang');
 
         return $parameters;
     }
-    
-    public function jsonData()
+
+    /**
+     * @access      public
+     * @param       \Illuminate\Http\Request            $request
+     * @return      json
+     */
+    public function jsonData(Request $request)
     {
-        $baseLang   = Session::get('baseLang');
         $langs      = Lang::getActiveLangs();
 
-        $args =  Miscellaneous::paginateDataTable();
-        $args =  Miscellaneous::dataTableSorting($args, $this->aColumns);
-        $args =  Miscellaneous::filteringDataTable($args);
+        // get parameters from url route
+        $parameters = $request->route()->parameters();
 
-        $args['aColumns']   = $this->aColumns;
-        $args['lang']       = $baseLang->id_001;
-        $argsCount = $args;
-        $argsCount['count'] = true;
+        $parameters =  Miscellaneous::paginateDataTable($parameters);
+        $parameters =  Miscellaneous::dataTableSorting($parameters, $this->aColumns);
+        $parameters =  Miscellaneous::filteringDataTable($parameters);
 
-        $objects        = call_user_func($this->model . '::getRecordsLimit', $args);
-        $iFilteredTotal = call_user_func($this->model . '::getRecordsLimit', $argsCount);
-        $iTotal         = Country::getRecordsLimit(['lang' => $args['lang']])->count();
+        $parameters['aColumns']     = $this->aColumns;
+        $parametersCount            = $parameters;
+        $parametersCount['count']   = true;
 
-        $ids            = Miscellaneous::getIdsCollection($objects, 'id_002');
+
+        $objects        = call_user_func($this->model . '::getRecordsLimit', $parameters);
+        $iFilteredTotal = call_user_func($this->model . '::getRecordsLimit', $parametersCount);
+        $iTotal         = call_user_func($this->model . '::countRecords', $parameters);
 
         // get properties of model class
         $class          = new \ReflectionClass($this->model);
@@ -109,7 +115,7 @@ class Countries extends BaseController {
             $row[] = '<input type="checkbox" class="uniform" name="element'.$i.'" value="'.$aObject['id_002'].'">';
 
             $actions = '<div class="btn-group">';
-            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . route('edit'. $class->getShortName(), [$aObject[$instance->getKeyName()], $baseLang->id_001, Input::get('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
+            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . route('edit'. $class->getShortName(), [$aObject[$instance->getKeyName()], $parameters['lang'], Input::get('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
             $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] .'" data-original-title="' . trans('pulsar::pulsar.delete_record') . '"><i class="icon-trash"></i></a>' : null;
 
             // set language to object
