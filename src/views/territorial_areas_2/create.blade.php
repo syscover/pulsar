@@ -1,68 +1,26 @@
-@extends('pulsar::layouts.default')
+@extends('pulsar::layouts.form', ['action' => 'store', 'customTrans' => $country->territorial_area_2_002])
 
-@section('script')
-    @include('pulsar::common.block.block_script_header_form')
+@section('rows')
+    <!-- pulsar::territorial_areas_2.create -->
+    @include('pulsar::common.block.block_form_text_group', ['label' => 'ID', 'name' => 'id', 'value' => Input::old('id'), 'maxLength' => '10', 'rangeLength' => '2,10', 'required' => true, 'sizeField' => 2])
+    @include('pulsar::common.block.block_form_text_group', ['label' => trans_choice('pulsar::pulsar.country',1), 'name' => 'country', 'value' => $country->name_002, 'sizeField' => 2, 'readOnly' => true])
+    @include('pulsar::common.block.block_form_text_group', ['label' => trans('pulsar::pulsar.name'), 'name' => 'name', 'value' => Input::old('name'), 'maxLength' => '50', 'rangeLength' => '2,50', 'required' => true])
+    <!-- /pulsar::territorial_areas_2.create -->
 @stop
 
-@section('breadcrumbs')
-<li>
-    <a href="javascript:void(0);">{{ trans('pulsar::pulsar.administration') }}</a>
-</li>
-<li>
-    <a href="{{ url(config('pulsar.appName')) }}/pulsar/paises">Países</a>
-</li>
-<li class="current">
-    <a href="{{ url(config('pulsar.appName')) }}/pulsar/areasterritoriales2/{{ $pais->id_002 }}"><?php echo $pais->area_territorial_2_002; ?></a>
-</li>
-@stop
 
-@section('mainContent')
-<div class="row">
-    <div class="col-md-12">
-        <div class="widget box">
-            <div class="widget-header"><h4><i class="entypo-icon-globe"></i> <?php echo $pais->area_territorial_2_002; ?></h4></div>
-            <div class="widget-content">
-                <form class="form-horizontal" method="post" action="{{ url(config('pulsar.appName')) }}/pulsar/areasterritoriales2/store/{{ $pais->id_002 }}/{{ $offset }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">ID <span class="required">*</span></label>
-                        <div class="col-md-2">
-                            <input class="form-control required" type="text" name="id" value="<?php echo Input::old('id'); ?>" rangelength="2, 10">
-                            <?php echo $errors->first('id',config('pulsar.errorDelimiters')); ?>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">País</label>
-                        <div class="col-md-4">
-                            <input class="form-control" type="text" value="<?php echo $pais->nombre_002; ?>" readonly="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label"><?php echo $pais->area_territorial_1_002 ?> <span class="required">*</span></label>
-                        <div class="col-md-2">
-                            <select class="form-control" name="areaTerritorial1" notequal="null">
-                                <option value="null">Elija un/a <?php echo $pais->area_territorial_1_002; ?></option>
-                                <?php foreach ($areasTerritoriales1 as $areaTerritorial1): ?>
-                                <option value="<?php echo $areaTerritorial1->id_003 ?>" <?php if(Input::old('areaTerritorial1') == $areaTerritorial1->id_003) echo 'selected=""'; ?>><?php echo $areaTerritorial1->nombre_003 ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <?php echo $errors->first('modulo',config('pulsar.errorDelimiters')); ?>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Nombre <span class="required">*</span></label>
-                        <div class="col-md-10">
-                            <input class="form-control required" type="text" name="nombre" value="{{ Input::old('nombre') }}" rangelength="2, 50">
-                            <?php echo $errors->first('nombre',config('pulsar.errorDelimiters')); ?>
-                        </div>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn marginR10">{{ trans('pulsar::pulsar.save') }}</button>
-                        <a class="btn btn-inverse" href="{{ url(config('pulsar.appName')) }}/pulsar/areasterritoriales2/{{ $pais->id_002 }}/{{ $offset }}">{{ trans('pulsar::pulsar.cancel') }}</a>
-                    </div>
-                </form>
-            </div>
+@section('mainContentXXX')
+
+    <div class="form-group">
+        <label class="col-md-2 control-label"><?php echo $pais->area_territorial_1_002 ?> <span class="required">*</span></label>
+        <div class="col-md-2">
+            <select class="form-control" name="areaTerritorial1" notequal="null">
+                <option value="null">Elija un/a <?php echo $pais->area_territorial_1_002; ?></option>
+                <?php foreach ($areasTerritoriales1 as $areaTerritorial1): ?>
+                <option value="<?php echo $areaTerritorial1->id_003 ?>" <?php if(Input::old('areaTerritorial1') == $areaTerritorial1->id_003) echo 'selected=""'; ?>><?php echo $areaTerritorial1->nombre_003 ?></option>
+                <?php endforeach; ?>
+            </select>
+            <?php echo $errors->first('modulo',config('pulsar.errorDelimiters')); ?>
         </div>
     </div>
-</div>       
 @stop

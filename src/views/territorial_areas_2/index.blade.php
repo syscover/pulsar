@@ -2,7 +2,7 @@
 
 @section('script')
     @parent
-            <!-- pulsar::territorial_areas_1.index -->
+    <!-- pulsar::territorial_areas_2.index -->
     <script type="text/javascript">
         $(document).ready(function() {
             if ($.fn.dataTable)
@@ -21,15 +21,15 @@
             }
         });
     </script>
-    <!-- /pulsar::territorial_areas_1.index -->
+    <!-- /pulsar::territorial_areas_2.index -->
 @stop
 
 @section('tHead')
-    <!-- pulsar::actions.index -->
+    <!-- pulsar::territorial_areas_2.index -->
     <th data-hide="phone,tablet">ID.</th>
-    <th data-class="expand">{{ trans('pulsar::pulsar.name') }}</th>
     <th data-hide="phone">{{ $country->territorial_area_1_002 }}</th>
+    <th data-class="expand">{{ $country->territorial_area_2_002 }}</th>
     <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
     <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>
-    <!-- /pulsar::actions.index -->
+    <!-- /pulsar::territorial_areas_2.index -->
 @stop
