@@ -10,72 +10,72 @@
         <!--=== CSS ===-->
 
         <!-- Bootstrap -->
-        <link href="{{ asset('packages/pulsar/pulsar/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('packages/syscover/pulsar/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
 
         <!-- jQuery UI -->
-        <!--<link href="{{ asset('packages/pulsar/pulsar/plugins/jquery-ui/jquery-ui-1.10.2.custom.css') }}" rel="stylesheet" type="text/css">-->
+        <!--<link href="{{ asset('packages/syscover/pulsar/plugins/jquery-ui/jquery-ui-1.10.2.custom.css') }}" rel="stylesheet" type="text/css">-->
         <!--[if lt IE 9]>
-        <link rel="stylesheet" type="text/css" href="{{ asset('packages/pulsar/pulsar/plugins/jquery-ui/jquery.ui.1.10.2.ie.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('packages/syscover/pulsar/plugins/jquery-ui/jquery.ui.1.10.2.ie.css') }}">
         <![endif]-->
 
         <!-- Theme -->
-        <link href="{{ asset('packages/pulsar/pulsar/css/main.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('packages/pulsar/pulsar/css/plugins.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('packages/pulsar/pulsar/css/responsive.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('packages/pulsar/pulsar/css/icons.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('packages/pulsar/pulsar/css/MY_icons.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('packages/syscover/pulsar/css/main.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('packages/syscover/pulsar/css/plugins.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('packages/syscover/pulsar/css/responsive.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('packages/syscover/pulsar/css/icons.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('packages/syscover/pulsar/css/MY_icons.css') }}" rel="stylesheet" type="text/css">
                 
-        <link rel="stylesheet" href="{{ asset('packages/pulsar/pulsar/css/fontawesome/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/css/fontawesome/font-awesome.min.css') }}">
         <!--[if IE 7]>
-        <link rel="stylesheet" href="{{ asset('packages/pulsar/pulsar/css/fontawesome/font-awesome-ie7.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/css/fontawesome/font-awesome-ie7.min.css') }}">
         <![endif]-->
         
         <!--[if IE 8]>
-		<link href="{{ asset('packages/pulsar/pulsar/css/ie8.css') }}" rel="stylesheet" type="text/css">
+		<link href="{{ asset('packages/syscover/pulsar/css/ie8.css') }}" rel="stylesheet" type="text/css">
 	    <![endif]-->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
         
         <!-- LIBS CSS PROPIAS -->
-        <link href="{{ asset('packages/pulsar/pulsar/plugins/jquery.lightbox/js/lightbox/themes/default/jquery.lightbox.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('packages/syscover/pulsar/plugins/jquery.lightbox/js/lightbox/themes/default/jquery.lightbox.css') }}" rel="stylesheet" type="text/css">
         <!--[if IE 6]>
-        <link href="{{ asset('packages/pulsar/pulsar/plugins/misc/jquery.lightbox/js/lightbox/themes/default/jquery.lightbox.ie6.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('packages/syscover/pulsar/plugins/misc/jquery.lightbox/js/lightbox/themes/default/jquery.lightbox.ie6.css') }}" rel="stylesheet" type="text/css">
         <![endif]-->
-        <link href="{{ asset('packages/pulsar/pulsar/plugins/jquery.msgbox/javascript/msgbox/jquery.msgbox.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('packages/pulsar/pulsar/plugins/pnotify/jquery.pnotify.default.css') }}" type="text/css" rel="stylesheet">
-        <link href="{{ asset('packages/pulsar/pulsar/plugins/cssloader/css/cssloader.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('packages/syscover/pulsar/plugins/jquery.msgbox/javascript/msgbox/jquery.msgbox.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('packages/syscover/pulsar/plugins/pnotify/jquery.pnotify.default.css') }}" type="text/css" rel="stylesheet">
+        <link href="{{ asset('packages/syscover/pulsar/plugins/cssloader/css/cssloader.css') }}" rel="stylesheet" type="text/css">
 
         <!-- Librerías CSS y CSS inline  -->
         @yield('css')
 
         <!-- Css personalizadas -->
-        <link href="{{ asset('packages/pulsar/pulsar/css/MY_style.css') }}" type="text/css" rel="stylesheet">
+        <link href="{{ asset('packages/syscover/pulsar/css/MY_style.css') }}" type="text/css" rel="stylesheet">
         
         <!--=== JavaScript ===-->
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/js/libs/jquery-1.10.2.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/libs/jquery-1.10.2.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js') }}"></script>
 
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/bootstrap/js/bootstrap.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/js/libs/lodash.compat.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/bootstrap/js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/libs/lodash.compat.min.js') }}"></script>
 
         <!-- Loader -->
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/plugins/cssloader/js/jquery.cssloader.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/cssloader/js/jquery.cssloader.min.js') }}"></script>
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
-                <script src="{{ asset('packages/pulsar/pulsar/js/libs/html5shiv.js') }}"></script>
+                <script src="{{ asset('packages/syscover/pulsar/js/libs/html5shiv.js') }}"></script>
         <![endif]-->
 
         <!-- Smartphone Touch Events -->
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/plugins/touchpunch/jquery.ui.touch-punch.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/plugins/event.swipe/jquery.event.move.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/plugins/event.swipe/jquery.event.swipe.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/touchpunch/jquery.ui.touch-punch.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/event.swipe/jquery.event.move.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/event.swipe/jquery.event.swipe.js') }}"></script>
 
         <!-- General -->
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/js/libs/breakpoints.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/plugins/respond/respond.min.js') }}"></script> <!-- Polyfill for min/max-width CSS3 Media Queries (only for IE8) -->
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/plugins/cookie/jquery.cookie.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/plugins/slimscroll/jquery.slimscroll.horizontal.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/libs/breakpoints.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/respond/respond.min.js') }}"></script> <!-- Polyfill for min/max-width CSS3 Media Queries (only for IE8) -->
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/cookie/jquery.cookie.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/slimscroll/jquery.slimscroll.horizontal.min.js') }}"></script>
 
         <!-- Google Maps  -->
         <?php
@@ -86,18 +86,18 @@
         <?php endif; ?>
         
         <!-- JS PROPIAS -->
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/plugins/jquery.lightbox/js/lightbox/jquery.lightbox.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/plugins/jquery.msgbox/javascript/msgbox/jquery.msgbox.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/jquery.lightbox/js/lightbox/jquery.lightbox.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/jquery.msgbox/javascript/msgbox/jquery.msgbox.min.js') }}"></script>
         
         <!-- App -->
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/js/app.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/js/plugins.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/js/plugins.form-components.js') }}"></script>        
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/app.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/plugins.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/plugins.form-components.js') }}"></script>
         <script>
             $(document).ready(function()
             {
                 $.cssLoader({
-                    urlPlugin:  '/packages/pulsar/pulsar/plugins',
+                    urlPlugin:  '/packages/syscover/pulsar/plugins',
                     spinnerColor: '#2a4053'
                 });
 
@@ -110,7 +110,7 @@
         <!-- custom script -->
         @yield('script')
 
-        <script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/js/MY_script.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/MY_script.js') }}"></script>
     </head>
     
     <body class="theme-dark">
@@ -167,7 +167,7 @@
 						<i class="icon-caret-down small"></i>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="{{ route('logout') }}"><i class="icon-key"></i> {{ trans('pulsar::pulsar.logout') }}</a></li>
+						<li><a href="{{ route('logout') }}"><i class="icon-off"></i> {{ trans('pulsar::pulsar.logout') }}</a></li>
 					</ul>
 				</li><!-- /user login dropdown -->
 			</ul><!-- /Top Right Menu -->

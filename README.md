@@ -215,7 +215,7 @@ php artisan asset:publish --bench="pulsar/pulsar"
 
 ```
 app/storage
-public/packages/pulsar/pulsar/storage
+public/packages/syscover/pulsar/storage
 ```
 
 

@@ -8,7 +8,7 @@
 
 @section('mainContent')
 <!-- Login Formular -->
-<form class="form-vertical login-form" action="{{ action('Pulsar\Pulsar\Controllers\RemindersController@postReset') }}" method="post">
+<form class="form-vertical login-form" action="{{ action('Syscover\Pulsar\Controllers\RemindersController@postReset') }}" method="post">
     <input type="hidden" name="token" value="{{ $token }}">
     <!-- Title -->
     <h3 class="form-title">Reset su password</h3>

@@ -76,11 +76,11 @@ return array(
     'language'                              => 'Language|Languages',
     'base_language'                         => 'Base language',
     'image'                                 => 'Image|Images',
-
+    'repeat_password'                       => 'Repeat password',
     'action_successful'                     => 'Action successful!',
     'action_error'                          => 'Action error!',
     'choose_a'                              => 'Choose a',
-
+    'data_access'                           => 'Data access',
     'last_run'                              => 'Last run',
     'next_run'                              => 'Next run',
 

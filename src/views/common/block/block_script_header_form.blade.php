@@ -1,11 +1,11 @@
 <!-- Forms -->
-<script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/plugins/uniform/jquery.uniform.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/plugins/fileinput/fileinput.js') }}"></script>
+<script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/uniform/jquery.uniform.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/fileinput/fileinput.js') }}"></script>
 
 <!-- Form Validation -->
-<script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/plugins/validation/jquery.validate.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/plugins/validation/additional-methods.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('packages/pulsar/pulsar/js/additional-rules-validate.js') }}"></script>
+<script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/validation/jquery.validate.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/validation/additional-methods.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/additional-rules-validate.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         if ($.validator) {

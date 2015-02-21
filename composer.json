@@ -1,8 +1,8 @@
 {
-    "name": "pulsar/pulsar",
+    "name": "syscover/pulsar",
     "version": "2.0.0",
     "description": "Pulsar package",
-    "keywords": ["pulsar","laravel","syscover"],
+    "keywords": ["syscover","pulsar","laravel","syscover"],
     "license": "MIT",
     "authors": [
         {
@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Pulsar\\Pulsar\\": "src/Pulsar/Pulsar"
+            "Syscover\\Pulsar\\": "src/Syscover/Pulsar"
         }
     },
     "minimum-stability": "dev"

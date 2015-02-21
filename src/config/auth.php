@@ -27,7 +27,7 @@ return array(
 	|
 	*/
 
-	'model' => 'Pulsar\Pulsar\Models\User',
+	'model' => 'Syscover\Pulsar\Models\User',
 
 	/*
 	|--------------------------------------------------------------------------

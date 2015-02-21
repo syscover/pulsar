@@ -74,13 +74,13 @@ return array(
     'name'                                  => 'Nombre',
     'surname'                               => 'Apellido',
     'language'                              => 'Idioma|Idiomas',
-    'base_language'                         => 'Base language',
+    'base_language'                         => 'Idioma base',
     'image'                                 => 'Imagen|Imágenes',
-
+    'repeat_password'                       => 'Repita contraseña',
     'action_successful'                     => '¡Acción realizada!',
     'action_error'                          => '¡Error!',
     'choose_a'                              => 'Elija un',
-
+    'data_access'                           => 'Datos de acceso',
     'last_run'                              => 'Última ejecución',
     'next_run'                              => 'Siguiente ejecución',
 

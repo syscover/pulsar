@@ -23,7 +23,9 @@ class PulsarCreateTableUser extends Migration
                 $table->string('email_010', 50);
                 $table->string('name_010', 50);
                 $table->string('surname_010', 50)->nullable();
+
                 $table->timestamps();
+
                 $table->foreign('lang_010')->references('id_001')->on('001_001_lang')
                         ->onDelete('restrict')->onUpdate('cascade');
                 $table->foreign('profile_010')->references('id_006')->on('001_006_profile')
