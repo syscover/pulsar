@@ -18,18 +18,19 @@ class TerritorialArea2 extends Model {
 
     use ModelTrait;
 
-    protected $table            = '001_004_territorial_area_2';
-    protected $primaryKey       = 'id_004';
-    public $timestamps          = false;
-    protected $fillable         = ['id_004', 'country_004', 'territorial_area_1_004', 'name_004'];
-    private static $rules       = [
-        'name'                  =>  'required|between:2,50',
-        'territorialArea1'      =>  'not_in:null'
+    protected $table        = '001_004_territorial_area_2';
+    protected $primaryKey   = 'id_004';
+    public $timestamps      = false;
+    protected $fillable     = ['id_004', 'country_004', 'territorial_area_1_004', 'name_004'];
+    private static $rules   = [
+        'id'                => 'required|between:1,10|unique:001_004_territorial_area_2,id_004',
+        'name'              => 'required|between:2,50',
+        'territorialArea1'  => 'not_in:null'
     ];
 
-    public static function validate($data, $idRule=true)
+    public static function validate($data, $specialRules = [])
     {
-        if($idRule) static::$rules['id'] = 'required|between:1,10|unique:001_004_territorial_area_2,id_004';
+        if(isset($specialRules['idRule']) && $specialRules['idRule'])   static::$rules['id'] = 'required|between:1,10';
 
         return Validator::make($data, static::$rules);
     }
@@ -44,13 +45,8 @@ class TerritorialArea2 extends Model {
         return TerritorialArea2::join('001_003_territorial_area_1', '001_004_territorial_area_2.territorial_area_1_004', '=', '001_003_territorial_area_1.id_003')->newQuery();
     }
 
-    public static function getAllAreasTerritoriales2($area_terrirotial_1)
+    public static function getTerritorialAreas2FromTerritorialArea1($terrirotialArea1)
     {
-        return TerritorialArea2::where('area_territorial_1_004', '=', $area_terrirotial_1)->orderBy('nombre_004', 'asc')->get();
-    }
-
-    public static function deleteAreasTerritoriales2($ids)
-    {
-        TerritorialArea2::whereIn('id_004',$ids)->delete();
+        return TerritorialArea2::where('territorial_area_1_004', $terrirotialArea1)->orderBy('name_004', 'asc')->get();
     }
 }

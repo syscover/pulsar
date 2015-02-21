@@ -27,7 +27,7 @@
 @section('tHead')
     <!-- pulsar::actions.index -->
     <th data-hide="phone,tablet">ID.</th>
-    <th data-class="expand">{{ trans('pulsar::pulsar.name') }}</th>
+    <th data-class="expand">{{ $country->territorial_area_1_002 }}</th>
     <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
     <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>
     <!-- /pulsar::actions.index -->

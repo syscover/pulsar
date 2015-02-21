@@ -1,113 +1,51 @@
 <?php
 namespace Pulsar\Pulsar\Controllers;
 
+/**
+ * @package	    Pulsar
+ * @author	    Jose Carlos Rodríguez Palacín
+ * @copyright   Copyright (c) 2015, SYSCOVER, SL
+ * @license
+ * @link		http://www.syscover.com
+ * @since		Version 2.0
+ * @filesource
+ */
+
 use Illuminate\Support\Facades\App,
     Illuminate\Support\Facades\Session,
     Illuminate\Support\Facades\Auth,
     Illuminate\Support\Facades\Input,
-    Illuminate\Support\Facades\URL,
-    Illuminate\Support\Facades\Config,
     Illuminate\Support\Facades\Lang,
-    Illuminate\Support\Facades\View,
     Illuminate\Support\Facades\Redirect,
     Illuminate\Support\Facades\Hash,
-    Pulsar\Pulsar\Libraries\Miscellaneous,
-    Pulsar\Pulsar\Models\Idioma,
-    Pulsar\Pulsar\Models\Usuario,
-    Pulsar\Pulsar\Models\Perfil;
+    Pulsar\Pulsar\Models\User,
+    Pulsar\Pulsar\Models\Profile;
+use Pulsar\Pulsar\Traits\ControllerTrait;
 
-class Usuarios extends BaseController {
+class Users extends BaseController {
+
+    use ControllerTrait;
+
+    protected $routeSuffix  = 'User';
+    protected $folder       = 'users';
+    protected $package      = 'pulsar';
+    protected $aColumns     = ['id_010', 'name_010', 'surname_010', 'email_010', 'name_006', 'access_010'];
+    protected $nameM        = 'name_010';
+    protected $model        = '\Pulsar\Pulsar\Models\User';
+    protected $icon         = 'icomoon-icon-users';
+    protected $objectTrans  = 'user';
     
-    private $resource = 'admin-user';
-    
-    public function index($offset=0)
+
+    public function jsonDataXXX()
     {
-
-        
-        //Inicializa las sesiones para las búsquedas rápidas desde la vista de tablas en caso de cambio de página
-        Miscellaneous::sessionParamterSetPage($this->resource);
-  
-        $data['recurso']        = $this->resource; // Variable para instanciar permisos
-        $data['inicio']         = $offset;
-        $data['javascriptView'] = 'pulsar::pulsar.pulsar.usuarios.js.index';
-        
-        return view('pulsar::pulsar.pulsar.usuarios.index',$data);
-    }
-    
-    public function jsonData()
-    {
-
-        
-        //Columnas para instanciar filtos de la tabla
-	    $aColumns = array('id_010','nombre_010','apellidos_010','email_010','nombre_006','acceso_010');
-        $params = array();
-        
-        //Paginado de la tabla
-        $params =  Miscellaneous::paginateDataTable($params);
-	    
-        //Orden de la tabla
-        $params =  Miscellaneous::dataTableSorting($params, $aColumns);
-        
-        //filtrados de la tabla
-        $params =  Miscellaneous::filteringDataTable($params);
-	        
-        //Toma de datos para la tabla
-        $objects        = Usuario::getUsuariosLimit($aColumns, $params['sLength'], $params['sStart'], $params['sOrder'], $params['sTypeOrder'], $params['sWhere']);
-        $iFilteredTotal = Usuario::getUsuariosLimit($aColumns, null, null, $params['sOrder'], $params['sTypeOrder'], $params['sWhere'])->count();
-        $iTotal         = Usuario::count();
-        
-        //cabecera JSON
-        $output = array(
-            "sEcho"                 => intval(Input::get('sEcho')),
-            "iTotalRecords"         => $iTotal,
-            "iTotalDisplayRecords"  => $iFilteredTotal,
-            "aaData"                => array()
-        );
-        
-        $aObjects = $objects->toArray(); $i=0;
-        foreach($aObjects as $aObject)
+        if($aColumn == "email_010")
         {
-		    $row = array();
-		    foreach ($aColumns as $aColumn)
-            {
-                if($aColumn == "email_010")
-                {
-                    $row[] = '<a href="mailto:'.$aObject[$aColumn].'">'.$aObject[$aColumn].'</a>';
-                }
-                elseif($aColumn == "acceso_010")
-                {
-                    if($aObject[$aColumn] == 1)
-                        $row[] = '<i class="icomoon-icon-checkmark-3"></i>';
-                    else
-                        $row[] = '<i class="icomoon-icon-blocked"></i>';
-
-                }
-                else
-                {
-                    $row[] = $aObject[$aColumn];
-                }
-		    }
-
-            $row[] = '<input type="checkbox" class="uniform" name="element'.$i.'" value="'.$aObject['id_010'].'">';
-
-            //Botones de acciones
-            $acciones = Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" title="" href="'.URL::to(Config::get('pulsar::pulsar.rootUri')).'/pulsar/usuarios/'.$aObject['id_010'].'/edit/'.Input::get('iDisplayStart').'" data-original-title="'.Lang::get('pulsar::pulsar.editar_registro').'"><i class="icon-pencil"></i></a>' : '';
-            $acciones .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip" title="" href="javascript:deleteElement(\''.$aObject['id_010'].'\')" data-original-title="'.Lang::get('pulsar::pulsar.borrar_registro').'"><i class="icon-trash"></i></a>' : '';
-		    $row[] =  $acciones;
-                
-            $output['aaData'][] = $row;
-            $i++;
-	    }
-                
-        $data['json'] = json_encode($output);
-        
-        return view('pulsar::pulsar.pulsar.common.json_display',$data);
+            $row[] = '<a href="mailto:'.$aObject[$aColumn].'">'.$aObject[$aColumn].'</a>';
+        }
     }
     
     public function create($offset=0)
     {
-
-        
         $data['idiomas']    = Idioma::getIdiomasActivos();
         $data['perfiles']   = Perfil::get();
         
@@ -119,14 +57,7 @@ class Usuarios extends BaseController {
     {
 
         
-        $validation = Usuario::validate(Input::all(), true, true, true);
-              
-        if ($validation->fails())
-        {
-            return Redirect::route('createUsuario',array($offset))->withErrors($validation)->withInput();
-        }
-        else
-        {
+
             Usuario::create(array(
                 'idioma_010'    => Input::get('idioma'),
                 'profile_010'    => Input::get('perfil'),
@@ -138,12 +69,7 @@ class Usuarios extends BaseController {
                 'apellidos_010' => Input::get('apellidos'),
             )); 
             
-            //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
-            Session::flash('msg',1);
-            Session::flash('txtMsg',Lang::get('pulsar::pulsar.aviso_alta_registro',array('nombre' => Input::get('nombre'))));
-            
-            return Redirect::route('usuarios', array($offset));
-        }
+
     }
     
     public function edit($id, $offset=0)
@@ -155,7 +81,7 @@ class Usuarios extends BaseController {
         $data['inicio']     = $offset;
         $data['usuario']    = Usuario::find($id);
         
-        return view('pulsar::pulsar.pulsar.usuarios.edit', $data);
+
     }
     
     public function update($offset=0)
@@ -194,41 +120,5 @@ class Usuarios extends BaseController {
                 'txtMsg'     => Lang::get('pulsar::pulsar.aviso_actualiza_registro',array('nombre' => Input::get('nombre')))
             ));
         }
-    }
-
-    public function delete($id)
-    {
-        i
-        
-        $usuario = Usuario::find($id);
-        Usuario::destroy($id);
-
-        return Redirect::route('usuarios')->with(array(
-            'msg'        => 1,
-            'txtMsg'     => Lang::get('pulsar::pulsar.borrado_registro',array('nombre' => $usuario->nombre_010))
-        ));
-    }
-    
-    public function deleteSelect($offset=0)
-    {
-        i
-        
-        $nElements = Input::get('nElementsDataTable'); 
-        
-        $ids = array();
-        for($i=0;$i<$nElements;$i++)
-        {
-            if(Input::has('element'.$i))
-            {
-                array_push($ids, Input::get('element'.$i));
-            }
-        }
-                
-        Usuario::deleteUsuarios($ids);
-
-        return Redirect::route('usuarios')->with(array(
-            'msg'        => 1,
-            'txtMsg'     => Lang::get('pulsar::pulsar.borrado_registros')
-        ));
     }
 }

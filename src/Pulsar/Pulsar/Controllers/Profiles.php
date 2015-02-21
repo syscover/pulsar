@@ -20,7 +20,6 @@ class Profiles extends BaseController {
 
     use ControllerTrait;
 
-    protected $resource     = 'admin-perm-profile';
     protected $routeSuffix  = 'Profile';
     protected $folder       = 'profiles';
     protected $package      = 'pulsar';

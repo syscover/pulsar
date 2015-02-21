@@ -19,7 +19,6 @@ class Packages extends BaseController {
 
     use ControllerTrait;
 
-    protected $resource     = 'admin-packages';
     protected $routeSuffix  = 'Package';
     protected $folder       = 'packages';
     protected $package      = 'pulsar';

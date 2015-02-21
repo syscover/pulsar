@@ -1,81 +1,44 @@
-@extends('pulsar::layouts.default')
+@extends('pulsar::layouts.form', ['action' => 'update', 'customTrans' => $country->territorial_area_3_002])
 
 @section('script')
-    @include('pulsar::common.block.block_script_header_form')
+    @parent
+    <!-- pulsar::territorial_areas_3.create -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("[name='territorialArea1']").change(function() {
+
+                $("[name='territorialArea2'] option").remove();
+                $("[name='territorialArea2']").append(new Option('{{ trans('pulsar::pulsar.choose_a') }} {{ $country->territorial_area_2_002 }}', 'null'));
+
+                if($(this).val())
+                {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('jsonTerritorialArea2', [$urlParameters['country']]) }}/" + $(this).val(),
+                        data: {
+                            _token: "{{ csrf_token() }}"
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+                            for(var i in data)
+                            {
+                                $("[name='territorialArea2']").append(new Option(data[i].name_004, data[i].id_004));
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <!-- /pulsar::territorial_areas_3.create -->
 @stop
 
-@section('breadcrumbs')
-<li>
-    <a href="javascript:void(0);">{{ trans('pulsar::pulsar.administration') }}</a>
-</li>
-<li>
-    <a href="{{ url(config('pulsar.appName')) }}/pulsar/paises">Países</a>
-</li>
-<li class="current">
-    <a href="{{ url(config('pulsar.appName')) }}/pulsar/areasterritoriales3/{{ $pais->id_002 }}"><?php echo $pais->area_territorial_3_002; ?></a>
-</li>
-@stop
-
-@section('mainContent')
-<div class="row">
-    <div class="col-md-12">
-        <div class="widget box">
-            <div class="widget-header"><h4><i class="entypo-icon-globe"></i> <?php echo $pais->area_territorial_3_002; ?></h4></div>
-            <div class="widget-content">
-                <form class="form-horizontal" method="post" action="{{ url(config('pulsar.appName')) }}/pulsar/areasterritoriales3/update/<?php echo Input::old('pais',$pais->id_002); ?>/{{ $offset }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">ID <span class="required">*</span></label>
-                        <div class="col-md-2">
-                            <input class="form-control required" type="text" name="id" value="<?php echo $areaTerritorial3->id_005; ?>" rangelength="2, 10">
-                            <input name="idOld" type="hidden" value="<?php echo $areaTerritorial3->id_005; ?>">
-                            <?php echo $errors->first('id',config('pulsar.errorDelimiters')); ?>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">País</label>
-                        <div class="col-md-4">
-                            <input class="form-control" type="text" value="<?php echo $pais->nombre_002; ?>" readonly="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label"><?php echo $pais->area_territorial_1_002 ?> <span class="required">*</span></label>
-                        <div class="col-md-2">
-                            <select class="form-control" name="areaTerritorial1" notequal="null">
-                                <option value="null">Elija un/a <?php echo $pais->area_territorial_1_002; ?></option>
-                                <?php foreach ($areasTerritoriales1 as $areaTerritorial1): ?>
-                                <option value="<?php echo $areaTerritorial1->id_003 ?>" <?php if($areaTerritorial3->area_territorial_1_005 == $areaTerritorial1->id_003) echo 'selected=""'; ?>><?php echo $areaTerritorial1->nombre_003 ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <?php echo $errors->first('modulo',config('pulsar.errorDelimiters')); ?>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label"><?php echo $pais->area_territorial_2_002 ?> <span class="required">*</span></label>
-                        <div class="col-md-2">
-                            <select class="form-control" name="areaTerritorial2" notequal="null">
-                                <option value="null">Elija un/a <?php echo $pais->area_territorial_2_002; ?></option>
-                                <?php foreach ($areasTerritoriales2 as $areaTerritorial2): ?>
-                                <option value="<?php echo $areaTerritorial2->id_004 ?>" <?php if($areaTerritorial3->area_territorial_2_005 == $areaTerritorial2->id_004) echo 'selected=""'; ?>><?php echo $areaTerritorial2->nombre_004 ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <?php echo $errors->first('modulo',config('pulsar.errorDelimiters')); ?>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Nombre <span class="required">*</span></label>
-                        <div class="col-md-10">
-                            <input class="form-control required" type="text" name="nombre" value="<?php echo $areaTerritorial3->nombre_005; ?>" rangelength="2, 50">
-                            <?php echo $errors->first('nombre',config('pulsar.errorDelimiters')); ?>
-                        </div>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn marginR10">{{ trans('pulsar::pulsar.save') }}</button>
-                        <a class="btn btn-inverse" href="{{ url(config('pulsar.appName')) }}/pulsar/areasterritoriales3/{{ $pais->id_002 }}/{{ $offset }}">{{ trans('pulsar::pulsar.cancel') }}</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>       
+@section('rows')
+    <!-- pulsar::territorial_areas_3.create -->
+    @include('pulsar::common.block.block_form_text_group', ['label' => 'ID', 'name' => 'id', 'value' => $object->id_005, 'maxLength' => '10', 'rangeLength' => '2,10', 'required' => true, 'sizeField' => 2])
+    @include('pulsar::common.block.block_form_text_group', ['label' => trans_choice('pulsar::pulsar.country',1), 'name' => 'country', 'value' => $country->name_002, 'sizeField' => 2, 'readOnly' => true])
+    @include('pulsar::common.block.block_form_select_group', ['label' => $country->territorial_area_1_002, 'name' => 'territorialArea1', 'value' => $object->territorial_area_1_005, 'sizeField' => 6, 'objects' => $territorialAreas1, 'idSelect' => 'id_003', 'nameSelect' => 'name_003', 'required' => true])
+    @include('pulsar::common.block.block_form_select_group', ['label' => $country->territorial_area_2_002, 'name' => 'territorialArea2', 'value' => $object->territorial_area_2_005, 'sizeField' => 6, 'objects' => $territorialAreas2, 'idSelect' => 'id_004', 'nameSelect' => 'name_004', 'required' => true])
+    @include('pulsar::common.block.block_form_text_group', ['label' => trans('pulsar::pulsar.name'), 'name' => 'name', 'value' => $object->name_005, 'maxLength' => '50', 'rangeLength' => '2,50', 'required' => true])
+    <!-- /pulsar::territorial_areas_3.create -->
 @stop

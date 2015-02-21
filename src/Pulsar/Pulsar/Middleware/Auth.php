@@ -40,7 +40,7 @@ class Auth {
 			}
 			else
 			{
-				return redirect()->guest(config('pulsar.appName') . '/pulsar/login');
+				return redirect()->guest(route('login'));
 			}
 		}
 

@@ -22,7 +22,7 @@ class TerritorialArea1 extends Model {
     protected $primaryKey   = 'id_003';
     public $timestamps      = false;
     protected $fillable     = ['id_003','country_003','name_003'];
-    public static $rules    = [
+    private static $rules   = [
         'id'      => 'required|between:1,6|unique:001_003_territorial_area_1,id_003',
         'name'    => 'required|between:2,50'
     ];
@@ -34,7 +34,7 @@ class TerritorialArea1 extends Model {
         return Validator::make($data, static::$rules);
     }
 
-    public function TerritorialAreas2()
+    public function territorialAreas2()
     {
          return $this->hasMany('Pulsar\Pulsar\Models\TerritorialArea2', 'territorial_area_1_004');
     }
@@ -57,7 +57,7 @@ class TerritorialArea1 extends Model {
         return $query;
     }
 
-    public static function getTerritorialAreas1Country($country)
+    public static function getTerritorialAreas1FromCountry($country)
     {
         return TerritorialArea1::where('country_003', $country)->orderBy('name_003', 'asc')->get();
     }

@@ -21,13 +21,13 @@ class CronJob extends Model {
 	protected $table        = '001_043_cron_job';
     protected $primaryKey   = 'id_043';
     public $timestamps      = false;
-    protected $fillable     = array('id_043', 'name_043', 'package_043', 'key_043', 'cron_expression_043', 'last_run_043', 'next_run_043', 'active_043');
-    public static $rules = array(
+    protected $fillable     = ['id_043', 'name_043', 'package_043', 'key_043', 'cron_expression_043', 'last_run_043', 'next_run_043', 'active_043'];
+    private static $rules   = [
         'name'              =>  'required|between:2,100',
         'package'           =>  'not_in:null',
         'cronExpression'    =>  'required|between:9,255|CronExpression',
         'key'               =>  'required|between:2,50'
-    );
+    ];
 
     public static function validate($data)
     {

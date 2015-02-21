@@ -17,7 +17,6 @@ use Pulsar\Pulsar\Libraries\PulsarAcl;
 use Pulsar\Pulsar\Models\Permission;
 use Pulsar\Pulsar\Models\Profile;
 use Pulsar\Pulsar\Models\Action;
-use Pulsar\Pulsar\Models\Resource;
 use Pulsar\Pulsar\Traits\ControllerTrait;
 
 
@@ -28,7 +27,6 @@ class Permissions extends BaseController
     protected $routeSuffixProfile   = 'Profile';
     protected $areDeleteRecord      = true;
 
-    protected $resource             = 'admin-perm-perm';
     protected $routeSuffix          = 'Permission';
     protected $folder               = 'permissions';
     protected $package              = 'pulsar';

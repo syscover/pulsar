@@ -21,7 +21,6 @@ class Langs extends BaseController {
 
     use ControllerTrait;
 
-    protected $resource     = 'admin-lang';
     protected $routeSuffix  = 'Lang';
     protected $folder       = 'langs';
     protected $package      = 'pulsar';

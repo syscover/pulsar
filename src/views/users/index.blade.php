@@ -1,52 +1,38 @@
-@extends('pulsar::layouts.default')
+@extends('pulsar::layouts.index', ['newTrans' => 'new'])
 
 @section('script')
-    @include('pulsar::common.block.block_script_header_list')
+    @parent
+    <!-- pulsar::users.index -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            if ($.fn.dataTable)
+            {
+                $('.datatable-pulsar').dataTable({
+                    'iDisplayStart' : {{ $offset }},
+                    'aoColumnDefs': [
+                        { 'bSortable': false, 'aTargets': [6,7]},
+                        { 'sClass': 'checkbox-column', 'aTargets': [6]},
+                        { 'sClass': 'align-center', 'aTargets': [5,7]}
+                    ],
+                    "bProcessing": true,
+                    "bServerSide": true,
+                    "sAjaxSource": "{{ route('jsonData' . $routeSuffix) }}"
+                }).fnSetFilteringDelay();
+            }
+        });
+    </script>
+    <!-- /pulsar::users.index -->
 @stop
 
-@section('breadcrumbs')
-<li>
-    <a href="javascript:void(0);">{{ trans('pulsar::pulsar.administration') }}</a>
-</li>
-<li class="current">
-    <a href="{{ url(config('pulsar.appName')) }}/pulsar/usuarios">Usuarios</a>
-</li>
-@stop
-
-@section('mainContent')
-<div class="row">
-    <div class="col-md-12">
-        <a class="btn marginB10" href="{{ url(config('pulsar.appName')) }}/pulsar/usuarios/create/{{ $offset }}"><i class="icomoon-icon-users"></i> Nuevo usuario</a>
-        <div class="widget box">
-            <div class="widget-header">
-                <h4><i class="icon-reorder"></i> Usuarios</h4>
-                <div class="toolbar no-padding">
-                    <div class="btn-group">
-                        <span class="btn btn-xs widget-collapse"><i class="icon-angle-down"></i></span>
-                    </div>
-                </div>
-            </div>
-            <div class="widget-content no-padding">
-                <form id="formView" method="post" action="{{ url(config('pulsar.appName')) }}/pulsar/usuarios/delete/select/elements">
-                    <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable-pulsar">
-                        <thead>
-                            <tr>
-                                <th data-hide="phone,tablet">ID.</th>
-                                <th data-class="expand">Nombre</th>
-                                <th data-hide="phone,tablet">Apellidos</th>
-                                <th data-hide="phone">Email</th>
-                                <th data-hide="phone">Perfil</th>
-                                <th data-hide="phone">Acceso</th>
-                                <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
-                                <th><?php echo trans('pulsar::pulsar.acciones');?></th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                    <input type="hidden" name="nElementsDataTable">
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+@section('tHead')
+    <!-- pulsar::users.index -->
+    <th data-hide="phone,tablet">ID.</th>
+    <th data-class="expand">{{ trans('pulsar::pulsar.name') }}</th>
+    <th data-class="expand">{{ trans('pulsar::pulsar.surname') }}</th>
+    <th data-class="expand">{{ trans('pulsar::pulsar.email') }}</th>
+    <th data-class="expand">{{ trans_choice('pulsar::pulsar.profile', 1) }}</th>
+    <th data-class="expand">{{ trans('pulsar::pulsar.access') }}</th>
+    <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
+    <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>
+    <!-- /pulsar::users.index -->
 @stop

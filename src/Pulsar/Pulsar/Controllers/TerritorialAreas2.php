@@ -10,18 +10,17 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Session,
-    Illuminate\Support\Facades\Input,
-    Pulsar\Pulsar\Models\Country,
-    Pulsar\Pulsar\Models\TerritorialArea1,
-    Pulsar\Pulsar\Models\TerritorialArea2;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Input;
+use Pulsar\Pulsar\Models\Country;
+use Pulsar\Pulsar\Models\TerritorialArea1;
+use Pulsar\Pulsar\Models\TerritorialArea2;
 use Pulsar\Pulsar\Traits\ControllerTrait;
 
 class TerritorialAreas2 extends BaseController {
 
     use ControllerTrait;
 
-    protected $resource     = 'admin-country-at2';
     protected $routeSuffix  = 'TerritorialArea2';
     protected $folder       = 'territorial_areas_2';
     protected $package      = 'pulsar';
@@ -39,9 +38,16 @@ class TerritorialAreas2 extends BaseController {
         return $parameters;
     }
 
+    public function customActionUrlParameters($actionUrlParameters, $parameters)
+    {
+        $actionUrlParameters['country'] = $parameters['country'];
+
+        return $actionUrlParameters;
+    }
+
     public function createCustomRecord($parameters)
     {
-        $parameters['TerritorialesAreas1']  = TerritorialArea1::getTerritorialAreas1Country($parameters['country']);
+        $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
         $parameters['country']              = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
 
         return $parameters;
@@ -52,14 +58,14 @@ class TerritorialAreas2 extends BaseController {
         TerritorialArea2::create([
             'id_004'                    => Input::get('id'),
             'country_004'               => $parameters['country'],
-            'area_territorial_1_004'    => Input::get('TerritorialArea1'),
+            'territorial_area_1_004'    => Input::get('territorialArea1'),
             'name_004'                  => Input::get('name')
         ]);
     }
 
     public function editCustomRecord($parameters)
     {
-        $parameters['TerritorialesAreas1']  = TerritorialArea1::getTerritorialAreas1Country($parameters['country']);
+        $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
         $parameters['country']              = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
 
         return $parameters;
@@ -75,11 +81,11 @@ class TerritorialAreas2 extends BaseController {
     }
 
 
-    public function jsonGetAreasTerritoriales2FromAreaTerritorial1($id)
+    public function jsonTerritorialAreas2FromTerritorialArea1($country, $id)
     {
         $data['json'] = null;
-        if($id!="null") $data['json'] = TerritorialArea2::find($id)->areasTerritoriales2()->get()->toJson();
+        if($id!="null") $data['json'] = TerritorialArea1::find($id)->territorialAreas2()->get()->toJson();
 
-        return view('pulsar::common.json_display',$data);
+        return view('pulsar::common.json_display', $data);
     }
 }

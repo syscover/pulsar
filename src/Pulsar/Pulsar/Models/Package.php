@@ -22,7 +22,7 @@ class Package extends Model {
     protected $primaryKey   = 'id_012';
     public $timestamps      = false;
     protected $fillable     = ['id_012', 'name_012', 'active_012'];
-    public static $rules    = [
+    private static $rules   = [
         'name'    =>  'required|between:2,50'
     ];
         

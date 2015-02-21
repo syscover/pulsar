@@ -24,7 +24,6 @@ class CronJobs extends BaseController
 {
     use ControllerTrait;
 
-    protected $resource     = 'admin-cron';
     protected $routeSuffix  = 'CronJob';
     protected $folder       = 'cron_jobs';
     protected $package      = 'pulsar';

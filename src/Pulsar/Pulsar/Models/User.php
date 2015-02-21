@@ -10,22 +10,25 @@
  * @filesource
  */
 
-use Illuminate\Database\Eloquent\Model,
-    Pulsar\Pulsar\Libraries\Miscellaneous,
-    Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract,
-    Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Database\Eloquent\Model;
+use Pulsar\Pulsar\Libraries\Miscellaneous;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Pulsar\Pulsar\Traits\ModelTrait;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
+    use ModelTrait;
+
     protected $table        = '001_010_user';
     protected $primaryKey   = 'id_010';
     public $timestamps      = true;
-    protected $fillable     = ['id_010','lang_010','profile_010','access_010','user_010','password_010','email_010','name_010','surname_010'];
-    public static $rules    = [
-        'nombre'        => 'required|between:2,50',
-        'apellidos'     => 'required|between:2,50',
-        'idioma'        => 'not_in:null',
-        'perfil'        => 'not_in:null'
+    protected $fillable     = ['id_010', 'lang_010', 'profile_010', 'access_010', 'user_010', 'password_010', 'email_010', 'name_010', 'surname_010'];
+    private static $rules    = [
+        'name'      => 'required|between:2,50',
+        'surname'   => 'required|between:2,50',
+        'lang'      => 'not_in:null',
+        'profile'   => 'not_in:null'
     ];
 
     /**
@@ -101,23 +104,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return Validator::make($data, static::$rules);
     }
 
-    public static function getUsuariosLimit($aColumns, $nResultados = null, $inicio = null, $orden = null, $tipoOrden = null, $sWhere=null, $sWhereColumns=null, $count=false)
+    public static function getCustomRecordsLimit($parameters)
     {
-        $query = User::join('001_006_profile', '001_010_user.profile_010', '=', '001_006_profile.id_006')->newQuery();
-                
-        $query = Miscellaneous::getQueryWhere($aColumns, $query, $sWhere, $sWhereColumns);
-
-        if($count)
-        {
-            return $query->count();
-        }
-        else
-        {
-            if ($nResultados != null)   $query->take($nResultados)->skip($inicio);
-            if ($orden != null)         $query->orderBy($orden, $tipoOrden);
-
-            return $query->get();
-        }
+        return User::join('001_006_profile', '001_010_user.profile_010', '=', '001_006_profile.id_006')->newQuery();
     }
 
     public static function deleteUsuarios($ids)

@@ -23,7 +23,7 @@ class Country extends Model
     protected $sufix        = '002';
     public $timestamps      = false;
     protected $fillable     = ['id_002', 'lang_002', 'name_002', 'sorting_002', 'prefix_002', 'territorial_area_1_002', 'territorial_area_2_002', 'territorial_area_3_002', 'data_002'];
-    public static $rules    = [
+    private static $rules   = [
         'id'                => 'required|alpha|size:2|unique:001_002_country,id_002',
         'name'              => 'required|between:2,100',
         'sorting'           => 'min:0|numeric',

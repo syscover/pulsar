@@ -10,12 +10,8 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\App,
-    Illuminate\Support\Facades\Session,
-    Illuminate\Support\Facades\Auth,
+use Illuminate\Support\Facades\Session,
     Illuminate\Support\Facades\Input,
-    Illuminate\Support\Facades\Lang,
-    Illuminate\Support\Facades\Redirect,
     Pulsar\Pulsar\Models\Country,
     Pulsar\Pulsar\Models\TerritorialArea1,
     Pulsar\Pulsar\Models\TerritorialArea2,
@@ -26,7 +22,6 @@ class TerritorialAreas3 extends BaseController {
 
     use ControllerTrait;
 
-    protected $resource     = 'admin-country-at3';
     protected $routeSuffix  = 'TerritorialArea3';
     protected $folder       = 'territorial_areas_3';
     protected $package      = 'pulsar';
@@ -43,102 +38,63 @@ class TerritorialAreas3 extends BaseController {
         return $parameters;
     }
 
+    public function customActionUrlParameters($actionUrlParameters, $parameters)
+    {
+        $actionUrlParameters['country'] = $parameters['country'];
+
+        return $actionUrlParameters;
+    }
+
     public function createCustomRecord($parameters)
     {
-        $parameters['TerritorialesAreas1']  = TerritorialArea1::getTerritorialAreas1Country($parameters['country']);
+        $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
+        if(Input::old('territorialArea1') && Input::old('territorialArea1') != "null")
+        {
+            $parameters['territorialAreas2'] = territorialArea1::find(Input::old('territorialArea1'))->territorialAreas2()->get();
+        }
+        else
+        {
+            $parameters['territorialAreas2'] = [];
+        }
         $parameters['country']              = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
 
         return $parameters;
     }
-    
-    public function create($pais, $offset=0){
 
-        
-        $data['inicio']                     = $offset;
-        $data['pais']                       = Pais::getPais($pais, Auth::user()->idioma_010);
-        $data['areasTerritoriales1']        = AreaTerritorial1::getAllAreasTerritoriales1($pais);
-        if(Input::old('areaTerritorial1') && Input::old('areaTerritorial1') != "null"){
-            $data['areasTerritoriales2']    = AreaTerritorial1::find(Input::old('areaTerritorial1'))->areasTerritoriales2()->get();
-        }else{
-            $data['areasTerritoriales2']    = array();
-        }
-        $data['javascriptView']             = 'pulsar::pulsar/Pulsar/areas_territoriales_3/js/create';
-        return view('pulsar::pulsar.pulsar.areas_territoriales_3.create',$data);
-    }
-    
-    public function store($pais, $offset=0){
-
-        
-        $validation = AreaTerritorial3::validate(Input::all());
-              
-        if ($validation->fails())
-        {
-            return Redirect::route('createAreasTerritoriales3',array($pais, $offset))->withErrors($validation)->withInput();
-        }
-        else
-        {
-            AreaTerritorial3::create(array(
-                'id_005'                    => Input::get('id'),
-                'pais_005'                  => $pais,
-                'area_territorial_1_005'    => Input::get('areaTerritorial1'),
-                'area_territorial_2_005'    => Input::get('areaTerritorial2'),
-                'nombre_005'                => Input::get('nombre')
-            )); 
-            
-            //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
-            Session::flash('msg',1);
-            Session::flash('txtMsg',Lang::get('pulsar::pulsar.aviso_alta_registro',array('nombre' => Input::get('nombre'))));
-            
-            return Redirect::route('areasTerritoriales3',array($pais, $offset));
-        }
-    }
-    
-    public function edit($id, $offset=0){
-
-        
-        $data['inicio']                 = $offset;
-        $data['areaTerritorial3']       = AreaTerritorial3::find($id);
-        $data['areasTerritoriales1']    = AreaTerritorial1::getAllAreasTerritoriales1($data['areaTerritorial3']->pais_005);
-        $data['areasTerritoriales2']    = AreaTerritorial1::find($data['areaTerritorial3']->area_territorial_1_005)->areasTerritoriales2()->get();
-        $data['pais']                   = Pais::getPais($data['areaTerritorial3']->pais_005, Auth::user()->idioma_010);
-        $data['javascriptView']         = 'pulsar::pulsar/Pulsar/areas_territoriales_3/js/edit';
-        
-        return view('pulsar::pulsar.pulsar.areas_territoriales_3.edit',$data);
-    }
-
-    public function update($pais, $offset=0)
+    public function storeCustomRecord($parameters)
     {
-        if(!Session::get('userAcl')->isAllowed(Auth::user()->profile_010,$this->resource,'edit')) App::abort(403, 'Permission denied.');
-        
-        if(Input::get('id') == Input::get('idOld')) $idRule = false; else $idRule = true;
-        
-        $validation = AreaTerritorial3::validate(Input::all(), $idRule);
-        
-        if ($validation->fails())
-        {
-            return Redirect::route('editAreasTerritoriales3',array(Input::get('idOld'), $offset))->withErrors($validation);
-        }
-        else
-        {
-            AreaTerritorial3::where('id_005','=',Input::get('idOld'))->update(array(
-                'id_005'                    => Input::get('id'),
-                'area_territorial_1_005'    => Input::get('areaTerritorial1'),
-                'area_territorial_2_005'    => Input::get('areaTerritorial2'),
-                'nombre_005'                => Input::get('nombre')
-            ));
-                        
-            //Instanciamos una sessicón flash para indicar el mensaje al usuario, esta sesión solo dura durante una petición
-            Session::flash('msg',1);
-            Session::flash('txtMsg',Lang::get('pulsar::pulsar.aviso_actualiza_registro',array('nombre' => Input::get('nombre'))));
-            
-            return Redirect::route('areasTerritoriales3',array($pais, $offset));
-        }
+        TerritorialArea3::create([
+            'id_005'                    => Input::get('id'),
+            'country_005'               => $parameters['country'],
+            'territorial_area_1_005'    => Input::get('territorialArea1'),
+            'territorial_area_2_005'    => Input::get('territorialArea2'),
+            'name_005'                  => Input::get('name')
+        ]);
+    }
+
+    public function editCustomRecord($parameters)
+    {
+        $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
+        $parameters['territorialAreas2']    = TerritorialArea2::getTerritorialAreas2FromTerritorialArea1($parameters['object']->territorial_area_1_005);
+        $parameters['country']              = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
+
+        return $parameters;
+    }
+
+    public function updateCustomRecord($id)
+    {
+        TerritorialArea3::where('id_005', $id)->update([
+            'id_005'                    => Input::get('id'),
+            'territorial_area_1_005'    => Input::get('territorialArea1'),
+            'territorial_area_2_005'    => Input::get('territorialArea2'),
+            'name_005'                  => Input::get('name')
+        ]);
     }
     
-    public function jsonGetAreasTerritoriales3FromAreaTerritorial2($id)
+    public function jsonTerritorialAreas3FromTerritorialArea2($id)
     {
         $data['json'] = array();
-        if($id!="null") $data['json'] = AreaTerritorial2::find($id)->areasTerritoriales3()->get()->toJson();
+        if($id!="null") $data['json'] = TerritorialArea2::find($id)->territorialAreas3()->get()->toJson();
 
         return view('pulsar::common.json_display',$data);
     }

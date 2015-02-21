@@ -19,7 +19,6 @@ class Resources extends BaseController {
 
     use ControllerTrait;
 
-    protected $resource     = 'admin-perm-resource';
     protected $routeSuffix  = 'Resource';
     protected $folder       = 'resources';
     protected $package      = 'pulsar';

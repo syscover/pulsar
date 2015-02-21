@@ -23,7 +23,6 @@ class Countries extends BaseController {
 
     use ControllerTrait;
 
-    protected $resource     = 'admin-country';
     protected $routeSuffix  = 'Country';
     protected $folder       = 'countries';
     protected $package      = 'pulsar';

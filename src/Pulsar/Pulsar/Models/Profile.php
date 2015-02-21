@@ -21,10 +21,10 @@ class Profile extends Model
 	protected $table        = '001_006_profile';
     protected $primaryKey   = 'id_006';
     public $timestamps      = false;
-    protected $fillable     = array('id_006', 'name_006');
-    public static $rules    = array(
+    protected $fillable     = ['id_006', 'name_006'];
+    private static $rules   = [
         'name'    =>  'required|between:2,50'
-    );
+    ];
         
     public static function validate($data)
     {

@@ -150,66 +150,67 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
 
     /*
     |--------------------------------------------------------------------------
-    | AREAS TERRITORIALES 1
+    | TERRITORIAL AREAS 1
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName').'/pulsar/territorialareas1/{country}/{offset?}',                                        ['as'=>'TerritorialArea1',                      'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas1@index',                                'resource' => 'admin-country-at1',  'action' => 'access']);
-    Route::any(config('pulsar.appName').'/pulsar/territorialareas1/json/data/{country}',                                        ['as'=>'jsonDataTerritorialArea1',              'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas1@jsonData',                             'resource' => 'admin-country-at1',  'action' => 'access']);
-    Route::get(config('pulsar.appName').'/pulsar/territorialareas1/create/{country}/{offset}',                                  ['as'=>'createTerritorialArea1',                'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas1@createRecord',                         'resource' => 'admin-country-at1',  'action' => 'create']);
-    Route::post(config('pulsar.appName').'/pulsar/territorialareas1/store/{country}/{offset}',                                  ['as'=>'storeTerritorialArea1',                 'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas1@storeRecord',                          'resource' => 'admin-country-at1',  'action' => 'create']);
-    Route::get(config('pulsar.appName').'/pulsar/territorialareas1/{id}/edit/{country}/{offset}',                               ['as'=>'editTerritorialArea1',                  'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas1@editRecord',                           'resource' => 'admin-country-at1',  'action' => 'access']);
-    Route::put(config('pulsar.appName').'/pulsar/territorialareas1/update/{country}/{id}/{offset}',                             ['as'=>'updateTerritorialArea1',                'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas1@updateRecord',                         'resource' => 'admin-country-at1',  'action' => 'edit']);
-    Route::get(config('pulsar.appName').'/pulsar/territorialareas1/delete/{country}/{id}/{offset}',                             ['as'=>'deleteTerritorialArea1',                'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas1@deleteRecord',                         'resource' => 'admin-country-at1',  'action' => 'delete']);
-    Route::delete(config('pulsar.appName').'/pulsar/territorialareas1/delete/select/records/{country}',                         ['as'=>'deleteSelectTerritorialArea1',          'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas1@deleteRecordsSelect',                  'resource' => 'admin-country-at1',  'action' => 'delete']);
-    Route::post(config('pulsar.appName').'/pulsar/territorialareas1/json/get_areas_territoriales_1_from_country/{country?}',    ['as'=>'jsonGetTerritorialArea1',               'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas1@jsonGetAreasTerritoriales1FromPais',   'resource' => 'admin-country-at1',  'action' => 'delete']);
+    Route::any(config('pulsar.appName').'/pulsar/territorialareas1/{country}/{offset?}',                            ['as'=>'TerritorialArea1',                      'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas1@index',                                'resource' => 'admin-country-at1',  'action' => 'access']);
+    Route::any(config('pulsar.appName').'/pulsar/territorialareas1/json/data/{country}',                            ['as'=>'jsonDataTerritorialArea1',              'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas1@jsonData',                             'resource' => 'admin-country-at1',  'action' => 'access']);
+    Route::get(config('pulsar.appName').'/pulsar/territorialareas1/create/{country}/{offset}',                      ['as'=>'createTerritorialArea1',                'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas1@createRecord',                         'resource' => 'admin-country-at1',  'action' => 'create']);
+    Route::post(config('pulsar.appName').'/pulsar/territorialareas1/store/{country}/{offset}',                      ['as'=>'storeTerritorialArea1',                 'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas1@storeRecord',                          'resource' => 'admin-country-at1',  'action' => 'create']);
+    Route::get(config('pulsar.appName').'/pulsar/territorialareas1/{id}/edit/{country}/{offset}',                   ['as'=>'editTerritorialArea1',                  'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas1@editRecord',                           'resource' => 'admin-country-at1',  'action' => 'access']);
+    Route::put(config('pulsar.appName').'/pulsar/territorialareas1/update/{country}/{id}/{offset}',                 ['as'=>'updateTerritorialArea1',                'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas1@updateRecord',                         'resource' => 'admin-country-at1',  'action' => 'edit']);
+    Route::get(config('pulsar.appName').'/pulsar/territorialareas1/delete/{country}/{id}/{offset}',                 ['as'=>'deleteTerritorialArea1',                'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas1@deleteRecord',                         'resource' => 'admin-country-at1',  'action' => 'delete']);
+    Route::delete(config('pulsar.appName').'/pulsar/territorialareas1/delete/select/records/{country}',             ['as'=>'deleteSelectTerritorialArea1',          'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas1@deleteRecordsSelect',                  'resource' => 'admin-country-at1',  'action' => 'delete']);
+    Route::post(config('pulsar.appName').'/pulsar/territorialareas1/json/from/country/{country?}',                  ['as'=>'jsonGetTerritorialArea1',               'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas1@jsonTerritorialAreas1FromCountry',     'resource' => 'admin-country-at1',  'action' => 'access']);
 
     /*
     |--------------------------------------------------------------------------
-    | AREAS TERRITORIALES 2
+    | TERRITORIAL AREAS 2
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName').'/pulsar/territorialareas2/{country}/{offset?}',                                                ['as'=>'TerritorialArea2',                 'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas2@index',                               'resource' => 'admin-country-at2',             'action' => 'access']);
-    Route::any(config('pulsar.appName').'/pulsar/territorialareas2/json/data/{country}',                                                ['as'=>'jsonDataTerritorialArea2',         'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas2@jsonData',                            'resource' => 'admin-country-at2',             'action' => 'access']);
-    Route::get(config('pulsar.appName').'/pulsar/territorialareas2/create/{country}/{offset}',                                          ['as'=>'createTerritorialArea2',           'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas2@createRecord',                        'resource' => 'admin-country-at2',             'action' => 'delete']);
-    Route::post(config('pulsar.appName').'/pulsar/territorialareas2/store/{country}/{offset}',                                          ['as'=>'storeTerritorialArea2',            'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas2@storeRecord',                         'resource' => 'admin-country-at2',             'action' => 'delete']);
-    Route::get(config('pulsar.appName').'/pulsar/territorialareas2/{id}/edit/{country}/{offset}',                                       ['as'=>'editTerritorialArea2',             'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas2@editRecord',                          'resource' => 'admin-country-at2',             'action' => 'delete']);
-    Route::put(config('pulsar.appName').'/pulsar/territorialareas2/update/{country}/{id}/{offset}',                                     ['as'=>'updateTerritorialArea2',           'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas2@updateRecord',                        'resource' => 'admin-country-at2',             'action' => 'delete']);
-    Route::get(config('pulsar.appName').'/pulsar/territorialareas2/delete/{country}/{id}/{offset}',                                     ['as'=>'deleteTerritorialArea2',           'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas2@deleteRecord',                        'resource' => 'admin-country-at2',             'action' => 'delete']);
-    Route::delete(config('pulsar.appName').'/pulsar/territorialareas2/delete/select/records/{country}',                                 ['as'=>'deleteSelectTerritorialArea2',     'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas2@deleteRecordsSelect',                 'resource' => 'admin-country-at2',             'action' => 'delete']);
-    Route::post(config('pulsar.appName').'/pulsar/territorialareas2/json/get_areas_territoriales_2_from_area_territorial_1/{id}',       ['as'=>'jsonTerritorialArea2',             'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas2@jsonGetAreasTerritoriales2FromAreaTerritorial1',            'resource' => 'admin-country-at2',             'action' => 'delete']);
+    Route::any(config('pulsar.appName').'/pulsar/territorialareas2/{country}/{offset?}',                            ['as'=>'TerritorialArea2',                 'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas2@index',                                     'resource' => 'admin-country-at2',  'action' => 'access']);
+    Route::any(config('pulsar.appName').'/pulsar/territorialareas2/json/data/{country}',                            ['as'=>'jsonDataTerritorialArea2',         'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas2@jsonData',                                  'resource' => 'admin-country-at2',  'action' => 'access']);
+    Route::get(config('pulsar.appName').'/pulsar/territorialareas2/create/{country}/{offset}',                      ['as'=>'createTerritorialArea2',           'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas2@createRecord',                              'resource' => 'admin-country-at2',  'action' => 'create']);
+    Route::post(config('pulsar.appName').'/pulsar/territorialareas2/store/{country}/{offset}',                      ['as'=>'storeTerritorialArea2',            'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas2@storeRecord',                               'resource' => 'admin-country-at2',  'action' => 'create']);
+    Route::get(config('pulsar.appName').'/pulsar/territorialareas2/{id}/edit/{country}/{offset}',                   ['as'=>'editTerritorialArea2',             'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas2@editRecord',                                'resource' => 'admin-country-at2',  'action' => 'access']);
+    Route::put(config('pulsar.appName').'/pulsar/territorialareas2/update/{country}/{id}/{offset}',                 ['as'=>'updateTerritorialArea2',           'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas2@updateRecord',                              'resource' => 'admin-country-at2',  'action' => 'edit']);
+    Route::get(config('pulsar.appName').'/pulsar/territorialareas2/delete/{country}/{id}/{offset}',                 ['as'=>'deleteTerritorialArea2',           'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas2@deleteRecord',                              'resource' => 'admin-country-at2',  'action' => 'delete']);
+    Route::delete(config('pulsar.appName').'/pulsar/territorialareas2/delete/select/records/{country}',             ['as'=>'deleteSelectTerritorialArea2',     'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas2@deleteRecordsSelect',                       'resource' => 'admin-country-at2',  'action' => 'delete']);
+    Route::any(config('pulsar.appName').'/pulsar/territorialareas2/json/from/territorialarea1/{country}/{id}',      ['as'=>'jsonTerritorialArea2',             'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas2@jsonTerritorialAreas2FromTerritorialArea1', 'resource' => 'admin-country-at2',  'action' => 'access']);
 
     /*
     |--------------------------------------------------------------------------
-    | AREAS TERRITORIALES 3
+    | TERRITORIAL AREAS 3
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName').'/pulsar/territorialareas3/{country}/{offset?}',                                                ['as'=>'TerritorialArea3',              'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas3@index',                                'resource' => 'admin-country-at3',             'action' => 'access']);
-    Route::any(config('pulsar.appName').'/pulsar/territorialareas3/json/data/country/{country}',                                        ['as'=>'jsonDataTerritorialArea3',      'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas3@jsonData',                             'resource' => 'admin-country-at3',             'action' => 'access']);
-    Route::get(config('pulsar.appName').'/pulsar/territorialareas3/create/{country}/{offset}',                                          ['as'=>'createTerritorialArea3',        'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas3@createRecord',                               'resource' => 'admin-country-at3',             'action' => 'delete']);
-    Route::post(config('pulsar.appName').'/pulsar/territorialareas3/store/{country}/{offset}',                                          ['as'=>'storeTerritorialArea3',         'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas3@storeRecord',                                'resource' => 'admin-country-at3',             'action' => 'delete']);
-    Route::get(config('pulsar.appName').'/pulsar/territorialareas3/{id}/edit/{offset}',                                                 ['as'=>'editTerritorialArea3',          'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas3@editRecord',                                 'resource' => 'admin-country-at3',             'action' => 'delete']);
-    Route::put(config('pulsar.appName').'/pulsar/territorialareas3/update/{country}/{offset}',                                          ['as'=>'updateTerritorialArea3',        'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas3@updateRecord',                               'resource' => 'admin-country-at3',             'action' => 'delete']);
-    Route::get(config('pulsar.appName').'/pulsar/territorialareas3/delete/{country}/{id?}',                                             ['as'=>'deleteTerritorialArea3',        'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas3@deleteRecord',                               'resource' => 'admin-country-at3',             'action' => 'delete']);
-    Route::delete(config('pulsar.appName').'/pulsar/territorialareas3/delete/select/records/{country}',                                 ['as'=>'deleteSelectTerritorialArea3',  'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas3@deleteRecordsSelect',                         'resource' => 'admin-country-at3',             'action' => 'delete']);
-    Route::post(config('pulsar.appName').'/pulsar/territorialareas3/json/get_areas_territoriales_3_from_area_territorial_2/{id}',       ['as'=>'jsonTerritorialArea3',          'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas3@jsonGetAreasTerritoriales3FromAreaTerritorial2',            'resource' => 'admin-country-at3',             'action' => 'delete']);
-
-    
-
-
+    Route::any(config('pulsar.appName').'/pulsar/territorialareas3/{country}/{offset?}',                            ['as'=>'TerritorialArea3',              'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas3@index',                                        'resource' => 'admin-country-at3',  'action' => 'access']);
+    Route::any(config('pulsar.appName').'/pulsar/territorialareas3/json/data/country/{country}',                    ['as'=>'jsonDataTerritorialArea3',      'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas3@jsonData',                                     'resource' => 'admin-country-at3',  'action' => 'access']);
+    Route::get(config('pulsar.appName').'/pulsar/territorialareas3/create/{country}/{offset}',                      ['as'=>'createTerritorialArea3',        'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas3@createRecord',                                 'resource' => 'admin-country-at3',  'action' => 'create']);
+    Route::post(config('pulsar.appName').'/pulsar/territorialareas3/store/{country}/{offset}',                      ['as'=>'storeTerritorialArea3',         'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas3@storeRecord',                                  'resource' => 'admin-country-at3',  'action' => 'create']);
+    Route::get(config('pulsar.appName').'/pulsar/territorialareas3/{id}/edit/{country}/{offset}',                   ['as'=>'editTerritorialArea3',          'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas3@editRecord',                                   'resource' => 'admin-country-at3',  'action' => 'access']);
+    Route::put(config('pulsar.appName').'/pulsar/territorialareas3/update/{country}/{id}/{offset}',                 ['as'=>'updateTerritorialArea3',        'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas3@updateRecord',                                 'resource' => 'admin-country-at3',  'action' => 'edit']);
+    Route::get(config('pulsar.appName').'/pulsar/territorialareas3/delete/{country}/{id?}',                         ['as'=>'deleteTerritorialArea3',        'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas3@deleteRecord',                                 'resource' => 'admin-country-at3',  'action' => 'delete']);
+    Route::delete(config('pulsar.appName').'/pulsar/territorialareas3/delete/select/records/{country}',             ['as'=>'deleteSelectTerritorialArea3',  'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas3@deleteRecordsSelect',                          'resource' => 'admin-country-at3',  'action' => 'delete']);
+    Route::post(config('pulsar.appName').'/pulsar/territorialareas3/json/from/territorialarea2/{country}/{id?}',    ['as'=>'jsonTerritorialArea3',          'uses'=>'Pulsar\Pulsar\Controllers\TerritorialAreas3@jsonTerritorialAreas3FromTerritorialArea2',    'resource' => 'admin-country-at3',  'action' => 'access']);
 
     /*
     |--------------------------------------------------------------------------
-    | USUARIO
+    | USER
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/users/{offset?}',                                  ['as'=>'User', 'uses'=>'Pulsar\Pulsar\Controllers\Usuarios@index',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::any(config('pulsar.appName') . '/pulsar/users/json/data',                  ['as'=>'jsonDataUsuarios', 'uses'=>'Pulsar\Pulsar\Controllers\Usuarios@jsonData',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::get(config('pulsar.appName') . '/pulsar/users/create/{offset}',              ['as'=>'createUsuario', 'uses'=>'Pulsar\Pulsar\Controllers\Usuarios@create',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::post(config('pulsar.appName') . '/pulsar/users/store/{offset}',              ['as'=>'storeUser', 'uses'=>'Pulsar\Pulsar\Controllers\Usuarios@store',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::get(config('pulsar.appName') . '/pulsar/users/{id}/edit/{offset}',           ['as'=>'editUsuario', 'uses'=>'Pulsar\Pulsar\Controllers\Usuarios@edit',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::post(config('pulsar.appName') . '/pulsar/users/update/{offset}',             ['as'=>'updateUsuario', 'uses'=>'Pulsar\Pulsar\Controllers\Usuarios@update',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::get(config('pulsar.appName') . '/pulsar/users/delete/{id}',               ['as'=>'deleteUsuario', 'uses'=>'Pulsar\Pulsar\Controllers\Usuarios@delete',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::post(config('pulsar.appName') . '/pulsar/users/delete/select/records',   ['as'=>'deleteSelectUsuario', 'uses'=>'Pulsar\Pulsar\Controllers\Usuarios@deleteSelect',            'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::any(config('pulsar.appName') . '/pulsar/users/{offset?}',                        ['as'=>'User',              'uses'=>'Pulsar\Pulsar\Controllers\Users@index',             'resource' => 'admin-user',             'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/users/json/data',                        ['as'=>'jsonDataUser',      'uses'=>'Pulsar\Pulsar\Controllers\Users@jsonData',          'resource' => 'admin-user',             'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/users/create/{offset}',                  ['as'=>'createUser',        'uses'=>'Pulsar\Pulsar\Controllers\Users@createRecord',      'resource' => 'admin-user',             'action' => 'create']);
+    Route::post(config('pulsar.appName') . '/pulsar/users/store/{offset}',                  ['as'=>'storeUser',         'uses'=>'Pulsar\Pulsar\Controllers\Users@storeRecord',       'resource' => 'admin-user',             'action' => 'create']);
+    Route::get(config('pulsar.appName') . '/pulsar/users/{id}/edit/{country}/{offset}',     ['as'=>'editUser',          'uses'=>'Pulsar\Pulsar\Controllers\Users@editRecord',        'resource' => 'admin-user',             'action' => 'access']);
+    Route::put(config('pulsar.appName') . '/pulsar/users/update/{id}/{offset}',             ['as'=>'updateUser',        'uses'=>'Pulsar\Pulsar\Controllers\Users@updateRecord',      'resource' => 'admin-user',             'action' => 'edit']);
+    Route::get(config('pulsar.appName') . '/pulsar/users/delete/{id}/{offset}',             ['as'=>'deleteUser',        'uses'=>'Pulsar\Pulsar\Controllers\Users@deleteRecord',      'resource' => 'admin-user',             'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/users/delete/select/records',         ['as'=>'deleteSelectUser',  'uses'=>'Pulsar\Pulsar\Controllers\Users@deleteSelect',      'resource' => 'admin-user',             'action' => 'delete']);
+
+
+
+
+
 
 
 
@@ -224,13 +225,6 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::post(config('pulsar.appName') . '/pulsar/direcciones/store',                                ['as'=>'storeDireccion',       'uses'=>'Pulsar\Pulsar\Controllers\Direcciones@store',            'resource' => 'admin-lang',             'action' => 'delete']);
     Route::get(config('pulsar.appName') . '/pulsar/direcciones/{id}/edit/{offset}',                      ['as'=>'editDireccion',        'uses'=>'Pulsar\Pulsar\Controllers\Direcciones@edit',            'resource' => 'admin-lang',             'action' => 'delete']);
     Route::post(config('pulsar.appName') . '/pulsar/direcciones/update/{offset}',                        ['as'=>'updateDireccion',      'uses'=>'Pulsar\Pulsar\Controllers\Direcciones@update',            'resource' => 'admin-lang',             'action' => 'delete']);
-
-
-
-
-
-
-
 
     /*
     |--------------------------------------------------------------------------

@@ -1,53 +1,36 @@
-@extends('pulsar::layouts.default')
+@extends('pulsar::layouts.index', ['newTrans' => 'new2', 'customTrans' => $country->territorial_area_3_002])
 
 @section('script')
-    @include('pulsar::common.block.block_script_header_list')
+    @parent
+    <!-- pulsar::territorial_areas_3.index -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            if ($.fn.dataTable)
+            {
+                $('.datatable-pulsar').dataTable({
+                    'iDisplayStart' : {{ $offset }},
+                    'aoColumnDefs': [
+                        { 'bSortable': false, 'aTargets': [4,5]},
+                        { 'sClass': 'checkbox-column', 'aTargets': [4]},
+                        { 'sClass': 'align-center', 'aTargets': [5]}
+                    ],
+                    "bProcessing": true,
+                    "bServerSide": true,
+                    "sAjaxSource": "{{ route('jsonData' . $routeSuffix, [$country->id_002]) }}"
+                }).fnSetFilteringDelay();
+            }
+        });
+    </script>
+    <!-- /pulsar::territorial_areas_3.index -->
 @stop
 
-@section('breadcrumbs')
-<li>
-    <a href="javascript:void(0);">{{ trans('pulsar::pulsar.administration') }}</a>
-</li>
-<li>
-    <a href="{{ url(config('pulsar.appName')) }}/pulsar/paises">Países</a>
-</li>
-<li class="current">
-    <a href="{{ url(config('pulsar.appName')) }}/pulsar/areasterritoriales3/{{ $pais->id_002 }}"><?php echo $pais->area_territorial_3_002; ?></a>
-</li>
-@stop
-
-@section('mainContent')
-<div class="row">
-    <div class="col-md-12">
-        <a class="btn marginB10" href="{{ url(config('pulsar.appName')) }}/pulsar/areasterritoriales3/create/{{ $pais->id_002 }}/{{ $offset }}"><i class="entypo-icon-globe"></i> Nuevo/a <?php echo $pais->area_territorial_3_002; ?></a>
-        <div class="widget box">
-            <div class="widget-header">
-                <h4><i class="icon-reorder"></i> <?php echo $pais->area_territorial_3_002; ?> (<?php echo $pais->nombre_002; ?>)</h4>
-                <div class="toolbar no-padding">
-                    <div class="btn-group">
-                        <span class="btn btn-xs widget-collapse"><i class="icon-angle-down"></i></span>
-                    </div>
-                </div>
-            </div>
-            <div class="widget-content no-padding">
-                <form id="formView" method="post" action="{{ url(config('pulsar.appName')) }}/pulsar/areasterritoriales3/delete/select/elements/{{ $pais->id_002 }}">
-                    <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable-pulsar">
-                        <thead>
-                            <tr>
-                                <th data-hide="phone,tablet">ID.</th>
-                                <th data-hide="phone"><?php echo $pais->area_territorial_1_002 ?></th>
-                                <th data-hide="phone"><?php echo $pais->area_territorial_2_002 ?></th>
-                                <th data-class="expand">{{ trans('pulsar::pulsar.nombre') }}</th>
-                                <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
-                                <th>{{ trans('pulsar::pulsar.acciones') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                    <input type="hidden" name="nElementsDataTable">
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+@section('tHead')
+    <!-- pulsar::territorial_areas_2.index -->
+    <th data-hide="phone,tablet">ID.</th>
+    <th data-hide="phone">{{ $country->territorial_area_1_002 }}</th>
+    <th data-hide="phone">{{ $country->territorial_area_2_002 }}</th>
+    <th data-class="expand">{{ $country->territorial_area_3_002 }}</th>
+    <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
+    <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>
+    <!-- /pulsar::territorial_areas_2.index -->
 @stop

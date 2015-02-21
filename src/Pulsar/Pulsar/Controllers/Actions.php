@@ -14,11 +14,10 @@ use Illuminate\Support\Facades\Input;
 use Pulsar\Pulsar\Models\Action;
 use Pulsar\Pulsar\Traits\ControllerTrait;
 
-class Actions extends BaseController
-{
+class Actions extends BaseController {
+
     use ControllerTrait;
 
-    protected $resource     = 'admin-perm-actions';
     protected $routeSuffix  = 'Action';
     protected $folder       = 'actions';
     protected $package      = 'pulsar';
@@ -27,7 +26,6 @@ class Actions extends BaseController
     protected $model        = '\Pulsar\Pulsar\Models\Action';
     protected $icon         = 'icomoon-icon-power';
     protected $objectTrans  = 'action';
-
 
     public function storeCustomRecord()
     {

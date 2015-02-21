@@ -22,7 +22,7 @@ class Action extends Model {
     protected $primaryKey   = 'id_008';
     public $timestamps      = false;
     protected $fillable     = ['id_008', 'name_008'];
-    public static $rules    = [
+    private static $rules   = [
         'id'    => 'required|between:2,25|unique:001_008_action,id_008',
         'name'  => 'required|between:2,50'
     ];

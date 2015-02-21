@@ -20,7 +20,6 @@ class TerritorialAreas1 extends BaseController {
 
     use ControllerTrait;
 
-    protected $resource     = 'admin-country-at1';
     protected $routeSuffix  = 'TerritorialArea1';
     protected $folder       = 'territorial_areas_1';
     protected $package      = 'pulsar';
@@ -75,13 +74,10 @@ class TerritorialAreas1 extends BaseController {
         ]);
     }
 
-
-
-    
-    public function jsonGetAreasTerritoriales1FromPais($id)
+    public function jsonTerritorialAreas1FromCountry($id)
     {
         $data['json'] = array();
-        if($id!="null") $data['json'] = Country::getTranslationRecord($id, Session::get('baseLang')->id_001)->areasTerritoriales1()->get()->toJson();
+        if($id!="null") $data['json'] = Country::getTranslationRecord($id, Session::get('baseLang')->id_001)->territorialAreas1()->get()->toJson();
 
         return view('pulsar::common.json_display', $data);
     }
