@@ -71,7 +71,8 @@ class RemindersController extends Controller
                     $user->save();
                 });
 
-        switch ($response) {
+        switch ($response)
+        {
             case Password::INVALID_PASSWORD:
             case Password::INVALID_TOKEN:
             case Password::INVALID_USER:

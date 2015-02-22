@@ -17,7 +17,7 @@ use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Models\Lang;
 use Syscover\Pulsar\Traits\ControllerTrait;
 
-class Langs extends BaseController {
+class Langs extends Controller {
 
     use ControllerTrait;
 

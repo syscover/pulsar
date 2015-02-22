@@ -172,47 +172,47 @@ var Login = function() {
 	 * Validation for Forgot Password
 	 * * * * * * * * * * * */
 	var initForgotPasswordValidation = function() {
-            if ($.validator) {
-                $('.forgot-password-form').validate({
-                    submitHandler: function (form) {
+        if ($.validator)
+        {
+            $('.forgot-password-form').validate({
+                submitHandler: function (form) {
 
-                        var postForm = {
-                            'email_010'  : $('input[name=email_010]').val() 
-                        };
-                        
-                        $.ajax({
-                            type: "post",
-                            url: $(form).attr('action'),
-                            dataType: 'json',
-                            data: postForm,
-                            success: function(data) {
-                                if(data.response){
-                                    $('.inner-box').slideUp(350, function() {
-                                        $('.forgot-password-ok').show();
-                                        $('.forgot-password-nook').hide();
-                                        $('.forgot-password-form').hide();
-                                        $('.forgot-password-link').hide();
-                                        $('.inner-box .close').hide();
-                                        $('.forgot-password-done').show();
-                                        $('.inner-box').slideDown(350);
-                                    });
-                                }else{
-                                    $('.inner-box').slideUp(350, function() {
-                                        $('.forgot-password-ok').hide();
-                                        $('.forgot-password-nook').show();
-                                        $('.forgot-password-form').hide();
-                                        $('.forgot-password-link').hide();
-                                        $('.inner-box .close').hide();
-                                        $('.forgot-password-done').show();
-                                        $('.inner-box').slideDown(350);
-                                    });
-                                }
+                    $.ajax({
+                        type: "post",
+                        url: $(form).attr('action'),
+                        dataType: 'json',
+                        data: {
+                            'email_010': $('input[name=email_010]').val(),
+                            _token: $('input[name=_token]').val()
+                        },
+                        success: function(data) {
+                            if(data.response){
+                                $('.inner-box').slideUp(350, function() {
+                                    $('.forgot-password-ok').show();
+                                    $('.forgot-password-nook').hide();
+                                    $('.forgot-password-form').hide();
+                                    $('.forgot-password-link').hide();
+                                    $('.inner-box .close').hide();
+                                    $('.forgot-password-done').show();
+                                    $('.inner-box').slideDown(350);
+                                });
+                            }else{
+                                $('.inner-box').slideUp(350, function() {
+                                    $('.forgot-password-ok').hide();
+                                    $('.forgot-password-nook').show();
+                                    $('.forgot-password-form').hide();
+                                    $('.forgot-password-link').hide();
+                                    $('.inner-box .close').hide();
+                                    $('.forgot-password-done').show();
+                                    $('.inner-box').slideDown(350);
+                                });
                             }
-                        });
-                        return false;
-                    }
-                });
-            }
+                        }
+                    });
+                    return false;
+                }
+            });
+        }
 	}
 
 	return {

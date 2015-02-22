@@ -1,9 +1,9 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 
-abstract class BaseController extends Controller {
+abstract class Controller extends BaseController {
 
     protected $resource;
 

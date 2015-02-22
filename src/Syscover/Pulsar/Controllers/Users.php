@@ -18,7 +18,7 @@ use Syscover\Pulsar\Models\Profile;
 use Syscover\Pulsar\Models\User;
 use Syscover\Pulsar\Traits\ControllerTrait;
 
-class Users extends BaseController {
+class Users extends Controller {
 
     use ControllerTrait;
 

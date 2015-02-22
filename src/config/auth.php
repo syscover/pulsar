@@ -81,9 +81,9 @@ return array(
 
 	'reminder' => array(
 
-		'email' => 'pulsar::pulsar.pulsar.emails.reminder',
+		'email' => 'pulsar::emails.password',
             
-		'table' => '001_066_password_reminders',
+		'table' => '001_021_password_resets',
 
 		'expire' => 60,
 	),

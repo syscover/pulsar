@@ -3,12 +3,50 @@
 @section('script')
     <!-- App -->
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/login.js') }}"></script>
-    @include('pulsar::login.js.index')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            @if($errors->has('loginErrors'))
+            $.pnotify({
+                type:   'error',
+                title:  '{{ trans('pulsar::pulsar.error_login') }}',
+                text:   '{{ trans('pulsar::pulsar.error_login_msg') }}',
+                icon:   'picon icon16 iconic-icon-check-alt white',
+                opacity: 0.95,
+                history: false,
+                sticker: false
+            });
+            @endif
+
+            @if($errors->has('loginErrors') && $errors->first('loginErrors') == 1)
+            $.pnotify({
+                type:   'error',
+                title:  '{{ trans('pulsar::pulsar.error_login') }}',
+                text:   '{{ trans('pulsar::pulsar.error_login_msg_1') }}',
+                icon:   'picon icon16 iconic-icon-check-alt white',
+                opacity: 0.95,
+                history: false,
+                sticker: false
+            });
+            @endif
+
+            @if($errors->has('email'))
+            $.pnotify({
+                type:   'error',
+                title:  '{{ trans('pulsar::pulsar.error_login') }}',
+                text:   '{{ trans('pulsar::pulsar.error_login_msg_2') }}',
+                icon:   'picon icon16 iconic-icon-check-alt white',
+                opacity: 0.95,
+                history: false,
+                sticker: false
+            });
+            @endif
+        });
+    </script>
 @stop
 
 @section('mainContent')
 <!-- Login Formular -->
-<form class="form-vertical login-form" action="{{ route('login') }}" method="post">
+<form class="form-vertical login-form" action="{{ route('postLogin') }}" method="post">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
     <h3 class="form-title">{{ trans('pulsar::pulsar.access_your_account') }}</h3>
@@ -22,13 +60,13 @@
     <div class="form-group">
         <div class="input-icon">
             <i class="icon-user"></i>
-            <input type="text" name="user" class="form-control" placeholder="{{ trans('pulsar::pulsar.user') }}" autofocus="autofocus" data-rule-required="true" data-msg-required="Please enter your username.">
+            <input type="text" name="user_010" class="form-control" placeholder="{{ trans('pulsar::pulsar.user') }}" autofocus="autofocus" data-rule-required="true" data-msg-required="Please enter your username.">
         </div>
     </div>
     <div class="form-group">
         <div class="input-icon">
             <i class="icon-lock"></i>
-            <input type="password" name="pass" class="form-control" placeholder="{{ trans('pulsar::pulsar.password') }}" data-rule-required="true" data-msg-required="Please enter your password.">
+            <input type="password" name="password" class="form-control" placeholder="{{ trans('pulsar::pulsar.password') }}" data-rule-required="true" data-msg-required="Please enter your password.">
         </div>
     </div>
 
@@ -51,13 +89,14 @@
         <a href="#" class="forgot-password-link">{{ trans('pulsar::pulsar.remember_password') }}</a>
 
         <!-- Forgot Password Formular -->
-        <form id="forgot-password" class="form-vertical forgot-password-form hide-default" action="{{ route('postRemindPassword') }}" method="post" onsubmit="return false">
+        <form id="forgot-password" class="form-vertical forgot-password-form hide-default" action="{{ route('emailResetPassword') }}" method="post" onsubmit="return false">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <!-- Input Fields -->
             <div class="form-group">
                 <!--<label for="email">Email:</label>-->
                 <div class="input-icon">
                     <i class="icon-envelope"></i>
-                    <input type="text" name="email_010" class="form-control" placeholder="{{ trans('pulsar::pulsar.enter_email') }}" data-rule-required="true" data-rule-email="true" data-msg-required="{{ trans('pulsar::pulsar.error_change_password') }}">
+                    <input type="email" name="email_010" class="form-control" placeholder="{{ trans('pulsar::pulsar.enter_email') }}" data-rule-required="true" data-rule-email="true" data-msg-required="{{ trans('pulsar::pulsar.error_change_password') }}">
                 </div>
             </div>
             <!-- /Input Fields -->

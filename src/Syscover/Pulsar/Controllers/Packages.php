@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Input;
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Traits\ControllerTrait;
 
-class Packages extends BaseController {
+class Packages extends Controller {
 
     use ControllerTrait;
 

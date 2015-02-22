@@ -16,7 +16,7 @@ use Syscover\Pulsar\Models\Country;
 use Syscover\Pulsar\Models\TerritorialArea1;
 use Syscover\Pulsar\Traits\ControllerTrait;
 
-class TerritorialAreas1 extends BaseController {
+class TerritorialAreas1 extends Controller {
 
     use ControllerTrait;
 

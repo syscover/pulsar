@@ -19,7 +19,7 @@ use Syscover\Pulsar\Models\Lang;
 use Syscover\Pulsar\Models\Country;
 use Syscover\Pulsar\Traits\ControllerTrait;
 
-class Countries extends BaseController {
+class Countries extends Controller {
 
     use ControllerTrait;
 

@@ -14,14 +14,17 @@
 Route::get(config('pulsar.appName'), function () { return Redirect::to(route('dashboard')); });
 
 // LOGIN
-Route::post(config('pulsar.appName') . '/pulsar/login',                                         ['as'=>'login',                 'uses'=>'Syscover\Pulsar\Controllers\Login@login']);
-Route::get(config('pulsar.appName') . '/pulsar/login',                                          ['as'=>'loginView',             'uses'=>'Syscover\Pulsar\Controllers\Login@loginView']);
+Route::post(config('pulsar.appName') . '/pulsar/login',                                         ['as'=>'postLogin',             'uses'=>'Syscover\Pulsar\Controllers\Auth\AuthController@postLogin']);
+Route::get(config('pulsar.appName') . '/pulsar/login',                                          ['as'=>'getLogin',              'uses'=>'Syscover\Pulsar\Controllers\Auth\AuthController@getLogin']);
 
 // LOGOUT
-Route::get(config('pulsar.appName') . '/pulsar/logout',                                         ['as' => 'logout',              'uses' => 'Syscover\Pulsar\Controllers\Login@logout']);
+Route::get(config('pulsar.appName') . '/pulsar/logout',                                         ['as' => 'logout',              'uses'=>'Syscover\Pulsar\Controllers\Auth\AuthController@getLogout']);
 
 // PASSWORD REMINDER
-Route::post(config('pulsar.appName') . '/pulsar/password/remind',                               ['as'=>'postRemindPassword',    'uses'=>'Syscover\Pulsar\Controllers\RemindersController@postRemind']);
+Route::any(config('pulsar.appName') . '/pulsar/email/reset/password',                           ['as'=>'emailResetPassword',    'uses'=>'Syscover\Pulsar\Controllers\Auth\PasswordController@postEmail']);
+
+
+
 Route::get(config('pulsar.appName') . '/pulsar/password/reset/{token}',                         ['as'=>'getResetPassword',      'uses'=>'Syscover\Pulsar\Controllers\RemindersController@getReset']);
 Route::post(config('pulsar.appName') . '/pulsar/password/reset/{token}',                        ['as'=>'postResetPassword',     'uses'=>'Syscover\Pulsar\Controllers\RemindersController@postReset']);
 

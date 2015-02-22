@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Session,
     Syscover\Pulsar\Models\TerritorialArea3;
 use Syscover\Pulsar\Traits\ControllerTrait;
 
-class TerritorialAreas3 extends BaseController {
+class TerritorialAreas3 extends Controller {
 
     use ControllerTrait;
 

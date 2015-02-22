@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Input;
 use Syscover\Pulsar\Models\Action;
 use Syscover\Pulsar\Traits\ControllerTrait;
 
-class Actions extends BaseController {
+class Actions extends Controller {
 
     use ControllerTrait;
 

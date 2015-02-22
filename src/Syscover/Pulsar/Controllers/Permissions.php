@@ -20,7 +20,7 @@ use Syscover\Pulsar\Models\Action;
 use Syscover\Pulsar\Traits\ControllerTrait;
 
 
-class Permissions extends BaseController
+class Permissions extends Controller
 {
     use ControllerTrait;
 

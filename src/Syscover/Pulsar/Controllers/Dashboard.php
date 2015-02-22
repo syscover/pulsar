@@ -10,7 +10,7 @@
  * @filesource
  */
 
-class Dashboard extends BaseController
+class Dashboard extends Controller
 {
     protected $folder       = 'dashboard';
     protected $package      = 'pulsar';

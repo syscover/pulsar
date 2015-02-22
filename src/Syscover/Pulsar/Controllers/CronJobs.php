@@ -20,7 +20,7 @@ use Syscover\Pulsar\Models\CronJob;
 use Cron\CronExpression;
 use Syscover\Pulsar\Traits\ControllerTrait;
 
-class CronJobs extends BaseController
+class CronJobs extends Controller
 {
     use ControllerTrait;
 

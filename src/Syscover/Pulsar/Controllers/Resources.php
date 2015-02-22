@@ -15,7 +15,7 @@ use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Models\Resource;
 use Syscover\Pulsar\Traits\ControllerTrait;
 
-class Resources extends BaseController {
+class Resources extends Controller {
 
     use ControllerTrait;
 
