@@ -25,8 +25,8 @@ Route::any(config('pulsar.appName') . '/pulsar/email/reset/password',           
 
 
 
-Route::get(config('pulsar.appName') . '/pulsar/password/reset/{token}',                         ['as'=>'getResetPassword',      'uses'=>'Syscover\Pulsar\Controllers\RemindersController@getReset']);
-Route::post(config('pulsar.appName') . '/pulsar/password/reset/{token}',                        ['as'=>'postResetPassword',     'uses'=>'Syscover\Pulsar\Controllers\RemindersController@postReset']);
+Route::get(config('pulsar.appName') . '/pulsar/password/reset/{token}',                         ['as'=>'getResetPassword',      'uses'=>'Syscover\Pulsar\Controllers\Auth\PasswordController@getReset']);
+Route::post(config('pulsar.appName') . '/pulsar/password/reset/{token}',                        ['as'=>'postResetPassword',     'uses'=>'Syscover\Pulsar\Controllers\Auth\PasswordController@postReset']);
 
 
 

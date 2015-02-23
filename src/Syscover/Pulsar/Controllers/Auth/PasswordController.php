@@ -34,7 +34,6 @@ class PasswordController extends Controller {
 	 *
 	 * @param  \Illuminate\Contracts\Auth\Guard  $auth
 	 * @param  \Illuminate\Contracts\Auth\PasswordBroker  $passwords
-	 * @return void
 	 */
 	public function __construct(Guard $auth, PasswordBroker $passwords)
 	{
@@ -63,10 +62,70 @@ class PasswordController extends Controller {
         switch ($response)
         {
             case PasswordBroker::RESET_LINK_SENT:
-                return redirect()->back()->with('status', trans($response));
+                $parameters['json'] = json_encode(['success' => true]);
+                return view('pulsar::common.json_display', $parameters);
+
 
             case PasswordBroker::INVALID_USER:
-                return redirect()->back()->withErrors(['email_010' => trans($response)]);
+                $parameters['json'] = json_encode(['success' => false]);
+                return view('pulsar::common.json_display', $parameters);
+        }
+    }
+
+    /**
+     * Display the password reset view for the given token.
+     *
+     * @param  string $token
+     * @return Response
+     * @throws NotFoundHttpException
+     */
+    public function getReset($token = null)
+    {
+        if (is_null($token))
+        {
+            throw new NotFoundHttpException;
+        }
+
+        echo("getReset PasswordController");
+        //return view('pulsar::reminder.index')->with('token', $token);
+    }
+
+    /**
+     * Reset the given user's password.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function postReset(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required',
+            'email_010' => 'required',
+            'password' => 'required|confirmed',
+        ]);
+
+        $credentials = $request->only(
+            'email_010', 'password', 'password_confirmation', 'token'
+        );
+
+        $response = $this->passwords->reset($credentials, function($user, $password)
+        {
+            $user->password = bcrypt($password);
+
+            $user->save();
+
+            $this->auth->login($user);
+        });
+
+        switch ($response)
+        {
+            case PasswordBroker::PASSWORD_RESET:
+                return redirect($this->redirectPath());
+
+            default:
+                return redirect()->back()
+                    ->withInput($request->only('email_010'))
+                    ->withErrors(['email_010' => trans($response)]);
         }
     }
 }

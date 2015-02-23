@@ -91,18 +91,16 @@
         <!-- Forgot Password Formular -->
         <form id="forgot-password" class="form-vertical forgot-password-form hide-default" action="{{ route('emailResetPassword') }}" method="post" onsubmit="return false">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <!-- Input Fields -->
+
             <div class="form-group">
-                <!--<label for="email">Email:</label>-->
                 <div class="input-icon">
                     <i class="icon-envelope"></i>
-                    <input type="email" name="email_010" class="form-control" placeholder="{{ trans('pulsar::pulsar.enter_email') }}" data-rule-required="true" data-rule-email="true" data-msg-required="{{ trans('pulsar::pulsar.error_change_password') }}">
+                    <input type="email" name="email_010" class="form-control" placeholder="{{ trans('pulsar::pulsar.enter_email') }}" data-rule-required="true" data-rule-email="true" data-msg-required="{{ trans('pulsar::pulsar.error_reset_password') }}">
                 </div>
             </div>
-            <!-- /Input Fields -->
 
             <button type="submit" class="submit btn btn-default btn-block">
-                {{ trans('pulsar::pulsar.change_password') }}
+                {{ trans('pulsar::pulsar.reset_password') }}
             </button>
         </form>
         <!-- /Forgot Password Formular -->
@@ -111,13 +109,13 @@
         <div class="forgot-password-done hide-default">
             <div class="forgot-password-ok">
                 <i class="icon-ok success-icon"></i>
-                <span>Estupendo, Le hemos enviado un email.</span>
+                <span>{{ trans('pulsar::pulsar.reset_password_successful') }}</span>
             </div>
             <div class="forgot-password-nook">
                 <i class="icon-remove danger-icon"></i>
-                <span>{{ trans('pulsar::pulsar.error2_change_password') }}</span>
+                <span>{{ trans('pulsar::pulsar.error2_reset_password') }}</span>
             </div>
         </div>
-    </div> <!-- /.content -->
+    </div>
 </div>
 @stop

@@ -168,10 +168,10 @@ var Login = function() {
 		}
 	}
 
-	/* * * * * * * * * * * *
-	 * Validation for Forgot Password
-	 * * * * * * * * * * * */
-	var initForgotPasswordValidation = function() {
+    /* * * * * * * * * * * *
+     * Validation for Forgot Password
+     * * * * * * * * * * * */
+    var initForgotPasswordValidation = function() {
         if ($.validator)
         {
             $('.forgot-password-form').validate({
@@ -186,7 +186,8 @@ var Login = function() {
                             _token: $('input[name=_token]').val()
                         },
                         success: function(data) {
-                            if(data.response){
+                            if(data.success)
+                            {
                                 $('.inner-box').slideUp(350, function() {
                                     $('.forgot-password-ok').show();
                                     $('.forgot-password-nook').hide();
@@ -196,7 +197,9 @@ var Login = function() {
                                     $('.forgot-password-done').show();
                                     $('.inner-box').slideDown(350);
                                 });
-                            }else{
+                            }
+                            else
+                            {
                                 $('.inner-box').slideUp(350, function() {
                                     $('.forgot-password-ok').hide();
                                     $('.forgot-password-nook').show();
@@ -207,13 +210,16 @@ var Login = function() {
                                     $('.inner-box').slideDown(350);
                                 });
                             }
+                        },
+                        error: function(e){
+                            console.log(e);
                         }
                     });
                     return false;
                 }
             });
         }
-	}
+    }
 
 	return {
 
