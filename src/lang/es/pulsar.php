@@ -92,4 +92,7 @@ return [
     'last_run'                              => 'Última ejecución',
     'next_run'                              => 'Siguiente ejecución',
     'show_file'                             => 'Ver fichero',
+    'message_error_403'                     => 'No dispone de permisos para acceder a esta sección',
+    'message_error_404'                     => '¡Ups! página no encontrada',
+    'go_back'                               => 'Volvar atrás',
 ];

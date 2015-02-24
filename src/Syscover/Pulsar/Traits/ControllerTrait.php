@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use Syscover\Pulsar\Libraries\Miscellaneous;
-use Illuminate\Support\Facades\Redirect;
 
 trait ControllerTrait {
 

@@ -92,4 +92,7 @@ return [
     'last_run'                              => 'Last run',
     'next_run'                              => 'Next run',
     'show_file'                             => 'Show file',
+    'message_error_403'                     => 'You don\'t have permission to access this section',
+    'message_error_404'                     => 'Ups! page not found',
+    'go_back'                               => 'Go back',
 ];

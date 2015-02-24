@@ -33,9 +33,10 @@
 </head>
 <body>
 <div class="container">
-	<div class="content">
-		<div class="title">Be right back XXXX.</div>
-	</div>
+    <div class="content">
+        <div class="title">404, {{ trans('pulsar::pulsar.message_error_404') }}.</div>
+        <div><a href="{{ URL::previous() }}">{{ trans('pulsar::pulsar.go_back') }}</a></div>
+    </div>
 </div>
 </body>
 </html>

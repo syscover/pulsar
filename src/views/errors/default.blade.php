@@ -34,7 +34,8 @@
 <body>
 <div class="container">
 	<div class="content">
-		<div class="title">Be right back XXXX.</div>
+		<div class="title">{{ $error }}, {{ $message }}.</div>
+        <div><a href="{{ URL::previous() }}">{{ trans('pulsar::pulsar.go_back') }}</a></div>
 	</div>
 </div>
 </body>
