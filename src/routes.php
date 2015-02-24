@@ -26,10 +26,10 @@ Route::get(config('pulsar.appName') . '/pulsar/password/reset/{token}',         
 Route::post(config('pulsar.appName') . '/pulsar/password/reset/{token}',                        ['as'=>'postResetPassword',     'uses'=>'Syscover\Pulsar\Controllers\Auth\PasswordController@postReset']);
 
 /*
-    |--------------------------------------------------------------------------
-    | DASHBOARD
-    |--------------------------------------------------------------------------
-    */
+|--------------------------------------------------------------------------
+| DASHBOARD
+|--------------------------------------------------------------------------
+*/
 Route::get(config('pulsar.appName') . '/pulsar/dashboard',                                  ['as' => 'dashboard',               'uses' => 'Syscover\Pulsar\Controllers\Dashboard@index',                'middleware' => 'auth.pulsar']);
 
 
@@ -239,6 +239,5 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::any(config('pulsar.appName') . '/pulsar/contentbuilder/{theme}/edit/{input}',               ['as'=>'contentbuilderEdit', 'uses'=>'Syscover\Pulsar\Controllers\ContentBuilder@index',            'resource' => 'admin-lang',             'action' => 'delete']);
     Route::any(config('pulsar.appName') . '/pulsar/contentbuilder/action/saveimage',                   ['as'=>'contentbuilderSaveImage', 'uses'=>'Syscover\Pulsar\Controllers\ContentBuilder@saveImage',            'resource' => 'admin-lang',             'action' => 'delete']);
     Route::any(config('pulsar.appName') . '/pulsar/contentbuilder/action/blocks/{theme}',              ['as'=>'contentbuilderBlocks', 'uses'=>'Syscover\Pulsar\Controllers\ContentBuilder@getBlocks',            'resource' => 'admin-lang',             'action' => 'delete']);
-
-
+    
 });
