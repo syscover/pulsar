@@ -33,9 +33,15 @@ class Permission {
 		// check permission user, all parameters ['resource', 'action'] are passed in route.php file
 		if(!$this->pulsarAcl->isAllowed($this->auth->user()->profile_010, $request->route()->getAction()['resource'], $request->route()->getAction()['action']))
 		{
-			abort(403, 'Permission denied.');
+			//abort(403, 'Permission denied.');
 			//abort(403,);
 			//return response('Unauthorized.', 404);
+            /*
+            return Redirect::route($this->routeSuffix, $parameters['urlParameters'])->with([
+                'msg'        => 1,
+                'txtMsg'     => trans('pulsar::pulsar.message_create_record_successful', ['name' => Input::get('name')])
+            ]);
+            */
 		}
 
 		return $next($request);

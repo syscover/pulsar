@@ -25,7 +25,7 @@ class Users extends Controller {
     protected $routeSuffix  = 'User';
     protected $folder       = 'users';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_010', 'name_010', 'surname_010', ['data' => 'email_010', 'type' => 'email'], 'name_006', 'access_010'];
+    protected $aColumns     = ['id_010', 'name_010', 'surname_010', ['data' => 'email_010', 'type' => 'email'], 'name_006', ['data' => 'access_010', 'type' => 'active']];
     protected $nameM        = 'name_010';
     protected $model        = '\Syscover\Pulsar\Models\User';
     protected $icon         = 'icomoon-icon-users';

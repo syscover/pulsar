@@ -35,7 +35,6 @@ class AuthController extends Controller {
 	 *
 	 * @param  \Illuminate\Contracts\Auth\Guard  $auth
 	 * @param  \Illuminate\Contracts\Auth\Registrar  $registrar
-	 * @return void
 	 */
 	public function __construct(Guard $auth, Registrar $registrar)
 	{
@@ -43,8 +42,6 @@ class AuthController extends Controller {
 		$this->registrar        = $registrar;
         $this->loginPath        = route('getLogin');
         $this->redirectPath     = route('dashboard');
-
-		$this->middleware('guest', ['except' => 'getLogout']);
 	}
 
     /**
@@ -54,7 +51,7 @@ class AuthController extends Controller {
      */
     public function getLogin()
     {
-        return view('pulsar::login.index');
+        return view('pulsar::auth.login');
     }
 
     /**
@@ -73,23 +70,40 @@ class AuthController extends Controller {
 
         if ($this->auth->attempt($credentials, $request->has('remember')))
         {
-            Session::put('userAcl', PulsarAcl::getProfileAcl($this->auth->user()->profile_010));
-            Session::put('packages', Package::getModulesForSession());
-            Session::put('baseLang', Lang::getBaseLang());
+            // check if user has access
+            if (!$this->auth->user()->access_010)
+            {
+                $this->auth->logout();
+                return redirect($this->loginPath())
+                    ->withInput($request->only('user_010', 'remember'))
+                    ->withErrors([
+                        'loginErrors' => 3
+                    ]);
+            }
 
-            // check permission
+            Session::put('userAcl', PulsarAcl::getProfileAcl($this->auth->user()->profile_010));
+
+            // check if user has permission to access
             if (!Session::get('userAcl')->isAllowed($this->auth->user()->profile_010, 'pulsar', 'access'))
             {
-                return redirect()->to(config('pulsar.appName'))->withErrors(['loginErrors' => 2]);
+                $this->auth->logout();
+                return redirect($this->loginPath())
+                    ->withInput($request->only('user_010', 'remember'))
+                    ->withErrors([
+                        'loginErrors' => 2
+                    ]);
             }
+
+            Session::put('packages', Package::getModulesForSession());
+            Session::put('baseLang', Lang::getBaseLang());
 
             return redirect()->intended($this->redirectPath());
         }
 
         return redirect($this->loginPath())
-            ->withInput($request->only('email', 'remember'))
+            ->withInput($request->only('user_010', 'remember'))
             ->withErrors([
-                'email' => 'These credentials do not match our records.',
+                'loginErrors' => 1
             ]);
     }
 

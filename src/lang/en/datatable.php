@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     
 	/*
 	|--------------------------------------------------------------------------
@@ -25,5 +25,4 @@ return array(
         'sNext'                 => 'Next',
         'sLast'                 => 'Last',
         'bSearch'               => 'Search',
-    
-);
+];

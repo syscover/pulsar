@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -20,7 +20,7 @@ return array(
     'email'                                 => 'Email',
     'remember_password'                     => 'Remember password',
     'enter_email'                           => 'Enter your email',
-    'reset_password'                        => 'Change your password',
+    'reset_password'                        => 'Reset your password',
     'reset_password_successful'             => 'Great, we are sending you a email',
     'error_reset_password'                  => 'Please enter your email',
     'error2_reset_password'                 => 'Error, the user doesn\'t exist',
@@ -56,11 +56,18 @@ return array(
     'message_update_record'                 => 'Registration <strong>:name</strong> has been updated successfully',
     'message_delete_image'                  => 'Do you want to erase the image of the selected item?',
     'message_user_pass'                     => 'Enter your username and password',
+    'message_user'                          => 'Enter your username',
+    'message_pass'                          => 'Enter your password',
+    'message_error_reset_password'          => 'Enter your email and new password',
     'message_create_permission_successful'  => '<strong>:action</strong> permission for the <strong>:resource</strong> resource has been created successfully',
     'message_create_permission_error'       => '<strong>:action</strong> permission for the <strong>:resource</strong> was not created.<br><strong>Please, contact with administrator.</strong>',
     'message_delete_permission_successful'  => '<strong>:action</strong> permission for the <strong>:resource</strong> resource has been deleted successfully',
     'message_delete_permission_error'       => '<strong>:action</strong> permission for the <strong>:resource</strong> was not deleted.<br><strong>Please, contact with administrator.</strong>',
-
+    'message_error_reset_password'          => 'Introduzca su email y nueva contraseña.',
+    'message_error_login'                   => 'Access denied',
+    'message_error_login_msg_1'             => 'The username or password do not match a valid user',
+    'message_error_login_msg_2'             => 'The specified user doesn\'t have permissions to application access, please contact with the administrator',
+    'message_error_login_msg_3'             => 'The specified user is not enabled, contact with the administrator',
     'administration'                        => 'Administration',
     'action'                                => 'Action|Actions',
     'resource'                              => 'Resource|Resources',
@@ -84,6 +91,5 @@ return array(
     'data_access'                           => 'Data access',
     'last_run'                              => 'Last run',
     'next_run'                              => 'Next run',
-
     'show_file'                             => 'Show file',
-);
+];

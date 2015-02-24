@@ -177,6 +177,10 @@ var Login = function() {
             $('.forgot-password-form').validate({
                 submitHandler: function (form) {
 
+                    $.cssLoader.show({
+                        useLayer: false
+                    });
+
                     $.ajax({
                         type: "post",
                         url: $(form).attr('action'),
@@ -185,7 +189,8 @@ var Login = function() {
                             'email_010': $('input[name=email_010]').val(),
                             _token: $('input[name=_token]').val()
                         },
-                        success: function(data) {
+                        success: function(data)
+                        {
                             if(data.success)
                             {
                                 $('.inner-box').slideUp(350, function() {
@@ -210,9 +215,12 @@ var Login = function() {
                                     $('.inner-box').slideDown(350);
                                 });
                             }
+                            $.cssLoader.hide();
                         },
-                        error: function(e){
+                        error: function(e)
+                        {
                             console.log(e);
+                            $.cssLoader.hide();
                         }
                     });
                     return false;

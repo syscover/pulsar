@@ -37,11 +37,10 @@ class PasswordController extends Controller {
 	 */
 	public function __construct(Guard $auth, PasswordBroker $passwords)
 	{
-		$this->auth = $auth;
-		$this->passwords = $passwords;
-        $this->subject = "Hola mundo";
-
-		//$this->middleware('guest');
+		$this->auth         = $auth;
+		$this->passwords    = $passwords;
+        $this->subject      = "Hola mundo";
+        $this->redirectPath = route('dashboard');
 	}
 
     /**
@@ -86,8 +85,7 @@ class PasswordController extends Controller {
             throw new NotFoundHttpException;
         }
 
-        echo("getReset PasswordController");
-        //return view('pulsar::reminder.index')->with('token', $token);
+        return view('pulsar::auth.reset')->with('token', $token);
     }
 
     /**
@@ -99,9 +97,9 @@ class PasswordController extends Controller {
     public function postReset(Request $request)
     {
         $this->validate($request, [
-            'token' => 'required',
-            'email_010' => 'required',
-            'password' => 'required|confirmed',
+            'token'     => 'required',
+            'email_010' => 'required|email',
+            'password'  => 'required|confirmed',
         ]);
 
         $credentials = $request->only(
@@ -110,11 +108,9 @@ class PasswordController extends Controller {
 
         $response = $this->passwords->reset($credentials, function($user, $password)
         {
-            $user->password = bcrypt($password);
+            $user->password_010 = bcrypt($password);
 
             $user->save();
-
-            $this->auth->login($user);
         });
 
         switch ($response)

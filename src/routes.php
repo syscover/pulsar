@@ -14,30 +14,31 @@
 Route::get(config('pulsar.appName'), function () { return Redirect::to(route('dashboard')); });
 
 // LOGIN
-Route::post(config('pulsar.appName') . '/pulsar/login',                                         ['as'=>'postLogin',             'uses'=>'Syscover\Pulsar\Controllers\Auth\AuthController@postLogin']);
 Route::get(config('pulsar.appName') . '/pulsar/login',                                          ['as'=>'getLogin',              'uses'=>'Syscover\Pulsar\Controllers\Auth\AuthController@getLogin']);
+Route::post(config('pulsar.appName') . '/pulsar/login',                                         ['as'=>'postLogin',             'uses'=>'Syscover\Pulsar\Controllers\Auth\AuthController@postLogin']);
 
 // LOGOUT
 Route::get(config('pulsar.appName') . '/pulsar/logout',                                         ['as' => 'logout',              'uses'=>'Syscover\Pulsar\Controllers\Auth\AuthController@getLogout']);
 
 // PASSWORD REMINDER
 Route::any(config('pulsar.appName') . '/pulsar/email/reset/password',                           ['as'=>'emailResetPassword',    'uses'=>'Syscover\Pulsar\Controllers\Auth\PasswordController@postEmail']);
-
-
-
 Route::get(config('pulsar.appName') . '/pulsar/password/reset/{token}',                         ['as'=>'getResetPassword',      'uses'=>'Syscover\Pulsar\Controllers\Auth\PasswordController@getReset']);
 Route::post(config('pulsar.appName') . '/pulsar/password/reset/{token}',                        ['as'=>'postResetPassword',     'uses'=>'Syscover\Pulsar\Controllers\Auth\PasswordController@postReset']);
 
+// ERROR
+Route::any(config('pulsar.appName') . '/pulsar/error',                                          ['as'=>'error',                 function(){ return view('pulsar::errors.default');}]);
 
-
-Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
-
-    /*
+/*
     |--------------------------------------------------------------------------
     | DASHBOARD
     |--------------------------------------------------------------------------
     */
-    Route::get(config('pulsar.appName') . '/pulsar/dashboard',                                  ['as' => 'dashboard',           'uses' => 'Syscover\Pulsar\Controllers\Dashboard@index',                  'resource' => 'admin',                  'action' => 'access']);
+Route::get(config('pulsar.appName') . '/pulsar/dashboard',                                  ['as' => 'dashboard',               'uses' => 'Syscover\Pulsar\Controllers\Dashboard@index',                'middleware' => 'auth.pulsar']);
+
+
+Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
+
+
 
     /*
     |--------------------------------------------------------------------------

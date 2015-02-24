@@ -5,36 +5,37 @@
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/login.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            @if($errors->has('loginErrors'))
-            $.pnotify({
-                type:   'error',
-                title:  '{{ trans('pulsar::pulsar.error_login') }}',
-                text:   '{{ trans('pulsar::pulsar.error_login_msg') }}',
-                icon:   'picon icon16 iconic-icon-check-alt white',
-                opacity: 0.95,
-                history: false,
-                sticker: false
-            });
-            @endif
-
             @if($errors->has('loginErrors') && $errors->first('loginErrors') == 1)
             $.pnotify({
                 type:   'error',
-                title:  '{{ trans('pulsar::pulsar.error_login') }}',
-                text:   '{{ trans('pulsar::pulsar.error_login_msg_1') }}',
-                icon:   'picon icon16 iconic-icon-check-alt white',
+                title:  '{{ trans('pulsar::pulsar.message_error_login') }}',
+                text:   '{{ trans('pulsar::pulsar.message_error_login_msg_1') }}',
+                icon:   'picon icon16 icon-warning-sign white',
                 opacity: 0.95,
                 history: false,
                 sticker: false
             });
             @endif
 
-            @if($errors->has('email'))
+            @if($errors->has('loginErrors') && $errors->first('loginErrors') == 2)
             $.pnotify({
                 type:   'error',
-                title:  '{{ trans('pulsar::pulsar.error_login') }}',
-                text:   '{{ trans('pulsar::pulsar.error_login_msg_2') }}',
-                icon:   'picon icon16 iconic-icon-check-alt white',
+                title:  '{{ trans('pulsar::pulsar.message_error_login') }}',
+                text:   '{{ trans('pulsar::pulsar.message_error_login_msg_2') }}',
+                icon:   'picon icon16 icon-warning-sign white',
+                opacity: 0.95,
+                history: false,
+                sticker: false
+            });
+            @endif
+
+            // user don
+            @if($errors->has('loginErrors') && $errors->first('loginErrors') == 3)
+            $.pnotify({
+                type:   'error',
+                title:  '{{ trans('pulsar::pulsar.message_error_login') }}',
+                text:   '{{ trans('pulsar::pulsar.message_error_login_msg_3') }}',
+                icon:   'picon icon16 icon-warning-sign white',
                 opacity: 0.95,
                 history: false,
                 sticker: false
@@ -60,13 +61,13 @@
     <div class="form-group">
         <div class="input-icon">
             <i class="icon-user"></i>
-            <input type="text" name="user_010" class="form-control" placeholder="{{ trans('pulsar::pulsar.user') }}" autofocus="autofocus" data-rule-required="true" data-msg-required="Please enter your username.">
+            <input type="text" name="user_010" value="{{ Input::old('user_010') }}" class="form-control" placeholder="{{ trans_choice('pulsar::pulsar.user', 1) }}" autofocus="autofocus" data-rule-required="true" data-msg-required="{{ trans('pulsar::pulsar.message_user') }}">
         </div>
     </div>
     <div class="form-group">
         <div class="input-icon">
             <i class="icon-lock"></i>
-            <input type="password" name="password" class="form-control" placeholder="{{ trans('pulsar::pulsar.password') }}" data-rule-required="true" data-msg-required="Please enter your password.">
+            <input type="password" name="password" class="form-control" placeholder="{{ trans('pulsar::pulsar.password') }}" data-rule-required="true" data-msg-required="{{ trans('pulsar::pulsar.message_pass') }}">
         </div>
     </div>
 
