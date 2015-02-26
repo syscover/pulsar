@@ -21,18 +21,19 @@ class Miscellaneous
      *  Funtion to set ObjectTrans variable
      *
      * @access  public
-     * @param   array $parameters
+     * @param   array   $parameters
+     * @param   string  $objectTrans
      * @return  string
      */
     public static function getObjectTransValue($parameters, $objectTrans)
     {
-        if(Lang::has($parameters['package'] . '::pulsar' . $objectTrans))
+        if(Lang::has($parameters['package'] . '::pulsar.' . $objectTrans))
         {
-            return $parameters['package'] . '::pulsar' . $objectTrans;
+            return $parameters['package'] . '::pulsar.' . $objectTrans;
         }
-        elseif(Lang::has('pulsar::pulsar' . $objectTrans))
+        elseif(Lang::has('pulsar::pulsar.' . $objectTrans))
         {
-            return 'pulsar::pulsar' . $objectTrans;
+            return 'pulsar::pulsar.' . $objectTrans;
         }
     }
 

@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="widget box">
-                <div class="widget-header"><h4><i class="{{ isset($icon)? $icon : 'icomoon-icon-power' }}"></i> {{ isset($customTrans)? $customTrans : trans_choice('pulsar::pulsar.' . $objectTrans, 1) }}</h4></div>
+                <div class="widget-header"><h4><i class="{{ isset($icon)? $icon : 'icomoon-icon-power' }}"></i> {{ isset($customTrans)? $customTrans : trans_choice($objectTrans, 1) }}</h4></div>
                 <div class="widget-content">
                     <form class="form-horizontal" method="post" action="{{ route($action . $routeSuffix, $urlParameters) }}" @if(isset($enctype) && $enctype)enctype="multipart/form-data"@endif>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">

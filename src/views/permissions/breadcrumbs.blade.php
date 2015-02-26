@@ -6,6 +6,6 @@
     <a href="{{ route($routeSuffixProfile, $offsetProfile) }}">{{ trans_choice('pulsar::pulsar.profile', 2) }}</a>
 </li>
 <li class="current">
-    <a href="{{ route($routeSuffix, [$offset, $profile, $offsetProfile]) }}">{{ trans_choice('pulsar::pulsar.' . $objectTrans, 2) }}</a>
+    <a href="{{ route($routeSuffix, [$offset, $profile, $offsetProfile]) }}">{{ trans_choice($objectTrans, 2) }}</a>
 </li>
 <!-- /pulsar::permissions.breadcrumbs -->
