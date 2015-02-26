@@ -1,4 +1,4 @@
-@extends('pulsar::layouts.index', ['newTrans' => 'new2', 'customTrans' => $country->territorial_area_3_002])
+@extends('pulsar::layouts.index', ['newTrans' => 'new2'])
 
 @section('script')
     @parent

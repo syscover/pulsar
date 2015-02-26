@@ -44,7 +44,8 @@ trait ControllerTrait {
         $parameters['routeSuffix']    = $this->routeSuffix;
         $parameters['resource']       = $this->resource;
         $parameters['icon']           = $this->icon;
-        $parameters['objectTrans']    = $this->objectTrans;
+        $parameters['objectTrans']    = isset($this->objectTrans) &&  $this->objectTrans != null? Miscellaneous::getObjectTransValue($parameters, $this->objectTrans) : null;
+
 
         if(method_exists($this, 'indexCustom'))
         {
@@ -181,7 +182,7 @@ trait ControllerTrait {
         $parameters['folder']         = $this->folder;
         $parameters['routeSuffix']    = $this->routeSuffix;
         $parameters['icon']           = $this->icon;
-        $parameters['objectTrans']    = $this->objectTrans;
+        $parameters['objectTrans']    = isset($this->objectTrans) &&  $this->objectTrans != null? Miscellaneous::getObjectTransValue($parameters, $this->objectTrans) : null;
 
         return view($this->package . '::' . $this->folder . '.create', $parameters);
     }
@@ -244,7 +245,7 @@ trait ControllerTrait {
         $parameters['folder']         = $this->folder;
         $parameters['routeSuffix']    = $this->routeSuffix;
         $parameters['icon']           = $this->icon;
-        $parameters['objectTrans']    = $this->objectTrans;
+        $parameters['objectTrans']    = isset($this->objectTrans) &&  $this->objectTrans != null? Miscellaneous::getObjectTransValue($parameters, $this->objectTrans) : null;
         $parameters['object']         = call_user_func($this->model . '::find', $parameters['id']);
 
         if(method_exists($this, 'editCustomRecord'))

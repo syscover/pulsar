@@ -1,4 +1,4 @@
-@extends('pulsar::layouts.form', ['action' => 'store', 'customTrans' => $country->territorial_area_1_002])
+@extends('pulsar::layouts.form', ['action' => 'store'])
 
 @section('rows')
     <!-- pulsar::territorial_areas_1.create -->

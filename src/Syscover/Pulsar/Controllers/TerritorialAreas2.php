@@ -28,12 +28,12 @@ class TerritorialAreas2 extends Controller {
     protected $nameM        = 'name_004';
     protected $model        = '\Syscover\Pulsar\Models\TerritorialArea2';
     protected $icon         = 'entypo-icon-globe';
-    protected $objectTrans  = 'territorial_area';
-
+    protected $customTrans  = null;
 
     public function indexCustom($parameters)
     {
-        $parameters['country'] = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
+        $parameters['country']      = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
+        $parameters['customTrans']  = $parameters['country']->territorial_area_2_002;
 
         return $parameters;
     }
@@ -49,6 +49,7 @@ class TerritorialAreas2 extends Controller {
     {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
         $parameters['country']              = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
+        $parameters['customTrans']          = $parameters['country']->territorial_area_2_002;
 
         return $parameters;
     }
@@ -67,6 +68,7 @@ class TerritorialAreas2 extends Controller {
     {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
         $parameters['country']              = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
+        $parameters['customTrans']          = $parameters['country']->territorial_area_2_002;
 
         return $parameters;
     }

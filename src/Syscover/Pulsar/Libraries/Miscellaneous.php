@@ -13,9 +13,30 @@
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Lang;
 
 class Miscellaneous
 {
+    /**
+     *  Funtion to set ObjectTrans variable
+     *
+     * @access  public
+     * @param   array $parameters
+     * @return  string
+     */
+    public static function getObjectTransValue($parameters, $objectTrans)
+    {
+        if(Lang::has($parameters['package'] . '::pulsar' . $objectTrans))
+        {
+            return $parameters['package'] . '::pulsar' . $objectTrans;
+        }
+        elseif(Lang::has('pulsar::pulsar' . $objectTrans))
+        {
+            return 'pulsar::pulsar' . $objectTrans;
+        }
+    }
+
+
     /**
      *  Función que instancia la vista que se verá para acciones que nos interese, como menus, o reset de variable de sesión de cadena, etc.
      *

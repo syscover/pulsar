@@ -1,4 +1,4 @@
-@extends('pulsar::layouts.form', ['action' => 'store', 'customTrans' => $country->territorial_area_3_002])
+@extends('pulsar::layouts.form', ['action' => 'store'])
 
 @section('script')
     @parent
