@@ -45,7 +45,10 @@ return [
     'delete_record'                         => 'Borrar registro',
     'delete_translation'                    => 'Borrar traducción',
     'edit_permissions'                      => 'Editar permisos',
+    'set_all_permissions'                   => 'Establecer todos los permisos',
     'territorial_area'                      => 'Area territorial|Areas territoriales',
+    'message_set_all_permissions'           => '¿Desea establecer todos los permisos para el perfil seleccionado?',
+    'message_create_all_permissions'        => 'Los permisos para el perfil <strong>:profile</strong> han sido creados',
     'message_create_record_successful'      => 'Registration <strong>:name</strong> has been properly recorded',
     'message_delete_record'                 => '¿Desea borrar el registro con <strong>ID \' + $(this).data("id") + \' </strong>?',
     'message_delete_translation_record'     => '¿Desea borrar el registro traducido con <strong>ID :id </strong>?',
@@ -95,4 +98,5 @@ return [
     'message_error_403'                     => 'No dispone de permisos para acceder a esta sección',
     'message_error_404'                     => '¡Ups! página no encontrada',
     'go_back'                               => 'Volvar atrás',
+    'category'                              => 'Categoría|Categorías',
 ];

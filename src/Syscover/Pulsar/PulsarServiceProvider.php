@@ -39,7 +39,15 @@ class PulsarServiceProvider extends ServiceProvider
             return new CustomValidator($translator, $data, $rules, $messages);
         });
 
-		//$handler->missing(function($exception) {return \Response::view('errors.missing', array(), 404); });
+        // register migrations
+        $this->publishes([
+            __DIR__.'/../../database/migrations/' => base_path('/database/migrations')
+        ], 'migrations');
+
+        // register migrations
+        $this->publishes([
+            __DIR__.'/../../database/seeds/' => base_path('/database/seeds')
+        ], 'seeds');
 	}
 
 	/**

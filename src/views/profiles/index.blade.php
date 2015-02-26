@@ -20,6 +20,26 @@
                 }).fnSetFilteringDelay();
             }
         });
+
+        function setAllPermissions(that)
+        {
+            $.msgbox('{!! trans('pulsar::pulsar.message_set_all_permissions') !!}',
+            {
+                type:'confirm',
+                buttons: [
+                    {type: 'submit', value: '{{ trans('pulsar::pulsar.accept') }}'},
+                    {type: 'cancel', value: '{{ trans('pulsar::pulsar.cancel') }}'}
+                ]
+            },
+                function(buttonPressed)
+                {
+                    if(buttonPressed=='{{ trans('pulsar::pulsar.accept') }}')
+                    {
+                        $(location).attr('href', $(that).data('all-permissions-url'));
+                    }
+                }
+            );
+        }
     </script>
     <!-- pulsar::profiles.index -->
 @stop

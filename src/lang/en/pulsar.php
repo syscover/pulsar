@@ -45,7 +45,10 @@ return [
     'delete_record'                         => 'Delete record',
     'delete_translation'                    => 'Delete translation',
     'edit_permissions'                      => 'Edit permissions',
+    'set_all_permissions'                   => 'Set all permissions',
     'territorial_area'                      => 'Territorial area|Territorial areas',
+    'message_set_all_permissions'           => 'Do you want set all permissions for the selected profile?',
+    'message_create_all_permissions'        => 'Permissions to profile <strong>:profile</strong> has been properly recorded',
     'message_create_record_successful'      => 'Registration <strong>:name</strong> has been properly recorded',
     'message_delete_record'                 => 'Do you want to delete the record with <strong>ID \' + $(this).data("id") + \' </strong>?',
     'message_delete_translation_record'     => 'Do you want to delete the translation record with <strong>ID :id </strong>?',
@@ -95,4 +98,5 @@ return [
     'message_error_403'                     => 'You don\'t have permission to access this section',
     'message_error_404'                     => 'Ups! page not found',
     'go_back'                               => 'Go back',
+    'category'                              => 'Category|Categories',
 ];

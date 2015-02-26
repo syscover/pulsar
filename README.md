@@ -11,21 +11,21 @@ Pulsar is an application that generates a control panel where you start creating
 **1 - Register service provider, on file config/app.php add to providers array**
 
 ```
-'Pulsar\Pulsar\PulsarServiceProvider',
+'Syscover\Pulsar\PulsarServiceProvider',
 
 ```
 
 **2 - Register alias, on file config/app.php add to aliases array**
 
 ```
-'Miscellaneous'	=> 'Pulsar\Pulsar\Libraries\Miscellaneous',
+'Miscellaneous'	=> 'Syscover\Pulsar\Libraries\Miscellaneous',
 
 ```
 
 **3 - Register middleware auth.pulsar, on file app/Http/Kernel.php add to routeMiddleware array**
 
 ```
-'auth.pulsar' 	=> 'Pulsar\Pulsar\Middleware\Auth',
+'auth.pulsar' 	=> 'Syscover\Pulsar\Middleware\Auth',
 
 ```
 
@@ -34,6 +34,44 @@ Pulsar is an application that generates a control panel where you start creating
 ```
 php artisan vendor:publish
 
+```
+
+**5 - Optimized class loader**
+
+```
+php artisan optimize
+
+```
+
+**6 - Run migrate database**
+
+```
+php artisan migrate
+```
+
+**7 - Run seed database**
+
+```
+php artisan db:seed
+```
+
+
+
+
+
+
+**11 - Ejecutar los seeds para poblar la base de datos**
+```
+php artisan db:seed --class="LangTableSeeder"
+php artisan db:seed --class="PaisTableSeeder"
+php artisan db:seed --class="AreaTerritorial1TableSeeder"
+php artisan db:seed --class="AreaTerritorial2TableSeeder"
+php artisan db:seed --class="AccionTableSeeder"
+php artisan db:seed --class="ModuloTableSeeder"
+php artisan db:seed --class="PerfilTableSeeder"
+php artisan db:seed --class="RecursoTableSeeder"
+php artisan db:seed --class="UsuarioTableSeeder"
+php artisan db:seed --class="PermisoTableSeeder"
 ```
 
 

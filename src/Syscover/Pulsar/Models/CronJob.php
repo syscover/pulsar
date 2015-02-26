@@ -18,10 +18,10 @@ class CronJob extends Model {
 
     use ModelTrait;
 
-	protected $table        = '001_043_cron_job';
-    protected $primaryKey   = 'id_043';
+	protected $table        = '001_011_cron_job';
+    protected $primaryKey   = 'id_011';
     public $timestamps      = false;
-    protected $fillable     = ['id_043', 'name_043', 'package_043', 'key_043', 'cron_expression_043', 'last_run_043', 'next_run_043', 'active_043'];
+    protected $fillable     = ['id_011', 'name_011', 'package_011', 'key_011', 'cron_expression_011', 'last_run_011', 'next_run_011', 'active_011'];
     private static $rules   = [
         'name'              =>  'required|between:2,100',
         'package'           =>  'not_in:null',
@@ -36,11 +36,11 @@ class CronJob extends Model {
 
     public static function getCustomRecordsLimit()
     {
-        return CronJob::join('001_012_package', '001_043_cron_job.package_043', '=', '001_012_package.id_012')->newQuery();
+        return CronJob::join('001_012_package', '001_011_cron_job.package_011', '=', '001_012_package.id_012')->newQuery();
     }
 
     public static function getCronJobsToRun($date)
     {
-        return CronJob::where('next_run_043', '<=', $date)->where('active_043', 1)->get();
+        return CronJob::where('next_run_011', '<=', $date)->where('active_011', 1)->get();
     }
 }

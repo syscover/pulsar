@@ -42,14 +42,14 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     | ACTIONS
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/actions/{offset?}',                          ['as'=>'Action',                'uses'=>'Syscover\Pulsar\Controllers\Actions@index',                      'resource' => 'admin-perm-actions',     'action' => 'access']);
-    Route::any(config('pulsar.appName') . '/pulsar/actions/json/data',                          ['as'=>'jsonDataAction',        'uses'=>'Syscover\Pulsar\Controllers\Actions@jsonData',                   'resource' => 'admin-perm-actions',     'action' => 'access']);
-    Route::get(config('pulsar.appName') . '/pulsar/actions/create/{offset}',                    ['as'=>'createAction',          'uses'=>'Syscover\Pulsar\Controllers\Actions@createRecord',               'resource' => 'admin-perm-actions',     'action' => 'create']);
-    Route::post(config('pulsar.appName') . '/pulsar/actions/store/{offset}',                    ['as'=>'storeAction',           'uses'=>'Syscover\Pulsar\Controllers\Actions@storeRecord',                'resource' => 'admin-perm-actions',     'action' => 'create']);
-    Route::get(config('pulsar.appName') . '/pulsar/actions/{id}/edit/{offset}',                 ['as'=>'editAction',            'uses'=>'Syscover\Pulsar\Controllers\Actions@editRecord',                 'resource' => 'admin-perm-actions',     'action' => 'access']);
-    Route::put(config('pulsar.appName') . '/pulsar/actions/update/{id}/{offset}',               ['as'=>'updateAction',          'uses'=>'Syscover\Pulsar\Controllers\Actions@updateRecord',               'resource' => 'admin-perm-actions',     'action' => 'edit']);
-    Route::get(config('pulsar.appName') . '/pulsar/actions/delete/{id}/{offset}',               ['as'=>'deleteAction',          'uses'=>'Syscover\Pulsar\Controllers\Actions@deleteRecord',               'resource' => 'admin-perm-actions',     'action' => 'delete']);
-    Route::delete(config('pulsar.appName') . '/pulsar/actions/delete/select/records',           ['as'=>'deleteSelectAction',    'uses'=>'Syscover\Pulsar\Controllers\Actions@deleteRecordsSelect',        'resource' => 'admin-perm-actions',     'action' => 'delete']);
+    Route::any(config('pulsar.appName') . '/pulsar/actions/{offset?}',                          ['as'=>'Action',                'uses'=>'Syscover\Pulsar\Controllers\Actions@index',                      'resource' => 'admin-perm-action',        'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/actions/json/data',                          ['as'=>'jsonDataAction',        'uses'=>'Syscover\Pulsar\Controllers\Actions@jsonData',                   'resource' => 'admin-perm-action',        'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/actions/create/{offset}',                    ['as'=>'createAction',          'uses'=>'Syscover\Pulsar\Controllers\Actions@createRecord',               'resource' => 'admin-perm-action',        'action' => 'create']);
+    Route::post(config('pulsar.appName') . '/pulsar/actions/store/{offset}',                    ['as'=>'storeAction',           'uses'=>'Syscover\Pulsar\Controllers\Actions@storeRecord',                'resource' => 'admin-perm-action',        'action' => 'create']);
+    Route::get(config('pulsar.appName') . '/pulsar/actions/{id}/edit/{offset}',                 ['as'=>'editAction',            'uses'=>'Syscover\Pulsar\Controllers\Actions@editRecord',                 'resource' => 'admin-perm-action',        'action' => 'access']);
+    Route::put(config('pulsar.appName') . '/pulsar/actions/update/{id}/{offset}',               ['as'=>'updateAction',          'uses'=>'Syscover\Pulsar\Controllers\Actions@updateRecord',               'resource' => 'admin-perm-action',        'action' => 'edit']);
+    Route::get(config('pulsar.appName') . '/pulsar/actions/delete/{id}/{offset}',               ['as'=>'deleteAction',          'uses'=>'Syscover\Pulsar\Controllers\Actions@deleteRecord',               'resource' => 'admin-perm-action',        'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/actions/delete/select/records',           ['as'=>'deleteSelectAction',    'uses'=>'Syscover\Pulsar\Controllers\Actions@deleteRecordsSelect',        'resource' => 'admin-perm-action',        'action' => 'delete']);
 
     /*
     |--------------------------------------------------------------------------
@@ -78,30 +78,31 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::put(config('pulsar.appName') . '/pulsar/profiles/update/{id}/{offset}',              ['as'=>'updateProfile',         'uses'=>'Syscover\Pulsar\Controllers\Profiles@updateRecord',              'resource' => 'admin-perm-profile',    'action' => 'edit']);
     Route::get(config('pulsar.appName') . '/pulsar/profiles/delete/{id}/{offset}',              ['as'=>'deleteProfile',         'uses'=>'Syscover\Pulsar\Controllers\Profiles@deleteRecord',              'resource' => 'admin-perm-profile',    'action' => 'delete']);
     Route::delete(config('pulsar.appName') . '/pulsar/profiles/delete/select/records',          ['as'=>'deleteSelectProfile',   'uses'=>'Syscover\Pulsar\Controllers\Profiles@deleteRecordsSelect',       'resource' => 'admin-perm-profile',    'action' => 'delete']);
-
-    /*
-    |--------------------------------------------------------------------------
-    | PACKAGES
-    |--------------------------------------------------------------------------
-    */
-    Route::any(config('pulsar.appName') . '/pulsar/packages/{offset?}',                         ['as'=>'Package',               'uses'=>'Syscover\Pulsar\Controllers\Packages@index',                     'resource' => 'admin-packages',         'action' => 'access']);
-    Route::any(config('pulsar.appName') . '/pulsar/packages/json/data',                         ['as'=>'jsonDataPackage',       'uses'=>'Syscover\Pulsar\Controllers\Packages@jsonData',                  'resource' => 'admin-packages',         'action' => 'access']);
-    Route::get(config('pulsar.appName') . '/pulsar/packages/create/{offset}',                   ['as'=>'createPackage',         'uses'=>'Syscover\Pulsar\Controllers\Packages@createRecord',              'resource' => 'admin-packages',         'action' => 'create']);
-    Route::post(config('pulsar.appName') . '/pulsar/packages/store/{offset}',                   ['as'=>'storePackage',          'uses'=>'Syscover\Pulsar\Controllers\Packages@storeRecord',               'resource' => 'admin-packages',         'action' => 'create']);
-    Route::get(config('pulsar.appName') . '/pulsar/packages/{id}/edit/{offset}',                ['as'=>'editPackage',           'uses'=>'Syscover\Pulsar\Controllers\Packages@editRecord',                'resource' => 'admin-packages',         'action' => 'access']);
-    Route::put(config('pulsar.appName') . '/pulsar/packages/update/{id}/{offset}',              ['as'=>'updatePackage',         'uses'=>'Syscover\Pulsar\Controllers\Packages@updateRecord',              'resource' => 'admin-packages',         'action' => 'edit']);
-    Route::get(config('pulsar.appName') . '/pulsar/packages/delete/{id}/{offset}',              ['as'=>'deletePackage',         'uses'=>'Syscover\Pulsar\Controllers\Packages@deleteRecord',              'resource' => 'admin-packages',         'action' => 'delete']);
-    Route::delete(config('pulsar.appName') . '/pulsar/packages/delete/select/records',          ['as'=>'deleteSelectPackage',   'uses'=>'Syscover\Pulsar\Controllers\Packages@deleteRecordsSelect',       'resource' => 'admin-packages',         'action' => 'delete']);
+    Route::get(config('pulsar.appName') . '/pulsar/profiles/allpermissions/{id}/{offset}',      ['as'=>'allPermissionsProfile', 'uses'=>'Syscover\Pulsar\Controllers\Profiles@setAllPermissions',         'resource' => 'admin-perm-perm',       'action' => 'create']);
 
     /*
     |--------------------------------------------------------------------------
     | PERMISSIONS
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/permissions/{offset}/{profile}/{offsetProfile?}',        ['as'=>'Permission',                'uses'=>'Syscover\Pulsar\Controllers\Permissions@index',          'resource' => 'admin-perm-perm',    'action' => 'access']);
-    Route::any(config('pulsar.appName') . '/pulsar/permissions/json/data/profile/{profile}',                ['as'=>'jsonDataPermission',        'uses'=>'Syscover\Pulsar\Controllers\Permissions@jsonData',       'resource' => 'admin-perm-perm',    'action' => 'access']);
-    Route::post(config('pulsar.appName') . '/pulsar/permissions/json/create/{num}/{num1}/{any}',            ['as'=>'jsonCreatePermission',      'uses'=>'Syscover\Pulsar\Controllers\Permissions@jsonCreate',     'resource' => 'admin-perm-perm',    'action' => 'access']);
-    Route::post(config('pulsar.appName') . '/pulsar/permissions/json/delete/{num}/{num1}/{any}',            ['as'=>'jsonDestroyPermission',     'uses'=>'Syscover\Pulsar\Controllers\Permissions@jsonDestroy',    'resource' => 'admin-perm-perm',    'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/permissions/{offset}/{profile}/{offsetProfile?}',        ['as'=>'Permission',                'uses'=>'Syscover\Pulsar\Controllers\Permissions@index',                'resource' => 'admin-perm-perm',    'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/permissions/json/data/profile/{profile}',                ['as'=>'jsonDataPermission',        'uses'=>'Syscover\Pulsar\Controllers\Permissions@jsonData',             'resource' => 'admin-perm-perm',    'action' => 'access']);
+    Route::post(config('pulsar.appName') . '/pulsar/permissions/json/create/{num}/{num1}/{any}',            ['as'=>'jsonCreatePermission',      'uses'=>'Syscover\Pulsar\Controllers\Permissions@jsonCreate',           'resource' => 'admin-perm-perm',    'action' => 'create']);
+    Route::post(config('pulsar.appName') . '/pulsar/permissions/json/delete/{num}/{num1}/{any}',            ['as'=>'jsonDestroyPermission',     'uses'=>'Syscover\Pulsar\Controllers\Permissions@jsonDestroy',          'resource' => 'admin-perm-perm',    'action' => 'delete']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | PACKAGES
+    |--------------------------------------------------------------------------
+    */
+    Route::any(config('pulsar.appName') . '/pulsar/packages/{offset?}',                         ['as'=>'Package',               'uses'=>'Syscover\Pulsar\Controllers\Packages@index',                     'resource' => 'admin-package',         'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/packages/json/data',                         ['as'=>'jsonDataPackage',       'uses'=>'Syscover\Pulsar\Controllers\Packages@jsonData',                  'resource' => 'admin-package',         'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/packages/create/{offset}',                   ['as'=>'createPackage',         'uses'=>'Syscover\Pulsar\Controllers\Packages@createRecord',              'resource' => 'admin-package',         'action' => 'create']);
+    Route::post(config('pulsar.appName') . '/pulsar/packages/store/{offset}',                   ['as'=>'storePackage',          'uses'=>'Syscover\Pulsar\Controllers\Packages@storeRecord',               'resource' => 'admin-package',         'action' => 'create']);
+    Route::get(config('pulsar.appName') . '/pulsar/packages/{id}/edit/{offset}',                ['as'=>'editPackage',           'uses'=>'Syscover\Pulsar\Controllers\Packages@editRecord',                'resource' => 'admin-package',         'action' => 'access']);
+    Route::put(config('pulsar.appName') . '/pulsar/packages/update/{id}/{offset}',              ['as'=>'updatePackage',         'uses'=>'Syscover\Pulsar\Controllers\Packages@updateRecord',              'resource' => 'admin-package',         'action' => 'edit']);
+    Route::get(config('pulsar.appName') . '/pulsar/packages/delete/{id}/{offset}',              ['as'=>'deletePackage',         'uses'=>'Syscover\Pulsar\Controllers\Packages@deleteRecord',              'resource' => 'admin-package',         'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/packages/delete/select/records',          ['as'=>'deleteSelectPackage',   'uses'=>'Syscover\Pulsar\Controllers\Packages@deleteRecordsSelect',       'resource' => 'admin-package',         'action' => 'delete']);
 
     /*
     |--------------------------------------------------------------------------
@@ -212,16 +213,20 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
 
 
 
+
+
+
+
     /*
     |--------------------------------------------------------------------------
-    | DIRECCIONES
+    | ADDRESS
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/direcciones/json/data/{resource}/{object}',         ['as'=>'jsonDataDirecciones',  'uses'=>'Syscover\Pulsar\Controllers\Direcciones@jsonData',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::get(config('pulsar.appName') . '/pulsar/direcciones/create/{resource}/{object}',            ['as'=>'createDireccion',      'uses'=>'Syscover\Pulsar\Controllers\Direcciones@create',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::post(config('pulsar.appName') . '/pulsar/direcciones/store',                                ['as'=>'storeDireccion',       'uses'=>'Syscover\Pulsar\Controllers\Direcciones@store',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::get(config('pulsar.appName') . '/pulsar/direcciones/{id}/edit/{offset}',                      ['as'=>'editDireccion',        'uses'=>'Syscover\Pulsar\Controllers\Direcciones@edit',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::post(config('pulsar.appName') . '/pulsar/direcciones/update/{offset}',                        ['as'=>'updateDireccion',      'uses'=>'Syscover\Pulsar\Controllers\Direcciones@update',            'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::any(config('pulsar.appName') . '/pulsar/address/json/data/{resource}/{object}',         ['as'=>'jsonDataDirecciones',  'uses'=>'Syscover\Pulsar\Controllers\Direcciones@jsonData',            'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::get(config('pulsar.appName') . '/pulsar/address/create/{resource}/{object}',            ['as'=>'createDireccion',      'uses'=>'Syscover\Pulsar\Controllers\Direcciones@create',            'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::post(config('pulsar.appName') . '/pulsar/address/store',                                ['as'=>'storeDireccion',       'uses'=>'Syscover\Pulsar\Controllers\Direcciones@store',            'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::get(config('pulsar.appName') . '/pulsar/address/{id}/edit/{offset}',                    ['as'=>'editDireccion',        'uses'=>'Syscover\Pulsar\Controllers\Direcciones@edit',            'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::post(config('pulsar.appName') . '/pulsar/address/update/{offset}',                      ['as'=>'updateDireccion',      'uses'=>'Syscover\Pulsar\Controllers\Direcciones@update',            'resource' => 'admin-lang',             'action' => 'delete']);
 
     /*
     |--------------------------------------------------------------------------

@@ -51,7 +51,7 @@ trait ControllerTrait {
             $parameters = $this->indexCustom($parameters);
         }
 
-        return view('pulsar::' . $this->folder . '.index', $parameters);
+        return view($this->package . '::' . $this->folder . '.index', $parameters);
     }
 
     /**
@@ -82,7 +82,7 @@ trait ControllerTrait {
         $iTotal         = call_user_func($this->model . '::countRecords', $parameters);
 
         // get properties of model class
-        $class          = new \ReflectionClass($this->model);
+        //$class          = new \ReflectionClass($this->model);
 
         $output = [
             "sEcho"                 => Input::get('sEcho'),
@@ -147,8 +147,8 @@ trait ControllerTrait {
             {
                 $actions = $this->jsonCustomDataBeforeActions($aObject);
             }
-            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . route('edit'. $class->getShortName(), $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
-            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] .'" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . $class->getShortName(), $actionUrlParameters) . '"><i class="icon-trash"></i></a>' : null;
+            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . route('edit' . $this->routeSuffix, $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
+            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] .'" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . $this->routeSuffix, $actionUrlParameters) . '"><i class="icon-trash"></i></a>' : null;
             $row[] =  $actions;
 
             $output['aaData'][] = $row;
@@ -183,7 +183,7 @@ trait ControllerTrait {
         $parameters['icon']           = $this->icon;
         $parameters['objectTrans']    = $this->objectTrans;
 
-        return view('pulsar::' . $this->folder . '.create', $parameters);
+        return view($this->package . '::' . $this->folder . '.create', $parameters);
     }
 
     /**
@@ -252,7 +252,7 @@ trait ControllerTrait {
             $parameters = $this->editCustomRecord($parameters);
         }
 
-        return view('pulsar::' . $this->folder . '.edit', $parameters);
+        return view($this->package . '::' . $this->folder . '.edit', $parameters);
     }
 
     /**

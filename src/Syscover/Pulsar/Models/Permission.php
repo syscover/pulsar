@@ -35,6 +35,11 @@ class Permission extends Model
         Permission::where('profile_009', $profile)->where('resource_009', $resource)->where('action_009', $action)->delete();
     }
 
+    public static function deleteRecordsProfile($profile)
+    {
+        Permission::where('profile_009', $profile)->delete();
+    }
+
     public static function getRecords($profile)
     {
         return Permission::where('profile_009', $profile)->get();

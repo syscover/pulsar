@@ -121,4 +121,6 @@ class Permissions extends Controller
     {
         Permission::deleteRecord($profile, $resource, $action);
     }
+
+
 }
