@@ -1,16 +1,20 @@
 <?php $aux = Session::get('packages'); ?>
 <ul id="nav">
 
-    @if($aux[10]->active_012 && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'mifinan', 'access') && View::exists('mifinanciacion::common.block.block_navigation'))
-        @include('mifinanciacion::common.block.block_navigation')
+    @if($aux[10]->active_012 && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'mifinan', 'access') && View::exists('mifinanciacion::common.nav.main'))
+        @include('mifinanciacion::common.nav.main')
     @endif
 
-    @if($aux[7]->active_012 && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'hotels', 'access') && View::exists('hotels::common.block.block_navigation'))
-        //@include('hotels::pulsar.hotels.common.block.block_navigation')
+    @if($aux[8]->active_012 && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'octopus', 'access') && View::exists('octopus::common.nav.main'))
+        @include('octopus::common.nav.main')
     @endif
 
-    @if($aux[3]->active_012 && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'comunik', 'access') && View::exists('comunik::common.block.block_navigation'))
-        //@include('comunik::pulsar.comunik.common.block.block_navigation')
+    @if($aux[7]->active_012 && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'hotels', 'access') && View::exists('hotels::common.nav.main'))
+        //@include('hotels::pulsar.hotels.common.nav.main')
+    @endif
+
+    @if($aux[3]->active_012 && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'comunik', 'access') && View::exists('comunik::common.nav.main'))
+        //@include('comunik::pulsar.comunik.common.nav.main')
     @endif
 
     @if($aux[2]->active_012 && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin', 'access'))

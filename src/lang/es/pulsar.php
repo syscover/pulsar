@@ -78,6 +78,7 @@ return [
     'profile'                               => 'Perfil|Perfiles',
     'permission'                            => 'Permiso|Permisos',
     'user'                                  => 'Usuario|Usuarios',
+    'family'                                => 'Familia|Familias',
     'cronjob'                               => 'Cron Job|Cron Jobs',
     'cron_expression'                       => 'Expression Cron',
     'key'                                   => 'Key',

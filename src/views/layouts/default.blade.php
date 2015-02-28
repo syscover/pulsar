@@ -178,7 +178,7 @@
 		<div id="sidebar" class="sidebar-fixed">
 			<div id="sidebar-content">
 				<!--=== Navigation ===-->
-                @include('pulsar::common/block/block_navigation')
+                @include('pulsar::common.nav.main')
 				<!-- /Navigation -->
 			</div>
 			<div id="divider" class="resizeable"></div>
