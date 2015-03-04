@@ -100,4 +100,8 @@ return [
     'message_error_404'                     => '¡Ups! página no encontrada',
     'go_back'                               => 'Volvar atrás',
     'category'                              => 'Categoría|Categorías',
+    'contact'                               => 'Contacto|Contactos',
+    'phone'                                 => 'Teléfono',
+    'company_name'                          => 'Nombre empresa',
+    'tin'                                   => 'CIF',
 ];

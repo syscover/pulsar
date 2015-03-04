@@ -252,11 +252,20 @@ class Countries extends Controller {
         ]);
     }
 
-    public function jsonCountry($id)
+    public function jsonCountry($id = null)
     {
         $parameters['json'] = [];
 
-        if($id!="null") $parameters['json'] = Country::getTranslationRecord($id, Session::get('baseLang')->id_001)->toJson();
+        if($id != null) $parameters['json'] = Country::getTranslationRecord($id, Session::get('baseLang')->id_001)->toJson();
+
+        return view('pulsar::common.json_display', $parameters);
+    }
+
+    public function jsonCountries($lang = null)
+    {
+        $parameters['json'] = [];
+
+        if($lang != null) $parameters['json'] = Country::where('lang_002', $lang)->get()->toJson();
 
         return view('pulsar::common.json_display', $parameters);
     }

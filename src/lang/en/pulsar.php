@@ -100,4 +100,8 @@ return [
     'message_error_404'                     => 'Ups! page not found',
     'go_back'                               => 'Go back',
     'category'                              => 'Category|Categories',
+    'contact'                               => 'Contact|Contacts',
+    'phone'                                 => 'Phone',
+    'company_name'                          => 'Company name',
+    'tin'                                   => 'TIN',
 ];

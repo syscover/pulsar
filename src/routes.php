@@ -148,7 +148,8 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
     Route::get(config('pulsar.appName') . '/pulsar/countries/delete/{lang}/{id}/{offset}',              ['as'=>'deleteCountry',             'uses'=>'Syscover\Pulsar\Controllers\Countries@deleteRecord',             'resource' => 'admin-country',          'action' => 'delete']);
     Route::get(config('pulsar.appName') . '/pulsar/countries/delete/translation/{lang}/{id}/{offset}',  ['as'=>'deleteTranslationCountry',  'uses'=>'Syscover\Pulsar\Controllers\Countries@deleteTranslationRecord',  'resource' => 'admin-country',          'action' => 'delete']);
     Route::delete(config('pulsar.appName') . '/pulsar/countries/delete/select/records/{lang}',          ['as'=>'deleteSelectCountry',       'uses'=>'Syscover\Pulsar\Controllers\Countries@deleteRecordsSelect',      'resource' => 'admin-country',          'action' => 'delete']);
-    Route::post(config('pulsar.appName') . '/pulsar/countries/json/{country?}',                         ['as'=>'jsonGetCountry',            'uses'=>'Syscover\Pulsar\Controllers\Countries@jsonCountry',              'resource' => 'admin-country',          'action' => 'access']);
+    Route::post(config('pulsar.appName') . '/pulsar/countries/json/country/{country?}',                 ['as'=>'jsonGetCountry',            'uses'=>'Syscover\Pulsar\Controllers\Countries@jsonCountry',              'resource' => 'admin-country',          'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/countries/json/countries/{lang?}',                   ['as'=>'jsonGetCountries',          'uses'=>'Syscover\Pulsar\Controllers\Countries@jsonCountries',            'resource' => 'admin-country',          'action' => 'access']);
 
     /*
     |--------------------------------------------------------------------------
