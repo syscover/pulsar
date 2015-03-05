@@ -53,13 +53,6 @@
                 selectA:		        'Select a '
             }
         },
-        /*
-         properties: {
-         spinner:        null,
-         spinnerPosY:    null,
-         loaded:         false
-         },
-         */
         callback: null,
 
         init: function(options, callback)
@@ -76,23 +69,26 @@
             // set events on elements
             // when change country select
             $("[name='" + this.options.countrySelect + "']").change($.proxy(function() {
-                $("#" + this.options.tA1Wrapper).fadeOut();
-                $("#" + this.options.tA2Wrapper).fadeOut();
-                // when finish last fadeout we load name of label
-                $("#" + this.options.tA3Wrapper).fadeOut(400, $.proxy(function() {
 
+                // when finish first fadeout we load name of label, like that we are sure that the efect fadeOut is run
+                $("#" + this.options.tA1Wrapper).fadeOut(400, $.proxy(function() {
                     if($("[name='" + this.options.countrySelect + "']").val() != this.options.nullValue)
                     {
-                        $("#" + this.options.tA1Label).html(this.options.tA1LabelPrefix + $("[name='" + this.options.countrySelect + "']").find('option:selected').data('at1') + this.options.tA1LabelSuffix);
-                        $("#" + this.options.tA2Label).html(this.options.tA2LabelPrefix + $("[name='" + this.options.countrySelect + "']").find('option:selected').data('at2') + this.options.tA2LabelSuffix);
-                        $("#" + this.options.tA3Label).html(this.options.tA3LabelPrefix + $("[name='" + this.options.countrySelect + "']").find('option:selected').data('at3') + this.options.tA3LabelSuffix);
+                        // check that territorial area label contain words
+                        if($("[name='" + this.options.countrySelect + "']").find('option:selected').data('at1'))
+                            $("#" + this.options.tA1Label).html(this.options.tA1LabelPrefix + $("[name='" + this.options.countrySelect + "']").find('option:selected').data('at1') + this.options.tA1LabelSuffix);
+                        if($("[name='" + this.options.countrySelect + "']").find('option:selected').data('at2'))
+                            $("#" + this.options.tA2Label).html(this.options.tA2LabelPrefix + $("[name='" + this.options.countrySelect + "']").find('option:selected').data('at2') + this.options.tA2LabelSuffix);
+                        if($("[name='" + this.options.countrySelect + "']").find('option:selected').data('at3'))
+                            $("#" + this.options.tA3Label).html(this.options.tA3LabelPrefix + $("[name='" + this.options.countrySelect + "']").find('option:selected').data('at3') + this.options.tA3LabelSuffix);
 
-
-                        this.deleteTerritorialArea1();
                         this.getTerritorialArea1();
                     }
 
                 }, this));
+                $("#" + this.options.tA2Wrapper).fadeOut(400);
+                $("#" + this.options.tA3Wrapper).fadeOut(400);
+
             }, this));
 
             // when change territorial area 1 select
