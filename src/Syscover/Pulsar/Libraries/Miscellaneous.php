@@ -37,6 +37,30 @@ class Miscellaneous
         }
     }
 
+    /**
+     *  Funtion to set data atrributes to html tags
+     *
+     * @access  public
+     * @param   array   $data
+     * @return  string
+     */
+    public static function setDataAttributes($data)
+    {
+        if(is_array($data) && count($data) > 0)
+        {
+            $keys = array_keys($data);
+
+            $response = '';
+            foreach($keys as $key)
+            {
+                $response .= ' data-' . $key . '="' . $data[$key] . '"';
+            }
+
+            return $response;
+        }
+
+        return null;
+    }
 
     /**
      *  Función que instancia la vista que se verá para acciones que nos interese, como menus, o reset de variable de sesión de cadena, etc.

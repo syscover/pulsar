@@ -33,7 +33,7 @@ Route::post(config('pulsar.appName') . '/pulsar/password/reset/{token}',        
 Route::get(config('pulsar.appName') . '/pulsar/dashboard',                                  ['as' => 'dashboard',               'uses' => 'Syscover\Pulsar\Controllers\Dashboard@index',                'middleware' => 'auth.pulsar']);
 
 
-Route::group(['middleware' => ['auth.pulsar','permission.pulsar']], function() {
+Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar']], function() {
 
 
 

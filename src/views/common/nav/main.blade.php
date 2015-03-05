@@ -19,10 +19,10 @@
 
     @if($aux[2]->active_012 && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin', 'access'))
         <li{!! Miscellaneous::setCurrentOpenPage(['admin-user', 'admin-lang', 'admin-country', 'admin-country-at1', 'admin-country-at2', 'admin-country-at3', 'admin-package', 'admin-cron', 'admin-perm-profile', 'admin-perm-resource', 'admin-perm-action', 'admin-perm-perm']) !!}>
-            <a href="javascript:void(0);"><i class="icon-cog"></i>Administración</a>
+            <a href="javascript:void(0);"><i class="icon-cog"></i>{{ trans('pulsar::pulsar.administration') }}</a>
             <ul class="sub-menu">
                 @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-user', 'access'))
-                    <li{!! Miscellaneous::setCurrentPage('admin-user') !!}><a href="{{ route('User') }}"><i class="icomoon-icon-users"></i>Usuarios</a></li>
+                    <li{!! Miscellaneous::setCurrentPage('admin-user') !!}><a href="{{ route('User') }}"><i class="icomoon-icon-users"></i>{{ trans_choice('pulsar::pulsar.user', 2) }}</a></li>
                 @endif
                 @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-lang', 'access'))
                         <li{!! Miscellaneous::setCurrentPage('admin-lang') !!}><a href="{{ route('Lang') }}"><i class="brocco-icon-flag"></i>{{ trans_choice('pulsar::pulsar.language', 2) }}</a></li>

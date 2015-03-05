@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
+use Pulsar\Support\Facades\Config;
 use Syscover\Pulsar\Libraries\PulsarAcl;
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Models\Lang;

@@ -24,7 +24,10 @@
                             "sInfoFiltered": "{{ trans('pulsar::datatable.sInfoFiltered') }}",
                             "sLoadingRecords": "{{ trans('pulsar::datatable.sLoadingRecords') }}",
                             "sProcessing": "{{ trans('pulsar::datatable.sProcessing') }}",
-                            "oPaginate": {"sFirst": "{{ trans('pulsar::datatable.sFirst') }}", "sPrevious": "{{ trans('pulsar::datatable.sPrevious') }}", "sNext": "{{ trans('pulsar::datatable.sNext') }}", "sLast": "{{ trans('pulsar::datatable.sLast') }}"}
+                            "oPaginate": {"sFirst": "{{ trans('pulsar::datatable.sFirst') }}",
+                            "sPrevious": "{{ trans('pulsar::datatable.sPrevious') }}",
+                            "sNext": "{{ trans('pulsar::datatable.sNext') }}",
+                            "sLast": "{{ trans('pulsar::datatable.sLast') }}"}
                         },
                         "sPaginationType": "bootstrap",
                         "sDom": "<'row'<'dataTables_header clearfix'<'col-md-6'f><'col-md-6'<'buttonsDataTables'>>r>>t<'row'<'dataTables_footer clearfix'<'col-md-6'l><'col-md-6'<'row'p><'row'i>>>>",
@@ -52,11 +55,7 @@
                                 $(':radio.uniform, :checkbox.uniform').uniform();
                             }
 
-                            if ($.fn.select2) {
-                                $('.dataTables_length select').select2({
-                                    minimumResultsForSearch: "-1"
-                                });
-                            }
+                            $('.dataTables_length select').addClass('form-control');
 
                             @if(!isset($areDeleteRecord))
                             $('.delete-record').bind('click', function() {
