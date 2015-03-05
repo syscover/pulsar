@@ -22,12 +22,10 @@
             useSeparatorHighlight:      false,
             textSeparatorHighlight:     '*********',
 
-            countryWrapper:				'countryWrapper',                           // ID Wrapper country
             tA1Wrapper:					'territorialArea1Wrapper',                  // ID Wrapper territorial area 1
             tA2Wrapper:					'territorialArea2Wrapper',	                // ID Wrapper territorial area 2
             tA3Wrapper:					'territorialArea3Wrapper',		            // ID Wrapper territorial area 3
 
-            countryLabel:               'country',                                  // label Select conutry
             tA1Label:                   'territorialArea1Label',                    // label Select territorial area 1
             tA2Label:                   'territorialArea2Label',                    // label Select territorial area 2
             tA3Label:                   'territorialArea3Label',                    // label Select territorial area 3
@@ -36,18 +34,26 @@
             tA1Select:                  'territorialArea1',                         // name Select territorial area 1
             tA2Select:                  'territorialArea2',                         // name Select territorial area 2
             tA3Select:                  'territorialArea3',                         // name Select territorial area 3
+
+            nullValue:                  'null',
+            countryValue:               null,
+            territorialArea1Value:      null,
+            territorialArea2Value:      null,
+            territorialArea3Value:      null,
+
+
             trans: {
                 selectCountry:		    'Select a country',
                 selectA:		        'Select a '
             }
         },
-
-        properties: {
-            spinner:        null,
-            spinnerPosY:    null,
-            loaded:         false
-        },
-
+        /*
+         properties: {
+         spinner:        null,
+         spinnerPosY:    null,
+         loaded:         false
+         },
+         */
         callback: null,
 
         init: function(options, callback)
@@ -61,26 +67,31 @@
 
             this.getCountries();
 
+            if(jQuery().select2) {
+                $("[name='" + this.options.countrySelect + "']").select2();
+            }
+
+
             // set events on elements
             // when change country select
             $("[name='" + this.options.countrySelect + "']").change($.proxy(function() {
-                if($("[name='" + this.options.countrySelect + "']").val() != 'null')
-                {
-                    $("#" + this.options.tA1Label).html($("[name='" + this.options.countrySelect + "']").find('option:selected').data('at1'));
-                    //$("[name='nameAreaTerritorial1']").val(data.area_territorial_1_002);
-                    $("#" + this.options.tA2Label).html($("[name='" + this.options.countrySelect + "']").find('option:selected').data('at2'));
-                    //$("[name='nameAreaTerritorial2']").val(data.area_territorial_2_002);
-                    $("#" + this.options.tA3Label).html($("[name='" + this.options.countrySelect + "']").find('option:selected').data('at3'));
-                    //$("[name='nameAreaTerritorial3']").val(data.area_territorial_3_002);
+                $("#" + this.options.tA1Wrapper).fadeOut();
+                $("#" + this.options.tA2Wrapper).fadeOut();
+                // when finish last fadeout we load name of label
+                $("#" + this.options.tA3Wrapper).fadeOut(400, $.proxy(function() {
 
-                    this.getTerritorialArea1();
-                }
-                else
-                {
-                    $("#" + this.options.tA1Wrapper).fadeOut();
-                    $("#" + this.options.tA2Wrapper).fadeOut();
-                    $("#" + this.options.tA3Wrapper).fadeOut();
-                }
+                    if($("[name='" + this.options.countrySelect + "']").val() != this.options.nullValue)
+                    {
+                        $("#" + this.options.tA1Label).html($("[name='" + this.options.countrySelect + "']").find('option:selected').data('at1'));
+                        //$("[name='nameAreaTerritorial1']").val(data.area_territorial_1_002);
+                        $("#" + this.options.tA2Label).html($("[name='" + this.options.countrySelect + "']").find('option:selected').data('at2'));
+                        //$("[name='nameAreaTerritorial2']").val(data.area_territorial_2_002);
+                        $("#" + this.options.tA3Label).html($("[name='" + this.options.countrySelect + "']").find('option:selected').data('at3'));
+                        //$("[name='nameAreaTerritorial3']").val(data.area_territorial_3_002);
+
+                        this.getTerritorialArea1();
+                    }
+                }, this));
             }, this));
 
             // when change territorial area 1 select
@@ -150,7 +161,7 @@
                 context: this,
                 success: function(data) {
                     $("[name='" + this.options.countrySelect + "'] option").remove();
-                    $("[name='" + this.options.countrySelect + "']").append(new Option(this.options.trans.selectCountry, 'null'));
+                    $("[name='" + this.options.countrySelect + "']").append(new Option(this.options.trans.selectCountry, this.options.nullValue));
 
                     var highlightCountry = false;
 
@@ -196,15 +207,16 @@
                 dataType: 'json',
                 context: this,
                 success: function(data) {
+
                     $("[name='" + this.options.tA1Select + "'] option").remove();
                     if(data.length > 0)
                     {
-                        $("[name='" + this.options.tA1Select + "']").append(new Option(this.options.trans.selectA + $("[name='" + this.options.countrySelect + "']").find('option:selected').data('at1'), 'null'));
+                        $("[name='" + this.options.tA1Select + "']").append(new Option(this.options.trans.selectA + $("[name='" + this.options.countrySelect + "']").find('option:selected').data('at1'), this.options.nullValue));
                         for(var i in data)
                         {
                             $("[name='" + this.options.tA1Select + "']").append(new Option(data[i].name_003, data[i].id_003));
                         }
-                        $("[name='" + this.options.tA1Select + "']").select2("val", "null");
+                        //$("[name='" + this.options.tA1Select + "']").val("SS").trigger("change");
                         $("#" + this.options.tA1Wrapper).fadeIn();
                     }
                     else
@@ -243,12 +255,12 @@
                     $("[name='" + this.options.tA2Select + "'] option").remove();
                     if(data.length > 0)
                     {
-                        $("[name='" + this.options.tA2Select + "']").append(new Option(this.options.trans.selectA + $("[name='" + this.options.countrySelect + "']").find('option:selected').data('at2'), 'null'));
+                        $("[name='" + this.options.tA2Select + "']").append(new Option(this.options.trans.selectA + $("[name='" + this.options.countrySelect + "']").find('option:selected').data('at2'), this.options.nullValue));
                         for(var i in data)
                         {
                             $("[name='" + this.options.tA2Select + "']").append(new Option(data[i].name_004, data[i].id_004));
                         }
-                        $("[name='" + this.options.tA2Select + "']").select2("val", "null");
+                        //$("[name='" + this.options.tA2Select + "']").select2("val", "null");
                         $("#" + this.options.tA2Wrapper).fadeIn();
                     }
                     else
@@ -285,12 +297,12 @@
                     $("[name='" + this.options.tA3Select + "'] option").remove();
                     if(data.length > 0)
                     {
-                        $("[name='" + this.options.tA3Select + "']").append(new Option(this.options.trans.selectA + $("[name='" + this.options.countrySelect + "']").find('option:selected').data('at3'), 'null'));
+                        $("[name='" + this.options.tA3Select + "']").append(new Option(this.options.trans.selectA + $("[name='" + this.options.countrySelect + "']").find('option:selected').data('at3'), this.options.nullValue));
                         for(var i in data)
                         {
                             $("[name='" + this.options.tA3Select + "']").append(new Option(data[i].name_005, data[i].id_005));
                         }
-                        $("[name='" + this.options.tA3Select + "']").select2("val", "null");
+                        //$("[name='" + this.options.tA3Select + "']").select2("val", "null");
                         $("#" + this.options.tA3Wrapper).fadeIn();
                     }
                     else

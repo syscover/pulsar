@@ -91,7 +91,7 @@ return [
     'repeat_password'                       => 'Repeat password',
     'action_successful'                     => 'Action successful!',
     'action_error'                          => 'Action error!',
-    'choose_a'                              => 'Choose a',
+    'select_a'                              => 'Select a',
     'data_access'                           => 'Data access',
     'last_run'                              => 'Last run',
     'next_run'                              => 'Next run',
@@ -104,4 +104,8 @@ return [
     'phone'                                 => 'Phone',
     'company_name'                          => 'Company name',
     'tin'                                   => 'TIN',
+    'web'                                   => 'Web',
+    'cp'                                    => 'CP',
+    'address'                               => 'Address',
+    'locality'                              => 'Locality',
 ];

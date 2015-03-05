@@ -94,7 +94,7 @@ class TerritorialAreas3 extends Controller {
         ]);
     }
     
-    public function jsonTerritorialAreas3FromTerritorialArea2($id)
+    public function jsonTerritorialAreas3FromTerritorialArea2($country, $id)
     {
         $data['json'] = [];
         if($id!="null") $data['json'] = TerritorialArea2::find($id)->territorialAreas3()->get()->toJson();
