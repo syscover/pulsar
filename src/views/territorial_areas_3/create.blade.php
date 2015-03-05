@@ -8,7 +8,7 @@
             $("[name='territorialArea1']").change(function() {
 
                 $("[name='territorialArea2'] option").remove();
-                $("[name='territorialArea2']").append(new Option('{{ trans('pulsar::pulsar.choose_a') }} {{ $country->territorial_area_2_002 }}', 'null'));
+                $("[name='territorialArea2']").append(new Option('{{ trans('pulsar::pulsar.select_a') }} {{ $country->territorial_area_2_002 }}', 'null'));
 
                 if($(this).val())
                 {

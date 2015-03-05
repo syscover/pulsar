@@ -27,8 +27,14 @@
             tA3Wrapper:					'territorialArea3Wrapper',		            // ID Wrapper territorial area 3
 
             tA1Label:                   'territorialArea1Label',                    // label Select territorial area 1
+            tA1LabelPrefix:             '',
+            tA1LabelSuffix:             '',
             tA2Label:                   'territorialArea2Label',                    // label Select territorial area 2
+            tA2LabelPrefix:             '',
+            tA2LabelSuffix:             '',
             tA3Label:                   'territorialArea3Label',                    // label Select territorial area 3
+            tA3LabelPrefix:             '',
+            tA3LabelSuffix:             '',
 
             countrySelect:              'country',                                  // name Select conutry
             tA1Select:                  'territorialArea1',                         // name Select territorial area 1
@@ -67,11 +73,6 @@
 
             this.getCountries();
 
-            if(jQuery().select2) {
-                $("[name='" + this.options.countrySelect + "']").select2();
-            }
-
-
             // set events on elements
             // when change country select
             $("[name='" + this.options.countrySelect + "']").change($.proxy(function() {
@@ -82,15 +83,15 @@
 
                     if($("[name='" + this.options.countrySelect + "']").val() != this.options.nullValue)
                     {
-                        $("#" + this.options.tA1Label).html($("[name='" + this.options.countrySelect + "']").find('option:selected').data('at1'));
-                        //$("[name='nameAreaTerritorial1']").val(data.area_territorial_1_002);
-                        $("#" + this.options.tA2Label).html($("[name='" + this.options.countrySelect + "']").find('option:selected').data('at2'));
-                        //$("[name='nameAreaTerritorial2']").val(data.area_territorial_2_002);
-                        $("#" + this.options.tA3Label).html($("[name='" + this.options.countrySelect + "']").find('option:selected').data('at3'));
-                        //$("[name='nameAreaTerritorial3']").val(data.area_territorial_3_002);
+                        $("#" + this.options.tA1Label).html(this.options.tA1LabelPrefix + $("[name='" + this.options.countrySelect + "']").find('option:selected').data('at1') + this.options.tA1LabelSuffix);
+                        $("#" + this.options.tA2Label).html(this.options.tA2LabelPrefix + $("[name='" + this.options.countrySelect + "']").find('option:selected').data('at2') + this.options.tA2LabelSuffix);
+                        $("#" + this.options.tA3Label).html(this.options.tA3LabelPrefix + $("[name='" + this.options.countrySelect + "']").find('option:selected').data('at3') + this.options.tA3LabelSuffix);
 
+
+                        this.deleteTerritorialArea1();
                         this.getTerritorialArea1();
                     }
+
                 }, this));
             }, this));
 
@@ -194,6 +195,25 @@
                                 .append($('<option></option>').val(data[i].id_002).html(data[i].name_002).data('at1', data[i].territorial_area_1_002).data('at2', data[i].territorial_area_2_002).data('at3', data[i].territorial_area_3_002));
                         }
                     }
+
+                    if(this.options.countryValue != null && this.options.countryValue != '')
+                    {
+                        $("[name='" + this.options.countrySelect + "']").val(this.options.countryValue).trigger("change");
+                        this.options.countryValue = null;
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    if(this.callback != null)
+                    {
+                        var data = {
+                            success: false,
+                            jqXHR: jqXHR,
+                            textStatus: textStatus,
+                            errorThrown: errorThrown
+                        };
+
+                        this.callback(data);
+                    }
                 }
             });
         },
@@ -216,7 +236,19 @@
                         {
                             $("[name='" + this.options.tA1Select + "']").append(new Option(data[i].name_003, data[i].id_003));
                         }
-                        //$("[name='" + this.options.tA1Select + "']").val("SS").trigger("change");
+
+                        // check if need set value from Territorial Area 1
+                        if(this.options.territorialArea1Value != null && this.options.territorialArea1Value != '')
+                        {
+                            $("[name='" + this.options.tA1Select + "']").val(this.options.territorialArea1Value).trigger("change");
+                            this.options.territorialArea1Value = null;
+                        }
+                        else
+                        {
+                            // reset value territorialArea 1
+                            $("[name='" + this.options.tA1Select + "']").val(this.options.nullValue).trigger("change");
+                        }
+
                         $("#" + this.options.tA1Wrapper).fadeIn();
                     }
                     else
@@ -235,6 +267,19 @@
                             success: true,
                             action: 'tA1Loaded',
                             message: 'TerritorialArea1 loaded'
+                        };
+
+                        this.callback(data);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    if(this.callback != null)
+                    {
+                        var data = {
+                            success: false,
+                            jqXHR: jqXHR,
+                            textStatus: textStatus,
+                            errorThrown: errorThrown
                         };
 
                         this.callback(data);
@@ -260,7 +305,19 @@
                         {
                             $("[name='" + this.options.tA2Select + "']").append(new Option(data[i].name_004, data[i].id_004));
                         }
-                        //$("[name='" + this.options.tA2Select + "']").select2("val", "null");
+
+                        // check if need set value from Territorial Area 2
+                        if(this.options.territorialArea2Value != null && this.options.territorialArea2Value != '')
+                        {
+                            $("[name='" + this.options.tA2Select + "']").val(this.options.territorialArea2Value).trigger("change");
+                            this.options.territorialArea2Value = null;
+                        }
+                        else
+                        {
+                            // reset value territorialArea 2
+                            $("[name='" + this.options.tA2Select + "']").val(this.options.nullValue).trigger("change");
+                        }
+
                         $("#" + this.options.tA2Wrapper).fadeIn();
                     }
                     else
@@ -277,6 +334,19 @@
                             success: true,
                             action: 'tA2Loaded',
                             message: 'TerritorialArea2 loaded'
+                        };
+
+                        this.callback(data);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    if(this.callback != null)
+                    {
+                        var data = {
+                            success: false,
+                            jqXHR: jqXHR,
+                            textStatus: textStatus,
+                            errorThrown: errorThrown
                         };
 
                         this.callback(data);
@@ -302,7 +372,19 @@
                         {
                             $("[name='" + this.options.tA3Select + "']").append(new Option(data[i].name_005, data[i].id_005));
                         }
-                        //$("[name='" + this.options.tA3Select + "']").select2("val", "null");
+
+                        // check if need set value from Territorial Area 3
+                        if(this.options.territorialArea3Value != null && this.options.territorialArea3Value != '')
+                        {
+                            $("[name='" + this.options.tA3Select + "']").val(this.options.territorialArea3Value).trigger("change");
+                            this.options.territorialArea3Value = null;
+                        }
+                        else
+                        {
+                            // reset value territorialArea 3
+                            $("[name='" + this.options.tA3Select + "']").val(this.options.nullValue).trigger("change");
+                        }
+
                         $("#" + this.options.tA3Wrapper).fadeIn();
                     }
                     else
@@ -321,6 +403,19 @@
 
                         this.callback(data);
                     }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    if(this.callback != null)
+                    {
+                        var data = {
+                            success: false,
+                            jqXHR: jqXHR,
+                            textStatus: textStatus,
+                            errorThrown: errorThrown
+                        };
+
+                        this.callback(data);
+                    }
                 }
             });
         },
@@ -328,19 +423,16 @@
         deleteTerritorialArea1: function()
         {
             $("[name='" + this.options.tA1Select + "'] option").remove();
-            $("[name='" + this.options.tA1Select + "']").append(new Option('Elija un/a aT1', 'null'));
         },
 
         deleteTerritorialArea2: function()
         {
             $("[name='" + this.options.tA2Select + "'] option").remove();
-            $("[name='" + this.options.tA2Select + "']").append(new Option('Elija un/a aT2', 'null'));
         },
 
         deleteTerritorialArea3: function()
         {
             $("[name='" + this.options.tA3Select + "'] option").remove();
-            $("[name='" + this.options.tA3Select + "']").append(new Option('Elija un/a aT3', 'null'));
         }
     };
 

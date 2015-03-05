@@ -21,7 +21,7 @@
                     fnDrawCallback: function() {
 
                         $("[id^='re']").select2({
-                            placeholder: '{{ trans('pulsar::pulsar.choose_a') . ' ' . trans_choice('pulsar::pulsar.action', 1) }}'
+                            placeholder: '{{ trans('pulsar::pulsar.select_a') . ' ' . trans_choice('pulsar::pulsar.action', 1) }}'
                         });
 
                         $("[id^='re']").on("change", function(e){

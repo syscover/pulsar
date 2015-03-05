@@ -51,7 +51,7 @@
         <link href="{{ asset('packages/syscover/pulsar/css/MY_style.css') }}" type="text/css" rel="stylesheet">
         
         <!--=== JavaScript ===-->
-        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/libs/jquery-1.10.2.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/libs/jquery-2.1.3.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js') }}"></script>
 
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/bootstrap/js/bootstrap.min.js') }}"></script>
