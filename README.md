@@ -57,6 +57,12 @@ php artisan migrate
 php artisan db:seed
 ```
 
+**8 - When the installation is complete you can access these data**
+```
+user: adminn@pulsar.local
+pasword: 123456
+```
+
 ## Cron
 Para la implementación del sistema cron debemos seguir los siguietnes pasos:
 
