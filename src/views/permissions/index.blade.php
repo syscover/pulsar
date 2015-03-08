@@ -4,6 +4,8 @@
     @include('pulsar::common.block.block_script_header_list')
     @include('pulsar::common.js.script_success_message')
     @include('pulsar::common.js.script_datatable_config')
+    <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/select2/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/select2/select2_locale_' . config('app.locale') . '.js') }}"></script>
     <!-- pulsar::permissions.index -->
     <script type="text/javascript">
         $(document).ready(function() {

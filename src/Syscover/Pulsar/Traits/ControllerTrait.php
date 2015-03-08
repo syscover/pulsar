@@ -34,7 +34,6 @@ trait ControllerTrait {
         // check if url contain offset parameter
         if(!isset($parameters['offset'])) $parameters['offset'] = 0;
 
-
         $parameters['urlParameters']  = $parameters;
 
         Miscellaneous::setParameterSessionPage($this->resource);

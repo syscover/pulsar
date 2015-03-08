@@ -43,6 +43,7 @@
         <link href="{{ asset('packages/syscover/pulsar/plugins/jquery.msgbox/javascript/msgbox/jquery.msgbox.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('packages/syscover/pulsar/plugins/pnotify/jquery.pnotify.default.css') }}" type="text/css" rel="stylesheet">
         <link href="{{ asset('packages/syscover/pulsar/plugins/cssloader/css/cssloader.css') }}" rel="stylesheet" type="text/css">
+        <!-- /LIBS CSS PROPIAS -->
 
         <!-- Librerías CSS y CSS inline  -->
         @yield('css')
@@ -51,18 +52,16 @@
         <link href="{{ asset('packages/syscover/pulsar/css/MY_style.css') }}" type="text/css" rel="stylesheet">
         
         <!--=== JavaScript ===-->
+
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/libs/jquery-2.1.3.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js') }}"></script>
 
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/bootstrap/js/bootstrap.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/libs/lodash.compat.min.js') }}"></script>
 
-        <!-- Loader -->
-        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/cssloader/js/jquery.cssloader.min.js') }}"></script>
-
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
-                <script src="{{ asset('packages/syscover/pulsar/js/libs/html5shiv.js') }}"></script>
+            <script src="{{ asset('packages/syscover/pulsar/js/libs/html5shiv.js') }}"></script>
         <![endif]-->
 
         <!-- Smartphone Touch Events -->
@@ -77,6 +76,14 @@
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/slimscroll/jquery.slimscroll.horizontal.min.js') }}"></script>
 
+        <!-- App -->
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/app.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/plugins.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/plugins.form-components.js') }}"></script>
+
+        <!-- JS OWN -->
+        <!-- Loader -->
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/cssloader/js/jquery.cssloader.min.js') }}"></script>
         <!-- Google Maps  -->
         <?php
             $configPulsar = Session::get('configPulsar');
@@ -84,15 +91,11 @@
         ?>
             <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<?php echo $configPulsar['googleKeyMaps']; ?>&sensor=false"></script> 
         <?php endif; ?>
-        
-        <!-- JS PROPIAS -->
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/jquery.lightbox/js/lightbox/jquery.lightbox.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/jquery.msgbox/javascript/msgbox/jquery.msgbox.min.js') }}"></script>
-        
-        <!-- App -->
-        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/app.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/plugins.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/plugins.form-components.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/MY_script.js') }}"></script>
+        <!-- /JS OWN -->
+
         <script>
             $(document).ready(function()
             {
@@ -109,8 +112,6 @@
 
         <!-- custom script -->
         @yield('script')
-
-        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/MY_script.js') }}"></script>
     </head>
     
     <body class="theme-dark">
