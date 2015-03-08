@@ -10,6 +10,7 @@
  * @filesource  Librarie that instance helper functions
  */
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\File;
@@ -60,6 +61,38 @@ class Miscellaneous
         }
 
         return null;
+    }
+
+    /**
+     *  Funtion to check if option from select is seleted
+     *
+     * @access  public
+     * @param   mixed   $value
+     * @param   mixed   $valueObject
+     * @return  boolean
+     */
+    public static function isSelected($value, $valueObject)
+    {
+        if(is_array($value) && count($value) > 0)
+        {
+            return in_array($valueObject, $value);
+        }
+        if($value instanceof Collection)
+        {
+            foreach($value as $v)
+            {
+                if($v->getKey() == $valueObject)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        elseif($value == $valueObject)
+        {
+            return true;
+        }
+        return false;
     }
 
     /**

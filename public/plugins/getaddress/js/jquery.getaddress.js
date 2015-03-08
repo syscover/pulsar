@@ -49,7 +49,7 @@
 
 
             trans: {
-                selectCountry:		    'Select a country',
+                selectCountry:		    'Select a Country',
                 selectA:		        'Select a '
             }
         },
@@ -93,7 +93,7 @@
 
             // when change territorial area 1 select
             $("[name='" + this.options.tA1Select + "']").change($.proxy(function() {
-                if($("[name='" + this.options.tA1Select + "']").val() != 'null')
+                if($("[name='" + this.options.tA1Select + "']").val() != this.options.nullValue)
                 {
                     this.getTerritorialArea2();
                 }
@@ -106,7 +106,7 @@
 
             // when change territorial area 2 select
             $("[name='" + this.options.tA2Select + "']").change($.proxy(function() {
-                if($("[name='" + this.options.tA2Select + "']").val() != 'null')
+                if($("[name='" + this.options.tA2Select + "']").val() != this.options.nullValue)
                 {
                     this.getTerritorialArea3();
                 }
@@ -196,6 +196,10 @@
                     {
                         $("[name='" + this.options.countrySelect + "']").val(this.options.countryValue).trigger("change");
                         this.options.countryValue = null;
+                    }
+                    else
+                    {
+                        $("[name='" + this.options.countrySelect + "']").val(this.options.nullValue).trigger("change");
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
