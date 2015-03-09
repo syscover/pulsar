@@ -16,7 +16,7 @@
         <link href="{{ asset('packages/syscover/pulsar/css/plugins.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('packages/syscover/pulsar/css/responsive.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('packages/syscover/pulsar/css/icons.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('packages/syscover/pulsar/css/MY_icons.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('packages/syscover/pulsar/css/custom/icons.css') }}" rel="stylesheet" type="text/css">
 
         <!-- Login -->
         <link href="{{ asset('packages/syscover/pulsar/css/login.css') }}" rel="stylesheet" type="text/css">
@@ -33,8 +33,8 @@
         
         <!-- LIBS CSS PROPIAS -->
         <link href="{{ asset('packages/syscover/pulsar/plugins/pnotify/jquery.pnotify.default.css') }}" type="text/css" rel="stylesheet">
-        <link href="{{ asset('packages/syscover/pulsar/css/MY_style.css') }}" type="text/css" rel="stylesheet">
-        <link href="{{ asset('packages/syscover/pulsar/plugins/cssloader/css/cssloader.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('packages/syscover/pulsar/css/custom/style.css') }}" type="text/css" rel="stylesheet">
+        <link href="{{ asset('packages/syscover/pulsar/plugins/cssloader/css/cssloader.css') }}" type="text/css" rel="stylesheet">
 
         <!--=== JavaScript ===-->
 
