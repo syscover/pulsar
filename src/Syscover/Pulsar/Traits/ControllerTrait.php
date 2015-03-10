@@ -215,18 +215,21 @@ trait ControllerTrait {
         {
             return Redirect::route('create' . $this->routeSuffix, $parameters)->withErrors($validation)->withInput();
         }
-        else
-        {
-            if(method_exists($this, 'storeCustomRecord'))
-            {
-                $this->storeCustomRecord($parameters);
-            }
 
-            return Redirect::route($this->routeSuffix, $parameters['urlParameters'])->with([
-                'msg'        => 1,
-                'txtMsg'     => trans('pulsar::pulsar.message_create_record_successful', ['name' => Input::get('name')])
-            ]);
+        if(method_exists($this, 'storeCustomRecord'))
+        {
+            $parameters = $this->storeCustomRecord($parameters);
         }
+
+        if(isset($parameters['modal']) && $parameters['modal'])
+        {
+            return View::make('pulsar::pulsar.pulsar.common.redirect_modal');
+        }
+
+        return Redirect::route($this->routeSuffix, $parameters['urlParameters'])->with([
+            'msg'        => 1,
+            'txtMsg'     => trans('pulsar::pulsar.message_create_record_successful', ['name' => Input::get('name')])
+        ]);
     }
 
     /**
@@ -290,18 +293,16 @@ trait ControllerTrait {
         {
             return Redirect::route('edit' . $this->routeSuffix, $parameters)->withErrors($validation);
         }
-        else
-        {
-            if(method_exists($this, 'updateCustomRecord'))
-            {
-                $this->updateCustomRecord($parameters);
-            }
 
-            return Redirect::route($this->routeSuffix, $parameters['urlParameters'])->with([
-                'msg'        => 1,
-                'txtMsg'     => trans('pulsar::pulsar.message_update_record', ['name' => Input::get('name')])
-            ]);
+        if(method_exists($this, 'updateCustomRecord'))
+        {
+            $this->updateCustomRecord($parameters);
         }
+
+        return Redirect::route($this->routeSuffix, $parameters['urlParameters'])->with([
+            'msg'        => 1,
+            'txtMsg'     => trans('pulsar::pulsar.message_update_record', ['name' => Input::get('name')])
+        ]);
     }
 
     /**
