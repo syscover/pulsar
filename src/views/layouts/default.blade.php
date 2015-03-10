@@ -36,10 +36,6 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
         
         <!-- LIBS CSS PROPIAS -->
-        <link href="{{ asset('packages/syscover/pulsar/plugins/jquery.lightbox/js/lightbox/themes/default/jquery.lightbox.css') }}" rel="stylesheet" type="text/css">
-        <!--[if IE 6]>
-        <link href="{{ asset('packages/syscover/pulsar/plugins/misc/jquery.lightbox/js/lightbox/themes/default/jquery.lightbox.ie6.css') }}" rel="stylesheet" type="text/css">
-        <![endif]-->
         <link href="{{ asset('packages/syscover/pulsar/plugins/jquery.msgbox/javascript/msgbox/jquery.msgbox.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('packages/syscover/pulsar/plugins/pnotify/jquery.pnotify.default.css') }}" type="text/css" rel="stylesheet">
         <link href="{{ asset('packages/syscover/pulsar/plugins/cssloader/css/cssloader.css') }}" type="text/css" rel="stylesheet">
@@ -84,16 +80,8 @@
         <!-- JS OWN -->
         <!-- Loader -->
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/cssloader/js/jquery.cssloader.min.js') }}"></script>
-        <!-- Google Maps  -->
-        <?php
-            $configPulsar = Session::get('configPulsar');
-            if (isset($configPulsar['googleKeyMaps']) && $configPulsar['googleKeyMaps'] != ''):
-        ?>
-            <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<?php echo $configPulsar['googleKeyMaps']; ?>&sensor=false"></script> 
-        <?php endif; ?>
-        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/jquery.lightbox/js/lightbox/jquery.lightbox.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/jquery.msgbox/javascript/msgbox/jquery.msgbox.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/MY_script.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/custom/app.js') }}"></script>
         <!-- /JS OWN -->
 
         <script>
