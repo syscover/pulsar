@@ -105,7 +105,7 @@ class Permissions extends Controller
 
         $data['json'] = json_encode($output);
 
-        return view('pulsar::common.json_display', $data);
+        return view('pulsar::common.views.json_display', $data);
     }
 
     public function jsonCreate($profile, $resource, $action)

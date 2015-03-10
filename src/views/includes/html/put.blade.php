@@ -1,2 +1,2 @@
-<!-- pulsar::common.block.block_put -->
+<!-- pulsar::includes.html.put -->
 <input type="hidden" name="_method" value="PUT">

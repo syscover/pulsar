@@ -62,12 +62,12 @@ class PasswordController extends Controller {
         {
             case PasswordBroker::RESET_LINK_SENT:
                 $parameters['json'] = json_encode(['success' => true]);
-                return view('pulsar::common.json_display', $parameters);
+                return view('pulsar::common.views.json_display', $parameters);
 
 
             case PasswordBroker::INVALID_USER:
                 $parameters['json'] = json_encode(['success' => false]);
-                return view('pulsar::common.json_display', $parameters);
+                return view('pulsar::common.views.json_display', $parameters);
         }
     }
 

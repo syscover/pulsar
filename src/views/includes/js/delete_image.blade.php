@@ -1,4 +1,4 @@
-<!-- pulsar::common.js.script_delete_image -->
+<!-- pulsar::includes.js.delete_image -->
 <script type="text/javascript">
     function deleteImage(url, inputHidden, inputFile, inputImage)
     {
@@ -53,4 +53,4 @@
         );
     }
 </script>
-<!-- pulsar::common.js.script_delete_image -->
+<!-- pulsar::includes.js.delete_image -->

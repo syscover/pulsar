@@ -1,7 +1,7 @@
 <!-- pulsar::layouts.form -->
 <form class="form-horizontal" method="post" action="{{ route($action . $routeSuffix, $urlParameters) }}" @if(isset($enctype) && $enctype)enctype="multipart/form-data"@endif>
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    @if($action == 'update') @include('pulsar::common.block.block_put') @endif
+    @if($action == 'update') @include('pulsar::includes.html.put') @endif
     @yield('rows')
     <div class="form-actions">
         <button type="submit" class="btn marginR10">{{ trans('pulsar::pulsar.save') }}</button>

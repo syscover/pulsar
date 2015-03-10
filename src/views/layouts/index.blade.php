@@ -1,9 +1,9 @@
 @extends('pulsar::layouts.default')
 
 @section('script')
-    @include('pulsar::common.block.block_script_header_list')
-    @include('pulsar::common.js.script_success_message')
-    @include('pulsar::common.js.script_datatable_config')
+    @include('pulsar::includes.html.script_header_list')
+    @include('pulsar::includes.js.success_message')
+    @include('pulsar::includes.js.datatable_config')
 @stop
 
 @section('mainContent')

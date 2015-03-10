@@ -187,7 +187,7 @@ class Countries extends Controller {
                 
         $data['json'] = json_encode($output);
         
-        return view('pulsar::common.json_display',$data);
+        return view('pulsar::common.views.json_display', $data);
     }
 
     public function createCustomRecord($parameters)
@@ -258,7 +258,7 @@ class Countries extends Controller {
 
         if($id != null) $parameters['json'] = Country::getTranslationRecord($id, Session::get('baseLang')->id_001)->toJson();
 
-        return view('pulsar::common.json_display', $parameters);
+        return view('pulsar::common.views.json_display', $parameters);
     }
 
     public function jsonCountries($lang = null)
@@ -267,6 +267,6 @@ class Countries extends Controller {
 
         if($lang != null) $parameters['json'] = Country::where('lang_002', $lang)->get()->toJson();
 
-        return view('pulsar::common.json_display', $parameters);
+        return view('pulsar::common.views.json_display', $parameters);
     }
 }

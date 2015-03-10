@@ -99,6 +99,6 @@ class TerritorialAreas3 extends Controller {
         $data['json'] = [];
         if($id!="null") $data['json'] = TerritorialArea2::find($id)->territorialAreas3()->get()->toJson();
 
-        return view('pulsar::common.json_display',$data);
+        return view('pulsar::common.views.json_display',$data);
     }
 }

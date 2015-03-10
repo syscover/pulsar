@@ -1,4 +1,4 @@
-        <!-- pulsar::common.js.script_datatable_config -->
+        <!-- pulsar::includes.js.datatable_config -->
         <script type="text/javascript">
             $(document).ready(function() {
                 if ($.fn.dataTable) {
@@ -172,4 +172,4 @@
                 }
             }
         </script>
-        <!-- /pulsar::common.js.script_datatable_config -->
+        <!-- /pulsar::includes.js.datatable_config -->

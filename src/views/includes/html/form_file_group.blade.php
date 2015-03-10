@@ -1,6 +1,6 @@
-<!-- pulsar::common.block.block_form_file_group -->
+<!-- pulsar::includes.html.form_file_group -->
 <div class="form-group">
-    <label class="col-md-2 control-label">{{ $label }} @if(isset($required)) @include('pulsar::common.block.block_required') @endif</label>
+    <label class="col-md-2 control-label">{{ $label }} @if(isset($required)) @include('pulsar::includes.html.required') @endif</label>
     <div class="col-md-10">
         <!-- If the file has logo field is hidden from JavasScript -->
         <div id="inputFile"@if(isset($value)) style="display: none"@endif>
@@ -17,4 +17,4 @@
         {!! $errors->first($name, config('pulsar.errorDelimiters')) !!}
     </div>
 </div>
-<!-- /pulsar::common.block.block_form_file_group -->
+<!-- /pulsar::includes.html.form_file_group -->

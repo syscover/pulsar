@@ -1,6 +1,6 @@
 
 @if(Session::get('msg') != null && Session::get('msg')==1)
-    <!-- pulsar::common.js.script_success_message -->
+    <!-- pulsar::includes.js.success_message -->
     <script type="text/javascript">
         $(document).ready(function() {
             $.pnotify({
@@ -14,5 +14,5 @@
             });
         });
     </script>
-    <!-- /pulsar::common.js.script_success_message -->
+    <!-- /pulsar::includes.js.success_message -->
 @endif

@@ -1,9 +1,9 @@
 @extends('pulsar::layouts.default')
 
 @section('script')
-    @include('pulsar::common.block.block_script_header_list')
-    @include('pulsar::common.js.script_success_message')
-    @include('pulsar::common.js.script_datatable_config')
+    @include('pulsar::includes.html.script_header_list')
+    @include('pulsar::includes.js.success_message')
+    @include('pulsar::includes.js.datatable_config')
     <link href="{{ asset('packages/syscover/pulsar/css/custom/select2/select2.css') }}" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/select2/select2_locale_' . config('app.locale') . '.js') }}"></script>
@@ -97,7 +97,7 @@
                             }
                         });
 
-                        //start lineas heredadas de views/pulsar/pulsar/common/js/script_config_datatable.blade.php
+                        //start lineas heredadas de views/pulsar/pulsar/includes/js/script_config_datatable.blade.php
                         $('input[name="nElementsDataTable"]').attr('value', this.fnGetData().length);
 
                         //activacion de los tooltips en la datatables
@@ -132,7 +132,7 @@
                         if (typeof responsiveHelper != 'undefined') {
                             responsiveHelper.respond();
                         }
-                        //end lineas heredadas de views/pulsar/pulsar/common/js/script_config_datatable.blade.php
+                        //end lineas heredadas de views/pulsar/pulsar/includes/js/script_config_datatable.blade.php
                     }
                 }).fnSetFilteringDelay();
             }
