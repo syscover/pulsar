@@ -31,43 +31,46 @@ Pulsar is an application that generates a control panel where you start creating
 
 ```
 
-**4 - To publish package, you must type on console**
+**4 - Config file config/database.php with your database parameters connections**
+
+**5 - To publish package, you must type on console**
 
 ```
-php artisan vendor:publish
+php artisan vendor:publish --force
 
 ```
 
-**5 - Optimized class loader**
+**6 - Optimized class loader**
 
 ```
 php artisan optimize
 
 ```
 
-**6 - Run migrate database**
+**7 - Run migrate database**
 
 ```
 php artisan migrate
 ```
 
-**7 - Run seed database**
+**8 - Run seed database**
 
 ```
 php artisan db:seed
 ```
 
-**8 - When the installation is complete you can access these data**
+**9 - When the installation is complete you can access these data**
 ```
-user: adminn@pulsar.local
+url: http://www.your-domain.com/pulsar
+user: admin@pulsar.local
 pasword: 123456
 ```
 
-## Cron
-Para la implementación del sistema cron debemos seguir los siguietnes pasos:
+## Cron task
+To implement the cron system must follow the following steps:
 
 
-### Instanciar el cron en nuestro servidor
+### set cron on our server
 
 Para ello necesitaremos instanciar en nuestro servidor una única tarea cron que se encargará de revisar si tiene que disparar algún comando, normalmente con el comando /usr/bin/php y apuntando 
 a la ruta absoluta del fichero artisan que se debe de encontrar en la raiz de nuestro proyecto web.
