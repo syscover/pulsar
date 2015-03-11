@@ -3,8 +3,6 @@
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
-
 use Illuminate\Http\Request;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 
@@ -213,7 +211,7 @@ trait ControllerTrait {
 
         if ($validation->fails())
         {
-            return Redirect::route('create' . $this->routeSuffix, $parameters)->withErrors($validation)->withInput();
+            return redirect()->route('create' . $this->routeSuffix, $parameters)->withErrors($validation)->withInput();
         }
 
         if(method_exists($this, 'storeCustomRecord'))
@@ -226,7 +224,7 @@ trait ControllerTrait {
             return view('pulsar::common.views.redirect_modal');
         }
 
-        return Redirect::route($this->routeSuffix, $parameters['urlParameters'])->with([
+        return redirect()->route($this->routeSuffix, $parameters['urlParameters'])->with([
             'msg'        => 1,
             'txtMsg'     => trans('pulsar::pulsar.message_create_record_successful', ['name' => Input::get('name')])
         ]);
@@ -291,15 +289,20 @@ trait ControllerTrait {
 
         if ($validation->fails())
         {
-            return Redirect::route('edit' . $this->routeSuffix, $parameters)->withErrors($validation);
+            return redirect()->route('edit' . $this->routeSuffix, $parameters)->withErrors($validation);
         }
 
         if(method_exists($this, 'updateCustomRecord'))
         {
-            $this->updateCustomRecord($parameters);
+            $parameters = $this->updateCustomRecord($parameters);
         }
 
-        return Redirect::route($this->routeSuffix, $parameters['urlParameters'])->with([
+        if(isset($parameters['modal']) && $parameters['modal'])
+        {
+            return view('pulsar::common.views.redirect_modal');
+        }
+
+        return redirect()->route($this->routeSuffix, $parameters['urlParameters'])->with([
             'msg'        => 1,
             'txtMsg'     => trans('pulsar::pulsar.message_update_record', ['name' => Input::get('name')])
         ]);
@@ -333,7 +336,7 @@ trait ControllerTrait {
             return $this->deleteCustomRecordRedirect($object, $parameters);
         }
 
-        return Redirect::route($this->routeSuffix, $parameters)->with([
+        return redirect()->route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,
             'txtMsg'     => trans('pulsar::pulsar.message_delete_record_successful', ['name' => $object->{$this->nameM}])
         ]);
@@ -358,7 +361,7 @@ trait ControllerTrait {
 
         call_user_func($this->model . '::deleteTranslationRecord', $parameters['id'], $parameters['lang']);
 
-        return Redirect::route($this->routeSuffix, $parameters)->with([
+        return redirect()->route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,
             'txtMsg'     => trans('pulsar::pulsar.message_delete_record_successful', ['name' => $object->{$this->nameM}])
         ]);
@@ -396,10 +399,10 @@ trait ControllerTrait {
 
         if(method_exists($this, 'deleteCustomRecordsRedirect'))
         {
-            return $this->deleteCustomRecordsRedirect($object, $parameters);
+            return $this->deleteCustomRecordsRedirect($parameters);
         }
 
-        return Redirect::route($this->routeSuffix, $parameters)->with([
+        return redirect()->route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,
             'txtMsg'     => trans('pulsar::pulsar.message_delete_records_successful')
         ]);

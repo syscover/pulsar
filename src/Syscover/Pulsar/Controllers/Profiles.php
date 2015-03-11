@@ -79,7 +79,7 @@ class Profiles extends Controller {
         Permission::deleteRecordsProfile($parameters['id']);
         Permission::insert($permissions);
 
-        return Redirect::route($this->routeSuffix, $parameters)->with([
+        return redirect()->route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,
             'txtMsg'     => trans('pulsar::pulsar.message_create_all_permissions', ['profile' => $profile->name_006])
         ]);

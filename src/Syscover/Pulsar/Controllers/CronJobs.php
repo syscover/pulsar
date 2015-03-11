@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Redirect;
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Models\CronJob;
 use Cron\CronExpression;
@@ -45,7 +44,7 @@ class CronJobs extends Controller
 
         $comand(); // run task cron
 
-        return Redirect::route($this->routeSuffix, $offset)->with([
+        return redirect()->route($this->routeSuffix, $offset)->with([
             'msg'        => 1,
             'txtMsg'     => Lang::get('pulsar::pulsar.action_successful', ['name' => $cronJob->name_011])
         ]);

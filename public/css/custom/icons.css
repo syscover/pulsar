@@ -164,7 +164,7 @@
 [class^="brocco-icon-"], [class*=" brocco-icon-"],[class^="cut-icon-"], [class*=" cut-icon-"],[class^="entypo-icon-"], [class*=" entypo-icon-"],[class^="icomoon-icon-"], [class*=" icomoon-icon-"],[class^="minia-icon-"], [class*=" minia-icon-"],[class^="iconic-icon-"], [class*=" iconic-icon-"],[class^="meteo-icon-"], [class*=" meteo-icon-"],[class^="silk-icon-"], [class*=" silk-icon-"],[class^="typ-icon-"], [class*=" typ-icon-"], [class^="wpzoom-"], [class*=" wpzoom-"], [class^="eco-"], [class*=" eco-"], [class^="wpzoom-"]:before, [class*=" wpzoom-"]:before, [class^="eco-"]:before, [class*=" eco-"]:before  {
   vertical-align: middle;
   color: #353535;
-  margin-right:5px;
+  margin-right:0px;
   margin-left:-2px;
   display: inline-block;
   margin-top: -3px;
