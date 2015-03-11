@@ -14,7 +14,7 @@
         "php": ">=5.4.0",
         "zendframework/zend-permissions-acl": "2.3.*@dev",
         "tecnick.com/tcpdf": "dev-master",
-        "mtdowling/cron-expression": "dev-master",
+        "mtdowling/cron-expression": "~1.0",
         "phpoffice/phpexcel": "dev-master"
     },
     "autoload": {
