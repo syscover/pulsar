@@ -216,7 +216,11 @@ trait ControllerTrait {
 
         if(method_exists($this, 'storeCustomRecord'))
         {
-            $parameters = $this->storeCustomRecord($parameters);
+            $parametersResponse = $this->storeCustomRecord($parameters);
+            if(is_array($parametersResponse))
+            {
+                $parameters = array_merge($parameters, $parametersResponse);
+            }
         }
 
         if(isset($parameters['modal']) && $parameters['modal'])
@@ -294,7 +298,11 @@ trait ControllerTrait {
 
         if(method_exists($this, 'updateCustomRecord'))
         {
-            $parameters = $this->updateCustomRecord($parameters);
+            $parametersResponse = $this->updateCustomRecord($parameters);
+            if(is_array($parametersResponse))
+            {
+                $parameters = array_merge($parameters, $parametersResponse);
+            }
         }
 
         if(isset($parameters['modal']) && $parameters['modal'])
