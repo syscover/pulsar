@@ -12,7 +12,7 @@
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Lang;
 
@@ -169,15 +169,15 @@ class Miscellaneous
      */
     public static function sessionParamterSetSearchParams($data = [])
     {
-        if (Input::get('search_params'))
+        if (Request::input('search_params'))
         {
-            Session::put('search_params', Input::all());
-            $data['search_params'] = Input::all();
+            Session::put('search_params', Request::all());
+            $data['search_params'] = Request::all();
             Session::put('cadena', null);
         }
-        elseif (Session::get('search_params') && Input::get('accion') != 'query')
+        elseif (Session::get('search_params') && Request::input('accion') != 'query')
         {
-            //comprobamos que al recoger la variable de la session no se está realizando una busqueda rápida, si es así se estará lanzando la variable Input::get('accion') == 'query
+            //comprobamos que al recoger la variable de la session no se está realizando una busqueda rápida, si es así se estará lanzando la variable Request::input('accion') == 'query
             //y pasaremos de largo.
             $data['search_params'] = Session::get('search_params');
         }
@@ -209,6 +209,53 @@ class Miscellaneous
     }
 
     /**
+     *  Function to upload base64 image
+     *
+     * @access  public
+     * @param   $inputName
+     * @param   $path
+     * @param   bool $encryption
+     * @param   bool $newFilename
+     * @return  bool
+     */
+    public static function base64ImageUpload($inputName, $path, $encryption = false, $newFilename = false)
+    {
+        $json	    = json_decode(Request::input($inputName));
+        $imageData 	= base64_decode(explode(',', $json->data)[1]);
+        $nameArray  = explode('.', $json->name);
+
+        $extension	= strtolower($nameArray[1]);
+        $basename	= strtolower($nameArray[0]);
+
+        if ($encryption)
+        {
+            mt_srand();
+            $filename = md5(uniqid(mt_rand())) . "." . $extension;
+        }
+        elseif ($newFilename)
+        {
+            $filename = $newFilename . "." . $extension;
+        }
+        else
+        {
+            $filename = $json->name;
+        }
+
+        $i = 0;
+        while(file_exists($path . '/' . $filename))
+        {
+            $i++;
+            $filename = $basename . '-' . $i . '.' . $extension;
+        }
+
+        $handle	= fopen($path . '/' . $filename, 'w');
+        fwrite($handle, $imageData);
+        fclose($handle);
+
+        return $filename;
+    }
+
+    /**
      *  Función para subir ficheros
      *
      * @access    public
@@ -220,7 +267,7 @@ class Miscellaneous
      */
     public static function uploadFiles($inputName, $path, $encryption = false, $newFilename = false)
     {
-        $file       = Input::file($inputName);
+        $file       = Request::file($inputName);
         $extension  = $file->getClientOriginalExtension();
         $basename   = basename($file->getClientOriginalName(), '.' . $extension);
 
@@ -253,13 +300,13 @@ class Miscellaneous
     /**
      *  Función para mover ficheros
      *
-     * @access    public
-     * @param $path
-     * @param $target
-     * @param $fileName
-     * @param bool $encryption
-     * @param bool $newFilename
-     * @return bool
+     * @access  public
+     * @param   $path
+     * @param   $target
+     * @param   $fileName
+     * @param   bool    $encryption
+     * @param   bool    $newFilename
+     * @return  bool
      */
     public static function move($path, $target, $fileName, $encryption = false, $newFilename = false)
     {
@@ -467,10 +514,10 @@ class Miscellaneous
         // Datatable paginate
         $parameters['sStart'] = null;
         $parameters['sLength'] = null;
-	    if(Input::get('iDisplayStart') != null && Input::get('iDisplayLength') != '-1' )
+	    if(Request::input('iDisplayStart') != null && Request::input('iDisplayLength') != '-1' )
         {
-            $parameters['sStart']   = Input::get('iDisplayStart');
-            $parameters['sLength']  = Input::get('iDisplayLength');
+            $parameters['sStart']   = Request::input('iDisplayStart');
+            $parameters['sLength']  = Request::input('iDisplayLength');
         }
         
         return $parameters;
@@ -488,14 +535,14 @@ class Miscellaneous
     {
 	    $args['sOrder'] = null;
         $args['sTypeOrder'] = null;
-        if(Input::get('iSortCol_0')!=null)
+        if(Request::input('iSortCol_0')!=null)
         {
-            for($i=0; $i < intval(Input::get('iSortingCols')); $i++)
+            for($i=0; $i < intval(Request::input('iSortingCols')); $i++)
             {
-                if (Input::get('bSortable_'.intval(Input::get('iSortCol_'.$i))) == "true")
+                if (Request::input('bSortable_'.intval(Request::input('iSortCol_'.$i))) == "true")
                 {
-                    $args['sOrder']       = is_array($aColumns[intval(Input::get('iSortCol_'.$i))])?  $aColumns[intval(Input::get('iSortCol_'.$i))]['name'] : $aColumns[intval(Input::get('iSortCol_'.$i))];
-                    $args['sTypeOrder']   = Input::get('sSortDir_'.$i);
+                    $args['sOrder']       = is_array($aColumns[intval(Request::input('iSortCol_'.$i))])?  $aColumns[intval(Request::input('iSortCol_'.$i))]['name'] : $aColumns[intval(Request::input('iSortCol_'.$i))];
+                    $args['sTypeOrder']   = Request::input('sSortDir_'.$i);
                 }
             }
         }
@@ -513,9 +560,9 @@ class Miscellaneous
     {
         //filtrado de la tabla
         $args['sWhere'] = null;
-        if(Input::get('sSearch') != null && Input::get('sSearch') != "")
+        if(Request::input('sSearch') != null && Request::input('sSearch') != "")
         {
-                $args['sWhere'] = Input::get('sSearch');
+                $args['sWhere'] = Request::input('sSearch');
         }
         return $args;
     }
@@ -533,9 +580,9 @@ class Miscellaneous
         $args['sWhereColumns'] = null;
         for($i=0; $i < count($aColumns); $i++)
         {
-            if(Input::get('bSearchable_'.$i) != null && Input::get('bSearchable_'.$i) == "true" && Input::get('sSearch_'.$i) != '')
+            if(Request::input('bSearchable_'.$i) != null && Request::input('bSearchable_'.$i) == "true" && Request::input('sSearch_'.$i) != '')
             {
-                $sWhereColumn['sWhere']     = Input::get('sSearch_'.$i);
+                $sWhereColumn['sWhere']     = Request::input('sSearch_'.$i);
                 $sWhereColumn['aColumn']    = is_array($aColumns[$i])? $aColumns[$i]['name'] : $aColumns[$i];
 
                 if(!is_array($args['sWhereColumns']))$args['sWhereColumns'] = array();

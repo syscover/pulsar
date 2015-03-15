@@ -10,7 +10,7 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Models\Resource;
 use Syscover\Pulsar\Traits\ControllerTrait;
@@ -37,9 +37,9 @@ class Resources extends Controller {
     public function storeCustomRecord($parameters)
     {
         Resource::create([
-            'id_007'        => Input::get('id'),
-            'package_007'   => Input::get('package'),
-            'name_007'      => Input::get('name')
+            'id_007'        => Request::input('id'),
+            'package_007'   => Request::input('package'),
+            'name_007'      => Request::input('name')
         ]);
     }
     
@@ -52,9 +52,9 @@ class Resources extends Controller {
     public function updateCustomRecord($parameters)
     {
         Resource::where('id_007', $parameters['id'])->update([
-            'id_007'        => Input::get('id'),
-            'package_007'   => Input::get('package'),
-            'name_007'      => Input::get('name')
+            'id_007'        => Request::input('id'),
+            'package_007'   => Request::input('package'),
+            'name_007'      => Request::input('name')
         ]);
     }
 }

@@ -1,7 +1,6 @@
 <?php namespace Syscover\Pulsar\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
@@ -119,5 +118,4 @@ class AuthController extends Controller {
         Session::flush();
         return redirect(config('pulsar.appName'));
     }
-
 }

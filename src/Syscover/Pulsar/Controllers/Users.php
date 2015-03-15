@@ -11,7 +11,7 @@ namespace Syscover\Pulsar\Controllers;
  * @filesource
  */
 
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Hash;
 use Syscover\Pulsar\Models\Lang;
 use Syscover\Pulsar\Models\Profile;
@@ -42,14 +42,14 @@ class Users extends Controller {
     public function storeCustomRecord()
     {
         User::create([
-            'name_010'      => Input::get('name'),
-            'surname_010'   => Input::get('surname'),
-            'email_010'     => Input::get('email'),
-            'lang_010'      => Input::get('lang'),
-            'access_010'    => Input::get('access',0),
-            'profile_010'   => Input::get('profile'),
-            'user_010'      => Input::get('user'),
-            'password_010'  => Hash::make(Input::get('password'))
+            'name_010'      => Request::input('name'),
+            'surname_010'   => Request::input('surname'),
+            'email_010'     => Request::input('email'),
+            'lang_010'      => Request::input('lang'),
+            'access_010'    => Request::input('access',0),
+            'profile_010'   => Request::input('profile'),
+            'user_010'      => Request::input('user'),
+            'password_010'  => Hash::make(Request::input('password'))
         ]);
     }
 
@@ -65,9 +65,9 @@ class Users extends Controller {
     {
         $user = User::find($parameters['id']);
 
-        $parameters['specialRules']['emailRule']    = Input::get('email') == $user->email_010? true : false;
-        $parameters['specialRules']['userRule']     = Input::get('user') == $user->user_010? true : false;
-        $parameters['specialRules']['passRule']     = Input::get('password') == ""? true : false;
+        $parameters['specialRules']['emailRule']    = Request::input('email') == $user->email_010? true : false;
+        $parameters['specialRules']['userRule']     = Request::input('user') == $user->user_010? true : false;
+        $parameters['specialRules']['passRule']     = Request::input('password') == ""? true : false;
 
         return $parameters;
     }
@@ -75,18 +75,18 @@ class Users extends Controller {
     public function updateCustomRecord($parameters)
     {
         $user = [
-            'name_010'      => Input::get('name'),
-            'surname_010'   => Input::get('surname'),
-            'email_010'     => Input::get('email'),
-            'lang_010'      => Input::get('lang'),
-            'access_010'    => Input::get('access',0),
-            'profile_010'   => Input::get('profile'),
-            'user_010'      => Input::get('user'),
+            'name_010'      => Request::input('name'),
+            'surname_010'   => Request::input('surname'),
+            'email_010'     => Request::input('email'),
+            'lang_010'      => Request::input('lang'),
+            'access_010'    => Request::input('access',0),
+            'profile_010'   => Request::input('profile'),
+            'user_010'      => Request::input('user'),
         ];
 
-        //if($emailRule)  $user['email_010']      = Input::get('email');
-        //if($userRule)   $user['user_010']       = Input::get('user');
-       // if($passRule)   $user['password_010']   = Hash::make(Input::get('password'));
+        //if($emailRule)  $user['email_010']      = Request::input('email');
+        //if($userRule)   $user['user_010']       = Request::input('user');
+       // if($passRule)   $user['password_010']   = Hash::make(Request::input('password'));
 
         User::where('id_010', $parameters['id'])->update($user);
 

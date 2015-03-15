@@ -11,7 +11,7 @@
  */
 
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Traits\ControllerTrait;
 
@@ -31,16 +31,16 @@ class Packages extends Controller {
     public function storeCustomRecord($parameters)
     {
         Package::create([
-            'name_012'      => Input::get('name'),
-            'active_012'    => Input::get('active', 0)
+            'name_012'      => Request::input('name'),
+            'active_012'    => Request::input('active', 0)
         ]);
     }
 
     public function updateCustomRecord($parameters)
     {
         Package::where('id_012', $parameters['id'])->update([
-            'name_012'      => Input::get('name'),
-            'active_012'    => Input::get('active', 0)
+            'name_012'      => Request::input('name'),
+            'active_012'    => Request::input('active', 0)
         ]);
 
         // update object packages from session

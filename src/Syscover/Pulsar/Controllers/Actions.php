@@ -10,7 +10,7 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Models\Action;
 use Syscover\Pulsar\Traits\ControllerTrait;
 
@@ -30,16 +30,16 @@ class Actions extends Controller {
     public function storeCustomRecord($parameters)
     {
         Action::create([
-            'id_008'    => Input::get('id'),
-            'name_008'  => Input::get('name')
+            'id_008'    => Request::input('id'),
+            'name_008'  => Request::input('name')
         ]);
     }
     
     public function updateCustomRecord($parameters)
     {
         Action::where('id_008', $parameters['id'])->update([
-            'id_008'    => Input::get('id'),
-            'name_008'  => Input::get('name')
+            'id_008'    => Request::input('id'),
+            'name_008'  => Request::input('name')
         ]);
     }
 }

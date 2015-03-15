@@ -12,9 +12,8 @@
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request as HttpRequest;
 use Syscover\Pulsar\Models\Profile;
 use Syscover\Pulsar\Models\Resource;
 use Syscover\Pulsar\Models\Action;
@@ -38,8 +37,8 @@ class Profiles extends Controller {
 
     public function jsonCustomDataBeforeActions($aObject)
     {
-        $actions = Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('Permission', [0, $aObject['id_006'], Input::get('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_permissions').'"><i class="icon-shield"></i></a>' : null;
-        $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip all-permissions" onClick="setAllPermissions(this)" data-all-permissions-url="' . route('allPermissionsProfile', [$aObject['id_006'], Input::get('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.set_all_permissions').'"><i class="icon-unlock-alt"></i></a>' : null;
+        $actions = Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('Permission', [0, $aObject['id_006'], Request::input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_permissions').'"><i class="icon-shield"></i></a>' : null;
+        $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip all-permissions" onClick="setAllPermissions(this)" data-all-permissions-url="' . route('allPermissionsProfile', [$aObject['id_006'], Request::input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.set_all_permissions').'"><i class="icon-unlock-alt"></i></a>' : null;
 
         return $actions;
     }
@@ -47,18 +46,18 @@ class Profiles extends Controller {
     public function storeCustomRecord()
     {
         Profile::create([
-            'name_006'  => Input::get('name')
+            'name_006'  => Request::input('name')
         ]);
     }
     
     public function updateCustomRecord($parameters)
     {
         Profile::where('id_006', $parameters['id'])->update([
-            'name_006'  => Input::get('name')
+            'name_006'  => Request::input('name')
         ]);
     }
 
-    public function setAllPermissions(Request $request)
+    public function setAllPermissions(HttpRequest $request)
     {
         // get parameters from url route
         $parameters = $request->route()->parameters();

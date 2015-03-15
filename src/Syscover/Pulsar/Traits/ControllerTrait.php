@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 
@@ -84,7 +83,7 @@ trait ControllerTrait {
         //$class          = new \ReflectionClass($this->model);
 
         $output = [
-            "sEcho"                 => Input::get('sEcho'),
+            "sEcho"                 => $request->input('sEcho'),
             "iTotalRecords"         => $iTotal,
             "iTotalDisplayRecords"  => $iFilteredTotal,
             "aaData"                => []
@@ -133,7 +132,7 @@ trait ControllerTrait {
             $row[] = '<input type="checkbox" class="uniform" name="element' . $i . '" value="' . $aObject[$instance->getKeyName()] . '">';
 
             $actionUrlParameters['id']        = $aObject[$instance->getKeyName()];
-            $actionUrlParameters['offset']    = Input::get('iDisplayStart');
+            $actionUrlParameters['offset']    = $request->input('iDisplayStart');
 
             if(method_exists($this, 'customActionUrlParameters'))
             {
@@ -207,7 +206,7 @@ trait ControllerTrait {
             $parameters['specialRules']  = [];
         }
 
-        $validation = call_user_func($this->model . '::validate', Input::all(), $parameters['specialRules']);
+        $validation = call_user_func($this->model . '::validate', $request->all(), $parameters['specialRules']);
 
         if ($validation->fails())
         {
@@ -230,7 +229,7 @@ trait ControllerTrait {
 
         return redirect()->route($this->routeSuffix, $parameters['urlParameters'])->with([
             'msg'        => 1,
-            'txtMsg'     => trans('pulsar::pulsar.message_create_record_successful', ['name' => Input::get('name')])
+            'txtMsg'     => trans('pulsar::pulsar.message_create_record_successful', ['name' => $request->input('name')])
         ]);
     }
 
@@ -279,7 +278,7 @@ trait ControllerTrait {
         }
 
         // check special rule to objects with writable IDs like actions
-        if(Input::get('id') == $parameters['id'])
+        if($request->input('id') == $parameters['id'])
         {
             $parameters['specialRules']['idRule'] = true;
         }
@@ -289,7 +288,7 @@ trait ControllerTrait {
             $parameters['specialRules']  = [];
         }
 
-        $validation = call_user_func($this->model . '::validate', Input::all(), $parameters['specialRules']);
+        $validation = call_user_func($this->model . '::validate', $request->all(), $parameters['specialRules']);
 
         if ($validation->fails())
         {
@@ -312,7 +311,7 @@ trait ControllerTrait {
 
         return redirect()->route($this->routeSuffix, $parameters['urlParameters'])->with([
             'msg'        => 1,
-            'txtMsg'     => trans('pulsar::pulsar.message_update_record', ['name' => Input::get('name')])
+            'txtMsg'     => trans('pulsar::pulsar.message_update_record', ['name' => $request->input('name')])
         ]);
     }
 
@@ -386,14 +385,14 @@ trait ControllerTrait {
         // get parameters from url route
         $parameters = $request->route()->parameters();
 
-        $nElements = Input::get('nElementsDataTable');
+        $nElements = $request->input('nElementsDataTable');
         $ids = [];
 
         for($i=0; $i < $nElements; $i++)
         {
-            if(Input::get('element' . $i) != false)
+            if($request->input('element' . $i) != false)
             {
-                array_push($ids, Input::get('element' . $i));
+                array_push($ids, $request->input('element' . $i));
             }
         }
 

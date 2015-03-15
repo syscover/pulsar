@@ -159,3 +159,29 @@ input[type="color"],
 .form-horizontal .control-label, .form-horizontal .radio, .form-horizontal .checkbox, .form-horizontal .radio-inline, .form-horizontal .checkbox-inline{
     padding-top: 0px;
 }
+
+/* CSS to html5-upload-image plugin */
+img.ghost, img.main {
+    width: auto\9;
+    height: auto;
+    max-width: none !important;
+    vertical-align: middle;
+    border: 0;
+    -ms-interpolation-mode: bicubic;
+}
+.dropzone:after {
+    content: '' !important;
+    font-size: 30px;
+    color: #bbbbbb;
+    position: absolute;
+    bottom: 60%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index:0;
+}
+.html5-label{
+    font-size: 0.8vw !important;
+    text-align: center;
+    width: 100%;
+}

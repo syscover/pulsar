@@ -82,12 +82,12 @@ class ImageServices
                     'mime'          => $file->getMimeType(),
                     'isImage'       => false,
                     //'tmpFile'       => $_FILES['file']['tmp_name'],
-                    //'tmpFolder'     => Input::get('tmpFolder'),
-                    //'folder'        => Input::get('folder'),
-                    //'encryption'    => Input::get('encryption'),
-                    //'filename'      => Input::get('filename'),
-                    //'mimesAccept'   => Input::get('mimesAccept'),
-                    //'tmpDelete'     => Input::get('tmpDelete'),
+                    //'tmpFolder'     => Request::input('tmpFolder'),
+                    //'folder'        => Request::input('folder'),
+                    //'encryption'    => Request::input('encryption'),
+                    //'filename'      => Request::input('filename'),
+                    //'mimesAccept'   => Request::input('mimesAccept'),
+                    //'tmpDelete'     => Request::input('tmpDelete'),
 
                 );
 
@@ -161,16 +161,16 @@ class ImageServices
                 'mime'              => Input::get('mime'),
                 'isImage'           => Input::get('isImage'),
                 'name'              => null,
-                //'cropWidth'         => Input::get('cropWidth'),
-                //'cropHeight'        => Input::get('cropHeight'),
-                //'aspectRatio'       => Input::get('aspectRatio'),
-                //'tmpName'           => Input::get('tmpName'),
-                //'tmpFolder'         => Input::get('tmpFolder'),
-                //'folder'            => Input::get('folder'),
-                //'row'               => Input::get('row'),
-                //'roh'               => Input::get('roh'),
-                //'outputExtension'   => Input::get('outputExtension'),
-                //'sizes'             => Input::get('sizes')
+                //'cropWidth'         => Request::input('cropWidth'),
+                //'cropHeight'        => Request::input('cropHeight'),
+                //'aspectRatio'       => Request::input('aspectRatio'),
+                //'tmpName'           => Request::input('tmpName'),
+                //'tmpFolder'         => Request::input('tmpFolder'),
+                //'folder'            => Request::input('folder'),
+                //'row'               => Request::input('row'),
+                //'roh'               => Request::input('roh'),
+                //'outputExtension'   => Request::input('outputExtension'),
+                //'sizes'             => Request::input('sizes')
             );
 
         if(Input::has('coords')) $response['coords'] = Input::get('coords');									// Coordinates are included in the response if they exist
@@ -234,14 +234,14 @@ class ImageServices
                 'mime'                  => Input::get('mime'),
                 'isImage'               => Input::get('isImage'),
                 'name'                  => null,
-                //'tmpName'               => Input::get('tmpName'),
-                //'tmpFolder'             => Input::get('tmpFolder'),
-                //'folder'                => Input::get('folder'),
-                //'width'                 => Input::get('width'),
-                //'height'                => Input::get('height'),
-                //'constrainProportions'  => Input::get('constrainProportions'),
-                //'outputExtension'       => Input::get('outputExtension'),
-                //'sizes'                 => Input::get('sizes')
+                //'tmpName'               => Request::input('tmpName'),
+                //'tmpFolder'             => Request::input('tmpFolder'),
+                //'folder'                => Request::input('folder'),
+                //'width'                 => Request::input('width'),
+                //'height'                => Request::input('height'),
+                //'constrainProportions'  => Request::input('constrainProportions'),
+                //'outputExtension'       => Request::input('outputExtension'),
+                //'sizes'                 => Request::input('sizes')
             );
              
         // Image source and target

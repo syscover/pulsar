@@ -11,7 +11,7 @@
  */
 
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Models\Country;
 use Syscover\Pulsar\Models\TerritorialArea1;
 use Syscover\Pulsar\Models\TerritorialArea2;
@@ -57,10 +57,10 @@ class TerritorialAreas2 extends Controller {
     public function storeCustomRecord($parameters)
     {
         TerritorialArea2::create([
-            'id_004'                    => Input::get('id'),
+            'id_004'                    => Request::input('id'),
             'country_004'               => $parameters['country'],
-            'territorial_area_1_004'    => Input::get('territorialArea1'),
-            'name_004'                  => Input::get('name')
+            'territorial_area_1_004'    => Request::input('territorialArea1'),
+            'name_004'                  => Request::input('name')
         ]);
     }
 
@@ -76,9 +76,9 @@ class TerritorialAreas2 extends Controller {
     public function updateCustomRecord($parameters)
     {
         TerritorialArea2::where('id_004', $parameters['id'])->update([
-            'id_004'                    => Input::get('id'),
-            'territorial_area_1_004'    => Input::get('territorialArea1'),
-            'name_004'                  => Input::get('name')
+            'id_004'                    => Request::input('id'),
+            'territorial_area_1_004'    => Request::input('territorialArea1'),
+            'name_004'                  => Request::input('name')
         ]);
     }
 

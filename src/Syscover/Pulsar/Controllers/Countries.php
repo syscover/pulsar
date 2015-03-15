@@ -12,8 +12,8 @@
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request as HttpRequest;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Models\Lang;
 use Syscover\Pulsar\Models\Country;
@@ -49,7 +49,7 @@ class Countries extends Controller {
      * @param       \Illuminate\Http\Request            $request
      * @return      json
      */
-    public function jsonData(Request $request)
+    public function jsonData(HttpRequest $request)
     {
         $langs      = Lang::getActivesLangs();
 
@@ -73,7 +73,7 @@ class Countries extends Controller {
         $class          = new \ReflectionClass($this->model);
 
         $output = [
-            "sEcho"                 => intval(Input::get('sEcho')),
+            "sEcho"                 => intval(Request::input('sEcho')),
             "iTotalRecords"         => $iTotal,
             "iTotalDisplayRecords"  => $iFilteredTotal,
             "aaData"                => array()
@@ -114,7 +114,7 @@ class Countries extends Controller {
             $row[] = '<input type="checkbox" class="uniform" name="element'.$i.'" value="'.$aObject['id_002'].'">';
 
             $actionUrlParameters['id']        = $aObject[$instance->getKeyName()];
-            $actionUrlParameters['offset']    = Input::get('iDisplayStart');
+            $actionUrlParameters['offset']    = Request::input('iDisplayStart');
             $actionUrlParameters['lang']      = $parameters['lang'];
 
             $actions = '<div class="btn-group">';
@@ -152,11 +152,11 @@ class Countries extends Controller {
                     $actions .= '<li><a class="bs-tooltip" href="';
                     if($isCreated)
                     {
-                        $actions .= route('editCountry', ["id" => $aObject['id_002'], "lang" => $lang->id_001, "offset" => Input::get('iDisplayStart')]);
+                        $actions .= route('editCountry', ["id" => $aObject['id_002'], "lang" => $lang->id_001, "offset" => Request::input('iDisplayStart')]);
                     }
                     else
                     {
-                        $actions .= route('createCountry', ["id" => $aObject['id_002'], "lang" => $lang->id_001, "offset" => Input::get('iDisplayStart')]);
+                        $actions .= route('createCountry', ["id" => $aObject['id_002'], "lang" => $lang->id_001, "offset" => Request::input('iDisplayStart')]);
                     }
 
                     $actions .= '" data-original-title="' . $lang->name_001 . '"><img src="' . asset('/packages/syscover/pulsar/storage/langs/' . $lang->image_001) . '"> ';
@@ -205,7 +205,7 @@ class Countries extends Controller {
     public function checkSpecialRulesToStore($parameters)
     {
         // check special rule to objects with multiple language if is new object translation or new object
-        if(Input::has('lang') && Input::get('lang') != Session::get('baseLang')->id_001)
+        if(Request::has('lang') && Request::input('lang') != Session::get('baseLang')->id_001)
         {
             $parameters['specialRules']['idRule'] = true;
         }
@@ -216,15 +216,15 @@ class Countries extends Controller {
     public function storeCustomRecord($parameters)
     {
         Country::create([
-            'id_002'                    => Input::get('id'),
-            'lang_002'                  => Input::get('lang'),
-            'name_002'                  => Input::get('name'),
-            'orden_002'                 => Input::get('sorting', 0),
-            'prefijo_002'               => Input::get('prefix'),
-            'territorial_area_1_002'    => Input::get('territorialArea1'),
-            'territorial_area_2_002'    => Input::get('territorialArea2'),
-            'territorial_area_3_002'    => Input::get('territorialArea3'),
-            'data_002'                  => Country::addLangDataRecord(Input::get('id'), Input::get('lang'))
+            'id_002'                    => Request::input('id'),
+            'lang_002'                  => Request::input('lang'),
+            'name_002'                  => Request::input('name'),
+            'orden_002'                 => Request::input('sorting', 0),
+            'prefijo_002'               => Request::input('prefix'),
+            'territorial_area_1_002'    => Request::input('territorialArea1'),
+            'territorial_area_2_002'    => Request::input('territorialArea2'),
+            'territorial_area_3_002'    => Request::input('territorialArea3'),
+            'data_002'                  => Country::addLangDataRecord(Request::input('id'), Request::input('lang'))
         ]);
     }
     
@@ -238,17 +238,17 @@ class Countries extends Controller {
     
     public function updateCustomRecord($parameters)
     {
-        Country::where('id_002', $parameters['id'])->where('lang_002', Input::get('lang'))->update([
-            'name_002'                  => Input::get('name'),
-            'sorting_002'               => Input::get('sorting', 0),
-            'territorial_area_1_002'    => Input::get('territorialArea1'),
-            'territorial_area_2_002'    => Input::get('territorialArea2'),
-            'territorial_area_3_002'    => Input::get('territorialArea3')
+        Country::where('id_002', $parameters['id'])->where('lang_002', Request::input('lang'))->update([
+            'name_002'                  => Request::input('name'),
+            'sorting_002'               => Request::input('sorting', 0),
+            'territorial_area_1_002'    => Request::input('territorialArea1'),
+            'territorial_area_2_002'    => Request::input('territorialArea2'),
+            'territorial_area_3_002'    => Request::input('territorialArea3')
         ]);
 
         // common data
         Country::where('id_002', $parameters['id'])->update([
-            'prefix_002' => Input::get('prefix')
+            'prefix_002' => Request::input('prefix')
         ]);
     }
 
