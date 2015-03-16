@@ -4,7 +4,9 @@
  * bought on CodeCanyon: http://codecanyon.net/item/html-5-upload-image-ratio-with-drag-and-drop/8712634?ref=stbeets
  * 
  * Version: 1.4.3
- * 
+ *
+ * add _token variable at lines 261, 769
+ * _token: $(element).data('token')
  */
 
 (function (window, $, undefined) {
@@ -257,7 +259,10 @@
 				$.ajax({
 					type: 'POST',
 					url: options.removeurl,
-					data: {image: $(element).data('name') },
+					data: {
+                        image: $(element).data('name'),
+                        _token: $(element).data('token')
+                    },
 					success: function(response) {
 						if (_self.options.onAfterRemoveImage) _self.options.onAfterRemoveImage.call(_self, response, _self);
 					}
@@ -762,7 +767,10 @@
 				$.ajax({
 					type: 'POST',
 					url: options.removeurl,
-					data: {image: $(element).data('name') },
+					data: {
+                        image: $(element).data('name'),
+                        _token: $(element).data('token')
+                    },
 					success: function(response) {
 						if (_self.options.onAfterRemoveImage) _self.options.onAfterRemoveImage.call(_self, response, _self);
 					}
