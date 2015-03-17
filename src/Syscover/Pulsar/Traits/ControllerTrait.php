@@ -46,7 +46,11 @@ trait ControllerTrait {
 
         if(method_exists($this, 'indexCustom'))
         {
-            $parameters = $this->indexCustom($parameters);
+            $parametersResponse = $this->indexCustom($parameters);
+            if(is_array($parametersResponse))
+            {
+                $parameters = array_merge($parameters, $parametersResponse);
+            }
         }
 
         return view($this->package . '::' . $this->folder . '.index', $parameters);
@@ -278,7 +282,7 @@ trait ControllerTrait {
         }
 
         // check special rule to objects with writable IDs like actions
-        if($request->input('id') == $parameters['id'])
+        if($request->has('id') && $request->input('id') == $parameters['id'])
         {
             $parameters['specialRules']['idRule'] = true;
         }

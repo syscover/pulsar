@@ -88,6 +88,7 @@ return [
     'language'                              => 'Idioma|Idiomas',
     'base_language'                         => 'Idioma base',
     'image'                                 => 'Imagen|Imágenes',
+    'preference'                            => 'Preferencia|Preferencias',
     'repeat_password'                       => 'Repita contraseña',
     'action_successful'                     => '¡Acción realizada!',
     'action_error'                          => '¡Error!',

@@ -10,8 +10,8 @@
  * @filesource
  */
 
-use Illuminate\Database\Eloquent\Model,
-    Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
 
 class Permission extends Model
 {

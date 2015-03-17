@@ -11,6 +11,7 @@
  */
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
 use Syscover\Pulsar\Traits\ModelTrait;
 
 class Preference extends Model {
@@ -21,7 +22,12 @@ class Preference extends Model {
     protected $primaryKey   = 'id_018';
     public $timestamps      = false;
     protected $fillable     = ['id_018', 'value_018', 'package_018'];
+    private static $rules   = [];
 
+    public static function validate($data)
+    {
+        return Validator::make($data, static::$rules);
+    }
 
     public static function destroyValue($id)
     {
@@ -32,14 +38,13 @@ class Preference extends Model {
     {
         return Preference::firstOrCreate([
             'id_018'        => $id,
-            'value_018'     => $default,
             'package_018'   => $package
         ]);
     }
 
     public static function setValue($id, $value, $package)
     {
-        return Preference::where('id_018', $id)->updateOrCreate([
+        return Preference::updateOrCreate(['id_018' => $id],[
             'value_018'     => $value,
             'package_018'   => $package
         ]);
