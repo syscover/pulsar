@@ -35,8 +35,6 @@ Route::get(config('pulsar.appName') . '/pulsar/dashboard',                      
 
 Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar']], function() {
 
-
-
     /*
     |--------------------------------------------------------------------------
     | ACTIONS
