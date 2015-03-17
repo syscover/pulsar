@@ -10,7 +10,9 @@
     <!-- pulsar::layouts.index -->
     <div class="row">
         <div class="col-md-12">
+            @if(!isset($newButton) || isset($newButton) && $newButton)
             <a class="btn marginB10" href="{{ route('create' . $routeSuffix, $urlParameters) }}"><i class="{{ isset($icon)? $icon : 'icomoon-icon-power' }}"></i> {{ trans('pulsar::pulsar.' . $newTrans) }} {{ isset($customTrans)? $customTrans : trans_choice($objectTrans, 1) }}</a>
+            @endif
             <div class="widget box">
                 <div class="widget-header">
                     <h4><i class="icon-reorder"></i> {{ isset($customTrans)? $customTrans : trans_choice($objectTrans, 2) }}</h4>
