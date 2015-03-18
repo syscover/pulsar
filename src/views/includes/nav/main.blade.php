@@ -10,11 +10,11 @@
     @endif
 
     @if($aux[7]->active_012 && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'hotels', 'access') && View::exists('hotels::includes.nav.main'))
-        //@include('hotels::pulsar.hotels.includes.nav.main')
+        @include('hotels::includes.nav.main')
     @endif
 
     @if($aux[3]->active_012 && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'comunik', 'access') && View::exists('comunik::includes.nav.main'))
-        //@include('comunik::pulsar.comunik.includes.nav.main')
+        //@include('comunik::includes.nav.main')
     @endif
 
     @if($aux[2]->active_012 && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin', 'access'))
