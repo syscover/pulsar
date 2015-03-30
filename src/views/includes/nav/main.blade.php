@@ -13,6 +13,10 @@
         @include('hotels::includes.nav.main')
     @endif
 
+    @if($aux[11]->active_012 && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'booking', 'access') && View::exists('booking::includes.nav.main'))
+        @include('booking::includes.nav.main')
+    @endif
+
     @if($aux[3]->active_012 && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'comunik', 'access') && View::exists('comunik::includes.nav.main'))
         //@include('comunik::includes.nav.main')
     @endif

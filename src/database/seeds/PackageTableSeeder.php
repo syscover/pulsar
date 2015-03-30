@@ -17,7 +17,8 @@ class PackageTableSeeder extends Seeder
             ['id_012' => '7','name_012' => 'Hotels Package','active_012' => '0'],
             ['id_012' => '8','name_012' => 'Octopus Package','active_012' => '0'],
             ['id_012' => '9','name_012' => 'Marketplace Package','active_012' => '0'],
-            ['id_012' => '10','name_012' => 'Mi financiacion Package','active_012' => '0']
+            ['id_012' => '10','name_012' => 'Mi financiacion Package','active_012' => '0'],
+            ['id_012' => '11','name_012' => 'Booking Package','active_012' => '0'],
         ]);
     }
 }

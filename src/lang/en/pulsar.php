@@ -109,4 +109,5 @@ return [
     'cp'                                    => 'CP',
     'address'                               => 'Address',
     'locality'                              => 'Locality',
+    'master_tables'                         => 'Master tables'
 ];

@@ -109,4 +109,5 @@ return [
     'cp'                                    => 'CP',
     'address'                               => 'Dirección',
     'locality'                              => 'Localidad',
+    'master_tables'                         => 'Tablas maestras'
 ];
