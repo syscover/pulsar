@@ -541,7 +541,7 @@ class Miscellaneous
             {
                 if (Request::input('bSortable_'.intval(Request::input('iSortCol_'.$i))) == "true")
                 {
-                    $args['sOrder']       = is_array($aColumns[intval(Request::input('iSortCol_'.$i))])?  $aColumns[intval(Request::input('iSortCol_'.$i))]['name'] : $aColumns[intval(Request::input('iSortCol_'.$i))];
+                    $args['sOrder']       = is_array($aColumns[intval(Request::input('iSortCol_'.$i))])?  $aColumns[intval(Request::input('iSortCol_'.$i))]['data'] : $aColumns[intval(Request::input('iSortCol_'.$i))];
                     $args['sTypeOrder']   = Request::input('sSortDir_'.$i);
                 }
             }
