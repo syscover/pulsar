@@ -126,6 +126,11 @@ trait ControllerTrait {
                             $date = new \DateTime();
                             $row[] = $date->setTimestamp($aObject[$aColumn['data']])->format('d-m-Y H:i:s');
                             break;
+
+                        case 'url':
+                            $prefix = isset($aColumn['prefix'])? $aColumn['prefix'] : null;
+                            $row[] = '<a href="' . $prefix . $aObject[$aColumn['data']] . '"><i class="icon-link"></i></a>';
+                            break;
                     }
                 }
                 else
@@ -149,8 +154,16 @@ trait ControllerTrait {
             {
                 $actions = $this->jsonCustomDataBeforeActions($aObject);
             }
-            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' lightbox' : null) . '" href="' . route('edit' . $this->routeSuffix, $actionUrlParameters) . '" ' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' data-options="{\'width\':\'90p\', \'height\':\'90p\', \'iframe\': true, \'modal\': true}"' : null) . 'data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
-            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] .'" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . $this->routeSuffix, $actionUrlParameters) . '"><i class="icon-trash"></i></a>' : null;
+
+            if(isset($this->jsonParam['edit']) && $this->jsonParam['edit'] == true || !isset($this->jsonParam['edit']))
+            {
+                $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' lightbox' : null) . '" href="' . route('edit' . $this->routeSuffix, $actionUrlParameters) . '" ' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' data-options="{\'width\':\'90p\', \'height\':\'90p\', \'iframe\': true, \'modal\': true}"' : null) . 'data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
+            }
+
+            if(isset($this->jsonParam['delete']) && $this->jsonParam['delete'] == true || !isset($this->jsonParam['delete']))
+            {
+                $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete') ? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] . '" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . $this->routeSuffix, $actionUrlParameters) . '"><i class="icon-trash"></i></a>' : null;
+            }
             $row[] =  $actions;
 
             $output['aaData'][] = $row;
