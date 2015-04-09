@@ -73,10 +73,10 @@ class Countries extends Controller {
         $class          = new \ReflectionClass($this->model);
 
         $output = [
-            "sEcho"                 => intval(Request::input('sEcho')),
+            "sEcho"                 => $request->input('sEcho'),
             "iTotalRecords"         => $iTotal,
             "iTotalDisplayRecords"  => $iFilteredTotal,
-            "aaData"                => array()
+            "aaData"                => []
         ];
 
         $instance = new $this->model;
