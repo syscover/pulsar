@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Syscover\Pulsar\Libraries\Miscellaneous;
+use Syscover\Pulsar\Models\Lang;
 
 trait ControllerTrait {
 
@@ -83,9 +84,6 @@ trait ControllerTrait {
         $iFilteredTotal = call_user_func($this->model . '::getRecordsLimit', $parametersCount);
         $iTotal         = call_user_func($this->model . '::countRecords', $parameters);
 
-        // get properties of model class
-        //$class          = new \ReflectionClass($this->model);
-
         $output = [
             "sEcho"                 => $request->input('sEcho'),
             "iTotalRecords"         => $iTotal,
@@ -138,18 +136,24 @@ trait ControllerTrait {
                     $row[] = $aObject[$aColumn];
                 }
             }
+
             $row[] = '<input type="checkbox" class="uniform" name="element' . $i . '" value="' . $aObject[$instance->getKeyName()] . '">';
 
             $actionUrlParameters['id']        = $aObject[$instance->getKeyName()];
             $actionUrlParameters['offset']    = $request->input('iDisplayStart');
+
+            // get lang parameter if object has multiple language
+            if(isset($parameters['lang'])) $actionUrlParameters['lang'] = $parameters['lang'];
 
             if(method_exists($this, 'customActionUrlParameters'))
             {
                 $actionUrlParameters = $this->customActionUrlParameters($actionUrlParameters, $parameters);
             }
 
+            // check if is necesary add div before actions
+            $actions = isset($parameters['lang'])? '<div class="btn-group">' : null;
+
             // check whether it is necessary to insert a data before
-            $actions = null;
             if(method_exists($this, 'jsonCustomDataBeforeActions'))
             {
                 $actions = $this->jsonCustomDataBeforeActions($aObject);
@@ -164,6 +168,73 @@ trait ControllerTrait {
             {
                 $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete') ? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] . '" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . $this->routeSuffix, $actionUrlParameters) . '"><i class="icon-trash"></i></a>' : null;
             }
+
+            if(isset($parameters['lang'])){
+
+                // gat active langs
+                $langs      = Lang::getActivesLangs();
+
+                // set language to object
+                $jsonObject = json_decode($aObject['data_002']);
+                $colorFlag = "MY_green";
+
+                foreach ($langs as $lang)
+                {
+                    $isCreated = in_array($lang->id_001, $jsonObject->langs);
+
+                    if(!$isCreated)
+                    {
+                        $colorFlag="MY_red";
+                        break;
+                    }
+                }
+
+                $actions .= '<span class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
+                            <i class="brocco-icon-flag '.$colorFlag.'"></i> <i class="icon-angle-down"></i>
+                        </span>
+                        <ul class="dropdown-menu pull-right">';
+
+                $nLangs = count($langs); $j=0;
+
+                foreach ($langs as $lang)
+                {
+                    $isCreated = in_array($lang->id_001, $jsonObject->langs);
+
+                    if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit') && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'create'))
+                    {
+                        $actions .= '<li><a class="bs-tooltip" href="';
+                        if($isCreated)
+                        {
+                            $actions .= route('editCountry', ["id" => $aObject['id_002'], "lang" => $lang->id_001, "offset" => $request->input('iDisplayStart')]);
+                        }
+                        else
+                        {
+                            $actions .= route('createCountry', ["id" => $aObject['id_002'], "lang" => $lang->id_001, "offset" => $request->input('iDisplayStart')]);
+                        }
+
+                        $actions .= '" data-original-title="' . $lang->name_001 . '"><img src="' . asset('/packages/syscover/pulsar/storage/langs/' . $lang->image_001) . '"> ';
+
+                        if($isCreated)
+                        {
+                            $actions .= trans('pulsar::pulsar.edit');
+                        }
+                        else
+                        {
+                            $actions .= trans('pulsar::pulsar.create');
+                        }
+                        $actions .= '</a></li>';
+                    }
+
+                    $j++;
+                    if($j < $nLangs) $actions .= '<li class="divider"></li>';
+                }
+
+                $actions .= '</ul>';
+                $actions .= '</div>';
+            }
+
+
+
             $row[] =  $actions;
 
             $output['aaData'][] = $row;

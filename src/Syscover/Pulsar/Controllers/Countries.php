@@ -49,28 +49,34 @@ class Countries extends Controller {
      * @param       \Illuminate\Http\Request            $request
      * @return      json
      */
-    public function jsonData(HttpRequest $request)
+
+    /**
+    public function jsonDataXX(HttpRequest $request)
     {
         $langs      = Lang::getActivesLangs();
 
         // get parameters from url route
         $parameters = $request->route()->parameters();
 
+        // table paginated
         $parameters =  Miscellaneous::paginateDataTable($parameters);
+        // table sorting
         $parameters =  Miscellaneous::dataTableSorting($parameters, $this->aColumns);
+        // quick search data table
         $parameters =  Miscellaneous::filteringDataTable($parameters);
 
+        // set columns in parameters array
         $parameters['aColumns']     = $this->aColumns;
         $parametersCount            = $parameters;
         $parametersCount['count']   = true;
 
-
+        // get data to table
         $objects        = call_user_func($this->model . '::getRecordsLimit', $parameters);
         $iFilteredTotal = call_user_func($this->model . '::getRecordsLimit', $parametersCount);
         $iTotal         = call_user_func($this->model . '::countRecords', $parameters);
 
         // get properties of model class
-        $class          = new \ReflectionClass($this->model);
+        //$class          = new \ReflectionClass($this->model);
 
         $output = [
             "sEcho"                 => $request->input('sEcho'),
@@ -79,7 +85,9 @@ class Countries extends Controller {
             "aaData"                => []
         ];
 
+        // instance model to get primary key
         $instance = new $this->model;
+
         $aObjects = $objects->toArray(); $i=0;
         foreach($aObjects as $aObject)
         {
@@ -118,7 +126,7 @@ class Countries extends Controller {
             $actionUrlParameters['lang']      = $parameters['lang'];
 
             $actions = '<div class="btn-group">';
-            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . route('edit'. $class->getShortName(), $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
+            $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip" href="' . route('edit'. $this->routeSuffix, $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
             $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete')? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] .'" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . $class->getShortName(), $actionUrlParameters) . '"><i class="icon-trash"></i></a>' : null;
 
             // set language to object
@@ -189,6 +197,7 @@ class Countries extends Controller {
         
         return view('pulsar::common.views.json_display', $data);
     }
+*/
 
     public function createCustomRecord($parameters)
     {
