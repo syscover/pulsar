@@ -15,7 +15,6 @@ return [
     'access_your_account'                   => 'Accede a tu cuenta',
     'login'                                 => 'Iniciar sesión',
     'logout'                                => 'Cerrar sesión',
-    'user'                                  => 'Usuario',
     'password'                              => 'Contraseña',
     'email'                                 => 'Email',
     'remember_password'                     => '¿Olvidó su contraseña?',

@@ -15,7 +15,6 @@ return [
     'access_your_account'                   => 'Access your account',
     'login'                                 => 'Login',
     'logout'                                => 'Logout',
-    'user'                                  => 'User',
     'password'                              => 'Password',
     'email'                                 => 'Email',
     'remember_password'                     => 'Remember password',

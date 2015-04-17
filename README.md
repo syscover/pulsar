@@ -8,21 +8,27 @@ Pulsar is an application that generates a control panel where you start creating
 
 ## Installation
 
-**1 - Register service provider, on file config/app.php add to providers array**
+**1 - After install Laravel framework, insert on file composer.json, inside require object this value**
+```
+"syscover/pulsar": "dev-master"
+
+```
+
+**2 - Register service provider, on file config/app.php add to providers array**
 
 ```
 'Syscover\Pulsar\PulsarServiceProvider',
 
 ```
 
-**2 - Register alias, on file config/app.php add to aliases array**
+**3 - Register alias, on file config/app.php add to aliases array**
 
 ```
 'Miscellaneous'	=> 'Syscover\Pulsar\Libraries\Miscellaneous',
 
 ```
 
-**3 - Register middlewares auth.pulsar, locale.pulsar and permission.pulsar on file app/Http/Kernel.php add to routeMiddleware array**
+**4 - Register middlewares auth.pulsar, locale.pulsar and permission.pulsar on file app/Http/Kernel.php add to routeMiddleware array**
 
 ```
 'auth.pulsar' 			=> 'Syscover\Pulsar\Middleware\Auth',
@@ -31,35 +37,35 @@ Pulsar is an application that generates a control panel where you start creating
 
 ```
 
-**4 - Config file config/database.php with your database parameters connections**
+**5 - Config file config/database.php with your database parameters connections**
 
-**5 - To publish package, you must type on console**
+**6 - To publish package, you must type on console**
 
 ```
 php artisan vendor:publish --force
 
 ```
 
-**6 - Optimized class loader**
+**7 - Optimized class loader**
 
 ```
 php artisan optimize
 
 ```
 
-**7 - Run migrate database**
+**8 - Run migrate database**
 
 ```
 php artisan migrate
 ```
 
-**8 - Run seed database**
+**9 - Run seed database**
 
 ```
 php artisan db:seed
 ```
 
-**9 - When the installation is complete you can access these data**
+**10 - When the installation is complete you can access these data**
 ```
 url: http://www.your-domain.com/pulsar
 user: admin@pulsar.local
