@@ -1,4 +1,4 @@
-# Pulsar App para Laravel 5
+# Pulsar App to Laravel 5
 
 Pulsar is an application that generates a control panel where you start creating custom solutions, provides the resources necessary for any web application.
 
