@@ -1,6 +1,10 @@
 <?php $aux = Session::get('packages'); ?>
 <ul id="nav">
 
+    @if($aux[9]->active_012 && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'marketplace', 'access') && View::exists('marketplace::includes.nav.main'))
+        @include('marketplace::includes.nav.main')
+    @endif
+
     @if($aux[10]->active_012 && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'mifinan', 'access') && View::exists('mifinanciacion::includes.nav.main'))
         @include('mifinanciacion::includes.nav.main')
     @endif

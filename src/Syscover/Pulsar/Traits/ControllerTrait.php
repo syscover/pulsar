@@ -175,7 +175,7 @@ trait ControllerTrait {
                 $langs      = Lang::getActivesLangs();
 
                 // set language to object
-                $jsonObject = json_decode($aObject['data_002']);
+                $jsonObject = json_decode($aObject['data_' . call_user_func($this->model . '::getSufix')]);
                 $colorFlag = "MY_green";
 
                 foreach ($langs as $lang)
@@ -199,17 +199,18 @@ trait ControllerTrait {
                 foreach ($langs as $lang)
                 {
                     $isCreated = in_array($lang->id_001, $jsonObject->langs);
+                    $actionUrlParameters['lang'] = $lang->id_001;
 
                     if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit') && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'create'))
                     {
                         $actions .= '<li><a class="bs-tooltip" href="';
                         if($isCreated)
                         {
-                            $actions .= route('editCountry', ["id" => $aObject['id_002'], "lang" => $lang->id_001, "offset" => $request->input('iDisplayStart')]);
+                            $actions .= route('edit' . $this->routeSuffix, $actionUrlParameters);
                         }
                         else
                         {
-                            $actions .= route('createCountry', ["id" => $aObject['id_002'], "lang" => $lang->id_001, "offset" => $request->input('iDisplayStart')]);
+                            $actions .= route('create' . $this->routeSuffix, $actionUrlParameters);
                         }
 
                         $actions .= '" data-original-title="' . $lang->name_001 . '"><img src="' . asset('/packages/syscover/pulsar/storage/langs/' . $lang->image_001) . '"> ';

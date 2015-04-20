@@ -155,4 +155,16 @@ trait ModelTrait {
             ]);
         }
     }
+
+    /**
+     * @access	public
+     * @param   void
+     * @return	string
+     */
+    public static function getSufix()
+    {
+        $instance = new static;
+
+        return $instance->sufix;
+    }
 }
