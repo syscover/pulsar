@@ -127,7 +127,7 @@ trait ControllerTrait {
 
                         case 'url':
                             $prefix = isset($aColumn['prefix'])? $aColumn['prefix'] : null;
-                            $row[] = '<a href="' . $prefix . $aObject[$aColumn['data']] . '"><i class="icon-link"></i></a>';
+                            $row[] = '<a ' . (isset($aColumn['target'])? 'target="' . $aColumn['target'] . '"' : null) . ' href="' . $prefix . $aObject[$aColumn['data']] . '"><i class="icon-link"></i></a>';
                             break;
                     }
                 }
