@@ -101,6 +101,7 @@ return [
     'go_back'                               => 'Volvar atrás',
     'category'                              => 'Categoría|Categorías',
     'contact'                               => 'Contacto|Contactos',
+    'group'                                 => 'Grupo|Grupos',
     'phone'                                 => 'Teléfono',
     'company_name'                          => 'Nombre empresa',
     'tin'                                   => 'CIF',
@@ -108,5 +109,7 @@ return [
     'cp'                                    => 'CP',
     'address'                               => 'Dirección',
     'locality'                              => 'Localidad',
-    'master_tables'                         => 'Tablas maestras'
+    'master_tables'                         => 'Tablas maestras',
+    'section'                               => 'Sección|Secciones',
+    'article'                               => 'Articulo|Articulos',
 ];

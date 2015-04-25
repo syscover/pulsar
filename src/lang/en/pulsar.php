@@ -101,6 +101,7 @@ return [
     'go_back'                               => 'Go back',
     'category'                              => 'Category|Categories',
     'contact'                               => 'Contact|Contacts',
+    'group'                                 => 'Group|Groups',
     'phone'                                 => 'Phone',
     'company_name'                          => 'Company name',
     'tin'                                   => 'TIN',
@@ -108,5 +109,7 @@ return [
     'cp'                                    => 'CP',
     'address'                               => 'Address',
     'locality'                              => 'Locality',
-    'master_tables'                         => 'Master tables'
+    'master_tables'                         => 'Master tables',
+    'section'                               => 'Section|Sections',
+    'article'                               => 'Article|Articles',
 ];

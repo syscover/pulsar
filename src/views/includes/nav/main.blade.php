@@ -1,10 +1,10 @@
 <ul id="nav">
-    @if(session('packages')[9]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'marketplace', 'access') && View::exists('marketplace::includes.nav.main'))
+    @if(session('packages')[9]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'market', 'access') && View::exists('marketplace::includes.nav.main'))
         @include('marketplace::includes.nav.main')
     @endif
 
-    @if(session('packages')[12]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'marketplace', 'access') && View::exists('marketplace::includes.nav.main'))
-        @include('marketplace::includes.nav.main')
+    @if(session('packages')[12]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'crm', 'access') && View::exists('crm::includes.nav.main'))
+        @include('crm::includes.nav.main')
     @endif
 
     @if(session('packages')[10]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'mifinan', 'access') && View::exists('mifinanciacion::includes.nav.main'))
@@ -23,8 +23,12 @@
         @include('booking::includes.nav.main')
     @endif
 
+    @if(session('packages')[13]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'cms', 'access') && View::exists('cms::includes.nav.main'))
+        @include('cms::includes.nav.main')
+    @endif
+
     @if(session('packages')[3]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'comunik', 'access') && View::exists('comunik::includes.nav.main'))
-        //@include('comunik::includes.nav.main')
+        @include('comunik::includes.nav.main')
     @endif
 
     @if(session('packages')[2]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin', 'access'))
