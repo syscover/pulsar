@@ -1,10 +1,14 @@
+workbench/
+WORK/
+.env
+
 # -- Composer -----------------------------------------
 composer.phar
 composer.lock
 vendor/
 
 # -- PHPUnit ------------------------------------------
-app/phpunit.xml  
+app/phpunit.xml
 
 # -- Editores -----------------------------------------
 # vim
