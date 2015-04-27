@@ -1,37 +1,37 @@
 <ul id="nav">
-    @if(session('packages')[9]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'market', 'access') && View::exists('marketplace::includes.nav.main'))
+    @if(isset(session('packages')[9]) && session('packages')[9]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'market', 'access') && View::exists('marketplace::includes.nav.main'))
         @include('marketplace::includes.nav.main')
     @endif
 
-    @if(session('packages')[12]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'crm', 'access') && View::exists('crm::includes.nav.main'))
+    @if(isset(session('packages')[12]) &&session('packages')[12]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'crm', 'access') && View::exists('crm::includes.nav.main'))
         @include('crm::includes.nav.main')
     @endif
 
-    @if(session('packages')[10]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'mifinan', 'access') && View::exists('mifinanciacion::includes.nav.main'))
+    @if(isset(session('packages')[10]) && session('packages')[10]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'mifinan', 'access') && View::exists('mifinanciacion::includes.nav.main'))
         @include('mifinanciacion::includes.nav.main')
     @endif
 
-    @if(session('packages')[8]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'octopus', 'access') && View::exists('octopus::includes.nav.main'))
+    @if(isset(session('packages')[8]) && session('packages')[8]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'octopus', 'access') && View::exists('octopus::includes.nav.main'))
         @include('octopus::includes.nav.main')
     @endif
 
-    @if(session('packages')[7]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'hotels', 'access') && View::exists('hotels::includes.nav.main'))
+    @if(isset(session('packages')[7]) && session('packages')[7]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'hotels', 'access') && View::exists('hotels::includes.nav.main'))
         @include('hotels::includes.nav.main')
     @endif
 
-    @if(session('packages')[11]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'booking', 'access') && View::exists('booking::includes.nav.main'))
+    @if(isset(session('packages')[11]) && session('packages')[11]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'booking', 'access') && View::exists('booking::includes.nav.main'))
         @include('booking::includes.nav.main')
     @endif
 
-    @if(session('packages')[13]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'cms', 'access') && View::exists('cms::includes.nav.main'))
+    @if(isset(session('packages')[13]) && session('packages')[13]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'cms', 'access') && View::exists('cms::includes.nav.main'))
         @include('cms::includes.nav.main')
     @endif
 
-    @if(session('packages')[3]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'comunik', 'access') && View::exists('comunik::includes.nav.main'))
+    @if(isset(session('packages')[3]) && session('packages')[3]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'comunik', 'access') && View::exists('comunik::includes.nav.main'))
         @include('comunik::includes.nav.main')
     @endif
 
-    @if(session('packages')[2]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin', 'access'))
+    @if(isset(session('packages')[2]) && session('packages')[2]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin', 'access'))
         <li{!! Miscellaneous::setCurrentOpenPage(['admin-user', 'admin-lang', 'admin-country', 'admin-country-at1', 'admin-country-at2', 'admin-country-at3', 'admin-package', 'admin-cron', 'admin-perm-profile', 'admin-perm-resource', 'admin-perm-action', 'admin-perm-perm']) !!}>
             <a href="javascript:void(0);"><i class="icon-cog"></i>{{ trans('pulsar::pulsar.administration') }}</a>
             <ul class="sub-menu">
