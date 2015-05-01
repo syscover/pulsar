@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 /*
 |--------------------------------------------------------------------------
 | cron
@@ -36,5 +36,5 @@ return array(
     //Cron comprobación de correos rebotados y número de correos en cada cuenta
     '07'       => function() {
         \Pulsar\Comunik\Libraries\Cron::checkBouncedEmailsAccountsToQueue();
-    },
-);
+    }
+];
