@@ -28,10 +28,10 @@
     <!-- pulsar::users.index -->
     <th data-hide="phone,tablet">ID.</th>
     <th data-class="expand">{{ trans('pulsar::pulsar.name') }}</th>
-    <th data-class="expand">{{ trans('pulsar::pulsar.surname') }}</th>
-    <th data-class="expand">{{ trans('pulsar::pulsar.email') }}</th>
-    <th data-class="expand">{{ trans_choice('pulsar::pulsar.profile', 1) }}</th>
-    <th data-class="expand">{{ trans('pulsar::pulsar.access') }}</th>
+    <th data-hide="phone">{{ trans('pulsar::pulsar.surname') }}</th>
+    <th data-hide="phone">{{ trans('pulsar::pulsar.email') }}</th>
+    <th data-hide="phone,tablet">{{ trans_choice('pulsar::pulsar.profile', 1) }}</th>
+    <th data-hide="phone,tablet">{{ trans('pulsar::pulsar.access') }}</th>
     <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
     <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>
     <!-- /pulsar::users.index -->

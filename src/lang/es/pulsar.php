@@ -104,6 +104,8 @@ return [
     'group'                                 => 'Grupo|Grupos',
     'phone'                                 => 'Teléfono',
     'company_name'                          => 'Nombre empresa',
+    'company'                               => 'Empresa',
+    'birthdate'                             => 'Fecha de nacimiento',
     'tin'                                   => 'CIF',
     'web'                                   => 'Web',
     'cp'                                    => 'CP',
@@ -112,4 +114,7 @@ return [
     'master_tables'                         => 'Tablas maestras',
     'section'                               => 'Sección|Secciones',
     'article'                               => 'Articulo|Articulos',
+    'mobile'                                => 'Móvil',
+    'prefix'                                => 'Prefijo',
+    'sufix'                                 => 'Sufijo',
 ];
