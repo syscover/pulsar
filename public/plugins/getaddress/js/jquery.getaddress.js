@@ -37,6 +37,7 @@
             tA3LabelSuffix:             '',
 
             countrySelect:              'country',                                  // name Select conutry
+            prefixInput:                'prefix',                                   // name Select conutry
             tA1Select:                  'territorialArea1',                         // name Select territorial area 1
             tA2Select:                  'territorialArea2',                         // name Select territorial area 2
             tA3Select:                  'territorialArea3',                         // name Select territorial area 3
@@ -70,8 +71,13 @@
             // when change country select
             $("[name='" + this.options.countrySelect + "']").change($.proxy(function() {
 
+                // set country prefix
+                if($("[name='" + this.options.countrySelect + "']").find('option:selected').data('prefix'))
+                    $("[name='" + this.options.prefixInput + "']").val($("[name='" + this.options.countrySelect + "']").find('option:selected').data('prefix'));
+
                 // when finish first fadeout we load name of label, like that we are sure that the efect fadeOut is run
                 $("#" + this.options.tA1Wrapper).fadeOut(400, $.proxy(function() {
+
                     if($("[name='" + this.options.countrySelect + "']").val() != this.options.nullValue)
                     {
                         // check that territorial area label contain words
@@ -170,7 +176,7 @@
                             if(this.options.highlightCountrys[i] == data[j].id_002)
                             {
                                 $("[name='" + this.options.countrySelect + "']")
-                                    .append($('<option></option>').val(data[j].id_002).html(data[j].name_002).data('at1', data[j].territorial_area_1_002).data('at2', data[j].territorial_area_2_002).data('at3', data[j].territorial_area_3_002));
+                                    .append($('<option></option>').val(data[j].id_002).html(data[j].name_002).data('prefix', data[j].prefix_002).data('at1', data[j].territorial_area_1_002).data('at2', data[j].territorial_area_2_002).data('at3', data[j].territorial_area_3_002));
                                 highlightCountry = true;
                             }
                         }
