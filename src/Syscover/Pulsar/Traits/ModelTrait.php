@@ -33,7 +33,14 @@ trait ModelTrait {
             if(isset($parameters['sStart']))      $query->skip($parameters['sStart']);
             if(isset($parameters['sOrder']))      $query->orderBy($parameters['sOrder'], isset($parameters['sTypeOrder'])? $parameters['sTypeOrder'] : 'asc');
 
-            return $query->get();
+
+            if(method_exists($instance, 'getCustomReturnRecordsLimit'))
+            {
+                return $instance->getCustomReturnRecordsLimit($query, $parameters);
+            }
+            else{
+                return $query->get();
+            }
         }
     }
 

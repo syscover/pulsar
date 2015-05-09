@@ -120,6 +120,10 @@ trait ControllerTrait {
                             $row[] = $aObject[$aColumn['data']]? '<i class="icomoon-icon-checkmark-3"></i>' : '<i class="icomoon-icon-blocked"></i>';
                             break;
 
+                        case 'invertActive':
+                            $row[] = !$aObject[$aColumn['data']]? '<i class="icomoon-icon-checkmark-3"></i>' : '<i class="icomoon-icon-blocked"></i>';
+                            break;
+
                         case 'date':
                             $date = new \DateTime();
                             $row[] = $date->setTimestamp($aObject[$aColumn['data']])->format('d-m-Y H:i:s');
