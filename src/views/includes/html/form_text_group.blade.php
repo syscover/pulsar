@@ -8,7 +8,7 @@
         @foreach($inputs as $input)
             <div class="col-md-{{ $input['fieldSize'] or 10 }}">
                 <input class="form-control{{ isset($input['required']) && $input['required']? ' required' : null }}" type="{{ isset($input['type'])? $input['type'] : 'text' }}" name="{{ $input['name'] }}" value="{{ isset($input['value'])? $input['value'] : null }}"{!! isset($input['data'])? Miscellaneous::setDataAttributes($input['data']) : null !!} @if(isset($input['placeholder'])) placeholder="{{ $input['placeholder'] }}"@endif @if(isset($input['maxLength'])) maxlength="{{ $input['maxLength'] }}"@endif @if(isset($input['rangeLength']))rangelength="{{ $input['rangeLength'] }}"@endif @if(isset($input['min'])) min="{{ $input['min'] }}"@endif{{ isset($input['readOnly']) && $input['readOnly']? ' readonly' : null }}>
-                {!! $errors->first($name, config('pulsar.errorDelimiters')) !!}
+                {!! $errors->first($input['name'], config('pulsar.errorDelimiters')) !!}
             </div>
         @endforeach
     @endif
