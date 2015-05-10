@@ -114,7 +114,9 @@ return [
     'master_tables'                         => 'Master tables',
     'section'                               => 'Section|Sections',
     'article'                               => 'Article|Articles',
+    'customer'                              => 'Customer|Customers',
     'mobile'                                => 'Mobile',
     'prefix'                                => 'Prefix',
     'sufix'                                 => 'Sufix',
+    'code'                                  => 'Code',
 ];
