@@ -23,7 +23,7 @@ class Countries extends Controller {
     protected $routeSuffix  = 'Country';
     protected $folder       = 'countries';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_002', 'name_001', 'name_002', 'sorting_002', 'prefix_002', ['data' => 'territorial_area_1_002', 'route' => 'TerritorialArea1', 'type' => 'AA'], 'territorial_area_2_002', 'territorial_area_3_002'];
+    protected $aColumns     = ['id_002', 'name_001', 'name_002', 'sorting_002', 'prefix_002', ['data' => 'territorial_area_1_002', 'route' => 'TerritorialArea1', 'type' => 'territorialArea'], ['data' => 'territorial_area_2_002', 'route' => 'TerritorialArea2', 'type' => 'territorialArea'], ['data' => 'territorial_area_3_002', 'route' => 'TerritorialArea3', 'type' => 'territorialArea']];
     protected $nameM        = 'name_002';
     protected $model        = '\Syscover\Pulsar\Models\Country';
     protected $icon         = 'entypo-icon-globe';
@@ -39,6 +39,17 @@ class Countries extends Controller {
         $parameters['urlParameters']['lang']    = Session::get('baseLang');
 
         return $parameters;
+    }
+
+    public function customColumnType($row, $aColumn, $aObject, $request)
+    {
+        switch ($aColumn['type'])
+        {
+            case 'territorialArea':
+                $row[] = '<a href="' . route($aColumn['route'], ['country' => $aObject['id_002'], 'parentOffset' => $request->input('iDisplayStart')]) . '">' . $aObject[$aColumn['data']] . '</a>';
+                break;
+        }
+        return $row;
     }
 
     public function createCustomRecord($parameters)

@@ -10,12 +10,12 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Session,
-    Illuminate\Support\Facades\Request,
-    Syscover\Pulsar\Models\Country,
-    Syscover\Pulsar\Models\TerritorialArea1,
-    Syscover\Pulsar\Models\TerritorialArea2,
-    Syscover\Pulsar\Models\TerritorialArea3;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Request;
+use Syscover\Pulsar\Models\Country;
+use Syscover\Pulsar\Models\TerritorialArea1;
+use Syscover\Pulsar\Models\TerritorialArea2;
+use Syscover\Pulsar\Models\TerritorialArea3;
 use Syscover\Pulsar\Traits\ControllerTrait;
 
 class TerritorialAreas3 extends Controller {
@@ -49,7 +49,7 @@ class TerritorialAreas3 extends Controller {
     public function createCustomRecord($parameters)
     {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
-        if(Input::old('territorialArea1') && Input::old('territorialArea1') != "null")
+        if(Request::old('territorialArea1') && Request::old('territorialArea1') != "null")
         {
             $parameters['territorialAreas2'] = territorialArea1::find(Input::old('territorialArea1'))->territorialAreas2()->get();
         }

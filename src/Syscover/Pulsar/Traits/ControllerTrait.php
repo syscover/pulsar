@@ -134,10 +134,11 @@ trait ControllerTrait {
                             $prefix = isset($aColumn['prefix'])? $aColumn['prefix'] : null;
                             $row[] = '<a ' . (isset($aColumn['target'])? 'target="' . $aColumn['target'] . '"' : null) . ' href="' . $prefix . $aObject[$aColumn['data']] . '"><i class="icon-link"></i></a>';
                             break;
+                    }
 
-                        case 'AA':
-                            $row[] = '<a ' . (isset($aColumn['target'])? 'target="' . $aColumn['target'] . '"' : null) . ' href="' . route($aColumn['route'], ['country' => $aObject['id_002'], 'offset' => 0]) . '">' . $aObject[$aColumn['data']] . '</a>';
-                            break;
+                    if(method_exists($this, 'customColumnType'))
+                    {
+                        $row = $this->customColumnType($row, $aColumn, $aObject, $request);
                     }
                 }
                 else
@@ -150,6 +151,9 @@ trait ControllerTrait {
 
             $actionUrlParameters['id']        = $aObject[$instance->getKeyName()];
             $actionUrlParameters['offset']    = $request->input('iDisplayStart');
+
+            //if we have parentOffset, we instantiate it
+            if(isset($parameters['parentOffset'])) $actionUrlParameters['parentOffset'] = $parameters['parentOffset'];
 
             // get lang parameter if object has multiple language
             if(isset($parameters['lang'])) $actionUrlParameters['lang'] = $parameters['lang'];
