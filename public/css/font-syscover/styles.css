@@ -47,3 +47,9 @@
 .sys-icon-telescope:before {
   content: "c";
 }
+.sys-icon-edit-write:before {
+  content: "d";
+}
+.sys-icon-magnet:before {
+  content: "e";
+}

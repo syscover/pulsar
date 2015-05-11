@@ -505,7 +505,7 @@ class Miscellaneous
             $query->where(function($query) use ($aColumns, $sWhere){
                 foreach($aColumns as $aColumn)
                 {
-                    if(is_array($aColumn)) $aColumn = $aColumn['name'];
+                    if(is_array($aColumn)) $aColumn = $aColumn['data'];
                     $query->orWhere($aColumn, 'LIKE', '%'.$sWhere.'%');
                 }
             });

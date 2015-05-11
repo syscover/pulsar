@@ -23,7 +23,7 @@ class Countries extends Controller {
     protected $routeSuffix  = 'Country';
     protected $folder       = 'countries';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_002', 'name_001', 'name_002', 'sorting_002', 'prefix_002', 'territorial_area_1_002', 'territorial_area_2_002', 'territorial_area_3_002'];
+    protected $aColumns     = ['id_002', 'name_001', 'name_002', 'sorting_002', 'prefix_002', ['data' => 'territorial_area_1_002', 'route' => 'TerritorialArea1', 'type' => 'AA'], 'territorial_area_2_002', 'territorial_area_3_002'];
     protected $nameM        = 'name_002';
     protected $model        = '\Syscover\Pulsar\Models\Country';
     protected $icon         = 'entypo-icon-globe';

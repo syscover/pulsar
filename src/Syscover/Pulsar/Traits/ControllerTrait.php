@@ -130,8 +130,13 @@ trait ControllerTrait {
                             break;
 
                         case 'url':
+                            // the prefix is to compose the url
                             $prefix = isset($aColumn['prefix'])? $aColumn['prefix'] : null;
                             $row[] = '<a ' . (isset($aColumn['target'])? 'target="' . $aColumn['target'] . '"' : null) . ' href="' . $prefix . $aObject[$aColumn['data']] . '"><i class="icon-link"></i></a>';
+                            break;
+
+                        case 'AA':
+                            $row[] = '<a ' . (isset($aColumn['target'])? 'target="' . $aColumn['target'] . '"' : null) . ' href="' . route($aColumn['route'], ['country' => $aObject['id_002'], 'offset' => 0]) . '">' . $aObject[$aColumn['data']] . '</a>';
                             break;
                     }
                 }
