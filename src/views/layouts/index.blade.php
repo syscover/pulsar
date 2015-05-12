@@ -16,7 +16,7 @@
             @yield('headButtons')
             <div class="widget box">
                 <div class="widget-header">
-                    <h4><i class="icon-reorder"></i> {{ isset($customTrans)? $customTrans : trans_choice($objectTrans, 2) }}</h4>
+                    <h4><i class="icon-reorder"></i> {{ isset($customTransHeader)? $customTransHeader : trans_choice($objectTrans, 2) }}</h4>
                     <div class="toolbar no-padding">
                         <div class="btn-group">
                             <span class="btn btn-xs widget-collapse"><i class="icon-angle-down"></i></span>

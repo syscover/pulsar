@@ -20,19 +20,21 @@ class TerritorialAreas1 extends Controller {
 
     use ControllerTrait;
 
-    protected $routeSuffix  = 'TerritorialArea1';
-    protected $folder       = 'territorial_areas_1';
-    protected $package      = 'pulsar';
-    protected $aColumns     = ['id_003', 'name_003'];
-    protected $nameM        = 'name_003';
-    protected $model        = '\Syscover\Pulsar\Models\TerritorialArea1';
-    protected $icon         = 'entypo-icon-globe';
-    protected $customTrans  = null;
+    protected $routeSuffix          = 'TerritorialArea1';
+    protected $folder               = 'territorial_areas_1';
+    protected $package              = 'pulsar';
+    protected $aColumns             = ['id_003', 'name_003'];
+    protected $nameM                = 'name_003';
+    protected $model                = '\Syscover\Pulsar\Models\TerritorialArea1';
+    protected $icon                 = 'entypo-icon-globe';
+    protected $customTrans          = null;
+    protected $customTransHeader    = null;
 
     public function indexCustom($parameters)
     {
-        $parameters['country']      = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
-        $parameters['customTrans']  = $parameters['country']->territorial_area_1_002;
+        $parameters['country']              = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
+        $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
+        $parameters['customTransHeader']    = $parameters['country']->territorial_area_1_002 . ' (' . $parameters['country']->name_002 . ')';
 
         return $parameters;
     }
@@ -46,8 +48,9 @@ class TerritorialAreas1 extends Controller {
     
     public function createCustomRecord($parameters)
     {
-        $parameters['country']      = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
-        $parameters['customTrans']  = $parameters['country']->territorial_area_1_002;
+        $parameters['country']              = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
+        $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
+        $parameters['customTransHeader']    = $parameters['country']->territorial_area_1_002 . ' (' . $parameters['country']->name_002 . ')';
 
         return $parameters;
     }
@@ -63,8 +66,9 @@ class TerritorialAreas1 extends Controller {
     
     public function editCustomRecord($parameters)
     {
-        $parameters['country']      = Country::getTranslationRecord($parameters['object']->country_003, Session::get('baseLang')->id_001);
-        $parameters['customTrans']  = $parameters['country']->territorial_area_1_002;
+        $parameters['country']              = Country::getTranslationRecord($parameters['object']->country_003, Session::get('baseLang')->id_001);
+        $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
+        $parameters['customTransHeader']    = $parameters['country']->territorial_area_1_002 . ' (' . $parameters['country']->name_002 . ')';
 
         return $parameters;
     }

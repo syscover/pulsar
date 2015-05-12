@@ -21,19 +21,21 @@ class TerritorialAreas2 extends Controller {
 
     use ControllerTrait;
 
-    protected $routeSuffix  = 'TerritorialArea2';
-    protected $folder       = 'territorial_areas_2';
-    protected $package      = 'pulsar';
-    protected $aColumns     = ['id_004', 'name_003', 'name_004'];
-    protected $nameM        = 'name_004';
-    protected $model        = '\Syscover\Pulsar\Models\TerritorialArea2';
-    protected $icon         = 'entypo-icon-globe';
-    protected $customTrans  = null;
+    protected $routeSuffix          = 'TerritorialArea2';
+    protected $folder               = 'territorial_areas_2';
+    protected $package              = 'pulsar';
+    protected $aColumns             = ['id_004', 'name_003', 'name_004'];
+    protected $nameM                = 'name_004';
+    protected $model                = '\Syscover\Pulsar\Models\TerritorialArea2';
+    protected $icon                 = 'entypo-icon-globe';
+    protected $customTrans          = null;
+    protected $customTransHeader    = null;
 
     public function indexCustom($parameters)
     {
-        $parameters['country']      = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
-        $parameters['customTrans']  = $parameters['country']->territorial_area_2_002;
+        $parameters['country']              = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
+        $parameters['customTrans']          = $parameters['country']->territorial_area_2_002;
+        $parameters['customTransHeader']    = $parameters['country']->territorial_area_2_002 . ' (' . $parameters['country']->name_002 . ')';
 
         return $parameters;
     }
@@ -50,6 +52,7 @@ class TerritorialAreas2 extends Controller {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
         $parameters['country']              = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
         $parameters['customTrans']          = $parameters['country']->territorial_area_2_002;
+        $parameters['customTransHeader']    = $parameters['country']->territorial_area_2_002 . ' (' . $parameters['country']->name_002 . ')';
 
         return $parameters;
     }
@@ -69,6 +72,7 @@ class TerritorialAreas2 extends Controller {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
         $parameters['country']              = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
         $parameters['customTrans']          = $parameters['country']->territorial_area_2_002;
+        $parameters['customTransHeader']    = $parameters['country']->territorial_area_2_002 . ' (' . $parameters['country']->name_002 . ')';
 
         return $parameters;
     }
@@ -81,7 +85,6 @@ class TerritorialAreas2 extends Controller {
             'name_004'                  => Request::input('name')
         ]);
     }
-
 
     public function jsonTerritorialAreas2FromTerritorialArea1($country, $id)
     {

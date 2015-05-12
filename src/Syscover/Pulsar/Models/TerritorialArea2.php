@@ -42,7 +42,11 @@ class TerritorialArea2 extends Model {
      
     public static function getCustomRecordsLimit($parameters)
     {
-        return TerritorialArea2::join('001_003_territorial_area_1', '001_004_territorial_area_2.territorial_area_1_004', '=', '001_003_territorial_area_1.id_003')->newQuery();
+        $query = TerritorialArea2::join('001_003_territorial_area_1', '001_004_territorial_area_2.territorial_area_1_004', '=', '001_003_territorial_area_1.id_003')->newQuery();
+
+        if(isset($parameters['country'])) $query->where('country_003', $parameters['country']);
+
+        return $query;
     }
 
     public static function getTerritorialAreas2FromTerritorialArea1($terrirotialArea1)
