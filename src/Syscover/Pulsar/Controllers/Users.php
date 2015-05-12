@@ -86,7 +86,7 @@ class Users extends Controller {
 
         if($parameters['specialRules']['emailRule'])  $user['email_010']      = Request::input('email');
         if($parameters['specialRules']['userRule'])   $user['user_010']       = Request::input('user');
-        if($parameters['specialRules']['passRule'])   $user['password_010']   = Hash::make(Request::input('password'));
+        if(!$parameters['specialRules']['passRule'])  $user['password_010']   = Hash::make(Request::input('password'));
 
         User::where('id_010', $parameters['id'])->update($user);
     }
