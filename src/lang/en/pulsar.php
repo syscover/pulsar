@@ -41,6 +41,7 @@ return [
     'dashboard'                             => 'Dashboard',
     'prefix'                                => 'Prefix',
     'edit_record'                           => 'Edit record',
+    'related_record'                        => 'Related record',
     'delete_record'                         => 'Delete record',
     'delete_translation'                    => 'Delete translation',
     'edit_permissions'                      => 'Edit permissions',

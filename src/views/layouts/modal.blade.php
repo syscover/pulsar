@@ -103,14 +103,15 @@
     </head>
     
     <body class="theme-dark">
-    <div id="pre-cssloader"></div>
-	<div id="container">
-        <!--=== Page Header ===-->
-        <div class="page-header-margin"></div>
-        <!-- /Page Header -->
-        <!--=== Page Content ===-->
-        @yield('mainContent')
-        <!-- /Page Content -->
-	</div><!-- /.container -->
+        <div id="pre-cssloader"></div>
+
+        <div id="container">
+            <!--=== Page Header ===-->
+            <div class="page-header-margin"></div>
+            <!-- /Page Header -->
+            <!--=== Page Content ===-->
+            @yield('mainContent')
+            <!-- /Page Content -->
+        </div><!-- /.container -->
     </body>
 </html>

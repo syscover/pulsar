@@ -35,7 +35,7 @@ trait ControllerTrait {
 
         $parameters['urlParameters']  = $parameters;
 
-        Miscellaneous::setParameterSessionPage($this->resource);
+        if(!isset($parameters['modal'])) Miscellaneous::setParameterSessionPage($this->resource);
 
         $parameters['package']        = $this->package;
         $parameters['folder']         = $this->folder;
@@ -147,7 +147,10 @@ trait ControllerTrait {
                 }
             }
 
-            $row[] = '<input type="checkbox" class="uniform" name="element' . $i . '" value="' . $aObject[$instance->getKeyName()] . '">';
+            if(!isset($parameters['modal']) || isset($parameters['modal']) && !$parameters['modal'])
+            {
+                $row[] = '<input type="checkbox" class="uniform" name="element' . $i . '" value="' . $aObject[$instance->getKeyName()] . '">';
+            }
 
             $actionUrlParameters['id']        = $aObject[$instance->getKeyName()];
             $actionUrlParameters['offset']    = $request->input('iDisplayStart');
@@ -172,14 +175,22 @@ trait ControllerTrait {
                 $actions = $this->jsonCustomDataBeforeActions($aObject);
             }
 
-            if(isset($this->jsonParam['edit']) && $this->jsonParam['edit'] == true || !isset($this->jsonParam['edit']))
+            // check if request is modal
+            if(isset($parameters['modal']) && $parameters['modal'])
             {
-                $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' lightbox' : null) . '" href="' . route('edit' . $this->routeSuffix, $actionUrlParameters) . '" ' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' data-options="{\'width\':\'90p\', \'height\':\'90p\', \'iframe\': true, \'modal\': true}"' : null) . 'data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
+                $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip related-record" data-json=\'' . json_encode($aObject) . '\' data-original-title="' . trans('pulsar::pulsar.related_record') . '"><i class="icon-link"></i></a>' : null;
             }
-
-            if(isset($this->jsonParam['delete']) && $this->jsonParam['delete'] == true || !isset($this->jsonParam['delete']))
+            else
             {
-                $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete') ? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] . '" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . $this->routeSuffix, $actionUrlParameters) . '"><i class="icon-trash"></i></a>' : null;
+                if(isset($this->jsonParam['edit']) && $this->jsonParam['edit'] == true || !isset($this->jsonParam['edit']))
+                {
+                    $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' lightbox' : null) . '" href="' . route('edit' . $this->routeSuffix, $actionUrlParameters) . '" ' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' data-options="{\'width\':\'90p\', \'height\':\'90p\', \'iframe\': true, \'modal\': true}"' : null) . 'data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
+                }
+
+                if(isset($this->jsonParam['delete']) && $this->jsonParam['delete'] == true || !isset($this->jsonParam['delete']))
+                {
+                    $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete') ? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] . '" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . $this->routeSuffix, $actionUrlParameters) . '"><i class="icon-trash"></i></a>' : null;
+                }
             }
 
             if(isset($parameters['lang'])){

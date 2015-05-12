@@ -61,6 +61,13 @@
 
                             $('.dataTables_length select').addClass('form-control');
 
+                            // function call parent function to send every data on json format
+                            @if(isset($modal) && $modal)
+                            $('.related-record').on('click', function(){
+                                parent.relatedRecord($(this).data('json'));
+                            });
+                            @endif
+
                             @if(!isset($areDeleteRecord))
                             $('.delete-record').bind('click', function() {
                                 var that = this;
@@ -101,8 +108,10 @@
                                 responsiveHelper.respond();
                             }
 
+                            @if(!isset($modal) || isset($modal) && !$modal)
                             // button to delete multiple records
                             $("div.buttonsDataTables").html('<a class="btn" href="javascript:deleteRecords()">{{ trans('pulsar::pulsar.delete') }}</a>');
+                            @endif
                         }
                     });
 

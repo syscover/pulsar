@@ -5,7 +5,7 @@ and open the template in the editor.
 */
 /* 
     Created on : 27-nov-2013, 13:31:25
-    Author     : Carlos
+    Author     : Jose Carlos Rodríguez Palacín
 */
 
 @media (min-width: 992px) {
@@ -17,6 +17,13 @@ and open the template in the editor.
 .txt_normal{
     text-align: left !important; 
     font-weight: normal !important;
+}
+.mfp-iframe-holder .mfp-content {
+    line-height: 0;
+    width: 98%;
+    max-width: 1500px;
+    height: 98%;
+    max-height: 1024px;
 }
 .page-header-margin{
     margin-top: 20px;

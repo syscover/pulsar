@@ -41,6 +41,7 @@ return [
     'dashboard'                             => 'Escritorio',
     'prefix'                                => 'Prefijo',
     'edit_record'                           => 'Editar registro',
+    'related_record'                        => 'Relacionar registro',
     'delete_record'                         => 'Borrar registro',
     'delete_translation'                    => 'Borrar traducción',
     'edit_permissions'                      => 'Editar permisos',

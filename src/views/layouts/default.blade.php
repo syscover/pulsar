@@ -105,103 +105,114 @@
     </head>
     
     <body class="theme-dark">
-    <div id="pre-cssloader"></div>
-    <!-- Header -->
-	<header class="header navbar navbar-fixed-top" role="banner">
-		<!-- Top Navigation Bar -->
-		<div class="container">
+        <div id="pre-cssloader"></div>
 
-			<!-- Only visible on smartphones, menu toggle -->
-			<ul class="nav navbar-nav">
-				<li class="nav-toggle"><a href="javascript:void(0);"><i class="icon-reorder"></i></a></li>
-			</ul>
-
-			<!-- Logo -->
-			<a class="navbar-brand" href="{{ route('dashboard') }}">
-				<!-- <img src="assets/img/logo.png" alt="logo"> -->
-				<strong>PUL</strong>SAR
-			</a>
-			<!-- /logo -->
-
-			<!-- Sidebar Toggler -->
-			<a href="#" class="toggle-sidebar bs-tooltip" data-placement="bottom" data-original-title="Toggle navigation">
-				<i class="icon-reorder"></i>
-			</a>
-			<!-- /Sidebar Toggler -->
-
-			<!-- Top Left Menu -->
-			<ul class="nav navbar-nav navbar-left hidden-xs hidden-sm">
-				<li>
-					<a href="{{ route('dashboard') }}">
-						<i class="icon-dashboard"></i> {{ trans('pulsar::pulsar.dashboard') }}
-					</a>
-				</li>
-                <li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i> Settings <i class="icon-caret-down small"></i></a>
-					<ul class="dropdown-menu">
-                        @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-google-services', 'access'))
-                            <li><a href="{{ route('googleServices') }}"><i class="icomoon-icon-google"></i>Google Services</a></li>
-                            <!-- <li class="divider"></li> -->
-                        @endif
-					</ul>
-				</li>
-			</ul>
-			<!-- /Top Left Menu -->
-
-			<!-- Top Right Menu -->
-			<ul class="nav navbar-nav navbar-right">
-				<!-- User Login Dropdown -->
-				<li class="dropdown user">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="icon-male"></i>
-						<span class="username">{{ Auth::user()->user_010 }}</span>
-						<i class="icon-caret-down small"></i>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="{{ route('logout') }}"><i class="icon-off"></i> {{ trans('pulsar::pulsar.logout') }}</a></li>
-					</ul>
-				</li><!-- /user login dropdown -->
-			</ul><!-- /Top Right Menu -->
-		</div><!-- /top navigation bar -->
-	</header> <!-- /.header -->
-
-	<div id="container">
-		<div id="sidebar" class="sidebar-fixed">
-			<div id="sidebar-content">
-				<!--=== Navigation ===-->
-                @include('pulsar::includes.nav.main')
-				<!-- /Navigation -->
-			</div>
-			<div id="divider" class="resizeable"></div>
-		</div><!-- /Sidebar -->
-
-		<div id="content">
-            <div class="container">
-                <!-- Breadcrumbs line -->
-                <div class="crumbs">
-                    <ul id="breadcrumbs" class="breadcrumb">
-                        <li>
-                            <i class="icon-home"></i>
-                            <a href="{{ route('dashboard') }}">{{ trans('pulsar::pulsar.dashboard') }}</a>
-                        </li>
-                        @if(View::exists($package . '::' . $folder . '.breadcrumbs'))
-                            @include($package . '::' . $folder . '.breadcrumbs')
-                        @endif
-                    </ul>
-                    @yield('crumbsButtons')
-                </div>
-                <!-- /Breadcrumbs line --
-
+        @if(isset($modal) && $modal)
+            <div class="container-modal">
                 <!--=== Page Header ===-->
                 <div class="page-header-margin"></div>
                 <!-- /Page Header -->
-
                 <!--=== Page Content ===-->
                 @yield('mainContent')
                 <!-- /Page Content -->
-
             </div><!-- /.container -->
-		</div><!-- /.content -->
-	</div><!-- /.container -->
+        @else
+            <!-- Header -->
+            <header class="header navbar navbar-fixed-top" role="banner">
+                <!-- Top Navigation Bar -->
+                <div class="container">
+
+                    <!-- Only visible on smartphones, menu toggle -->
+                    <ul class="nav navbar-nav">
+                        <li class="nav-toggle"><a href="javascript:void(0);"><i class="icon-reorder"></i></a></li>
+                    </ul>
+
+                    <!-- Logo -->
+                    <a class="navbar-brand" href="{{ route('dashboard') }}">
+                        <!-- <img src="assets/img/logo.png" alt="logo"> -->
+                        <strong>PUL</strong>SAR
+                    </a>
+                    <!-- /logo -->
+
+                    <!-- Sidebar Toggler -->
+                    <a href="#" class="toggle-sidebar bs-tooltip" data-placement="bottom" data-original-title="Toggle navigation">
+                        <i class="icon-reorder"></i>
+                    </a>
+                    <!-- /Sidebar Toggler -->
+
+                    <!-- Top Left Menu -->
+                    <ul class="nav navbar-nav navbar-left hidden-xs hidden-sm">
+                        <li>
+                            <a href="{{ route('dashboard') }}">
+                                <i class="icon-dashboard"></i> {{ trans('pulsar::pulsar.dashboard') }}
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i> Settings <i class="icon-caret-down small"></i></a>
+                            <ul class="dropdown-menu">
+                                @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-google-services', 'access'))
+                                    <li><a href="{{ route('googleServices') }}"><i class="icomoon-icon-google"></i>Google Services</a></li>
+                                    <!-- <li class="divider"></li> -->
+                                @endif
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- /Top Left Menu -->
+
+                    <!-- Top Right Menu -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <!-- User Login Dropdown -->
+                        <li class="dropdown user">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon-male"></i>
+                                <span class="username">{{ Auth::user()->user_010 }}</span>
+                                <i class="icon-caret-down small"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('logout') }}"><i class="icon-off"></i> {{ trans('pulsar::pulsar.logout') }}</a></li>
+                            </ul>
+                        </li><!-- /user login dropdown -->
+                    </ul><!-- /Top Right Menu -->
+                </div><!-- /top navigation bar -->
+            </header> <!-- /.header -->
+
+            <div id="container">
+                <div id="sidebar" class="sidebar-fixed">
+                    <div id="sidebar-content">
+                        <!--=== Navigation ===-->
+                        @include('pulsar::includes.nav.main')
+                        <!-- /Navigation -->
+                    </div>
+                    <div id="divider" class="resizeable"></div>
+                </div><!-- /Sidebar -->
+                <div id="content">
+                    <div class="container">
+                        <!-- Breadcrumbs line -->
+                        <div class="crumbs">
+                            <ul id="breadcrumbs" class="breadcrumb">
+                                <li>
+                                    <i class="icon-home"></i>
+                                    <a href="{{ route('dashboard') }}">{{ trans('pulsar::pulsar.dashboard') }}</a>
+                                </li>
+                                @if(View::exists($package . '::' . $folder . '.breadcrumbs'))
+                                    @include($package . '::' . $folder . '.breadcrumbs')
+                                @endif
+                            </ul>
+                            @yield('crumbsButtons')
+                        </div>
+                        <!-- /Breadcrumbs line --
+
+                        <!--=== Page Header ===-->
+                        <div class="page-header-margin"></div>
+                        <!-- /Page Header -->
+
+                        <!--=== Page Content ===-->
+                        @yield('mainContent')
+                        <!-- /Page Content -->
+
+                    </div><!-- /.container -->
+                </div><!-- /.content -->
+            </div><!-- /.container -->
+        @endif
     </body>
 </html>
