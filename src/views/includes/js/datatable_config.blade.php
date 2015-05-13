@@ -68,6 +68,16 @@
                             });
                             @endif
 
+                            if($.fn.magnificPopup)
+                            {
+                                $('.magnific-popup').magnificPopup({
+                                    type: 'iframe',
+                                    removalDelay: 300,
+                                    mainClass: 'mfp-fade'
+                                });
+                            }
+
+
                             @if(!isset($areDeleteRecord))
                             $('.delete-record').bind('click', function() {
                                 var that = this;

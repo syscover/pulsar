@@ -44,7 +44,7 @@ class Lang extends Model {
 
     public static function resetBaseLang()
     {
-        Lang::query()->update(array('base_001' => '0'));
+        Lang::update(['base_001' => '0']);
     }
 
     public static function getActivesLangs()
