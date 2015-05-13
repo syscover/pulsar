@@ -103,6 +103,7 @@ return [
     'category'                              => 'Category|Categories',
     'contact'                               => 'Contact|Contacts',
     'group'                                 => 'Group|Groups',
+    'business'                              => 'Business|Business',
     'phone'                                 => 'Phone',
     'company_name'                          => 'Company name',
     'company'                               => 'Company',
@@ -110,7 +111,7 @@ return [
     'tin'                                   => 'TIN',
     'web'                                   => 'Web',
     'cp'                                    => 'CP',
-    'address'                               => 'Address',
+    'address'                               => 'Address|Addresses',
     'locality'                              => 'Locality',
     'master_tables'                         => 'Master tables',
     'section'                               => 'Section|Sections',
@@ -120,4 +121,6 @@ return [
     'prefix'                                => 'Prefix',
     'sufix'                                 => 'Sufix',
     'code'                                  => 'Code',
+    'alias'                                 => 'Alias',
+    'favorite'                              => 'Favorite',
 ];

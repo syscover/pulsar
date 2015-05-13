@@ -68,29 +68,6 @@ var FormComponents = function() {
 	}
 
 	/**************************
-	 * Select2                *
-	 **************************/
-	var initSelect2 = function() {
-		if ($.fn.select2) {
-			// Set default options
-			$.extend(true, $.fn.select2.defaults, {
-				width: 'resolve'
-			});
-
-			// Initialize default select2 boxes
-			$('.select2').each(function() {
-				var self = $(this);
-				$(self).select2(self.data());
-			});
-
-			// Initialize DataTables Select2 Boxes
-			$('.dataTables_length select').select2({
-				minimumResultsForSearch: "-1"
-			});
-		}
-	}
-
-	/**************************
 	 * Spinner                *
 	 **************************/
 	var initSpinner = function() {
@@ -253,7 +230,6 @@ var FormComponents = function() {
 			initInputlimiter(); // Input limiter
 			initUniform(); // Uniform (styled radio- and checkboxes)
 			initTags(); // TagsInput
-			initSelect2(); // Custom styled selects e.g. with search
 			initSpinner(); // Spinner
 			initDualListBox(); // Dual Select Boxes
 			initValidation(); // Validation

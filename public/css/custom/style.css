@@ -15,15 +15,15 @@ and open the template in the editor.
 }
 
 .txt_normal{
-    text-align: left !important; 
+    text-align: left !important;
     font-weight: normal !important;
 }
-.mfp-iframe-holder .mfp-content {
-    line-height: 0;
-    width: 98%;
-    max-width: 1500px;
-    height: 98%;
-    max-height: 1024px;
+
+.container-modal {
+    position: relative;
+    height: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 .page-header-margin{
     margin-top: 20px;
@@ -91,7 +91,7 @@ div.buttonsDataTables{
     color: #d23459;
 }
 .MY_visor {
-    border:0; 
+    border:0;
     color:#ed7a53;
     font-weight:bold;
     box-shadow:none;
@@ -100,11 +100,11 @@ div.buttonsDataTables{
     text-align: left !important;
 }
 .MY_alert {
- -webkit-border-radius: 5px;
- -moz-border-radius: 5px;
-  border-radius: 5px;
-  padding: 6px;
-  margin-top: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 6px;
+    margin-top: 10px;
 }
 
 .drop-zone
@@ -191,4 +191,47 @@ img.ghost, img.main {
     font-size: 0.8vw !important;
     text-align: center;
     width: 100%;
+}
+
+.mfp-iframe-holder .mfp-content {
+    line-height: 0 !important;
+    width: 100% !important;
+    max-width: 1500px !important;
+    height: 100% !important;
+    max-height: 1024px !important;
+}
+
+/* magnific popup */
+/* overlay at start */
+.mfp-fade.mfp-bg {
+    opacity: 0;
+
+    -webkit-transition: all 0.15s ease-out;
+    -moz-transition: all 0.15s ease-out;
+    transition: all 0.15s ease-out;
+}
+/* overlay animate in */
+.mfp-fade.mfp-bg.mfp-ready {
+    opacity: 0.8;
+}
+/* overlay animate out */
+.mfp-fade.mfp-bg.mfp-removing {
+    opacity: 0;
+}
+
+/* content at start */
+.mfp-fade.mfp-wrap .mfp-content {
+    opacity: 0;
+
+    -webkit-transition: all 0.15s ease-out;
+    -moz-transition: all 0.15s ease-out;
+    transition: all 0.15s ease-out;
+}
+/* content animate it */
+.mfp-fade.mfp-wrap.mfp-ready .mfp-content {
+    opacity: 1;
+}
+/* content animate out */
+.mfp-fade.mfp-wrap.mfp-removing .mfp-content {
+    opacity: 0;
 }

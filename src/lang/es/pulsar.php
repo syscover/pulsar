@@ -103,6 +103,7 @@ return [
     'category'                              => 'Categoría|Categorías',
     'contact'                               => 'Contacto|Contactos',
     'group'                                 => 'Grupo|Grupos',
+    'business'                              => 'Negocio|Negocios',
     'phone'                                 => 'Teléfono',
     'company_name'                          => 'Nombre empresa',
     'company'                               => 'Empresa',
@@ -110,7 +111,7 @@ return [
     'tin'                                   => 'CIF',
     'web'                                   => 'Web',
     'cp'                                    => 'CP',
-    'address'                               => 'Dirección',
+    'address'                               => 'Dirección|Direcciones',
     'locality'                              => 'Localidad',
     'master_tables'                         => 'Tablas maestras',
     'section'                               => 'Sección|Secciones',
@@ -120,4 +121,6 @@ return [
     'prefix'                                => 'Prefijo',
     'sufix'                                 => 'Sufijo',
     'code'                                  => 'Código',
+    'alias'                                 => 'Alias',
+    'favorite'                              => 'Favorito',
 ];

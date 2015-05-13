@@ -27,6 +27,12 @@ $(document).ready(function() {
             });
         });
     }
+    if ($.fn.select2) {
+        $('.select2').each(function() {
+            var self = $(this);
+            $(self).select2(self.data());
+        });
+    }
 });
 
     //Insert text in the textarea#areaId where the caret is
