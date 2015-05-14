@@ -123,4 +123,5 @@ return [
     'code'                                  => 'Código',
     'alias'                                 => 'Alias',
     'favorite'                              => 'Favorito',
+    'photo'                                 => 'Foto|Fotos',
 ];
