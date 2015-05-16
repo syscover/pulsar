@@ -81,11 +81,17 @@ class TerritorialAreas1 extends Controller {
         ]);
     }
 
-    public function jsonTerritorialAreas1FromCountry($id)
+    public function jsonTerritorialAreas1FromCountry($country)
     {
-        $data['json'] = [];
-        if($id!="null") $data['json'] = Country::getTranslationRecord($id, Session::get('baseLang')->id_001)->territorialAreas1()->get()->toJson();
-
-        return view('pulsar::common.views.json_display', $data);
+        if($country == "null")
+            return response()->json([
+                'status'    => 'error',
+                'message'   => 'We expect a correct country code'
+            ], 400);
+        else
+            return response()->json([
+                'status'    => 'success',
+                'data'      => Country::getTranslationRecord($country, Session::get('baseLang')->id_001)->territorialAreas1()->get()
+            ]);
     }
 }

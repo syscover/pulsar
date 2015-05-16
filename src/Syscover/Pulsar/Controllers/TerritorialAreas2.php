@@ -86,11 +86,17 @@ class TerritorialAreas2 extends Controller {
         ]);
     }
 
-    public function jsonTerritorialAreas2FromTerritorialArea1($country, $id)
+    public function jsonTerritorialAreas2FromTerritorialArea1($country, $territorialArea1)
     {
-        $data['json'] = null;
-        if($id!="null") $data['json'] = TerritorialArea1::find($id)->territorialAreas2()->get()->toJson();
-
-        return view('pulsar::common.views.json_display', $data);
+        if($territorialArea1 == "null")
+            return response()->json([
+                'status'    => 'error',
+                'message'   => 'We expect a correct territorial area 1 code'
+            ], 400);
+        else
+            return response()->json([
+                'status'    => 'success',
+                'data'      => TerritorialArea1::find($territorialArea1)->territorialAreas2()->get()
+            ]);
     }
 }

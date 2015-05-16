@@ -84,7 +84,7 @@ trait ControllerTrait {
         $iFilteredTotal = call_user_func($this->model . '::getRecordsLimit', $parametersCount);
         $iTotal         = call_user_func($this->model . '::countRecords', $parameters);
 
-        $output = [
+        $response = [
             "sEcho"                 => $request->input('sEcho'),
             "iTotalRecords"         => $iTotal,
             "iTotalDisplayRecords"  => $iFilteredTotal,
@@ -262,13 +262,11 @@ trait ControllerTrait {
 
             $row[] =  $actions;
 
-            $output['aaData'][] = $row;
+            $response['aaData'][] = $row;
             $i++;
         }
 
-        $data['json'] = json_encode($output);
-
-        return view('pulsar::common.views.json_display', $data);
+        return response()->json($response);
     }
 
     /**
