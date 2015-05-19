@@ -124,4 +124,8 @@ return [
     'alias'                                 => 'Alias',
     'favorite'                              => 'Favorite',
     'photo'                                 => 'Photo|Photos',
+    'observations'                          => 'Observations',
+    'date'                                  => 'Date',
+    'units'                                 => 'Units',
+    'attached'                              => 'Attached'
 ];

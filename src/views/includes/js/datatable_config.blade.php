@@ -64,7 +64,7 @@
                             // function call parent function to send every data on json format
                             @if(isset($modal) && $modal)
                             $('.related-record').on('click', function(){
-                                parent.relatedRecord($(this).data('json'));
+                                parent.{{ isset($callback)? $callback : 'relatedRecord' }}($(this).data('json'));
                             });
                             @endif
 

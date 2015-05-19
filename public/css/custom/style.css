@@ -14,6 +14,11 @@ and open the template in the editor.
     }
 }
 
+.form-group label{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .txt_normal{
     text-align: left !important;
     font-weight: normal !important;

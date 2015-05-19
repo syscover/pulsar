@@ -64,7 +64,7 @@ class PasswordController extends Controller {
                 return response()->json([
                     'success' => true
                 ]);
-            
+
             case PasswordBroker::INVALID_USER:
                 return response()->json([
                     'success' => false,
