@@ -36,7 +36,7 @@ class Locale {
     {
         Config::set('app.locale', $this->auth->user()->lang_010);
         App::setLocale($this->auth->user()->lang_010);
-
+        
         return $next($request);
     }
 

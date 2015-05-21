@@ -34,26 +34,26 @@ $(document).ready(function() {
     }
 });
 
-    //Insert text in the textarea#areaId where the caret is
-    function insertAtCaret(obj, string) {
-        obj = document.getElementById(obj);
-        obj.focus();
+//Insert text in the textarea#areaId where the caret is
+function insertAtCaret(obj, string) {
+    obj = document.getElementById(obj);
+    obj.focus();
 
-        if (typeof (document.selection) != 'undefined') {
-            var range = document.selection.createRange();
-            if (range.parentElement() != obj) return;
-            range.text = string;
-            range.select();
-        }
-        else if (typeof (obj.selectionStart) != 'undefined') {
-            var start = obj.selectionStart;
-            obj.value = obj.value.substr(0, start) + string + obj.value.substr(obj.selectionEnd, obj.value.length);
-            start += string.length;
-            obj.setSelectionRange(start, start);
-        }
-        else {
-            obj.value += string;
-        }
-
-        obj.focus();
+    if (typeof (document.selection) != 'undefined') {
+        var range = document.selection.createRange();
+        if (range.parentElement() != obj) return;
+        range.text = string;
+        range.select();
     }
+    else if (typeof (obj.selectionStart) != 'undefined') {
+        var start = obj.selectionStart;
+        obj.value = obj.value.substr(0, start) + string + obj.value.substr(obj.selectionEnd, obj.value.length);
+        start += string.length;
+        obj.setSelectionRange(start, start);
+    }
+    else {
+        obj.value += string;
+    }
+
+    obj.focus();
+}
