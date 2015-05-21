@@ -32,7 +32,7 @@
 	$.fn.fileInput.defaults = {
 		placeholder: 'No file selected...',
 		buttontext: 'Browse...',
-		inputsize: 'width-xlarge' // e.g. block-level
+		inputsize: 'input-block-level' // e.g. block-level
 	};
 
 	// the plugin prototype

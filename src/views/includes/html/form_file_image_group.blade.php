@@ -4,7 +4,7 @@
     <div class="col-md-10">
         <!-- If the file has logo field is hidden from JavasScript -->
         <div id="inputFile"@if(isset($value)) style="display: none"@endif>
-            <input{{ isset($required)? ' class="required"' : null }} type="file" data-style="fileinput" name="image" accept="image/*">
+            <input type="file" data-style="fileinput" name="image" accept="image/*"{{ isset($required)? ' required' : null }}>
             <label for="{{ $name }}" class="has-error help-block" generated="true" style="display:none;"></label>
         </div>
         @if(isset($value))

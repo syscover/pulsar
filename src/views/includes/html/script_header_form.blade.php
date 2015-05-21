@@ -23,12 +23,8 @@
             // Set default options
             $.extend(true, $.fn.fileInput.defaults, {
                     placeholder: '{{ trans('pulsar::pulsar.file_not_select') }}...',
-                    buttontext: '{{ trans('pulsar::pulsar.select') }}...'
-            });
-
-            $('[data-style="fileinput"]').each(function () {
-                    var $input = $(this);
-                    $input.fileInput($input.data());
+                    buttontext: '{{ trans('pulsar::pulsar.select') }}...',
+                    inputsize: 'input-block-level'
             });
         }
     });
