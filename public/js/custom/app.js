@@ -4,7 +4,15 @@
 
 $(document).ready(function() {
     if ($.fn.validate) {
-        $("form").validate();
+        $("form").validate({
+            errorPlacement: function(error, element) {
+                if (element.data("error-placement")) {
+                    error.insertAfter("#" + element.data("error-placement"));
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
     }
     if ($.fn.uniform) {
         $(".uniform").uniform();
@@ -30,6 +38,12 @@ $(document).ready(function() {
         $('.select2').each(function() {
             var self = $(this);
             $(self).select2(self.data());
+        });
+    }
+    if ($.fn.fileInput) {
+        $('[data-style="fileinput"]').each(function () {
+            var $input = $(this);
+            $input.fileInput($input.data());
         });
     }
 });
