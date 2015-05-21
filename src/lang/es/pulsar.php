@@ -125,6 +125,7 @@ return [
     'favorite'                              => 'Favorito',
     'photo'                                 => 'Foto|Fotos',
     'observations'                          => 'Observaciones',
+    'comments'                              => 'Comentarios',
     'date'                                  => 'Fecha',
     'units'                                 => 'Unidades',
     'attached'                              => 'Adjunto'

@@ -3,7 +3,6 @@
  */
 
 $(document).ready(function() {
-    //ejecución de uniform
     if ($.fn.validate) {
         $("form").validate();
     }

@@ -34,7 +34,7 @@
         <!-- LIBS CSS PROPIAS -->
         <link href="{{ asset('packages/syscover/pulsar/plugins/pnotify/jquery.pnotify.default.css') }}" type="text/css" rel="stylesheet">
         <link href="{{ asset('packages/syscover/pulsar/css/custom/style.css') }}" type="text/css" rel="stylesheet">
-        <link href="{{ asset('packages/syscover/pulsar/plugins/cssloader/css/cssloader.css') }}" type="text/css" rel="stylesheet">
+        <link href="{{ asset('packages/syscover/pulsar/vendor/cssloader/css/cssloader.css') }}" type="text/css" rel="stylesheet">
 
         <!--=== JavaScript ===-->
 
@@ -44,7 +44,7 @@
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/libs/lodash.compat.min.js') }}"></script>
 
         <!-- Loader -->
-        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/cssloader/js/jquery.cssloader.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/cssloader/js/jquery.cssloader.js') }}"></script>
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
@@ -72,7 +72,7 @@
             "use strict";
 
             $.cssLoader({
-                urlPlugin:  '/packages/syscover/pulsar/plugins',
+                urlPlugin:  '/packages/syscover/pulsar/vendor',
                 spinnerColor: '#2a4053'
             });
 
