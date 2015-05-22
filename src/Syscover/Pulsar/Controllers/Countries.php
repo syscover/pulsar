@@ -90,14 +90,6 @@ class Countries extends Controller {
         ]);
     }
     
-    public function editCustomRecord($parameters)
-    {
-        $parameters['object']   = Country::getTranslationRecord($parameters['id'], $parameters['lang']);
-        $parameters['lang']     = $parameters['object']->lang;
-
-        return $parameters;
-    }
-    
     public function updateCustomRecord($parameters)
     {
         Country::where('id_002', $parameters['id'])->where('lang_002', Request::input('lang'))->update([

@@ -126,7 +126,7 @@ trait ControllerTrait {
 
                         case 'date':
                             $date = new \DateTime();
-                            $row[] = $date->setTimestamp($aObject[$aColumn['data']])->format('d-m-Y H:i:s');
+                            $row[] = $date->setTimestamp($aObject[$aColumn['data']])->format(isset($aColumn['format'])? $aColumn['format'] : 'd-m-Y H:i:s');
                             break;
 
                         case 'url':
@@ -361,7 +361,18 @@ trait ControllerTrait {
         $parameters['routeSuffix']    = $this->routeSuffix;
         $parameters['icon']           = $this->icon;
         $parameters['objectTrans']    = isset($this->objectTrans) &&  $this->objectTrans != null? Miscellaneous::getObjectTransValue($parameters, $this->objectTrans) : null;
-        $parameters['object']         = call_user_func($this->model . '::find', $parameters['id']);
+
+        // check if object has multiple language
+        if(isset($parameters['lang']))
+        {
+            $parameters['object']   = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], $parameters['lang']);
+            $parameters['lang']     = $parameters['object']->lang;
+        }
+        else
+        {
+            $parameters['object']   = call_user_func($this->model . '::find', $parameters['id']);
+        }
+
 
         if(method_exists($this, 'editCustomRecord'))
         {
