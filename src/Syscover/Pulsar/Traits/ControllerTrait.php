@@ -381,7 +381,15 @@ trait ControllerTrait {
         }
         else
         {
-            $parameters['object']   = call_user_func($this->model . '::find', $parameters['id']);
+            // check if is implements getRecord function in model, for objects with joins
+            if(method_exists($this->model, 'getRecord'))
+            {
+                $parameters['object']   = call_user_func($this->model . '::getRecord', $parameters);
+            }
+            else
+            {
+                $parameters['object']   = call_user_func($this->model . '::find', $parameters['id']);
+            }
         }
 
 
