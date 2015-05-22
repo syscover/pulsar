@@ -52,18 +52,6 @@ class Countries extends Controller {
         return $row;
     }
 
-    public function createCustomRecord($parameters)
-    {
-        if(isset($parameters['id']))
-        {
-            $parameters['object'] = Country::getTranslationRecord($parameters['id'], Session::get('baseLang')->id_001);
-        }
-
-        $parameters['lang'] = Lang::find($parameters['lang']);
-
-        return $parameters;
-    }
-
     public function checkSpecialRulesToStore($parameters)
     {
         // check special rule to objects with multiple language if is new object translation or new object

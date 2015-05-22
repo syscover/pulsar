@@ -292,6 +292,17 @@ trait ControllerTrait {
         $parameters['icon']           = $this->icon;
         $parameters['objectTrans']    = isset($this->objectTrans) &&  $this->objectTrans != null? Miscellaneous::getObjectTransValue($parameters, $this->objectTrans) : null;
 
+        // check if object has multiple language
+        if(isset($parameters['id']))
+        {
+            $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], Session::get('baseLang')->id_001);
+        }
+        if(isset($parameters['lang']))
+        {
+            $parameters['lang'] = Lang::find($parameters['lang']);
+        }
+
+
         return view($this->package . '::' . $this->folder . '.create', $parameters);
     }
 
