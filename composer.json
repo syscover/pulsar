@@ -14,9 +14,7 @@
     "require": {
         "php": ">=5.4.0",
         "zendframework/zend-permissions-acl": "2.3.*",
-        "mtdowling/cron-expression": "~1.0"
-    },
-    "require-dev": {
+        "mtdowling/cron-expression": "~1.0",
         "tecnick.com/tcpdf": "dev-master",
         "phpoffice/phpexcel": "dev-master"
     },
@@ -24,5 +22,6 @@
         "psr-4": {
             "Syscover\\Pulsar\\": "src/Syscover/Pulsar"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
