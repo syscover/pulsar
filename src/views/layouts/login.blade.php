@@ -6,10 +6,17 @@
         @section('title')
         <title>SYSCOVER</title>
         @show
+
         <!--=== CSS ===-->
 
         <!-- Bootstrap -->
         <link href="{{ asset('packages/syscover/pulsar/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+
+        <!-- jQuery UI -->
+        <!--<link href="{{ asset('packages/syscover/pulsar/plugins/jquery-ui/jquery-ui-1.10.2.custom.css') }}" rel="stylesheet" type="text/css">-->
+        <!--[if lt IE 9]>
+        <link rel="stylesheet" type="text/css" href="{{ asset('packages/syscover/pulsar/plugins/jquery-ui/jquery.ui.1.10.2.ie.css') }}">
+        <![endif]-->
 
         <!-- Theme -->
         <link href="{{ asset('packages/syscover/pulsar/css/main.css') }}" rel="stylesheet" type="text/css">

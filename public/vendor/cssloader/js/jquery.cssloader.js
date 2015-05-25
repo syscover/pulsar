@@ -88,14 +88,14 @@
                             this.callback();
                         }
                     }
-
-                    return this;
                 },
                 error:function(e)
                 {
                     //error
                 }
             });
+
+            return this;
         },
 
         loaded: function()
@@ -194,7 +194,7 @@
      */
     $.cssLoader = function(options, callback) {
         if (!$.data(document, 'cssLoader')) {
-            return $.data(document, 'cssLoader', Object.create(CssLoader).init(options, callback, true));
+            $.data(document, 'cssLoader', Object.create(CssLoader).init(options, callback, true));
         }
     };
     //public methods
