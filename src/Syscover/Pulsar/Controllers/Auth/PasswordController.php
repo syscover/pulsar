@@ -39,7 +39,7 @@ class PasswordController extends Controller {
 	{
 		$this->auth         = $auth;
 		$this->passwords    = $passwords;
-        $this->subject      = "Reset your password";
+        $this->subject      = trans('subject_password_reset');
         $this->redirectPath = route('dashboard');
 	}
 

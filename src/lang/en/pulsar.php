@@ -128,5 +128,6 @@ return [
     'comments'                              => 'Comments',
     'date'                                  => 'Date',
     'units'                                 => 'Units',
-    'attached'                              => 'Attached'
+    'attached'                              => 'Attached',
+    'subject_password_reset'                => 'Reset your password'
 ];
