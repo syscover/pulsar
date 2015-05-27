@@ -14,6 +14,7 @@ class ResourceTableSeeder extends Seeder {
             ['id_007' => 'admin-country-at2','name_007' => 'Countries -- Territorial Areas 2','package_007' => '2'],
             ['id_007' => 'admin-country-at3','name_007' => 'Countries -- Territorial Areas 3','package_007' => '2'],
             ['id_007' => 'admin-cron','name_007' => 'Cron task','package_007' => '2'],
+            ['id_007' => 'admin-email-account','name_007' => 'Email accounts','package_007' => '2'],
             ['id_007' => 'admin-google-services','name_007' => 'Google Services','package_007' => '2'],
             ['id_007' => 'admin-lang','name_007' => 'Languagues','package_007' => '2'],
             ['id_007' => 'admin-package','name_007' => 'Packages','package_007' => '2'],

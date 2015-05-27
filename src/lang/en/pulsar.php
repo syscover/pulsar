@@ -129,5 +129,8 @@ return [
     'date'                                  => 'Date',
     'units'                                 => 'Units',
     'attached'                              => 'Attached',
-    'subject_password_reset'                => 'Reset your password'
+    'subject_password_reset'                => 'Reset your password',
+    'account'                               => 'Account|Accounts',
+    'incoming_server'                       => 'Incoming server',
+    'outgoing_server'                       => 'Outgoing server',
 ];

@@ -129,5 +129,8 @@ return [
     'date'                                  => 'Fecha',
     'units'                                 => 'Unidades',
     'attached'                              => 'Adjunto',
-    'subject_password_reset'                => 'Restablecer contraseña'
+    'subject_password_reset'                => 'Restablecer contraseña',
+    'account'                               => 'Cuenta|Cuentas',
+    'incoming_server'                       => 'Servidor entrante',
+    'outgoing_server'                       => 'Servidor saliente',
 ];
