@@ -21,11 +21,19 @@ class EmailAccounts extends Controller {
     protected $routeSuffix  = 'EmailAccount';
     protected $folder       = 'email_accounts';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_013', 'name_013', 'surname_013', 'name_002', 'mobile_013', ['data' => 'email_013', 'type' => 'email'], ['data' => 'unsubscribe_mobile_013', 'type' => 'invertActive'], ['data' => 'unsubscribe_email_013', 'type' => 'invertActive'], 'name_029'];
+    protected $aColumns     = ['id_013', 'name_013', ['data' => 'email_013', 'type' => 'email']];
     protected $nameM        = 'name_013';
     protected $model        = '\Syscover\Pulsar\Models\EmailAccount';
     protected $icon         = 'icon-envelope';
     protected $objectTrans  = 'account';
+
+    public function createCustomRecord($parameters)
+    {
+        $parameters['incomingTypes'] = [(object)['id' => 'imap', 'name' => 'IMAP']];
+        $parameters['incomingSecures'] = [(object)['id' => '', 'name' => 'No security'], (object)['id' => 'ssl', 'name' => 'SSL']];
+
+        return $parameters;
+    }
 
     public function storeCustomRecord()
     {

@@ -49,6 +49,15 @@ class TerritorialArea2 extends Model {
         return $query;
     }
 
+    public static function customCount($parameters)
+    {
+        $query = TerritorialArea2::query();
+
+        if(isset($parameters['country'])) $query->where('country_004', $parameters['country']);
+
+        return $query;
+    }
+
     public static function getTerritorialAreas2FromTerritorialArea1($terrirotialArea1)
     {
         return TerritorialArea2::where('territorial_area_1_004', $terrirotialArea1)->orderBy('name_004', 'asc')->get();

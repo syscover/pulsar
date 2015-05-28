@@ -133,4 +133,7 @@ return [
     'account'                               => 'Account|Accounts',
     'incoming_server'                       => 'Incoming server',
     'outgoing_server'                       => 'Outgoing server',
+    'reply_to'                              => 'Reply to',
+    'incoming_type'                         => 'Incoming type',
+    'incoming_secure'                       => 'Incoming secure'
 ];

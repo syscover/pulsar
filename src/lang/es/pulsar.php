@@ -133,4 +133,7 @@ return [
     'account'                               => 'Cuenta|Cuentas',
     'incoming_server'                       => 'Servidor entrante',
     'outgoing_server'                       => 'Servidor saliente',
+    'reply_to'                              => 'Responder a',
+    'incoming_type'                         => 'Tipo de cuenta',
+    'incoming_secure'                       => 'Seguridad de entrada'
 ];
