@@ -46,6 +46,7 @@ class Resources extends Controller {
     public function editCustomRecord($parameters)
     {
         $parameters['packages'] = Package::get();
+
         return $parameters;
     }
     
