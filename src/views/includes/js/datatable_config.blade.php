@@ -33,6 +33,9 @@
                             "sNext": "{{ trans('pulsar::datatable.sNext') }}",
                             "sLast": "{{ trans('pulsar::datatable.sLast') }}"}
                         },
+                        "search": {
+                            "search": Cookies.get('dtSearch')
+                        },
                         "sPaginationType": "bootstrap",
                         "sDom": "<'row'<'dataTables_header clearfix'<'col-md-6'f><'col-md-6'<'buttonsDataTables'>>r>>t<'row'<'dataTables_footer clearfix'<'col-md-6'l><'col-md-6'<'row'p><'row'i>>>>",
                         // set the initial value
@@ -138,11 +141,10 @@
 
                         this.each(function(i) {
                             $.fn.dataTableExt.iApiIndex = i;
-                            var
-                                    $this = this,
-                                    oTimerId = null,
-                                    sPreviousSearch = null,
-                                    anControl = $('input', _that.fnSettings().aanFeatures.f);
+                            var $this = this,
+                                oTimerId = null,
+                                sPreviousSearch = null,
+                                anControl = $('input', _that.fnSettings().aanFeatures.f);
 
                             anControl.unbind('keyup').bind('keyup', function() {
                                 var $$this = $this;
@@ -153,6 +155,7 @@
                                     oTimerId = window.setTimeout(function() {
                                         $.fn.dataTableExt.iApiIndex = i;
                                         _that.fnFilter(anControl.val());
+                                        Cookies.set('dtSearch',anControl.val(), { expires: 7, path: '' });
                                     }, iDelay);
                                 }
                             });
