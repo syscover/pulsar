@@ -135,5 +135,7 @@ return [
     'outgoing_server'                       => 'Servidor saliente',
     'reply_to'                              => 'Responder a',
     'incoming_type'                         => 'Tipo de cuenta',
-    'incoming_secure'                       => 'Seguridad de entrada'
+    'incoming_secure'                       => 'Seguridad de entrada',
+    'port'                                  => 'Puerto',
+    'no_security'                           => 'Sin seguridad'
 ];

@@ -10,7 +10,9 @@
  * @filesource
  */
 
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Request;
+use Syscover\Pulsar\Libraries\EmailServices;
 use Syscover\Pulsar\Traits\ControllerTrait;
 use Syscover\Pulsar\Models\EmailAccount;
 
@@ -29,49 +31,112 @@ class EmailAccounts extends Controller {
 
     public function createCustomRecord($parameters)
     {
-        $parameters['incomingTypes'] = [(object)['id' => 'imap', 'name' => 'IMAP']];
-        $parameters['incomingSecures'] = [(object)['id' => '', 'name' => 'No security'], (object)['id' => 'ssl', 'name' => 'SSL']];
+        $parameters['outgoingSecures']  = [(object)['id' => '', 'name' => trans('pulsar::pulsar.no_security')], (object)['id' => 'ssl', 'name' => 'SSL'], (object)['id' => 'tls', 'name' => 'TLS'], (object)['id' => 'sslv2', 'name' => 'SSLv2'], (object)['id' => 'sslv3', 'name' => 'SSLv3']];
+        $parameters['incomingTypes']    = [(object)['id' => 'imap', 'name' => 'IMAP']];
+        $parameters['incomingSecures']  = [(object)['id' => '', 'name' => trans('pulsar::pulsar.no_security')], (object)['id' => 'ssl', 'name' => 'SSL']];
 
         return $parameters;
     }
 
-    public function storeCustomRecord()
+    public function storeCustomRecord($parameters)
     {
-        $contact = EmailAccount::create([
-            'company_013'       => Request::input('company'),
-            'name_013'          => Request::input('name'),
-            'surname_013'       => Request::input('surname'),
-            'birthdate_013'     => Request::has('birthdate')? \DateTime::createFromFormat('d-m-Y',Request::input('birthdate'))->getTimestamp() : null,
-            'country_013'       => Request::input('country'),
-            'prefix_013'        => Request::input('prefix'),
-            'mobile_013'        => Request::has('mobile')? str_replace('-', '', Request::input('mobile')) : null,
-            'email_013'         => strtolower(Request::input('email')),
-        ]);
+        $account = [
+            'name_013'              => Request::input('name'),
+            'email_013'             => Request::input('email'),
+            'reply_to_013'          => Request::input('replyTo') == ""? null : Request::get('replyTo'),
+            'outgoing_server_013'   => Request::input('outgoingServer'),
+            'outgoing_user_013'     => Request::input('outgoingUser'),
+            'outgoing_pass_013'     => Crypt::encrypt(Request::input('outgoingPass')),
+            'outgoing_secure_013'   => Request::input('outgoingSecure'),
+            'outgoing_port_013'     => Request::input('outgoingPort'),
+            'incoming_type_013'     => Request::input('incomingType'),
+            'incoming_server_013'   => Request::input('incomingServer'),
+            'incoming_user_013'     => Request::input('incomingUser'),
+            'incoming_pass_013'     => Crypt::encrypt(Request::input('incomingPass')),
+            'incoming_secure_013'   => Request::input('incomingSecure'),
+            'incoming_port_013'     => Request::input('incomingPort'),
+            'n_emails_013'          => 0
+        ];
 
-        $contact->groups()->attach(Request::input('groups'));
+        $response = EmailServices::testEmailAccount($account);
+
+        if($response === true)
+        {
+            EmailAccount::create($account);
+        }
+        else
+        {
+            return redirect()->route('create' . $this->routeSuffix, $parameters['urlParameters'])->withErrors($response)->withInput();
+        }
+    }
+
+    public function editCustomRecord($parameters)
+    {
+        $parameters['outgoingSecures']  = [(object)['id' => '', 'name' => trans('pulsar::pulsar.no_security')], (object)['id' => 'ssl', 'name' => 'SSL'], (object)['id' => 'tls', 'name' => 'TLS'], (object)['id' => 'sslv2', 'name' => 'SSLv2'], (object)['id' => 'sslv3', 'name' => 'SSLv3']];
+        $parameters['incomingTypes']    = [(object)['id' => 'imap', 'name' => 'IMAP']];
+        $parameters['incomingSecures']  = [(object)['id' => '', 'name' => trans('pulsar::pulsar.no_security')], (object)['id' => 'ssl', 'name' => 'SSL']];
+
+        return $parameters;
     }
 
     public function checkSpecialRulesToUpdate($parameters)
     {
-        $contact = Contact::find($parameters['id']);
-
-        $parameters['specialRules']['emailRule'] = Request::input('email') == $contact->email_013? true : false;
-        $parameters['specialRules']['mobileRule'] = Request::input('mobile') == $contact->mobile_013? true : false;
+        $parameters['specialRules']['outgoingPassRule'] = Request::has('outgoingPass')? false : true;
+        $parameters['specialRules']['incomingPassRule'] = Request::has('incomingPass')? false : true;
 
         return $parameters;
     }
     
     public function updateCustomRecord($parameters)
     {
-        Contact::where('id_013', $parameters['id'])->update([
-            'company_013'       => Request::input('company'),
-            'name_013'          => Request::input('name'),
-            'surname_013'       => Request::input('surname'),
-            'birthdate_013'     => Request::has('birthdate')? \DateTime::createFromFormat('d-m-Y',Request::input('birthdate'))->getTimestamp() : null,
-            'country_013'       => Request::input('country'),
-            'prefix_013'        => Request::input('prefix'),
-            'mobile_013'        => Request::has('mobile')? str_replace('-', '', Request::input('mobile')) : null,
-            'email_013'         => strtolower(Request::input('email')),
-        ]);
+        $account = [
+            'name_013'              => Request::input('name'),
+            'email_013'             => Request::input('email'),
+            'reply_to_013'          => Request::input('replyTo') == ""? null : Request::get('replyTo'),
+            'outgoing_server_013'   => Request::input('outgoingServer'),
+            'outgoing_user_013'     => Request::input('outgoingUser'),
+            'outgoing_secure_013'   => Request::input('outgoingSecure'),
+            'outgoing_port_013'     => Request::input('outgoingPort'),
+            'incoming_type_013'     => Request::input('incomingType'),
+            'incoming_server_013'   => Request::input('incomingServer'),
+            'incoming_user_013'     => Request::input('incomingUser'),
+            'incoming_secure_013'   => Request::input('incomingSecure'),
+            'incoming_port_013'     => Request::input('incomingPort')
+        ];
+
+        // Get object to read password to check account
+        if($parameters['specialRules']['outgoingPassRule'] || $parameters['specialRules']['incomingPassRule'])
+        {
+            $oldAccount = EmailAccount::find(Request::input('id'));
+        }
+
+        if(!$parameters['specialRules']['outgoingPassRule'])
+        {
+            $account['outgoing_pass_013'] = Crypt::encrypt(Request::input('outgoingPass'));
+        }
+        else
+        {
+            $account['outgoing_pass_013'] = $oldAccount->outgoing_pass_013;
+        }
+
+        if(!$parameters['specialRules']['incomingPassRule'])
+        {
+            $account['incoming_pass_013'] = Crypt::encrypt(Request::input('incomingPass'));
+        }
+        else
+        {
+            $account['incoming_pass_013'] = $oldAccount->incoming_pass_013;
+        }
+
+        $response = EmailServices::testEmailAccount($account);
+
+        if($response === true)
+        {
+            EmailAccount::where('id_013', Request::input('id'))->update($account);
+        }
+        else
+        {
+            return redirect()->route('edit' . $this->routeSuffix, $parameters['urlParameters'])->withErrors($response)->withInput();
+        }
     }
 }

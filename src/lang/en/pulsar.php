@@ -135,5 +135,7 @@ return [
     'outgoing_server'                       => 'Outgoing server',
     'reply_to'                              => 'Reply to',
     'incoming_type'                         => 'Incoming type',
-    'incoming_secure'                       => 'Incoming secure'
+    'incoming_secure'                       => 'Incoming secure',
+    'port'                                  => 'Port',
+    'no_security'                           => 'No security'
 ];

@@ -20,11 +20,10 @@ class EmailAccount extends Model {
         'outgoingUser'      => 'required|between:2,100',
         'outgoingPass'      => 'required|between:2,100',
         'outgoingPort'      => 'integer|digits_between:1,4',
-
-        'incomingType'      => 'required',
-        'incomingServer'    => 'required|between:2,100',
-        'incomingUser'      => 'required|between:2,100',
-        'incomingPass'      => 'required|between:2,100',
+        'incomingType'      => '',
+        'incomingServer'    => 'between:2,100',
+        'incomingUser'      => 'between:2,100',
+        'incomingPass'      => 'between:2,100',
         'incomingPort'      => 'integer|digits_between:1,4',
     ];
 
