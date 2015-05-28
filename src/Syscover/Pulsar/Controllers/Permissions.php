@@ -70,7 +70,7 @@ class Permissions extends Controller
         // get properties of model class
         $class          = new \ReflectionClass($this->model);
 
-        $output = [
+        $response = [
             "sEcho"                 => intval(Request::input('sEcho')),
             "iTotalRecords"         => $iTotal,
             "iTotalDisplayRecords"  => $iFilteredTotal,
@@ -99,13 +99,11 @@ class Permissions extends Controller
 
             $row[] =   $actions;
 
-            $output['aaData'][] = $row;
+            $response['aaData'][] = $row;
             $i++;
 	    }
 
-        $data['json'] = json_encode($output);
-
-        return view('pulsar::common.views.json_display', $data);
+        return response()->json($response);
     }
 
     public function jsonCreate($profile, $resource, $action)
@@ -121,6 +119,4 @@ class Permissions extends Controller
     {
         Permission::deleteRecord($profile, $resource, $action);
     }
-
-
 }
