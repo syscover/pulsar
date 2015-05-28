@@ -302,7 +302,6 @@ trait ControllerTrait {
             $parameters['lang'] = Lang::find($parameters['lang']);
         }
 
-
         return view($this->package . '::' . $this->folder . '.create', $parameters);
     }
 
@@ -338,6 +337,12 @@ trait ControllerTrait {
         if(method_exists($this, 'storeCustomRecord'))
         {
             $parametersResponse = $this->storeCustomRecord($parameters);
+
+            if(get_class($parametersResponse) == "Illuminate\\Http\\RedirectResponse")
+            {
+                return $parametersResponse;
+            }
+
             if(is_array($parametersResponse))
             {
                 $parameters = array_merge($parameters, $parametersResponse);
@@ -439,6 +444,12 @@ trait ControllerTrait {
         if(method_exists($this, 'updateCustomRecord'))
         {
             $parametersResponse = $this->updateCustomRecord($parameters);
+
+            if(get_class($parametersResponse) == "Illuminate\\Http\\RedirectResponse")
+            {
+                return $parametersResponse;
+            }
+
             if(is_array($parametersResponse))
             {
                 $parameters = array_merge($parameters, $parametersResponse);
