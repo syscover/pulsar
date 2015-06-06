@@ -27,6 +27,10 @@
         @include('cms::includes.nav.main')
     @endif
 
+    @if(isset(session('packages')[4]) && session('packages')[4]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'comunik', 'access') && View::exists('forms::includes.nav.main'))
+        @include('forms::includes.nav.main')
+    @endif
+
     @if(isset(session('packages')[3]) && session('packages')[3]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'comunik', 'access') && View::exists('comunik::includes.nav.main'))
         @include('comunik::includes.nav.main')
     @endif

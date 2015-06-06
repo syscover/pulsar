@@ -193,7 +193,8 @@
      * Start the plugin
      */
     $.cssLoader = function(options, callback) {
-        if (!$.data(document, 'cssLoader')) {
+        if (!$.data(document, 'cssLoader'))
+        {
             $.data(document, 'cssLoader', Object.create(CssLoader).init(options, callback, true));
         }
     };

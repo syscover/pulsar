@@ -14,9 +14,22 @@ and open the template in the editor.
     }
 }
 
+i.color{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: text-top;
+    cursor: pointer;
+}
+
+
 .form-group label{
     overflow: hidden;
     text-overflow: ellipsis;
+}
+.form-group label.has-error{
+    overflow: visible;
+    text-overflow: clip;
 }
 
 .txt_normal{
@@ -210,7 +223,6 @@ img.ghost, img.main {
 /* overlay at start */
 .mfp-fade.mfp-bg {
     opacity: 0;
-
     -webkit-transition: all 0.15s ease-out;
     -moz-transition: all 0.15s ease-out;
     transition: all 0.15s ease-out;
@@ -227,7 +239,6 @@ img.ghost, img.main {
 /* content at start */
 .mfp-fade.mfp-wrap .mfp-content {
     opacity: 0;
-
     -webkit-transition: all 0.15s ease-out;
     -moz-transition: all 0.15s ease-out;
     transition: all 0.15s ease-out;
@@ -239,4 +250,9 @@ img.ghost, img.main {
 /* content animate out */
 .mfp-fade.mfp-wrap.mfp-removing .mfp-content {
     opacity: 0;
+}
+
+.mfp-close-btn-in .mfp-close {
+    color: #ffffff !important;
+    font-size: 27px !important;
 }

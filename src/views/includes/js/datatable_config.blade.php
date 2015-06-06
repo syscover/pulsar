@@ -114,7 +114,6 @@
                             search_input.addClass('form-control')
                             search_input.wrap('<div class="input-group"></div>');
                             search_input.parent().prepend('<span class="input-group-addon"><i class="icon-search"></i></span>');
-                            // search_input.parent().prepend('<span class="input-group-addon"><i class="icon-search"></i></span>').css('width', '250px');
 
                             // Responsive
                             if (typeof responsiveHelper != 'undefined') {
@@ -155,7 +154,9 @@
                                     oTimerId = window.setTimeout(function() {
                                         $.fn.dataTableExt.iApiIndex = i;
                                         _that.fnFilter(anControl.val());
-                                        Cookies.set('dtSearch',anControl.val(), { expires: 7, path: '' });
+
+                                        Cookies.set('dtSearch',anControl.val(), { expires: 7, path: '/{{ isset($path)? $path : null }}' });
+
                                     }, iDelay);
                                 }
                             });

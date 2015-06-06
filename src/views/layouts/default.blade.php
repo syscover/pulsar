@@ -97,6 +97,7 @@
                 App.init(); // Init layout and core plugins
                 Plugins.init(); // Init all plugins
                 FormComponents.init(); // Init all form-specific plugins
+                PulsarApp.init() // Init custom plugins
             });
         </script>
 

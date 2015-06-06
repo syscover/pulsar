@@ -137,5 +137,12 @@ return [
     'incoming_type'                         => 'Incoming type',
     'incoming_secure'                       => 'Incoming secure',
     'port'                                  => 'Port',
-    'no_security'                           => 'No security'
+    'no_security'                           => 'No security',
+    'state'                                 => 'State|States',
+    'color'                                 => 'Color|Colors',
+    'form'                                  => 'Form|Forms',
+    'forward'                               => 'Forward|Forwards',
+    'push'                                  => 'Push',
+    'add'                                   => 'Add',
+    'update'                                => 'Update',
 ];

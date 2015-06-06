@@ -137,5 +137,12 @@ return [
     'incoming_type'                         => 'Tipo de cuenta',
     'incoming_secure'                       => 'Seguridad de entrada',
     'port'                                  => 'Puerto',
-    'no_security'                           => 'Sin seguridad'
+    'no_security'                           => 'Sin seguridad',
+    'state'                                 => 'Estado|Estados',
+    'color'                                 => 'Color|Colores',
+    'form'                                  => 'Formulario|Formularios',
+    'forward'                               => 'Reenvio|Reenvios',
+    'push'                                  => 'Push',
+    'add'                                   => 'Añadir',
+    'update'                                => 'Actualizar',
 ];

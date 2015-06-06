@@ -27,6 +27,7 @@ trait ControllerTrait {
      */
     public function index(Request $request)
     {
+
         // get parameters from url route
         $parameters = $request->route()->parameters();
 
@@ -34,6 +35,9 @@ trait ControllerTrait {
         if(!isset($parameters['offset'])) $parameters['offset'] = 0;
 
         $parameters['urlParameters']  = $parameters;
+
+        // set path variable, after creating urlParameters to don't send value to URLs creates
+        $parameters['path'] = $request->path();
 
         if(!isset($parameters['modal'])) Miscellaneous::setParameterSessionPage($this->resource);
 
@@ -133,6 +137,10 @@ trait ControllerTrait {
                             // the prefix is to compose the url
                             $prefix = isset($aColumn['prefix'])? $aColumn['prefix'] : null;
                             $row[] = '<a ' . (isset($aColumn['target'])? 'target="' . $aColumn['target'] . '"' : null) . ' href="' . $prefix . $aObject[$aColumn['data']] . '"><i class="icon-link"></i></a>';
+                            break;
+
+                        case 'color':
+                            $row[] = '<i class="color" style="background-color: ' . $aObject[$aColumn['data']] . '"></i>';
                             break;
                     }
 
@@ -371,6 +379,9 @@ trait ControllerTrait {
         $parameters = $request->route()->parameters();
 
         $parameters['urlParameters']  = $parameters;
+
+        // set path variable, after creating urlParameters to don't send value to URLs creates
+        $parameters['path'] = $request->path();
 
         $parameters['package']        = $this->package;
         $parameters['folder']         = $this->folder;
