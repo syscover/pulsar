@@ -1,6 +1,6 @@
 @section('script')
     @parent
-    <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/jquery.element-table/jquery.element-table.js') }}"></script>
+
     <script type="text/javascript">
         $(document).ready(function() {
             $.elementTable({
@@ -15,7 +15,7 @@
     <!-- forms::forms.create -->
 @stop
 <a class="btn btn-info marginB10" id="{{ $id }}Bt" href="#"><i class="{{ $icon }}"></i> New {{ $label }}</a>
-<input type="hidden" name="{{ $id }}Data" value="[]">
+<input type="hidden" name="{{ $id }}Data" value="{{ $dataJson or '[]' }}">
 <input type="hidden" name="{{ $id }}TBody" value="{{ json_encode($tbody) }}">
 <table id="{{ $id }}" class="table table-hover table-striped">
     <thead>
@@ -26,8 +26,7 @@
             <th class="align-center">{{ trans_choice("pulsar::pulsar.action", 2) }}</th>
         </tr>
     </thead>
-    <tbody>
-    </tbody>
+    <tbody></tbody>
 </table>
 
 @section('outForm')

@@ -64,6 +64,13 @@
                 }
             });
 
+            // check if there are dada inside inputData
+            var data = JSON.parse($("[name=" + this.options.id + "Data]").val());
+            if(data.length > 0)
+            {
+                this.loadElements(data);
+            }
+
             this.callback = callback;
 
             if(this.callback != null)
@@ -77,6 +84,39 @@
             }
 
             return this;
+        },
+
+        loadElements: function(data)
+        {
+            var tBody = JSON.parse($("[name=" + this.options.id + "TBody]").val());
+
+            for(var j =0; j < data.length; j++)
+            {
+                var row = '<tr>';
+                for (var i = 0; i < tBody.length; i++) {
+                    if (tBody[i].properties.name != undefined) {
+                        // check if td has a class
+                        var $class = tBody[i].class != undefined ? ' class="' + tBody[i].class + '"' : '';
+                        // get value from input and create td
+                        row += '<td' + $class + '>' + data[j][tBody[i].properties.name] + '</td>';
+                    }
+                }
+
+                row += this.getActions();
+                row += '</tr>';
+                $("#" + this.options.id + " tbody").append(row);
+            }
+
+            // add magnificPopup to edit button
+            $(".btn-edit-" + this.options.id + "-popup").magnificPopup({
+                items: {
+                    type: 'inline',
+                    src: "#" + this.options.id + "Popup"
+                },
+
+                removalDelay: 300,
+                mainClass: 'mfp-fade'
+            });
         },
 
         editElement: function($that)
@@ -94,7 +134,7 @@
                 if(tBody[i].properties.name != undefined)
                 {
                     // set value on input from json data
-                    $("[name=" + tBody[i].properties.name + "]").val(data[(index - 1)][tBody[i].properties.name]);
+                    $("[name=" + tBody[i].properties.name + "]").val(data[index][tBody[i].properties.name]);
                 }
             }
         },
@@ -114,8 +154,9 @@
                     row += '<td' + $class + '>' + $("[name=" + tBody[i].properties.name + "]").val() + '</td>';
                     // get value to construct json object
                     dataRow[tBody[i].properties.name] =  $("[name=" + tBody[i].properties.name + "]").val()
+
                     // reset input value
-                    $("[name=" + tBody[i].properties.name + "]").val('');
+                    $("#" + this.options.id + "Form [name=" + tBody[i].properties.name + "]").val('');
                 }
             }
 
@@ -128,7 +169,7 @@
 
             row += this.getActions();
             row += '</tr>';
-            $("#" + this.options.id + " tr:last").after(row);
+            $("#" + this.options.id + " tbody").append(row);
 
             // add magnificPopup to edit button
             $(".btn-edit-" + this.options.id + "-popup").magnificPopup({
@@ -154,7 +195,7 @@
                 if(tBody[i].properties.name != undefined)
                 {
                     // set value on td
-                    $("#" + this.options.id + " tr:eq(" + index + ") td:eq(" + i + ")").html($("[name=" + tBody[i].properties.name + "]").val());
+                    $("#" + this.options.id + " tbody tr:eq(" + index + ") td:eq(" + i + ")").html($("[name=" + tBody[i].properties.name + "]").val());
 
                     // get value to construct json object
                     dataRow[tBody[i].properties.name] =  $("[name=" + tBody[i].properties.name + "]").val();
@@ -166,7 +207,10 @@
 
             // get data
             var data = JSON.parse($("[name=" + this.options.id + "Data]").val());
-            data[(index-1)] = dataRow;
+
+            // extend objetc to edit elements with properties not publics
+            data[index] = $.extend({}, data[index], dataRow||{});
+
             $("[name=" + this.options.id + "Data]").val(JSON.stringify(data));
 
             $("#" + this.options.id + "Popup .form-group").removeClass('has-success');
@@ -175,7 +219,7 @@
         deleteElement: function($this)
         {
             // get tr index
-            var index = $($this).closest("tr").index() - 1;
+            var index = $($this).closest("tr").index();
             // delete tr
             $($this).closest("tr").remove();
             // get data
@@ -190,9 +234,9 @@
         getActions: function()
         {
             return  '<td class="align-center">' + '<ul class="table-controls">' +
-                    '<li><a href="javascript:void(0);" onclick="$.elementTable.editElement(\''+ this.options.id +'\', this)" class="btn btn-xs bs-tooltip btn-edit-' + this.options.id + '-popup" data-original-title="' + this.options.lang.editRecord + '"><i class="icon-pencil"></i></a></li>' +
-                    '<li><a href="javascript:void(0);" onclick="$.elementTable.deleteElement(\''+ this.options.id +'\', this)" class="btn btn-xs bs-tooltip" data-original-title="' + this.options.lang.deleteRecord + '"><i class="icon-trash"></i></a></li>' +
-                    '</ul>' + '</td>';
+                '<li><a href="javascript:void(0);" onclick="$.elementTable.editElement(\''+ this.options.id +'\', this)" class="btn btn-xs bs-tooltip btn-edit-' + this.options.id + '-popup" data-original-title="' + this.options.lang.editRecord + '"><i class="icon-pencil"></i></a></li>' +
+                '<li><a href="javascript:void(0);" onclick="$.elementTable.deleteElement(\''+ this.options.id +'\', this)" class="btn btn-xs bs-tooltip" data-original-title="' + this.options.lang.deleteRecord + '"><i class="icon-trash"></i></a></li>' +
+                '</ul>' + '</td>';
         }
     };
 
