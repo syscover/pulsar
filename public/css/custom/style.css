@@ -58,6 +58,10 @@ i.color{
 .marginT15{
     margin-top: 15px;
 }
+.bg-red{
+    background-color: #d23459;
+}
+
 div.dataTables_filter label {
     float: left;
 }

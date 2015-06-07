@@ -41,6 +41,7 @@ return [
     'dashboard'                             => 'Dashboard',
     'prefix'                                => 'Prefix',
     'edit_record'                           => 'Edit record',
+    'view_record'                           => 'View record',
     'related_record'                        => 'Related record',
     'delete_record'                         => 'Delete record',
     'delete_translation'                    => 'Delete translation',
@@ -145,4 +146,6 @@ return [
     'push'                                  => 'Push',
     'add'                                   => 'Add',
     'update'                                => 'Update',
+    'opened'                                => 'Opened',
+    'record'                                => 'Record|Records'
 ];
