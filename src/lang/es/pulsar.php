@@ -126,7 +126,7 @@ return [
     'favorite'                              => 'Favorito',
     'photo'                                 => 'Foto|Fotos',
     'observations'                          => 'Observaciones',
-    'comments'                              => 'Comentarios',
+    'comment'                               => 'Comentario|Comentarios',
     'date'                                  => 'Fecha',
     'units'                                 => 'Unidades',
     'attached'                              => 'Adjunto',
@@ -147,5 +147,7 @@ return [
     'add'                                   => 'Añadir',
     'update'                                => 'Actualizar',
     'opened'                                => 'Abierto',
-    'record'                                => 'Registro|Registros'
+    'record'                                => 'Registro|Registros',
+    'subject'                               => 'Asunto',
+    'message'                               => 'Mensaje'
 ];

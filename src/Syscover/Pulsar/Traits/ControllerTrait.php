@@ -180,7 +180,7 @@ trait ControllerTrait {
             // check whether it is necessary to insert a data before
             if(method_exists($this, 'jsonCustomDataBeforeActions'))
             {
-                $actions = $this->jsonCustomDataBeforeActions($aObject);
+                $actions = $this->jsonCustomDataBeforeActions($aObject, $actionUrlParameters, $parameters);
             }
 
             // check if request is modal
@@ -190,14 +190,19 @@ trait ControllerTrait {
             }
             else
             {
+                if(isset($this->jsonParam['show']) && $this->jsonParam['show'] == true)
+                {
+                    $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('show' . $this->routeSuffix, $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.view_record') . '"><i class="icon-eye-open"></i></a>' : null;
+                }
+
                 if(isset($this->jsonParam['edit']) && $this->jsonParam['edit'] == true || !isset($this->jsonParam['edit']))
                 {
-                    $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('edit' . $this->routeSuffix, $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
+                    $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('edit' . $this->routeSuffix, $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
                 }
 
                 if(isset($this->jsonParam['delete']) && $this->jsonParam['delete'] == true || !isset($this->jsonParam['delete']))
                 {
-                    $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete') ? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] . '" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . $this->routeSuffix, $actionUrlParameters) . '"><i class="icon-trash"></i></a>' : null;
+                    $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete') ? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] . '" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . $this->routeSuffix, $actionUrlParameters) . '"><i class="icon-trash"></i></a>' : null;
                 }
             }
 
@@ -346,7 +351,7 @@ trait ControllerTrait {
         {
             $parametersResponse = $this->storeCustomRecord($parameters);
 
-            if(get_class($parametersResponse) == "Illuminate\\Http\\RedirectResponse")
+            if(is_object($parametersResponse) && get_class($parametersResponse) == "Illuminate\\Http\\RedirectResponse")
             {
                 return $parametersResponse;
             }
@@ -366,6 +371,55 @@ trait ControllerTrait {
             'msg'        => 1,
             'txtMsg'     => trans('pulsar::pulsar.message_create_record_successful', ['name' => $request->input('name')])
         ]);
+    }
+
+    /**
+     * @access	public
+     * @param   \Illuminate\Http\Request    $request
+     * @return	\Illuminate\Support\Facades\View
+     */
+    public function showRecord(Request $request)
+    {
+        // get parameters from url route
+        $parameters = $request->route()->parameters();
+
+        $parameters['urlParameters']  = $parameters;
+
+        // set path variable, after creating urlParameters to don't send value to URLs creates
+        $parameters['path'] = $request->path();
+
+        $parameters['package']        = $this->package;
+        $parameters['folder']         = $this->folder;
+        $parameters['routeSuffix']    = $this->routeSuffix;
+        $parameters['icon']           = $this->icon;
+        $parameters['objectTrans']    = isset($this->objectTrans) &&  $this->objectTrans != null? Miscellaneous::getObjectTransValue($parameters, $this->objectTrans) : null;
+
+        // check if object has multiple language
+        if(isset($parameters['lang']))
+        {
+            $parameters['object']   = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], $parameters['lang']);
+            $parameters['lang']     = $parameters['object']->lang;
+        }
+        else
+        {
+            // check if is implements getRecord function in model, for objects with joins
+            if(method_exists($this->model, 'getRecord'))
+            {
+                $parameters['object']   = call_user_func($this->model . '::getRecord', $parameters);
+            }
+            else
+            {
+                $parameters['object']   = call_user_func($this->model . '::find', $parameters['id']);
+            }
+        }
+
+
+        if(method_exists($this, 'showCustomRecord'))
+        {
+            $parameters = $this->showCustomRecord($parameters);
+        }
+
+        return view($this->package . '::' . $this->folder . '.show', $parameters);
     }
 
     /**
@@ -456,7 +510,7 @@ trait ControllerTrait {
         {
             $parametersResponse = $this->updateCustomRecord($parameters);
 
-            if(get_class($parametersResponse) == "Illuminate\\Http\\RedirectResponse")
+            if(is_object($parametersResponse) && get_class($parametersResponse) == "Illuminate\\Http\\RedirectResponse")
             {
                 return $parametersResponse;
             }
