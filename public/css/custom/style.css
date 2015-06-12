@@ -260,3 +260,10 @@ img.ghost, img.main {
     color: #ffffff !important;
     font-size: 27px !important;
 }
+
+.widget.box {
+    clear: both;
+}
+
+.fl {float: left;}
+.fr {float: right;}

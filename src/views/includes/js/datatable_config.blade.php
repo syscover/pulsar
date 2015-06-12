@@ -128,7 +128,7 @@
                     });
 
                     //Número de elementos por página
-                    $.fn.dataTable.defaults.aLengthMenu = [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]];
+                    $.fn.dataTable.defaults.aLengthMenu = [[10, 25, 50, 100, -1], [10, 25, 50, 100, "{{ trans('pulsar::pulsar.all') }}"]];
 
                     //función para controlar el dalay del filtrado de datatable
                     jQuery.fn.dataTableExt.oApi.fnSetFilteringDelay = function(oSettings, iDelay) {

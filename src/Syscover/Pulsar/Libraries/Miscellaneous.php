@@ -64,6 +64,32 @@ class Miscellaneous
     }
 
     /**
+     *  Funtion to set data atrributes to option html tag
+     *
+     * @access  public
+     * @param   array   $data
+     * @param   object  $object
+     * @return  string
+     */
+    public static function setDataOptionAttributes($data, $object)
+    {
+        if(is_array($data) && count($data) > 0)
+        {
+            $keys = array_keys($data);
+
+            $response = '';
+            foreach($keys as $key)
+            {
+                $response .= ' data-' . $key . '="' . $object->{$data[$key]} . '"';
+            }
+
+            return $response;
+        }
+
+        return null;
+    }
+
+    /**
      *  Funtion to check if option from select is seleted
      *
      * @access  public
@@ -503,10 +529,16 @@ class Miscellaneous
         if($sWhere != null)
         {
             $query->where(function($query) use ($aColumns, $sWhere){
+                $i=0;
                 foreach($aColumns as $aColumn)
                 {
-                    if(is_array($aColumn)) $aColumn = $aColumn['data'];
-                    $query->orWhere($aColumn, 'LIKE', '%'.$sWhere.'%');
+                    // check if column if is searchable
+                    if(Request::input('bSearchable_'.$i) === 'true')
+                    {
+                        if(is_array($aColumn)) $aColumn = $aColumn['data'];
+                        $query->orWhere($aColumn, 'LIKE', '%'.$sWhere.'%');
+                    }
+                    $i++;
                 }
             });
         }

@@ -140,7 +140,7 @@ trait ControllerTrait {
                             break;
 
                         case 'color':
-                            $row[] = '<i class="color" style="background-color: ' . $aObject[$aColumn['data']] . '"></i>';
+                            $row[] = '<i class="color' . (isset($aColumn['tooltip']) && $aColumn['tooltip']? ' bs-tooltip' : null) . '"' . (isset($aColumn['title'])? ' title="' . $aObject[$aColumn['title']] . '"' : null) . ' style="background-color: ' . $aObject[$aColumn['data']] . '"></i>';
                             break;
                     }
 
@@ -190,12 +190,16 @@ trait ControllerTrait {
             }
             else
             {
-                if(isset($this->jsonParam['show']) && $this->jsonParam['show'] == true)
+                //check special cases
+                $onlyEditOwner = !isset($this->jsonParam['onlyEditOwner']) || isset($this->jsonParam['onlyEditOwner']) && $aObject[$this->jsonParam['onlyEditOwner']] == Auth::user()->id_010;
+                $showIfNotEdit = !isset($this->jsonParam['showIfNotEdit']) || isset($this->jsonParam['showIfNotEdit']) && $this->jsonParam['showIfNotEdit'] && !$onlyEditOwner;
+
+                if((isset($this->jsonParam['show']) && $this->jsonParam['show'] == true))
                 {
                     $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('show' . $this->routeSuffix, $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.view_record') . '"><i class="icon-eye-open"></i></a>' : null;
                 }
 
-                if(isset($this->jsonParam['edit']) && $this->jsonParam['edit'] == true || !isset($this->jsonParam['edit']))
+                if(($onlyEditOwner) && (isset($this->jsonParam['edit']) && $this->jsonParam['edit'] == true || !isset($this->jsonParam['edit'])))
                 {
                     $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('edit' . $this->routeSuffix, $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
                 }

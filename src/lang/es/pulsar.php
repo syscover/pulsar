@@ -149,5 +149,6 @@ return [
     'opened'                                => 'Abierto',
     'record'                                => 'Registro|Registros',
     'subject'                               => 'Asunto',
-    'message'                               => 'Mensaje'
+    'message'                               => 'Mensaje',
+    'all'                                   => 'Todos'
 ];

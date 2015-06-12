@@ -1,6 +1,5 @@
 @section('script')
     @parent
-
     <script type="text/javascript">
         $(document).ready(function() {
             $.elementTable({
@@ -12,7 +11,6 @@
             });
         });
     </script>
-    <!-- forms::forms.create -->
 @stop
 <a class="btn btn-info marginB10" id="{{ $id }}Bt" href="#"><i class="{{ $icon }}"></i> New {{ $label }}</a>
 <input type="hidden" name="{{ $id }}Data" value="{{ $dataJson or '[]' }}">

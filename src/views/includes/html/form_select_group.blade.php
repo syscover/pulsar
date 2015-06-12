@@ -5,7 +5,7 @@
             @if(!isset($multiple))<option value="">{{ trans('pulsar::pulsar.select_a') }} {{ isset($label)? $label : null }}</option>@endif
             @if(isset($objects))
                 @foreach ($objects as $object)
-                    <option value="{{ $object->{$idSelect} }}"{{ Miscellaneous::isSelected($value, $object->{$idSelect})? ' selected' : null }}>{{ $object->{$nameSelect} }}</option>
+                    <option value="{{ $object->{$idSelect} }}"{{ Miscellaneous::isSelected($value, $object->{$idSelect})? ' selected' : null }}{!! isset($dataOption)? Miscellaneous::setDataOptionAttributes($dataOption, $object) : null !!}>{{ $object->{$nameSelect} }}</option>
                 @endforeach
             @endif
         </select>

@@ -149,5 +149,6 @@ return [
     'opened'                                => 'Opened',
     'record'                                => 'Record|Records',
     'subject'                               => 'Subject',
-    'message'                               => 'Message'
+    'message'                               => 'Message',
+    'all'                                   => 'All'
 ];
