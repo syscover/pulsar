@@ -37,7 +37,9 @@
                 callbacks: {
                     open: function() {
                         // set input to empty
-                        $("#" + $this.options.id + "Form input").val('');
+                        $("#" + $this.options.id + "Form input[type=text]").val('');
+                        $("#" + $this.options.id + "Form input[type=email]").val('');
+                        $("#" + $this.options.id + "Form input:checkbox").prop('checked', false).uniform();
 
                         // show add and hide update button
                         $('.mfp-cusstom-update').hide();
@@ -93,12 +95,32 @@
             for(var j =0; j < data.length; j++)
             {
                 var row = '<tr>';
-                for (var i = 0; i < tBody.length; i++) {
-                    if (tBody[i].properties.name != undefined) {
-                        // check if td has a class
-                        var $class = tBody[i].class != undefined ? ' class="' + tBody[i].class + '"' : '';
-                        // get value from input and create td
-                        row += '<td' + $class + '>' + data[j][tBody[i].properties.name] + '</td>';
+                for (var i = 0; i < tBody.length; i++)
+                {
+                    // check if td has a class
+                    var $class = tBody[i].class != undefined ? ' class="' + tBody[i].class + '"' : '';
+
+                    if(tBody[i].include == 'pulsar::includes.html.form_text_group')
+                    {
+                        if (tBody[i].properties.name != undefined)
+                        {
+                            // get value from input and create td to text component
+                            row += '<td' + $class + '>' + data[j][tBody[i].properties.name] + '</td>';
+                        }
+                    }
+
+                    if(tBody[i].include == 'pulsar::includes.html.form_checkbox_group')
+                    {
+                        if(data[j][tBody[i].properties.name])
+                        {
+                            // get value from input and create td to text component
+                            row += '<td' + $class + '><i class="icomoon-icon-checkmark-3"></i></td>';
+                        }
+                        else
+                        {
+                            // get value from input and create td to text component
+                            row += '<td' + $class + '></td>';
+                        }
                     }
                 }
 
@@ -119,26 +141,6 @@
             });
         },
 
-        editElement: function($that)
-        {
-            $('.mfp-cusstom-update').show();
-            $('.mfp-cusstom-add').hide();
-
-            var index = $($that).closest("tr").index();
-            $("[name=" + this.options.id + "Index]").val(index);
-            var tBody = JSON.parse($("[name=" + this.options.id + "TBody]").val());
-            var data = JSON.parse($("[name=" + this.options.id + "Data]").val());
-
-            for(var i=0; i < tBody.length; i++)
-            {
-                if(tBody[i].properties.name != undefined)
-                {
-                    // set value on input from json data
-                    $("[name=" + tBody[i].properties.name + "]").val(data[index][tBody[i].properties.name]);
-                }
-            }
-        },
-
         addElement: function()
         {
             var tBody = JSON.parse($("[name=" + this.options.id + "TBody]").val());
@@ -146,17 +148,45 @@
             var dataRow = {};
             for(var i=0; i < tBody.length; i++)
             {
-                if(tBody[i].properties.name != undefined)
-                {
-                    // check if td has a class
-                    var $class = tBody[i].class != undefined? ' class="' + tBody[i].class + '"' : '';
-                    // get value from input and create td
-                    row += '<td' + $class + '>' + $("[name=" + tBody[i].properties.name + "]").val() + '</td>';
-                    // get value to construct json object
-                    dataRow[tBody[i].properties.name] =  $("[name=" + tBody[i].properties.name + "]").val()
+                // check if td has a class
+                var $class = tBody[i].class != undefined? ' class="' + tBody[i].class + '"' : '';
 
-                    // reset input value
-                    $("#" + this.options.id + "Form [name=" + tBody[i].properties.name + "]").val('');
+                if(tBody[i].include == 'pulsar::includes.html.form_text_group')
+                {
+                    if (tBody[i].properties.name != undefined)
+                    {
+                        // get value from input and create td
+                        row += '<td' + $class + '>' + $("[name=" + tBody[i].properties.name + "]").val() + '</td>';
+
+                        // get value to construct json object
+                        dataRow[tBody[i].properties.name] =  $("[name=" + tBody[i].properties.name + "]").val();
+
+                        // reset input value
+                        $("#" + this.options.id + "Form [name=" + tBody[i].properties.name + "]").val('');
+                    }
+                }
+
+                if(tBody[i].include == 'pulsar::includes.html.form_checkbox_group')
+                {
+                    // check if is checked
+                    if($("[name=" + tBody[i].properties.name + "]").prop('checked'))
+                    {
+                        // get value from input and create td
+                        row += '<td' + $class + '><i class="icomoon-icon-checkmark-3"></i></td>';
+
+                        // get value to construct json object
+                        dataRow[tBody[i].properties.name] =  true;
+
+                        // reset input value
+                        $("[name=" + tBody[i].properties.name + "]").prop('checked', false).uniform();
+                    }
+                    else
+                    {
+                        row += '<td' + $class + '></td>';
+
+                        // reset input value
+                        dataRow[tBody[i].properties.name] =  false;
+                    }
                 }
             }
 
@@ -183,6 +213,43 @@
             });
         },
 
+        editElement: function($that)
+        {
+            $('.mfp-cusstom-update').show();
+            $('.mfp-cusstom-add').hide();
+
+            var index = $($that).closest("tr").index();
+            $("[name=" + this.options.id + "Index]").val(index);
+            var tBody = JSON.parse($("[name=" + this.options.id + "TBody]").val());
+            var data = JSON.parse($("[name=" + this.options.id + "Data]").val());
+
+            for(var i=0; i < tBody.length; i++)
+            {
+                if(tBody[i].include == 'pulsar::includes.html.form_text_group')
+                {
+                    if(tBody[i].properties.name != undefined)
+                    {
+                        // set value on input from json data
+                        $("[name=" + tBody[i].properties.name + "]").val(data[index][tBody[i].properties.name]);
+                    }
+                }
+
+                if(tBody[i].include == 'pulsar::includes.html.form_checkbox_group')
+                {
+                    if(data[index][tBody[i].properties.name])
+                    {
+                        $("[name=" + tBody[i].properties.name + "]").prop('checked', true).uniform();
+                    }
+                    else
+                    {
+                        $("[name=" + tBody[i].properties.name + "]").prop('checked', false).uniform();
+                    }
+                }
+            }
+        },
+
+
+
         updateElement: function()
         {
             // get index value
@@ -192,16 +259,41 @@
 
             for(var i=0; i < tBody.length; i++)
             {
-                if(tBody[i].properties.name != undefined)
+                if(tBody[i].include == 'pulsar::includes.html.form_text_group')
                 {
-                    // set value on td
-                    $("#" + this.options.id + " tbody tr:eq(" + index + ") td:eq(" + i + ")").html($("[name=" + tBody[i].properties.name + "]").val());
+                    if (tBody[i].properties.name != undefined) {
+                        // set value on td
+                        $("#" + this.options.id + " tbody tr:eq(" + index + ") td:eq(" + i + ")").html($("[name=" + tBody[i].properties.name + "]").val());
 
-                    // get value to construct json object
-                    dataRow[tBody[i].properties.name] =  $("[name=" + tBody[i].properties.name + "]").val();
+                        // get value to construct json object
+                        dataRow[tBody[i].properties.name] = $("[name=" + tBody[i].properties.name + "]").val();
 
-                    // reset input value
-                    $("[name=" + tBody[i].properties.name + "]").val('');
+                        // reset input value
+                        $("[name=" + tBody[i].properties.name + "]").val('');
+                    }
+                }
+
+                if(tBody[i].include == 'pulsar::includes.html.form_checkbox_group')
+                {
+                    if(data[index][tBody[i].properties.name])
+                    {
+                        // set value on td
+                        $("#" + this.options.id + " tbody tr:eq(" + index + ") td:eq(" + i + ")").html('<i class="icomoon-icon-checkmark-3"></i>');
+
+                        // get value to construct json object
+                        dataRow[tBody[i].properties.name] = true;
+
+                        // reset input value
+                        $("[name=" + tBody[i].properties.name + "]").prop('checked', false).uniform();
+                    }
+                    else
+                    {
+                        // set value on td
+                        $("#" + this.options.id + " tbody tr:eq(" + index + ") td:eq(" + i + ")").html('');
+
+                        // get value to construct json object
+                        dataRow[tBody[i].properties.name] = false;
+                    }
                 }
             }
 
