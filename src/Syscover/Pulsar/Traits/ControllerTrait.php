@@ -27,7 +27,6 @@ trait ControllerTrait {
      */
     public function index(Request $request)
     {
-
         // get parameters from url route
         $parameters = $request->route()->parameters();
 

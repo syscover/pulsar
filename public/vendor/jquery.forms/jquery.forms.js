@@ -20,7 +20,6 @@
                 surname: 'surname',
                 company: 'company',
                 email: 'email',
-                date: 'date',
                 data: []
             },
             redirectOk: null
