@@ -275,7 +275,7 @@
 
                 if(tBody[i].include == 'pulsar::includes.html.form_checkbox_group')
                 {
-                    if(data[index][tBody[i].properties.name])
+                    if($("[name=" + tBody[i].properties.name + "]").prop('checked'))
                     {
                         // set value on td
                         $("#" + this.options.id + " tbody tr:eq(" + index + ") td:eq(" + i + ")").html('<i class="icomoon-icon-checkmark-3"></i>');
