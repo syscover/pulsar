@@ -598,4 +598,22 @@ class Miscellaneous
 
         return $matches;
     }
+
+    /**
+     *  Function to search in array
+     *
+     * @access  public
+     * @param   mixed   $needle
+     * @param   array   $haystack
+     * @param   string  $index
+     * @return  boolean
+     */
+    public static function inArray($needle, $haystack, $index)
+    {
+        foreach($haystack as $element)
+        {
+            if($element[$index] == $needle) return true;
+        }
+        return false;
+    }
 }
