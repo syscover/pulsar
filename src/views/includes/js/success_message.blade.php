@@ -1,4 +1,3 @@
-
 @if(Session::get('msg') != null && Session::get('msg')==1)
     <!-- pulsar::includes.js.success_message -->
     <script type="text/javascript">

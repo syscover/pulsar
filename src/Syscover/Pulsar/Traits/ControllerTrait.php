@@ -420,6 +420,11 @@ trait ControllerTrait {
         if(method_exists($this, 'showCustomRecord'))
         {
             $parameters = $this->showCustomRecord($parameters);
+
+            if(is_object($parameters) && get_class($parameters) == "Illuminate\\Http\\RedirectResponse")
+            {
+                return $parameters;
+            }
         }
 
         return view($this->package . '::' . $this->folder . '.show', $parameters);
@@ -511,6 +516,7 @@ trait ControllerTrait {
 
         if(method_exists($this, 'updateCustomRecord'))
         {
+            // we use parametersResponse, because updateCustomRecord may be "void"
             $parametersResponse = $this->updateCustomRecord($parameters);
 
             if(is_object($parametersResponse) && get_class($parametersResponse) == "Illuminate\\Http\\RedirectResponse")
