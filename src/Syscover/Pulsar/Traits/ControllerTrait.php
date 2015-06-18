@@ -547,7 +547,7 @@ trait ControllerTrait {
 
         $object = call_user_func($this->model . '::find', $parameters['id']);
 
-        if(method_exists($this, 'destroyCustomRecord'))
+        if(method_exists($this, 'deleteCustomRecord'))
         {
             $this->deleteCustomRecord($object);
         }
@@ -616,7 +616,7 @@ trait ControllerTrait {
             }
         }
 
-        if(method_exists($this, 'destroyCustomRecords'))
+        if(method_exists($this, 'deleteCustomRecords'))
         {
             $this->deleteCustomRecords($ids);
         }
