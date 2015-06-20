@@ -6,7 +6,6 @@ class CountryTableSeeder extends Seeder
 {
     public function run()
     {
-
         // ES
         Country::insert([
             ['id_002' => 'AD','lang_002' => 'es','name_002' => 'Andorra','sorting_002' => '0','prefix_002' => '376','territorial_area_1_002' => 'Parroquias','territorial_area_2_002' => '','territorial_area_3_002' => '','data_002' => '{"langs":["es","en","fr","de"]}'],
