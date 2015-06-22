@@ -153,4 +153,5 @@ return [
     'all'                                   => 'Todos',
     'width'                                 => 'Ancho',
     'height'                                => 'Alto',
+    'editor'                                => 'Editor'
 ];
