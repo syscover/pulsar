@@ -150,5 +150,7 @@ return [
     'record'                                => 'Record|Records',
     'subject'                               => 'Subject',
     'message'                               => 'Message',
-    'all'                                   => 'All'
+    'all'                                   => 'All',
+    'width'                                 => 'Width',
+    'height'                                => 'Height',
 ];

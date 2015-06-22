@@ -150,5 +150,7 @@ return [
     'record'                                => 'Registro|Registros',
     'subject'                               => 'Asunto',
     'message'                               => 'Mensaje',
-    'all'                                   => 'Todos'
+    'all'                                   => 'Todos',
+    'width'                                 => 'Ancho',
+    'height'                                => 'Alto',
 ];
