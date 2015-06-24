@@ -11,7 +11,6 @@
  */
 
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Lang;
@@ -129,9 +128,9 @@ class Miscellaneous
      */
     public static function setParameterSessionPage($page)
     {
-        if (Session::get('page') != $page)
+        if (session('page') != $page)
         {
-            Session::put('page', $page);
+            session(['page' => $page]);
         }
     }
 
@@ -146,25 +145,25 @@ class Miscellaneous
      */
     public static function setDisplayPage($pages)
     {
-        if (in_array(Session::get('page'), $pages))
+        if (in_array(session('page'), $pages))
             return ' style="display: block;"';
     }
     
     public static function setOpenPage($pages)
     {
-        if (in_array(Session::get('page'), $pages))
+        if (in_array(session('page'), $pages))
             return ' class="open"';
     }
     
     public static function setOpenDefaultPage($pages)
     {
-        if (in_array(Session::get('page'), $pages))
+        if (in_array(session('page'), $pages))
             return ' class="open"';
     }
     
     public static function setCurrentOpenPage($pages)
     {
-        if (in_array(Session::get('page'), $pages))
+        if (in_array(session('page'), $pages))
            return ' class="current open"';
     }
     
@@ -172,14 +171,14 @@ class Miscellaneous
     {
         if(is_array($page))
         {
-            if (in_array(Session::get('page'), $page))
+            if (in_array(session('page'), $page))
             {
                 return ' class="current"';
             }
         }
         else
         {
-            if (Session::get('page') == $page)
+            if (session('page') == $page)
             {
                 return ' class="current"';
             }
@@ -189,23 +188,23 @@ class Miscellaneous
     /**
      *  Función que instancia varibles de sesión en caso de realizar búsquedas múltiples rápida desde la vista de tablas
      *
-     * @access    public
-     * @param array $data
-     * @return array
+     * @access  public
+     * @param   array   $data
+     * @return  array
      */
     public static function sessionParamterSetSearchParams($data = [])
     {
         if (Request::input('search_params'))
         {
-            Session::put('search_params', Request::all());
+            session(['search_params' => Request::all()]);
             $data['search_params'] = Request::all();
-            Session::put('cadena', null);
+            session(['cadena' => null]);
         }
-        elseif (Session::get('search_params') && Request::input('accion') != 'query')
+        elseif (session('search_params') && Request::input('accion') != 'query')
         {
             //comprobamos que al recoger la variable de la session no se está realizando una busqueda rápida, si es así se estará lanzando la variable Request::input('accion') == 'query
             //y pasaremos de largo.
-            $data['search_params'] = Session::get('search_params');
+            $data['search_params'] = session('search_params');
         }
         else
         {

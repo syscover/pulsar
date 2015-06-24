@@ -10,7 +10,6 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Traits\ControllerTrait;
@@ -44,7 +43,7 @@ class Packages extends Controller {
         ]);
 
         // update object packages from session
-        Session::put('packages', Package::getModulesForSession());
+        session(['packages' => Package::getModulesForSession()]);
     }
 }
 

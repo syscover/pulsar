@@ -1,7 +1,6 @@
 <?php namespace Syscover\Pulsar\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -81,10 +80,10 @@ class AuthController extends Controller {
                     ]);
             }
 
-            Session::put('userAcl', PulsarAcl::getProfileAcl($this->auth->user()->profile_010));
+            session(['userAcl' => PulsarAcl::getProfileAcl($this->auth->user()->profile_010)]);
 
             // check if user has permission to access
-            if (!Session::get('userAcl')->isAllowed($this->auth->user()->profile_010, 'pulsar', 'access'))
+            if (!session('userAcl')->isAllowed($this->auth->user()->profile_010, 'pulsar', 'access'))
             {
                 $this->auth->logout();
                 return redirect($this->loginPath())
@@ -94,8 +93,8 @@ class AuthController extends Controller {
                     ]);
             }
 
-            Session::put('packages', Package::getModulesForSession());
-            Session::put('baseLang', Lang::getBaseLang());
+            session(['packages' => Package::getModulesForSession()]);
+            session(['baseLang' => Lang::getBaseLang()]);
 
             return redirect()->intended($this->redirectPath());
         }
@@ -115,7 +114,7 @@ class AuthController extends Controller {
     public function getLogout()
     {
         $this->auth->logout();
-        Session::flush();
+        session()->flush();
         return redirect(config('pulsar.appName'));
     }
 }

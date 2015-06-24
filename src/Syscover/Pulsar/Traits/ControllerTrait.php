@@ -1,6 +1,5 @@
 <?php namespace Syscover\Pulsar\Traits;
 
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Syscover\Pulsar\Libraries\Miscellaneous;
@@ -185,7 +184,7 @@ trait ControllerTrait {
             // check if request is modal
             if(isset($parameters['modal']) && $parameters['modal'])
             {
-                $actions .= Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip related-record" data-json=\'' . json_encode($aObject) . '\' data-original-title="' . trans('pulsar::pulsar.related_record') . '"><i class="icon-link"></i></a>' : null;
+                $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip related-record" data-json=\'' . json_encode($aObject) . '\' data-original-title="' . trans('pulsar::pulsar.related_record') . '"><i class="icon-link"></i></a>' : null;
             }
             else
             {
@@ -241,7 +240,7 @@ trait ControllerTrait {
                     $isCreated = in_array($lang->id_001, $jsonObject->langs);
                     $actionUrlParameters['lang'] = $lang->id_001;
 
-                    if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit') && Session::get('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'create'))
+                    if(session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit') && session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'create'))
                     {
                         $actions .= '<li><a class="bs-tooltip" href="';
                         if($isCreated)
@@ -311,7 +310,7 @@ trait ControllerTrait {
         // check if object has multiple language
         if(isset($parameters['id']))
         {
-            $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], Session::get('baseLang')->id_001);
+            $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], session('baseLang')->id_001);
         }
         if(isset($parameters['lang']))
         {

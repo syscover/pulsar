@@ -10,7 +10,6 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Models\Country;
 use Syscover\Pulsar\Models\TerritorialArea1;
@@ -32,7 +31,7 @@ class TerritorialAreas1 extends Controller {
 
     public function indexCustom($parameters)
     {
-        $parameters['country']              = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
+        $parameters['country']              = Country::getTranslationRecord($parameters['country'], session('baseLang')->id_001);
         $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_1_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -48,7 +47,7 @@ class TerritorialAreas1 extends Controller {
     
     public function createCustomRecord($parameters)
     {
-        $parameters['country']              = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
+        $parameters['country']              = Country::getTranslationRecord($parameters['country'], session('baseLang')->id_001);
         $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_1_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -66,7 +65,7 @@ class TerritorialAreas1 extends Controller {
     
     public function editCustomRecord($parameters)
     {
-        $parameters['country']              = Country::getTranslationRecord($parameters['object']->country_003, Session::get('baseLang')->id_001);
+        $parameters['country']              = Country::getTranslationRecord($parameters['object']->country_003, session('baseLang')->id_001);
         $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_1_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -91,7 +90,7 @@ class TerritorialAreas1 extends Controller {
         else
             return response()->json([
                 'status'    => 'success',
-                'data'      => Country::getTranslationRecord($country, Session::get('baseLang')->id_001)->territorialAreas1()->get()
+                'data'      => Country::getTranslationRecord($country, session('baseLang')->id_001)->territorialAreas1()->get()
             ]);
     }
 }

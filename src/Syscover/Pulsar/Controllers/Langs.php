@@ -10,7 +10,6 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\File;
 use Syscover\Pulsar\Libraries\Miscellaneous;
@@ -46,7 +45,7 @@ class Langs extends Controller {
             'active_001'    => Request::input('active', 0)
         ]);
 
-        if(Request::input('base')) Session::put('baseLang', Lang::getBaseLang());
+        if(Request::input('base')) session(['baseLang' => Lang::getBaseLang()]);
     }
 
     public function checkSpecialRulesToUpdate($parameters)
@@ -81,7 +80,7 @@ class Langs extends Controller {
             'active_001'    => Request::input('active', 0)
         ]);
 
-        if(Request::input('base')) Session::put('baseLang', Lang::getBaseLang());
+        if(Request::input('base')) session(['baseLang' => Lang::getBaseLang()]);
     }
     
     public function deleteCustomRecord($object)

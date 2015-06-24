@@ -10,7 +10,6 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Models\Country;
 use Syscover\Pulsar\Models\TerritorialArea1;
@@ -33,7 +32,7 @@ class TerritorialAreas2 extends Controller {
 
     public function indexCustom($parameters)
     {
-        $parameters['country']              = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
+        $parameters['country']              = Country::getTranslationRecord($parameters['country'], session('baseLang')->id_001);
         $parameters['customTrans']          = $parameters['country']->territorial_area_2_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_2_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -50,7 +49,7 @@ class TerritorialAreas2 extends Controller {
     public function createCustomRecord($parameters)
     {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
-        $parameters['country']              = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
+        $parameters['country']              = Country::getTranslationRecord($parameters['country'], session('baseLang')->id_001);
         $parameters['customTrans']          = $parameters['country']->territorial_area_2_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_2_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -70,7 +69,7 @@ class TerritorialAreas2 extends Controller {
     public function editCustomRecord($parameters)
     {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
-        $parameters['country']              = Country::getTranslationRecord($parameters['country'], Session::get('baseLang')->id_001);
+        $parameters['country']              = Country::getTranslationRecord($parameters['country'], session('baseLang')->id_001);
         $parameters['customTrans']          = $parameters['country']->territorial_area_2_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_2_002 . ' (' . $parameters['country']->name_002 . ')';
 

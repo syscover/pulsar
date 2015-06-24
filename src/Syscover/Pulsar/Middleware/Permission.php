@@ -2,8 +2,6 @@
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Redirect;
 
 class Permission {
 
@@ -18,7 +16,7 @@ class Permission {
 	 */
 	public function __construct(Guard $auth)
 	{
-		$this->pulsarAcl 	= Session::get('userAcl');
+		$this->pulsarAcl 	= session('userAcl');
 		$this->auth 		= $auth;
 	}
 

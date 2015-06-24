@@ -10,9 +10,7 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Request;
-use Syscover\Pulsar\Models\Lang;
 use Syscover\Pulsar\Models\Country;
 use Syscover\Pulsar\Traits\ControllerTrait;
 
@@ -36,7 +34,7 @@ class Countries extends Controller {
     
     public function indexCustom($parameters)
     {
-        $parameters['urlParameters']['lang']    = Session::get('baseLang');
+        $parameters['urlParameters']['lang']    = session('baseLang');
 
         return $parameters;
     }
@@ -55,7 +53,7 @@ class Countries extends Controller {
     public function checkSpecialRulesToStore($parameters)
     {
         // check special rule to objects with multiple language if is new object translation or new object
-        if(Request::has('lang') && Request::input('lang') != Session::get('baseLang')->id_001)
+        if(Request::has('lang') && Request::input('lang') != session('baseLang')->id_001)
         {
             $parameters['specialRules']['idRule'] = true;
         }
@@ -104,7 +102,7 @@ class Countries extends Controller {
         else
             return response()->json([
                 'status'    => 'success',
-                'data'      => Country::getTranslationRecord($id, Session::get('baseLang')->id_001)
+                'data'      => Country::getTranslationRecord($id, session('baseLang')->id_001)
             ]);
     }
 
