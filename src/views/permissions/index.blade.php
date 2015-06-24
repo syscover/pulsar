@@ -7,6 +7,7 @@
     <link href="{{ asset('packages/syscover/pulsar/css/custom/select2/select2.css') }}" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/select2/select2_locale_' . config('app.locale') . '.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/jquery.cookie/js.cookie.js') }}"></script>
     <!-- pulsar::permissions.index -->
     <script type="text/javascript">
         $(document).ready(function() {

@@ -153,5 +153,7 @@ return [
     'all'                                   => 'All',
     'width'                                 => 'Width',
     'height'                                => 'Height',
-    'editor'                                => 'Editor'
+    'editor'                                => 'Editor',
+    'title'                                 => 'Title',
+    'add_tag'                               => 'Add tag',
 ];

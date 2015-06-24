@@ -171,6 +171,16 @@ input[type="color"],
     border-radius: 4px;
 }
 
+div.tagsinput {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding: 0px;
+}
+div.tagsinput span.tag {
+    line-height: 20px;
+}
+
 .select2-container-multi .select2-choices {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -267,3 +277,23 @@ img.ghost, img.main {
 
 .fl {float: left;}
 .fr {float: right;}
+
+/* autocomplete tags */
+.ui-autocomplete
+{
+    background-color: rgba(255,255,255,0.6);
+    border: solid 1px rgb(204, 204, 204);
+    list-style: none;
+    max-width: 300px;
+    padding: 0;
+}
+.ui-autocomplete > li{
+    padding: 5px 5px 5px 15px;
+    cursor: pointer;
+}
+.ui-autocomplete > li:hover{
+    background-color: #f5f5f5;
+}
+.ui-autocomplete > li > a{
+    text-decoration: none;
+}

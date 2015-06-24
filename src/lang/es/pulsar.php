@@ -153,5 +153,7 @@ return [
     'all'                                   => 'Todos',
     'width'                                 => 'Ancho',
     'height'                                => 'Alto',
-    'editor'                                => 'Editor'
+    'editor'                                => 'Editor',
+    'title'                                 => 'Título',
+    'add_tag'                               => 'Añadir etiqueta',
 ];
