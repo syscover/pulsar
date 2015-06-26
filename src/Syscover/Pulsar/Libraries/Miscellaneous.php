@@ -283,12 +283,12 @@ class Miscellaneous
     /**
      *  Función para subir ficheros
      *
-     * @access    public
-     * @param $inputName
-     * @param $path
-     * @param bool $encryption
-     * @param bool $newFilename
-     * @return bool
+     * @access  public
+     * @param   $inputName
+     * @param   $path
+     * @param   bool        $encryption
+     * @param   bool        $newFilename
+     * @return  bool
      */
     public static function uploadFiles($inputName, $path, $encryption = false, $newFilename = false)
     {
