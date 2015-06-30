@@ -426,6 +426,11 @@ trait ControllerTrait {
             }
         }
 
+        if(isset($parameters['api']) && $parameters['api'])
+        {
+            return response()->json($parameters['object']);
+        }
+
         return view($this->package . '::' . $this->folder . '.show', $parameters);
     }
 

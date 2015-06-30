@@ -75,9 +75,16 @@ var PulsarApp = function() {
                     $(element).closest(class_selector).find('label[generated="true"]').html('');
                 },
                 errorPlacement: function(error, element) {
-                    if (element.data("error-placement")) {
+                    if (element.data("error-placement"))
+                    {
                         error.insertAfter("#" + element.data("error-placement"));
-                    } else {
+                    }
+                    else if(element.closest(".error-placement-after").length > 0)
+                    {
+                        error.insertAfter(element.closest(".error-placement-after"));
+                    }
+                    else
+                    {
                         error.insertAfter(element);
                     }
                 }
@@ -142,7 +149,8 @@ var PulsarApp = function() {
         }
 
         // Run validate on forms
-        if ($.fn.validate) {
+        if ($.fn.validate)
+        {
             $("form").validate();
         }
     }
@@ -151,7 +159,8 @@ var PulsarApp = function() {
      * Uniform                *
      **************************/
     var initUniform = function() {
-        if ($.fn.uniform) {
+        if ($.fn.uniform)
+        {
             $(".uniform").uniform();
         }
     }
@@ -160,8 +169,22 @@ var PulsarApp = function() {
      * Colorpicker            *
      **************************/
     var initColorpicker = function() {
-        if ($.fn.colorpicker) {
+        if ($.fn.colorpicker)
+        {
             $('.color-picker').colorpicker();
+        }
+    }
+
+    /**************************
+     * Datetimepicker         *
+     **************************/
+    var initDatetimepicker = function() {
+        if ($.fn.datetimepicker)
+        {
+            $('.datetimepicker').each(function() {
+                var self = $(this);
+                $(self).datetimepicker(self.data());
+            });
         }
     }
 
@@ -169,7 +192,8 @@ var PulsarApp = function() {
      * Select2                *
      **************************/
     var initSelect2 = function() {
-        if ($.fn.select2) {
+        if ($.fn.select2)
+        {
             $('.select2').each(function() {
                 var self = $(this);
                 $(self).select2(self.data());
@@ -217,6 +241,7 @@ var PulsarApp = function() {
             initValidation(); // Validation
             initUniform(); // Uniform
             initColorpicker(); // Colorpicker
+            initDatetimepicker();  // Datetimepicker
             initSelect2(); // Select2
             initInputlimiter(); // Inputlimiter
             initFileInput(); // FileInput
