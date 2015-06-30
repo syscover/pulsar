@@ -156,4 +156,5 @@ return [
     'editor'                                => 'Editor',
     'title'                                 => 'Title',
     'add_tag'                               => 'Add tag',
+    'attachment'                            => 'Attachment|Attachments'
 ];
