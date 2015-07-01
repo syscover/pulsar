@@ -4,9 +4,11 @@
     @include('pulsar::includes.html.script_header_list')
     @include('pulsar::includes.js.success_message')
     @include('pulsar::includes.js.datatable_config')
-    <link href="{{ asset('packages/syscover/pulsar/css/custom/select2/select2.css') }}" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/select2/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/select2/select2_locale_' . config('app.locale') . '.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/jquery.select2/css/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/jquery.select2.custom/css/select2.css') }}">
+
+    <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/jquery.select2.custom/js/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/jquery.select2/js/i18n/' . config('app.locale') . '.js') }}"></script>
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/jquery.cookie/js.cookie.js') }}"></script>
     <!-- pulsar::permissions.index -->
     <script type="text/javascript">
@@ -28,74 +30,77 @@
                             placeholder: '{{ trans('pulsar::pulsar.select_a') . ' ' . trans_choice('pulsar::pulsar.action', 1) }}'
                         });
 
-                        $("[id^='re']").on("change", function(e){
-                            var element = this;
+                        $("[id^='re']").on("select2:select", function(e){
+                            var element     = this;
+                            var dataEvent   = e.params.data;
 
-                            if(e.added){
-                                $.ajax({
-                                    type: "POST",
-                                    url: "{{ route('jsonCreatePermission', $profile->id_006) }}/" + $(this).data('resource') + "/" + e.added.id,
-                                    data: {
-                                        _token : '{{ csrf_token() }}'
-                                    },
-                                    dataType: 'text',
-                                    success: function(data) {
-                                        $.pnotify({
-                                            type:   'success',
-                                            title:  '{{ trans('pulsar::pulsar.action_successful') }}',
-                                            text:   '{!! trans('pulsar::pulsar.message_create_permission_successful', ['action' => '\' + e.added.text + \'', 'resource'=> '\' + $(element).data(\'nresource\') + \'']) !!}',
-                                            icon:   'picon icon16 iconic-icon-check-alt white',
-                                            opacity: 0.95,
-                                            history: false,
-                                            sticker: false
-                                        });
-                                    },
-                                    error: function () {
-                                        $.pnotify({
-                                            type:   'error',
-                                            title:  '{{ trans('pulsar::pulsar.action_error') }}',
-                                            text:   '{!! trans('pulsar::pulsar.message_create_permission_error', ['action'=> '\' + e.added.text + \'', 'resource'=> '\' + $(element).data(\'nresource\') + \'']) !!}',
-                                            icon:   'picon icon16 iconic-icon-check-alt white',
-                                            opacity: 0.95,
-                                            history: false,
-                                            sticker: false
-                                        });
-                                    }
-                                });
-                            }
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ route('jsonCreatePermission', $profile->id_006) }}/" + $(this).data('resource') + "/" + dataEvent.id,
+                                data: {
+                                    _token : '{{ csrf_token() }}'
+                                },
+                                dataType: 'text',
+                                success: function(data) {
+                                    $.pnotify({
+                                        type:   'success',
+                                        title:  '{{ trans('pulsar::pulsar.action_successful') }}',
+                                        text:   '{!! trans('pulsar::pulsar.message_create_permission_successful', ['action' => '\' + dataEvent.text + \'', 'resource'=> '\' + $(element).data(\'nresource\') + \'']) !!}',
+                                        icon:   'picon icon16 iconic-icon-check-alt white',
+                                        opacity: 0.95,
+                                        history: false,
+                                        sticker: false
+                                    });
+                                },
+                                error: function () {
+                                    $.pnotify({
+                                        type:   'error',
+                                        title:  '{{ trans('pulsar::pulsar.action_error') }}',
+                                        text:   '{!! trans('pulsar::pulsar.message_create_permission_error', ['action'=> '\' + dataEvent.text + \'', 'resource'=> '\' + $(element).data(\'nresource\') + \'']) !!}',
+                                        icon:   'picon icon16 iconic-icon-check-alt white',
+                                        opacity: 0.95,
+                                        history: false,
+                                        sticker: false
+                                    });
+                                }
+                            });
 
-                            if(e.removed){
-                                $.ajax({
-                                    type: "POST",
-                                    url: "{{ route('jsonDestroyPermission', $profile->id_006) }}/" + $(this).data('resource') + "/" + e.removed.id,
-                                    data: {
-                                        _token : '{{ csrf_token() }}'
-                                    },
-                                    dataType: 'text',
-                                    success: function(data) {
-                                        $.pnotify({
-                                            type:   'success',
-                                            title:  '{{ trans('pulsar::pulsar.action_successful') }}',
-                                            text:   '{!! trans('pulsar::pulsar.message_delete_permission_successful', ['action'=> '\'+e.removed.text+\'', 'resource'=> '\'+$(element).data(\'nresource\')+\'']) !!}',
-                                            icon:   'picon icon16 iconic-icon-check-alt white',
-                                            opacity: 0.95,
-                                            history: false,
-                                            sticker: false
-                                        });
-                                    },
-                                    error: function (xhr, ajaxOptions, thrownError) {
-                                        $.pnotify({
-                                            type:   'error',
-                                            title:  '{{ trans('pulsar::pulsar.action_error') }}',
-                                            text:   '{!! trans('pulsar::pulsar.message_delete_permission_error', ['action'=> '\'+e.removed.text+\'', 'resource'=> '\'+$(element).data(\'nresource\')+\'']) !!}',
-                                            icon:   'picon icon16 iconic-icon-check-alt white',
-                                            opacity: 0.95,
-                                            history: false,
-                                            sticker: false
-                                        });
-                                    }
-                                });
-                            }
+                        });
+
+                        $("[id^='re']").on("select2:unselect", function(e) {
+                            var element     = this;
+                            var dataEvent   = e.params.data;
+
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ route('jsonDestroyPermission', $profile->id_006) }}/" + $(this).data('resource') + "/" + dataEvent.id,
+                                data: {
+                                    _token : '{{ csrf_token() }}'
+                                },
+                                dataType: 'text',
+                                success: function(data) {
+                                    $.pnotify({
+                                        type:   'success',
+                                        title:  '{{ trans('pulsar::pulsar.action_successful') }}',
+                                        text:   '{!! trans('pulsar::pulsar.message_delete_permission_successful', ['action'=> '\' + dataEvent.text + \'', 'resource'=> '\' + $(element).data(\'nresource\') + \'']) !!}',
+                                        icon:   'picon icon16 iconic-icon-check-alt white',
+                                        opacity: 0.95,
+                                        history: false,
+                                        sticker: false
+                                    });
+                                },
+                                error: function (xhr, ajaxOptions, thrownError) {
+                                    $.pnotify({
+                                        type:   'error',
+                                        title:  '{{ trans('pulsar::pulsar.action_error') }}',
+                                        text:   '{!! trans('pulsar::pulsar.message_delete_permission_error', ['action'=> '\' + dataEvent.text + \'', 'resource'=> '\' + $(element).data(\'nresource\') + \'']) !!}',
+                                        icon:   'picon icon16 iconic-icon-check-alt white',
+                                        opacity: 0.95,
+                                        history: false,
+                                        sticker: false
+                                    });
+                                }
+                            });
                         });
 
                         //start lineas heredadas de views/pulsar/pulsar/includes/js/script_config_datatable.blade.php

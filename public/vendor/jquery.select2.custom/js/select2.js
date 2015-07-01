@@ -4719,6 +4719,7 @@
                         }
                     }
 
+                    // SYSCOVER CUSTOM START
                     if (this.options.idOuterContainer == null) {
                         if ($e.attr('id')) {
                             this.options.idOuterContainer = 'select2-' + $e.attr('id') + '-outer-container';
@@ -4726,6 +4727,7 @@
                             this.options.idOuterContainer = null;
                         }
                     }
+                    // SYSCOVER CUSTOM END
 
                     $e.prop('disabled', this.options.disabled);
                     $e.prop('multiple', this.options.multiple);
