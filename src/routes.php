@@ -228,8 +228,14 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     Route::get(config('pulsar.appName') . '/pulsar/email/accounts/delete/{id}/{offset}',        ['as'=>'deleteEmailAccount',        'uses'=>'Syscover\Pulsar\Controllers\EmailAccounts@deleteRecord',           'resource' => 'admin-email-account',    'action' => 'delete']);
     Route::delete(config('pulsar.appName') . '/pulsar/email/accounts/delete/select/records',    ['as'=>'deleteSelectEmailAccount',  'uses'=>'Syscover\Pulsar\Controllers\EmailAccounts@deleteRecordsSelect',    'resource' => 'admin-email-account',    'action' => 'delete']);
 
-
-
+    /*
+    |--------------------------------------------------------------------------
+    | CONTENT BUILDER
+    |--------------------------------------------------------------------------
+    */
+    Route::any(config('pulsar.appName') . '/pulsar/contentbuilder/{theme}/edit/{input}',                ['as'=>'Contentbuilder',            'uses'=>'Syscover\Pulsar\Controllers\ContentBuilder@index',         'resource' => 'admin',     'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/contentbuilder/action/saveimage',                    ['as'=>'contentbuilderSaveImage',   'uses'=>'Syscover\Pulsar\Controllers\ContentBuilder@saveImage',     'resource' => 'admin',     'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/contentbuilder/action/blocks/{theme}',               ['as'=>'contentbuilderBlocks',      'uses'=>'Syscover\Pulsar\Controllers\ContentBuilder@getBlocks',     'resource' => 'admin',     'action' => 'access']);
 
 
 
@@ -253,14 +259,4 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     */
     Route::any(config('pulsar.appName').'/pulsar/google/services',                                      ['as'=>'googleServices', 'uses'=>'Syscover\Pulsar\Controllers\GoogleServices@index',            'resource' => 'admin-lang',             'action' => 'delete']);
     Route::post(config('pulsar.appName').'/pulsar/google/services/update',                              ['as'=>'updateGoogleServices', 'uses'=>'Syscover\Pulsar\Controllers\GoogleServices@update',            'resource' => 'admin-lang',             'action' => 'delete']);
-
-    /*
-    |--------------------------------------------------------------------------
-    | CONTENT BUILDER
-    |--------------------------------------------------------------------------
-    */
-    Route::any(config('pulsar.appName') . '/pulsar/contentbuilder/{theme}/edit/{input}',                ['as'=>'contentbuilderEdit', 'uses'=>'Syscover\Pulsar\Controllers\ContentBuilder@index',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::any(config('pulsar.appName') . '/pulsar/contentbuilder/action/saveimage',                    ['as'=>'contentbuilderSaveImage', 'uses'=>'Syscover\Pulsar\Controllers\ContentBuilder@saveImage',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::any(config('pulsar.appName') . '/pulsar/contentbuilder/action/blocks/{theme}',               ['as'=>'contentbuilderBlocks', 'uses'=>'Syscover\Pulsar\Controllers\ContentBuilder@getBlocks',            'resource' => 'admin-lang',             'action' => 'delete']);
-    
 });

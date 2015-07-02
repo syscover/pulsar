@@ -1,0 +1,29 @@
+body{
+    margin: 0;
+
+}
+
+.fr-bttn i{
+    font-size: 13px;
+}
+.froala-box {
+    border-bottom: solid 1px #252525;
+}
+.froala-editor{
+    border: none;
+    border-top: solid 4px #252525;
+}
+
+.drop-zone {
+    border: 2px dashed #bbb;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+#contentarea {
+    width: 80%;
+    padding: 20px;
+    margin-top: 20px !important;
+    margin: auto;
+}
