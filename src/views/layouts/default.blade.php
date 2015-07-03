@@ -7,13 +7,9 @@
         <title>SYSCOVER</title>
         @show
 
-        <!--=== CSS ===-->
         <!-- Bootstrap -->
         <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/bootstrap/css/bootstrap.min.css') }}">
-
-        <!--[if lt IE 9]>
-        <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/plugins/jquery-ui/jquery.ui.1.10.2.ie.css') }}">
-        <![endif]-->
+        <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/jquery-ui/jquery-ui.min.css') }}">
 
         <!-- Theme -->
         <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/css/main.css') }}">
@@ -44,7 +40,7 @@
 
         <!--=== JavaScript ===-->
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/libs/jquery-2.1.3.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/jquery-ui/jquery-ui.min.js') }}"></script>
 
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/bootstrap/js/bootstrap.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/libs/lodash.compat.min.js') }}"></script>

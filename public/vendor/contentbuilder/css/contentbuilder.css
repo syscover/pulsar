@@ -1,6 +1,6 @@
 body{
     margin: 0;
-
+    background-color: #ffffff;
 }
 
 .fr-bttn i{
@@ -23,7 +23,8 @@ body{
 
 #contentarea {
     width: 80%;
-    padding: 20px;
-    margin-top: 20px !important;
+    padding: 70px;
+    margin-top: 65px !important;
     margin: auto;
 }
+

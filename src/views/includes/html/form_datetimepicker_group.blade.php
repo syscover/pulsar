@@ -1,4 +1,4 @@
-<div class="form-group">
+<div @if(isset($idContainer)) id="{{ $idContainer }}"@endif class="form-group">
     <label class="col-md-{{ $labelSize or 2 }} control-label">{{ $label }} @if(isset($required) && $required) @include('pulsar::includes.html.required') @endif</label>
     <div class="col-md-{{ $fieldSize or 10 }}">
         <div class="input-group date datetimepicker error-placement-after"@if(isset($id)) id="{{ $id }}"@endif{!! isset($data)? Miscellaneous::setDataAttributes($data) : null !!}>

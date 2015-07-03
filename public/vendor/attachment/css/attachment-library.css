@@ -1,0 +1,176 @@
+div.attachment-item button{
+    width:100%;
+    box-shadow: 0 0 3px rgba(255,255,255,0.2), 0 8px 16px rgba(255,255,255,0.15);
+    padding:6px 5px !important;
+    text-align: center;
+}
+div.attachment-item select{
+    width:100%;
+    margin-bottom: 15px;
+}
+div.attachment-item input{
+    width:100%;
+    margin-bottom:10px;
+    padding:6px 5px !important;
+
+}
+div.attachment-item span{
+    width:30px;
+    height: 30px;
+    text-align: center;
+    padding-top:6px;
+    margin-top:-8px;
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    transition:0.3s;
+    cursor: pointer !important;
+}
+div.attachment-item span:hover{
+    background-color: rgb(255,255,255);
+    color: rgb(50,50,50);
+}
+#attachment-wrapper{
+    margin-top:17px;
+}
+
+div.attachment-item{
+    display: inline-block;
+    width:300px;
+    height:200px;
+    border: 1px solid grey;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    margin: 10px 10px;
+    /*margin-bottom: 30px;*/
+}
+
+div.attachment-img, div.attachment-over{
+    position: absolute;
+    top:0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+div.attachment-img img{
+    max-height: 100%;
+    width:auto;
+    height: 100%;
+    margin:0 auto;
+}
+
+div.attachment-over{
+    top:75%;
+    background-color: rgba(0,0,0,0.7);
+    transition:0.3s;
+    padding:15px;
+}
+
+div.close-icon{
+    position: absolute;
+    top:5px;
+    right: 2px;
+}
+div.close-icon span{
+    color:white;
+    padding-top: 5px;
+    width:24px;
+    height:24px;
+}
+div.close-icon span:hover{
+    background-color: rgb(255,255,255);
+    color: rgb(50,50,50);
+}
+
+div.attachment-item.cover div.attachment-over{
+    top:40%;
+}
+
+div.attachment-item.cover.fullcover div.attachment-over{
+    top:0;
+}
+
+.attachment-title{
+    color:white;
+    margin-top:0;
+    font-size:16px;
+    margin-left:-15px;
+    margin-right:-15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.attachment-action{
+    color:white;
+    margin-top:0;
+}
+
+div.attachment-item div.attachment-over .uncovered{
+    display: inline-block;
+    height: 50px;
+    opacity: 1;
+    transition: 0.3s;
+
+}
+
+div.attachment-item div.attachment-over .covered{
+    height:0;
+    opacity: 0;
+    transition: 0.3s;
+    display: none;
+}
+
+div.attachment-item.cover div.attachment-over .uncovered{
+    height: 0 !important;
+    opacity: 0;
+    transition: 0.3s;
+    display: none;
+}
+
+div.attachment-item.cover div.attachment-over .covered.half{
+    display: inline-block;
+    height:auto !important;
+    opacity: 1;
+    transition: 0.3s;
+}
+
+div.attachment-item.cover div.attachment-over .covered.full{
+    height: 0 !important;
+    opacity: 0;
+    transition: 0.3s;
+    display: none;
+}
+
+div.attachment-item.cover.fullcover div.attachment-over .uncovered{
+    height: 0 !important;
+    opacity: 0;
+    transition: 0.3s;
+    display: none;
+}
+
+div.attachment-item.cover.fullcover div.attachment-over .covered.half{
+    height: 0 !important;
+    opacity: 0;
+    transition: 0.3s;
+    display: none;
+}
+
+div.attachment-item.cover.fullcover div.attachment-over .covered.full{
+    display: inline-block;
+    height:auto !important;
+    opacity: 1;
+    transition: 0.3s;
+}
+.sortable{
+    list-style: none;
+    -webkit-padding-start: 0px;
+}
+.sortable li, .sortable li:active, .sortable li:focus, .sortable li:hover{
+    display: inline-block;
+    border: none;
+    background: none;
+    background-color: transparent;
+    cursor: move;
+}
