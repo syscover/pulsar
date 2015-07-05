@@ -1,12 +1,12 @@
 /* to hide element select */
-.select2-results__options li[aria-selected="true"]{
+.select2-results__options[aria-multiselectable="true"] li[aria-selected="true"]{
     display:none!important;
 }
 
 .select2-container .select2-search--inline .select2-search__field {
     margin-top: 0px !important;
     height: 26px !important;
-    width: 150px !important;
+    width: 125px !important;
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
