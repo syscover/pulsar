@@ -54,6 +54,7 @@ div.attachment-img, div.attachment-over{
 }
 
 div.attachment-img img{
+    display: block;
     max-height: 100%;
     width:auto;
     height: 100%;

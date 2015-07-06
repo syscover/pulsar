@@ -12,6 +12,7 @@ body{
 .froala-editor{
     border: none;
     border-top: solid 4px #252525;
+    z-index: 2000;
 }
 
 .drop-zone {

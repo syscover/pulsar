@@ -161,7 +161,7 @@ trait ControllerTrait {
             $actionUrlParameters['id']        = $aObject[$instance->getKeyName()];
             $actionUrlParameters['offset']    = $request->input('iDisplayStart');
 
-            //if we have parentOffset, we instantiate it
+            // if we have parentOffset, we instantiate it
             if(isset($parameters['parentOffset'])) $actionUrlParameters['parentOffset'] = $parameters['parentOffset'];
 
             // get lang parameter if object has multiple language
