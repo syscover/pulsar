@@ -66,6 +66,17 @@ trait ModelTrait {
 
     /**
      * @access	public
+     * @param   string    $lang
+     * @return	array|\Illuminate\Database\Query\Builder[]
+     */
+    public static function getTranslationsRecords($lang)
+    {
+        $instance = new static;
+        return $instance::where('lang_' . $instance->sufix, $lang)->get();
+    }
+
+    /**
+     * @access	public
      * @param   mixed     $id
      * @param   string    $lang
      * @return	\Illuminate\Database\Eloquent\Model
