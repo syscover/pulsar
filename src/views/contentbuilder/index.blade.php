@@ -23,15 +23,20 @@
 
     <script type="text/javascript">
         $(document).ready(function($){
-
             $("#contentarea").contentbuilder({
                 zoom: 1,
                 snippetFile: '{{ asset('packages/syscover/pulsar/vendor/contentbuilder/themes/' . $theme . '/snippets.html') }}',
                 snippetTool: 'left'
             });
         });
-        function getContentBuilderHtml(){
+        function getContentBuilderHtml()
+        {
             return $('#contentarea').data('contentbuilder').html();
+        }
+
+        function getParentHtml(name)
+        {
+            $('#contentarea').data('contentbuilder').loadHTML(parent.$('[name=' + name + ']').val());
         }
     </script>
 @stop

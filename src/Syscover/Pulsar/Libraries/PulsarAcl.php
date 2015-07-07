@@ -29,7 +29,7 @@ class PulsarAcl extends Acl
     {
         $acl            = new PulsarAcl();
         $resources      = Resource::get();
-        $permissions    = Permission::getRecords($profile);
+        $permissions    = Permission::getCustomRecord($profile);
         
         $acl->addRole(new Role($profile));
         foreach($resources as $resource)

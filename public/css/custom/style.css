@@ -287,8 +287,12 @@ img.ghost, img.main {
     clear: both;
 }
 
-.fl {float: left;}
-.fr {float: right;}
+.fl { float: left; }
+.fr { float: right; }
+.hidden {
+    display: none;
+    visibility: hidden;
+}
 
 /* autocomplete tags */
 .ui-autocomplete

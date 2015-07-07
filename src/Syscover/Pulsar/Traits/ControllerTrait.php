@@ -310,8 +310,16 @@ trait ControllerTrait {
         // check if object has multiple language
         if(isset($parameters['id']))
         {
-            $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], session('baseLang')->id_001);
+            if(method_exists($this->model, 'getCustomTranslationRecord'))
+            {
+                $parameters['object'] = call_user_func($this->model . '::getCustomTranslationRecord', $parameters);
+            }
+            else
+            {
+                $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], session('baseLang')->id_001);
+            }
         }
+        // get lang object
         if(isset($parameters['lang']))
         {
             $parameters['lang'] = Lang::find($parameters['lang']);
@@ -400,14 +408,17 @@ trait ControllerTrait {
         if(isset($parameters['lang']))
         {
             $parameters['object']   = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], $parameters['lang']);
+
+
+
             $parameters['lang']     = $parameters['object']->lang;
         }
         else
         {
-            // check if is implements getRecord function in model, for objects with joins
-            if(method_exists($this->model, 'getRecord'))
+            // check if is implements getCustomRecord function in model, for objects with joins
+            if(method_exists($this->model, 'getCustomRecord'))
             {
-                $parameters['object']   = call_user_func($this->model . '::getRecord', $parameters);
+                $parameters['object']   = call_user_func($this->model . '::getCustomRecord', $parameters);
             }
             else
             {
@@ -458,15 +469,21 @@ trait ControllerTrait {
         // check if object has multiple language
         if(isset($parameters['lang']))
         {
-            $parameters['object']   = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], $parameters['lang']);
+            if(method_exists($this->model, 'getCustomTranslationRecord'))
+            {
+                $parameters['object'] = call_user_func($this->model . '::getCustomTranslationRecord', $parameters);
+            }
+            else
+            {
+                $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], session('baseLang')->id_001);
+            }
             $parameters['lang']     = $parameters['object']->lang;
         }
         else
         {
-            // check if is implements getRecord function in model, for objects with joins
-            if(method_exists($this->model, 'getRecord'))
+            if(method_exists($this->model, 'getCustomRecord'))
             {
-                $parameters['object']   = call_user_func($this->model . '::getRecord', $parameters);
+                $parameters['object']   = call_user_func($this->model . '::getCustomRecord', $parameters);
             }
             else
             {
