@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Models\Action;
 use Syscover\Pulsar\Traits\TraitController;
 
-class Actions extends Controller {
+class ActionController extends Controller {
 
     use TraitController;
 

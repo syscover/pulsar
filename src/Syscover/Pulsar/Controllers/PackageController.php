@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Traits\TraitController;
 
-class Packages extends Controller {
+class PackageController extends Controller {
 
     use TraitController;
 

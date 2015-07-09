@@ -19,7 +19,7 @@ use Syscover\Pulsar\Models\Action;
 use Syscover\Pulsar\Models\Permission;
 use Syscover\Pulsar\Traits\TraitController;
 
-class Profiles extends Controller {
+class ProfileController extends Controller {
 
     use TraitController;
 
