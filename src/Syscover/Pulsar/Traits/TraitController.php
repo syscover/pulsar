@@ -357,7 +357,7 @@ trait TraitController {
 
         if ($validation->fails())
         {
-            return redirect()->route('create' . $this->routeSuffix, $parameters)->withErrors($validation)->withInput();
+            return redirect()->route('create' . $this->routeSuffix, $parameters['urlParameters'])->withErrors($validation)->withInput();
         }
 
         if(method_exists($this, 'storeCustomRecord'))
@@ -535,7 +535,7 @@ trait TraitController {
 
         if ($validation->fails())
         {
-            return redirect()->route('edit' . $this->routeSuffix, $parameters)->withErrors($validation);
+            return redirect()->route('edit' . $this->routeSuffix, $parameters['urlParameters'])->withErrors($validation);
         }
 
         if(method_exists($this, 'updateCustomRecord'))
