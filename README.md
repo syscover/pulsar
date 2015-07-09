@@ -17,23 +17,23 @@ Pulsar is an application that generates a control panel where you start creating
 **2 - Register service provider, on file config/app.php add to providers array**
 
 ```
-'Syscover\Pulsar\PulsarServiceProvider',
+Syscover\Pulsar\PulsarServiceProvider::class,
 
 ```
 
 **3 - Register alias, on file config/app.php add to aliases array**
 
 ```
-'Miscellaneous'	=> 'Syscover\Pulsar\Libraries\Miscellaneous',
+'Miscellaneous'	=> Syscover\Pulsar\Libraries\Miscellaneous::class
 
 ```
 
 **4 - Register middlewares auth.pulsar, locale.pulsar and permission.pulsar on file app/Http/Kernel.php add to routeMiddleware array**
 
 ```
-'auth.pulsar' 			=> 'Syscover\Pulsar\Middleware\Auth',
-'locale.pulsar'         => 'Syscover\Pulsar\Middleware\Locale',
-'permission.pulsar' 	=> 'Syscover\Pulsar\Middleware\Permission',
+'auth.pulsar' 			=> \Syscover\Pulsar\Middleware\Auth::class,
+'locale.pulsar'         => \Syscover\Pulsar\Middleware\Locale::class,
+'permission.pulsar' 	=> \Syscover\Pulsar\Middleware\Permission::class,
 
 ```
 

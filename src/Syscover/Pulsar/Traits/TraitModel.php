@@ -2,7 +2,7 @@
 
 use Syscover\Pulsar\Libraries\Miscellaneous;
 
-trait ModelTrait {
+trait TraitModel {
 
     /**
      * @access	public

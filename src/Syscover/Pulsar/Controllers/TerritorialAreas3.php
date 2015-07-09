@@ -15,11 +15,11 @@ use Syscover\Pulsar\Models\Country;
 use Syscover\Pulsar\Models\TerritorialArea1;
 use Syscover\Pulsar\Models\TerritorialArea2;
 use Syscover\Pulsar\Models\TerritorialArea3;
-use Syscover\Pulsar\Traits\ControllerTrait;
+use Syscover\Pulsar\Traits\TraitController;
 
 class TerritorialAreas3 extends Controller {
 
-    use ControllerTrait;
+    use TraitController;
 
     protected $routeSuffix          = 'TerritorialArea3';
     protected $folder               = 'territorial_areas_3';

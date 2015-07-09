@@ -12,11 +12,11 @@
 
 use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Models\Country;
-use Syscover\Pulsar\Traits\ControllerTrait;
+use Syscover\Pulsar\Traits\TraitController;
 
 class Countries extends Controller {
 
-    use ControllerTrait;
+    use TraitController;
 
     protected $routeSuffix  = 'Country';
     protected $folder       = 'countries';

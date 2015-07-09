@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Lang;
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Models\CronJob;
 use Cron\CronExpression;
-use Syscover\Pulsar\Traits\ControllerTrait;
+use Syscover\Pulsar\Traits\TraitController;
 
 class CronJobs extends Controller
 {
-    use ControllerTrait;
+    use TraitController;
 
     protected $routeSuffix  = 'CronJob';
     protected $folder       = 'cron_jobs';

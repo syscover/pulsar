@@ -12,11 +12,11 @@
 
 use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Models\Action;
-use Syscover\Pulsar\Traits\ControllerTrait;
+use Syscover\Pulsar\Traits\TraitController;
 
 class Actions extends Controller {
 
-    use ControllerTrait;
+    use TraitController;
 
     protected $routeSuffix  = 'Action';
     protected $folder       = 'actions';

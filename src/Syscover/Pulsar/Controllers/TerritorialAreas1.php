@@ -13,11 +13,11 @@
 use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Models\Country;
 use Syscover\Pulsar\Models\TerritorialArea1;
-use Syscover\Pulsar\Traits\ControllerTrait;
+use Syscover\Pulsar\Traits\TraitController;
 
 class TerritorialAreas1 extends Controller {
 
-    use ControllerTrait;
+    use TraitController;
 
     protected $routeSuffix          = 'TerritorialArea1';
     protected $folder               = 'territorial_areas_1';

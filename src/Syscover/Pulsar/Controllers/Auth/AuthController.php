@@ -1,8 +1,8 @@
 <?php namespace Syscover\Pulsar\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Auth\Registrar;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 use Pulsar\Support\Facades\Config;
@@ -23,22 +23,17 @@ class AuthController extends Controller {
 	|
 	*/
 
-	use AuthenticatesAndRegistersUsers;
+	use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
 
-    private  $loginPath;
-    private  $redirectPath;
+    protected  $loginPath;
+    protected  $redirectPath;
 
 	/**
 	 * Create a new authentication controller instance.
-	 *
-	 * @param  \Illuminate\Contracts\Auth\Guard  $auth
-	 * @param  \Illuminate\Contracts\Auth\Registrar  $registrar
 	 */
-	public function __construct(Guard $auth, Registrar $registrar)
+	public function __construct()
 	{
-		$this->auth             = $auth;
-		$this->registrar        = $registrar;
         $this->loginPath        = route('getLogin');
         $this->redirectPath     = route('dashboard');
 	}
@@ -59,7 +54,7 @@ class AuthController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postLogin(Request $request)
+    public function authenticate(Request $request)
     {
         $this->validate($request, [
             'user_010' => 'required', 'password' => 'required',
@@ -67,12 +62,12 @@ class AuthController extends Controller {
 
         $credentials = $request->only('user_010', 'password');
 
-        if ($this->auth->attempt($credentials, $request->has('remember')))
+        if (Auth::attempt($credentials, $request->has('remember')))
         {
             // check if user has access
-            if (!$this->auth->user()->access_010)
+            if (!Auth::user()->access_010)
             {
-                $this->auth->logout();
+                Auth::logout();
                 return redirect($this->loginPath())
                     ->withInput($request->only('user_010', 'remember'))
                     ->withErrors([
@@ -80,12 +75,12 @@ class AuthController extends Controller {
                     ]);
             }
 
-            session(['userAcl' => PulsarAcl::getProfileAcl($this->auth->user()->profile_010)]);
+            session(['userAcl' => PulsarAcl::getProfileAcl(Auth::user()->profile_010)]);
 
             // check if user has permission to access
-            if (!session('userAcl')->isAllowed($this->auth->user()->profile_010, 'pulsar', 'access'))
+            if (!session('userAcl')->isAllowed(Auth::user()->profile_010, 'pulsar', 'access'))
             {
-                $this->auth->logout();
+                Auth::logout();
                 return redirect($this->loginPath())
                     ->withInput($request->only('user_010', 'remember'))
                     ->withErrors([
@@ -113,7 +108,7 @@ class AuthController extends Controller {
      */
     public function getLogout()
     {
-        $this->auth->logout();
+        Auth::logout();
         session()->flush();
         return redirect(config('pulsar.appName'));
     }

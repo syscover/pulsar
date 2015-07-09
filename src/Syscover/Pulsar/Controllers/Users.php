@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\Hash;
 use Syscover\Pulsar\Models\Lang;
 use Syscover\Pulsar\Models\Profile;
 use Syscover\Pulsar\Models\User;
-use Syscover\Pulsar\Traits\ControllerTrait;
+use Syscover\Pulsar\Traits\TraitController;
 
 class Users extends Controller {
 
-    use ControllerTrait;
+    use TraitController;
 
     protected $routeSuffix  = 'User';
     protected $folder       = 'users';

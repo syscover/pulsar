@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Models\Lang;
 
-trait ControllerTrait {
+trait TraitController {
 
     /**
     * protected $resource;      Name of resource
@@ -312,7 +312,10 @@ trait ControllerTrait {
         {
             if(method_exists($this->model, 'getCustomTranslationRecord'))
             {
-                $parameters['object'] = call_user_func($this->model . '::getCustomTranslationRecord', $parameters);
+                // duplicate paramenters to get record whith base lang
+                $parametersAux          = $parameters;
+                $parametersAux['lang']  = session('baseLang')->id_001;
+                $parameters['object']   = call_user_func($this->model . '::getCustomTranslationRecord', $parametersAux);
             }
             else
             {
@@ -475,7 +478,7 @@ trait ControllerTrait {
             }
             else
             {
-                $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], session('baseLang')->id_001);
+                $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], $parameters['lang']);
             }
             $parameters['lang']     = $parameters['object']->lang;
         }

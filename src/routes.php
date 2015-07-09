@@ -19,7 +19,7 @@ Route::get(config('pulsar.appName'), function () { return Redirect::to(route('da
 |--------------------------------------------------------------------------
 */
 Route::get(config('pulsar.appName') . '/pulsar/login',                                          ['as'=>'getLogin',              'uses'=>'Syscover\Pulsar\Controllers\Auth\AuthController@getLogin']);
-Route::post(config('pulsar.appName') . '/pulsar/login',                                         ['as'=>'postLogin',             'uses'=>'Syscover\Pulsar\Controllers\Auth\AuthController@postLogin']);
+Route::post(config('pulsar.appName') . '/pulsar/login',                                         ['as'=>'postLogin',             'uses'=>'Syscover\Pulsar\Controllers\Auth\AuthController@authenticate']);
 Route::get(config('pulsar.appName') . '/pulsar/logout',                                         ['as'=>'logout',                'uses'=>'Syscover\Pulsar\Controllers\Auth\AuthController@getLogout']);
 
 /*

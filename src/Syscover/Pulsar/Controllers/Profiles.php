@@ -17,11 +17,11 @@ use Syscover\Pulsar\Models\Profile;
 use Syscover\Pulsar\Models\Resource;
 use Syscover\Pulsar\Models\Action;
 use Syscover\Pulsar\Models\Permission;
-use Syscover\Pulsar\Traits\ControllerTrait;
+use Syscover\Pulsar\Traits\TraitController;
 
 class Profiles extends Controller {
 
-    use ControllerTrait;
+    use TraitController;
 
     protected $routeSuffix  = 'Profile';
     protected $folder       = 'profiles';

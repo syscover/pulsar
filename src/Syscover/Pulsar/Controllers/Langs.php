@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\File;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Models\Lang;
-use Syscover\Pulsar\Traits\ControllerTrait;
+use Syscover\Pulsar\Traits\TraitController;
 
 class Langs extends Controller {
 
-    use ControllerTrait;
+    use TraitController;
 
     protected $routeSuffix  = 'Lang';
     protected $folder       = 'langs';

@@ -13,12 +13,12 @@
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Libraries\EmailServices;
-use Syscover\Pulsar\Traits\ControllerTrait;
+use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\EmailAccount;
 
 class EmailAccounts extends Controller {
 
-    use ControllerTrait;
+    use TraitController;
 
     protected $routeSuffix  = 'EmailAccount';
     protected $folder       = 'email_accounts';

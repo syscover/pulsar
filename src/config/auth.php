@@ -1,13 +1,14 @@
 <?php
 
 return [
+
     /*
     |--------------------------------------------------------------------------
     | Default Authentication Driver
     |--------------------------------------------------------------------------
     |
     | This option controls the authentication driver that will be utilized.
-    | This drivers manages the retrieval and authentication of the users
+    | This driver manages the retrieval and authentication of the users
     | attempting to get access to protected areas of your application.
     |
     | Supported: "database", "eloquent"
@@ -27,7 +28,7 @@ return [
     |
     */
 
-    'model' => 'Syscover\Pulsar\Models\User',
+    'model' => Syscover\Pulsar\Models\User::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -43,15 +44,15 @@ return [
     'table' => '001_010_user',
 
     /*
-|--------------------------------------------------------------------------
-| Authentication Username
-|--------------------------------------------------------------------------
-|
-| Here you may specify the database column that should be considered the
-| "username" for your users. Typically, this will either be "username"
-| or "email". Of course, you're free to change the value to anything.
-|
-*/
+    |--------------------------------------------------------------------------
+    | Authentication Username
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the database column that should be considered the
+    | "username" for your users. Typically, this will either be "username"
+    | or "email". Of course, you're free to change the value to anything.
+    |
+    */
 
     'username' => 'user_010',
 
@@ -68,21 +69,21 @@ return [
 
     'password' => 'password_010',
 
-
     /*
-	|--------------------------------------------------------------------------
-	| Password Reset Settings
-	|--------------------------------------------------------------------------
-	|
-	| Here you may set the options for resetting passwords including the view
-	| that is your password reset e-mail. You can also set the name of the
-	| table that maintains all of the reset tokens for your application.
-	|
-	| The expire time is the number of minutes that the reset token should be
-	| considered valid. This security feature keeps tokens short-lived so
-	| they have less time to be guessed. You may change this as needed.
-	|
-	*/
+    |--------------------------------------------------------------------------
+    | Password Reset Settings
+    |--------------------------------------------------------------------------
+    |
+    | Here you may set the options for resetting passwords including the view
+    | that is your password reset e-mail. You can also set the name of the
+    | table that maintains all of the reset tokens for your application.
+    |
+    | The expire time is the number of minutes that the reset token should be
+    | considered valid. This security feature keeps tokens short-lived so
+    | they have less time to be guessed. You may change this as needed.
+    |
+    */
+
     'password' => [
         'email' => 'pulsar::emails.password',
         'table' => '001_021_password_resets',

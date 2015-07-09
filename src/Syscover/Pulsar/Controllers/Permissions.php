@@ -17,12 +17,12 @@ use Syscover\Pulsar\Libraries\PulsarAcl;
 use Syscover\Pulsar\Models\Permission;
 use Syscover\Pulsar\Models\Profile;
 use Syscover\Pulsar\Models\Action;
-use Syscover\Pulsar\Traits\ControllerTrait;
+use Syscover\Pulsar\Traits\TraitController;
 
 
 class Permissions extends Controller
 {
-    use ControllerTrait;
+    use TraitController;
 
     protected $routeSuffixProfile   = 'Profile';
     protected $areDeleteRecord      = true;

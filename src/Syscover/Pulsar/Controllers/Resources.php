@@ -13,11 +13,11 @@
 use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Models\Resource;
-use Syscover\Pulsar\Traits\ControllerTrait;
+use Syscover\Pulsar\Traits\TraitController;
 
 class Resources extends Controller {
 
-    use ControllerTrait;
+    use TraitController;
 
     protected $routeSuffix  = 'Resource';
     protected $folder       = 'resources';
