@@ -14,11 +14,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Syscover\Pulsar\Traits\ModelTrait;
+use Syscover\Pulsar\Traits\TraitModel;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
-    use ModelTrait;
+    use TraitModel;
 
     protected $table        = '001_010_user';
     protected $primaryKey   = 'id_010';

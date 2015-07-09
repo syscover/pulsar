@@ -12,11 +12,11 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\ModelTrait;
+use Syscover\Pulsar\Traits\TraitModel;
 
 class TerritorialArea2 extends Model {
 
-    use ModelTrait;
+    use TraitModel;
 
     protected $table        = '001_004_territorial_area_2';
     protected $primaryKey   = 'id_004';

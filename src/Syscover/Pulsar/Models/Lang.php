@@ -12,11 +12,11 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\ModelTrait;
+use Syscover\Pulsar\Traits\TraitModel;
 
 class Lang extends Model {
 
-    use ModelTrait;
+    use TraitModel;
 
     protected $table        = '001_001_lang';
     protected $primaryKey   = 'id_001';
