@@ -24,7 +24,7 @@ class ProfileController extends Controller {
     use TraitController;
 
     protected $routeSuffix  = 'Profile';
-    protected $folder       = 'profiles';
+    protected $folder       = 'profile';
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_006', 'name_006'];
     protected $nameM        = 'name_006';

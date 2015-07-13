@@ -18,12 +18,12 @@ use Syscover\Pulsar\Models\Profile;
 use Syscover\Pulsar\Models\User;
 use Syscover\Pulsar\Traits\TraitController;
 
-class Users extends Controller {
+class UserController extends Controller {
 
     use TraitController;
 
     protected $routeSuffix  = 'User';
-    protected $folder       = 'users';
+    protected $folder       = 'user';
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_010', 'name_010', 'surname_010', ['data' => 'email_010', 'type' => 'email'], 'name_006', ['data' => 'access_010', 'type' => 'active']];
     protected $nameM        = 'name_010';

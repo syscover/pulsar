@@ -16,12 +16,12 @@ use Syscover\Pulsar\Models\TerritorialArea1;
 use Syscover\Pulsar\Models\TerritorialArea2;
 use Syscover\Pulsar\Traits\TraitController;
 
-class TerritorialAreas2 extends Controller {
+class TerritorialArea2Controller extends Controller {
 
     use TraitController;
 
     protected $routeSuffix          = 'TerritorialArea2';
-    protected $folder               = 'territorial_areas_2';
+    protected $folder               = 'territorial_area_2';
     protected $package              = 'pulsar';
     protected $aColumns             = ['id_004', 'name_003', 'name_004'];
     protected $nameM                = 'name_004';

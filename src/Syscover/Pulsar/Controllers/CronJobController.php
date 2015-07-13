@@ -19,12 +19,12 @@ use Syscover\Pulsar\Models\CronJob;
 use Cron\CronExpression;
 use Syscover\Pulsar\Traits\TraitController;
 
-class CronJobs extends Controller
+class CronJobController extends Controller
 {
     use TraitController;
 
     protected $routeSuffix  = 'CronJob';
-    protected $folder       = 'cron_jobs';
+    protected $folder       = 'cron_job';
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_011', 'name_011', 'name_012', 'key_011', 'cron_expression_011', ['data' => 'active_011', 'type' => 'active'], ['data' => 'last_run_011', 'type' => 'date'], ['data' => 'next_run_011', 'type' => 'date']];
     protected $nameM        = 'name_012';

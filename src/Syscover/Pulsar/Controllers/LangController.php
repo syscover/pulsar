@@ -16,12 +16,12 @@ use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Models\Lang;
 use Syscover\Pulsar\Traits\TraitController;
 
-class Langs extends Controller {
+class LangController extends Controller {
 
     use TraitController;
 
     protected $routeSuffix  = 'Lang';
-    protected $folder       = 'langs';
+    protected $folder       = 'lang';
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_001', ['data' =>'image_001', 'type' => 'img', 'url' => '/packages/syscover/pulsar/storage/langs/'], 'name_001', ['data' => 'base_001', 'type' => 'check'], ['data' => 'active_001', 'type' => 'active'], 'sorting_001'];
     protected $nameM        = 'name_001';

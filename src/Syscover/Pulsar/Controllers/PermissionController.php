@@ -20,7 +20,7 @@ use Syscover\Pulsar\Models\Action;
 use Syscover\Pulsar\Traits\TraitController;
 
 
-class Permissions extends Controller
+class PermissionController extends Controller
 {
     use TraitController;
 
@@ -28,7 +28,7 @@ class Permissions extends Controller
     protected $areDeleteRecord      = true;
 
     protected $routeSuffix          = 'Permission';
-    protected $folder               = 'permissions';
+    protected $folder               = 'permission';
     protected $package              = 'pulsar';
     protected $aColumns             = ['id_007', 'name_012', 'name_007'];
     protected $nameM                = 'name_008';

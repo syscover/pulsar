@@ -19,7 +19,7 @@ class PackageController extends Controller {
     use TraitController;
 
     protected $routeSuffix  = 'Package';
-    protected $folder       = 'packages';
+    protected $folder       = 'package';
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_012', 'name_012', ['data' => 'active_012', 'type' => 'active']];
     protected $nameM        = 'name_012';

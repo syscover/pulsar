@@ -19,7 +19,7 @@ class ActionController extends Controller {
     use TraitController;
 
     protected $routeSuffix  = 'Action';
-    protected $folder       = 'actions';
+    protected $folder       = 'action';
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_008', 'name_008'];
     protected $nameM        = 'name_008';

@@ -20,7 +20,7 @@ class ResourceController extends Controller {
     use TraitController;
 
     protected $routeSuffix  = 'Resource';
-    protected $folder       = 'resources';
+    protected $folder       = 'resource';
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_007', 'name_012', 'name_007'];
     protected $nameM        = 'name_007';

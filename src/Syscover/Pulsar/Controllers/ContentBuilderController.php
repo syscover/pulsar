@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Input,
     Illuminate\Support\Facades\URL,
     Illuminate\Support\Facades\View;
 
-class ContentBuilder extends Controller {
+class ContentBuilderController extends Controller {
 
     public function index(Request $request)
     {

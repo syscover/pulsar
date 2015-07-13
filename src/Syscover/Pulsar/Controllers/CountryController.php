@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Models\Country;
 use Syscover\Pulsar\Traits\TraitController;
 
-class Countries extends Controller {
+class CountryController extends Controller {
 
     use TraitController;
 
     protected $routeSuffix  = 'Country';
-    protected $folder       = 'countries';
+    protected $folder       = 'country';
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_002', 'name_001', 'name_002', 'sorting_002', 'prefix_002', ['data' => 'territorial_area_1_002', 'route' => 'TerritorialArea1', 'type' => 'territorialArea'], ['data' => 'territorial_area_2_002', 'route' => 'TerritorialArea2', 'type' => 'territorialArea'], ['data' => 'territorial_area_3_002', 'route' => 'TerritorialArea3', 'type' => 'territorialArea']];
     protected $nameM        = 'name_002';

@@ -16,12 +16,12 @@ use Syscover\Pulsar\Libraries\EmailServices;
 use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\EmailAccount;
 
-class EmailAccounts extends Controller {
+class EmailAccountController extends Controller {
 
     use TraitController;
 
     protected $routeSuffix  = 'EmailAccount';
-    protected $folder       = 'email_accounts';
+    protected $folder       = 'email_account';
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_013', 'name_013', ['data' => 'email_013', 'type' => 'email']];
     protected $nameM        = 'name_013';
