@@ -4,7 +4,6 @@ namespace Pulsar\Support\Facades;
 
 class File 
 {
-    
     private $file;
     
     public function __construct($file)
@@ -51,6 +50,11 @@ class File
     
     public function move($path, $filename)
     {
-        move_uploaded_file($this->file['tmp_name'],$path.'/'.$filename);
+        move_uploaded_file($this->file['tmp_name'], $path.'/'.$filename);
+    }
+
+    public function existTempFile()
+    {
+        return file_exists($this->file['tmp_name']);
     }
 }

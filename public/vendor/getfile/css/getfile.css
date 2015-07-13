@@ -1,160 +1,11 @@
 /*
-    Created on : 01-jul-2014, 23:24:41
-    Author     : SYSCOVER SL
-*/
-
-.jcrop-keymgr{
-    display: none !important;
-}
-
-.imgs-crop-container {
-	float: left;
-    border: 1px solid none;
-    padding-left: 0px;
-    padding-right: 0px;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-.imgs-preview-container {
-    border: 1px solid #4d7396;
-    overflow: hidden;
-}
-
-.imgs-preview-container img {
-    max-width: none;
-}
-
-.title-preview {
-    margin-left: 10px;
-}
-
-/* botton */
-.btngf-getFile input {
-    position: absolute;
-    margin: -6px 0 0 -146px;
-    padding: 0;
-    height: 30px;
-    width: 158px;
-    font-size: 20px;
-    cursor: pointer;
-    opacity: 0;
-    filter: alpha(opacity=0);
-    display: inline;
-}
-
-.input-getfile-alone {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    opacity: 0;
-    -ms-filter: 'alpha(opacity=0)';
-    font-size: 200px;
-    direction: ltr;
-    cursor: pointer;
-}
-
-/* Fixes for IE < 8 */
-@media screen\9 {
-    .finput-getfile-alone {
-        filter: alpha(opacity=0);
-        font-size: 100%;
-        height: 100%;
-    }
-}
-
-.btngf {
-    display: inline-block;
-    margin-bottom: 0;
-    font-weight: normal;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    background-image: none;
-    border: 1px solid transparent;
-    white-space: nowrap;
-    padding: 5px 10px;
-    font-size: 13px;
-    line-height: 1.428571429;
-    border-radius: 4px;
-	margin: 0;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
-	background-color: #cccccc;
-}
-
-.btngf:focus {
-    outline: none;
-}
-
-.btngf:hover, .btngf:focus {
-    text-decoration: none;
-}
-
-.btngf:active {
-    outline: 0;
-    background-image: none;
-    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-}
-
-.btngf[disabled] {
-    cursor: not-allowed;
-    pointer-events: none;
-    opacity: 0.65;
-    filter: alpha(opacity=65);
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-
-.btngf-primary {
-    color: #333333;
-    background-color: #fff;
-    border-color: #ccc;
-	border-width: 2px;
-}
-
-.btngf-primary:hover {
-    border-color: #1095d0;
-    background-color: #1095d0;
-    color: #ffffff;
-}
-
-/*
- * rotate image
+ *	GetFile v4.0 - 2015-06-16
+ *	jQuery Upload Plugin
+ *	(c) 2015 Syscover S.L. - http://www.syscover.com/
+ *	All rights reserved
  */
-.rot0 {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    rotation: 0deg;
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0);
-}
-.rot90 {
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    rotation: 90deg;
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
-}
-.rot180 {
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    rotation: 180deg;
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-}
-.rot270 {
-    -webkit-transform: rotate(270deg);
-    -moz-transform: rotate(270deg);
-    rotation: 270deg;
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-}
 
-/*
- * Layer preloader
- */
+/* Preloader */
 @media screen {
     div#preloader {
         position: absolute;
@@ -165,68 +16,99 @@
         display: block;
     }
 }
-@media print {
-    div#preloader,
-    div#preloader img {
-        visibility: hidden;
-        display: none;
+
+/* botton */
+.btngf-getFile input {
+    position: absolute;
+    margin: -26px -12px 0 0px;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    display: inline;
+}
+
+/* drop zone style */
+.drop-zone
+{
+    height: 100px;
+    line-height: 100px;
+    border: 2px dashed #bbb;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    min-height: 50px;
+    color: #bbb;
+    text-align: center;
+    font-size: 35px;
+    ertical-align: middle;
+}
+
+@media (min-width: 992px){
+    .modal-lg {
+        width: 980px !important;
     }
 }
 
-#wrapGetFile h3, #wrapGetFile h4 {font-family: Trebuchet MS, Arial, Helvetica, sans-serif;}
-
-#wrapGetFile h3
-{
-	font-size: 1.2em;
-	margin-top: 20px;
-	margin-bottom: 10px;
-}
-#wrapGetFile h4
-{
-	font-size: 1.1em;
+@media (min-width: 1200px){
+    .modal-lg {
+        width: 1180px !important;
+    }
 }
 
-#gfPreview h4
-{
-	margin: 0 0 10px 0;
+/* Content */
+.img-container,
+.img-preview {
+    background-color: #f7f7f7;
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
 }
 
-.gf-horizontal
-{
-	float: right;
+.img-container {
+    min-height: 200px;
+    max-height: 466px;
+    margin-bottom: 20px;
 }
 
-#gfPreview.gf-vertical
-{
-	float: left;
-	clear: left;
-	margin-top: 12px;
+@media (min-width: 768px) {
+    .img-container {
+        min-height: 466px;
+    }
 }
 
-#gfPreview.gf-vertical h4
-{
-	margin-bottom: 5px;
+.img-container > img {
+    max-width: 100%;
 }
 
-#gfFooter
-{
-	padding-top: 13px;
-	clear: left;
-	width: 190px;
+.img-preview {
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
-#gfFooter.gf-vertical
-{
-	clear: none;
-	float: right;
-	margin-top: 26px;
-	width: 74px;
-}
-#gfFooter.gf-vertical button
-{
-	float: right;
-	clear: right;
-	margin-bottom: 5px;
+.img-preview > img {
+    max-width: 100%;
 }
 
-#gfContainer.gf-vertical {overflow: none;}
+.preview-lg {
+    width: 263px;
+    height: 148px;
+}
+
+.preview-md {
+    width: 139px;
+    height: 78px;
+}
+
+.preview-sm {
+    width: 69px;
+    height: 39px;
+}
+
+.preview-xs {
+    width: 35px;
+    height: 20px;
+    margin-right: 0;
+}
+

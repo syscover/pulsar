@@ -27,8 +27,7 @@ class FileManager
      */
     public static function uploadFiles($inputName, $path, $encryption = false, $newFilename = false) 
     {
-                
-        $file           = Input::file($inputName);
+        $file           = Input::file($inputName);                  // Instance object File
         $extension      = $file->getClientOriginalExtension();
         $filename       = $file->getClientOriginalName();
         $filenameOrg    = $filename;
@@ -67,42 +66,7 @@ class FileManager
 
         return $filename;
     }
-    
-    /**
-     *  Moves a file to target destination
-     *
-     * @access	public
-     * @return	boolean
-     */
-    public static function move($path, $target, $fileName, $encryption = false, $newFilename = false)
-    {
-        
-        $fileNameOld    = $fileName;
-        $extension      = File::extension($fileName);
-        $baseName       = basename($fileName,'.'.$extension);
 
-        if ($encryption)
-        {
-            mt_srand();
-            $fileName = md5(uniqid(mt_rand())) . "." . $extension;
-        }
-        elseif ($newFilename)
-        {
-            $fileName = $newFilename . "." . $extension;
-        }
-
-        $i = 0;
-        while (File::exists($target.'/'.$fileName))
-        {
-            $i++;
-            $fileName = $baseName . '-' . $i . '.' . $extension;
-        }
-        
-        File::move($path.'/'.$fileNameOld, $target.'/'.$fileName);
-
-        return $fileName;
-    }
-    
     /**
      *  Returns file extension
      *

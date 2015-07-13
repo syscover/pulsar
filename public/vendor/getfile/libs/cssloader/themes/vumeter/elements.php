@@ -1,13 +1,4 @@
 <style type="text/css">
-    #preloader {
-        position: fixed;
-        top:0;
-        left:0;
-        right:0;
-        bottom:0;
-        background-color:#fff; /* change if the mask should have another color then white */
-        z-index:98; /* makes sure it stays on top */
-    }
 
     #loading-spinner {
         margin: -25px 0 0 -25px;
@@ -16,17 +7,17 @@
         position: absolute;
         left: 50%;
         top: 40%;
-        z-index:99; /* makes sure it stays on top */
+        z-index:1000001; /* makes sure it stays on top */
     }
 
-    .spinner {
+    .vumeter {
         width: 50px;
         height: 30px;
         text-align: center;
         font-size: 10px;
     }
 
-    .spinner > div {
+    .vumeter > div {
         background-color: <?php echo $_POST['spinnerColor'] ?>;
         height: 100%;
         width: 6px;
@@ -35,22 +26,22 @@
         animation: stretchdelay 1.2s infinite ease-in-out;
     }
 
-    .spinner .rect2 {
+    .vumeter .rect2 {
         -webkit-animation-delay: -1.1s;
         animation-delay: -1.1s;
     }
 
-    .spinner .rect3 {
+    .vumeter .rect3 {
         -webkit-animation-delay: -1.0s;
         animation-delay: -1.0s;
     }
 
-    .spinner .rect4 {
+    .vumeter .rect4 {
         -webkit-animation-delay: -0.9s;
         animation-delay: -0.9s;
     }
 
-    .spinner .rect5 {
+    .vumeter .rect5 {
         -webkit-animation-delay: -0.8s;
         animation-delay: -0.8s;
     }
@@ -72,7 +63,7 @@
 </style>
 <!-- Preloader -->
 <div id="loading-spinner">
-    <div class="spinner">
+    <div class="vumeter">
         <div class="rect1"></div>
         <div class="rect2"></div>
         <div class="rect3"></div>
@@ -80,7 +71,4 @@
         <div class="rect5"></div>
     </div>
 </div>
-<?php if ($_POST['useLayer'] == "true"): ?>
-<div id="preloader"></div>
-<?php endif; ?>
 <!-- /Preloader -->

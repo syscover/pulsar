@@ -1,0 +1,117 @@
+<style type="text/css">
+
+    #loading-spinner {
+        margin: -25px 0 0 -25px;
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        left: 50%;
+        top: 40%;
+        z-index:1000001; /* makes sure it stays on top */
+    }
+
+    .fine {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -25px 0 0 -25px;
+        font-size: 10px;
+        text-indent: -12345px;
+        border-top: 1px solid rgba(0,0,0, 0.08);
+        border-right: 1px solid rgba(0,0,0, 0.08);
+        border-bottom: 1px solid rgba(0,0,0, 0.08);
+        border-left: 1px solid rgba(0,0,0, 0.5);
+
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+
+
+        -webkit-animation: spinner 700ms infinite linear;
+        -moz-animation: spinner 700ms infinite linear;
+        -ms-animation: spinner 700ms infinite linear;
+        -o-animation: spinner 700ms infinite linear;
+        animation: spinner 700ms infinite linear;
+
+        z-index: 100001;
+    }
+
+    @-webkit-keyframes spinner {
+        0% {
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            -moz-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
+            -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @-moz-keyframes spinner {
+        0% {
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            -moz-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
+            -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @-o-keyframes spinner {
+        0% {
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            -moz-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
+            -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spinner {
+        0% {
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            -moz-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
+            -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+</style>
+<!-- Preloader -->
+<div id="loading-spinner">
+    <div class="fine"></div>
+</div>
+<!-- /Preloader -->

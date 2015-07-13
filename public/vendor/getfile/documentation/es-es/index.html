@@ -1,0 +1,1247 @@
+<!doctype html>
+<!--[if IE 6 ]>
+<html lang="es-es" class="ie6"> <![endif]-->
+<!--[if IE 7 ]>
+<html lang="es-es" class="ie7"> <![endif]-->
+<!--[if IE 8 ]>
+<html lang="es-es" class="ie8"> <![endif]-->
+<!--[if (gt IE 7)|!(IE)]><!-->
+<html lang="es-es"><!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title>GetFile - Uploader, Cropper & Resizer, SYSCOVER</title>
+
+        <meta name="description" content="Una manera sencilla de gestionar la subidas de tus ficheros e imágenes">
+        <meta name="author" content="SYSCOVER SL">
+        <meta name="copyright" content="SYSCOVER SL">
+        <meta name="generator" content="SYSCOVER HTML">
+        <meta name="date" content="2014-08-01T00:00:00+02:00">
+
+        <link rel="stylesheet" href="assets/css/documenter_style.css" media="all">
+        <link rel="stylesheet" href="assets/js/google-code-prettify/prettify.css" media="screen">
+
+        <script src="assets/js/google-code-prettify/prettify.js"></script>
+
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+        <script src="assets/js/jquery.js"></script>
+        <script src="assets/js/jquery.scrollTo.js"></script>
+        <script src="assets/js/jquery.easing.js"></script>
+        <script>document.createElement('section');
+            var duration = '450', easing = 'easeOutExpo';</script>
+        <script src="assets/js/script.js"></script>
+
+        <style>
+            html {
+                background-color: #FFFFFF;
+                color: #383838;
+            }
+
+            ::-moz-selection {
+                background: #444444;
+                color: #DDDDDD;
+            }
+
+            ::selection {
+                background: #444444;
+                color: #DDDDDD;
+            }
+
+            #documenter_sidebar #documenter_logo {
+                background-image: url(assets/images/image_1.png);
+            }
+
+            a {
+                color: #0000FF;
+            }
+
+            .btn {
+                border-radius: 3px;
+            }
+
+            .btn-primary {
+                background-image: -moz-linear-gradient(top, #0088CC, #0044CC);
+                background-image: -ms-linear-gradient(top, #0088CC, #0044CC);
+                background-image: -webkit-gradient(linear, 0 0, 0 0088 CC%, from(#DDDDDD), to(#0044CC));
+                background-image: -webkit-linear-gradient(top, #0088CC, #0044CC);
+                background-image: -o-linear-gradient(top, #0088CC, #0044CC);
+                background-image: linear-gradient(top, #0088CC, #0044CC);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088CC', endColorstr='#0044CC', GradientType=0);
+                border-color: #0044CC #0044CC #bfbfbf;
+                color: #FFFFFF;
+            }
+
+            .btn-primary:hover,
+            .btn-primary:active,
+            .btn-primary.active,
+            .btn-primary.disabled,
+            .btn-primary[disabled] {
+                border-color: #0088CC #0088CC #bfbfbf;
+                background-color: #0044CC;
+            }
+
+            hr {
+                border-top: 1px solid #EBEBEB;
+                border-bottom: 1px solid #FFFFFF;
+            }
+
+            #documenter_sidebar, #documenter_sidebar ul a {
+                background-color: #DDDDDD;
+                color: #222222;
+                http: / / static . revaxarts-themes . com / noise . gif
+            }
+
+            #documenter_sidebar ul a {
+                -webkit-text-shadow: 1px 1px 0px #EEEEEE;
+                -moz-text-shadow: 1px 1px 0px #EEEEEE;
+                text-shadow: 1px 1px 0px #EEEEEE;
+            }
+
+            #documenter_sidebar ul {
+                border-top: 1px solid #AAAAAA;
+            }
+
+            #documenter_sidebar ul a {
+                border-top: 1px solid #EEEEEE;
+                border-bottom: 1px solid #AAAAAA;
+                color: #444444;
+            }
+
+            #documenter_sidebar ul a:hover {
+                background: #444444;
+                color: #DDDDDD;
+                border-top: 1px solid #444444;
+            }
+
+            #documenter_sidebar ul a.current {
+                background: #444444;
+                color: #DDDDDD;
+                border-top: 1px solid #444444;
+            }
+
+            #documenter_copyright {
+                display: block !important;
+                visibility: visible !important;
+            }
+
+            .subsection{
+                margin-left: 40px;
+                border-top: solid 1px #cccccc;
+                border-bottom: solid 1px #cccccc;
+                margin-bottom: 60px
+            }
+            .subsection .title{
+               font-weight: bold;
+               margin-top: 20px;
+               font-size: 18px;
+            }
+        </style>
+    </head>
+    <body class="documenter-project-getfile">
+        <div id="documenter_sidebar">
+            <a href="#documenter_cover" id="documenter_logo"></a>
+            <ul id="documenter_nav">
+                <li><a class="current" href="#documenter_cover">Inicio</a></li>
+                <li><a href="#caracteristicas" title="Características">Características</a></li>
+                <li><a href="#instalacion" title="Instalación">Instalación</a></li>
+                <li><a href="#declaracion_del_plugin" title="Declaración del plugin">Declaración del plugin</a></li>
+                <li><a href="#configuracion_del_plugin" title="Configuración del plugin">Configuración del plugin</a></li>
+                <li><a href="#funciones_del_plugin" title="Funciones del plugin">Funciones del plugin</a></li>
+                <li><a href="#callbacks" title="Callbacks">Callbacks</a></li>
+                <li><a href="#ejemplos_de_codigo" title="Ejemplos de código">Ejemplos de código</a></li>
+                <li><a href="#barra_progreso" title="Barra de progreso">Barra de progreso</a></li>
+                <li><a href="#borrado_ficheros" title="Borrado de ficheros">Borrado de ficheros</a></li>
+                <li><a href="#opciones_avanzadas" title="opciones avanzadas">Opciones avanzadas</a></li>
+                <li><a href="#changelog" title="Changelog">Changelog</a></li>
+                <li><a href="#creditos" title="Créditos">Créditos</a></li>
+            </ul>
+            <div id="documenter_copyright">Copyright SYSCOVER SL 2014</div>
+        </div>
+        <div id="documenter_content">
+            <section id="documenter_cover">
+                <h1>Get File</h1>
+                <h2>Uploader Cropper Resize</h2>
+                <hr>
+                <ul>
+                    <li>created: 16/08/2014</li>
+                    <li>latest update: 16/06/2015</li>
+                    <li>version: 4.0</li>
+                    <li>by: <a href="http://www.syscover.com">SYSCOVER SL</a></li>
+                    <li>email: <a href="mailto:&#115;&#117;&#112;&#112;&#111;&#114;&#116;&#64;&#115;&#121;&#115;&#99;&#111;&#118;&#101;&#114;&#46;&#99;&#111;&#109;">&#115;&#117;&#112;&#112;&#111;&#114;&#116;&#64;&#115;&#121;&#115;&#99;&#111;&#118;&#101;&#114;&#46;&#99;&#111;&#109;</a></li>
+                </ul>
+                <p>
+                    <strong>Get File</strong> es un plugin desarrollado para obtener ficheros e imágenes desde formularios que implementes en tus desarrollos web.<br><br>
+                    En solo 5 min podrás configurar este plugin para que guarde los ficheros seleccionados en la carpeta deseada mediante AJAX, sin ningún tipo de recarga.<br><br>
+                    En el caso de imágenes podrás configurar <strong>Get File</strong>  para obtener varios tamaños de la imagen obtenida y colocarlos en las carpetas deseadas, también podrás activar la función crop, dando la posibilidad al usuario de realizar un corte de la imagen subida con un marco predefinido o libre, y totalmente adaptado para dispositivos móviles.
+                </p>
+            </section>
+
+            <!-- CARACTERÍSTICAS -->
+            <section id="caracteristicas">
+                <div class="page-header"><h3>Características</h3>
+                    <hr class="notop">
+                </div>
+                <p><strong>Get File</strong> es un plugin desarrollado para facilitar la subida de imágenes y ficheros desde un formulario, mediante AJAX.</p>
+                <p>Entre sus caracerísticas podemos destacar las siguientes propiedades:</p>
+                <ul>
+					<li>Permite subir cualquier tipo de fichero a la carpeta que determines vía AJAX</li>
+                    <li>Permite subir multiples ficheros al mismo tiempo vía AJAX</li>
+                    <li>Función drag and drop en todos los elementos</li>
+                    <li>Permite borrar ficheros desde javascript</li>
+                    <li>Envío al callback información del progreso de subida, perfecto para crear una barra de progreso propia</li>
+                    <li>Compatible con dispositivos móviles</li>
+					<li>Compatible con Bootstrap</li>
+					<li>Permite especificar los tipos de archivos MIME permitidos en la carga</li>
+					<li>Callback para realizar las operaciones necesarias tras una carga de fichero correcta</li>
+					<li>Borra archivos temporales pasado un tiempo</li>
+					<li>El nombre del fichero de salida puede ser un nombre predefinido, cifrado o el nombre original del fichero</li>
+                    <li>Permite realizar crop, resize y copias sobre ficheros de tu servdor</li>
+					<li>Si el fichero subido es una imágen, permite al usuario:
+						<ul>
+							<li>Recortar la imagen mediante un interfaz de usuario amigable</li>
+							<li>Redimensionar la imagen a un tamaño predeterminado, manteniendo o no la proporción</li>
+							<li>Determinar el formato de imagen de salida (jpg, gif o png) independientemente del formato de la imagen original</li>
+							<li>Obtener a partir de una imagen varias copias de tamaños diferentes o iguales, permitiendo especificar en que carpeta de debe guardar cada fichero y si debe tener algún prefijo en particular</li>
+						</ul>
+					</li>
+                </ul>
+            </section>
+
+            <!-- INSTALACIÓN -->
+            <section id="instalacion">
+                <div class="page-header">
+                    <h3>Instalación</h3>
+                    <hr class="notop">
+                </div>
+                <p>Antes de cargar las librerías JS asegurate de cargar la librería <strong>jQuery y Bootstrap</strong> en tu código.<br>
+                    En el caso de no tener <strong>jQuery</strong> instalado añadir el siguiente código</p>
+                <pre class="prettyprint lang-js linenums">
+&lt;script type=&quot;text/javascript&quot; src=&quot;getfile/libs/jquery/jquery-1.11.1.min.js&quot;&gt;&lt;/script&gt;</pre>
+
+                <p>Y si no dispones de bootstrap, lo puedes instalar añadiendo las siguientes librerías</p>
+                <pre class="prettyprint lang-js linenums">
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css href=&quot;getfile/libs/bootstrap/css/bootstrap.min.css&quot;&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css href=&quot;getfile/libs/bootstrap/css/bootstrap-theme.min.css&quot;&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;getfile/libs/bootstrap/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;</pre>
+
+                <p>Para finalizar, debes añadir las siguientes librerías en la página que deseas usar este plugin:</p>
+
+                <p>Para instalar el plugin <strong>Get File</strong> debes de añadir la carpeta <strong>getfile</strong>, a la raiz de tu proyecto, si la colocas en otra carpeta las rutas abajo indicadas deberían apuntar a su nueva ubicación.</p>
+
+                <h4 id="instalacion_css">CSS</h4>
+
+                <p>Agrega las siguientes librerías CSS a la cabecera de tu página</p>
+
+                <pre class="prettyprint lang-css linenums">
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css href=&quot;getfile/libs/cropper/cropper.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css href=&quot;getfile/libs/filedrop/filedrop.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css href=&quot;getfile/css/getfile.css&quot;&gt;</pre>
+
+                <h4 id="instalacion_js">JS</h4>
+
+                <p>Agrega las siguientes librer&iacute;as JS a la cabecera de tu p&aacute;gina</p>
+                <pre class="prettyprint lang-js linenums">
+&lt;script type=&quot;text/javascript&quot; src=&quot;getfile/libs/cropper/cropper.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;getfile/libs/cssloader/js/jquery.cssloader.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;getfile/libs/mobiledetect/mdetect.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;getfile/libs/filedrop/filedrop.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;getfile/js/jquery.getfile.min.js&quot;&gt;&lt;/script&gt;</pre>
+
+                <p>Por último debemos colocar un botón o botones dentro de nuestro formulario para que el usuario lo pulse para subir el fichero deseado. Hemos creado las CSS necesarias para crear un botón por defecto. Si necesitas cambiar su aspecto, añade los estilos que necesites</p>
+
+                <pre class="prettyprint lang-html linenums">
+&lt;div id=&quot;imageLoaded01&quot; class=&quot;btngf btngf-getFile btngf-primary&quot;&gt;Select file or image&lt;/div&gt;</pre>
+
+                <p>Cada bot&oacute;n debe tener un ID diferente.</p>
+
+                <h4>¡Atención! lea esta sección detalladamente</h4>
+                <p>
+                    El plugin <strong>Get File</strong> requiere de dos carpetas con permisos de escritura, una carpeta temporal donde se guardan los ficheros una vez subidos y la carpeta de destino que deseamos colocar los ficheros una vez procesados.<br>
+                    En este caso hemos usado la carpeta <strong>/tmp</strong> como carpeta temporal y la carpeta <strong>/public</strong> como carpeta de destino, las dos carpeta deberán de tener permisos de escritura <strong>777</strong> o <strong>0777</strong>.<br>
+                    En tu cliente FTP puedes dar los permisos <strong>777</strong> o <strong>0777</strong>, o puede aparecer la siguiente pantalla para establecer los permisos.
+                </p>
+                <img src="assets/images/777_file_permissions.jpg">
+
+                <p>
+                    <strong>PHP debe tener habilitado el soporte para EXIF</strong>, necesario para trabajar con metadatos de las imágenes y poder detectar la horientación de las imágenes subidas a través de dispositivos móviles.<br>
+                    Para más información sobre esta extensión visite el siguiente enlace <a href="http://php.net/manual/es/book.exif.php" target="_blank">http://php.net/manual/es/book.exif.php</a>
+                </p>
+
+            </section>
+
+            <!-- DECLARACIÓN DEL PLUGIN -->
+            <section id="declaracion_del_plugin">
+                <div class="page-header">
+                    <h3>Declaración del plugin</h3>
+                    <hr class="notop">
+                </div>
+                <p>Una vez añadidas las librerías correspondientes y con nuestro botón ubicado en nuestro formulario, simplemete debemos declarar el plugin en nuestro JavaScript y configurar las opciones deseadas.</p>
+
+                <pre class="prettyprint lang-js linenums">
+$('#imageLoaded01').getFile(
+        {
+            urlPlugin:      '.',
+            folder:         '/public',
+            tmpFolder:      '/tmp',
+        },
+        function(data){
+            // this is your callback function
+            console.log(data);
+        }
+);</pre>
+
+                <p>También tienes la opción de cargar el plugin con la función crop o copies, con una imagen ya subida a tu servidor, por lo que no haría falta subir ninguna imagen.</p>
+
+                <pre class="prettyprint lang-js linenums">
+$.getFile(
+        {
+            urlPlugin:      '.',
+            folder:         '/public',
+            srcFolder:      '/public',
+            srcFile:        'my-image.jpg',
+            crop: {
+                  active: true,
+                  width: 300,
+                  height: 200
+            }
+        },
+        function(data){
+            // this is your callback function
+            console.log(data);
+        }
+);</pre>
+            </section>
+
+            <!-- CONFIGURACIÓN DEL PLUGIN -->
+            <section id="configuracion_del_plugin">
+                <div class="page-header">
+                    <h3>Configuración del plugin</h3>
+                    <hr class="notop">
+                </div>
+                <p>A continuación detallaremos todas las opciones posibles del plugin <strong>Get File</strong>.</p>
+                <pre class="prettyprint lang-js linenums">
+$(&#39;#idButton&#39;).getFile(options, callback);</pre>
+
+                <h3>options</h3>
+                <p>* = Opciones obligatorias para el correcto funcionamiento.</p>
+
+                <h5>urlPlugin *</h5>
+                <p style="margin-left: 40px;">
+                    Tipo: String<br>
+                    Valor por defecto: '.'<br>
+                    Descripción: URL relativa hasta la carpeta del plugin GetFile
+                </p>
+
+                <h5>folder *</h5>
+                <p style="margin-left: 40px;">
+                    Tipo: String<br>
+                    Valor por defecto: null<br>
+                    Descripción: Ruta hasta el directorio donde se guardará la imagen o fichero subido. <strong>Esta carpeta debe tener permisos de escritura</strong> y la ruta debe empezar por '/'<br>
+                    Ejemplo: '/public/images'
+                </p>
+
+                <h5>tmpFolder *</h5>
+                <p style="margin-left: 40px;">
+                    Tipo: String<br>
+                    Valor por defecto: null<br>
+                    Descripción: Directorio temporal desde nuestro document root, que usará el plugin para manejar y modificar imágenes. <strong>Esta carpeta debe tener permisos de escritura</strong> y la ruta debe empezar por '/'<br>
+                    Ejemplo: '/tmp'
+                </p>
+
+                <h5>srcFolder</h5>
+                <p style="margin-left: 40px;">
+                    Tipo: String<br>
+                    Valor por defecto: null<br>
+                    Descripción: Ruta hasta el directorio donde está la imagen. <strong>La ruta debe empezar por '/'</strong><br>
+                    Ejemplo: '/public/images'
+                </p>
+
+                <h5>srcFile</h5>
+                <p style="margin-left: 40px;">
+                    Tipo: String<br>
+                    Valor por defecto: null<br>
+                    Descripción: Nombre del fichero que queremos realizar el crop.<br>
+                    Ejemplo: 'mi-imagen.jpg'
+                </p>
+
+                <h5>encryption</h5>
+                <p style="margin-left: 40px;">
+                    Tipo: Boolean<br>
+                    Valor por defecto: false<br>
+                    Descripción: Cifrado aleatorio del nombre del fichero
+                </p>
+
+                <h5>filename</h5>
+                <p style="margin-left: 40px;">
+                    Tipo: String<br>
+                    Valor por defecto: null<br>
+                    Descripción: Valor que tomará el nombre del fichero subido al servidor, poner el nombre sin la extención.
+                </p>
+
+                <h5>outputExtension</h5>
+                <p style="margin-left: 40px;">
+                    Tipo: String<br>
+                    Valor por defecto: null<br>
+                    Descripción: Extensión que deseamos que nuestra imagen tenga. Los valores posibles son <strong>gif, jpg o png</strong><br>
+                    Ejemplo: 'jpg'
+                </p>
+
+                <h5>multiple</h5>
+                <p style="margin-left: 40px;">
+                    Tipo: Boolean<br>
+                    Valor por defecto: false<br>
+                    Descripción: Habilitar el plugin para permitir multiples subidas de ficheros. Podemos llamar getfile desde un botón como mostramos en los ejemplos o desde una etiqueta &lt;div&gt;, para esta etiquetas podemos usar la clase class="drop-zone" para darle la apariencia de zona droppable
+                    Ejemplo: 'true'
+                </p>
+
+                <h5>maxFileSize</h5>
+                <p style="margin-left: 40px;">
+                    Tipo: Integer<br>
+                    Valor por defecto: false<br>
+                    Número de bytes permitidos por cada fichero subido, false para tamaño ilimitado<br>
+                    Ejemplo: '1024'
+                </p>
+
+                <h5>maxFilesSizes</h5>
+                <p style="margin-left: 40px;">
+                    Tipo: Integer<br>
+                    Valor por defecto: false<br>
+                    Número de bytes permitidos en el total de ficheros subidos, false para tamaño ilimitado<br>
+                    Ejemplo: '10240'
+                </p>
+
+                <h5>spinner</h5>
+                <p style="margin-left: 40px;">
+                    Tipo: Boolean<br>
+                    Valor por defecto: true<br>
+                    Uso de un splinner mientras se carga el fichero
+                </p>
+
+                <h5>mimesAccept</h5>
+                <p style="margin-left: 40px;">
+                    Tipo: Array<br>
+                    Valor por defecto: [
+                    'image/*',
+                    'video/*',
+                    'audio/*',
+                    'application/pdf',
+                    'application/msword',
+                    'application/vnd.ms-excel',
+                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    ]<br>
+                    Descripción: Este array contiene los tipos mime que nos interesa permitir subir a nuestro servidor. Podemos darle valor false si deseamos permitir todo tipo de ficheros.<br>
+                    <strong>¡Atención!</strong> desaconsejamos poner el valor de mimesAccept a false por seguridad del servidor. Para consultar los tipos MIME de diferentes ficheros recomendamos consultar el siguiente <a href="http://syscover.com/conocimiento/show/desarrollo-web/tipos-mime" target="_blank">enlace</a>.<br>
+                    <br>
+                    Por defecto viene configurado para permitir subir:
+                    <ul>
+                        <li>'image/*': Todos los tipos de imágenes</li>
+                        <li>'video/*': Todos los tipos de videos</li>
+                        <li>'audio/*': Todos los tipos de audio</li>
+                        <li>'text/plain': Texto plano, csv</li>
+                        <li>'application/pdf': Ficheros PDF</li>
+                        <li>'application/msword': Ficheros formato .doc de Microsoft Word</li>
+                        <li>'application/vnd.ms-excel': Ficheros formato .xls de Microsoft Excel</li>
+                        <li>'application/vnd.openxmlformats-officedocument.wordprocessingml.document': Ficheros formato .docx de Microsoft Word</li>
+                        <li>'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': Ficheros formato .xlsx de Microsoft Excel</li>
+                    </ul>
+                </p>
+
+                <h5>crop (función no disponible con multiple upload)</h5>
+                <p style="margin-left: 40px;">
+                    Tipo: <a href="#object_crop">Object</a><br>
+                    Valor por defecto: {
+                    active:					false,
+                    width:					null,
+                    height:					null,
+                    aspectRatio:			null,
+                    minSize:				null,
+                    maxSize:				null,
+                    setSelect:				null
+                    }<br>
+                    Descripción: Objeto que contiene la configuración del crop
+                </p>
+
+                <div id="object_crop" class="subsection">
+                    <div class="title">Object, para opción crop</div>
+                    <h5>active</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: Boolean<br>
+                        Valor por defecto: false,<br>
+                        Descripción: Activación la opción crop para la imagen subida al servidor
+                    </p>
+
+                    <h5>width</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: Integer<br>
+                        Valor por defecto: null,<br>
+                        Descripción: Ancho en píxeles que tendrá la imagen una vez cortada
+                    </p>
+
+                    <h5>height</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: Integer<br>
+                        Valor por defecto: null,<br>
+                        Descripción: Alto en píxeles que tendrá la imagen una vez cortada
+                    </p>
+
+                    <h5>quality</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: Integer<br>
+                        Valor por defecto: 75<br>
+                        Descripción: Valor de 0 a 100 para cambiar la calidad de la imagen, <strong>solo funciona con imágenes jpg</strong><br>
+                        Ejemplo: 100
+                    </p>
+
+                    <h5>aspectRatio</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: Integer<br>
+                        Valor por defecto: null,<br>
+                        Descripción: En el caso de no definir ancho y alto, se podrá definir la proporción que debe tener la zona de corte
+                    </p>
+                </div>
+
+                <h5>resize</h5>
+                <p style="margin-left: 40px;">
+                    Tipo: <a href="#object_resize">Object</a><br>
+                    Valor por defecto: resize: {
+                    active:					false,
+                    width:					null,
+                    height:					null,
+                    constrainProportions:	true
+                    },<br>
+                    Descripción: Objeto que contiene la configuración del del tamaño de la imagen final. Esta opción funciona sólo si la funcionalidad de crop (recorte de imagen) está desactivada, ya que desde ella se puede definir el tamaño de la imagen final.
+                </p>
+
+                <div id="object_resize" class="subsection">
+                    <div class="title">Object type, para opción copies</div>
+                    <h5>active</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: Boolean<br>
+                        Valor por defecto: false,<br>
+                        Descripción: Activación del redimensionamiento de la imagen subida al servidor
+                    </p>
+
+                    <h5>width</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: Integer<br>
+                        Valor por defecto: null,<br>
+                        Descripción: Ancho en píxeles que tendrá la imagen una vez subida al servidor
+                    </p>
+
+                    <h5>height</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: Integer<br>
+                        Valor por defecto: null,<br>
+                        Descripción: Alto en píxeles que tendrá la imagen una vez subida al servidor
+                    </p>
+
+                    <h5>quality</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: Integer<br>
+                        Valor por defecto: 75<br>
+                        Descripción: Valor de 0 a 100 para cambiar la calidad de la imagen, <strong>solo funciona con imágenes jpg</strong><br>
+                        Ejemplo: 100
+                    </p>
+
+                    <h5>constrainProportions</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: Boolean<br>
+                        Valor por defecto: true,<br>
+                        Descripción: Restricción de las proporciones de la imágen, con esta propiedad activada la imagen se reducirá de tamñano respetando la apariencia
+                    </p>
+                </div>
+
+                <h5>copies</h5>
+                <p style="margin-left: 40px;">
+                    Tipo: <a href="#object_sizes">Array</a><br>
+                    Valor por defecto: null<br>
+                    Descripción: Array de objetos. Cada objeto contiene un tamaño diferente que deseamos obtener de la imagen subida al servidor.
+                </p>
+
+                <div id="object_sizes" class="subsection">
+                    <div class="title">Objects array, para opción size</div>
+
+                    <p>** = Opciones obligatorias para el correcto funcionamiento de la opción copies.</p>
+
+                    <h5>folder **</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: String<br>
+                        Valor por defecto: null,<br>
+                        Descripción: Ruta hasta el directorio donde se guardará la imagen. Esta carpeta debe tener permisos de escritura y la ruta debe empezar por '/'
+                        Ejemplo: '/images/thumbnail'
+                    </p>
+
+                    <h5>width</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: Integer<br>
+                        Valor por defecto: null,<br>
+                        Descripción: Ancho en píxeles que tendrá la copia de la imagen realizada
+                    </p>
+
+                    <h5>height</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: Integer<br>
+                        Valor por defecto: null,<br>
+                        Descripción: Alto en píxeles que tendrá la copia de la imagen realizada
+                    </p>
+
+                    <h5>quality</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: Integer<br>
+                        Valor por defecto: 75<br>
+                        Descripción: Valor de 0 a 100 para cambiar la calidad de la imagen, <strong>solo funciona con imágenes jpg</strong><br>
+                        Ejemplo: 100
+                    </p>
+
+                    <h5>constrainProportions</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: Boolean<br>
+                        Valor por defecto: true,<br>
+                        Descripción: Restricción de las proporciones de la imágen. Con esta propiedad activada la imagen se redimensionará respetando la apariencia (sin deformar la relación de aspecto).
+                    </p>
+
+                    <h5>prefix</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: String<br>
+                        Valor por defecto: null,<br>
+                        Descripción: Prefijo que se añadirá al nombre de la copia de la imagen
+                    </p>
+
+                    <h5>outputExtension</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: String<br>
+                        Valor por defecto: null<br>
+                        Descripción: Extensión que deseamos que nuestra imagen tenga, sus valores posibles serían, <strong>jpg, png o gif</strong><br>
+                        Ejemplo: 'jpg'
+                    </p>
+                </div>
+
+                <h5>lang</h5>
+                <p style="margin-left: 40px;">
+                    Tipo: <a href="#object_lang">Object</a><br>
+                    Valor por defecto: {
+                    cropWindowTitle:		'Crop image',
+                    previewTitle:			'Preview',
+                    cropButtonText:			'Crop',
+                    cancelButtonText:		'Cancel'
+                    },<br>
+                    Cadenas de texto de los elementos del popup de recorte de imágenes. Podrás traducirlo desde estas variables al idioma deseado
+                </p>
+
+                <div id="object_lang" class="subsection">
+                    <div class="title">Object, para opción lang</div>
+                    <h5>cropWindowTitle</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: String<br>
+                        Valor por defecto: 'Cop image',<br>
+                        Descripción: Encabezado del popup
+                    </p>
+
+                    <h5>previewTitle</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: String<br>
+                        Valor por defecto: 'Preview',<br>
+                        Descripción: Encabezado de la ventana preview
+                    </p>
+
+                    <h5>cropButtonText</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: String<br>
+                        Valor por defecto: 'Crop',<br>
+                        Descripción: Texto del botón que realiza el crop
+                    </p>
+
+                    <h5>cancelButtonText</h5>
+                    <p style="margin-left: 40px;">
+                        Tipo: String<br>
+                        Valor por defecto: 'Cancel',<br>
+                        Descripción: Texto del botón que cancela la acción de crop
+                    </p>
+                </div>
+            </section>
+
+            <!-- FUNCIONES DEL PLUGIN -->
+            <section id="funciones_del_plugin">
+                <div class="page-header">
+                    <h3>Funciones del plugin</h3>
+                    <hr class="notop">
+                </div>
+
+                <h5>showCropWindow(callback)</h5>
+                <p style="margin-left: 40px;">
+                    Descripción: Función para volver a abrir el panel para realizar recortes de imágenes
+                </p>
+            </section>
+
+            <!-- CALLBACKS -->
+            <section id="callbacks">
+                <div class="page-header">
+                    <h3>Callbacks</h3>
+                    <hr class="notop">
+                </div>
+                <p>A continuación detallamos todos los posibles valores de salida obtenidos en el callback.</p>
+                <pre class="prettyprint linenums">
+{
+    "success": true,                                                // Operación realizada
+    "action": "crop",                                               // Última acción realizada. Puede ser upload, crop, change o resize
+    "folder": "/public",                                            // Ruta hasta el directorio donde se guardará la imagen o fichero subido
+    "size": 40901,                                                  // Tamaño en bytes del fichero
+    "oldName": "image.png",                                         // Nombre del fichero subido original
+    "extension": "png",                                             // Extensión del fichero subido
+    "mime": "image/png",                                            // Tipo mime del fichero subido
+    "isImage": true,                                                // Variable que nos determina si el fichero es una imagen
+    "name": "e38412321d17fed2b340dca3d2f63fec.png"                  // Nombre final del fichero
+    "coords": {
+        "x": "252",                                                 // Coordenada en el eje X donde empieza la selección
+        "y": "148",                                                 // Coordenada en el eje Y donde empieza la selección
+        "x2": "428",                                                // Coordenada en el eje X donde termina la selección
+        "y2": "265",                                                // Coordenada en el eje Y donde termina la selección
+        "w": "176",                                                 // Ancho de la selección
+        "h": "117"                                                  // Alto de la selección
+    },
+    "copies": [
+        {
+            "success": true,                                        // Operación realizada
+            "folder": "/public"                                     // Ruta a la carpeta donde se ha creado la copia
+            "name": "e38412321d17fed2b340dca3d2f63fec@2.png"        // Nombre final del fichero (primera redimensión de imagen)
+        },
+        {
+            "success": true,                                        // Operación realizada
+            "folder": "/public"                                     // Ruta a la carpeta donde se ha creado la copia
+            "name": "e38412321d17fed2b340dca3d2f63fec@3.png"        // Nombre final del fichero (segunda redimensión de imagen)
+        }
+    ],
+}</pre>
+
+                <h4 id="callback">Errores</h4>
+                <p>A continuación detallamos los posibles errores obtenidos en el callback.</p>
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 1,
+    "message": 'File field is not defined'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 2,
+    "message": 'MIME type is not allowed'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 3,
+    "message": 'JCrop library not loaded'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 4,
+    "message": 'Width and height or ratio must be defined'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 5,
+    "message": 'Destination directory does not exist. Check folder setting:'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 6,
+    "message": 'Folder setting must be defined'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 7,
+    "message": 'Destination folder is not writeable. Please check permissions for:'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 8,
+    "message": 'Temp directory does not exist. Check tmpFolder setting:'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 9,
+    "message": 'The tmpFolder setting must be defined'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 10,
+    "message": 'Destination folder is not writeable. Please check permissions for:'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 11,
+    "message": 'The mimesAccept setting must be an array or false. Setting it to false might be dangerous, since it means accepting all file types'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 12,
+    "message": 'The path: /path/to/file in the ajax request is not correct, please check the ajax function data'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 13,
+    "message": 'The file X weighing XX.XXMb has not been uploaded to the server, to exceed the maximum file size allowed to server'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 14,
+    "message": 'Temp file doesn't exist, may be the file uploaded file is too large'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 15,
+    "message": 'The file X weighing XX.XX Mb has not been uploaded to the server, to exceed the maximum file size allowed'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 16,
+    "message": 'The files whith weighing X.XX Mb they does not been uploaded to the server, to exceed the maximum files sizes allowed of XX.XX Mb'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 17,
+    "message": 'Error to delete file, file: /my/file/name, doesn't exist'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 18,
+    "message": 'Error, the image river.jpeg could not be copied to the directory: to/directory/'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 19,
+    "message": 'Error, please, enabled EXIF extension in your PHP version, to check image orientation'
+}</pre>
+
+                <pre class="prettyprint linenums">
+{
+    "success": false,
+    "error": 100,
+    "message": 'Status: 500 Internal Server Error',
+    "serverStatus": [
+                "memoryUsage": XXXXXX,
+                "memoryLimit': XXXXXX,
+                "uploadMaxFilesize": XXXXXX,
+                "postMaxSize": XXXXXX,
+                "maxInputTime": XXXXXX,
+                "maxExecutionTime": XXXXXX,
+                "fileUploads": XXXXXX
+    ]
+}</pre>
+            </section>
+
+            <!-- EJEMPLOS DE CÓDIGO -->
+            <section id="ejemplos_de_codigo">
+                <div class="page-header">
+                    <h3>Ejemplos de código</h3>
+                    <hr class="notop">
+                </div>
+
+                <p>Estos códigos son usados y son funcionales en el fichero /es-es/index.html</p>
+
+                <h4>GetFile sólo con subida de fichero</h4>
+                <pre class="prettyprint linenums">
+$('#imageLoaded01').getFile(
+        {
+            urlPlugin:      '.',
+            folder:         '/public',
+            tmpFolder:      '/tmp',
+        },
+        function(data){
+            // this is your callback function
+            console.log(data);
+        }
+);</pre>
+
+                <h4>GetFile instalado en otro directorio con recorte de imagen activado</h4>
+                <pre class="prettyprint linenums">
+$('#imageLoaded02').getFile(
+    {
+        urlPlugin:          '../../../plugins',
+        folder:             '/public',
+        tmpFolder:          '/tmp',
+        encryption:         true,
+        outputExtension:    'png',
+        mimesAccept:    [
+            'image/*'
+        ],
+        crop: {
+            active:         true,
+            width:          300,
+            height:         200,
+            aspectRatio:    2
+        }
+    },
+    function(data){
+        // this is your callback function
+        console.log(data);
+    }
+);</pre>
+
+                <h4>GetFile con redimensionamiento de la imagen subida</h4>
+                <pre class="prettyprint linenums">
+$('#imageLoaded03').getFile(
+        {
+            urlPlugin:      '.',
+            folder:         '/public',
+            tmpFolder:      '/tmp',
+            resize: {
+				active:					false,
+				width:					400,
+				height:					300,
+				constrainProportions:	true
+			},
+        },
+        function(data){
+            // this is your callback function
+            console.log(data);
+        }
+);</pre>
+
+                <h4>GetFile con crop activado, creación de varias copias de la imagen en diferentes tamaño y diferentes directorios, y restricción de la subida de ficheros a sólo imágenes</h4>
+                <pre class="prettyprint linenums">
+$('#imageLoaded04').getFile(
+        {
+            urlPlugin:          '.',
+            folder:             '/public',
+            tmpFolder:          '/tmp',
+            encryption:         true,
+            outputExtension:    'png',
+            mimesAccept:    [
+                'image/*'
+            ],
+            crop: {
+                active:         true,
+                width:          300,
+                height:         200,
+                aspectRatio:    2
+            },
+            copies: [
+                {
+                    width:                  100,
+                    height:                 100,
+                    constrainProportions:   true,
+                    prefix:                 '@2'
+                    folder:                 'images/preview',
+                    outputExtension:        'png'
+                },
+                {
+                    width:                  50,
+                    height:                 50,
+                    constrainProportions:   true,
+                    prefix:                 '@3',
+                    folder:                 'images/thumbnail',
+                    outputExtension:        'png'
+                }
+            ]
+        },
+        function(data){
+            // this is your callback function
+            console.log(data);
+        }
+);</pre>
+
+                <h4>GetFile multiple upload con creación de varias copias de la imagen en diferentes tamaño y diferentes directorios, y restricción de la subida de ficheros a sólo imágenes</h4>
+                <pre class="prettyprint linenums">
+$('#imageLoaded05').getFile(
+        {
+            urlPlugin:          '..',
+            folder:             '/public',
+            tmpFolder:          '/tmp',
+            encryption:         true,
+            multiple:           true,
+            outputExtension:    'png',
+            mimesAccept:        false,
+            resize:{
+                active:	                true,
+                width:	                300,
+                height:                 200,
+                constrainProportions:	true
+            },
+            copies: [
+                {
+                    width:                  100,
+                    height:                 100,
+                    constrainProportions:   true,
+                    prefix:                 '@2x',
+                    folder:                 '/public',
+                    outputExtension:        'png'
+                },
+                {
+                    width:                  50,
+                    height:                 40,
+                    prefix:                 '@1x',
+                    folder:                 '/public',
+                    outputExtension:        'jpg'
+                }
+            ]
+        },
+        function(data){
+            // this is your callback function
+            console.log(data);
+        }
+);</pre>
+            </section>
+
+            <!--BARRA DE PROGRESO -->
+            <section id="barra_progreso">
+                <div class="page-header">
+                    <h3>Barra de progreso</h3>
+                    <hr class="notop">
+                </div>
+                <p>Durante la subida de cualquier fichero, se realizan llamadas al callback, con la siguientes información:</p>
+                <pre class="prettyprint lang-html linenums">
+{
+    success:    true,
+    action:     "loading",
+    totalSize:  xxx,
+    total:      xxx,
+    loaded:     xxx,
+    percentage: xx
+}</pre>
+                <p>Con esta información podemos crear cualquier barra de progreso con <a href="http://getbootstrap.com/components/#progress" target="_blank">bootstrap</a> o cualquier otro elemento, adjuntamos un ejemplo con <a href="http://getbootstrap.com/components/#progress" target="_blank">bootstrap</a> (disponible en la carpeta getfile/libs):</p>
+                <h4 id="progress_bar_html">Código HTML</h4>
+                <pre class="prettyprint lang-html linenums">
+&lt;div class="progress"&gt;
+    &lt;div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"&gt;
+        &lt;span class="sr-only"&gt;&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+            </section>
+
+                <h4 id="progress_bar_html">Código JavaScript</h4>
+                <pre class="prettyprint lang-html linenums">
+$('#imageLoaded01').getFile(
+    {
+        urlPlugin:          '..',
+        folder:             '/public',
+        tmpFolder:          '/tmp'
+    },
+    function(data)
+    {
+        if(data.success && data.action == "loading")
+        {
+            // START CONFIG PROGRESS BAR
+            $('#progressBar').html(data.percentage + '%');
+            $('#progressBar').attr('aria-valuenow', data.percentage);
+            $('#progressBar').css('width', data.percentage + '%');
+            // END CONFIG PROGRESS BAR
+        }
+        else
+        {
+            // this is your callback function
+            console.log(data);
+        }
+    }
+);</pre>
+            </section>
+
+            <!--BORRADO DE FICHEROS -->
+            <section id="borrado_ficheros">
+                <div class="page-header">
+                    <h3>Borrado de ficheros</h3>
+                    <hr class="notop">
+                </div>
+                <p><strong>Get File</strong> nos permite borrar un fichero subido, accediendo al método <strong>delete</strong> del objeto getFile, para este ejemplo vamos a usar uno pluglin llamado <a href="http://xoxco.com/projects/code/tagsinput/" target="_blank">jquery.tagsinput</a> (disponible en la carpeta getfile/libs) para manejar los ficheros subidos, recomendamos invocarlo de la siguiente manera</p>
+                <pre class="prettyprint lang-html linenums">
+$('#imageLoaded01').getFile(
+        {
+            urlPlugin:          '..',
+            folder:             '/public',
+            tmpFolder:          '/tmp'
+        },
+        function(data)
+        {
+            // Declaramos nuestra función callback
+            if(data.success && data.action == "loading")
+            {
+                // Código para invocar la barra de progreso
+                $('#progressBar').html(data.percentage + '%');
+                $('#progressBar').attr('aria-valuenow', data.percentage);
+                $('#progressBar').css('width', data.percentage + '%');
+            }
+            else
+            {
+                if(data.success)
+                {
+                    $('#tags').addTag(data.name); // añadimos una etiqueta al plugin jquery.tagsinput
+                    // Guardamos en el store del elemento, el nombre del fichero y el nombre del objeto,
+                    // si hay diferentes directorios incluir el directorio al nombre del fichero.
+                    $.data(document, data.name, '#imageLoaded01');
+                }
+            }
+        }
+);}</pre>
+                <p>En el callback <strong>onRemoveTag</strong> del elemento <a href="http://xoxco.com/projects/code/tagsinput/" target="_blank">jquery.tagsinput</a> que se invoca cuando boramos un elemento tendríamos este código:</p>
+                <pre class="prettyprint lang-html linenums">
+$('#tags').tagsInput({
+    'width':        '100%',
+    'height':       'auto',
+    'interactive':  false,
+    'defaultText':  '',
+    'onRemoveTag': function(value)
+    {
+        // value, es el nombre del fichero que hemos
+        // subido y lo recuperamos del store el nombre del elemento que lo subió guardado anteriormente
+        var button = $.data(document, value);
+        var reference = $(button).data('getFile'); // obtenemos el objeto getfile del store usando el elemento desde el que fue subido el fichero
+        deleteFile(reference, reference.options.folder + '/' + value); // invocamos la función de borrado de fichero
+    }
+});</pre>
+                <p>La siguiente función la podemos meter dentro del callback anterior 'onRemoveTag'. Para finalizar la función deleteFile contendrá el siguiente código:</p>
+                <pre class="prettyprint lang-html linenums">
+function deleteFile(reference, url)
+{
+    reference.delete(url, function(data)  // reference es el objeto getFile e invocamos el metodo delete
+    {
+        // this is your callback function
+    });
+}</pre>
+                <p>Puedes ver este código y probarlo en el fichero /es-es/index.html</p>
+            </section>
+
+            <!-- OPCIONES AVANZADAS -->
+            <section id="opciones_avanzadas">
+                <div class="page-header">
+                    <h3>Opciones avanzadas</h3>
+                    <hr class="notop">
+                </div>
+
+                <h4 id="instalacion_html">Personalización de la ventana popup de recorte de imágenes (crop)</h4>
+
+                <p>Este código HTML es agregado automáticamente a tu página. Es el popup que aparece para realizar la operación de recorte (crop)</p>
+                <pre class="prettyprint lang-html linenums">
+&lt;!-- start crop window --&gt;
+&lt;div style="display:none"&gt;
+    &lt;div id="wrapGetFile"&gt;
+        &lt;h3&gt;Crop image&lt;/h3&gt;
+        &lt;div class="imgs-crop-container"&gt;&lt;/div&gt;
+        &lt;div id="gfPreview"&gt;
+            &lt;h4 class="title-preview"&gt;Preview&lt;/h4&gt;
+            &lt;div class="imgs-preview-container"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div id="gfFooter"&gt;
+            &lt;button type="button" id="gfCropButton" class="btn btn-primary"&gt;Crop&lt;/button&gt;
+            &lt;button type="button" id="gfCancelButton" class="btn"&gt;Cancel&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- end crop window --&gt;</pre>
+                <p>Puedes personalizar el código del popup editando el fichero 'getfile/views/popup.php'. Se puede usar CSS para modificar su apariencia.</p>
+            </section>
+
+            <!-- CHANGELOG -->
+            <section id="changelog">
+                <div class="page-header">
+                    <h3>Changelog</h3>
+                    <hr class="notop">
+                </div>
+
+                <h4>Version 4.2 (09/07/2015)</h4>
+                <pre class="prettyprint lang-plain linenums">
+- Implementación de recorte de imagen, desde una imagen ya subida al servidor
+- Corrección de pequeños errores</pre>
+
+                <h4>Version 4.0 (16/06/2015)</h4>
+                <pre class="prettyprint lang-plain linenums">
+- Cambio popup por Bootstrap Popup
+- Implementación del plugin cropper</pre>
+
+                <h4>Version 3.0 (1/06/2015)</h4>
+                <pre class="prettyprint lang-plain linenums">
+- Cambio de popup por Magnific Popup
+- Implantación de Bootstrap</pre>
+
+                <h4>Version 2.3 (18/05/2015)</h4>
+                <pre class="prettyprint lang-plain linenums">
+- Incluida opción quality para las funciones resize, crop y copy, sobre imagenes jpg
+- Incluida función de para volver a enseñar la pantalla de crop "showCropWindow"
+- Actualización de CssLoader
+- Corrección de pequeños errores</pre>
+
+                <h4>Version 2.2 (22/01/2015)</h4>
+                <pre class="prettyprint lang-plain linenums">
+- Ejemplos totalmente funcionales
+- Deprecated propiedad TotalSize para calcular el tamaño de la barra de progreso, usar propiedad Total</pre>
+
+                <h4>Version 2.1 (07/01/2015)</h4>
+                <pre class="prettyprint lang-plain linenums">- Solucionado problema con el spinner</pre>
+
+                <h4>Version 2.0 (25/10/2014)</h4>
+                <pre class="prettyprint lang-plain linenums">- Ahora permite subir ficheros multiples, función crop no permitida para ficheros multiples
+- Cambio de propiedad sizes por copies
+- Funcionalidad de borrado de ficheros mediante javascript
+- Envío al callback de información del progreso de subida
+- Posibilidad de limitar el tamaño de cada fichero a subir
+- Posibilidad de limitar el tamaño del conjunto de ficheros a subir
+- Cambio de librería jquery.mobile.loader, por cssloader, librería muy liviana
+- Solucionado problema de compatibilidad de función Crop con IE11
+- Hemos añadido mas códigos de ejemplos</pre>
+
+                <h4>Version 1.1 (11/09/2014)</h4>
+                <pre class="prettyprint lang-plain linenums">- Solucionado problema al subir un fichero sin crop, sin redimensionamiento y sin cambio de extensión
+- Correcciones de documentación</pre>
+
+                <h4>Version 1.0 (13/08/2014)</h4>
+                <pre class="prettyprint lang-plain linenums">- Versión inicial</pre>
+            </section>
+
+            <!-- CRÉDITOS -->
+            <section id="creditos">
+                <div class="page-header">
+                    <h3>Créditos</h3>
+                    <hr class="notop">
+                </div>
+                <p> Para el desarrollo de este plugin se han usado las siguientes librer&iacute;as</p>
+                <ul>
+                    <li><a href="http://jquery.com" target="_blank">jQuery</a></li>
+                    <li><a href="http://fengyuanchen.github.io/cropper/" target="_blank">Cropper</a></li>
+                    <li><a href="http://cssloader.syscover.com" target="_blank">CssLoader</a></li>
+                    <li><a href="http://filedropjs.org/" target="_blank">FileDrop</a></li>
+                    <li><a href="http://www.mobileesp.com" target="_blank">MobileESP</a></li>
+                </ul>
+
+                <p>En este desarrollo han participado:</p>
+                <ul>
+                    <li>Jose Carlos Rodríguez Palacín - Desarrollo</li>
+                    <li>Octavio Molano Anta - Desarrollo y traducción</li>
+                </ul>
+            </section>
+        </div>
+    </body>
+</html>

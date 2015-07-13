@@ -1,16 +1,32 @@
-<!-- Crop window START -->
-<div style="display:none">
-    <div id="wrapGetFile">
-        <h3><?php echo $_POST['cropWindowTitle']?></h3>
-        <div id="gfContainer" class="imgs-crop-container"></div>
-        <div id="gfPreview">
-            <h4 class="title-preview"><?php echo $_POST['previewTitle']?></h4>
-            <div class="imgs-preview-container"></div>
-        </div>
-        <div id="gfFooter">
-            <button type="button" id="gfCropButton" class="btngf btngf-primary"><?php echo $_POST['cropButtonText']?></button>
-            <button type="button" id="gfCancelButton" class="btngf"><?php echo $_POST['cancelButtonText']?></button>
+<!-- Crop window -->
+<div class="modal fade" id="cropper-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <h3 class="page-header"><?php echo $_POST['cropWindowTitle']?> <button type="button" class="close hidden-lg" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h3>
+                            <div class="img-container">
+                                <img class="img-original">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <h3 class="page-header"><?php echo $_POST['previewTitle']?> <button type="button" class="close hidden-xs hidden-sm hidden-md" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></h3>
+                            <div class="docs-preview clearfix">
+                                <div class="img-preview preview-lg"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9 docs-buttons">
+                            <button type="button" id="gfCropButton" class="btn btn-primary"><?php echo $_POST['cropButtonText']?></button>
+                            <button type="button" id="gfCancelButton" class="btn"><?php echo $_POST['cancelButtonText']?></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<!-- Crop window END -->
+<!--/ Crop window -->

@@ -10,17 +10,18 @@ class ImageManager
     /**
     * 	Resize image
     *
-    *  @param 	string  		$srcPath 	Source image path
-    *  @param 	string|null		$dstPath 	Destination image path
-    *  @param 	integer  		$srcX 		x-coordinate of source point
-    *  @param 	integer  		$srcY 		y-coordinate of source point
-    *  @param 	integer  		$dstW 		Destination width
-    *  @param 	integer  		$dstH 		Destination height
-    *  @param 	integer  		$srcW 		Source width
-    *  @param 	integer  		$srcH 		Source height
+    *  @param 	string  		$srcPath 	        Source image path
+    *  @param 	string|null		$dstPath 	        Destination image path
+    *  @param 	string|null		$outputExtension 	Output extension
+    *  @param 	integer  		$srcX 		        x-coordinate of source point
+    *  @param 	integer  		$srcY 		        y-coordinate of source point
+    *  @param 	integer  		$dstW 		        Destination width
+    *  @param 	integer  		$dstH 		        Destination height
+    *  @param 	integer  		$srcW 		        Source width
+    *  @param 	integer  		$srcH 		        Source height
     *  @return 	string
     */
-    public static function resizeImage($srcPath, $dstPath = null, $outputExtension=null, $srcX, $srcY, $dstW, $dstH, $srcW, $srcH) 
+    public static function resizeImage($srcPath, $dstPath = null, $outputExtension=null, $srcX, $srcY, $dstW, $dstH, $srcW, $srcH, $quality = 75)
     {
         $srcX = ceil($srcX);
         $srcY = ceil($srcY);
@@ -28,14 +29,18 @@ class ImageManager
         $dstH = ceil($dstH);
         $srcW = ceil($srcW);
         $srcH = ceil($srcH);
-        
-        $dstPath  = ($dstPath ? $dstPath : $srcPath);					// If there is no destination path, the source path is overwritten
-        
-        $dstImage = imagecreatetruecolor($dstW, $dstH);					// Blank destination image is created
-        
-        $extension = FileManager::getFileExtension($srcPath);			// Find out the extension of the destination image
-                
-        switch ($extension)												// The image is created with different functions, depending on the extension
+
+        // If there is no destination path, the source path is overwritten
+        $dstPath  = ($dstPath ? $dstPath : $srcPath);
+
+        // Blank destination image is created
+        $dstImage = imagecreatetruecolor($dstW, $dstH);
+
+        // Find out the extension of the destination image
+        $extension = FileManager::getFileExtension($srcPath);
+
+        // The image is created with different functions, depending on the extension
+        switch ($extension)
         {
             case 'gif':
                 $srcImage = imagecreatefromgif($srcPath); 
@@ -49,43 +54,58 @@ class ImageManager
                 imagesavealpha($dstImage, true);  
                 $srcImage = imagecreatefrompng($srcPath);
                 imagealphablending($srcImage, true);
-                
-                //imagecreatefrompng($srcPath);
             break;
         }
-                
+
         imagecopyresampled($dstImage, $srcImage, 0, 0, $srcX, $srcY, $dstW, $dstH, $srcW, $srcH);
-           
+
         $pathInfo = pathinfo($dstPath);
 
 		$fileName = null;
+
         if($outputExtension === "gif" || $outputExtension === "jpeg" || $outputExtension === "jpg" || $outputExtension === "png" ){
-            
+
+            // set new extension
             $extension = $outputExtension;          
             
-            $dstPath = $pathInfo['dirname'].'/'.$pathInfo['filename'].'.'.$outputExtension;
+            $dstPath = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.' . $outputExtension;
             
-            $fileName = $pathInfo['filename'].'.'.$outputExtension;
+            $fileName = $pathInfo['filename'] . '.' . $outputExtension;
         }
         else
-        { 
+        {
+            // set extension to check if exist file
+            $extension = $pathInfo['extension'];
+
             $fileName = $pathInfo['basename'];
         }
-        
-        switch ($extension)												// The filename ending depends on the image type
+
+        // if file already exists, a number is added
+        $i = 0;
+        while (file_exists($dstPath))
+        {
+            $i++;
+            // if exist file, rewrite filename
+            $fileName = $pathInfo['filename'] . '-' . $i . '.' . $extension;
+
+            $dstPath = $pathInfo['dirname'] . '/' . $fileName;
+        }
+
+        // The filename ending depends on the image type
+        switch ($extension)
         {
             case 'gif':
-                imagegif($dstImage, $dstPath);
+                if(!imagegif($dstImage, $dstPath)) throw new \Exception("Error, the image river.jpeg could not be copied to the directory: " . $dstPath);
             break;
             case 'jpeg':
             case 'jpg':
-                imagejpeg($dstImage, $dstPath);
+                if(!imagejpeg($dstImage, $dstPath, intval($quality))) throw new \Exception("Error, the image river.jpeg could not be copied to the directory: " . $dstPath);
             break;
             case 'png':
-                imagepng($dstImage, $dstPath);
+                if(!imagepng($dstImage, $dstPath)) throw new \Exception("Error, the image river.jpeg could not be copied to the directory: " . $dstPath);
             break;
-       }
-       
-       return $fileName;
+        }
+
+        return $fileName;
     }
 }

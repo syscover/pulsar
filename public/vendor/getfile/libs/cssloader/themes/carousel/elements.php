@@ -1,13 +1,4 @@
 <style type="text/css">
-    #preloader {
-        position: fixed;
-        top:0;
-        left:0;
-        right:0;
-        bottom:0;
-        background-color:#fff; /* change if the mask should have another color then white */
-        z-index:98; /* makes sure it stays on top */
-    }
 
     #loading-spinner {
         margin: -25px 0 0 -25px;
@@ -16,13 +7,12 @@
         position: absolute;
         left: 50%;
         top: 40%;
-        z-index:99; /* makes sure it stays on top */
+        z-index:1000001; /* makes sure it stays on top */
     }
 
     /* Absolute Center CSS Spinner */
     .carousel {
-        position: fixed;
-        z-index: 999;
+        position: absolute;
         height: 2em;
         width: 2em;
         overflow: show;
@@ -37,7 +27,6 @@
     .carousel:before {
         content: '';
         display: block;
-        position: fixed;
         top: 0;
         left: 0;
         width: 100%;
@@ -142,7 +131,4 @@
 <div id="loading-spinner">
     <div class="carousel"></div>
 </div>
-<?php if ($_POST['useLayer'] == "true"): ?>
-<div id="preloader"></div>
-<?php endif; ?>
 <!-- /Preloader -->
