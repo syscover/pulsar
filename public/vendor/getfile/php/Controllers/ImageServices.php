@@ -66,7 +66,10 @@ class ImageServices
 
         if(!isset($response))
         {
-            $this->cleanTmpDirectory($this->documentRoot . Input::get('tmpFolder'), Input::get('tmpDelete'));		// Before uploading the file old temp files are deleted
+            if(Input::get('activateTmpDelete') == "true")
+            {
+                $this->cleanTmpDirectory($this->documentRoot . Input::get('tmpFolder'), Input::get('tmpDelete'));		// Before uploading the file old temp files are deleted
+            }
 
             if(Input::hasFile('file') || (Input::hasFile('file0') && Input::get('multiple') == "true"))
             {

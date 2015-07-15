@@ -22,6 +22,7 @@
             multiple:                   false,                                      // set multiple files upload
             maxFileSize:                false,                                      // set maximun file size in bytes for each file uploaded
             maxFilesSizes:              false,                                      // set maximun file size in bytes for all uploads
+            activateTmpDelete:          true,                                       // activate delete of temp files
             spinner:                    true,                                       // Use splinner while upload files
             mimesAccept:				[											// Accepted file types
 				'image/*',
@@ -48,20 +49,20 @@
 				active:					false,										// Resize function is activeç
 				width:					null,										// Final image width
 				height:					null,										// Final image height
-                quality:                100,                                         // Quality image, 0 to 100, only to jpg image
+                quality:                75,                                         // Quality image, 0 to 100, only to jpg image
 				constrainProportions:	true										// Mantiene las proporciones de la imagen
 			},
             copies: [
                 {
-                    width:					100,
-                    height:					100,
-                    quality:                100,                                         // Quality image, 0 to 100, only to jpg image
+                    width:					null,
+                    height:					null,
+                    quality:                75,                                         // Quality image, 0 to 100, only to jpg image
                     constrainProportions:	true,
-                    prefix:					'@2',
+                    prefix:					null,
                     folder:					null,
                     outputExtension:		null
                 }
-			],
+            ],
             lang: {
                 cropWindowTitle:		'Crop image',
                 previewTitle:			'Preview',
@@ -373,17 +374,18 @@
                 }
             }
 
-            data.append('multiple',			this.options.multiple);
-            data.append('action',			'upload');
-			data.append('folder',			this.options.folder);
-			data.append('tmpFolder',		this.options.tmpFolder);
-			data.append('cropActive',		this.options.crop.active);
-            data.append('resizeActive',		this.options.resize.active);
-            data.append('outputExtension',	this.options.outputExtension);
-			data.append('encryption',		this.options.encryption);
-			data.append('filename',			this.options.filename);
-			data.append('mimesAccept',		this.options.mimesAccept);
-			data.append('tmpDelete',		this.properties.tmpDelete);
+            data.append('multiple',			    this.options.multiple);
+            data.append('action',			    'upload');
+			data.append('folder',			    this.options.folder);
+			data.append('tmpFolder',		    this.options.tmpFolder);
+			data.append('cropActive',		    this.options.crop.active);
+            data.append('resizeActive',		    this.options.resize.active);
+            data.append('outputExtension',	    this.options.outputExtension);
+			data.append('encryption',		    this.options.encryption);
+			data.append('filename',			    this.options.filename);
+			data.append('mimesAccept',		    this.options.mimesAccept);
+            data.append('activateTmpDelete',    this.options.activateTmpDelete);
+			data.append('tmpDelete',		    this.properties.tmpDelete);
 
 			$.ajax({
 				url:						this.options.urlPlugin + '/getfile/php/Controllers/server.php',

@@ -156,5 +156,6 @@ return [
     'editor'                                => 'Editor',
     'title'                                 => 'Título',
     'add_tag'                               => 'Añadir etiqueta',
-    'attachment'                            => 'Adjunto|Adjuntos'
+    'attachment'                            => 'Adjunto|Adjuntos',
+    'file'                                  => 'Fichero|Ficheros'
 ];
