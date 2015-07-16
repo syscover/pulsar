@@ -321,7 +321,10 @@ var App = function() {
 				})
 			});
 			$(document).mouseup(function(e){
-				$(document).unbind('mousemove');
+				if(e.toElement == $('div#divider.resizeable').get(0))
+				{
+					$(document).unbind('mousemove');
+				}
 			});
 		}
 
