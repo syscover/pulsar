@@ -94,7 +94,7 @@
     </head>
     
     <body class="theme-dark">
-        <div id="pre-cssloader"></div>
+       <div id="pre-cssloader"></div>
 
         @if(isset($modal) && $modal)
             <div class="container-modal">
@@ -203,5 +203,6 @@
                 </div><!-- /.content -->
             </div><!-- /.container -->
         @endif
+        @yield('endBody')
     </body>
 </html>
