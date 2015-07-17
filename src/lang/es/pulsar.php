@@ -157,5 +157,6 @@ return [
     'title'                                 => 'Título',
     'add_tag'                               => 'Añadir etiqueta',
     'attachment'                            => 'Adjunto|Adjuntos',
-    'file'                                  => 'Fichero|Ficheros'
+    'file'                                  => 'Fichero|Ficheros',
+    'video'                                 => 'Video|Videos'
 ];
