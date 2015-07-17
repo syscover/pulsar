@@ -21,7 +21,7 @@ class ImageManager
     *  @param 	integer  		$srcH 		        Source height
     *  @return 	string
     */
-    public static function resizeImage($srcPath, $dstPath = null, $outputExtension=null, $srcX, $srcY, $dstW, $dstH, $srcW, $srcH, $quality = 75)
+    public static function resizeImage($srcPath, $dstPath = null, $outputExtension=null, $srcX, $srcY, $dstW, $dstH, $srcW, $srcH, $quality = 75, $overwrite = false)
     {
         $srcX = ceil($srcX);
         $srcY = ceil($srcY);
@@ -80,15 +80,18 @@ class ImageManager
             $fileName = $pathInfo['basename'];
         }
 
-        // if file already exists, a number is added
-        $i = 0;
-        while (file_exists($dstPath))
+        if($overwrite == 'false' || !$overwrite)
         {
-            $i++;
-            // if exist file, rewrite filename
-            $fileName = $pathInfo['filename'] . '-' . $i . '.' . $extension;
+            // if file already exists, a number is added
+            $i = 0;
+            while (file_exists($dstPath))
+            {
+                $i++;
+                // if exist file, rewrite filename
+                $fileName = $pathInfo['filename'] . '-' . $i . '.' . $extension;
 
-            $dstPath = $pathInfo['dirname'] . '/' . $fileName;
+                $dstPath = $pathInfo['dirname'] . '/' . $fileName;
+            }
         }
 
         // The filename ending depends on the image type

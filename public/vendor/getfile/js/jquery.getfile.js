@@ -1,5 +1,5 @@
 /*
- *	GetFile v4.2 - 2015-07-09
+ *	GetFile v4.2.1 - 2015-07-17
  *	jQuery Upload Plugin
  *	(c) 2015 Syscover S.L. - http://www.syscover.com/
  *	All rights reserved
@@ -40,6 +40,7 @@
                 width:					null,										// Final image width
 				height:					null,										// Final image height
                 quality:                100,                                        // Quality image, 0 to 100, only to jpg image
+                overwrite:              false,                                      // Overwrite file if exist
                 aspectRatio:			null,										// Crop window aspect ratio, si instancia width y height el aspectRatio no se tiene en cuenta
 				minSize:				0,										    // Minimum crop size
 				maxSize:				0,										    // Maximum crop size
@@ -161,6 +162,11 @@
                         }
 
                         this.items.cancelButton.on('click', function() {$('#cropper-modal').modal('hide')});
+
+                        if(this.options.srcFolder != null)
+                        {
+                            this.loadSrc();
+                        }
                     },
                     error:function(data)
                     {
@@ -183,6 +189,11 @@
                     crop:					$(this.options.selectorItems.crop),
                     image:                  $(this.options.selectorItems.image),
                     preview:				$(this.options.selectorItems.preview)
+                }
+
+                if(this.options.srcFolder != null)
+                {
+                    this.loadSrc();
                 }
             }
 
@@ -252,10 +263,6 @@
                         }
                     }
                 }
-            }
-            else
-            {
-                this.loadSrc();
             }
 
             return this;
@@ -488,8 +495,7 @@
                         });
 
                         // off click to avoid duplicity event
-                        this.items.cropButton.off('click');
-                        this.items.cropButton.on('click', $.proxy(this.executeCrop, this));
+                        this.items.cropButton.off('click').on('click', $.proxy(this.executeCrop, this));
                         $('#cropper-modal').modal('show');
 					}
 					else if(this.options.resize.active && data.isImage || this.options.resize.active && this.options.multiple == true)
@@ -612,8 +618,7 @@
                     this.properties.pixelRatio  = window.devicePixelRatio;
 
                     // off click to avoid duplicity event
-                    this.items.cropButton.off('click');
-                    this.items.cropButton.on('click', $.proxy(this.executeCrop, this));
+                    this.items.cropButton.off('click').on('click', $.proxy(this.executeCrop, this));
                     $('#cropper-modal').modal('show');
                 }
             });
@@ -724,6 +729,7 @@
                     cropWidth:			this.options.crop.width,
                     cropHeight:			this.options.crop.height,
                     quality:            this.options.crop.quality,
+                    overwrite:          this.options.crop.overwrite,
                     aspectRatio:		this.options.crop.aspectRatio,
 					tmpFolder:			this.options.tmpFolder,
 					folder:				this.options.folder,
@@ -752,8 +758,7 @@
         showCropWindow: function(callback)
         {
             // off click to avoid duplicity event
-            this.items.cropButton.off('click');
-            this.items.cropButton.on('click', $.proxy(this.executeCrop, this));
+            this.items.cropButton.off('click').on('click', $.proxy(this.executeCrop, this));
             $('#cropper-modal').modal('show');
 
             if(callback != null)
@@ -897,20 +902,18 @@
 
         executeCopies: function(data)
         {
+            data.action     = 'copies';
+            data.folder     = this.options.folder;
+            data.copies     = this.options.copies;
+
             if(this.options.multiple)
             {
-                data.action     = 'copies';
                 data.multiple   = true;
-                data.files      = this.properties.files,
-                data.folder     = this.options.folder;
-                data.copies     = this.options.copies;
+                data.files      = this.properties.files;
             }
             else
             {
-                data.action     = 'copies';
                 data.multiple   = false;
-                data.folder     = this.options.folder;
-                data.copies     = this.options.copies;
             }
 
             $.ajax({

@@ -215,6 +215,7 @@ class ImageServices
                         'folder'                => Input::get('folder'),
                         'outputExtension'       => Input::get('outputExtension'),
                         'quality'               => Input::get('quality'),
+                        'overwrite'             => Input::get('overwrite'),
                         'copies'                => Input::get('copies')
                     ];
 
@@ -247,6 +248,7 @@ class ImageServices
                 'folder'                => Input::get('folder'),
                 'outputExtension'       => Input::get('outputExtension'),
                 'quality'               => Input::get('quality'),
+                'overwrite'             => Input::get('overwrite'),
                 'copies'                => Input::get('copies')
             ];
 
@@ -273,7 +275,8 @@ class ImageServices
             'name'              => null
         ];
 
-        if(Input::has('coords')) $response['coords'] = Input::get('coords');									// Coordinates are included in the response if they exist
+        // Coordinates are included in the response if they exist
+        if(Input::has('coords')) $response['coords'] = Input::get('coords');
 
         $coords     = Input::get('coords');
 
@@ -311,7 +314,7 @@ class ImageServices
             $destH = $srcH;
         }
 
-        $response['name']   =  ImageManager::resizeImage($srcPath, $dstPath, $args['outputExtension'], $srcX, $srcY, $destW, $destH, $srcW, $srcH, $args['quality']);
+        $response['name']   =  ImageManager::resizeImage($srcPath, $dstPath, $args['outputExtension'], $srcX, $srcY, $destW, $destH, $srcW, $srcH, $args['quality'], $args['overwrite']);
 
         // we create other sizes
         $pathInfo           = pathinfo($dstPath);
