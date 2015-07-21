@@ -79,7 +79,7 @@ $.setNameAttachment = function(element) {
         }
     }
     // set previous value to image name
-    $('.image-name').data('previous', $('.image-name').val());
+    $(element).closest('li').find('.image-name').data('previous', $(element).closest('li').find('.image-name').val());
 
     $('[name=attachments]').val(JSON.stringify(attachments));
 };
