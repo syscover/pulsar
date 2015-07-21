@@ -1,62 +1,3 @@
-$.setAttachmentActions = function() {
-
-    // set button actions from li elements
-    $('.attachment-action span').off('click').on('click', function() {
-        $(this).closest('.attachment-item').toggleClass('cover');
-    });
-
-    $('button.open-ov').off('click').on('click', function() {
-        $(this).closest('.attachment-item').toggleClass('cover');
-    });
-
-    $('button.close-ov').off('click').on('click', function() {
-        $(this).closest('.attachment-item').toggleClass('cover');
-    });
-
-    $('div.close-icon').off('click').on('click', function() {
-        $(this).closest('.attachment-item').toggleClass('cover');
-        $(this).closest('li').find('.attachment-family').removeClass('changed').val($(this).closest('li').find('.attachment-family').data('previous'));
-        $(this).closest('li').find('.image-name').removeClass('changed').val($(this).closest('li').find('.image-name').data('previous'));
-    });
-
-    // sorting elements
-    $(".sortable").sortable({
-        stop: function(event, ui){
-            $.shortingElements();
-        }
-    });
-
-    // remove li elements
-    $('.remove-img').off('click').on('click', function() {
-
-        $(this).closest('li').fadeOut( "slow", function() {
-
-            var fileName = $(this).find('.file-name').html();
-            var dataFiles = JSON.parse($('[name=dataFiles]').val());
-
-            for(var i = 0; i < dataFiles.length; i++)
-            {
-                if(dataFiles[i].fileName == fileName)
-                {
-                    dataFiles.splice(i, 1);
-                }
-            }
-            $('[name=dataFiles]').val(JSON.stringify(dataFiles));
-
-            $(this).remove();
-
-            if($('.sortable li').length == 0)
-            {
-                $('#library-placeholder').show().css('opacity', 1).css('z-index', 'auto');
-            }
-            else
-            {
-                $.shortingElements();
-            }
-        });
-    });
-};
-
 $.dragDropEffects = function() {
     $(document).on('dragover', function(e){
         e.preventDefault();
@@ -100,28 +41,57 @@ $.dragDropEffects = function() {
     });
 };
 
-$.shortingElements = function() {
-    var dataFiles   = JSON.parse($('[name=dataFiles]').val());
-    $('.sortable').find('li').each(function(index) {
-        for(var i = 0; i < dataFiles.length; i++)
+$.removeAttachment = function(element) {
+    var fileName = $(element).find('.file-name').html();
+    var attachments = JSON.parse($('[name=attachments]').val());
+
+    for(var i = 0; i < attachments.length; i++)
+    {
+        if(attachments[i].fileName == fileName)
         {
-            if($(this).find('.file-name').html() == dataFiles[i].fileName)
-            {
-                dataFiles[i].sorting = index;
-            }
+            attachments.splice(i, 1);
         }
-    });
-    $('[name=dataFiles]').val(JSON.stringify(dataFiles));
+    }
+    $('[name=attachments]').val(JSON.stringify(attachments));
+
+    $(element).remove();
+
+    if($('.sortable li').length == 0)
+    {
+        $('#library-placeholder').show().css('opacity', 1).css('z-index', 'auto');
+    }
+    else
+    {
+        $.shortingElements();
+    }
+};
+
+$.setNameAttachment = function(element) {
+    // set name of image
+    var fileName    = $(element).closest('li').find('.file-name').html();
+    var attachments = JSON.parse($('[name=attachments]').val());
+
+    for(var i = 0; i < attachments.length; i++)
+    {
+        if(attachments[i].fileName == fileName)
+        {
+            attachments[i].imageName = $(element).closest('li').find('.image-name').val();
+        }
+    }
+    // set previous value to image name
+    $('.image-name').data('previous', $('.image-name').val());
+
+    $('[name=attachments]').val(JSON.stringify(attachments));
 };
 
 $.setFamilyAttachment = function(fileName, family) {
-    var dataFiles   = JSON.parse($('[name=dataFiles]').val());
-    for(var i = 0; i < dataFiles.length; i++)
+    var attachments   = JSON.parse($('[name=attachments]').val());
+    for(var i = 0; i < attachments.length; i++)
     {
-        if(dataFiles[i].fileName == fileName)
+        if(attachments[i].fileName == fileName)
         {
-            dataFiles[i].family = family;
+            attachments[i].family = family;
         }
     }
-    $('[name=dataFiles]').val(JSON.stringify(dataFiles));
+    $('[name=attachments]').val(JSON.stringify(attachments));
 };
