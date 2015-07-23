@@ -7,7 +7,7 @@
 
 @section('rows')
     <!-- pulsar::countries.create -->
-    @include('pulsar::includes.html.form_text_group', ['label' => 'ID', 'name' => 'id', 'value' => $object->id_002, 'maxLength' => '2', 'size' => '2', 'required' => true, 'fieldSize' => 2, 'readOnly' => $lang->id_001 !=  Session::get('baseLang')->id_001? true : false])
+    @include('pulsar::includes.html.form_text_group', ['label' => 'ID', 'name' => 'id', 'value' => $object->id_002, 'maxLength' => '2', 'size' => '2', 'required' => true, 'fieldSize' => 2, 'readOnly' => $lang->id_001 !=  session('baseLang')->id_001? true : false])
     @include('pulsar::includes.html.form_image_group', ['label' => trans_choice('pulsar::pulsar.language', 1), 'name' => 'lang', 'nameImage' => $lang->name_001, 'value' => $lang->id_001, 'url' => asset('/packages/syscover/pulsar/storage/langs/' . $lang->image_001)])
     @include('pulsar::includes.html.form_text_group', ['label' => trans('pulsar::pulsar.name'), 'name' => 'name', 'value' => $object->name_002, 'maxLength' => '50', 'rangeLength' => '2,50', 'required' => true])
     @include('pulsar::includes.html.form_text_group', ['label' => trans('pulsar::pulsar.sorting'), 'name' => 'sorting', 'value' => $object->sorting_002, 'maxLength' => '3', 'rangeLength' => '1,3', 'min' => '0', 'fieldSize' => 2])

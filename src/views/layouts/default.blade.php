@@ -139,7 +139,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i> Settings <i class="icon-caret-down small"></i></a>
                             <ul class="dropdown-menu">
-                                @if(Session::get('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-google-services', 'access'))
+                                @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-google-services', 'access'))
                                     <li><a href="{{ route('googleServices') }}"><i class="icomoon-icon-google"></i>Google Services</a></li>
                                     <!-- <li class="divider"></li> -->
                                 @endif
