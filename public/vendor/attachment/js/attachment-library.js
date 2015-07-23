@@ -45,13 +45,13 @@ $.removeAttachment = function(element) {
     var fileName = $(element).find('.file-name').html();
     var attachments = JSON.parse($('[name=attachments]').val());
 
-    for(var i = 0; i < attachments.length; i++)
-    {
-        if(attachments[i].fileName == fileName)
+    attachments.forEach(function(attachment, index, attachments){
+        if(attachment.fileName == fileName)
         {
-            attachments.splice(i, 1);
+            attachments.splice(index, 1);
         }
-    }
+    });
+
     $('[name=attachments]').val(JSON.stringify(attachments));
 
     $(element).remove();
@@ -71,13 +71,13 @@ $.setNameAttachment = function(element) {
     var fileName    = $(element).closest('li').find('.file-name').html();
     var attachments = JSON.parse($('[name=attachments]').val());
 
-    for(var i = 0; i < attachments.length; i++)
-    {
-        if(attachments[i].fileName == fileName)
+    attachments.forEach(function(attachment, index, array){
+        if(attachment.fileName == fileName)
         {
-            attachments[i].imageName = $(element).closest('li').find('.image-name').val();
+            attachment.name = $(element).closest('li').find('.image-name').val();
         }
-    }
+    });
+
     // set previous value to image name
     $(element).closest('li').find('.image-name').data('previous', $(element).closest('li').find('.image-name').val());
 
@@ -86,12 +86,13 @@ $.setNameAttachment = function(element) {
 
 $.setFamilyAttachment = function(fileName, family) {
     var attachments   = JSON.parse($('[name=attachments]').val());
-    for(var i = 0; i < attachments.length; i++)
-    {
-        if(attachments[i].fileName == fileName)
+
+    attachments.forEach(function(attachment, index, array){
+        if(attachment.fileName == fileName)
         {
-            attachments[i].family = family;
+            attachment.family = family;
         }
-    }
+    });
+
     $('[name=attachments]').val(JSON.stringify(attachments));
 };
