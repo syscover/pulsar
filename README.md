@@ -13,6 +13,10 @@ Pulsar is an application that generates a control panel where you start creating
 "syscover/pulsar": "dev-master"
 
 ```
+and execute on console:
+```
+composer update
+```
 
 **2 - Register service provider, on file config/app.php add to providers array**
 
