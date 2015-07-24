@@ -28,7 +28,7 @@ Syscover\Pulsar\PulsarServiceProvider::class,
 **3 - Register alias, on file config/app.php add to aliases array**
 
 ```
-'Miscellaneous'	=> Syscover\Pulsar\Libraries\Miscellaneous::class
+'Miscellaneous'	=> Syscover\Pulsar\Libraries\Miscellaneous::class,
 
 ```
 
