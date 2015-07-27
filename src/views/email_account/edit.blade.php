@@ -2,13 +2,13 @@
 
 @section('script')
     @parent
-    <!-- pulsar::email_accounts.eidt -->
+    <!-- pulsar::email_account.eidt -->
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/bootstrap-inputmask/jquery.inputmask.min.js') }}"></script>
-    <!-- pulsar::email_accounts.create -->
+    <!-- pulsar::email_account.create -->
 @stop
 
 @section('rows')
-    <!-- pulsar::email_accounts.create -->
+    <!-- pulsar::email_account.create -->
     {!! $errors->first('error', config('pulsar.globalErrorDelimiters')) !!}
     @include('pulsar::includes.html.form_text_group', ['label' => 'ID', 'value' => $object->id_013, 'name' => 'id', 'readOnly' => true, 'fieldSize' => 2])
     @include('pulsar::includes.html.form_text_group', ['label' => trans('pulsar::pulsar.name'), 'name' => 'name', 'value' => $object->name_013, 'maxLength' => '100', 'rangeLength' => '2,100', 'required' => true ])
@@ -27,5 +27,5 @@
     @include('pulsar::includes.html.form_text_group', ['type' => 'password', 'label' => trans_choice('pulsar::pulsar.password', 1), 'name' => 'incomingPass', 'value' => Input::old('incomingPass'), 'maxLength' => '100', 'rangeLength' => '2,100', 'fieldSize' => 5])
     @include('pulsar::includes.html.form_select_group', ['label' => trans('pulsar::pulsar.incoming_secure'), 'name' => 'incomingSecure', 'value' => $object->incoming_secure_013, 'objects' => $incomingSecures, 'idSelect' => 'id', 'nameSelect' => 'name', 'class' => 'form-control', 'fieldSize' => 5])
     @include('pulsar::includes.html.form_text_group', ['label' => trans('pulsar::pulsar.port'), 'name' => 'incomingPort', 'value' => $object->incoming_port_013, 'fieldSize' => 2, 'data' => ['mask' => '9?99']])
-    <!-- /pulsar::email_accounts.create -->
+    <!-- /pulsar::email_account.create -->
 @stop

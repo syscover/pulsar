@@ -2,7 +2,7 @@
 
 @section('script')
     @parent
-    <!-- pulsar::email_accounts.index -->
+    <!-- pulsar::email_account.index -->
     <script type="text/javascript">
         $(document).ready(function() {
             if ($.fn.dataTable)
@@ -21,7 +21,7 @@
             }
         });
     </script>
-    <!-- /pulsar::email_accounts.index -->
+    <!-- /pulsar::email_account.index -->
 @stop
 
 @section('headButtons')
@@ -29,7 +29,7 @@
 @stop
 
 @section('tHead')
-    <!-- pulsar::email_accounts.index -->
+    <!-- pulsar::email_account.index -->
     <tr>
         <th data-hide="phone,tablet">ID.</th>
         <th data-hide="expand">{{ trans('pulsar::pulsar.name') }}</th>
@@ -37,5 +37,5 @@
         <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
         <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>
     </tr>
-    <!-- /pulsar::email_accounts.index -->
+    <!-- /pulsar::email_account.index -->
 @stop
