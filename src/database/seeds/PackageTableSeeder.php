@@ -13,7 +13,7 @@ class PackageTableSeeder extends Seeder
             ['id_012' => '3','name_012' => 'Comunik Package','active_012' => '0'],
             ['id_012' => '4','name_012' => 'Forms Package','active_012' => '0'],
             ['id_012' => '5','name_012' => 'Updater Package','active_012' => '0'],
-            ['id_012' => '6','name_012' => 'Forms Package','active_012' => '0'],
+            ['id_012' => '6','name_012' => '--','active_012' => '0'],
             ['id_012' => '7','name_012' => 'Hotels Package','active_012' => '0'],
             ['id_012' => '8','name_012' => 'Octopus Package','active_012' => '0'],
             ['id_012' => '9','name_012' => 'Marketplace Package','active_012' => '0'],
