@@ -158,5 +158,6 @@ return [
     'add_tag'                               => 'Añadir etiqueta',
     'attachment'                            => 'Adjunto|Adjuntos',
     'file'                                  => 'Fichero|Ficheros',
-    'video'                                 => 'Video|Videos'
+    'video'                                 => 'Video|Videos',
+    'library'                               => 'Librería|Librerías'
 ];

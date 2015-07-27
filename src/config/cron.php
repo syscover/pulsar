@@ -37,7 +37,7 @@ return [
     '07'       => function() {
         \Syscover\Comunik\Libraries\Cron::checkBouncedEmailsAccountsToQueue();
     },
-    //Cron comprobación de correos rebotados y número de correos en cada cuenta
+    //Cron comprobación de correos a enviar recibidos en el froms
     '08'       => function() {
         \Syscover\Forms\Libraries\Cron::checkMessageToSend();
     }

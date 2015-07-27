@@ -158,5 +158,6 @@ return [
     'add_tag'                               => 'Add tag',
     'attachment'                            => 'Attachment|Attachments',
     'file'                                  => 'File|Files',
-    'video'                                 => 'Video|Videos'
+    'video'                                 => 'Video|Videos',
+    'library'                               => 'Library|Libraries'
 ];
