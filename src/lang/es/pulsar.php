@@ -159,5 +159,7 @@ return [
     'attachment'                            => 'Adjunto|Adjuntos',
     'file'                                  => 'Fichero|Ficheros',
     'video'                                 => 'Video|Videos',
-    'library'                               => 'Librería|Librerías'
+    'library'                               => 'Librería|Librerías',
+    'size'                                  => 'Tamaño|Tamaños',
+    'type'                                  => 'Tipo',
 ];
