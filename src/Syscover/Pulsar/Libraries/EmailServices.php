@@ -80,7 +80,7 @@ este es un envío de pruebas, si está recibiendo este correo, su cuenta se ha c
         Config::set('mail.host',        $account['outgoing_server_013']);
         Config::set('mail.port',        $account['outgoing_port_013']);
         Config::set('mail.from',        ['address' => $account['email_013'], 'name' => $account['name_013']]);
-        Config::set('mail.encryption',  $account['outgoing_secure_013'] == ''? null : $account['secure_smtp_047']);
+        Config::set('mail.encryption',  $account['outgoing_secure_013'] == ''? null : $account['secure_smtp_013']);
         Config::set('mail.username',    $account['outgoing_user_013']);
         Config::set('mail.password',    Crypt::decrypt($account['outgoing_pass_013']));
 
