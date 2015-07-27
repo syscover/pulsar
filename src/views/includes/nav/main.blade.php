@@ -27,7 +27,7 @@
         @include('cms::includes.nav.main')
     @endif
 
-    @if(isset(session('packages')[4]) && session('packages')[4]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'form', 'access') && View::exists('forms::includes.nav.main'))
+    @if(isset(session('packages')[4]) && session('packages')[4]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'forms', 'access') && View::exists('forms::includes.nav.main'))
         @include('forms::includes.nav.main')
     @endif
 
