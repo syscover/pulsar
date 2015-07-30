@@ -69,7 +69,14 @@ php artisan migrate
 php artisan db:seed
 ```
 
-**10 - When the installation is complete you can access these data**
+**10 - Register cron command on file app/Console/Kernel.php add to $commands array**
+
+```
+\Syscover\Pulsar\Commands\Cron::class,
+
+```
+
+**11 - When the installation is complete you can access these data**
 ```
 url: http://www.your-domain.com/pulsar
 user: admin@pulsar.local
