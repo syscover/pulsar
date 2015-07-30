@@ -1,20 +1,17 @@
 <?php namespace Syscover\Pulsar\Commands;
 
-use Cron\CronExpression;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Config;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
+use Cron\CronExpression;
 use Syscover\Pulsar\Models\CronJob;
 
 class Cron extends Command {
 
 	/**
-	 * The console command name.
+	 * The name and signature of the console command.
 	 *
 	 * @var string
 	 */
-	protected $name = 'cron';
+	protected $signature = 'cron {--v : Cron version}';
 
 	/**
 	 * The console command description.
@@ -38,12 +35,11 @@ class Cron extends Command {
 	 *
 	 * @return mixed
 	 */
-	public function fire()
+	public function handle()
 	{
-        $version = $this->option('v');
-        if($version)
+        if($this->option('v'))
         {
-            $this->line("Cron Version 1.1");
+            $this->line("Cron Version 1.2");
             exit(0);
         }
 
@@ -53,9 +49,9 @@ class Cron extends Command {
 
         foreach($cronJobs as $cronJob)
         {
-            $comand = Config::get('cron.' . $cronJob->key_011);
+            $callable = config('cron.' . $cronJob->key_011);
 
-            $comand(); //run function
+			call_user_func($callable); // call to static method
 
             $cron = CronExpression::factory($cronJob->cron_expression_011);
 
@@ -64,27 +60,5 @@ class Cron extends Command {
                 'next_run_011'  => $cron->getNextRunDate()->getTimestamp()
             ));
         }
-	}
-
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return [];
-	}
-
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-        return [
-            ['v', null, InputOption::VALUE_NONE, 'Cron Version', null],
-        ];
 	}
 }
