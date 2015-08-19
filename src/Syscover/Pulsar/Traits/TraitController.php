@@ -306,7 +306,7 @@ trait TraitController {
         $parameters['objectTrans']    = isset($this->objectTrans) &&  $this->objectTrans != null? Miscellaneous::getObjectTransValue($parameters, $this->objectTrans) : null;
 
         // check if object has multiple language
-        if(isset($parameters['id']))
+        if(isset($parameters['id']) && isset($parameters['lang']))
         {
             if(method_exists($this->model, 'getCustomTranslationRecord'))
             {
