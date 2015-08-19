@@ -188,11 +188,11 @@ trait TraitController {
             }
             else
             {
-                //check special cases
+                //check special cases, allowed show or edit element if is the owner
                 $onlyEditOwner = !isset($this->jsonParam['onlyEditOwner']) || isset($this->jsonParam['onlyEditOwner']) && $aObject[$this->jsonParam['onlyEditOwner']] == Auth::user()->id_010;
                 $showIfNotEdit = !isset($this->jsonParam['showIfNotEdit']) || isset($this->jsonParam['showIfNotEdit']) && $this->jsonParam['showIfNotEdit'] && !$onlyEditOwner;
 
-                if((isset($this->jsonParam['show']) && $this->jsonParam['show'] == true))
+                if(($showIfNotEdit) && (isset($this->jsonParam['show']) && $this->jsonParam['show'] == true))
                 {
                     $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('show' . $this->routeSuffix, $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.view_record') . '"><i class="icon-eye-open"></i></a>' : null;
                 }
@@ -211,7 +211,7 @@ trait TraitController {
             if(isset($parameters['lang'])){
 
                 // gat active langs
-                $langs      = Lang::getActivesLangs();
+                $langs = Lang::getActivesLangs();
 
                 // set language to object
                 $jsonObject = json_decode($aObject['data_' . call_user_func($this->model . '::getSufix')]);
@@ -272,8 +272,6 @@ trait TraitController {
                 $actions .= '</ul>';
                 $actions .= '</div>';
             }
-
-
 
             $row[] =  $actions;
 
