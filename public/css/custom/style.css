@@ -313,3 +313,7 @@ img.ghost, img.main {
 .ui-autocomplete > li > a{
     text-decoration: none;
 }
+
+.image-index-list{
+    max-width: 100px; max-height: 50px
+}
