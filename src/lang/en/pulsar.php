@@ -162,4 +162,7 @@ return [
     'library'                               => 'Library|Libraries',
     'size'                                  => 'Size|Sizes',
     'type'                                  => 'Type',
+    'geolocation'                           => 'Geolocation|Geolocations',
+    'latitude'                              => 'Latitude',
+    'longitude'                             => 'Longitude',
 ];
