@@ -165,4 +165,6 @@ return [
     'geolocation'                           => 'Geolocation|Geolocations',
     'latitude'                              => 'Latitude',
     'longitude'                             => 'Longitude',
+    'fax'                                   => 'Fax',
+    'description'                           => 'Description|Descriptions',
 ];

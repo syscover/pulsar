@@ -2,6 +2,7 @@
 
 @section('content')
     <!-- pulsar::layouts.tab -->
+    @yield('layoutTabHeader')
     <div class="tabbable box-tabs">
         <ul class="nav nav-tabs">
             @foreach(array_reverse($tabs) as $tab)
@@ -16,5 +17,6 @@
         @endforeach
         </div>
     </div>
+    @yield('layoutTabFooter')
     <!-- /pulsar::layouts.tab -->
 @stop

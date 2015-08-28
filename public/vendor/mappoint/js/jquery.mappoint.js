@@ -241,6 +241,8 @@
                 }
             });
 
+            $('#' + this.options.inputSearchId).css('opacity', '1');
+
             return this;
         },
 

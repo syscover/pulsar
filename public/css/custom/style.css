@@ -317,3 +317,7 @@ img.ghost, img.main {
 .image-index-list{
     max-width: 100px; max-height: 50px
 }
+#locationMapWrapper{
+    width: 100%;
+    height:300px
+}
