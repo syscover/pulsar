@@ -69,6 +69,9 @@ trait TraitController {
         // get parameters from url route
         $parameters = $request->route()->parameters();
 
+        // get active langs if object has multiple langs
+        if(isset($parameters['lang'])) $langs = Lang::getActivesLangs();
+
         // table paginated
         $parameters =  Miscellaneous::paginateDataTable($parameters);
         // table sorting
@@ -208,11 +211,9 @@ trait TraitController {
                 }
             }
 
-            if(isset($parameters['lang'])){
-
-                // gat active langs
-                $langs = Lang::getActivesLangs();
-
+            // set lang selector on datatable
+            if(isset($parameters['lang']))
+            {
                 // set language to object
                 $jsonObject = json_decode($aObject['data_' . call_user_func($this->model . '::getSufix')]);
                 $colorFlag = "MY_green";
