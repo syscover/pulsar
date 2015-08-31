@@ -24,3 +24,7 @@
 .select2-container--default .select2-selection--multiple .select2-selection__rendered {
     padding: 0 3px;
 }
+
+.select2-container .select2-selection--single {
+    height: 32px !important;
+}

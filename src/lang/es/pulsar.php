@@ -167,4 +167,7 @@ return [
     'longitude'                             => 'Longitud',
     'fax'                                   => 'Fax',
     'description'                           => 'Descripción|Descripciones',
+    'feature'                               => 'Característica|Características',
+    'iban'                                  => 'IBAN',
+    'bic'                                   => 'SWIFT/BIC'
 ];

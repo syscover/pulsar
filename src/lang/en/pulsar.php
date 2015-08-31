@@ -107,7 +107,7 @@ return [
     'business'                              => 'Business|Business',
     'phone'                                 => 'Phone',
     'company_name'                          => 'Company name',
-    'company'                               => 'Company',
+    'company'                               => 'Company | Companies',
     'birthdate'                             => 'Birthdate',
     'tin'                                   => 'TIN',
     'web'                                   => 'Web',
@@ -167,4 +167,7 @@ return [
     'longitude'                             => 'Longitude',
     'fax'                                   => 'Fax',
     'description'                           => 'Description|Descriptions',
+    'feature'                               => 'Feature|Features',
+    'iban'                                  => 'IBAN',
+    'bic'                                   => 'SWIFT/BIC'
 ];
