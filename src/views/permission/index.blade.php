@@ -131,8 +131,8 @@
                         search_input.attr('placeholder', '{{ trans('pulsar::datatable.bSearch') }}')
                         search_input.addClass('form-control')
                         search_input.wrap('<div class="input-group"></div>');
-                        search_input.parent().prepend('<span class="input-group-addon"><i class="icon-search"></i></span>');
-                        //search_input.parent().prepend('<span class="input-group-addon"><i class="icon-search"></i></span>').css('width', '250px');
+                        search_input.parent().prepend('<span class="input-group-addon"><i class="fa fa-search"></i></span>');
+                        //search_input.parent().prepend('<span class="input-group-addon"><i class="fa fa-search"></i></span>').css('width', '250px');
 
                         // Responsive
                         if (typeof responsiveHelper != 'undefined') {
@@ -153,7 +153,7 @@
         <div class="col-md-12">
             <div class="widget box">
                 <div class="widget-header">
-                    <h4><i class="icon-reorder"></i> {{ trans_choice($objectTrans, 2) }}</h4>
+                    <h4><i class="fa fa-reorder"></i> {{ trans_choice($objectTrans, 2) }}</h4>
                     <div class="toolbar no-padding">
                         <div class="btn-group">
                             <span class="btn btn-xs widget-collapse"><i class="icon-angle-down"></i></span>

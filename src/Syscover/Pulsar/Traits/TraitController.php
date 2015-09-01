@@ -197,17 +197,17 @@ trait TraitController {
 
                 if(($showIfNotEdit) && (isset($this->jsonParam['show']) && $this->jsonParam['show'] == true))
                 {
-                    $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('show' . $this->routeSuffix, $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.view_record') . '"><i class="icon-eye-open"></i></a>' : null;
+                    $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('show' . $this->routeSuffix, $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.view_record') . '"><i class="fa fa-eye-open"></i></a>' : null;
                 }
 
                 if(($onlyEditOwner) && (isset($this->jsonParam['edit']) && $this->jsonParam['edit'] == true || !isset($this->jsonParam['edit'])))
                 {
-                    $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('edit' . $this->routeSuffix, $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="icon-pencil"></i></a>' : null;
+                    $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('edit' . $this->routeSuffix, $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="fa fa-pencil"></i></a>' : null;
                 }
 
                 if(isset($this->jsonParam['delete']) && $this->jsonParam['delete'] == true || !isset($this->jsonParam['delete']))
                 {
-                    $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete') ? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] . '" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . $this->routeSuffix, $actionUrlParameters) . '"><i class="icon-trash"></i></a>' : null;
+                    $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete') ? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] . '" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . $this->routeSuffix, $actionUrlParameters) . '"><i class="fa fa-trash"></i></a>' : null;
                 }
             }
 
@@ -230,7 +230,7 @@ trait TraitController {
                 }
 
                 $actions .= '<span class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
-                            <i class="brocco-icon-flag '.$colorFlag.'"></i> <i class="icon-angle-down"></i>
+                            <i class="brocco-icon-flag '.$colorFlag.'"></i> <i class="fa fa-angle-down"></i>
                         </span>
                         <ul class="dropdown-menu pull-right">';
 

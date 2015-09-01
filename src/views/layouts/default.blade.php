@@ -110,7 +110,7 @@
 
                     <!-- Only visible on smartphones, menu toggle -->
                     <ul class="nav navbar-nav">
-                        <li class="nav-toggle"><a href="javascript:void(0);"><i class="icon-reorder"></i></a></li>
+                        <li class="nav-toggle"><a href="javascript:void(0);"><i class="fa fa-reorder"></i></a></li>
                     </ul>
 
                     <!-- Logo -->
@@ -122,7 +122,7 @@
 
                     <!-- Sidebar Toggler -->
                     <a href="#" class="toggle-sidebar bs-tooltip" data-placement="bottom" data-original-title="Toggle navigation">
-                        <i class="icon-reorder"></i>
+                        <i class="fa fa-reorder"></i>
                     </a>
                     <!-- /Sidebar Toggler -->
 

@@ -113,7 +113,7 @@
                             search_input.attr('placeholder', '{{ trans('pulsar::datatable.bSearch') }}')
                             search_input.addClass('form-control')
                             search_input.wrap('<div class="input-group"></div>');
-                            search_input.parent().prepend('<span class="input-group-addon"><i class="icon-search"></i></span>');
+                            search_input.parent().prepend('<span class="input-group-addon"><i class="fa fa-search"></i></span>');
 
                             // Responsive
                             if (typeof responsiveHelper != 'undefined') {
@@ -122,7 +122,7 @@
 
                             @if(!isset($modal) || isset($modal) && !$modal)
                             // button to delete multiple records
-                            $("div.buttonsDataTables").html('<a class="btn" href="javascript:deleteRecords()">{{ trans('pulsar::pulsar.delete') }}</a>');
+                            $("div.buttonsDataTables").html('<a class="btn" href="javascript:deleteRecords()"><i class="fa fa-trash"></i> {{ trans('pulsar::pulsar.delete') }}</a>');
                             @endif
                         }
                     });
