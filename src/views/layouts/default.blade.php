@@ -18,10 +18,7 @@
         <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/css/icons.css') }}">
         <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/css/custom/icons.css') }}">
 
-        <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/css/fontawesome/font-awesome.min.css') }}">
-        <!--[if IE 7]>
-        <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/css/fontawesome/font-awesome-ie7.min.css') }}">
-        <![endif]-->
+        <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/css/fontawesome/css/font-awesome.min.css') }}">
 
         <!-- Custom fonts -->
         <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/css/font-syscover/styles.css') }}">

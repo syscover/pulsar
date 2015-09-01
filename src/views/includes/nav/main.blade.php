@@ -37,7 +37,7 @@
 
     @if(isset(session('packages')[2]) && session('packages')[2]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin', 'access'))
         <li{!! Miscellaneous::setCurrentOpenPage(['admin-user', 'admin-lang', 'admin-country', 'admin-country-at1', 'admin-country-at2', 'admin-country-at3', 'admin-package', 'admin-cron', 'admin-perm-profile', 'admin-perm-resource', 'admin-perm-action', 'admin-perm-perm', 'admin-email-account']) !!}>
-            <a href="javascript:void(0);"><i class="icon-cog"></i>{{ trans('pulsar::pulsar.administration') }}</a>
+            <a href="javascript:void(0);"><i class="fa fa-cog"></i>{{ trans('pulsar::pulsar.administration') }}</a>
             <ul class="sub-menu">
                 @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-user', 'access'))
                     <li{!! Miscellaneous::setCurrentPage('admin-user') !!}><a href="{{ route('User') }}"><i class="icomoon-icon-users"></i>{{ trans_choice('pulsar::pulsar.user', 2) }}</a></li>
@@ -55,11 +55,11 @@
                         <li{!! Miscellaneous::setCurrentPage('admin-cron') !!}><a href="{{ route('CronJob') }}"><i class="icomoon-icon-stopwatch"></i>{{ trans_choice('pulsar::pulsar.cronjob', 2) }}</a></li>
                 @endif
                 @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-email-account', 'access'))
-                        <li{!! Miscellaneous::setCurrentPage('admin-email-account') !!}><a href="{{ route('EmailAccount') }}"><i class="icon-envelope"></i>{{ trans_choice('pulsar::pulsar.account', 2) }}</a></li>
+                        <li{!! Miscellaneous::setCurrentPage('admin-email-account') !!}><a href="{{ route('EmailAccount') }}"><i class="fa fa-envelope"></i>{{ trans_choice('pulsar::pulsar.account', 2) }}</a></li>
                 @endif
                 @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-perm', 'access'))
                     <li{!! Miscellaneous::setOpenPage(['admin-perm-profile', 'admin-perm-resource', 'admin-perm-action', 'admin-perm-profile', 'admin-perm-perm']) !!}>
-                        <a href="javascript:void(0);"><i class="icon-user"></i>{{ trans_choice('pulsar::pulsar.permission', 2) }}<span class="arrow"></span></a>
+                        <a href="javascript:void(0);"><i class="fa fa-user"></i>{{ trans_choice('pulsar::pulsar.permission', 2) }}<span class="arrow"></span></a>
                         <ul class="sub-menu"{!! Miscellaneous::setDisplayPage(['admin-perm-resource', 'admin-perm-action', 'admin-perm-profile', 'admin-perm-perm']) !!}>
                             @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-perm-profile', 'access'))
                                 <li{!! Miscellaneous::setCurrentPage(array('admin-perm-profile', 'admin-perm-perm')) !!}><a href="{{ route('Profile') }}"><i class="icomoon-icon-users-2"></i>{{ trans_choice('pulsar::pulsar.profile', 2) }}</a></li>
