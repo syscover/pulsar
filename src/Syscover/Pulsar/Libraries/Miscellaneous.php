@@ -102,18 +102,19 @@ class Miscellaneous
         {
             return in_array($valueObject, $value);
         }
+
         if($value instanceof Collection)
         {
             foreach($value as $v)
             {
-                if($v->getKey() == $valueObject)
+                if($v->getKey() === $valueObject)
                 {
                     return true;
                 }
             }
             return false;
         }
-        elseif($value == $valueObject)
+        elseif($value === $valueObject)
         {
             return true;
         }
