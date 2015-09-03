@@ -46,7 +46,7 @@ Syscover\Pulsar\PulsarServiceProvider::class,
 **6 - To publish package, you must type on console**
 
 ```
-php artisan vendor:publish --force
+php artisan vendor:publish
 
 ```
 
