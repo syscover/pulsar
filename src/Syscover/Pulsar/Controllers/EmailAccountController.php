@@ -26,7 +26,7 @@ class EmailAccountController extends Controller {
     protected $aColumns     = ['id_013', 'name_013', ['data' => 'email_013', 'type' => 'email']];
     protected $nameM        = 'name_013';
     protected $model        = '\Syscover\Pulsar\Models\EmailAccount';
-    protected $icon         = 'icon-envelope';
+    protected $icon         = 'fa fa-envelope';
     protected $objectTrans  = 'account';
 
     public function createCustomRecord($parameters)
