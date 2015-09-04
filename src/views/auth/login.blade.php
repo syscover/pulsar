@@ -60,20 +60,20 @@
 
     <div class="form-group">
         <div class="input-icon">
-            <i class="icon-user"></i>
+            <i class="fa fa-user"></i>
             <input type="text" name="user_010" value="{{ Input::old('user_010') }}" class="form-control" placeholder="{{ trans_choice('pulsar::pulsar.user', 1) }}" autofocus="autofocus" data-rule-required="true" data-msg-required="{{ trans('pulsar::pulsar.message_user') }}">
         </div>
     </div>
     <div class="form-group">
         <div class="input-icon">
-            <i class="icon-lock"></i>
+            <i class="fa fa-lock"></i>
             <input type="password" name="password" class="form-control" placeholder="{{ trans('pulsar::pulsar.password') }}" data-rule-required="true" data-msg-required="{{ trans('pulsar::pulsar.message_pass') }}">
         </div>
     </div>
 
     <div class="form-actions">
         <button type="submit" class="submit btn btn-primary pull-right">
-            {{ trans('pulsar::pulsar.login') }} <i class="icon-angle-right"></i>
+            {{ trans('pulsar::pulsar.login') }} <i class="fa fa-angle-right"></i>
         </button>
     </div>
 </form>
@@ -84,7 +84,7 @@
 <div class="inner-box">
     <div class="content">
         <!-- Close Button -->
-        <i class="icon-remove close hide-default"></i>
+        <i class="fa fa-remove close hide-default"></i>
 
         <!-- Link as Toggle Button -->
         <a href="#" class="forgot-password-link">{{ trans('pulsar::pulsar.remember_password') }}</a>
@@ -95,7 +95,7 @@
 
             <div class="form-group">
                 <div class="input-icon">
-                    <i class="icon-envelope"></i>
+                    <i class="fa fa-envelope"></i>
                     <input type="email" name="email_010" class="form-control" placeholder="{{ trans('pulsar::pulsar.enter_email') }}" data-rule-required="true" data-rule-email="true" data-msg-required="{{ trans('pulsar::pulsar.error_reset_password') }}">
                 </div>
             </div>
@@ -109,11 +109,11 @@
         <!-- Shows up if reset-button was clicked -->
         <div class="forgot-password-done hide-default">
             <div class="forgot-password-ok">
-                <i class="icon-ok success-icon"></i>
+                <i class="fa fa-ok success-icon"></i>
                 <span>{{ trans('pulsar::pulsar.reset_password_successful') }}</span>
             </div>
             <div class="forgot-password-nook">
-                <i class="icon-remove danger-icon"></i>
+                <i class="fa fa-remove danger-icon"></i>
                 <span>{{ trans('pulsar::pulsar.error2_reset_password') }}</span>
             </div>
         </div>
