@@ -130,11 +130,11 @@
                     <ul class="nav navbar-nav navbar-left hidden-xs hidden-sm">
                         <li>
                             <a href="{{ route('dashboard') }}">
-                                <i class="icon-dashboard"></i> {{ trans('pulsar::pulsar.dashboard') }}
+                                <i class="fa fa-dashboard"></i> {{ trans('pulsar::pulsar.dashboard') }}
                             </a>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i> Settings <i class="icon-caret-down small"></i></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> Settings <i class="icon-caret-down small"></i></a>
                             <ul class="dropdown-menu">
                                 @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-google-services', 'access'))
                                     <li><a href="{{ route('googleServices') }}"><i class="icomoon-icon-google"></i>Google Services</a></li>
@@ -150,12 +150,12 @@
                         <!-- User Login Dropdown -->
                         <li class="dropdown user">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="icon-male"></i>
+                                <i class="fa fa-male"></i>
                                 <span class="username">{{ Auth::user()->user_010 }}</span>
                                 <i class="icon-caret-down small"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ route('logout') }}"><i class="icon-off"></i> {{ trans('pulsar::pulsar.logout') }}</a></li>
+                                <li><a href="{{ route('logout') }}"><i class="fa fa-power-off"></i> {{ trans('pulsar::pulsar.logout') }}</a></li>
                             </ul>
                         </li><!-- /user login dropdown -->
                     </ul><!-- /Top Right Menu -->
