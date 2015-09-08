@@ -326,8 +326,8 @@
         getActions: function()
         {
             return  '<td class="align-center">' + '<ul class="table-controls">' +
-                '<li><a href="javascript:void(0);" onclick="$.elementTable.editElement(\''+ this.options.id +'\', this)" class="btn btn-xs bs-tooltip btn-edit-' + this.options.id + '-popup" data-original-title="' + this.options.lang.editRecord + '"><i class="icon-pencil"></i></a></li>' +
-                '<li><a href="javascript:void(0);" onclick="$.elementTable.deleteElement(\''+ this.options.id +'\', this)" class="btn btn-xs bs-tooltip" data-original-title="' + this.options.lang.deleteRecord + '"><i class="icon-trash"></i></a></li>' +
+                '<li><a href="javascript:void(0);" onclick="$.elementTable.editElement(\''+ this.options.id +'\', this)" class="btn btn-xs bs-tooltip btn-edit-' + this.options.id + '-popup" data-original-title="' + this.options.lang.editRecord + '"><i class="fa fa-pencil"></i></a></li>' +
+                '<li><a href="javascript:void(0);" onclick="$.elementTable.deleteElement(\''+ this.options.id +'\', this)" class="btn btn-xs bs-tooltip" data-original-title="' + this.options.lang.deleteRecord + '"><i class="fa fa-trash"></i></a></li>' +
                 '</ul>' + '</td>';
         }
     };
