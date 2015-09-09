@@ -12,6 +12,7 @@
         });
     </script>
 @stop
+
 <a class="btn btn-info marginB10" id="{{ $id }}Bt" href="#"><i class="{{ $icon }}"></i> New {{ $label }}</a>
 <input type="hidden" name="{{ $id }}Data" value="{{ $dataJson or '[]' }}">
 <input type="hidden" name="{{ $id }}TBody" value="{{ json_encode($tbody) }}">
@@ -38,6 +39,7 @@
                     <div class="widget-content">
                         <form id="{{ $id }}Form" class="form-horizontal">
                             <input type="hidden" name="{{ $id }}Index">
+                            <?php unset($id) ?>
                             @foreach($tbody as $object)
                                 @include($object->include, $object->properties)
                             @endforeach

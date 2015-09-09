@@ -134,7 +134,7 @@
                             </a>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> Settings <i class="icon-caret-down small"></i></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> Settings <i class="fa fa-caret-down small"></i></a>
                             <ul class="dropdown-menu">
                                 @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-google-services', 'access'))
                                     <li><a href="{{ route('googleServices') }}"><i class="icomoon-icon-google"></i>Google Services</a></li>
@@ -152,7 +152,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-male"></i>
                                 <span class="username">{{ Auth::user()->user_010 }}</span>
-                                <i class="icon-caret-down small"></i>
+                                <i class="fa fa-caret-down small"></i>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ route('logout') }}"><i class="fa fa-power-off"></i> {{ trans('pulsar::pulsar.logout') }}</a></li>
@@ -177,7 +177,7 @@
                         <div class="crumbs">
                             <ul id="breadcrumbs" class="breadcrumb">
                                 <li>
-                                    <i class="icon-home"></i>
+                                    <i class="fa fa-home"></i>
                                     <a href="{{ route('dashboard') }}">{{ trans('pulsar::pulsar.dashboard') }}</a>
                                 </li>
                                 @if(View::exists($package . '::' . $folder . '.breadcrumbs'))

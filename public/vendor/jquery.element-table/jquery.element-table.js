@@ -36,9 +36,11 @@
                 mainClass: 'mfp-fade',
                 callbacks: {
                     open: function() {
-                        // set input to empty
+                        // delete  input to empty
                         $("#" + $this.options.id + "Form input[type=text]").val('');
                         $("#" + $this.options.id + "Form input[type=email]").val('');
+                        $("#" + $this.options.id + "Form input[type=number]").val('');
+                        $("#" + $this.options.id + "Form select").val('');
                         $("#" + $this.options.id + "Form input:checkbox").prop('checked', false).uniform();
 
                         // show add and hide update button
@@ -100,6 +102,7 @@
                     // check if td has a class
                     var $class = tBody[i].class != undefined ? ' class="' + tBody[i].class + '"' : '';
 
+                    // load values from form text fields
                     if(tBody[i].include == 'pulsar::includes.html.form_text_group')
                     {
                         if (tBody[i].properties.name != undefined)
@@ -109,6 +112,7 @@
                         }
                     }
 
+                    // load values from form checkbox fields
                     if(tBody[i].include == 'pulsar::includes.html.form_checkbox_group')
                     {
                         if(data[j][tBody[i].properties.name])
@@ -120,6 +124,26 @@
                         {
                             // get value from input and create td to text component
                             row += '<td' + $class + '></td>';
+                        }
+                    }
+
+                    // function to obtain text from option selected
+                    if(tBody[i].include == 'pulsar::includes.html.form_select_group')
+                    {
+                        if (tBody[i].properties.name != undefined)
+                        {
+                            // from each object saved from select data, search your id to obtain text selected
+                            var textSelectvalue = null;
+                            $.each(tBody[i].properties.objects, function(index, object){
+                                if(object.id == data[j][tBody[i].properties.name])
+                                {
+                                    textSelectvalue = object.name;
+                                    return false;
+                                }
+                            });
+
+                            // get value from input and create td to text component
+                            row += '<td' + $class + '>' + textSelectvalue + '</td>';
                         }
                     }
                 }
@@ -141,6 +165,7 @@
             });
         },
 
+        // Add element to input JSON data and row element
         addElement: function()
         {
             var tBody = JSON.parse($("[name=" + this.options.id + "TBody]").val());
@@ -188,6 +213,21 @@
                         dataRow[tBody[i].properties.name] =  false;
                     }
                 }
+
+                if(tBody[i].include == 'pulsar::includes.html.form_select_group')
+                {
+                    if (tBody[i].properties.name != undefined)
+                    {
+                        // get text from input select and create td
+                        row += '<td' + $class + '>' + $("[name=" + tBody[i].properties.name + "] option:selected").text() + '</td>';
+
+                        // get value to construct json object
+                        dataRow[tBody[i].properties.name] =  $("[name=" + tBody[i].properties.name + "]").val();
+
+                        // reset input value
+                        $("#" + this.options.id + "Form [name=" + tBody[i].properties.name + "]").val('');
+                    }
+                }
             }
 
             // get data
@@ -225,12 +265,12 @@
 
             for(var i=0; i < tBody.length; i++)
             {
-                if(tBody[i].include == 'pulsar::includes.html.form_text_group')
+                if(tBody[i].include == 'pulsar::includes.html.form_text_group' || tBody[i].include == 'pulsar::includes.html.form_select_group')
                 {
                     if(tBody[i].properties.name != undefined)
                     {
                         // set value on input from json data
-                        $("[name=" + tBody[i].properties.name + "]").val(data[index][tBody[i].properties.name]);
+                        $("#" + this.options.id + "Popup [name=" + tBody[i].properties.name + "]").val(data[index][tBody[i].properties.name]);
                     }
                 }
 
@@ -238,17 +278,15 @@
                 {
                     if(data[index][tBody[i].properties.name])
                     {
-                        $("[name=" + tBody[i].properties.name + "]").prop('checked', true).uniform();
+                        $("#" + this.options.id + "Popup [name=" + tBody[i].properties.name + "]").prop('checked', true).uniform();
                     }
                     else
                     {
-                        $("[name=" + tBody[i].properties.name + "]").prop('checked', false).uniform();
+                        $("#" + this.options.id + "Popup [name=" + tBody[i].properties.name + "]").prop('checked', false).uniform();
                     }
                 }
             }
         },
-
-
 
         updateElement: function()
         {
@@ -269,7 +307,7 @@
                         dataRow[tBody[i].properties.name] = $("[name=" + tBody[i].properties.name + "]").val();
 
                         // reset input value
-                        $("[name=" + tBody[i].properties.name + "]").val('');
+                        $("#" + this.options.id + "Popup [name=" + tBody[i].properties.name + "]").val('');
                     }
                 }
 
@@ -284,7 +322,7 @@
                         dataRow[tBody[i].properties.name] = true;
 
                         // reset input value
-                        $("[name=" + tBody[i].properties.name + "]").prop('checked', false).uniform();
+                        $("#" + this.options.id + "Popup [name=" + tBody[i].properties.name + "]").prop('checked', false).uniform();
                     }
                     else
                     {
@@ -293,6 +331,21 @@
 
                         // get value to construct json object
                         dataRow[tBody[i].properties.name] = false;
+                    }
+                }
+
+                if(tBody[i].include == 'pulsar::includes.html.form_select_group')
+                {
+                    if (tBody[i].properties.name != undefined)
+                    {
+                        // set value on td
+                        $("#" + this.options.id + " tbody tr:eq(" + index + ") td:eq(" + i + ")").html($("[name=" + tBody[i].properties.name + "] option:selected").text());
+
+                        // get value to construct json object
+                        dataRow[tBody[i].properties.name] = $("[name=" + tBody[i].properties.name + "]").val();
+
+                        // reset input value
+                        $("#" + this.options.id + "Popup [name=" + tBody[i].properties.name + "]").val('');
                     }
                 }
             }
