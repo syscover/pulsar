@@ -45,7 +45,7 @@
 				success_icon: "icon-ok-sign",
 				error: "alert-error",
 				error_icon: "icon-warning-sign",
-				closer: "icon-remove",
+				closer: "fa fa-times",
 				pin_up: "icon-pause",
 				pin_down: "icon-play",
 				hi_menu: "well",
