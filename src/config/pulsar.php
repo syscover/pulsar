@@ -22,4 +22,7 @@ return [
     //***
     //**************************************
     'datePattern'               => 'd-m-Y',
+
+    // app name and url access to application
+    'froalaEditorKey'           => env('FROALA_EDITOR_KEY', 'your editor key'),
 ];
