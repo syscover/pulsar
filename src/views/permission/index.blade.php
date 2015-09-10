@@ -156,7 +156,7 @@
                     <h4><i class="fa fa-reorder"></i> {{ trans_choice($objectTrans, 2) }}</h4>
                     <div class="toolbar no-padding">
                         <div class="btn-group">
-                            <span class="btn btn-xs widget-collapse"><i class="icon-angle-down"></i></span>
+                            <span class="btn btn-xs widget-collapse"><i class="fa fa-angle-down"></i></span>
                         </div>
                     </div>
                 </div>

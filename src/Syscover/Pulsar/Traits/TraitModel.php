@@ -124,6 +124,13 @@ trait TraitModel {
 
     }
 
+    /**
+     * @access	public
+     * @param   int $id
+     * @param   string $lang
+     * @param   string|null $jsonData
+     * @return	string
+     */
     public static function addLangDataRecord($id, $lang)
     {
         $instance   = new static;
@@ -131,12 +138,12 @@ trait TraitModel {
 
         if($object != null)
         {
-            $jsonObject             = json_decode($object->{'data_' . $instance->sufix});
-            $jsonObject->langs[]    = $lang;
-            $jsonString             = json_encode($jsonObject);
+            $jsonObject = json_decode($object->{'data_lang_' . $instance->sufix});
+            $jsonObject->langs[] = $lang;
+            $jsonString = json_encode($jsonObject);
 
             $instance::where($instance->getKeyName(), $id)->update([
-                'data_' . $instance->sufix  => $jsonString
+                'data_lang_' . $instance->sufix => $jsonString
             ]);
         }
         else
@@ -154,7 +161,7 @@ trait TraitModel {
 
         if($object != null)
         {
-            $jsonObject = json_decode($object->{'data_' . $instance->sufix});
+            $jsonObject = json_decode($object->{'data_lang_' . $instance->sufix});
 
             //unset isn't correct, get error to reorder array
             $newArrayLang = [];
@@ -169,7 +176,7 @@ trait TraitModel {
             $jsonString = json_encode($jsonObject);
 
             $instance::where($instance->getKeyName(), $id)->update([
-                'data_' . $instance->sufix  => $jsonString
+                'data_lang_' . $instance->sufix  => $jsonString
             ]);
         }
     }

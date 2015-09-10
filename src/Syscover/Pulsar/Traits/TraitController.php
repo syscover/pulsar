@@ -215,7 +215,7 @@ trait TraitController {
             if(isset($parameters['lang']))
             {
                 // set language to object
-                $jsonObject = json_decode($aObject['data_' . call_user_func($this->model . '::getSufix')]);
+                $jsonObject = json_decode($aObject['data_lang_' . call_user_func($this->model . '::getSufix')]);
                 $colorFlag = "MY_green";
 
                 foreach ($langs as $lang)

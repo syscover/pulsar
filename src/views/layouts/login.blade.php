@@ -29,7 +29,7 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
         
         <!-- LIBS CSS PROPIAS -->
-        <link href="{{ asset('packages/syscover/pulsar/plugins/pnotify/jquery.pnotify.default.css') }}" type="text/css" rel="stylesheet">
+        <link href="{{ asset('packages/syscover/pulsar/vendor/pnotify/pnotify.custom.min.css') }}" type="text/css" rel="stylesheet">
         <link href="{{ asset('packages/syscover/pulsar/css/custom/style.css') }}" type="text/css" rel="stylesheet">
         <link href="{{ asset('packages/syscover/pulsar/vendor/cssloader/css/cssloader.css') }}" type="text/css" rel="stylesheet">
 
@@ -58,7 +58,7 @@
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/nprogress/nprogress.js') }}"></script>
         
         <!-- Mensajes -->
-        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/pnotify/jquery.pnotify.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/pnotify/pnotify.custom.min.js') }}"></script>
                 
         <!-- Librerías JS y JS inline -->
         @yield('script')

@@ -168,9 +168,12 @@
         // Add element to input JSON data and row element
         addElement: function()
         {
-            var tBody = JSON.parse($("[name=" + this.options.id + "TBody]").val());
-            var row = '<tr>';
+            var tBody   = JSON.parse($("[name=" + this.options.id + "TBody]").val());
+            var row     = '<tr>';
             var dataRow = {};
+            // get json data to add new dataRow
+            var data    = JSON.parse($("[name=" + this.options.id + "Data]").val());
+
             for(var i=0; i < tBody.length; i++)
             {
                 // check if td has a class
@@ -230,8 +233,7 @@
                 }
             }
 
-            // get data
-            var data = JSON.parse($("[name=" + this.options.id + "Data]").val());
+
             data.push(dataRow);
             $("[name=" + this.options.id + "Data]").val(JSON.stringify(data));
 
@@ -353,7 +355,7 @@
             // get data
             var data = JSON.parse($("[name=" + this.options.id + "Data]").val());
 
-            // extend objetc to edit elements with properties not publics
+            // extend object to edit elements to keep non-public properties
             data[index] = $.extend({}, data[index], dataRow||{});
 
             $("[name=" + this.options.id + "Data]").val(JSON.stringify(data));

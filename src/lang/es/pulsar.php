@@ -168,6 +168,7 @@ return [
     'fax'                                   => 'Fax',
     'description'                           => 'Descripción|Descripciones',
     'feature'                               => 'Característica|Características',
+    'label'                                 => 'Etiqueta|Etiquetas',
     'iban'                                  => 'IBAN',
     'bic'                                   => 'SWIFT/BIC'
 ];

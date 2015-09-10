@@ -72,7 +72,7 @@ class CountryController extends Controller {
             'territorial_area_1_002'    => Request::input('territorialArea1'),
             'territorial_area_2_002'    => Request::input('territorialArea2'),
             'territorial_area_3_002'    => Request::input('territorialArea3'),
-            'data_002'                  => Country::addLangDataRecord(Request::input('id'), Request::input('lang'))
+            'data_lang_002'             => Country::addLangDataRecord(Request::input('id'), Request::input('lang'))
         ]);
     }
     
