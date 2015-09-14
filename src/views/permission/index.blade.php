@@ -42,25 +42,21 @@
                                 },
                                 dataType: 'text',
                                 success: function(data) {
-                                    $.pnotify({
+                                    new PNotify({
                                         type:   'success',
                                         title:  '{{ trans('pulsar::pulsar.action_successful') }}',
                                         text:   '{!! trans('pulsar::pulsar.message_create_permission_successful', ['action' => '\' + dataEvent.text + \'', 'resource'=> '\' + $(element).data(\'nresource\') + \'']) !!}',
-                                        icon:   'picon icon16 iconic-icon-check-alt white',
-                                        opacity: 0.95,
-                                        history: false,
-                                        sticker: false
+                                        opacity: .9,
+                                        styling: 'fontawesome'
                                     });
                                 },
                                 error: function () {
-                                    $.pnotify({
+                                    new PNotify({
                                         type:   'error',
                                         title:  '{{ trans('pulsar::pulsar.action_error') }}',
                                         text:   '{!! trans('pulsar::pulsar.message_create_permission_error', ['action'=> '\' + dataEvent.text + \'', 'resource'=> '\' + $(element).data(\'nresource\') + \'']) !!}',
-                                        icon:   'picon icon16 iconic-icon-check-alt white',
-                                        opacity: 0.95,
-                                        history: false,
-                                        sticker: false
+                                        opacity: .9,
+                                        styling: 'fontawesome'
                                     });
                                 }
                             });
@@ -79,25 +75,21 @@
                                 },
                                 dataType: 'text',
                                 success: function(data) {
-                                    $.pnotify({
+                                    new PNotify({
                                         type:   'success',
                                         title:  '{{ trans('pulsar::pulsar.action_successful') }}',
                                         text:   '{!! trans('pulsar::pulsar.message_delete_permission_successful', ['action'=> '\' + dataEvent.text + \'', 'resource'=> '\' + $(element).data(\'nresource\') + \'']) !!}',
-                                        icon:   'picon icon16 iconic-icon-check-alt white',
-                                        opacity: 0.95,
-                                        history: false,
-                                        sticker: false
+                                        opacity: .9,
+                                        styling: 'fontawesome'
                                     });
                                 },
                                 error: function (xhr, ajaxOptions, thrownError) {
-                                    $.pnotify({
+                                    new PNotify({
                                         type:   'error',
                                         title:  '{{ trans('pulsar::pulsar.action_error') }}',
                                         text:   '{!! trans('pulsar::pulsar.message_delete_permission_error', ['action'=> '\' + dataEvent.text + \'', 'resource'=> '\' + $(element).data(\'nresource\') + \'']) !!}',
-                                        icon:   'picon icon16 iconic-icon-check-alt white',
-                                        opacity: 0.95,
-                                        history: false,
-                                        sticker: false
+                                        opacity: .9,
+                                        styling: 'fontawesome'
                                     });
                                 }
                             });

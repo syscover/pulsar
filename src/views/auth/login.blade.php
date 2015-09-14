@@ -6,39 +6,33 @@
     <script type="text/javascript">
         $(document).ready(function() {
             @if($errors->has('loginErrors') && $errors->first('loginErrors') == 1)
-            $.pnotify({
+            new PNotify({
                 type:   'error',
                 title:  '{{ trans('pulsar::pulsar.message_error_login') }}',
                 text:   '{{ trans('pulsar::pulsar.message_error_login_msg_1') }}',
-                icon:   'picon icon16 icon-warning-sign white',
-                opacity: 0.95,
-                history: false,
-                sticker: false
+                opacity: .9,
+                styling: 'fontawesome'
             });
             @endif
 
             @if($errors->has('loginErrors') && $errors->first('loginErrors') == 2)
-            $.pnotify({
+            new PNotify({
                 type:   'error',
                 title:  '{{ trans('pulsar::pulsar.message_error_login') }}',
                 text:   '{{ trans('pulsar::pulsar.message_error_login_msg_2') }}',
-                icon:   'picon icon16 icon-warning-sign white',
-                opacity: 0.95,
-                history: false,
-                sticker: false
+                opacity: .9,
+                styling: 'fontawesome'
             });
             @endif
 
             // user don
             @if($errors->has('loginErrors') && $errors->first('loginErrors') == 3)
-            $.pnotify({
+            new PNotify({
                 type:   'error',
                 title:  '{{ trans('pulsar::pulsar.message_error_login') }}',
                 text:   '{{ trans('pulsar::pulsar.message_error_login_msg_3') }}',
-                icon:   'picon icon16 icon-warning-sign white',
-                opacity: 0.95,
-                history: false,
-                sticker: false
+                opacity: .9,
+                styling: 'fontawesome'
             });
             @endif
         });
