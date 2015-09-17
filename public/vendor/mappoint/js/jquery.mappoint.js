@@ -20,6 +20,7 @@
             zoom:                       5,
             searcher:                   true,
             style:                      null,
+            showMarker:                 false,
             icon: {
                 dotColor:       '#000000',
                 fillColor:      '#E81E25',
@@ -133,8 +134,30 @@
                 }
             };
 
+
+
+
             // create Google map
             this.properties.map = new google.maps.Map(document.getElementById(this.options.locationMapWrapper), mapOptions);
+
+            // show marker to init maps
+            if(this.options.showMarker)
+            {
+                // Create a init marker to add map.
+                var marker = new google.maps.Marker({
+                    map:        this.properties.map,
+                    icon:       icon,
+                    shape:      shape,
+                    draggable:  true,
+                    clickable:  true,
+                    position:   {lat: this.options.lat, lng: this.options.lng}
+                });
+
+                this.properties.markers.push(marker);
+
+                // set events to marker
+                this.setMarkersEvents(marker);
+            }
 
             // Opción para dar etilo al mapa
             if(this.options.style != null) this.properties.map.setOptions({styles: this.options.style});
@@ -177,56 +200,8 @@
 
                     bounds.extend(place.geometry.location);
 
-                    google.maps.event.addListener(marker, 'drag', function(){
-                        this.setAnimation(null);
-                        $('[name='+ that.options.latitudeInput +']').val(parseFloat(this.getPosition().lat())).removeClass('empty');
-                        $('[name='+ that.options.longitudeInput +']').val(parseFloat(this.getPosition().lng())).removeClass('empty');
-                    });
-
-                    google.maps.event.addListener(marker, 'dragend', function(){
-                        that.removeAllMarkers();
-                        var visibleMarkers=[];
-
-                        $.each(that.properties.markers, function(index, marker){
-                            if (that.properties.map.getBounds().contains(that.properties.markers[index].getPosition())) {
-                                visibleMarkers.push(that.properties.markers[index]);
-                                that.properties.markers[index].setAnimation(null);
-                            }
-                        });
-
-                        that.properties.markers = visibleMarkers;
-                        that.setVisibleMarkers()
-                        this.setAnimation(google.maps.Animation.BOUNCE);
-
-                        $('[name='+ that.options.latitudeInput +']').val(parseFloat(this.getPosition().lat())).removeClass('empty');
-                        $('[name='+ that.options.longitudeInput +']').val(parseFloat(this.getPosition().lng())).removeClass('empty');
-                    });
-
-                    google.maps.event.addListener(marker, 'click', function(){
-                        that.properties.map.panTo(this.getPosition());
-                        that.properties.map.setZoom(that.properties.map.getZoom() + 2);
-
-                        that.removeAllMarkers()
-
-                        var visibleMarkers=[];
-                        $.each(that.properties.markers, function(index, marker){
-                            if (that.properties.map.getBounds().contains(that.properties.markers[index].getPosition())) {
-                                visibleMarkers.push(that.properties.markers[index]);
-                                that.properties.markers[index].setAnimation(null);
-                            }
-                        });
-
-                        that.properties.markers = visibleMarkers;
-                        that.setVisibleMarkers();
-                        this.setAnimation(google.maps.Animation.BOUNCE);
-
-                        $('[name='+ that.options.latitudeInput +']').val(parseFloat(this.getPosition().lat())).removeClass('empty');
-                        $('[name='+ that.options.longitudeInput +']').val(parseFloat(this.getPosition().lng())).removeClass('empty');
-                    });
-
-                    google.maps.event.addListener(marker, 'mousedown', function(){
-                        this.setAnimation(null);
-                    });
+                    // set events to marker
+                    that.setMarkersEvents(marker);
 
                 });
 
@@ -244,6 +219,64 @@
             $('#' + this.options.inputSearchId).css('opacity', '1');
 
             return this;
+        },
+
+        setMarkersEvents: function(marker)
+        {
+            var that = this;
+
+            // listener when marker it's start moved
+            google.maps.event.addListener(marker, 'drag', function(){
+                this.setAnimation(null);
+                $('[name='+ that.options.latitudeInput +']').val(parseFloat(this.getPosition().lat())).removeClass('empty');
+                $('[name='+ that.options.longitudeInput +']').val(parseFloat(this.getPosition().lng())).removeClass('empty');
+            });
+
+            // listener when marker it's end moved
+            google.maps.event.addListener(marker, 'dragend', function(){
+                that.removeAllMarkers();
+                var visibleMarkers=[];
+
+                $.each(that.properties.markers, function(index, marker){
+                    if (that.properties.map.getBounds().contains(that.properties.markers[index].getPosition())) {
+                        visibleMarkers.push(that.properties.markers[index]);
+                        that.properties.markers[index].setAnimation(null);
+                    }
+                });
+
+                that.properties.markers = visibleMarkers;
+                that.setVisibleMarkers()
+                this.setAnimation(google.maps.Animation.BOUNCE);
+
+                $('[name='+ that.options.latitudeInput +']').val(parseFloat(this.getPosition().lat())).removeClass('empty');
+                $('[name='+ that.options.longitudeInput +']').val(parseFloat(this.getPosition().lng())).removeClass('empty');
+            });
+
+            google.maps.event.addListener(marker, 'click', function(){
+                that.properties.map.panTo(this.getPosition());
+                that.properties.map.setZoom(that.properties.map.getZoom() + 2);
+
+                that.removeAllMarkers()
+
+                var visibleMarkers=[];
+                $.each(that.properties.markers, function(index, marker){
+                    if (that.properties.map.getBounds().contains(that.properties.markers[index].getPosition())) {
+                        visibleMarkers.push(that.properties.markers[index]);
+                        that.properties.markers[index].setAnimation(null);
+                    }
+                });
+
+                that.properties.markers = visibleMarkers;
+                that.setVisibleMarkers();
+                this.setAnimation(google.maps.Animation.BOUNCE);
+
+                $('[name='+ that.options.latitudeInput +']').val(parseFloat(this.getPosition().lat())).removeClass('empty');
+                $('[name='+ that.options.longitudeInput +']').val(parseFloat(this.getPosition().lng())).removeClass('empty');
+            });
+
+            google.maps.event.addListener(marker, 'mousedown', function(){
+                this.setAnimation(null);
+            });
         },
 
         removeAllMarkers: function()
@@ -297,11 +330,26 @@
      */
     $.mapPoint.setOptions = function(options, callback) {
 
-        // Get object
-        var obj = $.data(document, 'getAddress' + options.id);
+        if(options.id == null)
+        {
+            var obj = $.data(document, 'mapPoint');
+        }
+        else
+        {
+            var obj = $.data(document, 'mapPoint' + options.id);
+        }
+
+        // extend options.icon
+        if(obj.icon != undefined) obj.icon = $.extend({}, obj.options, options.icon||{});
+
+        // extend options.customIcon
+        if(obj.customIcon != undefined) obj.customIcon = $.extend({}, obj.options.customIcon, options.customIcon||{});
 
         // extend properties and execute country change to set new values
         obj.options =  $.extend({}, obj.options, options || {});
+
+
+
         if(obj.options.countryValue != null && obj.options.countryValue != '')
         {
             $("[name='" + obj.options.countrySelect + "']").val(obj.options.countryValue).trigger("change");

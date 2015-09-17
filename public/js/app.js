@@ -246,8 +246,8 @@ var App = function() {
 	}
 
 	var handleSidebarMenu = function() {
-		var arrow_class_open   = 'icon-angle-down',
-			arrow_class_closed = 'icon-angle-left';
+		var arrow_class_open   = 'fa fa-angle-down',
+			arrow_class_closed = 'fa fa-angle-left';
 
 		$('li:has(ul)', '#sidebar-content ul').each(function() {
 			if ($(this).hasClass('current') || $(this).hasClass('open-default')) {
