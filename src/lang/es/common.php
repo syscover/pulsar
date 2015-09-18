@@ -33,7 +33,7 @@ return [
     'may'                                   => 'Mayo',
     'june'                                  => 'Junio',
     'july'                                  => 'Julio',
-    'august '                               => 'Agosto',
+    'august'                                => 'Agosto',
     'september'                             => 'Septiembre',
     'october'                               => 'Octubre',
     'november'                              => 'Noviembre',
