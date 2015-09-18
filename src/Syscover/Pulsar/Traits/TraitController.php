@@ -608,14 +608,31 @@ trait TraitController {
         // get parameters from url route
         $parameters = $request->route()->parameters();
 
-        $object = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], $parameters['lang']);
+        if(isset($this->langModel))
+        {
+            $object = call_user_func($this->langModel . '::getTranslationRecord', $parameters['id'], $parameters['lang']);
+        }
+        else
+        {
+            $object = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], $parameters['lang']);
+        }
 
         if(method_exists($this, 'deleteCustomTranslationRecord'))
         {
             $this->deleteCustomTranslationRecord($object);
         }
 
-        call_user_func($this->model . '::deleteTranslationRecord', $parameters['id'], $parameters['lang']);
+        if(isset($this->langModel))
+        {
+            // this option is to tables that dependent of other tables to set your languages
+            call_user_func($this->langModel . '::deleteTranslationRecord', $parameters['id'], $parameters['lang'], false);
+            // this kind of tables has field data_lang in main table, not in language table
+            call_user_func($this->model . '::deleteLangDataRecord', $parameters['id'], $parameters['lang']);
+        }
+        else
+        {
+            call_user_func($this->model . '::deleteTranslationRecord', $parameters['id'], $parameters['lang']);
+        }
 
         return redirect()->route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,

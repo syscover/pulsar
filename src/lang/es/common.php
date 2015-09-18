@@ -33,9 +33,9 @@ return [
     'may'                                   => 'Mayo',
     'june'                                  => 'Junio',
     'july'                                  => 'Julio',
-    'August '                               => 'Agosto',
-    'September'                             => 'Septiembre',
-    'October'                               => 'Octubre',
-    'November'                              => 'Noviembre',
-    'December'                              => 'Diciembre'
+    'august '                               => 'Agosto',
+    'september'                             => 'Septiembre',
+    'october'                               => 'Octubre',
+    'november'                              => 'Noviembre',
+    'december'                              => 'Diciembre'
 ];

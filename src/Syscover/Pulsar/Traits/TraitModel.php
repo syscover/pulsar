@@ -91,14 +91,18 @@ trait TraitModel {
      * @access	public
      * @param   mixed     $id
      * @param   string    $lang
+     * @param   boolean   $deleteLangDataRecord
      * @return	void
      */
-    public static function deleteTranslationRecord($id, $lang)
+    public static function deleteTranslationRecord($id, $lang, $deleteLangDataRecord = true)
     {
         $instance = new static;
         $instance::where($instance->getKeyName(), $id)->where('lang_' . $instance->sufix, $lang)->delete();
 
-        $instance::deleteLangDataRecord($id, $lang);
+        if($deleteLangDataRecord)
+        {
+            $instance::deleteLangDataRecord($id, $lang);
+        }
     }
 
     /**

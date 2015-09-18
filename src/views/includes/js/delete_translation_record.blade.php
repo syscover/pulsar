@@ -1,4 +1,4 @@
-<!-- pulsar::includes.js.delete_lang_record -->
+<!-- pulsar::includes.js.delete_translation_record -->
 <script type="text/javascript">
     $(document).ready(function() {
         $('.delete-lang-record').bind('click', function() {
@@ -22,4 +22,4 @@
         });
     });
 </script>
-<!-- /pulsar::includes.js.delete_lang_record -->
+<!-- /pulsar::includes.js.delete_translation_record -->
