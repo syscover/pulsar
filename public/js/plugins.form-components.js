@@ -56,6 +56,19 @@ var FormComponents = function() {
 	/**************************
 	 * Tags                   *
 	 **************************/
+/*
+	var initTags = function() {
+		if ($.fn.tagsInput) {
+			// Initialize and set default options
+			$('.tags').tagsinput({
+				width: '100%',
+			 	height: 'auto',
+			 	defaultText: 'add a tag'
+			});
+		}
+	}
+	*/
+	/*
 	var initTags = function() {
 		if ($.fn.tagsInput) {
 			// Initialize and set default options
@@ -66,7 +79,7 @@ var FormComponents = function() {
 			});
 		}
 	}
-
+*/
 	/**************************
 	 * Spinner                *
 	 **************************/
@@ -229,7 +242,7 @@ var FormComponents = function() {
 			initAutosize(); // Elastic textareas
 			initInputlimiter(); // Input limiter
 			initUniform(); // Uniform (styled radio- and checkboxes)
-			initTags(); // TagsInput
+			//initTags(); // TagsInput
 			initSpinner(); // Spinner
 			initDualListBox(); // Dual Select Boxes
 			initValidation(); // Validation

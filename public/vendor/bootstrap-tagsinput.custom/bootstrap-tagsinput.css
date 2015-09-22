@@ -1,0 +1,13 @@
+.bootstrap-tagsinput {
+  padding: 1px 6px;
+  width: 100%;
+  min-height: 32px;
+}
+.bootstrap-tagsinput input {
+  padding: 0px 6px !important;
+  height: 28px;
+}
+.bootstrap-tagsinput .tag {
+  line-height: 2.4;
+  font-size: 12px;
+}
