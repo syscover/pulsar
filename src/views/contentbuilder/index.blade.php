@@ -42,11 +42,12 @@
 @stop
 
 @section('mainContent')
-    <div class="froala-box">
-        <div class="froala-editor f-basic f-scroll">
+    <!-- toolbar to contentbuider -->
+    <div class="fr-box fr-top fr-basic">
+        <div class="fr-toolbar fr-ltr fr-desktop fr-top fr-basic fr-sticky fr-sticky-off">
             <div class="bttn-wrapper" id="bttn-wrapper-1">
-                <button tabindex="-1" type="button" class="fr-bttn" title="Bold" data-cmd="bold"><i class="fa fa-tachometer"></i></button>
-                <button tabindex="-1" type="button" class="fr-bttn" title="Fullscreen" data-cmd="fullscreen"><i class="fa fa-expand"></i></button>
+                <!-- <a role="button" tabindex="-1" class="fr-command fr-btn fr-visible-sm fr-visible-md" data-cmd=""><i class="fa fa-tachometer"></i></a> -->
+                <a role="button" tabindex="-1" class="fr-command fr-btn fr-visible-sm fr-visible-md" data-cmd="fullscreen"><i class="fa fa-expand"></i></a>
             </div>
         </div>
     </div>

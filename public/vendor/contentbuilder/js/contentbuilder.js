@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
 
-    $('.froala-editor .fa-expand').parent('button').on('click', function(){
+    $('.fr-toolbar .fa-expand').parent('a').on('click', function(){
         if($(this).hasClass('active'))
         {
             $(this).removeClass('active');
