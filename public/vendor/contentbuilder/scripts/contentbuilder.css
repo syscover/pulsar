@@ -98,6 +98,15 @@
     box-sizing: border-box;}
 #rte-toolbar.rte-side {top:70px;width:70px;height:480px;padding:0;background:rgba(255, 255, 255, 0);}
 #rte-toolbar.rte-side.right {left:auto;right:10px;}
+@media all and ( min-height: 720px ){
+    #rte-toolbar.rte-side {top: 100px;}
+}
+@media all and ( min-height: 800px ){
+    #rte-toolbar.rte-side {top: 150px;}
+}
+@media all and ( min-height: 960px ){
+    #rte-toolbar.rte-side {top: 190px;}
+}
 #rte-toolbar a {
     width:40px;
     box-sizing: border-box;

@@ -1753,7 +1753,7 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                         el = document.selection.createRange().parentElement();
                     }
                 
-                    if (e.keyCode == 13){                    
+                    if (e.keyCode == 13 && !event.shiftKey){                    
                         var is_ie = detectIE();
                         if (is_ie>0) {
                     
@@ -1764,7 +1764,8 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                             var isOpera = window.opera;
                             var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
                             if(isChrome || isOpera) { 
-                                //On Chrome it returns <p> (but then it become <div>. On Opera it returns <div>
+                                //Without this, pressing ENTER at the end of list will returns <p> on Chrome but then it become <div> (On Opera it returns <div>)
+                                //With this, we change it into <p>
                                 if(jQuery(el).prop("tagName").toLowerCase()=='p' || jQuery(el).prop("tagName").toLowerCase() =='div') {
                                     document.execCommand('formatBlock', false, '<p>');
                                 }
@@ -2189,9 +2190,10 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                 e.preventDefault();
             });
 
+            var storedEl;
             jQuery('#rte-toolbar a[data-rte-cmd="html"]').unbind('click');
             jQuery('#rte-toolbar a[data-rte-cmd="html"]').click(function (e) {
-            
+
                 var el;
                 if (window.getSelection) {
                     el = window.getSelection().getRangeAt(0).commonAncestorContainer.parentNode;
@@ -2199,11 +2201,27 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                 else if (document.selection) {
                     el = document.selection.createRange().parentElement();
                 }
+
+                var found=false;
                 jQuery(el).parents().each(function () {
                     if (jQuery(this).data('contentbuilder')) {
                         jQuery(this).data('contentbuilder').viewHtml(); 
+                        
+                        found=true;
+                        storedEl = el;
                     }
                 });
+
+                //In case of not focus
+                if(!found && storedEl){
+                    el = storedEl;
+                    jQuery(el).parents().each(function () {
+                        if (jQuery(this).data('contentbuilder')) {
+                            jQuery(this).data('contentbuilder').viewHtml(); 
+                        }
+                    });
+                }
+                e.preventDefault();
 
             });
 
@@ -2259,7 +2277,7 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                             sSrc = sSrc.replace(/\+/g,' ').replace(/%20/g,' '); 
                             if(sSrc.indexOf(fontname.toLowerCase())!=-1) bExist=true;
                         }
-                        if(!bExist) $element.append('<link href="http://fonts.googleapis.com/css?family='+fontname+'" rel="stylesheet" property="stylesheet" type="text/css">');
+                        if(!bExist) $element.append('<link href="//fonts.googleapis.com/css?family='+fontname+'" rel="stylesheet" property="stylesheet" type="text/css">');
                     }
 
                     //TODO: make function
@@ -3032,14 +3050,13 @@ function getSelected() {
                 }
             }
 
-
             var html_photo_tool = '<div id="divTempContent" style="display:none"></div>' +
                     '<div class="overlay-bg" style="position:fixed;top:0;left:0;width:1;height:1;z-index:10000;zoom 1;background:#fff;opacity:0.8"></div>' +
                     '<div id="divImageEdit" style="position:absolute;display:none;z-index:10000">' +
                         '<div id="my-mask" style="width:200px;height:200px;overflow:hidden;">' +
                             '<img id="my-image" src="" style="max-width:none" />' +
                         '</div>' +
-                        '<div id="img-control" style="margin-top:1px;position:absolute;top:-27px;left:0px;width:160px;opacity:0.8">' +
+                        '<div id="img-control" style="margin-top:1px;position:absolute;top:-27px;left:0px;width:170px;opacity:0.8">' +
 					        '<button id="btnImageCancel" type="button" value="Cancel" ><i class="cb-icon-back"></i></button>' +
                             '<button id="btnZoomOut" type="button" value="-" ><i class="cb-icon-minus"></i></button>' +
                             '<button id="btnZoomIn" type="button" value="+" ><i class="cb-icon-plus"></i></button>' +
@@ -3211,6 +3228,7 @@ function getSelected() {
                     zoom = 1;
                 }
 
+                /* Get position for image controls */
                 var _top; var _top2; var _left;
                 var scrolltop = jQuery(window).scrollTop();
                 var offsettop = jQuery(this).offset().top;
@@ -3259,14 +3277,14 @@ function getSelected() {
                     }
                 }
 
-                //<img data-fixed="1" src=".." /> (image must be fixed, cannot be replaced)
+                /* <img data-fixed="1" src=".." /> (image must be fixed, cannot be replaced) */
                 var fixedimage = false;
                 $imgActive = jQuery(this);
                 if($imgActive.attr('data-fixed')==1) {
                     fixedimage = true;
                 }
 
-
+                /* Show Image Controls */
                 if(cb_edit && !fixedimage){
                     jQuery("#divToolImg").css("top", _top + "px");
                     jQuery("#divToolImg").css("left", _left + "px");
@@ -3281,7 +3299,7 @@ function getSelected() {
                     }
                 }
                 
-
+                /* Browse local Image */
                 jQuery("#divToolImg").unbind('click');
                 jQuery("#divToolImg").bind('click', function (e) {
 
@@ -3317,7 +3335,7 @@ function getSelected() {
                     jQuery("#divToolImgSettings").stop(true, true).fadeOut(0);
                 });
 
-
+                /* Open Image Settings Dialog */
                 jQuery("#lnkImageSettings").unbind('click');
                 jQuery("#lnkImageSettings").bind('click', function (e) {
 
@@ -3398,9 +3416,24 @@ function getSelected() {
                     });
 
 
+                    var actualW = $img[0].naturalWidth; //parseInt($img.css('width'));
+                    var actualH = $img[0].naturalHeight; //parseInt($img.css('height'));
+                    
+                    //If it is image placeholder with specified css width/height                 
+                    if( $img.attr('src').indexOf('scripts/image.png') != -1 ){
+                        for(var i=0;i<$img.attr("style").split(";").length;i++) {
+                            var cssval = $img.attr("style").split(";")[i];
+                            if(jQuery.trim(cssval.split(":")[0]) == "width") {
+                                actualW = parseInt(jQuery.trim(cssval.split(":")[1]));
+                            } 
+                            if(jQuery.trim(cssval.split(":")[0]) == "height") {
+                                actualH = parseInt(jQuery.trim(cssval.split(":")[1]));
+                            }
+                        }
+                    }
+
                     var valW =50; 
-                    for(var i=0;i<231;i++) {
-                        var actualW = parseInt($img.css('width'));
+                    for(var i=0;i<231;i++) {                        
                         if(valW>=actualW) {
                             i = 231; //stop
                             jQuery('#selImgW').val(valW);
@@ -3408,8 +3441,7 @@ function getSelected() {
                         valW += 5;
                     }
                     var valH =50; 
-                    for(var i=0;i<111;i++) {
-                        var actualH = parseInt($img.css('height'));
+                    for(var i=0;i<111;i++) {                        
                         if(valH>=actualH) {
                             i = 111; //stop
                             jQuery('#selImgH').val(valH);
@@ -3461,6 +3493,7 @@ function getSelected() {
                             $img.css('border-radius','500px');
                         } else {
                             $img.css('border-radius','');
+                            $img.removeClass('circle');
                         }
 
                         //Apply Content Builder Behavior
@@ -3474,7 +3507,7 @@ function getSelected() {
                     e.stopImmediatePropagation();
                 });
 
-                //Custom Image Select
+                //Open Custom Image Select
                 jQuery("#btnImageBrowse").unbind('click');
                 jQuery("#btnImageBrowse").bind('click', function (e) {
 
@@ -3496,7 +3529,7 @@ function getSelected() {
 
                 });
 
-                //Custom File Select
+                //Open Custom File Select
                 jQuery("#btnFileBrowse").unbind('click');
                 jQuery("#btnFileBrowse").bind('click', function (e) {
 
@@ -3518,8 +3551,10 @@ function getSelected() {
 
                 });
 
+                /* On Change, call the IMAGE EMBEDDING PROCESS */
                 jQuery('.my-file[type=file]').unbind('change');
                 jQuery('.my-file[type=file]').bind('change', function (e) {
+                    
                     changeImage(e);
  
                     jQuery('#my-image').attr('src', ''); //reset
@@ -3531,6 +3566,7 @@ function getSelected() {
 
                 });            
                 
+                /* Image Settings Dialog Tabs */
                 jQuery('#tabImgLnk').unbind('click');
                 jQuery('#tabImgLnk').bind('click', function (e) {
                     jQuery('#tabImgLnk').css({'text-decoration':'','cursor':'','background':'#515151','color':'#fff'});
@@ -3539,12 +3575,6 @@ function getSelected() {
                         jQuery('#divImgLnk').fadeIn(0);
                         jQuery('#divImgLnkOk').fadeIn(0);
                     });
-                    /*
-                    jQuery('#divImgPl').slideUp(300, function(){
-                        jQuery('#divImgLnk').slideDown(300);
-                        jQuery('#divImgLnkOk').slideDown(300);
-                    });
-                    */
                 });
                 jQuery('#tabImgPl').unbind('click');
                 jQuery('#tabImgPl').bind('click', function (e) {
@@ -3553,13 +3583,7 @@ function getSelected() {
                     jQuery('#divImgLnk').fadeOut(0);
                     jQuery('#divImgLnkOk').fadeOut(0, function(){
                         jQuery('#divImgPl').fadeIn(300);
-                    });
-                    /*
-                    jQuery('#divImgLnk').slideUp(300);
-                    jQuery('#divImgLnkOk').slideUp(300, function(){
-                        jQuery('#divImgPl').slideDown(300);
-                    });
-                    */               
+                    });             
                 });
 
             }, function (e) {
@@ -3570,7 +3594,7 @@ function getSelected() {
         };
 
 
-        /* IMAGE OPERATION */
+        /* IMAGE EMBEDDING PROCESS */
         var changeImage = function (e) {
             if (typeof FileReader == "undefined") return true;
 
@@ -3608,7 +3632,9 @@ function getSelected() {
                     var reader = new FileReader();
                     reader.onload = (function (theFile) {
                         return function (e) {
-                            var image = e.target.result;
+
+                            //Embedding Image Step 1: Read the image (base64 string)
+                            var image = e.target.result; 
 
                             $imgActive = jQuery("#divToolImg").data('image'); //img2: Selang antara klik browse & select image, hover diabaikan. $imgActive di-set dgn image yg active wkt klik browse.
 
@@ -3618,30 +3644,85 @@ function getSelected() {
                                 zoom = 1;
                             }
 
+                            
+                            //Embedding Image Step 2: Resize the div image mask according to image placeholder dimension (proportion)
+                            //and enlarge it to the actual image placeholder (in case the image placeholder get smaller in mobile screen)
+                            //so that embedding image from mobile will still embed actual (larger) dimension to be seen on desktop
+
+                            var enlarge;
                             if ($imgActive.prop("tagName").toLowerCase() == 'img') {
-                                jQuery("#my-mask").css('width', $imgActive.width() + 'px');
-                                jQuery("#my-mask").css('height', $imgActive.height() + 'px');
-                            } else {
-                                jQuery("#my-mask").css('width', $imgActive.innerWidth() + 'px');
-                                jQuery("#my-mask").css('height', $imgActive.innerHeight() + 'px');
+                                enlarge = $imgActive[0].naturalWidth / $imgActive.width(); //2
+                            } else if ($imgActive.prop("tagName").toLowerCase() == 'figure') { //new fix
+                                enlarge = $imgActive.find('img')[0].naturalWidth / $imgActive.find('img').width(); 
                             }
-                            jQuery("#my-mask").css('zoom', zoom);
-                            jQuery("#my-mask").css('-moz-transform', 'scale(' + zoom + ')');
+
+                            //If it is image placeholder with specified css width/height
+                            var specifiedCssWidth=0;
+                            var specifiedCssHeight=0; 
+                            if ($imgActive.prop("tagName").toLowerCase() == 'img') {
+
+                                if($imgActive.attr("src").indexOf("scripts/image.png")!=-1){
+                                    for(var i=0;i<$imgActive.attr("style").split(";").length;i++) {
+                                        var cssval = $imgActive.attr("style").split(";")[i];
+                                        if(jQuery.trim(cssval.split(":")[0]) == "width") {
+                                            specifiedCssWidth = parseInt(jQuery.trim(cssval.split(":")[1]));
+
+                                            enlarge = specifiedCssWidth / $imgActive.width();
+                                        } 
+                                        if(jQuery.trim(cssval.split(":")[0]) == "height") {
+                                            specifiedCssHeight = parseInt(jQuery.trim(cssval.split(":")[1]));
+                                        } 
+                                    }
+                                }
+
+                            } else if ($imgActive.prop("tagName").toLowerCase() == 'figure') { //new fix
+         
+                                if($imgActive.find('img').attr("src").indexOf("scripts/image.png")!=-1){
+                                    for(var i=0;i<$imgActive.find('img').attr("style").split(";").length;i++) {
+                                        var cssval = $imgActive.find('img').attr("style").split(";")[i];
+                                        if(jQuery.trim(cssval.split(":")[0]) == "width") {
+                                            specifiedCssWidth = parseInt(jQuery.trim(cssval.split(":")[1]));
+                                            enlarge = specifiedCssWidth / $imgActive.find('img').width();
+                                        } 
+                                        if(jQuery.trim(cssval.split(":")[0]) == "height") {
+                                            specifiedCssHeight = parseInt(jQuery.trim(cssval.split(":")[1]));
+                                        } 
+                                    }
+                                }
+
+                            } 
+
+                            if ($imgActive.prop("tagName").toLowerCase() == 'img') {
+                                jQuery("#my-mask").css('width', $imgActive.width() * enlarge + 'px'); //multiply width & height with enlarge value
+                                jQuery("#my-mask").css('height', $imgActive.height() * enlarge + 'px');
+                            } else {
+                                jQuery("#my-mask").css('width', $imgActive.innerWidth() * enlarge + 'px');
+                                jQuery("#my-mask").css('height', $imgActive.innerHeight() * enlarge + 'px');
+                            }
+
+                            //If it is image placeholder with specified css width/height
+                            if(specifiedCssWidth!=0) jQuery("#my-mask").css('width', specifiedCssWidth + 'px');
+                            if(specifiedCssHeight!=0) jQuery("#my-mask").css('height', specifiedCssHeight + 'px');
+
+                            jQuery("#my-mask").css('zoom', zoom / enlarge); //divide zoom with enlarge value
+                            jQuery("#my-mask").css('-moz-transform', 'scale(' + zoom / enlarge + ')');
 
                             var oimg = new Image();
                             oimg.onload = function (evt) {
 
                                 $imgActive = jQuery("#divToolImg").data('image'); //img2: Selang antara klik browse & select image, hover diabaikan. $imgActive di-set dgn image yg active wkt klik browse.
 
-                                nInitialWidth = this.width;
-                                nInitialHeight = this.height;
+                                //Embedding Image Step 3: Get dimension (programmatically) for chosen image to fit with its image placeholder
+                                nInitialWidth = this.width; //chosen image width
+                                nInitialHeight = this.height; //chosen image height
 
                                 var newW;
                                 var newY;
 
                                 /* source: http://stackoverflow.com/questions/3987644/resize-and-center-image-with-jquery */
-                                var maskWidth = $imgActive.width();
-                                var maskHeight = $imgActive.height();
+                                var maskWidth = $imgActive.width(); //image placeholder width
+                                var maskHeight = $imgActive.height(); //image placeholder height
+
                                 var photoAspectRatio = nInitialWidth / nInitialHeight;
                                 var canvasAspectRatio = maskWidth / maskHeight;
                                 if (photoAspectRatio < canvasAspectRatio) {
@@ -3652,11 +3733,17 @@ function getSelected() {
                                     newW = (nInitialWidth * maskHeight) / nInitialHeight;
                                     newY = maskHeight;
                                 }
+
+                                //Embedding Image Step 4: Apply the dimension and enlarge it according to the enlarge value
+                                //so that embedding image from mobile will still embed actual (larger) dimension to be seen on desktop
+                                newW = newW * enlarge; //multiply width & height with 2
+                                newY = newY * enlarge;
+
                                 this.width = newW;
                                 this.height = newY;
-                                /* --------- */
 
-
+                                //Embedding Image Step 5: Load chosen image in an IMG element ('<div id="my-mask"><img id="my-image"></div>) 
+                                //and set with the new dimension. Remember we have made the container (<div id="my-mask">) 2 times bigger.
                                 jQuery('#my-image').attr('src', image);
                                 jQuery('#my-image').on('load', function () {
 
@@ -3669,7 +3756,7 @@ function getSelected() {
                                     jQuery("#my-image").css('top', '0px');
                                     jQuery("#my-image").css('left', '0px');
 
-                                    jQuery("#my-image").css('width', newW + 'px');
+                                    jQuery("#my-image").css('width', newW + 'px'); //Set with the new dimension
                                     jQuery("#my-image").css('height', newY + 'px');
 
                                     var zoom = localStorage.zoom;
@@ -3680,6 +3767,7 @@ function getSelected() {
                                         zoom = 1;
                                     }
 
+                                    //Embedding Image Step 6: Show image control (zoom, etc) with correct position 
                                     /*var adjy = $element.data('imageembed').settings.adjy*1;
                                     var adjy_val = (-adjy/0.183)*zoom + (adjy/0.183);
 
@@ -3756,8 +3844,16 @@ function getSelected() {
                                         jQuery("#divImageEdit").css("left", _left + "px");
                                     }
 
+                                    if(parseInt(jQuery("#divImageEdit").css("top"))<25) {
+                                        jQuery('#img-control').css('top','auto');
+                                        jQuery('#img-control').css('bottom', "-24px");
+                                    }
+
+                                    //Embedding Image Step 7: Enable "DRAG TO PAN" image within its mask ('<div id="my-mask"><img id="my-image"></div>) 
+                                    //Remember that the image can be bigger (in proportion) than the mask (which has the same dimension with image placeholder)
                                     panSetup();
 
+                                    //Embedding Image Step 8: The resulting "DRAG TO PAN" will be transfered to a temporary canvas (<canvas id="myTmpCanvas">)
                                     tmpCanvas.width = newW;
                                     tmpCanvas.height = newY;
                                     var imageObj = jQuery("#my-image")[0];
@@ -3778,8 +3874,9 @@ function getSelected() {
                                         context.drawImage(imageObj, 0, 0, newW, newY);
                                     }
 
+                                    //Embedding Image Step 9: Do the cropping (image cropped based on placeholder dimension)
+                                    //and move from "myTmpCanvas" to "myCanvas" (<canvas id="myCanvas"><canvas id="myTmpCanvas">)
                                     crop();
-
                                     if ($imgActive.attr('class') == 'img-circle') {
                                         jQuery('#my-mask').css('-webkit-border-radius', '500px');
                                         jQuery('#my-mask').css('-moz-border-radius', '500px');
@@ -3803,6 +3900,8 @@ function getSelected() {
 
                                 });
 
+                                //Embedding Image Step 10 (finish): When user click "Ok", read the result (base64 string) from "myCanvas" 
+                                //and assign it to image placeholder ($imgActive)
                                 jQuery('#btnChangeImage').unbind('click');
                                 jQuery('#btnChangeImage').bind('click', function () {
                                     var canvas = document.getElementById('myCanvas');
@@ -3837,8 +3936,13 @@ function getSelected() {
                                     jQuery('.overlay-bg').css('height', '1px');
                                     jQuery('body').css('overflow', '');
 
-                                    $imgActive.css('width', '');
-                                    $imgActive.css('height', '');
+                                    if ($imgActive.prop("tagName").toLowerCase() == 'img') {
+                                        $imgActive.css('width', '');
+                                        $imgActive.css('height', '');
+                                    } else if ($imgActive.prop("tagName").toLowerCase() == 'figure') {
+                                        $imgActive.find('img').css('width', '');
+                                        $imgActive.find('img').css('height', '');
+                                    }
 
                                     $element.data('imageembed').settings.onChanged(); 
 
@@ -3923,7 +4027,7 @@ function getSelected() {
         };
 
         var crop = function () {
-
+            //Crop & move from "myTmpCanvas" to "myCanvas" (<canvas id="myCanvas"><canvas id="myTmpCanvas">)
             var x = parseInt(jQuery("#my-image").css('left'));
             var y = parseInt(jQuery("#my-image").css('top'));
 
@@ -4239,8 +4343,8 @@ function detectIE() {
     return false;
 }
 
-/*! rangeslider.js - v0.3.1 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
-eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('\'1Z 2c\';(4(13){7(v 1j===\'4\'&&1j.28){1j([\'1K\'],13)}1h 7(v 2d===\'2r\'){13(2t(\'1K\'))}1h{13(d)}}(4(d){4 1E(){f Z=o.2u(\'Z\');Z.2S(\'1w\',\'h\');9 Z.1w!==\'2m\'}f 8=\'18\',M=[],1r=1E(),17={O:1T,1Q:\'18\',U:\'18--1F\',1v:\'2D\',15:\'1W\',z:[\'23\',\'25\',\'27\'],A:[\'29\',\'2a\',\'2b\'],B:[\'2e\',\'2f\',\'2l\']};4 1o(k,1m){f Q=1G.a.1C.1X(1A,2);9 1u(4(){9 k.19(1M,Q)},1m)}4 1x(k,V){V=V||1q;9 4(){7(!k.14){f Q=1G.a.1C.19(1A);k.1B=k.19(N,Q);k.14=1T}2i(k.1P);k.1P=1u(4(){k.14=1n},V);9 k.1B}}4 b(c,6){3.$N=d(N);3.$o=d(o);3.$c=d(c);3.6=d.2E({},17,6);3.2H=17;3.2R=8;3.z=3.6.z.1f(\'.\'+8+\' \')+\'.\'+8;3.A=3.6.A.1f(\'.\'+8+\' \')+\'.\'+8;3.B=3.6.B.1f(\'.\'+8+\' \')+\'.\'+8;3.O=3.6.O;3.I=3.6.I;3.G=3.6.G;3.C=3.6.C;7(3.O){7(1r){9 1n}}3.R=\'24-\'+8+\'-\'+(+1U 26());3.l=S(3.$c[0].1k(\'l\')||0);3.q=S(3.$c[0].1k(\'q\')||1q);3.5=S(3.$c[0].5||3.l+(3.q-3.l)/2);3.u=S(3.$c[0].1k(\'u\')||1);3.$1a=d(\'<1b 1c="\'+3.6.1v+\'" />\');3.$K=d(\'<1b 1c="\'+3.6.15+\'" />\');3.$h=d(\'<1b 1c="\'+3.6.1Q+\'" 2n="\'+3.R+\'" />\').2o(3.$c).2p(3.$1a,3.$K);3.$c.2q({\'T\':\'2s\',\'1H\':\'1I\',\'2v\':\'1I\',\'2w\':\'2x\',\'2y\':\'0\'});3.J=d.1g(3.J,3);3.H=d.1g(3.H,3);3.F=d.1g(3.F,3);3.1l();f P=3;3.$N.E(\'1Y\'+\'.\'+8,1x(4(){1o(4(){P.16()},21)},20));3.$o.E(3.z,\'#\'+3.R+\':22(.\'+3.6.U+\')\',3.J);3.$c.E(\'1p\'+\'.\'+8,4(e,m){7(m&&m.1s===8){9}f 5=e.1t.5,j=P.W(5);P.D(j)})}b.a.1l=4(){7(3.I&&v 3.I===\'4\'){3.I()}3.16()};b.a.16=4(){3.X=3.$K[0].1y;3.1z=3.$h[0].1y;3.Y=3.1z-3.X;3.w=3.X/2;3.T=3.W(3.5);7(3.$c[0].1F){3.$h.2g(3.6.U)}1h{3.$h.2h(3.6.U)}3.D(3.T)};b.a.J=4(e){e.1d();3.$o.E(3.A,3.H);3.$o.E(3.B,3.F);7((\' \'+e.1t.2j+\' \').2k(/[\\n\\t]/g,\' \').1D(3.6.15)>-1){9}f p=3.10(3.$h[0],e),11=3.12(3.$K[0])-3.12(3.$h[0]);3.D(p-3.w);7(p>=11&&p<11+3.X){3.w=p-11}};b.a.H=4(e){e.1d();f p=3.10(3.$h[0],e);3.D(p-3.w)};b.a.F=4(e){e.1d();3.$o.L(3.A,3.H);3.$o.L(3.B,3.F);f p=3.10(3.$h[0],e);7(3.C&&v 3.C===\'4\'){3.C(p-3.w,3.5)}};b.a.1J=4(j,l,q){7(j<l){9 l}7(j>q){9 q}9 j};b.a.D=4(j){f 5,r;5=(3.1L(3.1J(j,0,3.Y))/3.u)*3.u;r=3.W(5);3.$1a[0].1i.1H=(r+3.w)+\'1N\';3.$K[0].1i.r=r+\'1N\';3.1O(5);3.T=r;3.5=5;7(3.G&&v 3.G===\'4\'){3.G(r,5)}};b.a.12=4(s){f i=0;2z(s!==1M){i+=s.2A;s=s.2B}9 i};b.a.10=4(s,e){9(e.2C||e.1R.1S||e.1R.2F[0].1S||e.2G.x)-3.12(s)};b.a.W=4(5){f y,j;y=(5-3.l)/(3.q-3.l);j=y*3.Y;9 j};b.a.1L=4(j){f y,5;y=((j)/(3.Y||1));5=3.u*2I.2J((((y)*(3.q-3.l))+3.l)/3.u);9 2K((5).2L(2))};b.a.1O=4(5){7(5!==3.5){3.$c.2M(5).2N(\'1p\',{1s:8})}};b.a.2O=4(){3.$o.L(3.z,\'#\'+3.R,3.J);3.$c.L(\'.\'+8).2P(\'1i\').2Q(\'1e\'+8);7(3.$h&&3.$h.1V){3.$h[0].2T.2U(3.$h[0])}M.2V(M.1D(3.$c[0]),1);7(!M.1V){3.$N.L(\'.\'+8)}};d.k[8]=4(6){9 3.2W(4(){f $3=d(3),m=$3.m(\'1e\'+8);7(!m){$3.m(\'1e\'+8,(m=1U b(3,6)));M.2X(3)}7(v 6===\'2Y\'){m[6]()}})}}));',62,185,'|||this|function|value|options|if|pluginName|return|prototype|Plugin|element|jQuery||var||range||pos|fn|min|data||document|posX|max|left|node||step|typeof|grabX||percentage|startEvent|moveEvent|endEvent|onSlideEnd|setPosition|on|handleEnd|onSlide|handleMove|onInit|handleDown|handle|off|pluginInstances|window|polyfill|_this|args|identifier|parseFloat|position|disabledClass|debounceDuration|getPositionFromValue|handleWidth|maxHandleX|input|getRelativePosition|handleX|getPositionFromNode|factory|debouncing|handleClass|update|defaults|rangeslider|apply|fill|div|class|preventDefault|plugin_|join|proxy|else|style|define|getAttribute|init|wait|false|delay|change|100|inputrange|origin|target|setTimeout|fillClass|type|debounce|offsetWidth|rangeWidth|arguments|lastReturnVal|slice|indexOf|supportsRange|disabled|Array|width|1px|cap|jquery|getValueFromPosition|null|px|setValue|debounceTimeout|rangeClass|originalEvent|clientX|true|new|length|rangeslider__handle|call|resize|use||300|not|mousedown|js|touchstart|Date|pointerdown|amd|mousemove|touchmove|pointermove|strict|exports|mouseup|touchend|addClass|removeClass|clearTimeout|className|replace|pointerup|text|id|insertAfter|prepend|css|object|absolute|require|createElement|height|overflow|hidden|opacity|while|offsetLeft|offsetParent|pageX|rangeslider__fill|extend|touches|currentPoint|_defaults|Math|ceil|Number|toFixed|val|trigger|destroy|removeAttr|removeData|_name|setAttribute|parentNode|removeChild|splice|each|push|string'.split('|'),0,{}));
+/*! rangeslider.js - v1.2.1 | (c) 2015 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+!function (a) { "use strict"; "function" == typeof define && define.amd ? define(["jquery"], a) : a("object" == typeof exports ? require("jquery") : jQuery) } (function (a) { "use strict"; function b() { var a = document.createElement("input"); return a.setAttribute("type", "range"), "text" !== a.type } function c(a, b) { var c = Array.prototype.slice.call(arguments, 2); return setTimeout(function () { return a.apply(null, c) }, b) } function d(a, b) { return b = b || 100, function () { if (!a.debouncing) { var c = Array.prototype.slice.apply(arguments); a.lastReturnVal = a.apply(window, c), a.debouncing = !0 } return clearTimeout(a.debounceTimeout), a.debounceTimeout = setTimeout(function () { a.debouncing = !1 }, b), a.lastReturnVal } } function e(a) { return a && (0 === a.offsetWidth || 0 === a.offsetHeight || a.open === !1) } function f(a) { for (var b = [], c = a.parentNode; e(c); ) b.push(c), c = c.parentNode; return b } function g(a, b) { function c(a) { "undefined" != typeof a.open && (a.open = a.open ? !1 : !0) } var d = f(a), e = d.length, g = [], h = a[b]; if (e) { for (var i = 0; e > i; i++) g[i] = d[i].style.cssText, d[i].style.display = "block", d[i].style.height = "0", d[i].style.overflow = "hidden", d[i].style.visibility = "hidden", c(d[i]); h = a[b]; for (var j = 0; e > j; j++) d[j].style.cssText = g[j], c(d[j]) } return h } function h(b, e) { if (this.$window = a(window), this.$document = a(document), this.$element = a(b), this.options = a.extend({}, l, e), this.polyfill = this.options.polyfill, this.onInit = this.options.onInit, this.onSlide = this.options.onSlide, this.onSlideEnd = this.options.onSlideEnd, this.polyfill && k) return !1; this.identifier = "js-" + i + "-" + j++, this.startEvent = this.options.startEvent.join("." + this.identifier + " ") + "." + this.identifier, this.moveEvent = this.options.moveEvent.join("." + this.identifier + " ") + "." + this.identifier, this.endEvent = this.options.endEvent.join("." + this.identifier + " ") + "." + this.identifier, this.toFixed = (this.step + "").replace(".", "").length - 1, this.$fill = a('<div class="' + this.options.fillClass + '" />'), this.$handle = a('<div class="' + this.options.handleClass + '" />'), this.$range = a('<div class="' + this.options.rangeClass + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle), this.$element.css({ position: "absolute", width: "1px", height: "1px", overflow: "hidden", opacity: "0" }), this.handleDown = a.proxy(this.handleDown, this), this.handleMove = a.proxy(this.handleMove, this), this.handleEnd = a.proxy(this.handleEnd, this), this.init(); var f = this; this.$window.on("resize." + this.identifier, d(function () { c(function () { f.update() }, 300) }, 20)), this.$document.on(this.startEvent, "#" + this.identifier + ":not(." + this.options.disabledClass + ")", this.handleDown), this.$element.on("change." + this.identifier, function (a, b) { if (!b || b.origin !== f.identifier) { var c = a.target.value, d = f.getPositionFromValue(c); f.setPosition(d) } }) } var i = "rangeslider", j = 0, k = b(), l = { polyfill: !0, rangeClass: "rangeslider", disabledClass: "rangeslider--disabled", fillClass: "rangeslider__fill", handleClass: "rangeslider__handle", startEvent: ["mousedown", "touchstart", "pointerdown"], moveEvent: ["mousemove", "touchmove", "pointermove"], endEvent: ["mouseup", "touchend", "pointerup"] }; h.prototype.init = function () { this.update(!0), this.$element[0].value = this.value, this.onInit && "function" == typeof this.onInit && this.onInit() }, h.prototype.update = function (a) { a = a || !1, a && (this.min = parseFloat(this.$element[0].getAttribute("min") || 0), this.max = parseFloat(this.$element[0].getAttribute("max") || 100), this.value = parseFloat(this.$element[0].value || this.min + (this.max - this.min) / 2), this.step = parseFloat(this.$element[0].getAttribute("step") || 1)), this.handleWidth = g(this.$handle[0], "offsetWidth"), this.rangeWidth = g(this.$range[0], "offsetWidth"), this.maxHandleX = this.rangeWidth - this.handleWidth, this.grabX = this.handleWidth / 2, this.position = this.getPositionFromValue(this.value), this.$element[0].disabled ? this.$range.addClass(this.options.disabledClass) : this.$range.removeClass(this.options.disabledClass), this.setPosition(this.position) }, h.prototype.handleDown = function (a) { if (a.preventDefault(), this.$document.on(this.moveEvent, this.handleMove), this.$document.on(this.endEvent, this.handleEnd), !((" " + a.target.className + " ").replace(/[\n\t]/g, " ").indexOf(this.options.handleClass) > -1)) { var b = this.getRelativePosition(a), c = this.$range[0].getBoundingClientRect().left, d = this.getPositionFromNode(this.$handle[0]) - c; this.setPosition(b - this.grabX), b >= d && b < d + this.handleWidth && (this.grabX = b - d) } }, h.prototype.handleMove = function (a) { a.preventDefault(); var b = this.getRelativePosition(a); this.setPosition(b - this.grabX) }, h.prototype.handleEnd = function (a) { a.preventDefault(), this.$document.off(this.moveEvent, this.handleMove), this.$document.off(this.endEvent, this.handleEnd), this.$element.trigger("change", { origin: this.identifier }), this.onSlideEnd && "function" == typeof this.onSlideEnd && this.onSlideEnd(this.position, this.value) }, h.prototype.cap = function (a, b, c) { return b > a ? b : a > c ? c : a }, h.prototype.setPosition = function (a) { var b, c; b = this.getValueFromPosition(this.cap(a, 0, this.maxHandleX)), c = this.getPositionFromValue(b), this.$fill[0].style.width = c + this.grabX + "px", this.$handle[0].style.left = c + "px", this.setValue(b), this.position = c, this.value = b, this.onSlide && "function" == typeof this.onSlide && this.onSlide(c, b) }, h.prototype.getPositionFromNode = function (a) { for (var b = 0; null !== a; ) b += a.offsetLeft, a = a.offsetParent; return b }, h.prototype.getRelativePosition = function (a) { var b = this.$range[0].getBoundingClientRect().left, c = 0; return "undefined" != typeof a.pageX ? c = a.pageX : "undefined" != typeof a.originalEvent.clientX ? c = a.originalEvent.clientX : a.originalEvent.touches && a.originalEvent.touches[0] && "undefined" != typeof a.originalEvent.touches[0].clientX ? c = a.originalEvent.touches[0].clientX : a.currentPoint && "undefined" != typeof a.currentPoint.x && (c = a.currentPoint.x), c - b }, h.prototype.getPositionFromValue = function (a) { var b, c; return b = (a - this.min) / (this.max - this.min), c = b * this.maxHandleX }, h.prototype.getValueFromPosition = function (a) { var b, c; return b = a / (this.maxHandleX || 1), c = this.step * Math.round(b * (this.max - this.min) / this.step) + this.min, Number(c.toFixed(this.toFixed)) }, h.prototype.setValue = function (a) { a !== this.value && this.$element.val(a).trigger("input", { origin: this.identifier }) }, h.prototype.destroy = function () { this.$document.off("." + this.identifier), this.$window.off("." + this.identifier), this.$element.off("." + this.identifier).removeAttr("style").removeData("plugin_" + i), this.$range && this.$range.length && this.$range[0].parentNode.removeChild(this.$range[0]) }, a.fn[i] = function (b) { var c = Array.prototype.slice.call(arguments, 1); return this.each(function () { var d = a(this), e = d.data("plugin_" + i); e || d.data("plugin_" + i, e = new h(this, b)), "string" == typeof b && e[b].apply(e, c) }) } });
 
 /*! jQuery UI Touch Punch 0.2.3 | Copyright 2011–2014, Dave Furfero | Dual licensed under the MIT or GPL Version 2 licenses. */
 eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('(7(4){4.w.8=\'H\'G p;c(!4.w.8){f}d 6=4.U.D.L,g=6.g,h=6.h,a;7 5(2,r){c(2.k.F.J>1){f}2.B();d 8=2.k.q[0],l=p.N(\'O\');l.S(r,i,i,V,1,8.W,8.X,8.Y,8.A,b,b,b,b,0,C);2.z.E(l)}6.m=7(2){d 3=e;c(a||!3.I(2.k.q[0])){f}a=i;3.j=b;5(2,\'K\');5(2,\'s\');5(2,\'M\')};6.n=7(2){c(!a){f}e.j=i;5(2,\'s\')};6.o=7(2){c(!a){f}5(2,\'P\');5(2,\'Q\');c(!e.j){5(2,\'R\')}a=b};6.g=7(){d 3=e;3.u.T({v:4.9(3,\'m\'),x:4.9(3,\'n\'),y:4.9(3,\'o\')});g.t(3)};6.h=7(){d 3=e;3.u.Z({v:4.9(3,\'m\'),x:4.9(3,\'n\'),y:4.9(3,\'o\')});h.t(3)}})(4);',62,62,'||event|self|jQuery|simulateMouseEvent|mouseProto|function|touch|proxy|touchHandled|false|if|var|this|return|_mouseInit|_mouseDestroy|true|_touchMoved|originalEvent|simulatedEvent|_touchStart|_touchMove|_touchEnd|document|changedTouches|simulatedType|mousemove|call|element|touchstart|support|touchmove|touchend|target|clientY|preventDefault|null|mouse|dispatchEvent|touches|in|ontouchend|_mouseCapture|length|mouseover|prototype|mousedown|createEvent|MouseEvents|mouseup|mouseout|click|initMouseEvent|bind|ui|window|screenX|screenY|clientX|unbind'.split('|'),0,{}));
