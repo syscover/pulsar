@@ -11,7 +11,7 @@
     @include('pulsar::includes.html.form_section_header', ['label' => trans('pulsar::pulsar.data_access'), 'icon' => 'icomoon-icon-users'])
     @include('pulsar::includes.html.form_select_group', ['label' => trans_choice('pulsar::pulsar.profile', 1), 'name' => 'profile', 'value' => $object->profile_010, 'required' => true, 'objects' => $profiles, 'idSelect' => 'id_006', 'nameSelect' => 'name_006'])
     @include('pulsar::includes.html.form_text_group', ['label' => trans_choice('pulsar::pulsar.user', 1), 'name' => 'user', 'value' => $object->user_010, 'maxLength' => '50', 'rangeLength' => '2,50', 'fieldSize' => 6, 'required' => true])
-    @include('pulsar::includes.html.form_password_group', ['label' => trans('pulsar::pulsar.password'), 'name' => 'password', 'maxLength' => '50', 'rangeLength' => '4,50', 'fieldSize' => 6, 'required' => false])
-    @include('pulsar::includes.html.form_password_group', ['label' => trans('pulsar::pulsar.repeat_password'), 'name' => 'repassword', 'maxLength' => '50', 'rangeLength' => '4,50', 'fieldSize' => 6, 'required' => false])
+    @include('pulsar::includes.html.form_text_group', ['label' => trans('pulsar::pulsar.password'), 'type' => 'password', 'name' => 'password', 'maxLength' => '50', 'rangeLength' => '4,50', 'fieldSize' => 6, 'required' => false])
+    @include('pulsar::includes.html.form_text_group', ['label' => trans('pulsar::pulsar.repeat_password'), 'type' => 'password', 'name' => 'repassword', 'maxLength' => '50', 'rangeLength' => '4,50', 'fieldSize' => 6, 'required' => false])
     <!-- /pulsar::users.edit -->
 @stop
