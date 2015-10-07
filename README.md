@@ -3,8 +3,6 @@
 Pulsar is an application that generates a control panel where you start creating custom solutions, provides the resources necessary for any web application.
 
 ---
-- [Installation](#installation)
-
 
 ## Installation
 
