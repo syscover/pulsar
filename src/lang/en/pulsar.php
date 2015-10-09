@@ -170,5 +170,6 @@ return [
     'feature'                               => 'Feature|Features',
     'label'                                 => 'Label|Labels',
     'iban'                                  => 'IBAN',
-    'bic'                                   => 'SWIFT/BIC'
+    'bic'                                   => 'SWIFT/BIC',
+    'attachment_family'                     => 'Attachment family|Attachment families',
 ];
