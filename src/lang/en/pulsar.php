@@ -172,4 +172,5 @@ return [
     'iban'                                  => 'IBAN',
     'bic'                                   => 'SWIFT/BIC',
     'attachment_family'                     => 'Attachment family|Attachment families',
+    'image_name'                            => 'Image name',
 ];

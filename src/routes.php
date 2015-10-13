@@ -230,6 +230,23 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
 
     /*
     |--------------------------------------------------------------------------
+    | ATTACHMENT FAMILY
+    |--------------------------------------------------------------------------
+    */
+    Route::any(config('pulsar.appName') . '/pulsar/attachment/families/{offset?}',                  ['as'=>'AttachmentFamily',                'uses'=>'Syscover\Pulsar\Controllers\AttachmentFamilyController@index',                     'resource' => 'admin-attachment-family',        'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/attachment/families/json/data',                  ['as'=>'jsonDataAttachmentFamily',        'uses'=>'Syscover\Pulsar\Controllers\AttachmentFamilyController@jsonData',                  'resource' => 'admin-attachment-family',        'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/attachment/families/create/{offset}',            ['as'=>'createAttachmentFamily',          'uses'=>'Syscover\Pulsar\Controllers\AttachmentFamilyController@createRecord',              'resource' => 'admin-attachment-family',        'action' => 'create']);
+    Route::post(config('pulsar.appName') . '/pulsar/attachment/families/store/{offset}',            ['as'=>'storeAttachmentFamily',           'uses'=>'Syscover\Pulsar\Controllers\AttachmentFamilyController@storeRecord',               'resource' => 'admin-attachment-family',        'action' => 'create']);
+    Route::get(config('pulsar.appName') . '/pulsar/attachment/families/{id}/edit/{offset}',         ['as'=>'editAttachmentFamily',            'uses'=>'Syscover\Pulsar\Controllers\AttachmentFamilyController@editRecord',                'resource' => 'admin-attachment-family',        'action' => 'access']);
+    Route::put(config('pulsar.appName') . '/pulsar/attachment/families/update/{id}/{offset}',       ['as'=>'updateAttachmentFamily',          'uses'=>'Syscover\Pulsar\Controllers\AttachmentFamilyController@updateRecord',              'resource' => 'admin-attachment-family',        'action' => 'edit']);
+    Route::get(config('pulsar.appName') . '/pulsar/attachment/families/delete/{id}/{offset}',       ['as'=>'deleteAttachmentFamily',          'uses'=>'Syscover\Pulsar\Controllers\AttachmentFamilyController@deleteRecord',              'resource' => 'admin-attachment-family',        'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/attachment/families/delete/select/records',   ['as'=>'deleteSelectAttachmentFamily',    'uses'=>'Syscover\Pulsar\Controllers\AttachmentFamilyController@deleteRecordsSelect',       'resource' => 'admin-attachment-family',        'action' => 'delete']);
+    Route::any(config('pulsar.appName') . '/pulsar/attachment/families/{id}/show/{api}',            ['as'=>'apiShowAttachmentFamily',         'uses'=>'Syscover\Pulsar\Controllers\AttachmentFamilyController@showRecord',                'resource' => 'admin-attachment-family',        'action' => 'access']);
+
+
+
+    /*
+    |--------------------------------------------------------------------------
     | CONTENT BUILDER
     |--------------------------------------------------------------------------
     */

@@ -10,8 +10,8 @@ return [
     // default html error delimite to common errors
     'globalErrorDelimiters'     =>  '<div class="alert alert-danger fade in"><i class="icon-remove close" data-dismiss="alert"></i><strong>Error!</strong> :message</div>',
 
-    //**************************************
-    //*** Date pattern
+    //******************************************************************************************************************
+    //***   Date pattern
     //***   Pattern     Description                                             Values
     //***   d           Day of the month, 2 digits with leading zeros	        01 to 31
     //***   m           Numeric representation of a month, with leading zeros   01 through 12
@@ -20,7 +20,7 @@ return [
     //***
     //***   To get all patterns see  http://php.net/manual/en/function.date.php
     //***
-    //**************************************
+    //******************************************************************************************************************
     'datePattern'               => 'd-m-Y',
 
     // app name and url access to application
