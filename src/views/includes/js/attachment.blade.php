@@ -37,7 +37,9 @@
         $.ajax({
             url: '{{ route('storeLibrary') }}',
             data:       {
-                files: files
+                files:              files,
+                resource:           '{{ $resource }}',
+                routesConfigFile:   '{{ $routesConfigFile }}'
             },
             headers:  {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -344,7 +346,7 @@
         });
     };
 
-    // Sorting elements and register on database new sorting
+    // sorting elements and register on database new sorting
     $.shortingElements = function() {
         var attachments   = JSON.parse($('[name=attachments]').val());
         var hasId         = false;
@@ -392,4 +394,47 @@
             $('[name=attachments]').val(JSON.stringify(attachments));
         }
     };
+</script>
+
+<script type="text/html" id="file">
+    <li>
+        <div class="attachment-item">
+            <div class="attachment-img">
+                <img data-src="image" data-class="isImage" />
+            </div>
+            <div class="attachment-over">
+                <div class="col-md-10 col-sm-10 col-xs-10 uncovered">
+                    <h4 class="attachment-title family-name"></h4>
+                    <p class="attachment-sub file-name" data-content="fileName"></p>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2 uncovered">
+                    <h4 class="attachment-action"><span class="glyphicon glyphicon-pencil"></span></h4>
+                </div>
+                <form>
+                    <div class="close-icon covered"><span class="glyphicon glyphicon-remove"></span></div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 covered">
+                        <div class="form-group">
+                            <input type="text" class="form-control image-name" placeholder="{{ trans('pulsar::pulsar.image_name') }}" data-previous="">
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control attachment-family" name="attachmentFamily" data-previous="">
+                                <option value="" selected>{{ trans('cms::pulsar.select_family') }}</option>
+                                @foreach($attachmentFamilies as $attachmentFamily)
+                                    <option value="{{ $attachmentFamily->id_015 }}">{{ $attachmentFamily->name_015 }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 covered">
+                        <div class="form-group">
+                            <button type="button" class="close-ov form-control save-attachment">{{ trans('pulsar::pulsar.save') }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="remove-img">
+            <span class="glyphicon glyphicon-remove"></span>
+        </div>
+    </li>
 </script>

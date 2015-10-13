@@ -13,7 +13,7 @@
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request as HttpRequest;
 use Syscover\Pulsar\Traits\TraitController;
-use Syscover\Hotels\Models\Library;
+use Syscover\Pulsar\Models\Library;
 
 class LibraryController extends Controller {
 
@@ -64,17 +64,19 @@ class LibraryController extends Controller {
 
         foreach($files as $file)
         {
-            File::copy(public_path() . config('hotels.libraryFolder') . '/' . $file['name'], public_path() . config('hotels.tmpFolder') . '/' . $file['name']);
+            File::copy(public_path() . config($request->input('routesConfigFile') . '.libraryFolder') . '/' . $file['name'], public_path() . config($request->input('routesConfigFile') . '.tmpFolder') . '/' . $file['name']);
 
             $width = null; $height= null;
             if($file['isImage'] == 'true')
             {
-                list($width, $height) = getimagesize(public_path() . config('hotels.libraryFolder') . '/' . $file['name']);
+                list($width, $height) = getimagesize(public_path() . config($request->input('routesConfigFile') . '.libraryFolder') . '/' . $file['name']);
             }
 
             $type = $this->getType($file['mime']);
 
             $objects[] = [
+                'resource_014'  => $request->input('resource'),
+                'url_014'       => null,
                 'file_name_014' => $file['name'],
                 'mime_014'      => $file['mime'],
                 'size_014'      => $file['size'],
@@ -90,14 +92,14 @@ class LibraryController extends Controller {
                 $filesNames[] = $file['name'];
             }
 
-            // convert format getFile to format hotels application
+            // convert getFile format to hotels application format
             $objectsResponse[] = [
                 'id'        => null,
                 'family'    => null,
                 'type'      => $type,
                 'mime'      => $file['mime'],
                 'name'      => null,
-                'folder'    => config('hotels.tmpFolder'),
+                'folder'    => config($request->input('routesConfigFile') . '.tmpFolder'),
                 'fileName'  => $file['name'],
                 'width'     => $width,
                 'height'    => $height
