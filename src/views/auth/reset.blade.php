@@ -2,7 +2,7 @@
 
 @section('script')
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/login.js') }}"></script>
-    @include('pulsar::includes.html.script_header_form')
+    @include('pulsar::includes.js.header_form')
 @stop
 
 @section('mainContent')
