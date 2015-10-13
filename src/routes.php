@@ -230,6 +230,30 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
 
     /*
     |--------------------------------------------------------------------------
+    | ATTACHMENT
+    |--------------------------------------------------------------------------
+    */
+    Route::post(config('pulsar.appName') . '/pulsar/attachment/store/{object}/{lang}',          ['as'=>'storeAttachment',        'uses'=>'Syscover\Pulsar\Controllers\AttachmentController@storeAttachment',            'resource' => 'pulsar',    'action' => 'create']);
+    Route::put(config('pulsar.appName') . '/pulsar/attachment/update/{object}/{lang}/{id}',     ['as'=>'updateAttachment',       'uses'=>'Syscover\Pulsar\Controllers\AttachmentController@apiUpdateAttachment',        'resource' => 'pulsar',    'action' => 'edit']);
+    Route::put(config('pulsar.appName') . '/pulsar/attachment/update/{object}/{lang}',          ['as'=>'updatesAttachment',      'uses'=>'Syscover\Pulsar\Controllers\AttachmentController@apiUpdatesAttachment',       'resource' => 'pulsar',    'action' => 'edit']);
+    Route::delete(config('pulsar.appName') . '/pulsar/attachment/delete/{lang}/{id}',           ['as'=>'deleteAttachment',       'uses'=>'Syscover\Pulsar\Controllers\AttachmentController@apiDeleteAttachment',        'resource' => 'pulsar',    'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/attachment/delete/tmp',                   ['as'=>'deleteTmpAttachment',    'uses'=>'Syscover\Pulsar\Controllers\AttachmentController@apiDeleteTmpAttachment',     'resource' => 'pulsar',    'action' => 'delete']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | LIBRARY
+    |--------------------------------------------------------------------------
+    */
+    Route::any(config('pulsar.appName') . '/pulsar/library/{offset?}',                 ['as'=>'Library',                   'uses'=>'Syscover\Pulsar\Controllers\LibraryController@index',                  'resource' => 'admin-library',        'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/library/json/data',                 ['as'=>'jsonDataLibrary',           'uses'=>'Syscover\Pulsar\Controllers\LibraryController@jsonData',               'resource' => 'admin-library',        'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/library/create/{offset}',           ['as'=>'createLibrary',             'uses'=>'Syscover\Pulsar\Controllers\LibraryController@createRecord',           'resource' => 'admin-library',        'action' => 'create']);
+    Route::post(config('pulsar.appName') . '/pulsar/library/store/api',                ['as'=>'storeLibrary',              'uses'=>'Syscover\Pulsar\Controllers\LibraryController@storeLibrary',           'resource' => 'admin-library',        'action' => 'create']);
+    Route::get(config('pulsar.appName') . '/pulsar/library/{id}/edit/{offset}',        ['as'=>'editLibrary',               'uses'=>'Syscover\Pulsar\Controllers\LibraryController@editRecord',             'resource' => 'admin-library',        'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/library/delete/{id}/{offset}',      ['as'=>'deleteLibrary',             'uses'=>'Syscover\Pulsar\Controllers\LibraryController@deleteRecord',           'resource' => 'admin-library',        'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/library/delete/select/records',  ['as'=>'deleteSelectLibrary',       'uses'=>'Syscover\Pulsar\Controllers\LibraryController@deleteRecordsSelect',    'resource' => 'admin-library',        'action' => 'delete']);
+
+    /*
+    |--------------------------------------------------------------------------
     | ATTACHMENT FAMILY
     |--------------------------------------------------------------------------
     */
@@ -242,8 +266,6 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     Route::get(config('pulsar.appName') . '/pulsar/attachment/families/delete/{id}/{offset}',       ['as'=>'deleteAttachmentFamily',          'uses'=>'Syscover\Pulsar\Controllers\AttachmentFamilyController@deleteRecord',              'resource' => 'admin-attachment-family',        'action' => 'delete']);
     Route::delete(config('pulsar.appName') . '/pulsar/attachment/families/delete/select/records',   ['as'=>'deleteSelectAttachmentFamily',    'uses'=>'Syscover\Pulsar\Controllers\AttachmentFamilyController@deleteRecordsSelect',       'resource' => 'admin-attachment-family',        'action' => 'delete']);
     Route::any(config('pulsar.appName') . '/pulsar/attachment/families/{id}/show/{api}',            ['as'=>'apiShowAttachmentFamily',         'uses'=>'Syscover\Pulsar\Controllers\AttachmentFamilyController@showRecord',                'resource' => 'admin-attachment-family',        'action' => 'access']);
-
-
 
     /*
     |--------------------------------------------------------------------------

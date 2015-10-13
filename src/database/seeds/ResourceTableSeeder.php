@@ -26,6 +26,7 @@ class ResourceTableSeeder extends Seeder {
             ['id_007' => 'admin-user','name_007' => 'Users','package_007' => '2'],
             ['id_007' => 'admin-attachment','name_007' => 'Attachments','package_007' => '2'],
             ['id_007' => 'admin-attachment-family','name_007' => 'Attachment Families','package_007' => '2'],
+            ['id_007' => 'admin-library','name_007' => 'Library','package_007' => '2'],
             ['id_007' => 'pulsar','name_007' => 'Pulsar','package_007' => '1']
         ]);
     }
