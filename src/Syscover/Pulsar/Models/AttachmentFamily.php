@@ -41,4 +41,13 @@ class AttachmentFamily extends Model {
 
         return $query;
     }
+
+    public static function getAttachmentFamilies($args)
+    {
+        $query =  AttachmentFamily::query();
+
+        if(isset($args['resource_015'])) $query->where('resource_015', $args['resource_015']);
+
+        return $query->get();
+    }
 }
