@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class HotelsCreateTableAttachmentFamily extends Migration {
+class PulsarCreateTableAttachmentFamily extends Migration {
 
     /**
      * Run the migrations.

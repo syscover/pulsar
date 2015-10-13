@@ -2,7 +2,7 @@
 
 @section('script')
     <!-- pulsar::layouts.index -->
-    @include('pulsar::includes.html.script_header_list')
+    @include('pulsar::includes.js.header_list')
     @include('pulsar::includes.js.success_message')
     @include('pulsar::includes.js.datatable_config')
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/jquery.cookie/js.cookie.js') }}"></script>

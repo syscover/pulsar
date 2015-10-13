@@ -39,4 +39,13 @@ class Resource extends Model
     {
         return Resource::join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012')->newQuery();
     }
+
+    public static function getResources($args)
+    {
+        $query =  Resource::join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012')->newQuery();
+
+        if(isset($args['active_012'])) $query->where('active_012', $args['active_012']);
+
+        return $query->get();
+    }
 }
