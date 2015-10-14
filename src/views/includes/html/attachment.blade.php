@@ -1,4 +1,5 @@
 <!-- pulsar::includes.html.attachment -->
+@include('pulsar::includes.html.form_hidden', ['name' => 'attachments', 'value' => $attachmentsInput])
 <div id="attachment-library" class="widget box">
     <div class="widget-content no-padding">
         <div class="row" id="attachment-wrapper">
@@ -22,7 +23,7 @@
                                     <div class="col-md-2 col-sm-2 col-xs-2 uncovered">
                                         <h4 class="attachment-action"><span class="glyphicon glyphicon-pencil"></span></h4>
                                     </div>
-                                    <form>
+                                    <div>
                                         <div class="close-icon covered"><span class="glyphicon glyphicon-remove"></span></div>
                                         <div class="col-md-12 col-sm-12 col-xs-12 covered">
                                             <div class="form-group">
@@ -42,7 +43,7 @@
                                                 <button type="button" class="close-ov form-control save-attachment">{{ trans('pulsar::pulsar.save') }}</button>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                             <div class="remove-img">

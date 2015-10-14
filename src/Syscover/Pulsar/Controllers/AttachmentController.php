@@ -1,4 +1,4 @@
-<?php namespace Syscover\Hotels\Controllers;
+<?php namespace Syscover\Pulsar\Controllers;
 
 /**
  * @package	    Hotels
@@ -29,12 +29,12 @@ class AttachmentController extends Controller {
             $idAttachment++;
 
             // move file from temp file to attachment folder
-            File::move(public_path() . config('hotels.tmpFolder') . '/' . $attachment['fileName'], public_path() . config('hotels.attachmentFolder') . '/' . $parameters['article'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']);
+            File::move(public_path() . config($request->input('routesConfigFile') . '.tmpFolder') . '/' . $attachment['fileName'], public_path() . config($request->input('routesConfigFile') . '.attachmentFolder') . '/' . $parameters['object'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']);
 
             $attachmentsResponse[] = Attachment::create([
                 'id_016'                => $idAttachment,
                 'lang_016'              => $parameters['lang'],
-
+                'resource_016'          => $request->input('resource'),
                 'object_016'            => $parameters['object'],
                 'family_016'            => null,
                 'library_016'           => $attachment['library'],
@@ -43,7 +43,7 @@ class AttachmentController extends Controller {
                 'name_016'              => null,
                 'file_name_016'         => $attachment['fileName'],
                 'mime_016'              => $attachment['mime'],
-                'size_016'              => filesize(public_path() . config('hotels.attachmentFolder') . '/' . $parameters['article'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']),
+                'size_016'              => filesize(public_path() . config($request->input('routesConfigFile') . '.attachmentFolder') . '/' . $parameters['object'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']),
                 'type_016'              => $attachment['type']['id'],
                 'type_text_016'         => $attachment['type']['name'],
                 'width_016'             => $attachment['width'],
@@ -81,10 +81,11 @@ class AttachmentController extends Controller {
                 'library_016'           => $attachment['library'],
                 'library_file_name_016' => $attachment['libraryFileName'] == ""? null : $attachment['libraryFileName'],
                 'sorting_016'           => $attachment['sorting'],
+                //'url_016'               => $attachment['url'] == ""? null : $attachment['url'],
                 'name_016'              => $attachment['name'] == ""? null : $attachment['name'],
                 'file_name_016'         => $attachment['fileName'] == ""? null : $attachment['fileName'],
                 'mime_016'              => $attachment['mime'],
-                'size_016'              => filesize(public_path() . config('hotels.attachmentFolder') . '/' . $parameters['article'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']),
+                'size_016'              => filesize(public_path() . config($request->input('routesConfigFile') . '.attachmentFolder') . '/' . $parameters['object'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']),
                 'type_016'              => $attachment['type']['id'],
                 'type_text_016'         => $attachment['type']['name'],
                 'width_016'             => $width,
@@ -124,10 +125,11 @@ class AttachmentController extends Controller {
                     'library_016'           => $attachment['library'],
                     'library_file_name_016' => $attachment['libraryFileName'] == ""? null : $attachment['libraryFileName'],
                     'sorting_016'           => $attachment['sorting'],
+                    //'url_016'               => $attachment['url'] == ""? null : $attachment['url'],
                     'name_016'              => $attachment['name'] == ""? null : $attachment['name'],
                     'file_name_016'         => $attachment['fileName'] == ""? null : $attachment['fileName'],
                     'mime_016'              => $attachment['mime'],
-                    'size_016'              => filesize(public_path() . config('hotels.attachmentFolder') . '/' . $parameters['article'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']),
+                    'size_016'              => filesize(public_path() . config($request->input('routesConfigFile') . '.attachmentFolder') . '/' . $parameters['object'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']),
                     'type_016'              => $attachment['type']['id'],
                     'type_text_016'         => $attachment['type']['name'],
                     'width_016'             => $width,
@@ -153,7 +155,7 @@ class AttachmentController extends Controller {
 
         if($attachment->file_name_016 != null && $attachment->file_name_016 != "")
         {
-            File::delete(public_path() . config('hotels.attachmentFolder') . '/' . $attachment->hotel_016 . '/' . $attachment->lang_016 . '/' . $attachment->file_name_016);
+            File::delete(public_path() . config($request->input('routesConfigFile') . '.attachmentFolder') . '/' . $attachment->hotel_016 . '/' . $attachment->lang_016 . '/' . $attachment->file_name_016);
         }
 
         Attachment::deleteTranslationRecord($parameters['id'], $parameters['lang']);
@@ -169,7 +171,7 @@ class AttachmentController extends Controller {
 
     public function apiDeleteTmpAttachment(HttpRequest $request)
     {
-        File::delete(public_path() . config('hotels.tmpFolder') . '/' . $request->input('fileName'));
+        File::delete(public_path() . config($request->input('routesConfigFile') . '.tmpFolder') . '/' . $request->input('fileName'));
 
         $response = [
             'success'   => true,

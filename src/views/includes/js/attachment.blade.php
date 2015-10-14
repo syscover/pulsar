@@ -80,10 +80,11 @@
         $.ajax({
             url: '{{ route('storeAttachment', ['object' => isset($objectId)? $objectId : null , 'lang' => $lang->id_001]) }}',
             data:       {
-                attachments:    files,
-                lang:           $('[name=lang]').val(),
-                object:         $('[name=id]').val(),
-                resource:       '{{ $resource }}'
+                attachments:        files,
+                lang:               $('[name=lang]').val(),
+                object:             $('[name=id]').val(),
+                resource:           '{{ $resource }}',
+                routesConfigFile:   '{{ $routesConfigFile }}'
             },
             headers:  {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -254,7 +255,8 @@
                 data: {
                     _method: 'PUT',
                     attachment: attachmentToUpdate,
-                    action: '{{ $action }}'
+                    action: '{{ $action }}',
+                    routesConfigFile: '{{ $routesConfigFile }}'
             },
                 type:		'POST',
                 dataType:	'json',
@@ -308,7 +310,10 @@
                         headers:  {
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
                         },
-                        data: {_method: 'DELETE'},
+                        data: {
+                            _method: 'DELETE',
+                            routesConfigFile: '{{ $routesConfigFile }}'
+                        },
                         type:		'POST',
                         dataType:	'json',
                         success: function(data)
@@ -329,8 +334,9 @@
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
                         },
                         data: {
-                            _method:    'DELETE',
-                            fileName:   $(this).find('.file-name').html()
+                            _method:            'DELETE',
+                            fileName:           $(this).find('.file-name').html(),
+                            routesConfigFile:   '{{ $routesConfigFile }}'
                         },
                         type:		'POST',
                         dataType:	'json',
@@ -376,8 +382,9 @@
                 },
                 data: {
                     _method: 'PUT',
-                    attachments: attachments,
-                    action: '{{ $action }}'
+                    attachments:        attachments,
+                    action:             '{{ $action }}',
+                    routesConfigFile:   '{{ $routesConfigFile }}'
                 },
                 type:		'POST',
                 dataType:	'json',
