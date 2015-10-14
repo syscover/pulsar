@@ -174,4 +174,5 @@ return [
     'attachment_family'                     => 'Attachment family|Attachment families',
     'image_name'                            => 'Image name',
     'drag_files'                            => 'Drag files here',
+    'select_family'                         => 'Select a family',
 ];

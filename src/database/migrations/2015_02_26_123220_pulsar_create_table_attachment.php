@@ -40,9 +40,9 @@ class PulsarCreateTableAttachment extends Migration {
                 ->onDelete('restrict')->onUpdate('cascade');
             $table->foreign('resource_016')->references('id_007')->on('001_007_resource')
                 ->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('family_016')->references('id_155')->on('007_155_attachment_family')
+            $table->foreign('family_016')->references('id_015')->on('001_015_attachment_family')
                 ->onDelete('restrict')->onUpdate('cascade');
-            $table->foreign('library_016')->references('id_154')->on('007_154_library')
+            $table->foreign('library_016')->references('id_014')->on('001_014_library')
                 ->onDelete('set null')->onUpdate('cascade');
 
             $table->index(['object_016']);

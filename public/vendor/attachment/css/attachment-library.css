@@ -247,3 +247,9 @@ li:hover div.attachment-item:not(.cover) ~ div.remove-img{
     margin:20px;
     cursor: move;
 }
+
+div.attachment-over .form-group {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    margin-bottom: 0 !important;
+}

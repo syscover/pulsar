@@ -111,7 +111,8 @@
                             fileName:           attachment.file_name_016,
                             library:            attachment.library_016,
                             libraryFileName:    attachment.library_file_name_016,
-                            name:               null
+                            name:               null,
+                            url:                null
                         });
 
                         $('.sortable').loadTemplate('#file', {
@@ -411,8 +412,7 @@
                 <div class="col-md-2 col-sm-2 col-xs-2 uncovered">
                     <h4 class="attachment-action"><span class="glyphicon glyphicon-pencil"></span></h4>
                 </div>
-                <!--<form>-->
-                <div class="form-horizontal">
+                <div>
                     <div class="close-icon covered"><span class="glyphicon glyphicon-remove"></span></div>
                     <div class="col-md-12 col-sm-12 col-xs-12 covered">
                         <div class="form-group">
@@ -433,7 +433,6 @@
                         </div>
                     </div>
                 </div>
-                <!--</form>-->
             </div>
         </div>
         <div class="remove-img">

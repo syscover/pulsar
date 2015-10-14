@@ -61,12 +61,6 @@
                     <li{!! Miscellaneous::setOpenPage(['admin-attachment-family']) !!}>
                         <a href="javascript:void(0);"><i class="fa fa-paperclip"></i>{{ trans_choice('pulsar::pulsar.attachment', 2) }}<span class="arrow"></span></a>
                         <ul class="sub-menu"{!! Miscellaneous::setDisplayPage(['admin-attachment-family']) !!}>
-                            @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-perm-profile', 'access'))
-                                <li{!! Miscellaneous::setCurrentPage(array('admin-perm-profile', 'admin-perm-perm')) !!}><a href="{{ route('Profile') }}"><i class="icomoon-icon-users-2"></i>{{ trans_choice('pulsar::pulsar.profile', 2) }}</a></li>
-                            @endif
-                            @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-perm-resource', 'access'))
-                                <li{!! Miscellaneous::setCurrentPage('admin-perm-resource') !!}><a href="{{ route('Resource') }}"><i class="icomoon-icon-database"></i>{{ trans_choice('pulsar::pulsar.resource', 2) }}</a></li>
-                            @endif
                             @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-attachment-family', 'access'))
                                 <li{!! Miscellaneous::setCurrentPage('admin-attachment-family') !!}><a href="{{ route('AttachmentFamily') }}"><i class="fa fa-th"></i>{{ trans_choice('pulsar::pulsar.attachment_family', 2) }}</a></li>
                             @endif

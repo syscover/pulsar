@@ -92,12 +92,13 @@ class LibraryController extends Controller {
                 $filesNames[] = $file['name'];
             }
 
-            // convert getFile format to hotels application format
+            // convert json format to store in document DOM
             $objectsResponse[] = [
                 'id'        => null,
                 'family'    => null,
                 'type'      => $type,
                 'mime'      => $file['mime'],
+                'url'       => null,
                 'name'      => null,
                 'folder'    => config($request->input('routesConfigFile') . '.tmpFolder'),
                 'fileName'  => $file['name'],
