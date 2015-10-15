@@ -58,4 +58,15 @@ class Attachment extends Model {
 
         return $query->get();
     }
+
+    public static function deleteAttachment($args)
+    {
+        $query =  Attachment::query();
+
+        if(isset($args['lang_016']))        $query->where('lang_016', $args['lang_016']);
+        if(isset($args['resource_016']))    $query->where('resource_016', $args['resource_016']);
+        if(isset($args['object_016']))      $query->where('object_016', $args['object_016']);
+
+        return $query->delete();
+    }
 }

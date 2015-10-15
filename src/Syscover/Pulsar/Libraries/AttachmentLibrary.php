@@ -26,7 +26,7 @@ class AttachmentLibrary {
      * @param   string      $resource
      * @return  boolean
      */
-    public static function storeAttachments($attachments, $lang, $routesConfigFile, $resource, $objectId)
+    public static function storeAttachments($attachments, $routesConfigFile, $resource, $objectId, $lang)
     {
         if(!File::exists(public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId . '/'. $lang))
         {
@@ -56,7 +56,7 @@ class AttachmentLibrary {
                 'library_016'           => $attachment->library,
                 'library_file_name_016' => $attachment->libraryFileName == ""? null : $attachment->libraryFileName,
                 'sorting_016'           => $attachment->sorting,
-                'url_016'               => $attachment->url,
+                //'url_016'               => $attachment->url,
                 'name_016'              => $attachment->name == ""? null : $attachment->name,
                 'file_name_016'         => $attachment->fileName == ""? null : $attachment->fileName,
                 'mime_016'              => $attachment->mime,
@@ -74,14 +74,14 @@ class AttachmentLibrary {
      *  Function to get attachment element with json string to new element
      *
      * @access	public
-     * @param   string      $lang
      * @param   string      $routesConfigFile
-     * @param   integer     $objectId
      * @param   string      $resource
+     * @param   integer     $objectId
+     * @param   string      $lang
      * @param   boolean     $copyAttachment
      * @return  array       $response
      */
-    public static function getAttachments($lang, $routesConfigFile, $resource, $objectId, $copyAttachment = false)
+    public static function getAttachments($routesConfigFile, $resource, $objectId, $lang, $copyAttachment = false)
     {
         $response['attachments'] = Attachment::getAttachments([
             'lang_016'      => $lang,
@@ -94,7 +94,8 @@ class AttachmentLibrary {
         {
             if($copyAttachment)
             {
-                // Copy attachments base lang article to temp folder
+                // function to duplicate files if we create a new lang object
+                // copy attachments base lang article to temp folder
                 File::copy(public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId . '/' . session('baseLang')->id_001 . '/' . $attachment->file_name_016, public_path() . config($routesConfigFile . '.tmpFolder') . '/' . $attachment->file_name_016);
             }
 
@@ -118,6 +119,38 @@ class AttachmentLibrary {
         }
 
         $response['attachmentsInput'] = json_encode($attachmentsInput);
+
+        return $response;
+    }
+
+    /**
+     *  Function to delete attachment
+     *
+     * @access	public
+     * @param   string      $routesConfigFile
+     * @param   string      $resource
+     * @param   integer     $objectId
+     * @param   string      $lang
+     * @return  boolean     $response
+     */
+    public static function deleteAttachment($routesConfigFile, $resource, $objectId, $lang = null)
+    {
+        Attachment::deleteAttachment([
+            'lang_016'      => $lang,
+            'resource_016'  => $resource,
+            'object_016'    => $objectId
+        ]);
+
+        if(isset($lang))
+        {
+            // delete all attachments from this object
+            $response = File::deleteDirectory(public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId. '/' . $lang);
+        }
+        else
+        {
+            // delete all attachments from this object
+            $response = File::deleteDirectory(public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId);
+        }
 
         return $response;
     }

@@ -36,7 +36,7 @@
     @endif
 
     @if(isset(session('packages')[2]) && session('packages')[2]->active_012 && session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin', 'access'))
-        <li{!! Miscellaneous::setCurrentOpenPage(['admin-user', 'admin-lang', 'admin-country', 'admin-country-at1', 'admin-country-at2', 'admin-country-at3', 'admin-package', 'admin-cron', 'admin-perm-profile', 'admin-perm-resource', 'admin-perm-action', 'admin-perm-perm', 'admin-email-account', 'admin-attachment-family']) !!}>
+        <li{!! Miscellaneous::setCurrentOpenPage(['admin-user', 'admin-lang', 'admin-country', 'admin-country-at1', 'admin-country-at2', 'admin-country-at3', 'admin-package', 'admin-cron', 'admin-perm-profile', 'admin-perm-resource', 'admin-perm-action', 'admin-perm-perm', 'admin-email-account', 'admin-attachment-family', 'admin-library']) !!}>
             <a href="javascript:void(0);"><i class="fa fa-cog"></i>{{ trans('pulsar::pulsar.administration') }}</a>
             <ul class="sub-menu">
                 @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-user', 'access'))
@@ -58,11 +58,14 @@
                         <li{!! Miscellaneous::setCurrentPage('admin-email-account') !!}><a href="{{ route('EmailAccount') }}"><i class="fa fa-envelope"></i>{{ trans_choice('pulsar::pulsar.account', 2) }}</a></li>
                 @endif
                 @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-attachment', 'access'))
-                    <li{!! Miscellaneous::setOpenPage(['admin-attachment-family']) !!}>
+                    <li{!! Miscellaneous::setOpenPage(['admin-attachment-family', 'admin-library']) !!}>
                         <a href="javascript:void(0);"><i class="fa fa-paperclip"></i>{{ trans_choice('pulsar::pulsar.attachment', 2) }}<span class="arrow"></span></a>
-                        <ul class="sub-menu"{!! Miscellaneous::setDisplayPage(['admin-attachment-family']) !!}>
+                        <ul class="sub-menu"{!! Miscellaneous::setDisplayPage(['admin-attachment-family', 'admin-library']) !!}>
                             @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-attachment-family', 'access'))
                                 <li{!! Miscellaneous::setCurrentPage('admin-attachment-family') !!}><a href="{{ route('AttachmentFamily') }}"><i class="fa fa-th"></i>{{ trans_choice('pulsar::pulsar.attachment_family', 2) }}</a></li>
+                            @endif
+                            @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-library', 'access'))
+                                <li{!! Miscellaneous::setCurrentPage('admin-library') !!}><a href="{{ route('Library') }}"><i class="fa fa-book"></i>{{ trans_choice('pulsar::pulsar.library', 2) }}</a></li>
                             @endif
                         </ul>
                     </li>
