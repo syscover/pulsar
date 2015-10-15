@@ -427,7 +427,7 @@
                         </div>
                         <div class="form-group">
                             <select class="form-control attachment-family" name="attachmentFamily" data-previous="">
-                                <option value="" selected>{{ trans('cms::pulsar.select_family') }}</option>
+                                <option value="" selected>{{ trans('pulsar::pulsar.select_family') }}</option>
                                 @foreach($attachmentFamilies as $attachmentFamily)
                                     <option value="{{ $attachmentFamily->id_015 }}">{{ $attachmentFamily->name_015 }}</option>
                                 @endforeach

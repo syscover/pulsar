@@ -71,16 +71,17 @@ class AttachmentLibrary {
     }
 
     /**
-     *  Function to get attachment element with json strong
+     *  Function to get attachment element with json string to new element
      *
      * @access	public
      * @param   string      $lang
      * @param   string      $routesConfigFile
      * @param   integer     $objectId
      * @param   string      $resource
-     * @return  boolean
+     * @param   boolean     $copyAttachment
+     * @return  array       $response
      */
-    public static function getAttachments($lang, $routesConfigFile, $resource, $objectId)
+    public static function getAttachments($lang, $routesConfigFile, $resource, $objectId, $copyAttachment = false)
     {
         $response['attachments'] = Attachment::getAttachments([
             'lang_016'      => $lang,
@@ -91,6 +92,12 @@ class AttachmentLibrary {
 
         foreach($response['attachments'] as $attachment)
         {
+            if($copyAttachment)
+            {
+                // Copy attachments base lang article to temp folder
+                File::copy(public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId . '/' . session('baseLang')->id_001 . '/' . $attachment->file_name_016, public_path() . config($routesConfigFile . '.tmpFolder') . '/' . $attachment->file_name_016);
+            }
+
             // get json data from attachment
             $attachmentData = json_decode($attachment->data_016);
 
@@ -100,7 +107,7 @@ class AttachmentLibrary {
                 'type'              => ['id' => $attachment->type_016, 'name' => $attachment->type_text_016, 'icon' => $attachmentData->icon],
                 'mime'              => $attachment->mime_016,
                 'name'              => $attachment->name_016,
-                'folder'            => config($routesConfigFile . '.attachmentFolder') . '/' . $attachment->object_016 . '/' . $attachment->lang_016,
+                'folder'            => $copyAttachment? config($routesConfigFile . '.tmpFolder') : config($routesConfigFile . '.attachmentFolder') . '/' . $attachment->object_016 . '/' . $attachment->lang_016,
                 'fileName'          => $attachment->file_name_016,
                 'width'             => $attachment->width_016,
                 'height'            => $attachment->height_016,
