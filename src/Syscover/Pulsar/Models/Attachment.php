@@ -55,6 +55,7 @@ class Attachment extends Model {
         if(isset($args['lang_016']))        $query->where('lang_016', $args['lang_016']);
         if(isset($args['resource_016']))    $query->where('resource_016', $args['resource_016']);
         if(isset($args['object_016']))      $query->where('object_016', $args['object_016']);
+        if(isset($args['orderBy']))         $query->orderBy($args['orderBy']['column'], $args['orderBy']['order']);
 
         return $query->get();
     }

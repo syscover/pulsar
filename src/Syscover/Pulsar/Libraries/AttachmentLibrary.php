@@ -86,7 +86,8 @@ class AttachmentLibrary {
         $response['attachments'] = Attachment::getAttachments([
             'lang_016'      => $lang,
             'resource_016'  => $resource,
-            'object_016'    => $objectId
+            'object_016'    => $objectId,
+            'orderBy'       => ['column' => 'sorting_016', 'order' => 'asc']
         ]);
         $attachmentsInput = [];
 

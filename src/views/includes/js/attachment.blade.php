@@ -123,8 +123,9 @@
                             isImage:            attachment.type_016 == 1? 'is-image' : 'no-image'
                         }, { prepend:true });
 
-                        // put id across loadTemple and replace id data-id for id attribute, to detect script is a stored database element
+                        // put id across loadTemple to replace id by data-id, to detect if is a stored database element
                         $('#' + attachment.id_016).data('id', attachment.id_016).removeAttr('id');
+
                     });
 
                     // set input hidden with attachment data
@@ -404,9 +405,9 @@
     };
 </script>
 
-<script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/jquery.loadTemplate/jquery.loadTemplate-1.4.5.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/jquery.loadTemplate/jquery.loadTemplate-1.5.0.min.js') }}"></script>
 <script type="text/html" id="file">
-    <li>
+    <li data-id="id">
         <div class="attachment-item">
             <div class="attachment-img">
                 <img data-src="image" data-class="isImage" />
