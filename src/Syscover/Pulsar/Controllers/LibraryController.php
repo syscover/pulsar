@@ -64,7 +64,8 @@ class LibraryController extends Controller {
 
         foreach($files as $file)
         {
-            File::copy(public_path() . config($request->input('routesConfigFile') . '.libraryFolder') . '/' . $file['name'], public_path() . config($request->input('routesConfigFile') . '.tmpFolder') . '/' . $file['name']);
+            $tmpFileName = uniqid();
+            File::copy(public_path() . config($request->input('routesConfigFile') . '.libraryFolder') . '/' . $file['name'], public_path() . config($request->input('routesConfigFile') . '.tmpFolder') . '/' . $tmpFileName);
 
             $width = null; $height= null;
             if($file['isImage'] == 'true')
@@ -94,16 +95,17 @@ class LibraryController extends Controller {
 
             // convert json format to store in document DOM
             $objectsResponse[] = [
-                'id'        => null,
-                'family'    => null,
-                'type'      => $type,
-                'mime'      => $file['mime'],
-                'url'       => null,
-                'name'      => null,
-                'folder'    => config($request->input('routesConfigFile') . '.tmpFolder'),
-                'fileName'  => $file['name'],
-                'width'     => $width,
-                'height'    => $height
+                'id'            => null,
+                'family'        => null,
+                'type'          => $type,
+                'mime'          => $file['mime'],
+                'url'           => null,
+                'name'          => null,
+                'folder'        => config($request->input('routesConfigFile') . '.tmpFolder'),
+                'tmpFileName'   => $tmpFileName,
+                'fileName'      => $file['name'],
+                'width'         => $width,
+                'height'        => $height
             ];
         }
 
@@ -131,6 +133,7 @@ class LibraryController extends Controller {
         return response()->json($response);
     }
 
+    /*
     public function deleteCustomRecord($object)
     {
         File::delete(public_path() . config('hotels.libraryFolder') . '/' . $object->file_name_014);
@@ -148,6 +151,7 @@ class LibraryController extends Controller {
 
         File::delete($fileNames);
     }
+    */
 
     private function getType($mime)
     {

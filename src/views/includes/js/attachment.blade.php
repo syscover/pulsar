@@ -58,8 +58,9 @@
 
                     libraryDataStored.files.forEach(function(file, index, array){
                         $('.sortable').loadTemplate('#file', {
-                            image:              file.type.id == 1? '{{ config($routesConfigFile . '.tmpFolder') }}/' + file.fileName : '{{ config($routesConfigFile . '.iconsFolder') }}/' + file.type.icon,
+                            image:              file.type.id == 1? '{{ config($routesConfigFile . '.tmpFolder') }}/' + file.tmpFileName : '{{ config($routesConfigFile . '.iconsFolder') }}/' + file.type.icon,
                             fileName:           file.fileName,
+                            tmpFileName:        file.tmpFileName,
                             isImage:            file.type.id == 1? 'is-image' : 'no-image'
                         }, { prepend:true });
                     });
@@ -149,7 +150,7 @@
             $(this).addClass('changed');
         });
 
-        // Booton to save properties for attachment
+        // Bottom to save properties for attachment
         $('.save-attachment').off('click').on('click', function() {
             // comprobamos que hay una familia elegida y que ha cambiado algún valor del attachemnt
             if($(this).closest('li').find('select').val() != '' && $(this).closest('li').find('.attachment-family').hasClass('changed'))
@@ -175,11 +176,26 @@
                                 var action = 'edit';
                             @endif
 
+                            console.log($(that).closest('li').data('id') == undefined ||  action == 'create'? '{{ config($routesConfigFile . '.tmpFolder') }}' : '{{ config($routesConfigFile . '.attachmentFolder') }}/{{ isset($objectId)? $objectId : null }}/{{ $lang->id_001 }}');
+
+                            // check if folder is tmp or attachment folder, depend if is a create or edit action
+                            //if($(that).closest('li').data('id') == undefined ||  action == 'create')
+                            if(action == 'create')
+                            {
+                                var folder  = '{{ config($routesConfigFile . '.tmpFolder') }}';
+                                var srcFile = $(that).closest('li').find('[name=tmpFileName]').val();
+                            }
+                            else
+                            {
+                                var folder  = '{{ config($routesConfigFile . '.attachmentFolder') }}/{{ isset($objectId)? $objectId : null }}/{{ $lang->id_001 }}';
+                                var srcFile = $(that).closest('li').find('.file-name').html();
+                            }
+
                             // Throw get file plugin to crop anf create or overwrite image
                             $.getFile(
                                 {
                                     urlPlugin:  '/packages/syscover/pulsar/vendor',
-                                    folder:     $(that).closest('li').data('id') == undefined ||  action == 'create'? '{{ config($routesConfigFile . '.tmpFolder') }}' : '{{ config($routesConfigFile . '.attachmentFolder') }}/{{ isset($objectId)? $objectId : null }}/{{ $lang->id_001 }}',
+                                    folder:     folder,
                                     srcFolder:  '{{ config($routesConfigFile . '.libraryFolder') }}',
                                     srcFile:    $(that).closest('li').find('.file-name').html(),
                                     crop: {
@@ -408,6 +424,7 @@
 <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/jquery.loadTemplate/jquery.loadTemplate-1.5.0.min.js') }}"></script>
 <script type="text/html" id="file">
     <li data-id="id">
+        @include('pulsar::includes.html.form_hidden', ['name' => 'tmpFileName', 'data' => ['value' => 'tmpFileName']])
         <div class="attachment-item">
             <div class="attachment-img">
                 <img data-src="image" data-class="isImage" />

@@ -1,1 +1,1 @@
-<input type="hidden" name="{{ $name }}" value="{{ isset($value)? $value : null }}">
+<input type="hidden" name="{{ $name }}" value="{{ isset($value)? $value : null }}"{!! isset($data)? Miscellaneous::setDataAttributes($data) : null !!}>
