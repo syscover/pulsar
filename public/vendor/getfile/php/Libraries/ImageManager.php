@@ -98,14 +98,14 @@ class ImageManager
         switch ($extension)
         {
             case 'gif':
-                if(!imagegif($dstImage, $dstPath)) throw new \Exception("Error, the image river.jpeg could not be copied to the directory: " . $dstPath);
+                if(!imagegif($dstImage, $dstPath)) throw new \Exception("Error, the image " . $fileName . " could not be copied to the directory: " . $dstPath);
             break;
             case 'jpeg':
             case 'jpg':
-                if(!imagejpeg($dstImage, $dstPath, intval($quality))) throw new \Exception("Error, the image river.jpeg could not be copied to the directory: " . $dstPath);
+                if(!imagejpeg($dstImage, $dstPath, intval($quality))) throw new \Exception("Error, the image " . $fileName . " could not be copied to the directory: " . $dstPath);
             break;
             case 'png':
-                if(!imagepng($dstImage, $dstPath)) throw new \Exception("Error, the image river.jpeg could not be copied to the directory: " . $dstPath);
+                if(!imagepng($dstImage, $dstPath)) throw new \Exception("Error, the image " . $fileName . " could not be copied to the directory: " . $dstPath);
             break;
         }
 
