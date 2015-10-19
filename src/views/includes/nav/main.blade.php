@@ -65,7 +65,7 @@
                                 <li{!! Miscellaneous::setCurrentPage('admin-attachment-family') !!}><a href="{{ route('AttachmentFamily') }}"><i class="fa fa-th"></i>{{ trans_choice('pulsar::pulsar.attachment_family', 2) }}</a></li>
                             @endif
                             @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-library', 'access'))
-                                <li{!! Miscellaneous::setCurrentPage('admin-library') !!}><a href="{{ route('Library') }}"><i class="fa fa-book"></i>{{ trans_choice('pulsar::pulsar.library', 2) }}</a></li>
+                                <li{!! Miscellaneous::setCurrentPage('admin-library') !!}><a href="{{ route('AttachmentLibrary') }}"><i class="fa fa-book"></i>{{ trans_choice('pulsar::pulsar.library', 2) }}</a></li>
                             @endif
                         </ul>
                     </li>

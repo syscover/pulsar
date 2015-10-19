@@ -41,11 +41,11 @@ class AttachmentLibrary {
             $width = null; $height= null;
             if($attachment->type->id == 1)
             {
-                list($width, $height) = getimagesize(public_path() . $attachment->folder . '/' . $attachment->fileName);
+                list($width, $height) = getimagesize(public_path() . $attachment->folder . '/' . $attachment->tmpFileName);
             }
             
             // move file fom temp file to attachment folder
-            File::move(public_path() . $attachment->folder . '/' . $attachment->fileName, public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId . '/'. $lang .'/' . $attachment->fileName);
+            File::move(public_path() . $attachment->folder . '/' . $attachment->tmpFileName, public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId . '/'. $lang .'/' . $attachment->fileName);
 
             Attachment::create([
                 'id_016'                => $idAttachment,

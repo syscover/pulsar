@@ -64,13 +64,14 @@
         @yield('script')
         
         <!-- JS personalizadas -->
-        <script>
+        <script type="text/javascript">
         $(document).ready(function() {
             "use strict";
 
             $.cssLoader({
                 urlPlugin:  '/packages/syscover/pulsar/vendor',
-                spinnerColor: '#2a4053'
+                spinnerColor: '#4d7496',
+                theme: 'material'
             });
 
             Login.init(); // Init login JavaScript

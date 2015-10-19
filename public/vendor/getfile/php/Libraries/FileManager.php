@@ -25,7 +25,7 @@ class FileManager
      * @access	public
      * @return	boolean
      */
-    public static function uploadFiles($inputName, $path, $encryption = false, $newFilename = false) 
+    public static function uploadFiles($inputName, $path, $encryption = false, $newFilename = false, $overwrite = false)
     {
         $file           = Input::file($inputName);                  // Instance object File
         $extension      = $file->getClientOriginalExtension();
@@ -41,27 +41,31 @@ class FileManager
         {
             $filename = $newFilename . "." . $extension;
         }
-        
-        $i = 0;
-        while (file_exists($path . '/' . $filename)) 
+
+        if(!$overwrite)
         {
-            $i++;
-            
-            if(!$encryption && !$newFilename)							// New name is generated from the original file name
+            $i = 0;
+            while (file_exists($path . '/' . $filename))
             {
-                $baseName = basename($filenameOrg, '.' . $extension);
-                $filename = $baseName . '-' . $i . '.' . $extension;
+                $i++;
+
+                if(!$encryption && !$newFilename)							// New name is generated from the original file name
+                {
+                    $baseName = basename($filenameOrg, '.' . $extension);
+                    $filename = $baseName . '-' . $i . '.' . $extension;
+                }
+                elseif(!$encryption && $newFilename)						// New name is generated from the provided name
+                {
+                    $filename = $newFilename . '-' . $i . '.' . $extension;
+                }
+                else														// New name is generated using encryption
+                {
+                    mt_srand();
+                    $filename = md5(uniqid(mt_rand())) . "." . $extension;
+                }
             }
-            elseif(!$encryption && $newFilename)						// New name is generated from the provided name
-            {
-                $filename = $newFilename . '-' . $i . '.' . $extension;
-            }
-            else														// New name is generated using encryption
-            {
-                mt_srand();
-                $filename = md5(uniqid(mt_rand())) . "." . $extension;
-            } 
         }
+
         $file->move($path, $filename);
 
         return $filename;

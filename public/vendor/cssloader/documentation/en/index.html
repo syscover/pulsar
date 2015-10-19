@@ -1,0 +1,461 @@
+<!doctype html>
+<!--[if IE 6 ]>
+<html lang="en-us" class="ie6"> <![endif]-->
+<!--[if IE 7 ]>
+<html lang="en-us" class="ie7"> <![endif]-->
+<!--[if IE 8 ]>
+<html lang="en-us" class="ie8"> <![endif]-->
+<!--[if (gt IE 7)|!(IE)]><!-->
+<html lang="en-us"><!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title>CSS Loader - loaders css3 based, SYSCOVER</title>
+
+        <meta name="description" content="CSS Loader, liviano y sencillo">
+        <meta name="author" content="SYSCOVER SL">
+        <meta name="copyright" content="SYSCOVER SL">
+        <meta name="generator" content="SYSCOVER HTML">
+        <meta name="date" content="2014-08-01T00:00:00+02:00">
+
+        <link rel="stylesheet" href="assets/css/documenter_style.css" media="all">
+        <link rel="stylesheet" href="assets/js/google-code-prettify/prettify.css" media="screen">
+
+        <script src="assets/js/google-code-prettify/prettify.js"></script>
+
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+        <script src="assets/js/jquery.js"></script>
+        <script src="assets/js/jquery.scrollTo.js"></script>
+        <script src="assets/js/jquery.easing.js"></script>
+        <script>document.createElement('section');
+            var duration = '450', easing = 'easeOutExpo';</script>
+        <script src="assets/js/script.js"></script>
+
+        <style>
+            html {
+                background-color: #FFFFFF;
+                color: #383838;
+            }
+
+            ::-moz-selection {
+                background: #444444;
+                color: #DDDDDD;
+            }
+
+            ::selection {
+                background: #444444;
+                color: #DDDDDD;
+            }
+
+            #documenter_sidebar #documenter_logo {
+                background-image: url(assets/images/image_1.png);
+            }
+
+            a {
+                color: #0000FF;
+            }
+
+            .btn {
+                border-radius: 3px;
+            }
+
+            .btn-primary {
+                background-image: -moz-linear-gradient(top, #0088CC, #0044CC);
+                background-image: -ms-linear-gradient(top, #0088CC, #0044CC);
+                background-image: -webkit-gradient(linear, 0 0, 0 0088 CC%, from(#DDDDDD), to(#0044CC));
+                background-image: -webkit-linear-gradient(top, #0088CC, #0044CC);
+                background-image: -o-linear-gradient(top, #0088CC, #0044CC);
+                background-image: linear-gradient(top, #0088CC, #0044CC);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088CC', endColorstr='#0044CC', GradientType=0);
+                border-color: #0044CC #0044CC #bfbfbf;
+                color: #FFFFFF;
+            }
+
+            .btn-primary:hover,
+            .btn-primary:active,
+            .btn-primary.active,
+            .btn-primary.disabled,
+            .btn-primary[disabled] {
+                border-color: #0088CC #0088CC #bfbfbf;
+                background-color: #0044CC;
+            }
+
+            hr {
+                border-top: 1px solid #EBEBEB;
+                border-bottom: 1px solid #FFFFFF;
+            }
+
+            #documenter_sidebar, #documenter_sidebar ul a {
+                background-color: #DDDDDD;
+                color: #222222;
+                http: / / static . revaxarts-themes . com / noise . gif
+            }
+
+            #documenter_sidebar ul a {
+                -webkit-text-shadow: 1px 1px 0px #EEEEEE;
+                -moz-text-shadow: 1px 1px 0px #EEEEEE;
+                text-shadow: 1px 1px 0px #EEEEEE;
+            }
+
+            #documenter_sidebar ul {
+                border-top: 1px solid #AAAAAA;
+            }
+
+            #documenter_sidebar ul a {
+                border-top: 1px solid #EEEEEE;
+                border-bottom: 1px solid #AAAAAA;
+                color: #444444;
+            }
+
+            #documenter_sidebar ul a:hover {
+                background: #444444;
+                color: #DDDDDD;
+                border-top: 1px solid #444444;
+            }
+
+            #documenter_sidebar ul a.current {
+                background: #444444;
+                color: #DDDDDD;
+                border-top: 1px solid #444444;
+            }
+
+            #documenter_copyright {
+                display: block !important;
+                visibility: visible !important;
+            }
+
+            .subsection{
+                margin-left: 40px;
+                border-top: solid 1px #cccccc;
+                border-bottom: solid 1px #cccccc;
+                margin-bottom: 60px
+            }
+            .subsection .title{
+               font-weight: bold;
+               margin-top: 20px;
+               font-size: 18px;
+            }
+        </style>
+    </head>
+    <body class="documenter-project-getfile">
+        <div id="documenter_sidebar">
+            <a href="#documenter_cover" id="documenter_logo"></a>
+            <ul id="documenter_nav">
+                <li><a class="current" href="#documenter_cover">Home</a></li>
+                <li><a href="#features" title="Features">Features</a></li>
+                <li><a href="#setup" title="Setup">Setup</a></li>
+                <li><a href="#declaracion_del_plugin" title="Declaración del plugin para transiciones">Transitions between pages</a></li>
+                <li><a href="#uso_del_plugin" title="Uso del plugin para espereras durante la ejecusión de procesos">Performances between processes</a></li>
+                <li><a href="#plugin-configuration" title="Plugin configuration">Plugin configuration</a></li>
+                <li><a href="#callbacks" title="Callbacks">Callbacks</a></li>
+                <li><a href="#crear_tu_theme" title="opciones avanzadas">Create your own theme</a></li>
+                <li><a href="#use_gif_files" title="opciones avanzadas">Use .gif files</a></li>
+                <li><a href="#changelog" title="Changelog">Changelog</a></li>
+                <li><a href="#creditos" title="Créditos">Credits</a></li>
+
+            </ul>
+            <div id="documenter_copyright">Copyright SYSCOVER SL 2014</div>
+        </div>
+        <div id="documenter_content">
+            <section id="documenter_cover">
+                <h1>Css Loader</h1>
+                <h2>Spinners loaders css3 based</h2>
+                <hr>
+                <ul>
+                    <li>created: 15/10/2014</li>
+                    <li>latest update: 08/10/2015</li>
+                    <li>version: 1.2</li>
+                    <li>by: <a href="http://www.syscover.com">SYSCOVER SL</a></li>
+                    <li>email: <a href="mailto:&#115;&#117;&#112;&#112;&#111;&#114;&#116;&#64;&#115;&#121;&#115;&#99;&#111;&#118;&#101;&#114;&#46;&#99;&#111;&#109;">&#115;&#117;&#112;&#112;&#111;&#114;&#116;&#64;&#115;&#121;&#115;&#99;&#111;&#118;&#101;&#114;&#46;&#99;&#111;&#109;</a></li>
+                </ul>
+                <p>
+                    <strong>Css Loader</strong> is developed to load on screen a waiting spinner plugin for your customers, you have 17 different spinners to suit your designs.<br><br>
+                    In just 2 minutes you can configure this plugin, with a few steps you will have transitions from page to page on your website.<br><br>
+                    You also have the option of launching the loader if you are performing an action, to send data by Ajax, wait while a process is running, etc.<br><br>
+                    A simple, lightweight but very useful plugin, developed in CSS3, compatible with mobile devices and taking advantage of hardware acceleration.<br><br>
+                    When we are in a higher than screen web, wherever you're Css Loader always placed in the center of the screen.
+                </p>
+            </section>
+
+            <!-- FEATURES -->
+            <section id="features">
+                <div class="page-header"><h3>Features</h3>
+                    <hr class="notop">
+                </div>
+                <p><strong>Css Loader</strong> is developed to facilitate handling of spinners and loading effects into your web.</p>
+                <p>Key features:</p>
+                <ul>
+					<li>17 themes to choose appearance</li>
+					<li>Compatible with mobile devices</li>
+					<li>Absolute positioning, always appears centered</li>
+					<li>With the possibility of using it to expect from processes or transitions between pages</li>
+                    <li>For transitions between pages, the background color of the transition is configurable</li>
+                    <li>Ability to create your own spinners</li>
+                    <li>Spinners no pictures, no gif files</li>
+                    <li>If you wish, you have the option to use it with .gif files</li>
+                </ul>
+            </section>
+
+            <!-- INSTALACIÓN -->
+            <section id="setup">
+                <div class="page-header">
+                    <h3>Setup</h3>
+                    <hr class="notop">
+                </div>
+                <p>To install the <strong>Css Loader</strong> plugin you must load the following JS library.</p>
+                <pre class="prettyprint lang-js linenums">
+&lt;script type=&quot;text/javascript&quot; src=&quot;cssloader/js/jquery.cssloader.min.js&quot;&gt;&lt;/script&gt;</pre>
+            </section>
+
+            <!-- DECLARACIÓN DEL PLUGIN PARA TRANSICIONES ENTRE PÁGINAS-->
+            <section id="declaracion_del_plugin">
+                <div class="page-header">
+                    <h3>Transitions between pages</h3>
+                    <hr class="notop">
+                </div>
+                <p>If we wish page transitions must load the following css</p>
+                <pre class="prettyprint lang-js linenums">
+&lt;link href=&quot;cssloader/css/cssloader.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;</pre>
+                <p>In our HTML must include this html code after &lt;body&gt; tag</p>
+                <pre class="prettyprint lang-js linenums">
+&lt;div id=&quot;pre-cssloader&quot;&gt;&lt;/div&gt;</pre>
+                <p>And to enable the transition from page must declare the plugin in our JavaScript and set the desired options.</p>
+
+                <pre class="prettyprint lang-js linenums">
+$(document).ready(function() {
+    $.cssLoader({
+        urlPlugin:  '.',
+        theme:      'circle'
+    });
+});</pre>
+            </section>
+
+            <!-- USO DEL PLUGIN PARA ESPERA EN PROCESOS-->
+            <section id="uso_del_plugin">
+                <div class="page-header">
+                    <h3>Performances between processes</h3>
+                    <hr class="notop">
+                </div>
+                <p>To activate it while running a process.</p>
+
+                <pre class="prettyprint lang-js linenums">
+$.cssLoader.show({
+    useLayer: false
+});</pre>
+
+                <p>And to hide once the process is complete.</p>
+
+                <pre class="prettyprint lang-js linenums">
+$.cssLoader.hide();</pre>
+            </section>
+
+            <!-- CONFIGURACIÓN DEL PLUGIN -->
+            <section id="plugin-configuration">
+                <div class="page-header">
+                    <h3>Plugin configuration</h3>
+                    <hr class="notop">
+                </div>
+                <p>Next we will detail all the possible options <strong>Css Loader</strong> plugin..</p>
+                <pre class="prettyprint lang-js linenums">
+$.cssLoader(options, callback);</pre>
+
+                <h3>options</h3>
+                <p>* = Required for proper operation options.</p>
+
+                <h5>urlPlugin *</h5>
+                <p style="margin-left: 40px;">
+                    Type: String<br>
+                    Default value: '.'<br>
+                    Description: Relative URL path to the Css Loader plugin directory
+                </p>
+
+                <h5>isImage</h5>
+                <p style="margin-left: 40px;">
+                    Type: Boolean<br>
+                    Default value: false<br>
+                    Description: Relative URL path to the Css Loader plugin directory
+                </p>
+
+                <h5>theme</h5>
+                <p style="margin-left: 40px;">
+                    Type: String<br>
+                    Default value: 'bubbles'<br>
+                    Description: Theme we want enabled to our spinner, these themes have:<br>
+                    <ul>
+                        <li>'3quarters' (IE10, IE11, Chrome, Firefox, Safari, Opera)</li>
+                        <li>'alien' (IE10, IE11, Chrome, Firefox, Safari, Opera)</li>
+                        <li>'atebits' (IE10, IE11, Chrome, Firefox, Safari, Opera)</li>
+                        <li>'ball' (IE10, IE11, Chrome, Firefox, Safari, Opera)</li>
+                        <li>'bubbles' (IE10, IE11, Chrome, Firefox, Safari, Opera)</li>
+                        <li>'carousel' (IE10, IE11, Chrome, Firefox, Safari, Opera)</li>
+                        <li>'casual' (IE10, IE11, Chrome, Firefox, Safari, Opera)</li>
+                        <li>'circle' (IE10, IE11, Chrome, Firefox, Safari, Opera)</li>
+                        <li>'clock' (IE10, IE11, Chrome, Firefox, Safari, Opera)</li>
+                        <li>'dots' (IE10, IE11, Chrome, Firefox, Safari, Opera)</li>
+                        <li>'google' (IE10, IE11, Chrome, Firefox, Safari, Opera)</li>
+                        <li>'heartbeat' (IE10, IE11, Chrome, Safari, Opera)</li>
+                        <li>'metro' (IE10, IE11, Chrome, Firefox, Safari, Opera)</li>
+                        <li>'rubik' (IE10, IE11, Chrome, Firefox, Safari, Opera)</li>
+                        <li>'sonar' (IE10, IE11, Chrome, Firefox, Safari, Opera)</li>
+                        <li>'timer' (IE10, IE11, Chrome, Firefox, Safari, Opera)</li>
+                        <li>'vumeter' (IE10, IE11, Chrome, Firefox, Safari, Opera)</li>
+                        <li>'image' (IE10, IE11, Chrome, Firefox, Safari, Opera) theme to use .gif files</li>
+                    </ul>
+                    You can see them in this <a href="/en-us/#themes" target="_blank">link</a>.
+                </p>
+
+                <h5>spinnerColor</h5>
+                <p style="margin-left: 40px;">
+                    Type: String<br>
+                    Default value: '#333'<br>
+                    Description: Our desired color spinner, not everyone can set this property
+                </p>
+
+                <h5>delay</h5>
+                <p style="margin-left: 40px;">
+                    Type: Integer<br>
+                    Default value: 250<br>
+                    Description: Milliseconds it takes for the transitions
+                </p>
+
+                <h5>useLayer</h5>
+                <p style="margin-left: 40px;">
+                    Type: Boolean<br>
+                    Default value: true<br>
+                    Description: Activates a veiled fullscreen only works with show() function, is necessary charging style "cssloader/css/cssloader.css" to work properly
+                </p>
+
+                <h5>layerColor</h5>
+                <p style="margin-left: 40px;">
+                    Type: String<br>
+                    Default value: '#ffffff'<br>
+                    Description: If is active screen fogging, this property defines the color, only works with the show() function, to change the color of the layer transition from page to page, change the css file "css/cssloaser.css", property <strong>background-color</strong>, is necessary charging style "cssloader/css/cssloader.css" to work properly.
+                </p>
+            </section>
+
+            <!-- CALLBACKS -->
+            <section id="callbacks">
+                <div class="page-header">
+                    <h3>Callbacks</h3>
+                    <hr class="notop">
+                </div>
+                <p>You can define an anonymous function within each callback.</p>
+                <pre class="prettyprint linenums">
+$.cssLoader({
+    urlPlugin:  '.'
+},
+function(){
+    console.log('callback done!!');
+});</pre>
+
+                <pre class="prettyprint linenums">
+$.cssLoader.show({
+    useLayer: false
+},
+function(){
+    console.log('show done!!');
+});</pre>
+
+                <pre class="prettyprint linenums">
+$.cssLoader.hide(
+function(){
+    console.log('hide done!!');
+});</pre>
+            </section>
+
+            <!-- CREAR TU PROPIO THEME -->
+            <section id="crear_tu_theme">
+                <div class="page-header">
+                    <h3>Create your own theme</h3>
+                    <hr class="notop">
+                </div>
+
+                <p>
+                    You can create your own theme, create a folder in themes folder and put the name of your own theme, then make an elements.php file inside this folder.<br>
+                    The only code that is necessary to keep the following:
+                </p>
+                <pre class="prettyprint lang-html linenums">
+&lt;style type=&quot;text/css&quot;&gt;
+    #loading-spinner {
+        margin: -25px 0 0 -25px;
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        left: 50%;
+        top: 40%;
+        z-index:99;
+    }
+&lt;/style&gt;
+&lt;div id="loading-spinner"&gt;
+    &lt;div class="your-css-spinner"&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+                <p>Change the <strong>"your-css-spinner"</strong> class by the name of your class and assign the css to create code between &lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt; tags</p>
+            </section>
+
+            <!-- USAR FICHEROS .GIF -->
+            <section id="use_gif_files">
+                <div class="page-header">
+                    <h3>Use .gif files</h3>
+                    <hr class="notop">
+                </div>
+
+                <p>
+                    You can use .gif files, we created a theme called image, the URL cssloader/themes/image, replaced file loader.gif by your .gif file, and sets the theme loader css property to 'image'
+                </p>
+                <pre class="prettyprint lang-js linenums">
+$(document).ready(function() {
+    $.cssLoader({
+        urlPlugin:  '.',
+        theme:      'image'
+    });
+});</pre>
+            </section>
+
+            <!-- CHANGELOG -->
+            <section id="changelog">
+                <div class="page-header">
+                    <h3>Changelog</h3>
+                    <hr class="notop">
+                </div>
+                <h4>Version 1.4.1 (1/09/2015)</h4>
+                <pre class="prettyprint lang-plain linenums">
+- Code optimization
+- Better compatibility with older browsers</pre>
+
+                <h4>Version 1.4 (1/08/2015)</h4>
+                <pre class="prettyprint lang-plain linenums">
+- Pluging ready to work without PHP
+- Include Rgb theme</pre>
+
+                <h4>Version 1.3 (16/04/2015)</h4>
+                <pre class="prettyprint lang-plain linenums">- Include Fine theme</pre>
+
+                <h4>Version 1.2 (08/01/2015)</h4>
+                <pre class="prettyprint lang-plain linenums">- Fixed conflict with scroll event</pre>
+
+                <h4>Version 1.1 (30/10/2014)</h4>
+                <pre class="prettyprint lang-plain linenums">- Now if you want you can use .gif files</pre>
+
+                <h4>Version 1.0 (15/10/2014)</h4>
+                <pre class="prettyprint lang-plain linenums">- Initial version</pre>
+            </section>
+
+            <!-- CRÉDITOS -->
+            <section id="creditos">
+                <div class="page-header">
+                    <h3>Créditos</h3>
+                    <hr class="notop">
+                </div>
+                <p>For the development of this plugin have used the following libraries</p>
+                <ul>
+                    <li><a href="http://jquery.com" target="_blank">jQuery</a></li>
+                </ul>
+
+                <p>Developers who have contributed:</p>
+                <ul>
+                    <li> Jose Carlos Rodríguez Palacín - Development</li>
+                </ul>
+            </section>
+        </div>
+    </body>
+</html>

@@ -146,15 +146,16 @@
                 <li><a href="#declaracion_del_plugin" title="Declaración del plugin">Plugin declaration</a></li>
                 <li><a href="#configuracion_del_plugin" title="Configuración del plugin">Plugin configuration</a></li>
                 <li><a href="#funciones_del_plugin" title="Funciones del plugin">Plugin functions</a></li>
+                <li><a href="#events" title="Events">Events</a></li>
                 <li><a href="#callbacks" title="Callbacks">Callbacks</a></li>
-                <li><a href="#ejemplos_de_codigo" title="Ejemplos de código">Code examples</a></li>
+                <li><a href="#code_examples" title="Code Examples">Code examples</a></li>
                 <li><a href="#progress_bar" title="Progress Bar">Progress Bar</a></li>
                 <li><a href="#deleting_files" title="Deleting Files">Deleting Files</a></li>
-                <li><a href="#opciones_avanzadas" title="opciones avanzadas">Advanced options</a></li>
+                <li><a href="#advanced_options" title="Advanced Options">Advanced options</a></li>
                 <li><a href="#changelog" title="Changelog">Changelog</a></li>
                 <li><a href="#creditos" title="Créditos">Credits</a></li>
             </ul>
-            <div id="documenter_copyright">Copyright SYSCOVER SL 2014</div>
+            <div id="documenter_copyright">Copyright SYSCOVER SL 2015</div>
         </div>
         <div id="documenter_content">
             <section id="documenter_cover">
@@ -163,8 +164,8 @@
                 <hr>
                 <ul>
                     <li>created: 01/08/2014</li>
-                    <li>latest update: 16/06/2015</li>
-                    <li>version: 4.0</li>
+                    <li>latest update: 25/09/2015</li>
+                    <li>version: 4.3</li>
                     <li>by: <a href="http://www.syscover.com">SYSCOVER SL</a></li>
                     <li>email: <a href="mailto:&#115;&#117;&#112;&#112;&#111;&#114;&#116;&#64;&#115;&#121;&#115;&#99;&#111;&#118;&#101;&#114;&#46;&#99;&#111;&#109;">&#115;&#117;&#112;&#112;&#111;&#114;&#116;&#64;&#115;&#121;&#115;&#99;&#111;&#118;&#101;&#114;&#46;&#99;&#111;&#109;</a></li>
                 </ul>
@@ -268,7 +269,7 @@
 
             </section>
 
-            <!-- DECLARACIÓN DEL PLUGIN -->
+            <!-- PLUGIN DECLARATION -->
             <section id="declaracion_del_plugin">
                 <div class="page-header">
                     <h3>Plugin declaration</h3>
@@ -492,11 +493,33 @@ $(&#39;#idButton&#39;).getFile(options, callback);</pre>
                         Example: 100
                     </p>
 
+                    <h5>overwrite</h5>
+                    <p style="margin-left: 40px;">
+                        Type: Boolean<br>
+                        Default value: false<br>
+                        Description: Overwrite file, if there is file with the same name<br>
+                    </p>
+
                     <h5>aspectRatio</h5>
                     <p style="margin-left: 40px;">
                         Type: Integer<br>
                         Default value: null,<br>
                         Description: In case of not defining width and height, this value will be used as the aspect ratio for the crop selection
+                    </p>
+
+                    <h5>setData</h5>
+                    <p style="margin-left: 40px;">
+                        Type: Objet<br>
+                        Default value: null,<br>
+                        Description: Set default crop area, base on the original image<br>
+                        <ul style="margin-left: 35px">
+                            <li>x: the offset left of the cropped area</li>
+                            <li>y: the offset top of the cropped area</li>
+                            <li>width: the width of the cropped area</li>
+                            <li>height: the height of the cropped area</li>
+                            <li>rotate: the rotated degrees of the image</li>
+                        </ul>
+                        Example: {x: 0, y: 0, width:300, height: 200, rotate: 0}
                     </p>
                 </div>
 
@@ -667,10 +690,92 @@ $(&#39;#idButton&#39;).getFile(options, callback);</pre>
                     <hr class="notop">
                 </div>
 
-                <h5>showCropWindow(callback)</h5>
+                <h5>showCropWindow()</h5>
                 <p style="margin-left: 40px;">
-                    Description: Function to back show crop image panel
+                    Description: Function to back show crop image panel<br>
+                    Code example:
+                    <pre class="prettyprint lang-js linenums">
+$(&#39;#idButton&#39;).getFile().showCropWindow();</pre>
                 </p>
+
+                <h5>setOptions(options)</h5>
+                <p style="margin-left: 40px;">
+                    Description: Function to rewrite plugin options<br>
+                    Code example:
+                    <pre class="prettyprint lang-js linenums">
+$(&#39;#idButton&#39;).getFile().setOptions(options);</pre>
+                </p>
+            </section>
+
+            <!-- EVENTS -->
+            <section id="events">
+                <div class="page-header">
+                    <h3>Events</h3>
+                    <hr class="notop">
+                </div>
+                <p>The following is a detailed list of all possible events in the <strong>Get File</strong> plugin:</p>
+
+                <h5>getfile:afterUpload</h5>
+                <p style="margin-left: 40px;">
+                    Explication: Triggered just after element is uploaded<br>
+                    Code example:
+                    <pre class="prettyprint lang-js linenums">
+$(&#39;#idButton&#39;).getFile(options, callback).on('getfile:afterUpload', function(event, data){
+    // your code
+});</pre>
+                </p>
+
+                <h5>getfile:beforeResize</h5>
+                <p style="margin-left: 40px;">
+                    Explication: Triggered just before element is resize<br>
+                    Code example:
+                    <pre class="prettyprint lang-js linenums">
+$(&#39;#idButton&#39;).getFile(options, callback).on('getfile:beforeResize', function(event, data){
+    // your code
+});</pre>
+                </p>
+
+                <h5>getfile:afterResize</h5>
+                <p style="margin-left: 40px;">
+                    Explication: Triggered just after element is resize<br>
+                    Code example:
+                    <pre class="prettyprint lang-js linenums">
+$(&#39;#idButton&#39;).getFile(options, callback).on('getfile:afterResize', function(event, data){
+    // your code
+});</pre>
+                </p>
+
+                <h5>getfile:beforeCrop</h5>
+                <p style="margin-left: 40px;">
+                    Explication: Triggered just before throw popup to crop element<br>
+                    Code example:
+                    <pre class="prettyprint lang-js linenums">
+$(&#39;#idButton&#39;).getFile(options, callback).on('getfile:beforeCrop', function(event, data){
+    // your code
+});</pre>
+                </p>
+
+                <h5>getfile:afterCrop</h5>
+                <p style="margin-left: 40px;">
+                    Explication: Triggered just after crop element<br>
+                    Code example:
+                    <pre class="prettyprint lang-js linenums">
+$(&#39;#idButton&#39;).getFile(options, callback).on('getfile:afterCrop', function(event, data){
+    // your code
+});</pre>
+                </p>
+
+                <h5>getfile:afterChangeExtension</h5>
+                <p style="margin-left: 40px;">
+                    Explication: Triggered just after change extension element<br>
+                    Code example:
+                    <pre class="prettyprint lang-js linenums">
+$(&#39;#idButton&#39;).getFile(options, callback).on('getfile:afterChangeExtension', function(event, data){
+    // your code
+});</pre>
+                </p>
+
+                <p><strong>data property, contains manipulated item properties</strong></p>
             </section>
 
             <!-- CALLBACKS -->
@@ -713,7 +818,7 @@ $(&#39;#idButton&#39;).getFile(options, callback);</pre>
     ]
 }</pre>
 
-                <h4 id="callback">Errores</h4>
+                <h4 id="callback">Errors</h4>
                 <p>The following is a detailed list of all the possible errors you can get from the callback.</p>
                 <pre class="prettyprint linenums">
 {
@@ -838,7 +943,7 @@ $(&#39;#idButton&#39;).getFile(options, callback);</pre>
 {
     "success": false,
     "error": 18,
-    "message": 'Error, the image image-name.jpeg could not be copied to the directory: to/directory/'
+    "message": 'Error, the image river.jpeg could not be copied to the directory: to/directory/'
 }</pre>
 
                 <pre class="prettyprint linenums">
@@ -865,8 +970,8 @@ $(&#39;#idButton&#39;).getFile(options, callback);</pre>
 }</pre>
             </section>
 
-            <!-- EJEMPLOS DE CÓDIGO -->
-            <section id="ejemplos_de_codigo">
+            <!-- CODE EXAMPLES -->
+            <section id="code_examples">
                 <div class="page-header">
                     <h3>Code examples</h3>
                     <hr class="notop">
@@ -1018,7 +1123,7 @@ $('#imageLoaded05').getFile(
 );</pre>
             </section>
 
-            <!--BARRA DE PROGRESO -->
+            <!-- PROGRESS BAR -->
             <section id="progress_bar">
                 <div class="page-header">
                     <h3>Progress bar</h3>
@@ -1135,8 +1240,8 @@ function deleteFile(reference, url)
                 <p>You can see this code and test it in the file /es-es/index.html</p>
             </section>
 
-            <!-- OPCIONES AVANZADAS -->
-            <section id="opciones_avanzadas">
+            <!-- ADVANCED OPTIONS -->
+            <section id="advanced_options">
                 <div class="page-header">
                     <h3>Advanced options</h3>
                     <hr class="notop">
@@ -1171,6 +1276,44 @@ function deleteFile(reference, url)
                     <h3>Changelog</h3>
                     <hr class="notop">
                 </div>
+
+                <h4>Version 4.3.1 (06/10/2015)</h4>
+                <pre class="prettyprint lang-plain linenums">
+- getfile:uploaded event deprecated, use getfile:afterUpload
+- getfile:throwresize event deprecated, use getfile:beforeResize
+- Add getfile:afterResize event
+- getfile:throwcrop event deprecated, use getfile:beforeCrop
+- Add getfile:afterCrop event
+- Add getfile:afterChangeExtension event</pre>
+
+                <h4>Version 4.3 (25/09/2015)</h4>
+                <pre class="prettyprint lang-plain linenums">
+- Fixed translation text with multiple instances
+- Add getfile:uploaded event
+- Add getfile:throwresize event
+- Add getfile:throwcrop event
+- Add setOptions function, to rewrite plugin options</pre>
+
+                <h4>Version 4.2.5 (14/09/2015)</h4>
+                <pre class="prettyprint lang-plain linenums">
+- Fixed overwrite function</pre>
+
+                <h4>Version 4.2.4 (01/09/2015)</h4>
+                <pre class="prettyprint lang-plain linenums">
+- Code optimization
+- Better compatibility with older browsers
+- Update plugin CssLoader
+- Corrections minor fixed</pre>
+
+                <h4>Version 4.2.3 (01/08/2015)</h4>
+                <pre class="prettyprint lang-plain linenums">
+- Corrections minor fixed</pre>
+
+                <h4>Version 4.2.1 (17/07/2015)</h4>
+                <pre class="prettyprint lang-plain linenums">
+- Implement overwrite option on crop function
+- Implement setData option to set default crop area
+- Corrections minor fixed</pre>
 
                 <h4>Version 4.2 (09/07/2015)</h4>
                 <pre class="prettyprint lang-plain linenums">

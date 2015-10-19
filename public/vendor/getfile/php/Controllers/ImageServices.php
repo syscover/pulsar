@@ -179,9 +179,10 @@ class ImageServices
 
         if(Input::get('mimesAccept') == 'false' || $mimeAllowed)
         {
-            if($response['isImage'] == true && (Input::get('cropActive') == 'true' || Input::get('resizeActive') == 'true'|| Input::get('outputExtension') == 'gif' || Input::get('outputExtension') == 'jpg' || Input::get('outputExtension') == 'png'))         // If crop is enabled the file must be located in the temp folder in order to edit it
+            // If crop is enabled the file must be located in the temp folder in order to edit it
+            if($response['isImage'] == true && (Input::get('cropActive') == 'true' || Input::get('resizeActive') == 'true'|| Input::get('outputExtension') == 'gif' || Input::get('outputExtension') == 'jpg' || Input::get('outputExtension') == 'png'))
             {
-                $response['name'] = FileManager::uploadFiles($fileName, $this->documentRoot.Input::get('tmpFolder'), Input::get('encryption') === 'true'? true: false, Input::get('filename') === 'false' || Input::get('filename') === 'null'? false : Input::get('filename'));
+                $response['name'] = FileManager::uploadFiles($fileName, $this->documentRoot.Input::get('tmpFolder'), Input::get('encryption') === 'true'? true: false, Input::get('filename') === 'false' || Input::get('filename') === 'null'? false : Input::get('filename'),  Input::get('cropOverwrite') === 'false' || Input::get('cropOverwrite') === 'null'? false : Input::get('cropOverwrite'));
             }
             else
             {
@@ -204,6 +205,7 @@ class ImageServices
                 if($file['isImage'] == 'true')
                 {
                     $args = [
+                        'filename'              => Input::get('filename'),
                         'action'                => Input::get('action'),
                         'size'                  => $file['size'],
                         'oldName'               => $file['oldName'],
@@ -237,6 +239,7 @@ class ImageServices
         else
         {
             $args = [
+                'filename'              => Input::get('filename'),
                 'action'                => Input::get('action'),
                 'size'                  => Input::get('size'),
                 'oldName'               => Input::get('oldName'),
@@ -281,7 +284,7 @@ class ImageServices
         $coords     = Input::get('coords');
 
         $srcPath    = $this->documentRoot . $args['tmpFolder'] . '/' . $args['tmpName'];
-        $dstPath    = $this->documentRoot . $args['folder'] . '/' . $args['tmpName'];
+        $dstPath    = $this->documentRoot . $args['folder'] . '/' . ($args['filename'] == ''? $args['tmpName'] : $args['filename']);
 
         // Real image parameters are obtained
         list($width, $height, $type, $attributes) = getimagesize($srcPath);

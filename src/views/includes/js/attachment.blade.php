@@ -1,15 +1,14 @@
 <script type="text/javascript">
+
     $(document).ready(function() {
 
-        //==========================
-        // Start attachment scripts
-        //==========================
         @if(isset($attachments) && count($attachments) > 0)
             // if we have attachment, hide placehosder and
             $('#library-placeholder').hide();
             $.setAttachmentActions();
             $.setEventSaveAttachmentProperties();
         @endif
+
         $.dragDropEffects();
 
         // we create a getFile object, on layer attachments
@@ -35,7 +34,7 @@
     // store files in library database
     $.storeLibrary = function(files) {
         $.ajax({
-            url: '{{ route('storeLibrary') }}',
+            url: '{{ route('storeAttachmentLibrary') }}',
             data:       {
                 files:              files,
                 resource:           '{{ $resource }}',
@@ -77,6 +76,7 @@
         });
     };
 
+    // function used when is a edit action
     $.storeAttachment = function(files) {
         $.ajax({
             url: '{{ route('storeAttachment', ['object' => isset($objectId)? $objectId : null , 'lang' => $lang->id_001]) }}',
@@ -158,6 +158,7 @@
                 var url = '{{ route('apiShowAttachmentFamily', ['id' => 'id', 'api' => 1]) }}';
                 var that = this;
 
+                // get select attachment family
                 $.ajax({
                     url:    url.replace('id', $(this).closest('li').find('select').val()),
                     headers:  {
@@ -176,28 +177,27 @@
                                 var action = 'edit';
                             @endif
 
-                            console.log($(that).closest('li').data('id') == undefined ||  action == 'create'? '{{ config($routesConfigFile . '.tmpFolder') }}' : '{{ config($routesConfigFile . '.attachmentFolder') }}/{{ isset($objectId)? $objectId : null }}/{{ $lang->id_001 }}');
-
                             // check if folder is tmp or attachment folder, depend if is a create or edit action
                             //if($(that).closest('li').data('id') == undefined ||  action == 'create')
                             if(action == 'create')
                             {
-                                var folder  = '{{ config($routesConfigFile . '.tmpFolder') }}';
-                                var srcFile = $(that).closest('li').find('[name=tmpFileName]').val();
+                                var folder      = '{{ config($routesConfigFile . '.tmpFolder') }}';
+                                var fileName    = $(that).closest('li').find('[name=tmpFileName]').val();
                             }
                             else
                             {
-                                var folder  = '{{ config($routesConfigFile . '.attachmentFolder') }}/{{ isset($objectId)? $objectId : null }}/{{ $lang->id_001 }}';
-                                var srcFile = $(that).closest('li').find('.file-name').html();
+                                var folder      = '{{ config($routesConfigFile . '.attachmentFolder') }}/{{ isset($objectId)? $objectId : null }}/{{ $lang->id_001 }}';
+                                var fileName    = null;
                             }
 
-                            // Throw get file plugin to crop anf create or overwrite image
+                            // throw get file plugin to crop and create or overwrite image
                             $.getFile(
                                 {
                                     urlPlugin:  '/packages/syscover/pulsar/vendor',
-                                    folder:     folder,
                                     srcFolder:  '{{ config($routesConfigFile . '.libraryFolder') }}',
                                     srcFile:    $(that).closest('li').find('.file-name').html(),
+                                    folder:     folder,
+                                    filename:   fileName,
                                     crop: {
                                         active:     true,
                                         width:      data.width_015,

@@ -21,10 +21,11 @@ class Package extends Model {
 	protected $table        = '001_012_package';
     protected $primaryKey   = 'id_012';
     public $timestamps      = false;
-    protected $fillable     = ['id_012', 'name_012', 'active_012'];
+    protected $fillable     = ['id_012', 'name_012', 'folder_012', 'active_012'];
     protected $casts        = ['active_012' => 'boolean'];
     private static $rules   = [
-        'name'    =>  'required|between:2,50'
+        'name'    =>  'required|between:2,50',
+        'folder'  =>  'required|between:2,50'
     ];
         
     public static function validate($data, $specialRules = [])

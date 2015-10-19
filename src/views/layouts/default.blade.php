@@ -66,17 +66,18 @@
 
         <!-- JS OWN -->
         <!-- Loader -->
-        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/cssloader/js/jquery.cssloader.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/cssloader/js/jquery.cssloader.js') }}"></script>
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/jquery.msgbox/javascript/msgbox/jquery.msgbox.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/custom/app.js') }}"></script>
         <!-- /JS OWN -->
 
-        <script>
+        <script type="text/javascript">
             $(document).ready(function()
             {
                 $.cssLoader({
                     urlPlugin:  '/packages/syscover/pulsar/vendor',
-                    spinnerColor: '#2a4053'
+                    spinnerColor: '#4d7496',
+                    theme: 'material'
                 });
 
                 App.init(); // Init layout and core plugins

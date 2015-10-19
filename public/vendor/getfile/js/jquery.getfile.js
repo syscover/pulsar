@@ -1,5 +1,5 @@
 /*
- *	GetFile v4.2.1 - 2015-07-17
+ *	GetFile v4.3.1 - 2015-10-06
  *	jQuery Upload Plugin
  *	(c) 2015 Syscover S.L. - http://www.syscover.com/
  *	All rights reserved
@@ -41,17 +41,20 @@
 				height:					null,										// Final image height
                 quality:                100,                                        // Quality image, 0 to 100, only to jpg image
                 overwrite:              false,                                      // Overwrite file if exist
-                aspectRatio:			null,										// Crop window aspect ratio, si instancia width y height el aspectRatio no se tiene en cuenta
-				minSize:				0,										    // Minimum crop size
-				maxSize:				0,										    // Maximum crop size
-				setSelect:			    0										    // Default crop window coordinates
+                aspectRatio:			null,									    // Crop window aspect ratio, if the width and height are instance, aspectRatio not take
+                setData:                null                                        // Set default crop area, object
+                                                                                    // {x: the offset left of the cropped area,
+                                                                                    //  y: the offset top of the cropped area,
+                                                                                    //  width: the width of the cropped area,
+                                                                                    //  height: the height of the cropped area,
+                                                                                    //  rotate: the rotated degrees of the image}
 			},
 			resize: {
-				active:					false,										// Resize function is activeç
+				active:					false,										// Resize function is active
 				width:					null,										// Final image width
 				height:					null,										// Final image height
                 quality:                75,                                         // Quality image, 0 to 100, only to jpg image
-				constrainProportions:	true										// Mantiene las proporciones de la imagen
+				constrainProportions:	true										// Keeps image proportions
 			},
             copies: [
                 {
@@ -108,94 +111,59 @@
 
 		callback: null,
 
-		init: function(options, callback, elem)
+		init: function(options, callback, element)
 		{
-            // extend options.copies
-            if(options.copies == undefined)
-            {
-                this.options.copies = [];
-            }
-            else
-            {
-                for(var i=0; i < options.copies.length; i++)
+            var that = this;
+
+            // set option plugin
+            this.setOptions(options);
+
+            var dataRequest = {};
+            dataRequest.urlPlugin = options.urlPlugin;
+
+            // Get HTML popup
+            $.ajax({
+                cache:      false,
+                dataType:   'html',
+                type:       'POST',
+                url:        this.options.urlPlugin + '/getfile/views/popup.php',
+                data:       dataRequest,
+                success:  function(data)
                 {
-                    options.copies[i] = $.extend({}, this.options.copies[0], options.copies[i]||{});
-                }
-            }
-
-            // extend options.crop
-            if(options.crop != undefined)
-            {
-                options.crop = $.extend({}, this.options.crop, options.crop||{});
-            }
-
-            // Options load
-            this.options = $.extend({}, this.options, options||{});
-
-
-            // Load popup if container haven't elements
-            if(this.options.crop.active && $(this.options.selectorItems.container).length == 0)
-            {
-                var dataRequest = this.options.lang;
-                dataRequest.urlPlugin = options.urlPlugin;
-
-                // Get HTML popup
-                $.ajax({
-                    cache:      false,
-                    dataType:   'html',
-                    context:	this,
-                    type:       'POST',
-                    url:        this.options.urlPlugin + '/getfile/views/popup.php',
-                    data:       dataRequest,
-                    success:  function(data)
+                    // Load popup if container haven't elements
+                    if(that.options.crop.active && $(that.options.selectorItems.container).length == 0)
                     {
                         $('body').append(data);
-
-                        //load items from popup
-                        this.items = {
-                            container:				$(this.options.selectorItems.container),
-                            cropButton:				$(this.options.selectorItems.cropButton),
-                            cancelButton:			$(this.options.selectorItems.cancelButton),
-                            crop:					$(this.options.selectorItems.crop),
-                            image:                  $(this.options.selectorItems.image),
-                            preview:				$(this.options.selectorItems.preview)
-                        }
-
-                        this.items.cancelButton.on('click', function() {$('#cropper-modal').modal('hide')});
-
-                        if(this.options.srcFolder != null)
-                        {
-                            this.loadSrc();
-                        }
-                    },
-                    error:function(data)
-                    {
-                        var data = {
-                            success: false,
-                            error:   12,
-                            message: 'The path: ' + this.url + ' in the ajax request is not correct, please check the ajax function data'
-                        };
-                        callback(data);
                     }
-                });
-            }
-            else
-            {
-                //load items from popup if already exist
-                this.items = {
-                    container:				$(this.options.selectorItems.container),
-                    cropButton:				$(this.options.selectorItems.cropButton),
-                    cancelButton:			$(this.options.selectorItems.cancelButton),
-                    crop:					$(this.options.selectorItems.crop),
-                    image:                  $(this.options.selectorItems.image),
-                    preview:				$(this.options.selectorItems.preview)
-                }
 
-                if(this.options.srcFolder != null)
+                    //load items from popup
+                    that.items = {
+                        container:				$(that.options.selectorItems.container),
+                        cropButton:				$(that.options.selectorItems.cropButton),
+                        cancelButton:			$(that.options.selectorItems.cancelButton),
+                        crop:					$(that.options.selectorItems.crop),
+                        image:                  $(that.options.selectorItems.image),
+                        preview:				$(that.options.selectorItems.preview)
+                    }
+
+                    that.items.cancelButton.on('click', function() {$('#cropper-modal').modal('hide')});
+
+                    if(that.options.srcFolder != null)
+                    {
+                        that.loadSrc();
+                    }
+                },
+                error:function(data)
                 {
-                    this.loadSrc();
+                    var data = {
+                        success: false,
+                        error:   12,
+                        message: 'The path: ' + that.url + ' in the ajax request is not correct, please check the ajax function data'
+                    };
+                    callback(data);
                 }
-            }
+            });
+
 
             // The mimesAccept property is overwritten, since we don't want it to be combined
             if(options.mimesAccept)
@@ -206,13 +174,13 @@
             // Callback instantiation
             this.callback = callback;
 
-            // check if pluging is called from element or with set image source
+            // Save the element reference, both as a jQuery reference and a normal reference
+            // Instance of the jQuery object to which the plugin is applied
+            this.element = $(element);
+
+            // check if plugin is called from element or with set image source
             if(this.options.srcFolder == null)
             {
-                // Save the element reference, both as a jQuery reference and a normal reference
-                // Instance of the jQuery object to which the plugin is applied
-                this.elem = $(elem);
-
                 if(this.options.multiple)
                 {
                     var args = {
@@ -228,39 +196,26 @@
                 }
 
                 // Upload button and event
-                if(this.options.mimesAccept == false)
+                if(this.options.mimesAccept == false || Object.prototype.toString.call(this.options.mimesAccept) === '[object Array]')
                 {
-                    // set fileDrop plugin
                     window.fd.logging = false;
                     fd.jQuery();
 
-                    $(this.elem).filedrop(args).filedrop().event('send', function(fileList) {
-                        $.proxy(this.upload(fileList), this);
-                    }.bind(this));
+                    $(this.element).filedrop(args).filedrop().event('send', function(fileList) {
+                        that.upload(fileList);
+                    });
                 }
                 else
                 {
-                    if(Object.prototype.toString.call(this.options.mimesAccept) === '[object Array]')
-                    {
-                        window.fd.logging = false;
-                        fd.jQuery();
+                    var data = {
+                        success: false,
+                        error:   11,
+                        message: 'The mimesAccept setting must be an array or false. Setting it to false might be dangerous, since it means accepting all file types'
+                    };
 
-                        $(this.elem).filedrop(args).filedrop().event('send', function(fileList) {
-                            $.proxy(this.upload(fileList), this);
-                        }.bind(this));
-                    }
-                    else
+                    if(this.callback != null)
                     {
-                        var data = {
-                            success: false,
-                            error:   11,
-                            message: 'The mimesAccept setting must be an array or false. Setting it to false might be dangerous, since it means accepting all file types'
-                        };
-
-                        if(this.callback != null)
-                        {
-                            this.callback(data);
-                        }
+                        this.callback(data);
                     }
                 }
             }
@@ -268,8 +223,44 @@
             return this;
 		},
 
+        setOptions: function(options)
+        {
+            var that = this;
+
+            // extend options.copies
+            if(options.copies == undefined)
+            {
+                this.options.copies = [];
+            }
+            else
+            {
+                $.each(options.copies, function(i, copie){
+                    options.copies[i] = $.extend({}, that.options.copies[0], copie||{});
+                });
+            }
+
+            // extend options.crop
+            if(options.crop != undefined)
+            {
+                options.crop = $.extend({}, this.options.crop, options.crop||{});
+            }
+
+            // Options load
+            this.options = $.extend({}, this.options, options||{});
+        },
+
+        setLangPopup: function(){
+            // set lang on popup
+            $('#gfCropWindowTitle').html(this.options.lang.cropWindowTitle);
+            $('#gfPreviewTitle').html(this.options.lang.previewTitle);
+            $('#gfCropButton').html(this.options.lang.cropButtonText);
+            $('#gfCancelButton').html(this.options.lang.cancelButtonText);
+        },
+
 		upload: function(fileList)
 		{
+            var that = this;
+
             if(this.options.spinner)
             {
                 $.cssLoader.show({
@@ -311,13 +302,13 @@
                 }
 
                 var nFiles = 0;
-                var response = new Array();
+                var response = [];
                 fileList.each(function(file)
                 {
-                    if(((this.options.maxFileSize != null && this.options.maxFileSize != false) && file.size > this.options.maxFileSize))
+                    if(((that.options.maxFileSize != null && that.options.maxFileSize != false) && file.size > that.options.maxFileSize))
                     {
                         var realMb  = file.size / 1048576;
-                        var limitMb = this.options.maxFileSize / 1048576;
+                        var limitMb = that.options.maxFileSize / 1048576;
 
                         response.push({
                             success: false,
@@ -330,7 +321,7 @@
                         data.append('file' + nFiles, file.nativeFile);
                         nFiles++;
                     }
-                }.bind(this));
+                });
 
                 if(nFiles > 0)
                 {
@@ -386,6 +377,7 @@
 			data.append('folder',			    this.options.folder);
 			data.append('tmpFolder',		    this.options.tmpFolder);
 			data.append('cropActive',		    this.options.crop.active);
+            data.append('cropOverwrite',		this.options.crop.overwrite);
             data.append('resizeActive',		    this.options.resize.active);
             data.append('outputExtension',	    this.options.outputExtension);
 			data.append('encryption',		    this.options.encryption);
@@ -399,7 +391,6 @@
 				data:						data,
 				type:						'POST',
 				dataType:					'json',
-				context:					this,
 				cache:						false,
 				contentType:				false,
 				processData:				false,
@@ -412,7 +403,7 @@
                         if (evt.lengthComputable)
                         {
                             //Do something with upload progress
-                            if(this.callback != null)
+                            if(that.callback != null)
                             {
                                 var percentage = (evt.loaded / evt.total * 100 | 0);
 
@@ -424,34 +415,33 @@
                                     percentage: percentage
                                 };
 
-                                this.callback(data);
+                                that.callback(data);
                             }
                         }
-                    }.bind(this.context), false);
+                    }, false);
 
                     return xhr;
                 },
                 error:function(e)
                 {
-                    if(this.options.spinner) $.cssLoader.hide();
+                    if(that.options.spinner) $.cssLoader.hide();
 
-                    if(this.options.multiple)
+                    if(that.options.multiple)
                     {
-                        var data = new Array();
-                        var self = this;
+                        var data = [];
                         $.each(fileList, function(index, file)
                         {
                             var realMb = file.size / 1048576;
                             var dataError = {
                                 success:    false,
                                 error:      13,
-                                message:    'The file ' + file.name + ' weighing ' + realMb.toFixed(2) + ' Mb has not been uploaded to the server, to exceed the maximum file size allowed to server: ' + self.prototype.phpIni.postMaxSize,
+                                message:    'The file ' + file.name + ' weighing ' + realMb.toFixed(2) + ' Mb has not been uploaded to the server, to exceed the maximum file size allowed to server: ' + that.phpIni.postMaxSize,
                                 exception:  e
                             };
                             data.push(dataError);
                         });
 
-                        this.callback(data);
+                        that.callback(data);
                     }
                     else
                     {
@@ -461,173 +451,227 @@
                         var data = {
                             success:    false,
                             error:      13,
-                            message:    'The file ' + file.name + ' weighing ' + realMb.toFixed(2) + ' Mb has not been uploaded to the server, to exceed the maximum file size allowed to server:' + this.prototype.phpIni.postMaxSize,
+                            message:    'The file ' + file.name + ' weighing ' + realMb.toFixed(2) + ' Mb has not been uploaded to the server, to exceed the maximum file size allowed to server:' + that.phpIni.postMaxSize,
                             exception:  e
                         };
-                        this.callback(data);
+                        that.callback(data);
                     }
                 },
-				success: function(data)												// Actions done once the image is in the tmp directory
+                // Actions done once the image is in the tmp directory
+				success: function(data)
 				{
-                    if(this.options.multiple)
+                    // throw event getfile:afterUpload
+                    that.element.trigger('getfile:afterUpload', {
+                        success: true,
+                        data: data
+                    });
+
+                    if(that.options.multiple)
                     {
-                        this.properties.files       = data.files;
+                        that.properties.files       = data.files;
                     }
                     else
                     {
-                        this.properties.tmpName     = data.name;					    // Temporary name assigned to the file
-                        this.properties.size        = data.size;                        // Size from image uploaded
-                        this.properties.oldName     = data.oldName;                     // Original name from image uploaded
-                        this.properties.extension   = data.extension;                   // Extension from file
-                        this.properties.mime        = data.mime;                        // MIME type from file
-                        this.properties.isImage     = data.isImage;                     // Check if is image
+                        that.properties.tmpName     = data.name;					    // Temporary name assigned to the file
+                        that.properties.size        = data.size;                        // Size from image uploaded
+                        that.properties.oldName     = data.oldName;                     // Original name from image uploaded
+                        that.properties.extension   = data.extension;                   // Extension from file
+                        that.properties.mime        = data.mime;                        // MIME type from file
+                        that.properties.isImage     = data.isImage;                     // Check if is image
                     }
 
-                    if(this.options.crop.active && data.isImage && this.options.multiple == false)
+                    if(that.options.crop.active && data.isImage && that.options.multiple == false)
 					{
-                        this.properties.width       = data.width;                   // Original image width if is image crop
-                        this.properties.height      = data.height;                  // Original image height if is image crop
-                        this.properties.pixelRatio  = window.devicePixelRatio;
+                        that.element.one('getfile:beforeCrop', function(event){
 
-                        var $that = this;
-                        $('#cropper-modal').on('shown.bs.modal', function () {
-                            $that.crop($that.options.tmpFolder + '/' + data.name);
+                            if(!event.isDefaultPrevented())
+                            {
+                                that.properties.width       = data.width;                   // Original image width if is image crop
+                                that.properties.height      = data.height;                  // Original image height if is image crop
+                                that.properties.pixelRatio  = window.devicePixelRatio;
+
+                                $('#cropper-modal').off('shown.bs.modal').on('shown.bs.modal', function () {
+                                    that.crop(that.options.tmpFolder + '/' + data.name);
+                                }).off('hidden.bs.modal').on('hidden.bs.modal', function () {
+                                    // destroy elements after crop
+                                    $(that.items.image).prop('src', '');
+                                    $(that.items.image).cropper('destroy');
+                                });
+
+                                // off click to avoid duplicity event
+                                that.items.cropButton.off('click').on('click', function () {
+                                    that.executeCrop();
+                                });
+
+                                that.setLangPopup();
+                                $('#cropper-modal').modal('show');
+                            }
                         });
 
-                        // off click to avoid duplicity event
-                        this.items.cropButton.off('click').on('click', $.proxy(this.executeCrop, this));
-                        $('#cropper-modal').modal('show');
+                        // throw event getfile:beforeCrop window
+                        that.element.trigger('getfile:beforeCrop', {
+                            success: true,
+                            data: data
+                        });
 					}
-					else if(this.options.resize.active && data.isImage || this.options.resize.active && this.options.multiple == true)
+					else if(that.options.resize.active && data.isImage || that.options.resize.active && that.options.multiple == true)
 					{
-                        if(this.options.multiple)
-                        {
-                            var hasImage = false;
-                            for(var i=0; i < this.properties.files.length; i++)
+                        that.element.one('getfile:beforeResize', function(event){
+                            if(!event.isDefaultPrevented())
                             {
-                                if(this.properties.files[i].isImage == true)
+                                if (that.options.multiple)
                                 {
-                                    i = this.properties.files.length;
-                                    hasImage = true;
-                                    this.executeResize();
+                                    var hasImage = false;
+                                    $.each(that.properties.files, function (i, file) {
+                                        if (file.isImage == true) {
+                                            hasImage = true;
+                                            that.executeResize();
+                                            return false;
+                                        }
+                                    });
+
+                                    // Execution is finished and callback is called if hasn't image
+                                    if (!hasImage && that.callback != null) that.callback(data);
+                                }
+                                else
+                                {
+                                    // Resize module is executed if active
+                                    that.executeResize();
                                 }
                             }
+                        });
+
+                        // throw event getfile:beforeResize
+                        that.element.trigger('getfile:beforeResize', {
+                            success: true,
+                            data: data
+                        });
+					}
+					else if(that.options.outputExtension != null && data.isImage || that.options.outputExtension != null && that.options.multiple == true)	// Image file extension change
+					{
+                        if(that.options.multiple)
+                        {
+                            var hasImage = false;
+                            $.each(that.properties.files, function(i, file){
+                                if(file.isImage == true)
+                                {
+                                    hasImage = true;
+                                    that.executeChangeExtension();
+                                    return false;
+                                }
+                            });
+
                             // Execution is finished and callback is called if hasn't image
-                            if(!hasImage && this.callback != null) this.callback(data);
+                            if(!hasImage && that.callback != null) that.callback(data);
                         }
                         else
                         {
                             // Resize module is executed if active
-                            this.executeResize();
+                            that.executeChangeExtension();
                         }
 					}
-					else if(this.options.outputExtension != null && data.isImage || this.options.outputExtension != null && this.options.multiple == true)	// Image file extension change
-					{
-                        if(this.options.multiple)
-                        {
-                            var hasImage = false;
-                            for(var i=0; i < this.properties.files.length; i++)
-                            {
-                                if(this.properties.files[i].isImage == true)
-                                {
-                                    i = this.properties.files.length;
-                                    hasImage = true;
-                                    this.executeChangeExtension();
-                                }
-                            }
-                            // Execution is finished and callback is called if hasn't image
-                            if(!hasImage && this.callback != null) this.callback(data);
-                        }
-                        else
-                        {
-                            // Resize module is executed if active
-                            this.executeChangeExtension();
-                        }
-					}
-                    else if(this.options.copies.length > 0 && data.isImage || this.options.copies.length > 0 && this.options.multiple == true)
+                    else if(that.options.copies.length > 0 && data.isImage || that.options.copies.length > 0 && that.options.multiple == true)
                     {
-                        if(this.options.multiple)
+                        if(that.options.multiple)
                         {
                             var hasImage = false;
-                            for(var i=0; i < this.properties.files.length; i++)
-                            {
-                                if(this.properties.files[i].isImage == true)
+                            $.each(that.properties.files, function(i, file){
+                                if(file.isImage == true)
                                 {
-                                    i = this.properties.files.length;
                                     hasImage = true;
-                                    this.executeCopies(data);
+                                    that.executeCopies(data);
+                                    return false;
                                 }
-                            }
+                            });
+
                             // Execution is finished and callback is called if hasn't image
-                            if(!hasImage && this.callback != null) this.callback(data);
+                            if(!hasImage && that.callback != null) that.callback(data);
                         }
                         else
                         {
                             // Resize module is executed if active
-                            this.executeCopies(data);
+                            that.executeCopies(data);
                         }
                     }
 					else
 					{
-                        if(this.callback != null)
+                        if(that.callback != null)
                         {
-                            if(this.options.multiple)
+                            if(that.options.multiple)
                             {
                                 $.merge(data.files, response);
                             }
-                            this.callback(data);										// Execution is finished and callback is called
+                            // Execution is finished and callback is called
+                            that.callback(data);
                         }
 					}
                     // Hide loader
-                    if(this.options.spinner) $.cssLoader.hide();
+                    if(that.options.spinner) $.cssLoader.hide();
 				}
 			});
 		},
 
         loadSrc: function()
         {
-            var $that = this;
-            this.options.tmpFolder = this.options.srcFolder;
-            this.properties.src = this.options.tmpFolder + '/' + this.options.srcFile;
+            var that = this;
+            this.options.tmpFolder  = this.options.srcFolder;
+            this.properties.src     = this.options.tmpFolder + '/' + this.options.srcFile;
 
-            $('#cropper-modal').on('shown.bs.modal', function () {
-                $that.crop($that.properties.src);
+            $('#cropper-modal').off('shown.bs.modal').on('shown.bs.modal', function () {
+                that.crop(that.properties.src);
+            }).off('hidden.bs.modal').on('hidden.bs.modal', function () {
+                // destroy elements after crop
+                $(that.items.image).prop('src', '');
+                $(that.items.image).cropper('destroy');
             });
 
             $.ajax({
                 url: this.options.urlPlugin + '/getfile/php/Controllers/server.php',
                 data: {
                     action: 'getinfosrc',
-                    src:    $that.properties.src
+                    src:    that.properties.src
                 },
                 type: 'POST',
                 dataType: 'json',
-                context: this,
                 cache: false,
                 success: function (data)
                 {
-                    //this.options.tmpFolder      = data.folder;                  // Set temp folder
-                    this.properties.tmpName     = data.oldName;					// Temporary name assigned to the file
-                    this.properties.size        = data.size;                    // Size from image uploaded
-                    this.properties.oldName     = data.oldName;                 // Original name from image uploaded
-                    this.properties.extension   = data.extension;               // Extension from file
-                    this.properties.mime        = data.mime;                    // MIME type from file
-                    this.properties.isImage     = data.isImage;                 // Check if is image
-                    this.properties.width       = data.width;                   // Original image width if is image crop
-                    this.properties.height      = data.height;                  // Original image height if is image crop
-                    this.properties.pixelRatio  = window.devicePixelRatio;
+                    that.element.one('getfile:beforeCrop', function(event){
 
-                    // off click to avoid duplicity event
-                    this.items.cropButton.off('click').on('click', $.proxy(this.executeCrop, this));
-                    $('#cropper-modal').modal('show');
+                        if(!event.isDefaultPrevented())
+                        {
+                            that.properties.tmpName = data.oldName;				    // Temporary name assigned to the file
+                            that.properties.size = data.size;                       // Size from image uploaded
+                            that.properties.oldName = data.oldName;                 // Original name from image uploaded
+                            that.properties.extension = data.extension;             // Extension from file
+                            //that.properties.mime = data.mime;                       // MIME type from file
+                            //that.properties.isImage = data.isImage;                 // Check if is image
+                            that.properties.width = data.width;                     // Original image width if is image crop
+                            that.properties.height = data.height;                   // Original image height if is image crop
+                            that.properties.pixelRatio = window.devicePixelRatio;
+
+                            // off click to avoid duplicity event
+                            that.items.cropButton.off('click').on('click', function () {
+                                that.executeCrop()
+                            });
+
+                            that.setLangPopup();
+                            $('#cropper-modal').modal('show');
+                        }
+                    });
+
+                    // throw event getfile:beforeCropwindow
+                    that.element.trigger('getfile:beforeCrop', {
+                        success: true,
+                        data: data
+                    });
                 }
             });
-
         },
 
 		crop: function(imageUrl)
 		{
-            var $that = this;
+            var that = this;
 
             if (!$.fn.cropper)
             {
@@ -669,33 +713,28 @@
 
             $(this.items.image).prop('src', imageUrl);
 
-            if (this.items.image.data('cropper'))
-            {
-                // set image if cropper exist
-                $(this.items.image).cropper('destroy');
-                $(this.items.image).cropper({
-                    aspectRatio:    this.options.crop.aspectRatio,
-                    preview: '.img-preview',
-                    crop: function(data)
+            // start cropper
+            $(this.items.image).cropper({
+                aspectRatio:    this.options.crop.aspectRatio,
+                preview:        '.img-preview',
+                strict:         true,
+                built: function () {
+                    if(that.options.crop.setData != null)
                     {
-                        // get data rounded
-                        $that.properties.coords = $($that.items.image).cropper('getData', true);
+                        $(this).cropper('setData', that.options.crop.setData);
                     }
-                });
-            }
-            else
-            {
-                // start cropper
-                $(this.items.image).cropper({
-                    aspectRatio:    this.options.crop.aspectRatio,
-                    preview: '.img-preview',
-                    crop: function(data)
-                    {
-                        // get data rounded
-                        $that.properties.coords = $($that.items.image).cropper('getData', true);
+                },
+                crop: function(data)
+                {
+                    that.properties.coords = {
+                        x: Math.round(data.x),
+                        y: Math.round(data.y),
+                        width: Math.round(data.width),
+                        height: Math.round(data.height),
+                        rotate: Math.round(data.rotate)
                     }
-                });
-            }
+                }
+            });
 
             var isIE11 = !!navigator.userAgent.match(/Trident.*rv[ :]*11\./)
             if(isIE11)
@@ -711,21 +750,23 @@
 
 		executeCrop: function()
 		{
+            var that = this;
+
             $.ajax({
 				url:					this.options.urlPlugin + '/getfile/php/Controllers/server.php',
 				type:		   			'POST',
 				dataType:	   			'json',
-				context:				this,
 				cache:					false,
                 data: {
 					action:				'crop',
+                    filename:			this.options.filename,
                     tmpName:			this.properties.tmpName == undefined? this.properties.tmpNameIE11 : this.properties.tmpName,
                     size:			    this.properties.size == undefined? this.properties.sizeIE11 : this.properties.size,
                     oldName:            this.properties.oldName == undefined? this.properties.oldNameIE11 : this.properties.oldName,
                     extension:          this.properties.extension == undefined? this.properties.extensionIE11 : this.properties.extension,
                     mime:               this.properties.mime == undefined? this.properties.mimeIE11 : this.properties.mime,
                     isImage:            this.properties.isImage == undefined? this.properties.isImageIE11 : this.properties.isImage,
-					coords:				this.properties.coords,
+                    coords:				this.properties.coords,
                     cropWidth:			this.options.crop.width,
                     cropHeight:			this.options.crop.height,
                     quality:            this.options.crop.quality,
@@ -740,38 +781,56 @@
                 {
                     $('#cropper-modal').modal('hide');
 
-                    if(this.callback != null)
+                    // throw event getfile:afterCrop
+                    that.element.trigger('getfile:afterCrop', {
+                        success: true,
+                        data: data
+                    });
+
+                    if(that.callback != null)
                     {
-                        this.callback(data);
+                        that.callback(data);
                     }
 				},
                 error: function(data)
                 {
-                    if(this.callback != null)
+                    if(that.callback != null)
                     {
-                        this.callback(data.responseJSON);
+                        that.callback(data.responseJSON);
                     }
                 }
 			});
 		},
 
-        showCropWindow: function(callback)
+        showCropWindow: function()
         {
-            // off click to avoid duplicity event
-            this.items.cropButton.off('click').on('click', $.proxy(this.executeCrop, this));
-            $('#cropper-modal').modal('show');
+            var that = this;
 
-            if(callback != null)
-            {
-                callback({
-                    success:    true,
-                    action:     "showCropWindow"
-                });
-            }
+            that.element.one('getfile:beforeCrop', function(event){
+
+                if(!event.isDefaultPrevented())
+                {
+                    // off click to avoid duplicity event
+                    that.items.cropButton.off('click').on('click', function(){
+                        that.executeCrop();
+                    });
+
+                    that.setLangPopup();
+                    $('#cropper-modal').modal('show');
+                }
+            });
+
+            // throw event getfile:beforeCrop window
+            that.element.trigger('getfile:beforeCrop', {
+                success: true,
+                data: that.properties
+            });
         },
 
 		executeResize: function()
 		{
+            var that = this;
+
             if(this.options.multiple)
             {
                 var data = {
@@ -814,25 +873,30 @@
 				url:					this.options.urlPlugin+'/getfile/php/Controllers/server.php',
 				type:		   			'POST',
 				dataType:	   			'json',
-				context:				this,
 				cache:					false,
 				data:                   data,
 				success: function(data)
                 {
-                    if(this.callback != null)
+                    // throw event getfile:afterResize
+                    that.element.trigger('getfile:afterResize', {
+                        success: true,
+                        data: data
+                    });
+
+                    if(that.callback != null)
                     {
-                        if(this.options.multiple && this.properties.response != null)
+                        if(that.options.multiple && that.properties.response != null)
                         {
-                            $.merge(data.files, this.properties.response);
+                            $.merge(data.files, that.properties.response);
                         }
-                        this.callback(data);
+                        that.callback(data);
                     }
 				},
                 error: function(data)
                 {
-                    if(this.callback != null)
+                    if(that.callback != null)
                     {
-                        this.callback(data.responseJSON);
+                        that.callback(data.responseJSON);
                     }
                 }
 			});
@@ -840,6 +904,8 @@
 
 		executeChangeExtension: function()
 		{
+            var that = this;
+
             if(this.options.multiple)
             {
                 var data = {
@@ -876,25 +942,30 @@
 				url:					this.options.urlPlugin+'/getfile/php/Controllers/server.php',
 				type:					'POST',
 				dataType:				'json',
-				context:				this,
 				cache:		  			false,
 				data:                   data,
 				success: function(data)
                 {
-                    if(this.callback != null)
+                    // throw event getfile:afterChangeExtension
+                    that.element.trigger('getfile:afterChangeExtension', {
+                        success: true,
+                        data: data
+                    });
+
+                    if(that.callback != null)
                     {
-                        if(this.options.multiple && this.properties.response != null)
+                        if(that.options.multiple && that.properties.response != null)
                         {
-                            $.merge(data.files, this.properties.response);
+                            $.merge(data.files, that.properties.response);
                         }
-                        this.callback(data);
+                        that.callback(data);
                     }
 				},
                 error: function(data)
                 {
-                    if(this.callback != null)
+                    if(that.callback != null)
                     {
-                        this.callback(data.responseJSON);
+                        that.callback(data.responseJSON);
                     }
                 }
 			});
@@ -902,6 +973,8 @@
 
         executeCopies: function(data)
         {
+            var that = this;
+
             data.action     = 'copies';
             data.folder     = this.options.folder;
             data.copies     = this.options.copies;
@@ -917,28 +990,27 @@
             }
 
             $.ajax({
-                url:					this.options.urlPlugin+'/getfile/php/Controllers/server.php',
+                url:					this.options.urlPlugin + '/getfile/php/Controllers/server.php',
                 type:					'POST',
                 dataType:				'json',
-                context:				this,
                 cache:		  			false,
                 data:                   data,
                 success: function(data)
                 {
-                    if(this.callback != null)
+                    if(that.callback != null)
                     {
-                        if(this.options.multiple && this.properties.response != null)
+                        if(that.options.multiple && that.properties.response != null)
                         {
-                            $.merge(data.files, this.properties.response);
+                            $.merge(data.files, that.properties.response);
                         }
-                        this.callback(data);
+                        that.callback(data);
                     }
                 },
                 error: function(data)
                 {
-                    if(this.callback != null)
+                    if(that.callback != null)
                     {
-                        this.callback(data.responseJSON);
+                        that.callback(data.responseJSON);
                     }
                 }
             });
@@ -950,7 +1022,6 @@
                 url:					this.options.urlPlugin + '/getfile/php/Controllers/server.php',
                 type:		   			'POST',
                 dataType:	   			'json',
-                context:				this,
                 cache:					false,
                 data: {
                     action:				'delete',
@@ -992,7 +1063,6 @@
                 url:        options.urlPlugin + '/getfile/php/Controllers/server.php',
                 type:		'POST',
                 dataType:	'json',
-                context:	this,
                 cache:		false,
                 data: {
                     action: 'getvars'
@@ -1023,7 +1093,6 @@
                 url:        options.urlPlugin + '/getfile/php/Controllers/server.php',
                 type:		'POST',
                 dataType:	'json',
-                context:	this,
                 cache:		false,
                 data: {
                     action: 'getvars'
@@ -1035,6 +1104,8 @@
             });
         }
         
-        $.data(document, 'getFile', Object.create(GetFile).init(options, callback, null));
+        $.data(document, 'getFile', Object.create(GetFile).init(options, callback, document));
+
+        return $(document);
     };
 }( jQuery ));

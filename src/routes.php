@@ -244,13 +244,13 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | LIBRARY
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/library/{offset?}',                 ['as'=>'Library',                   'uses'=>'Syscover\Pulsar\Controllers\LibraryController@index',                  'resource' => 'admin-library',        'action' => 'access']);
-    Route::any(config('pulsar.appName') . '/pulsar/library/json/data',                 ['as'=>'jsonDataLibrary',           'uses'=>'Syscover\Pulsar\Controllers\LibraryController@jsonData',               'resource' => 'admin-library',        'action' => 'access']);
-    Route::get(config('pulsar.appName') . '/pulsar/library/create/{offset}',           ['as'=>'createLibrary',             'uses'=>'Syscover\Pulsar\Controllers\LibraryController@createRecord',           'resource' => 'admin-library',        'action' => 'create']);
-    Route::post(config('pulsar.appName') . '/pulsar/library/store/api',                ['as'=>'storeLibrary',              'uses'=>'Syscover\Pulsar\Controllers\LibraryController@storeLibrary',           'resource' => 'admin-library',        'action' => 'create']);
-    Route::get(config('pulsar.appName') . '/pulsar/library/{id}/edit/{offset}',        ['as'=>'editLibrary',               'uses'=>'Syscover\Pulsar\Controllers\LibraryController@editRecord',             'resource' => 'admin-library',        'action' => 'access']);
-    Route::get(config('pulsar.appName') . '/pulsar/library/delete/{id}/{offset}',      ['as'=>'deleteLibrary',             'uses'=>'Syscover\Pulsar\Controllers\LibraryController@deleteRecord',           'resource' => 'admin-library',        'action' => 'delete']);
-    Route::delete(config('pulsar.appName') . '/pulsar/library/delete/select/records',  ['as'=>'deleteSelectLibrary',       'uses'=>'Syscover\Pulsar\Controllers\LibraryController@deleteRecordsSelect',    'resource' => 'admin-library',        'action' => 'delete']);
+    Route::any(config('pulsar.appName') . '/pulsar/library/{offset?}',                 ['as'=>'AttachmentLibrary',                   'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@index',                  'resource' => 'admin-library',        'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/library/json/data',                 ['as'=>'jsonDataAttachmentLibrary',           'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@jsonData',               'resource' => 'admin-library',        'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/library/create/{offset}',           ['as'=>'createAttachmentLibrary',             'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@createRecord',           'resource' => 'admin-library',        'action' => 'create']);
+    Route::post(config('pulsar.appName') . '/pulsar/library/store/api',                ['as'=>'storeAttachmentLibrary',              'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@storeLibrary',           'resource' => 'admin-library',        'action' => 'create']);
+    Route::get(config('pulsar.appName') . '/pulsar/library/{id}/edit/{offset}',        ['as'=>'editAttachmentLibrary',               'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@editRecord',             'resource' => 'admin-library',        'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/library/delete/{id}/{offset}',      ['as'=>'deleteAttachmentLibrary',             'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@deleteRecord',           'resource' => 'admin-library',        'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/library/delete/select/records',  ['as'=>'deleteSelectAttachmentLibrary',       'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@deleteRecordsSelect',    'resource' => 'admin-library',        'action' => 'delete']);
 
     /*
     |--------------------------------------------------------------------------

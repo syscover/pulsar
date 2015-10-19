@@ -21,7 +21,7 @@ class PackageController extends Controller {
     protected $routeSuffix  = 'Package';
     protected $folder       = 'package';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_012', 'name_012', ['data' => 'active_012', 'type' => 'active']];
+    protected $aColumns     = ['id_012', 'name_012', 'folder_012', ['data' => 'active_012', 'type' => 'active']];
     protected $nameM        = 'name_012';
     protected $model        = '\Syscover\Pulsar\Models\Package';
     protected $icon         = 'cut-icon-grid';
@@ -31,6 +31,7 @@ class PackageController extends Controller {
     {
         Package::create([
             'name_012'      => Request::input('name'),
+            'folder_012'    => Request::input('folder'),
             'active_012'    => Request::input('active', 0)
         ]);
     }
@@ -39,6 +40,7 @@ class PackageController extends Controller {
     {
         Package::where('id_012', $parameters['id'])->update([
             'name_012'      => Request::input('name'),
+            'folder_012'    => Request::input('folder'),
             'active_012'    => Request::input('active', 0)
         ]);
 

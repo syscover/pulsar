@@ -15,12 +15,12 @@ use Illuminate\Http\Request as HttpRequest;
 use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\Library;
 
-class LibraryController extends Controller {
+class AttachmentLibraryController extends Controller {
 
     use TraitController;
 
-    protected $routeSuffix  = 'Library';
-    protected $folder       = 'library';
+    protected $routeSuffix  = 'AttachmentLibrary';
+    protected $folder       = 'attachment_library';
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_014', ['type' => 'library_img', 'data' => 'file_name_014'], 'file_name_014', ['type' => 'size', 'data' => 'size_014'], 'mime_014', 'type_text_014'];
     protected $nameM        = 'file_014';
@@ -64,6 +64,7 @@ class LibraryController extends Controller {
 
         foreach($files as $file)
         {
+            // create tmp name
             $tmpFileName = uniqid();
             File::copy(public_path() . config($request->input('routesConfigFile') . '.libraryFolder') . '/' . $file['name'], public_path() . config($request->input('routesConfigFile') . '.tmpFolder') . '/' . $tmpFileName);
 
