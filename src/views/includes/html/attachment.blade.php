@@ -11,9 +11,16 @@
                     @foreach($attachments as $attachment)
                         <?php $data = json_decode($attachment->data_016); ?>
                         <li data-id="{{$attachment->id_016}}">
+                            @if($action == 'create')
+                                @include('pulsar::includes.html.form_hidden', ['name' => 'tmpFileName', 'value' => $attachment->tmp_file_name_016])
+                            @endif
                             <div class="attachment-item">
                                 <div class="attachment-img">
-                                    <img{!! $attachment->type_016 == 1? ' class="is-image"' : ' class="no-image"' !!} src="{{ $attachment->type_016 == 1? config($routesConfigFile . '.attachmentFolder') . '/' . $attachment->object_016 . '/' . $attachment->lang_016 . '/' . $attachment->file_name_016 : config($routesConfigFile . '.iconsFolder') . '/' . $data->icon }}" />
+                                    @if($action == 'create')
+                                        <img{!! $attachment->type_016 == 1? ' class="is-image"' : ' class="no-image"' !!} src="{{ $attachment->type_016 == 1? config($routesConfigFile . '.tmpFolder') . '/' . $attachment->tmp_file_name_016 : config($routesConfigFile . '.iconsFolder') . '/' . $data->icon }}" />
+                                    @else
+                                        <img{!! $attachment->type_016 == 1? ' class="is-image"' : ' class="no-image"' !!} src="{{ $attachment->type_016 == 1? config($routesConfigFile . '.attachmentFolder') . '/' . $attachment->object_016 . '/' . $attachment->lang_016 . '/' . $attachment->file_name_016 : config($routesConfigFile . '.iconsFolder') . '/' . $data->icon }}" />
+                                    @endif
                                 </div>
                                 <div class="attachment-over">
                                     <div class="col-md-10 col-sm-10 col-xs-10 uncovered">

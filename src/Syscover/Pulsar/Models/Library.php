@@ -30,4 +30,9 @@ class Library extends Model {
     {
         return Validator::make($data, static::$rules);
 	}
+
+    public function resource()
+    {
+        return $this->belongsTo('Syscover\Pulsar\Models\Resource', 'resource_014');
+    }
 }

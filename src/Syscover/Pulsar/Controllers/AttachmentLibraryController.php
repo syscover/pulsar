@@ -77,16 +77,16 @@ class AttachmentLibraryController extends Controller {
             $type = $this->getType($file['mime']);
 
             $objects[] = [
-                'resource_014'  => $request->input('resource'),
-                'url_014'       => null,
-                'file_name_014' => $file['name'],
-                'mime_014'      => $file['mime'],
-                'size_014'      => $file['size'],
-                'type_014'      => $type['id'],
-                'type_text_014' => $type['name'],
-                'width_014'     => $width,
-                'height_014'    => $height,
-                'data_014'      => json_encode(['icon' => $type['icon']])
+                'resource_014'      => $request->input('resource'),
+                'url_014'           => null,
+                'file_name_014'     => $file['name'],
+                'mime_014'          => $file['mime'],
+                'size_014'          => $file['size'],
+                'type_014'          => $type['id'],
+                'type_text_014'     => $type['name'],
+                'width_014'         => $width,
+                'height_014'        => $height,
+                'data_014'          => json_encode(['icon' => $type['icon']])
             ];
 
             if($file['name'] != null && $file['name'] != "")
@@ -134,25 +134,31 @@ class AttachmentLibraryController extends Controller {
         return response()->json($response);
     }
 
-    /*
+
     public function deleteCustomRecord($object)
     {
-        File::delete(public_path() . config('hotels.libraryFolder') . '/' . $object->file_name_014);
+        $package = $object->resource->package;
+        File::delete(public_path() . config($package->folder_012 . '.libraryFolder') . '/' . $object->file_name_014);
     }
+
 
     public function deleteCustomRecords($ids)
     {
-        $files      = Library::whereIn('id_014', $ids)->get();
+        $files      = Library::join('001_007_resource', '001_014_library.resource_014', '=', '001_007_resource.id_007')
+            ->join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012')
+            ->whereIn('id_014', $ids)
+            ->get();
+
         $fileNames  = [];
 
         foreach($files as $file)
         {
-            $fileNames[] = public_path() . config('hotels.libraryFolder') . '/' . $file->file_name_014;
+            $fileNames[] = public_path() . config($file->folder_012 . '.libraryFolder') . '/' . $file->file_name_014;
         }
 
         File::delete($fileNames);
     }
-    */
+
 
     private function getType($mime)
     {

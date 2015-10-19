@@ -91,13 +91,18 @@ class AttachmentLibrary {
         ]);
         $attachmentsInput = [];
 
-        foreach($response['attachments'] as $attachment)
+        foreach($response['attachments'] as &$attachment)
         {
+            $tmpFileName = null;
+
             if($copyAttachment)
             {
                 // function to duplicate files if we create a new lang object
                 // copy attachments base lang article to temp folder
-                File::copy(public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId . '/' . session('baseLang')->id_001 . '/' . $attachment->file_name_016, public_path() . config($routesConfigFile . '.tmpFolder') . '/' . $attachment->file_name_016);
+                $tmpFileName = uniqid();
+                File::copy(public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId . '/' . session('baseLang')->id_001 . '/' . $attachment->file_name_016, public_path() . config($routesConfigFile . '.tmpFolder') . '/' . $tmpFileName);
+                // store tmp file name in attachment to know temporal name
+                $attachment['tmp_file_name_016'] = $tmpFileName;
             }
 
             // get json data from attachment
@@ -110,6 +115,7 @@ class AttachmentLibrary {
                 'mime'              => $attachment->mime_016,
                 'name'              => $attachment->name_016,
                 'folder'            => $copyAttachment? config($routesConfigFile . '.tmpFolder') : config($routesConfigFile . '.attachmentFolder') . '/' . $attachment->object_016 . '/' . $attachment->lang_016,
+                'tmpFileName'       => $tmpFileName,
                 'fileName'          => $attachment->file_name_016,
                 'width'             => $attachment->width_016,
                 'height'            => $attachment->height_016,

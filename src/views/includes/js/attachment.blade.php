@@ -49,7 +49,7 @@
             {
                 // Variable $action defined in edit.blade.php with a include
                 @if($action == 'edit')
-                    // Guardamos el adjunto en la base de datos, ya que es un artículo
+                    // Guardamos el adjunto en la base de datos, ya que es un objeto
                     // que estamos editando y ya está registrado en la base de datos
                     $.storeAttachment(libraryDataStored.files);
                 @else

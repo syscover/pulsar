@@ -29,7 +29,7 @@ class AttachmentController extends Controller {
             $idAttachment++;
 
             // move file from temp file to attachment folder
-            File::move(public_path() . config($request->input('routesConfigFile') . '.tmpFolder') . '/' . $attachment['fileName'], public_path() . config($request->input('routesConfigFile') . '.attachmentFolder') . '/' . $parameters['object'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']);
+            File::move(public_path() . config($request->input('routesConfigFile') . '.tmpFolder') . '/' . $attachment['tmpFileName'], public_path() . config($request->input('routesConfigFile') . '.attachmentFolder') . '/' . $parameters['object'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']);
 
             $attachmentsResponse[] = Attachment::create([
                 'id_016'                => $idAttachment,
