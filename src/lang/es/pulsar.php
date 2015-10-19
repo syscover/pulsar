@@ -175,4 +175,5 @@ return [
     'image_name'                            => 'Nombre de la imagen',
     'drag_files'                            => 'Arrastre aquí sus archivos',
     'select_family'                         => 'Seleccione una familia',
+    'folder'                                => 'Carpeta|Carpetas',
 ];
