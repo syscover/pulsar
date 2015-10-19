@@ -20,8 +20,7 @@ class PasswordController extends Controller {
 	*/
 
 	use ResetsPasswords;
-
-
+    
     /**
      * The password broker implementation.
      *
