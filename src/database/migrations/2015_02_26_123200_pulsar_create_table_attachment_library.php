@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PulsarCreateTableLibrary extends Migration {
+class PulsarCreateTableAttachmentLibrary extends Migration {
 
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class PulsarCreateTableLibrary extends Migration {
      */
     public function up()
     {
-        Schema::create('001_014_library', function(Blueprint $table)
+        Schema::create('001_014_attachment_library', function(Blueprint $table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id_014')->unsigned();
@@ -39,6 +39,6 @@ class PulsarCreateTableLibrary extends Migration {
      */
     public function down()
     {
-        Schema::drop('001_014_library');
+        Schema::drop('001_014_attachment_library');
     }
 }

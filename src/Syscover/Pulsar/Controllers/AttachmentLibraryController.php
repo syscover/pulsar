@@ -12,8 +12,9 @@
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request as HttpRequest;
+use Syscover\Pulsar\Libraries\ImageManagerLibrary;
 use Syscover\Pulsar\Traits\TraitController;
-use Syscover\Pulsar\Models\Library;
+use Syscover\Pulsar\Models\AttachmentLibrary;
 
 class AttachmentLibraryController extends Controller {
 
@@ -24,7 +25,7 @@ class AttachmentLibraryController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_014', ['type' => 'library_img', 'data' => 'file_name_014'], 'file_name_014', ['type' => 'size', 'data' => 'size_014'], 'mime_014', 'type_text_014'];
     protected $nameM        = 'file_014';
-    protected $model        = '\Syscover\Pulsar\Models\Library';
+    protected $model        = '\Syscover\Pulsar\Models\AttachmentLibrary';
     protected $icon         = 'fa fa-book';
     protected $objectTrans  = 'library';
     protected $jsonParam    = ['edit' => false];
@@ -36,12 +37,12 @@ class AttachmentLibraryController extends Controller {
             case 'library_img':
                 if($aObject['type_014'] == 1)
                 {
-                    $row[] = '<img src="' . asset(config('hotels.libraryFolder') . '/' . $aObject['file_name_014']) . '" class="image-index-list">';
+                    $row[] = '<img src="' . asset(config($aObject['folder_012'] . '.libraryFolder') . '/' . $aObject['file_name_014']) . '" class="image-index-list">';
                 }
                 else
                 {
                     $data = json_decode($aObject['data_014']);
-                    $row[] = '<img src="' . asset(config('hotels.iconsFolder') . '/' . $data->icon) . '" class="image-index-list">';
+                    $row[] = '<img src="' . asset(config('.iconsFolder') . '/' . $data->icon) . '" class="image-index-list">';
                 }
 
                 break;
@@ -54,7 +55,7 @@ class AttachmentLibraryController extends Controller {
     }
 
 
-    public function storeLibrary(HttpRequest $request)
+    public function storeAttachmentLibrary(HttpRequest $request)
     {
         $parameters         = $request->route()->parameters();
         $files              = $request->input('files');
@@ -74,7 +75,7 @@ class AttachmentLibraryController extends Controller {
                 list($width, $height) = getimagesize(public_path() . config($request->input('routesConfigFile') . '.libraryFolder') . '/' . $file['name']);
             }
 
-            $type = $this->getType($file['mime']);
+            $type = ImageManagerLibrary::getMimeIconImage($file['mime']);
 
             $objects[] = [
                 'resource_014'      => $request->input('resource'),
@@ -110,9 +111,9 @@ class AttachmentLibraryController extends Controller {
             ];
         }
 
-        Library::insert($objects);
+        AttachmentLibrary::insert($objects);
 
-        $lastLibraryInsert = Library::whereIn('file_name_014', $filesNames)->get();
+        $lastLibraryInsert = AttachmentLibrary::whereIn('file_name_014', $filesNames)->get();
 
         foreach($lastLibraryInsert as $library)
         {
@@ -144,7 +145,7 @@ class AttachmentLibraryController extends Controller {
 
     public function deleteCustomRecords($ids)
     {
-        $files      = Library::join('001_007_resource', '001_014_library.resource_014', '=', '001_007_resource.id_007')
+        $files = AttachmentLibrary::join('001_007_resource', '001_014_attachment_library.resource_014', '=', '001_007_resource.id_007')
             ->join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012')
             ->whereIn('id_014', $ids)
             ->get();
@@ -157,37 +158,5 @@ class AttachmentLibraryController extends Controller {
         }
 
         File::delete($fileNames);
-    }
-
-
-    private function getType($mime)
-    {
-        switch ($mime) {
-            case 'image/gif':
-            case 'image/jpeg':
-            case 'image/pjpeg':
-            case 'image/jpeg':
-            case 'image/pjpeg':
-            case 'image/png':
-            case 'image/svg+xml':
-                return [ 'id' => 1, 'name' => trans_choice('pulsar::pulsar.image', 1), 'icon' => 'icon_Generic.png'];
-                break;
-            case 'text/plain':
-            case 'application/msword':
-                return [ 'id' => 2, 'name' => trans_choice('pulsar::pulsar.file', 1), 'icon' => 'icon_DOCX.png'];
-                break;
-            case 'application/x-pdf':
-            case 'application/pdf':
-                return [ 'id' => 2, 'name' => trans_choice('pulsar::pulsar.file', 1), 'icon' => 'icon_PDF.png'];
-                break;
-            case 'video/avi':
-            case 'video/mpeg':
-            case 'video/quicktime':
-            case 'video/mp4':
-                return [ 'id' => 3, 'name' => trans_choice('pulsar::pulsar.video', 1), 'icon' => 'icon_Generic.png'];
-                break;
-            default:
-                return null;
-        }
     }
 }

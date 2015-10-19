@@ -138,15 +138,17 @@ class ImageManagerLibrary
     /**
      * Function to store attachment elements
      *
-     * @access	public
-     * @param   \Illuminate\Support\Facades\Request   $attachments
-     * @param   string      $lang
-     * @param   string      $routesConfigFile
-     * @param   integer     $objectId
-     * @param   string      $resource
-     * @return  boolean
+     * @access    public
+     * @param $path
+     * @return bool
+     * @throws \Exception
+     * @internal param \Illuminate\Support\Facades\Request $attachments
+     * @internal param string $lang
+     * @internal param string $routesConfigFile
+     * @internal param int $objectId
+     * @internal param string $resource
      */
-    public function iOSCheckOrientation($path)
+    public static function iOSCheckOrientation($path)
     {
         if(!function_exists('exif_read_data'))
         {
@@ -179,6 +181,44 @@ class ImageManagerLibrary
                 }
                 imagejpeg($image, $path);
             }
+        }
+    }
+
+    /**
+     * Function to get icon image from file
+     *
+     * @access  public
+     * @param   string  $mime
+     * @return  array
+     */
+    public static function getMimeIconImage($mime)
+    {
+        switch ($mime) {
+            case 'image/gif':
+            case 'image/jpeg':
+            case 'image/pjpeg':
+            case 'image/jpeg':
+            case 'image/pjpeg':
+            case 'image/png':
+            case 'image/svg+xml':
+                return [ 'id' => 1, 'name' => trans_choice('pulsar::pulsar.image', 1), 'icon' => 'icon_Generic.png'];
+                break;
+            case 'text/plain':
+            case 'application/msword':
+                return [ 'id' => 2, 'name' => trans_choice('pulsar::pulsar.file', 1), 'icon' => 'icon_DOCX.png'];
+                break;
+            case 'application/x-pdf':
+            case 'application/pdf':
+                return [ 'id' => 2, 'name' => trans_choice('pulsar::pulsar.file', 1), 'icon' => 'icon_PDF.png'];
+                break;
+            case 'video/avi':
+            case 'video/mpeg':
+            case 'video/quicktime':
+            case 'video/mp4':
+                return [ 'id' => 3, 'name' => trans_choice('pulsar::pulsar.video', 1), 'icon' => 'icon_Generic.png'];
+                break;
+            default:
+                return null;
         }
     }
 }

@@ -171,24 +171,14 @@
                         // check if element is a image to do a crop and the family attachment has width and height defined
                         if($(that).closest('li').find('img').hasClass('is-image') && data.width_015 != null && data.height_015 != null)
                         {
-                            @if($action == 'create')
-                                var action = 'create';
-                            @else
-                                var action = 'edit';
-                            @endif
-
                             // check if folder is tmp or attachment folder, depend if is a create or edit action
-                            //if($(that).closest('li').data('id') == undefined ||  action == 'create')
-                            if(action == 'create')
-                            {
-                                var folder      = '{{ config($routesConfigFile . '.tmpFolder') }}';
-                                var fileName    = $(that).closest('li').find('[name=tmpFileName]').val();
-                            }
-                            else
-                            {
+                            @if($action == 'edit')
                                 var folder      = '{{ config($routesConfigFile . '.attachmentFolder') }}/{{ isset($objectId)? $objectId : null }}/{{ $lang->id_001 }}';
                                 var fileName    = null;
-                            }
+                            @else
+                                var folder      = '{{ config($routesConfigFile . '.tmpFolder') }}';
+                                var fileName    = $(that).closest('li').find('[name=tmpFileName]').val();
+                            @endif
 
                             // throw get file plugin to crop and create or overwrite image
                             $.getFile(
@@ -214,7 +204,7 @@
                                     $(that).closest('li').find('.attachment-family').data('previous', $(that).closest('li').find('.attachment-family').val());
                                     $.setFamilyAttachment($(that).closest('li').find('.file-name').html(), data.id_015);
                                     $.setNameAttachment(that);
-                                    if($(that).closest('li').data('id') != undefined) $.updateAttachment(that);
+                                    $.updateAttachment(that);
                                 }
                             );
                         }
@@ -227,7 +217,7 @@
                             $(that).closest('li').find('.attachment-family').data('previous', $(that).closest('li').find('.attachment-family').val());
                             $.setFamilyAttachment($(that).closest('li').find('.file-name').html(), data.id_015);
                             $.setNameAttachment(that);
-                            if($(that).closest('li').data('id') != undefined) $.updateAttachment(that);
+                            $.updateAttachment(that);
                         }
                     }
                 });
@@ -243,15 +233,14 @@
                 }
                 $(this).closest('.attachment-item').toggleClass('cover');
                 $.setNameAttachment(this);
-                if($(this).closest('li').data('id') != undefined) $.updateAttachment(this);
+                $.updateAttachment(this);
             }
         });
     };
 
     // Update elements only on database
     $.updateAttachment = function(element) {
-        if($(element).closest('li').data('id') != undefined)
-        {
+        @if($action == 'edit')
             var attachments         = JSON.parse($('[name=attachments]').val());
             var attachmentToUpdate  = null;
 
@@ -279,7 +268,7 @@
                 dataType:	'json',
                 success: function(data){}
             });
-        }
+        @endif
     };
 
     // set events on attachment elements
@@ -373,7 +362,6 @@
     // sorting elements and register on database new sorting
     $.shortingElements = function() {
         var attachments   = JSON.parse($('[name=attachments]').val());
-        var hasId         = false;
 
         $('.sortable li').each(function(i) {
             var that = this;
@@ -382,15 +370,10 @@
                 {
                     attachment.sorting = i;
                 }
-                if(attachment.id != undefined)
-                {
-                    hasId = true;
-                }
             });
         });
 
-        if(hasId)
-        {
+        @if($action == 'edit')
             // update attachment across ajax
             $.ajax({
                 url:    '{{ route('updatesAttachment', ['object' => isset($objectId)? $objectId : null ,'lang' => $lang->id_001]) }}',
@@ -413,11 +396,9 @@
                     }
                 }
             });
-        }
-        else
-        {
+        @else
             $('[name=attachments]').val(JSON.stringify(attachments));
-        }
+        @endif
     };
 </script>
 

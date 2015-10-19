@@ -14,11 +14,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Syscover\Pulsar\Traits\TraitModel;
 
-class Library extends Model {
+class AttachmentLibrary extends Model {
 
     use TraitModel;
 
-	protected $table        = '001_014_library';
+	protected $table        = '001_014_attachment_library';
     protected $primaryKey   = 'id_014';
     protected $sufix        = '014';
     public $timestamps      = false;
@@ -34,5 +34,14 @@ class Library extends Model {
     public function resource()
     {
         return $this->belongsTo('Syscover\Pulsar\Models\Resource', 'resource_014');
+    }
+
+    public static function getCustomRecordsLimit($parameters)
+    {
+        $query =  AttachmentLibrary::join('001_007_resource', '001_014_attachment_library.resource_014', '=', '001_007_resource.id_007')
+            ->join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012')
+            ->newQuery();
+
+        return $query;
     }
 }
