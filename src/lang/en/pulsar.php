@@ -176,4 +176,6 @@ return [
     'drag_files'                            => 'Drag files here',
     'select_family'                         => 'Select a family',
     'folder'                                => 'Folder|Folders',
+    'custom_field'                          => 'Custom field|Customs fields',
+    'field_family'                          => 'Field family|Fields families',
 ];

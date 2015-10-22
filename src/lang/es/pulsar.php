@@ -176,4 +176,6 @@ return [
     'drag_files'                            => 'Arrastre aquí sus archivos',
     'select_family'                         => 'Seleccione una familia',
     'folder'                                => 'Carpeta|Carpetas',
+    'custom_field'                          => 'Campo personalizado|Campos personalizados',
+    'field_family'                          => 'Familia de campo|Familias de campos',
 ];

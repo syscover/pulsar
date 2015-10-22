@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PulsarCreateTableFamilyField extends Migration {
+class PulsarCreateTableFieldFamily extends Migration {
 
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class PulsarCreateTableFamilyField extends Migration {
      */
     public function up()
     {
-        Schema::create('001_025_family_field', function(Blueprint $table)
+        Schema::create('001_025_field_family', function(Blueprint $table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id_025')->unsigned();
@@ -32,6 +32,6 @@ class PulsarCreateTableFamilyField extends Migration {
      */
     public function down()
     {
-        Schema::drop('001_025_family_field');
+        Schema::drop('001_025_field_family');
     }
 }
