@@ -244,13 +244,13 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | LIBRARY
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/library/{offset?}',                 ['as'=>'AttachmentLibrary',                   'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@index',                  'resource' => 'admin-library',        'action' => 'access']);
-    Route::any(config('pulsar.appName') . '/pulsar/library/json/data',                 ['as'=>'jsonDataAttachmentLibrary',           'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@jsonData',               'resource' => 'admin-library',        'action' => 'access']);
-    Route::get(config('pulsar.appName') . '/pulsar/library/create/{offset}',           ['as'=>'createAttachmentLibrary',             'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@createRecord',           'resource' => 'admin-library',        'action' => 'create']);
-    Route::post(config('pulsar.appName') . '/pulsar/library/store/api',                ['as'=>'storeAttachmentLibrary',              'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@storeAttachmentLibrary', 'resource' => 'admin-library',        'action' => 'create']);
-    Route::get(config('pulsar.appName') . '/pulsar/library/{id}/edit/{offset}',        ['as'=>'editAttachmentLibrary',               'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@editRecord',             'resource' => 'admin-library',        'action' => 'access']);
-    Route::get(config('pulsar.appName') . '/pulsar/library/delete/{id}/{offset}',      ['as'=>'deleteAttachmentLibrary',             'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@deleteRecord',           'resource' => 'admin-library',        'action' => 'delete']);
-    Route::delete(config('pulsar.appName') . '/pulsar/library/delete/select/records',  ['as'=>'deleteSelectAttachmentLibrary',       'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@deleteRecordsSelect',    'resource' => 'admin-library',        'action' => 'delete']);
+    Route::any(config('pulsar.appName') . '/pulsar/library/{offset?}',                 ['as'=>'AttachmentLibrary',                   'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@index',                  'resource' => 'admin-attachment-library',        'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/library/json/data',                 ['as'=>'jsonDataAttachmentLibrary',           'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@jsonData',               'resource' => 'admin-attachment-library',        'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/library/create/{offset}',           ['as'=>'createAttachmentLibrary',             'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@createRecord',           'resource' => 'admin-attachment-library',        'action' => 'create']);
+    Route::post(config('pulsar.appName') . '/pulsar/library/store/api',                ['as'=>'storeAttachmentLibrary',              'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@storeAttachmentLibrary', 'resource' => 'admin-attachment-library',        'action' => 'create']);
+    Route::get(config('pulsar.appName') . '/pulsar/library/{id}/edit/{offset}',        ['as'=>'editAttachmentLibrary',               'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@editRecord',             'resource' => 'admin-attachment-library',        'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/library/delete/{id}/{offset}',      ['as'=>'deleteAttachmentLibrary',             'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@deleteRecord',           'resource' => 'admin-attachment-library',        'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/library/delete/select/records',  ['as'=>'deleteSelectAttachmentLibrary',       'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@deleteRecordsSelect',    'resource' => 'admin-attachment-library',        'action' => 'delete']);
 
     /*
     |--------------------------------------------------------------------------
@@ -276,6 +276,20 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     Route::any(config('pulsar.appName') . '/pulsar/contentbuilder/action/saveimage',                    ['as'=>'contentbuilderSaveImage',   'uses'=>'Syscover\Pulsar\Controllers\ContentBuilderController@saveImage',     'resource' => 'admin',     'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/contentbuilder/action/blocks/{theme}',               ['as'=>'contentbuilderBlocks',      'uses'=>'Syscover\Pulsar\Controllers\ContentBuilderController@getBlocks',     'resource' => 'admin',     'action' => 'access']);
 
+    /*
+    |--------------------------------------------------------------------------
+    | FIELD FAMILY
+    |--------------------------------------------------------------------------
+    */
+    Route::any(config('pulsar.appName') . '/pulsar/custom/field/families/{offset?}',                  ['as'=>'CustomFieldFamily',                'uses'=>'Syscover\Pulsar\Controllers\CustomFieldFamilyController@index',                     'resource' => 'admin-attachment-family',        'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/custom/field/families/json/data',                  ['as'=>'jsonDataCustomFieldFamily',        'uses'=>'Syscover\Pulsar\Controllers\CustomFieldFamilyController@jsonData',                  'resource' => 'admin-attachment-family',        'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/custom/field/families/create/{offset}',            ['as'=>'createCustomFieldFamily',          'uses'=>'Syscover\Pulsar\Controllers\CustomFieldFamilyController@createRecord',              'resource' => 'admin-attachment-family',        'action' => 'create']);
+    Route::post(config('pulsar.appName') . '/pulsar/custom/field/families/store/{offset}',            ['as'=>'storeCustomFieldFamily',           'uses'=>'Syscover\Pulsar\Controllers\CustomFieldFamilyController@storeRecord',               'resource' => 'admin-attachment-family',        'action' => 'create']);
+    Route::get(config('pulsar.appName') . '/pulsar/custom/field/families/{id}/edit/{offset}',         ['as'=>'editCustomFieldFamily',            'uses'=>'Syscover\Pulsar\Controllers\CustomFieldFamilyController@editRecord',                'resource' => 'admin-attachment-family',        'action' => 'access']);
+    Route::put(config('pulsar.appName') . '/pulsar/custom/field/families/update/{id}/{offset}',       ['as'=>'updateCustomFieldFamily',          'uses'=>'Syscover\Pulsar\Controllers\CustomFieldFamilyController@updateRecord',              'resource' => 'admin-attachment-family',        'action' => 'edit']);
+    Route::get(config('pulsar.appName') . '/pulsar/custom/field/families/delete/{id}/{offset}',       ['as'=>'deleteCustomFieldFamily',          'uses'=>'Syscover\Pulsar\Controllers\CustomFieldFamilyController@deleteRecord',              'resource' => 'admin-attachment-family',        'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/custom/field/families/delete/select/records',   ['as'=>'deleteSelectCustomFieldFamily',    'uses'=>'Syscover\Pulsar\Controllers\CustomFieldFamilyController@deleteRecordsSelect',       'resource' => 'admin-attachment-family',        'action' => 'delete']);
+    Route::any(config('pulsar.appName') . '/pulsar/custom/field/families/{id}/show/{api}',            ['as'=>'apiShowCustomFieldFamily',         'uses'=>'Syscover\Pulsar\Controllers\CustomFieldFamilyController@showRecord',                'resource' => 'admin-attachment-family',        'action' => 'access']);
 
 
 
