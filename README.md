@@ -64,7 +64,7 @@ php artisan migrate
 **9 - Run seed database**
 
 ```
-php artisan db:seed
+php artisan db:seed --class="PulsarTableSeeder"
 ```
 
 **10 - Register cron command on file app/Console/Kernel.php add to $commands array**
@@ -74,7 +74,20 @@ php artisan db:seed
 
 ```
 
-**11 - When the installation is complete you can access these data**
+**11 - To future updates, you must change your composer.json, replace post-update-cmd for this code**
+
+```
+"post-update-cmd": [
+    "php artisan vendor:publish --force",
+    "php artisan optimize",
+    "php artisan migrate",
+    "php artisan migrate --path=database/migrations/updates"
+],
+
+```
+
+
+**12 - When the installation is complete you can access these data**
 ```
 url: http://www.your-domain.com/pulsar
 user: admin@pulsar.local
@@ -141,4 +154,4 @@ Key: Código de tarea a ejecutar, este código lo instanciamos nosotros mismos e
                         }
 );
 ```
-En este caso, instanciaríamos con 01 la key, si queremos que ejecute el método llamadaCron() de la clase estática Cron. 
+En este caso, instanciaríamos con 01 la key, si queremos que ejecute el método llamadaCron() de la clase estática Cron.
