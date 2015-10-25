@@ -22,7 +22,7 @@ class CustomFieldFamilyController extends Controller {
     protected $routeSuffix  = 'CustomFieldFamily';
     protected $folder       = 'field_family';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_025', 'name_025', 'name_025'];
+    protected $aColumns     = ['id_025', 'name_025', 'name_025', 'data_025'];
     protected $nameM        = 'name_025';
     protected $model        = '\Syscover\Pulsar\Models\CustomFieldFamily';
     protected $icon         = 'fa fa-th';
