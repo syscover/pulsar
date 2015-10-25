@@ -302,11 +302,11 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | ADDRESS
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/address/json/data/{resource}/{object}',              ['as'=>'jsonDataDirecciones',  'uses'=>'Syscover\Pulsar\Controllers\Direcciones@jsonData',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::get(config('pulsar.appName') . '/pulsar/address/create/{resource}/{object}',                 ['as'=>'createDireccion',      'uses'=>'Syscover\Pulsar\Controllers\Direcciones@create',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::post(config('pulsar.appName') . '/pulsar/address/store',                                     ['as'=>'storeDireccion',       'uses'=>'Syscover\Pulsar\Controllers\Direcciones@store',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::get(config('pulsar.appName') . '/pulsar/address/{id}/edit/{offset}',                         ['as'=>'editDireccion',        'uses'=>'Syscover\Pulsar\Controllers\Direcciones@edit',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::post(config('pulsar.appName') . '/pulsar/address/update/{offset}',                           ['as'=>'updateDireccion',      'uses'=>'Syscover\Pulsar\Controllers\Direcciones@update',            'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::any(config('pulsar.appName') . '/pulsar/address/json/data/{resource}/{object}',              ['as'=>'jsonDataDirecciones',  'uses'=>'Syscover\Pulsar\Controllers\Direcciones@jsonData',      'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::get(config('pulsar.appName') . '/pulsar/address/create/{resource}/{object}',                 ['as'=>'createDireccion',      'uses'=>'Syscover\Pulsar\Controllers\Direcciones@create',        'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::post(config('pulsar.appName') . '/pulsar/address/store',                                     ['as'=>'storeDireccion',       'uses'=>'Syscover\Pulsar\Controllers\Direcciones@store',         'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::get(config('pulsar.appName') . '/pulsar/address/{id}/edit/{offset}',                         ['as'=>'editDireccion',        'uses'=>'Syscover\Pulsar\Controllers\Direcciones@edit',          'resource' => 'admin-lang',             'action' => 'delete']);
+    Route::post(config('pulsar.appName') . '/pulsar/address/update/{offset}',                           ['as'=>'updateDireccion',      'uses'=>'Syscover\Pulsar\Controllers\Direcciones@update',        'resource' => 'admin-lang',             'action' => 'delete']);
 
     /*
     |--------------------------------------------------------------------------
