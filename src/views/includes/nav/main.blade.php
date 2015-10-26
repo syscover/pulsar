@@ -82,7 +82,7 @@
                 @endif
                 @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-perm', 'access'))
                     <li{!! Miscellaneous::setOpenPage(['admin-perm-profile', 'admin-perm-resource', 'admin-perm-action', 'admin-perm-profile', 'admin-perm-perm']) !!}>
-                        <a href="javascript:void(0);"><i class="fa fa-user"></i>{{ trans_choice('pulsar::pulsar.permission', 2) }}<span class="arrow"></span></a>
+                        <a href="javascript:void(0);"><i class="fa fa-shield"></i>{{ trans_choice('pulsar::pulsar.permission', 2) }}<span class="arrow"></span></a>
                         <ul class="sub-menu"{!! Miscellaneous::setDisplayPage(['admin-perm-resource', 'admin-perm-action', 'admin-perm-profile', 'admin-perm-perm']) !!}>
                             @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-perm-profile', 'access'))
                                 <li{!! Miscellaneous::setCurrentPage(array('admin-perm-profile', 'admin-perm-perm')) !!}><a href="{{ route('Profile') }}"><i class="icomoon-icon-users-2"></i>{{ trans_choice('pulsar::pulsar.profile', 2) }}</a></li>
