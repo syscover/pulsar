@@ -178,4 +178,5 @@ return [
     'folder'                                => 'Folder|Folders',
     'custom_field'                          => 'Custom field|Customs fields',
     'field_family'                          => 'Field family|Fields families',
+    'slug'                                  => 'Slug',
 ];

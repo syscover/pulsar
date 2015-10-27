@@ -178,4 +178,5 @@ return [
     'folder'                                => 'Carpeta|Carpetas',
     'custom_field'                          => 'Campo personalizado|Campos personalizados',
     'field_family'                          => 'Familia de campo|Familias de campos',
+    'slug'                                  => 'Slug',
 ];
