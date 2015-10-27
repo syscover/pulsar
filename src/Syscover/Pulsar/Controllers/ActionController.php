@@ -24,7 +24,7 @@ class ActionController extends Controller {
     protected $aColumns     = ['id_008', 'name_008'];
     protected $nameM        = 'name_008';
     protected $model        = '\Syscover\Pulsar\Models\Action';
-    protected $icon         = 'icomoon-icon-power';
+    protected $icon         = 'fa fa-bolt';
     protected $objectTrans  = 'action';
 
     public function storeCustomRecord($parameters)

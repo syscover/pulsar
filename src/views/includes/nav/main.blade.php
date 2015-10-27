@@ -91,7 +91,7 @@
                                 <li{!! Miscellaneous::setCurrentPage('admin-perm-resource') !!}><a href="{{ route('Resource') }}"><i class="icomoon-icon-database"></i>{{ trans_choice('pulsar::pulsar.resource', 2) }}</a></li>
                             @endif
                             @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-perm-action', 'access'))
-                                <li{!! Miscellaneous::setCurrentPage('admin-perm-action') !!}><a href="{{ route('Action') }}"><i class="icomoon-icon-power"></i>{{ trans_choice('pulsar::pulsar.action', 2) }}</a></li>
+                                <li{!! Miscellaneous::setCurrentPage('admin-perm-action') !!}><a href="{{ route('Action') }}"><i class="fa fa-bolt"></i>{{ trans_choice('pulsar::pulsar.action', 2) }}</a></li>
                             @endif
                         </ul>
                     </li>

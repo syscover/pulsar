@@ -179,4 +179,5 @@ return [
     'custom_field'                          => 'Custom field|Customs fields',
     'field_family'                          => 'Field family|Fields families',
     'slug'                                  => 'Slug',
+    'template'                              => 'Template|Templates',
 ];
