@@ -1,19 +1,9 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-/**
- * @package	    Pulsar
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input,
-    Illuminate\Support\Facades\URL,
-    Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 
 class ContentBuilderController extends Controller {
 
@@ -22,7 +12,7 @@ class ContentBuilderController extends Controller {
         // get parameters from url route, input y theme
         $data                   = $request->route()->parameters();
 
-        $css                    = file_get_contents(public_path() . '/packages/syscover/pulsar/vendor/contentbuilder/themes/' . $data['theme'] . "/content.css");
+        $css                    = file_get_contents(public_path() . '/packages/syscover/pulsar/comunik/email/themes/' . $data['theme'] . "/content.css");
         //$settings               = json_decode(file_get_contents(public_path() . '/packages/syscover/pulsar/vendor/contentbuilder/themes/' . $data['theme'] . "/settings.json"), true);
         //$data['css']            = $this->changeWildcards($css, $settings);
 
@@ -68,8 +58,8 @@ class ContentBuilderController extends Controller {
     public function getBlocks($theme)
     {
 
-        $header = public_path().'/packages/pulsar/pulsar/plugins/contentbuilder/themes/' . $theme . "/header.html";
-        $footer = public_path().'/packages/pulsar/pulsar/plugins/contentbuilder/themes/' . $theme . "/footer.html";
+        $header = public_path() . '/packages/syscover/pulsar/vendor/contentbuilder/themes/' . $theme . "/header.html";
+        $footer = public_path() . '/packages/syscover/pulsar/vendor/contentbuilder/themes/' . $theme . "/footer.html";
 
         $data['header'] = file_get_contents($header);
         $data['footer'] = file_get_contents($footer);

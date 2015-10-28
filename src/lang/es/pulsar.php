@@ -180,4 +180,5 @@ return [
     'field_family'                          => 'Familia de campo|Familias de campos',
     'slug'                                  => 'Slug',
     'template'                              => 'Plantilla|Plantillas',
+    'theme'                                 => 'Theme|Themes',
 ];

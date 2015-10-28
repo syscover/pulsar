@@ -7,7 +7,7 @@
     @include('pulsar::includes.html.form_text_group', ['label' => trans('pulsar::pulsar.surname'), 'name' => 'surname', 'value' => Input::old('surname'), 'maxLength' => '50', 'rangeLength' => '2,50', 'required' => true])
     @include('pulsar::includes.html.form_text_group', ['label' => trans('pulsar::pulsar.email'), 'name' => 'email', 'value' => Input::old('email'), 'maxLength' => '50', 'rangeLength' => '2,50', 'fieldSize' => 6, 'required' => true, 'type' => 'email'])
     @include('pulsar::includes.html.form_select_group', ['label' => trans_choice('pulsar::pulsar.language', 1), 'name' => 'lang', 'value' => Input::old('lang'), 'required' => true, 'objects' => $langs, 'idSelect' => 'id_001', 'nameSelect' => 'name_001'])
-    @include('pulsar::includes.html.form_checkbox_group', ['label' => trans('pulsar::pulsar.access'), 'name' => 'access', 'value' => 1, 'isChecked' => Input::old('access', 1)])
+    @include('pulsar::includes.html.form_checkbox_group', ['label' => trans('pulsar::pulsar.access'), 'name' => 'access', 'value' => 1, 'checked' => Input::old('access', 1)])
     @include('pulsar::includes.html.form_section_header', ['label' => trans('pulsar::pulsar.data_access'), 'icon' => 'icomoon-icon-users'])
     @include('pulsar::includes.html.form_select_group', ['label' => trans_choice('pulsar::pulsar.profile', 1), 'name' => 'profile', 'value' => Input::old('profile'), 'required' => true, 'objects' => $profiles, 'idSelect' => 'id_006', 'nameSelect' => 'name_006'])
     @include('pulsar::includes.html.form_text_group', ['label' => trans_choice('pulsar::pulsar.user', 1), 'name' => 'user', 'value' => Input::old('user'), 'maxLength' => '50', 'rangeLength' => '2,50', 'fieldSize' => 6, 'required' => true])

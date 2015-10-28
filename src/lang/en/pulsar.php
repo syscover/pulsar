@@ -180,4 +180,5 @@ return [
     'field_family'                          => 'Field family|Fields families',
     'slug'                                  => 'Slug',
     'template'                              => 'Template|Templates',
+    'theme'                                 => 'Theme|Themes',
 ];
