@@ -10,15 +10,15 @@ class ContentBuilderController extends Controller {
     public function index(Request $request)
     {
         // get parameters from url route, input y theme
-        $data                   = $request->route()->parameters();
+        $parameters        = $request->route()->parameters();
 
-        $css                    = file_get_contents(public_path() . '/packages/syscover/pulsar/comunik/email/themes/' . $data['theme'] . "/content.css");
-        //$settings               = json_decode(file_get_contents(public_path() . '/packages/syscover/pulsar/vendor/contentbuilder/themes/' . $data['theme'] . "/settings.json"), true);
-        //$data['css']            = $this->changeWildcards($css, $settings);
+        $css               = file_get_contents(public_path() . '/packages/syscover/comunik/email/themes/' . $parameters['theme'] . "/content.stpl");
+        $settings          = json_decode(file_get_contents(public_path() . '/packages/syscover/comunik/email/themes/' . $parameters['theme'] . "/settings.json"), true);
+        $parameters['css'] = $this->changeWildcards($css, $settings);
 
         //dd($data);
 
-        return view('pulsar::contentbuilder.index', $data);
+        return view('pulsar::contentbuilder.index', $parameters);
     }
 
     public function saveImage()
