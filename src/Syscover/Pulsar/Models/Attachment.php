@@ -57,6 +57,7 @@ class Attachment extends Model {
         if(isset($args['object_016']))      $query->where('object_016', $args['object_016']);
         if(isset($args['family_016']))      $query->where('family_016', $args['family_016']);
         if(isset($args['orderBy']))         $query->orderBy($args['orderBy']['column'], $args['orderBy']['order']);
+        if(isset($args['whereIn']))         $query->whereIn($args['whereIn']['column'], $args['whereIn']['ids']);
 
         return $query->get();
     }
