@@ -272,7 +272,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | CONTENT BUILDER
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/contentbuilder/{theme}/edit/{input}',                ['as'=>'contentbuilder',            'uses'=>'Syscover\Pulsar\Controllers\ContentBuilderController@index',         'resource' => 'admin',     'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/contentbuilder/{package}/{theme}/edit/{input}',      ['as'=>'contentbuilder',            'uses'=>'Syscover\Pulsar\Controllers\ContentBuilderController@index',         'resource' => 'admin',     'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/contentbuilder/action/saveimage',                    ['as'=>'contentbuilderSaveImage',   'uses'=>'Syscover\Pulsar\Controllers\ContentBuilderController@saveImage',     'resource' => 'admin',     'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/contentbuilder/action/blocks/{theme}',               ['as'=>'contentbuilderBlocks',      'uses'=>'Syscover\Pulsar\Controllers\ContentBuilderController@getBlocks',     'resource' => 'admin',     'action' => 'access']);
 

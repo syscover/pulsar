@@ -25,7 +25,7 @@
         $(document).ready(function($){
             $("#contentarea").contentbuilder({
                 zoom: 1,
-                snippetFile: '{{ asset('packages/syscover/pulsar/vendor/contentbuilder/themes/' . $theme . '/snippets.html') }}',
+                snippetFile: '{{ asset(config($package . '.themesFolder') . $theme . '/snippets.html') }}',
                 snippetTool: 'left'
             });
         });

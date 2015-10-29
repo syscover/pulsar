@@ -12,11 +12,12 @@ class ContentBuilderController extends Controller {
         // get parameters from url route, input y theme
         $parameters        = $request->route()->parameters();
 
-        $css               = file_get_contents(public_path() . '/packages/syscover/comunik/email/themes/' . $parameters['theme'] . "/content.stpl");
-        $settings          = json_decode(file_get_contents(public_path() . '/packages/syscover/comunik/email/themes/' . $parameters['theme'] . "/settings.json"), true);
-        $parameters['css'] = $this->changeWildcards($css, $settings);
-
-        //dd($data);
+        if(file_exists (public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/settings.json" ))
+        {
+            $css               = file_get_contents(public_path() . config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/content.stpl");
+            $settings          = json_decode(file_get_contents(public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/settings.json"), true);
+            $parameters['css'] = $this->changeWildcards($css, $settings);
+        }
 
         return view('pulsar::contentbuilder.index', $parameters);
     }
