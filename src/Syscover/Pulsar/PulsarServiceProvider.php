@@ -30,7 +30,8 @@ class PulsarServiceProvider extends ServiceProvider
 		$this->publishes([
             realpath(__DIR__ . '/../../config/pulsar.php') => config_path('pulsar.php'),
             realpath(__DIR__ . '/../../config/auth.php') => config_path('auth.php'),
-            realpath(__DIR__ . '/../../config/cron.php') => config_path('cron.php')
+            realpath(__DIR__ . '/../../config/cron.php') => config_path('cron.php'),
+			realpath(__DIR__ . '/../../config/apis.php') => config_path('apis.php')
         ]);
 
         // register custom validator
