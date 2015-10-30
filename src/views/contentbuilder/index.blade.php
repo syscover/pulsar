@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/wysiwyg.froala/css/froala_editor.min.css') }}">
     <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/wysiwyg.froala/css/froala_style.min.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/contentbuilder/themes/default/content.css') }}">
+    <link rel="stylesheet" href="{{ asset(config($package . '.themesFolder') . $theme . '/content.css') }}">
 
     <style type="text/css">
         {{ $css or null }}
@@ -27,6 +27,7 @@
             $("#contentarea").contentbuilder({
                 zoom: 1,
                 snippetFile: '{{ asset(config($package . '.themesFolder') . $theme . '/snippets.html') }}',
+                snippetPathReplace: ['{{ config($package . '.themesFolder') . $theme }}','{{ asset(config($package . '.themesFolder') . $theme . '/') }}'],
                 snippetTool: 'left'
             });
 
@@ -46,6 +47,13 @@
                 }
             });
 
+            // set camvas width
+            $('[name=canvasWidth]').val({{ $settings['width'] }});
+            $('#contentarea').css("width", "{{ $settings['width'] }}px");
+            $('[name=canvasWidth]').on('change', function(e) {
+                $('#contentarea').css("width", e.target.value+"px");
+            });
+
             // save function
             $('.fr-toolbar .fa-floppy-o').parent('a').on('click', function(){
 
@@ -53,9 +61,9 @@
                 $("#contentarea").saveimages({
                     handler: '{{ route('contentbuilderSaveImage') }}',
                     onComplete: function () {
-                        var sHTML                   = $('#contentarea').data('contentbuilder').html();
+                        var html                   = $('#contentarea').data('contentbuilder').html();
 
-                        console.log(sHTML);
+                        console.log(html);
 /*
                         settings.width              = $('#canvasWidth').val();
                         settings.backgroundColor    = $('#backgroundColor').attr('data-value');
@@ -66,6 +74,7 @@
                         settings.linkColor          = $('#linkColor').attr('data-value');
 */
                         //parent.getValueContentBuilder(sHTML, settings);
+                        parent.getValueContentBuilder(html);
 
                         //parent.$.lightbox().close();
                     }
@@ -97,6 +106,7 @@
                 <!--<a role="button" tabindex="-1" class="fr-command fr-btn fr-visible-sm fr-visible-md" data-cmd=""><i class="fa fa-tachometer"></i></a>-->
                 @if(isset($settings['fullscreenButton']) && $settings['fullscreenButton'])<a role="button" tabindex="-1" class="fr-command fr-btn fr-visible-sm fr-visible-md"><i class="fa fa-expand"></i></a>@endif
                 @if(isset($settings['saveButton']) && $settings['saveButton'])<a role="button" tabindex="-1" class="fr-command fr-btn fr-visible-sm fr-visible-md"><i class="fa fa-floppy-o"></i></a>@endif
+                @if(isset($settings['setWidth']) && $settings['setWidth'])<span>Ancho: <input name="canvasWidth" size="5" style="padding: 3px; border-radius: 2px; border: 1px solid silver" value=""> px</span>@endif
             </div>
         </div>
     </div>
