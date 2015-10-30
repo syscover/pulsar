@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 
 class ContentBuilderController extends Controller {
@@ -12,31 +11,36 @@ class ContentBuilderController extends Controller {
         // get parameters from url route, input y theme
         $parameters        = $request->route()->parameters();
 
-        if(file_exists (public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/settings.json" ))
+        if(file_exists (public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/settings.json"))
         {
-            $css               = file_get_contents(public_path() . config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/content.stpl");
-            $settings          = json_decode(file_get_contents(public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/settings.json"), true);
-            $parameters['css'] = $this->changeWildcards($css, $settings);
+            $parameters['settings']     = json_decode(file_get_contents(public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/settings.json"), true);
+        }
+
+        if(file_exists (public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/content.stpl") && file_exists (public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/settings.json"))
+        {
+            $css                = file_get_contents(public_path() . config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/content.stpl");
+            $parameters['css']  = $this->changeWildcards($css, $parameters['settings']);
         }
 
         return view('pulsar::contentbuilder.index', $parameters);
     }
 
-    public function saveImage()
+    public function saveImage(Request $request)
     {
+        /*
         header('Cache-Control: no-cache, must-revalidate');
 
         //Specify storage folder
-        $dir        = public_path().'/packages/pulsar/comunik/storage/assets/';
+        $dir        = public_path() . '/packages/pulsar/comunik/storage/assets/';
 
         //Specify url path
-        $path       = URL::asset('/packages/pulsar/comunik/storage/assets/');
+        $path       = asset('/packages/pulsar/comunik/storage/assets/');
 
         //Read image
-        $count      = Input::get('count');
-        $b64str     = Input::get('hidimg-'.$count);
-        $imgname    = Input::get('hidname-'.$count);
-        $imgtype    = Input::get('hidtype-'.$count);
+        $count      = $request->input('count');
+        $b64str     = $request->input('hidimg-' . $count);
+        $imgname    = $request->input('hidname-' . $count);
+        $imgtype    = $request->input('hidtype-' . $count);
 
         //Generate random file name here
         if($imgtype == 'png')
@@ -53,7 +57,8 @@ class ContentBuilderController extends Controller {
 
         $data['html'] = "<html><body onload=\"parent.document.getElementById('img-" . $count . "').setAttribute('src','" . $path. '/' . $image . "');  parent.document.getElementById('img-" . $count . "').removeAttribute('id') \"></body></html>";
 
-        return View::make('pulsar::pulsar.pulsar.common.html_display',$data);
+        return view('pulsar::pulsar.pulsar.common.html_display', $data);
+        */
     }
 
     public function getBlocks($theme)

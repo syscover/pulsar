@@ -17,18 +17,66 @@
 @section('script')
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/libs/jquery-2.1.3.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/jquery-ui/jquery-ui.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/contentbuilder/js/contentbuilder.js') }}"></script>
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/contentbuilder/scripts/contentbuilder.js') }}"></script>
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/contentbuilder/scripts/saveimages.js') }}"></script>
 
     <script type="text/javascript">
         $(document).ready(function($){
+
+            // create contentBuilder object
             $("#contentarea").contentbuilder({
                 zoom: 1,
                 snippetFile: '{{ asset(config($package . '.themesFolder') . $theme . '/snippets.html') }}',
                 snippetTool: 'left'
             });
+
+            // fullscreen function
+            $('.fr-toolbar .fa-expand').parent('a').on('click', function(){
+                if($(this).hasClass('active'))
+                {
+                    $(this).removeClass('active');
+                    parent.$('.iframe-contentbuilder').removeClass('fr-fullscreen');
+                    parent.$('body').removeClass('lock-scroll');
+                }
+                else
+                {
+                    $(this).addClass('active');
+                    parent.$('.iframe-contentbuilder').addClass('fr-fullscreen');
+                    parent.$('body').addClass('lock-scroll');
+                }
+            });
+
+            // save function
+            $('.fr-toolbar .fa-floppy-o').parent('a').on('click', function(){
+
+                // declare save function
+                $("#contentarea").saveimages({
+                    handler: '{{ route('contentbuilderSaveImage') }}',
+                    onComplete: function () {
+                        var sHTML                   = $('#contentarea').data('contentbuilder').html();
+
+                        console.log(sHTML);
+/*
+                        settings.width              = $('#canvasWidth').val();
+                        settings.backgroundColor    = $('#backgroundColor').attr('data-value');
+                        settings.canvasColor        = $('#canvasColor').attr('data-value');
+                        settings.highlightColor     = $('#highlightColor').attr('data-value');
+                        settings.textColor          = $('#textColor').attr('data-value');
+                        settings.titleColor         = $('#titleColor').attr('data-value');
+                        settings.linkColor          = $('#linkColor').attr('data-value');
+*/
+                        //parent.getValueContentBuilder(sHTML, settings);
+
+                        //parent.$.lightbox().close();
+                    }
+                });
+
+                // execute save function
+                $("#contentarea").data('saveimages').save();
+            });
         });
+
+
         function getContentBuilderHtml()
         {
             return $('#contentarea').data('contentbuilder').html();
@@ -46,8 +94,9 @@
     <div class="fr-box fr-top fr-basic">
         <div class="fr-toolbar fr-ltr fr-desktop fr-top fr-basic fr-sticky fr-sticky-off">
             <div class="bttn-wrapper" id="bttn-wrapper-1">
-                <!-- <a role="button" tabindex="-1" class="fr-command fr-btn fr-visible-sm fr-visible-md" data-cmd=""><i class="fa fa-tachometer"></i></a> -->
-                <a role="button" tabindex="-1" class="fr-command fr-btn fr-visible-sm fr-visible-md" data-cmd="fullscreen"><i class="fa fa-expand"></i></a>
+                <!--<a role="button" tabindex="-1" class="fr-command fr-btn fr-visible-sm fr-visible-md" data-cmd=""><i class="fa fa-tachometer"></i></a>-->
+                @if(isset($settings['fullscreenButton']) && $settings['fullscreenButton'])<a role="button" tabindex="-1" class="fr-command fr-btn fr-visible-sm fr-visible-md"><i class="fa fa-expand"></i></a>@endif
+                @if(isset($settings['saveButton']) && $settings['saveButton'])<a role="button" tabindex="-1" class="fr-command fr-btn fr-visible-sm fr-visible-md"><i class="fa fa-floppy-o"></i></a>@endif
             </div>
         </div>
     </div>
