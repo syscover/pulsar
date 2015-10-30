@@ -9,7 +9,7 @@ return [
 	| To obtain this secret key, please visit this URL: https://developers.google.com/maps/
 	|
 	*/
-    'googleMapsApiKey'              => env('API_KEY_GOOGLE_MAPS', 'your api key'),
+    'googleMapsApiKey' => env('GOOGLE_MAPS_API_KEY', 'your api key'),
 
     /*
 	|--------------------------------------------------------------------------
