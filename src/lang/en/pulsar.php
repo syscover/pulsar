@@ -181,4 +181,5 @@ return [
     'slug'                                  => 'Slug',
     'template'                              => 'Template|Templates',
     'theme'                                 => 'Theme|Themes',
+    'content'                               => 'Content|Contents',
 ];

@@ -46,7 +46,7 @@
                         <li{!! Miscellaneous::setCurrentPage('admin-lang') !!}><a href="{{ route('Lang') }}"><i class="fa fa-language"></i>{{ trans_choice('pulsar::pulsar.language', 2) }}</a></li>
                 @endif
                 @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-country', 'access'))
-                        <li{!! Miscellaneous::setCurrentPage(array('admin-country','admin-country-at1','admin-country-at2','admin-country-at3')) !!}><a href="{{ route('Country', [session('baseLang')]) }}"><i class="entypo-icon-globe"></i>{{ trans_choice('pulsar::pulsar.country', 2) }}</a></li>
+                        <li{!! Miscellaneous::setCurrentPage(array('admin-country','admin-country-at1','admin-country-at2','admin-country-at3')) !!}><a href="{{ route('Country', [session('baseLang')]) }}"><i class="fa fa-globe"></i>{{ trans_choice('pulsar::pulsar.country', 2) }}</a></li>
                 @endif
                 @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-package', 'access'))
                         <li{!! Miscellaneous::setCurrentPage('admin-package') !!}><a href="{{ route('Package') }}"><i class="cut-icon-grid"></i>{{ trans_choice('pulsar::pulsar.package', 2) }}</a></li>

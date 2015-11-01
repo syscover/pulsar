@@ -24,7 +24,7 @@ class CountryController extends Controller {
     protected $aColumns     = ['id_002', 'name_001', 'name_002', 'sorting_002', 'prefix_002', ['data' => 'territorial_area_1_002', 'route' => 'TerritorialArea1', 'type' => 'territorialArea'], ['data' => 'territorial_area_2_002', 'route' => 'TerritorialArea2', 'type' => 'territorialArea'], ['data' => 'territorial_area_3_002', 'route' => 'TerritorialArea3', 'type' => 'territorialArea']];
     protected $nameM        = 'name_002';
     protected $model        = '\Syscover\Pulsar\Models\Country';
-    protected $icon         = 'entypo-icon-globe';
+    protected $icon         = 'fa fa-globe';
     protected $objectTrans  = 'country';
 
     protected $reArea1      = 'admin-country-at1';
