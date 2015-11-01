@@ -10,7 +10,6 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Models\Country;
 use Syscover\Pulsar\Models\TerritorialArea1;
 use Syscover\Pulsar\Models\TerritorialArea2;
@@ -46,7 +45,7 @@ class TerritorialArea2Controller extends Controller {
         return $actionUrlParameters;
     }
 
-    public function createCustomRecord($parameters)
+    public function createCustomRecord($request, $parameters)
     {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
         $parameters['country']              = Country::getTranslationRecord($parameters['country'], session('baseLang')->id_001);
@@ -56,17 +55,17 @@ class TerritorialArea2Controller extends Controller {
         return $parameters;
     }
 
-    public function storeCustomRecord($parameters)
+    public function storeCustomRecord($request, $parameters)
     {
         TerritorialArea2::create([
-            'id_004'                    => Request::input('id'),
+            'id_004'                    => $request->input('id'),
             'country_004'               => $parameters['country'],
-            'territorial_area_1_004'    => Request::input('territorialArea1'),
-            'name_004'                  => Request::input('name')
+            'territorial_area_1_004'    => $request->input('territorialArea1'),
+            'name_004'                  => $request->input('name')
         ]);
     }
 
-    public function editCustomRecord($parameters)
+    public function editCustomRecord($request, $parameters)
     {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
         $parameters['country']              = Country::getTranslationRecord($parameters['country'], session('baseLang')->id_001);
@@ -76,12 +75,12 @@ class TerritorialArea2Controller extends Controller {
         return $parameters;
     }
     
-    public function updateCustomRecord($parameters)
+    public function updateCustomRecord($request, $parameters)
     {
         TerritorialArea2::where('id_004', $parameters['id'])->update([
-            'id_004'                    => Request::input('id'),
-            'territorial_area_1_004'    => Request::input('territorialArea1'),
-            'name_004'                  => Request::input('name')
+            'id_004'                    => $request->input('id'),
+            'territorial_area_1_004'    => $request->input('territorialArea1'),
+            'name_004'                  => $request->input('name')
         ]);
     }
 

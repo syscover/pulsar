@@ -61,7 +61,7 @@ class CountryController extends Controller {
         return $parameters;
     }
 
-    public function storeCustomRecord($parameters)
+    public function storeCustomRecord($request, $parameters)
     {
         Country::create([
             'id_002'                    => Request::input('id'),
@@ -76,7 +76,7 @@ class CountryController extends Controller {
         ]);
     }
     
-    public function updateCustomRecord($parameters)
+    public function updateCustomRecord($request, $parameters)
     {
         Country::where('id_002', $parameters['id'])->where('lang_002', Request::input('lang'))->update([
             'name_002'                  => Request::input('name'),

@@ -42,17 +42,17 @@ class ProfileController extends Controller {
         return $actions;
     }
     
-    public function storeCustomRecord()
+    public function storeCustomRecord($request, $parameters)
     {
         Profile::create([
-            'name_006'  => Request::input('name')
+            'name_006'  => $request->input('name')
         ]);
     }
     
-    public function updateCustomRecord($parameters)
+    public function updateCustomRecord($request, $parameters)
     {
         Profile::where('id_006', $parameters['id'])->update([
-            'name_006'  => Request::input('name')
+            'name_006'  => $request->input('name')
         ]);
     }
 

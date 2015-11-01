@@ -29,7 +29,7 @@ class EmailAccountController extends Controller {
     protected $icon         = 'fa fa-envelope';
     protected $objectTrans  = 'account';
 
-    public function createCustomRecord($parameters)
+    public function createCustomRecord($request, $parameters)
     {
         $parameters['outgoingSecures']  = [(object)['id' => '', 'name' => trans('pulsar::pulsar.no_security')], (object)['id' => 'ssl', 'name' => 'SSL'], (object)['id' => 'tls', 'name' => 'TLS'], (object)['id' => 'sslv2', 'name' => 'SSLv2'], (object)['id' => 'sslv3', 'name' => 'SSLv3']];
         $parameters['incomingTypes']    = [(object)['id' => 'imap', 'name' => 'IMAP']];
@@ -38,7 +38,7 @@ class EmailAccountController extends Controller {
         return $parameters;
     }
 
-    public function storeCustomRecord($parameters)
+    public function storeCustomRecord($request, $parameters)
     {
         $account = [
             'name_013'              => Request::input('name'),
@@ -70,7 +70,7 @@ class EmailAccountController extends Controller {
         }
     }
 
-    public function editCustomRecord($parameters)
+    public function editCustomRecord($request, $parameters)
     {
         $parameters['outgoingSecures']  = [(object)['id' => '', 'name' => trans('pulsar::pulsar.no_security')], (object)['id' => 'ssl', 'name' => 'SSL'], (object)['id' => 'tls', 'name' => 'TLS'], (object)['id' => 'sslv2', 'name' => 'SSLv2'], (object)['id' => 'sslv3', 'name' => 'SSLv3']];
         $parameters['incomingTypes']    = [(object)['id' => 'imap', 'name' => 'IMAP']];
@@ -79,7 +79,7 @@ class EmailAccountController extends Controller {
         return $parameters;
     }
 
-    public function checkSpecialRulesToUpdate($parameters)
+    public function checkSpecialRulesToUpdate($request, $parameters)
     {
         $parameters['specialRules']['outgoingPassRule'] = Request::has('outgoingPass')? false : true;
         $parameters['specialRules']['incomingPassRule'] = Request::has('incomingPass')? false : true;
@@ -87,7 +87,7 @@ class EmailAccountController extends Controller {
         return $parameters;
     }
     
-    public function updateCustomRecord($parameters)
+    public function updateCustomRecord($request, $parameters)
     {
         $account = [
             'name_013'              => Request::input('name'),

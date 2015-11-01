@@ -28,14 +28,14 @@ class AttachmentFamilyController extends Controller {
     protected $icon         = 'fa fa-th';
     protected $objectTrans  = 'attachment_family';
 
-    public function createCustomRecord($parameters)
+    public function createCustomRecord($request, $parameters)
     {
         $parameters['resources'] = Resource::getResources(['active_012' => true]);
 
         return $parameters;
     }
 
-    public function storeCustomRecord()
+    public function storeCustomRecord($request, $parameters)
     {
         AttachmentFamily::create([
             'resource_015'  => Request::input('resource'),
@@ -46,14 +46,14 @@ class AttachmentFamilyController extends Controller {
         ]);
     }
 
-    public function editCustomRecord($parameters)
+    public function editCustomRecord($request, $parameters)
     {
         $parameters['resources'] = Resource::getResources(['active_012' => true]);
 
         return $parameters;
     }
     
-    public function updateCustomRecord($parameters)
+    public function updateCustomRecord($request, $parameters)
     {
         AttachmentFamily::where('id_015', $parameters['id'])->update([
             'resource_015'  => Request::input('resource'),

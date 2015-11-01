@@ -10,7 +10,6 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Models\Resource;
 use Syscover\Pulsar\Traits\TraitController;
@@ -28,34 +27,34 @@ class ResourceController extends Controller {
     protected $icon         = 'icomoon-icon-database';
     protected $objectTrans  = 'resource';
 
-    public function createCustomRecord($parameters)
+    public function createCustomRecord($request, $parameters)
     {
         $parameters['packages'] = Package::get();
         return $parameters;
     }
     
-    public function storeCustomRecord($parameters)
+    public function storeCustomRecord($request, $parameters)
     {
         Resource::create([
-            'id_007'        => Request::input('id'),
-            'package_007'   => Request::input('package'),
-            'name_007'      => Request::input('name')
+            'id_007'        => $request->input('id'),
+            'package_007'   => $request->input('package'),
+            'name_007'      => $request->input('name')
         ]);
     }
     
-    public function editCustomRecord($parameters)
+    public function editCustomRecord($request, $parameters)
     {
         $parameters['packages'] = Package::get();
 
         return $parameters;
     }
     
-    public function updateCustomRecord($parameters)
+    public function updateCustomRecord($request, $parameters)
     {
         Resource::where('id_007', $parameters['id'])->update([
-            'id_007'        => Request::input('id'),
-            'package_007'   => Request::input('package'),
-            'name_007'      => Request::input('name')
+            'id_007'        => $request->input('id'),
+            'package_007'   => $request->input('package'),
+            'name_007'      => $request->input('name')
         ]);
     }
 }

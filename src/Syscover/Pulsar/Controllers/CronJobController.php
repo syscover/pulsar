@@ -50,14 +50,14 @@ class CronJobController extends Controller
         ]);
     }
     
-    public function createCustomRecord($parameters)
+    public function createCustomRecord($request, $parameters)
     {
         $parameters['packages'] = Package::all();
         
         return $parameters;
     }
     
-    public function storeCustomRecord($parameters)
+    public function storeCustomRecord($request, $parameters)
     {
         $cron = CronExpression::factory(Request::input('cronExpression'));
 
@@ -72,7 +72,7 @@ class CronJobController extends Controller
         ]);
     }
     
-    public function editCustomRecord($parameters)
+    public function editCustomRecord($request, $parameters)
     {
         $parameters['packages'] = Package::all();
         $date = new \DateTime();
@@ -82,7 +82,7 @@ class CronJobController extends Controller
         return $parameters;
     }
     
-    public function updateCustomRecord($parameters)
+    public function updateCustomRecord($request, $parameters)
     {
         CronJob::where('id_011', $parameters['id'])->update([
             'name_011'              => Request::input('name'),

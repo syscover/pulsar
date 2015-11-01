@@ -61,26 +61,32 @@ class ContentBuilderController extends Controller {
         */
     }
 
-    public function getBlocks($theme)
+    public function getBlocks(Request $request)
     {
+        $parameters = $request->route()->parameters();
+        //if(file_exists (public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/settings.json"))
+        //{
 
-        $header = public_path() . '/packages/syscover/pulsar/vendor/contentbuilder/themes/' . $theme . "/header.html";
-        $footer = public_path() . '/packages/syscover/pulsar/vendor/contentbuilder/themes/' . $theme . "/footer.html";
 
-        $data['header'] = file_get_contents($header);
-        $data['footer'] = file_get_contents($footer);
+        $header = file_get_contents(public_path() . $request->input('themeFolder') . $parameters['theme'] . "/header.html");
+        $footer = file_get_contents(public_path() . $request->input('themeFolder') . $parameters['theme'] . "/footer.html");
 
-        $data['header'] = str_replace('#width#',            Input::get('width'),                $data['header']);
-        $data['header'] = str_replace('#backgroundColor#',  Input::get('backgroundColor'),      $data['header']);
-        $data['header'] = str_replace('#canvasColor#',      Input::get('canvasColor'),          $data['header']);
-        $data['header'] = str_replace('#highlightColor#',   Input::get('highlightColor'),       $data['header']);
-        $data['header'] = str_replace('#textColor#',        Input::get('textColor'),            $data['header']);
-        $data['header'] = str_replace('#titleColor#',       Input::get('titleColor'),           $data['header']);
-        $data['header'] = str_replace('#linkColor#',        Input::get('linkColor'),            $data['header']);
-
-        $data['json'] = json_encode($data);
-
-        return View::make('pulsar::pulsar.pulsar.common.json_display',$data);
+        //dd($request->all());
+        //$header = $this->changeWildcards($header, $request->all());
+/*
+        $header = str_replace('#width#',            $request->input('width'),                $header);
+        $header = str_replace('#backgroundColor#',  $request->input('backgroundColor'),      $header);
+        $header = str_replace('#canvasColor#',      $request->input('canvasColor'),          $header);
+        $header = str_replace('#highlightColor#',   $request->input('highlightColor'),       $header);
+        $header = str_replace('#textColor#',        $request->input('textColor'),            $header);
+        $header = str_replace('#titleColor#',       $request->input('titleColor'),           $header);
+        $header = str_replace('#linkColor#',        $request->input('linkColor'),            $header);
+*/
+        return response()->json([
+            'status'    => 'success',
+            'header'    => $header,
+            'footer'    => $footer
+        ]);
     }
 
     private function changeWildcards($data, $args)

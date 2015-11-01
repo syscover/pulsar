@@ -30,7 +30,7 @@ class LangController extends Controller {
     protected $objectTrans  = 'language';
 
 
-    public function storeCustomRecord()
+    public function storeCustomRecord($request, $parameters)
     {
         $filename = Miscellaneous::uploadFiles('image', public_path() . '/packages/syscover/pulsar/storage/langs');
 
@@ -48,7 +48,7 @@ class LangController extends Controller {
         if(Request::input('base')) session(['baseLang' => Lang::getBaseLang()]);
     }
 
-    public function checkSpecialRulesToUpdate($parameters)
+    public function checkSpecialRulesToUpdate($request, $parameters)
     {
         if(Request::hasFile('image'))
         {
@@ -58,7 +58,7 @@ class LangController extends Controller {
         return $parameters;
     }
 
-    public function updateCustomRecord($parameters)
+    public function updateCustomRecord($request, $parameters)
     {
         if(Request::hasFile('image'))
         {

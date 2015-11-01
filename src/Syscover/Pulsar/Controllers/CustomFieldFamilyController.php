@@ -28,14 +28,14 @@ class CustomFieldFamilyController extends Controller {
     protected $icon         = 'fa fa-th';
     protected $objectTrans  = 'field_family';
 
-    public function createCustomRecord($parameters)
+    public function createCustomRecord($request, $parameters)
     {
         $parameters['resources'] = Resource::getResources(['active_012' => true]);
 
         return $parameters;
     }
     
-    public function storeCustomRecord($parameters)
+    public function storeCustomRecord($request, $parameters)
     {
         CustomFieldFamily::create([
             'resource_025'  => Request::input('resource'),
@@ -43,14 +43,14 @@ class CustomFieldFamilyController extends Controller {
         ]);
     }
     
-    public function editCustomRecord($parameters)
+    public function editCustomRecord($request, $parameters)
     {
         $parameters['resources'] = Resource::getResources(['active_012' => true]);
 
         return $parameters;
     }
     
-    public function updateCustomRecord($parameters)
+    public function updateCustomRecord($request, $parameters)
     {
         CustomFieldFamily::where('id_025', $parameters['id'])->update([
             'resource_025'  => Request::input('resource'),

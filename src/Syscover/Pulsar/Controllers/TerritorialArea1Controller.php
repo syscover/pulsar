@@ -10,7 +10,6 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Models\Country;
 use Syscover\Pulsar\Models\TerritorialArea1;
 use Syscover\Pulsar\Traits\TraitController;
@@ -45,7 +44,7 @@ class TerritorialArea1Controller extends Controller {
         return $actionUrlParameters;
     }
     
-    public function createCustomRecord($parameters)
+    public function createCustomRecord($request, $parameters)
     {
         $parameters['country']              = Country::getTranslationRecord($parameters['country'], session('baseLang')->id_001);
         $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
@@ -54,16 +53,16 @@ class TerritorialArea1Controller extends Controller {
         return $parameters;
     }
 
-    public function storeCustomRecord($parameters)
+    public function storeCustomRecord($request, $parameters)
     {
         TerritorialArea1::create([
-            'id_003'        => Request::input('id'),
+            'id_003'        => $request->input('id'),
             'country_003'   => $parameters['country'],
-            'name_003'      => Request::input('name')
+            'name_003'      => $request->input('name')
         ]);
     }
     
-    public function editCustomRecord($parameters)
+    public function editCustomRecord($request, $parameters)
     {
         $parameters['country']              = Country::getTranslationRecord($parameters['object']->country_003, session('baseLang')->id_001);
         $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
@@ -72,11 +71,11 @@ class TerritorialArea1Controller extends Controller {
         return $parameters;
     }
 
-    public function updateCustomRecord($parameters)
+    public function updateCustomRecord($request, $parameters)
     {
         TerritorialArea1::where('id_003', $parameters['id'])->update([
-            'id_003'    => Request::input('id'),
-            'name_003'  => Request::input('name')
+            'id_003'    => $request->input('id'),
+            'name_003'  => $request->input('name')
         ]);
     }
 

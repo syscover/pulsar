@@ -27,7 +27,7 @@ class ActionController extends Controller {
     protected $icon         = 'fa fa-bolt';
     protected $objectTrans  = 'action';
 
-    public function storeCustomRecord($parameters)
+    public function storeCustomRecord($request, $parameters)
     {
         Action::create([
             'id_008'    => Request::input('id'),
@@ -35,7 +35,7 @@ class ActionController extends Controller {
         ]);
     }
     
-    public function updateCustomRecord($parameters)
+    public function updateCustomRecord($request, $parameters)
     {
         Action::where('id_008', $parameters['id'])->update([
             'id_008'    => Request::input('id'),

@@ -7,11 +7,14 @@
     <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/wysiwyg.froala/css/froala_editor.min.css') }}">
     <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/wysiwyg.froala/css/froala_style.min.css') }}">
 
-    <link rel="stylesheet" href="{{ asset(config($package . '.themesFolder') . $theme . '/content.css') }}">
-
+    <!-- load theme css -->
+    @if(file_exists(asset(config($package . '.themesFolder') . $theme . '/content.css')))
+        <link rel="stylesheet" href="{{ asset(config($package . '.themesFolder') . $theme . '/content.css') }}">
+    @endif
     <style type="text/css">
         {{ $css or null }}
     </style>
+    <!--/ load theme css -->
 @stop
 
 @section('script')
@@ -57,13 +60,13 @@
             // save function
             $('.fr-toolbar .fa-floppy-o').parent('a').on('click', function(){
 
+                parent.$.cssLoader.show({useLayer: false, layerOpacity: 100});
+
                 // declare save function
                 $("#contentarea").saveimages({
                     handler: '{{ route('contentbuilderSaveImage') }}',
                     onComplete: function () {
                         var html                   = $('#contentarea').data('contentbuilder').html();
-
-                        console.log(html);
 /*
                         settings.width              = $('#canvasWidth').val();
                         settings.backgroundColor    = $('#backgroundColor').attr('data-value');
@@ -77,6 +80,12 @@
                         parent.getValueContentBuilder(html);
 
                         //parent.$.lightbox().close();
+
+                        parent.$.cssLoader.hide();
+                        if(parent.$.fn.magnificPopup && parent.$.magnificPopup.instance.isOpen)
+                            parent.$.magnificPopup.instance.close();
+
+
                     }
                 });
 

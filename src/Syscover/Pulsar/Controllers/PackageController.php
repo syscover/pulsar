@@ -27,7 +27,7 @@ class PackageController extends Controller {
     protected $icon         = 'cut-icon-grid';
     protected $objectTrans  = 'package';
 
-    public function storeCustomRecord($parameters)
+    public function storeCustomRecord($request, $parameters)
     {
         Package::create([
             'name_012'      => Request::input('name'),
@@ -36,7 +36,7 @@ class PackageController extends Controller {
         ]);
     }
 
-    public function updateCustomRecord($parameters)
+    public function updateCustomRecord($request, $parameters)
     {
         Package::where('id_012', $parameters['id'])->update([
             'name_012'      => Request::input('name'),

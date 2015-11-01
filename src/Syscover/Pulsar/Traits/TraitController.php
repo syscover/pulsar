@@ -297,7 +297,7 @@ trait TraitController {
 
         if(method_exists($this, 'createCustomRecord'))
         {
-            $parameters = $this->createCustomRecord($parameters);
+            $parameters = $this->createCustomRecord($request, $parameters);
         }
 
         $parameters['package']        = $this->package;
@@ -361,7 +361,7 @@ trait TraitController {
 
         if(method_exists($this, 'storeCustomRecord'))
         {
-            $parametersResponse = $this->storeCustomRecord($parameters);
+            $parametersResponse = $this->storeCustomRecord($request, $parameters);
 
             if(is_object($parametersResponse) && get_class($parametersResponse) == "Illuminate\\Http\\RedirectResponse")
             {
@@ -496,7 +496,7 @@ trait TraitController {
 
         if(method_exists($this, 'editCustomRecord'))
         {
-            $parameters = $this->editCustomRecord($parameters);
+            $parameters = $this->editCustomRecord($request, $parameters);
         }
 
         return view($this->package . '::' . $this->folder . '.edit', $parameters);
@@ -516,7 +516,7 @@ trait TraitController {
 
         if(method_exists($this, 'checkSpecialRulesToUpdate'))
         {
-            $parameters = $this->checkSpecialRulesToUpdate($parameters);
+            $parameters = $this->checkSpecialRulesToUpdate($request, $parameters);
         }
 
         // check special rule to objects with writable IDs like actions
@@ -540,7 +540,7 @@ trait TraitController {
         if(method_exists($this, 'updateCustomRecord'))
         {
             // we use parametersResponse, because updateCustomRecord may be "void"
-            $parametersResponse = $this->updateCustomRecord($parameters);
+            $parametersResponse = $this->updateCustomRecord($request, $parameters);
 
             if(is_object($parametersResponse) && get_class($parametersResponse) == "Illuminate\\Http\\RedirectResponse")
             {
