@@ -17,7 +17,8 @@ trait TraitModel {
         {
             $query = $instance->getCustomRecordsLimit($parameters);
         }
-        else{
+        else
+        {
             $query = $instance->query();
         }
 
@@ -25,10 +26,12 @@ trait TraitModel {
 
         if(isset($parameters['count']) &&  $parameters['count'])
         {
+            // if we need count results
             return $query->count();
         }
         else
         {
+            // if we need limit and order results
             if(isset($parameters['sLength']))     $query->take($parameters['sLength']);
             if(isset($parameters['sStart']))      $query->skip($parameters['sStart']);
             if(isset($parameters['sOrder']))      $query->orderBy($parameters['sOrder'], isset($parameters['sTypeOrder'])? $parameters['sTypeOrder'] : 'asc');
@@ -36,9 +39,11 @@ trait TraitModel {
 
             if(method_exists($instance, 'getCustomReturnRecordsLimit'))
             {
+                // if we need a custom get()
                 return $instance->getCustomReturnRecordsLimit($query, $parameters);
             }
-            else{
+            else
+            {
                 return $query->get();
             }
         }

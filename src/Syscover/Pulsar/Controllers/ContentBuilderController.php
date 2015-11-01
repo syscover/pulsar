@@ -9,11 +9,11 @@ class ContentBuilderController extends Controller {
     public function index(Request $request)
     {
         // get parameters from url route, input y theme
-        $parameters        = $request->route()->parameters();
+        $parameters = $request->route()->parameters();
 
         if(file_exists (public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/settings.json"))
         {
-            $parameters['settings']     = json_decode(file_get_contents(public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/settings.json"), true);
+            $parameters['settings'] = json_decode(file_get_contents(public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/settings.json"), true);
         }
 
         if(file_exists (public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/content.stpl") && file_exists (public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/settings.json"))
