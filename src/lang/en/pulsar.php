@@ -182,4 +182,5 @@ return [
     'template'                              => 'Template|Templates',
     'theme'                                 => 'Theme|Themes',
     'content'                               => 'Content|Contents',
+    'filter_records'                        => 'Filter records',
 ];
