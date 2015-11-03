@@ -183,4 +183,5 @@ return [
     'theme'                                 => 'Theme|Themes',
     'content'                               => 'Contenido|Contenidos',
     'filter_records'                        => 'Filtrar registros',
+    'icon'                                  => 'Icono|Iconos',
 ];
