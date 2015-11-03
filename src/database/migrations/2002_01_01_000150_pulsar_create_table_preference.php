@@ -14,8 +14,9 @@ class PulsarCreateTablePreference extends Migration
 	{
 		Schema::create('001_018_preference', function(Blueprint $table) {
 			$table->string('id_018', 50)->primary();
-            $table->text('value_018')->nullable();
             $table->integer('package_018')->unsigned();
+			$table->text('value_018')->nullable();
+			$table->timestamps();
 
             $table->foreign('package_018')->references('id_012')->on('001_012_package')
                 ->onDelete('restrict')->onUpdate('cascade');

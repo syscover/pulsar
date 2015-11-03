@@ -20,7 +20,7 @@ class Preference extends Model {
 
 	protected $table        = '001_018_preference';
     protected $primaryKey   = 'id_018';
-    public $timestamps      = false;
+    public $timestamps      = true;
     protected $fillable     = ['id_018', 'value_018', 'package_018'];
     private static $rules   = [];
 
@@ -34,15 +34,24 @@ class Preference extends Model {
         return Preference::destroy($id);
     }
 
-    public static function getValue($id, $package, $default = "")
+    public static function getValue($id, $package, $value = null)
     {
-        return Preference::firstOrCreate([
+        $preference =  Preference::first([
             'id_018'        => $id,
             'package_018'   => $package
         ]);
+
+        if($preference == null)
+        {
+            return Preference::setValue($id, $package, $value);
+        }
+        else
+        {
+            return $preference;
+        }
     }
 
-    public static function setValue($id, $value, $package)
+    public static function setValue($id, $package, $value)
     {
         return Preference::updateOrCreate(['id_018' => $id],[
             'value_018'     => $value,
