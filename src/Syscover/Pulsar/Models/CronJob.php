@@ -41,6 +41,6 @@ class CronJob extends Model {
 
     public static function getCronJobsToRun($date)
     {
-        return CronJob::where('next_run_011', '<=', $date)->where('active_011', 1)->get();
+        return CronJob::where('next_run_011', '<=', $date)->where('active_011', true)->get();
     }
 }

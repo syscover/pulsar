@@ -36,10 +36,10 @@ class Preference extends Model {
 
     public static function getValue($id, $package, $value = null)
     {
-        $preference =  Preference::first([
+        $preference =  Preference::where([
             'id_018'        => $id,
             'package_018'   => $package
-        ]);
+        ])->first();
 
         if($preference == null)
         {

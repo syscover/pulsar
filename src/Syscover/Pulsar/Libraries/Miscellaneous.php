@@ -216,25 +216,6 @@ class Miscellaneous
     }
 
     /**
-     *  Función que devuelve en arrays los parametros de los objetos que le pasemos
-     *
-     * @access    public
-     * @param $collection
-     * @param $idName
-     * @return array
-     */
-     public static function getIdsCollection($collection, $idName)
-     {
-        $ids = array();
-        $arrayCollection = $collection->toArray();
-        foreach ($arrayCollection as $object)
-        {
-            array_push($ids, $object[$idName]);
-        }
-        return $ids;
-    }
-
-    /**
      *  Function to upload base64 image
      *
      * @access  public

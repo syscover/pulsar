@@ -40,7 +40,7 @@ class Cron extends Command {
         if($this->option('v'))
         {
             $this->line("Cron Version 1.2");
-            exit(0);
+            exit;
         }
 
         $now = date('U');
@@ -55,7 +55,7 @@ class Cron extends Command {
 
             $cron = CronExpression::factory($cronJob->cron_expression_011);
 
-            CronJob::where('id_011', $cronJob->id_043)->update(array(
+            CronJob::where('id_011', $cronJob->id_011)->update(array(
                 'last_run_011'  => $now,
                 'next_run_011'  => $cron->getNextRunDate()->getTimestamp()
             ));

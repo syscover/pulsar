@@ -12,7 +12,6 @@
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\MessageBag;
 
 class EmailServices {
@@ -77,12 +76,12 @@ Enhorabuena,
 este es un envío de pruebas, si está recibiendo este correo, su cuenta se ha configurado correctamente.";
 
         //set outgoingserver
-        Config::set('mail.host',        $account['outgoing_server_013']);
-        Config::set('mail.port',        $account['outgoing_port_013']);
-        Config::set('mail.from',        ['address' => $account['email_013'], 'name' => $account['name_013']]);
-        Config::set('mail.encryption',  $account['outgoing_secure_013'] == ''? null : $account['outgoing_secure_013']);
-        Config::set('mail.username',    $account['outgoing_user_013']);
-        Config::set('mail.password',    Crypt::decrypt($account['outgoing_pass_013']));
+        config(['mail.host'          => $account['outgoing_server_013']]);
+        config(['mail.port'          => $account['outgoing_port_013']]);
+        config(['mail.from'          => ['address' => $account['email_013'], 'name' => $account['name_013']]]);
+        config(['mail.encryption'    => $account['outgoing_secure_013'] == ''? null : $account['outgoing_secure_013']]);
+        config(['mail.username'      => $account['outgoing_user_013']]);
+        config(['mail.password'      => Crypt::decrypt($account['outgoing_pass_013'])]);
 
         try
         {
@@ -109,7 +108,7 @@ este es un envío de pruebas, si está recibiendo este correo, su cuenta se ha c
         /***********************************
          * Message Subject
          ************************************/
-        //
+
         if (isset($data['message']))    $data['subject']    = str_replace("#message#", $data['message'], $data['subject']);      // Message coded ID, to track (comunik)
         if (isset($data['contact']))    $data['subject']    = str_replace("#contact#", $data['contact'], $data['subject']);      // Contact coded ID, to track (comunik)
         if (isset($data['company']))    $data['subject']    = str_replace("#company#", $data['company'], $data['subject']);      // Company name (comunik)
@@ -117,7 +116,7 @@ este es un envío de pruebas, si está recibiendo este correo, su cuenta se ha c
         if (isset($data['surname']))    $data['subject']    = str_replace("#surname#", $data['surname'], $data['subject']);      // Contact surname (comunik)
         if (isset($data['birthday']))   $data['subject']    = str_replace("#birthday#", $data['birthday'], $data['subject']);    // Birthdate (comunik)
         if (isset($data['email']))      $data['subject']    = str_replace("#email#", $data['email'], $data['subject']);          // Contact email (comunik)
-        $data['subject']                                    = str_replace("#date#", date('d-m-Y'), $data['subject']);           // Current date
+        $data['subject']                                    = str_replace("#date#", date('d-m-Y'), $data['subject']);            // Current date
 
         if(isset($data['html']))
         {

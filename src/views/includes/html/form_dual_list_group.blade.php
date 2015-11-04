@@ -4,8 +4,8 @@
         <input type="text" id="box{{ $idList1 }}Filter" class="form-control box-filter" placeholder="{{ trans('pulsar::pulsar.filter_records') }}"><button type="button" id="box{{ $idList1 }}Clear" class="filter">x</button>
         <select id="box{{ $idList1 }}View" multiple="multiple" class="multiple">
             @foreach ($objects as $object)
-                @if(isset($idsObjectsSelect))
-                    @if(!in_array($object->{$idSelect}, $idsObjectsSelect))
+                @if(isset($objectsSelect))
+                    @if(!in_array($object->{$idSelect}, $objectsSelect->pluck($idSelect)->toArray()))
                     <option value="{{ $object->{$idSelect} }}">{{ $object->{$nameSelect} }}</option>
                     @endif
                 @else
@@ -31,9 +31,9 @@
     <div class="right-box">
         <input type="text" id="box{{ $idList2 }}Filter" class="form-control box-filter" placeholder="{{ trans('pulsar::pulsar.filter_records') }}"><button type="button" id="box{{ $idList2 }}Clear" class="filter">x</button>
         <select id="box{{ $idList2 }}View" multiple="multiple" class="multiple required" name="{{ $name }}[]">
-            @if(isset($idsObjectsSelect))
+            @if(isset($objectsSelect))
                 @foreach ($objectsSelect as $object)
-                    <option value="{{ $object->id_002 }}">{{ $object->nombre_002 }}</option>
+                    <option value="{{ $object->{$idSelect} }}">{{ $object->{$nameSelect} }}</option>
                 @endforeach
             @endif
         </select>

@@ -25,7 +25,7 @@ class PulsarCreateTableCountry extends Migration
                 $table->string('data_lang_002',255)->nullable();
                 $table->text('data_002')->nullable();
 
-                $table->primary(array('id_002', 'lang_002'));
+                $table->primary(['id_002', 'lang_002']);
                 $table->foreign('lang_002')->references('id_001')->on('001_001_lang')
                         ->onDelete('restrict')->onUpdate('cascade');
             });

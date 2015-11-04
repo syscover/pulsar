@@ -40,9 +40,9 @@ class CronJobController extends Controller
     public function run($id, $offset = 0)
     {
         $cronJob    = CronJob::find($id);
-        $comand     = Config::get('cron.' . $cronJob->key_011); // don't use helper config to dont't marked like error
+        $callable     = config('cron.' . $cronJob->key_011); // don't use helper config to dont't marked like error
 
-        $comand(); // run task cron
+        call_user_func($callable); // call to static method
 
         return redirect()->route($this->routeSuffix, $offset)->with([
             'msg'        => 1,
