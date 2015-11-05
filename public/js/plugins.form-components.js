@@ -97,9 +97,9 @@ var FormComponents = function() {
 	var initDualListBox = function() {
 		if ($.configureBoxes) {
 			$.configureBoxes({
-                            textShowing: 'Mostrando',
-                            textOf: 'de'
-                        });
+				textShowing: 'Mostrando',
+				textOf: 'de'
+			});
 		}
 	}
 
@@ -244,12 +244,10 @@ var FormComponents = function() {
 			initUniform(); // Uniform (styled radio- and checkboxes)
 			//initTags(); // TagsInput
 			initSpinner(); // Spinner
-			initDualListBox(); // Dual Select Boxes
+			//initDualListBox(); // Dual Select Boxes
 			initValidation(); // Validation
 			initWysiwyg(); // wysihtml5
 			initMultiselect(); // Multiselect
 		}
-
 	};
-
 }();

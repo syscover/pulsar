@@ -30,6 +30,18 @@ var PulsarApp = function() {
 
     "use strict";
 
+    /******************************
+     * FIXED duallist box Uniform *
+     ******************************/
+    var fixedConfigureBoxes = function() {
+        if ($.configureBoxes)
+        {
+            $('.dual-list-submit').closest('form').submit(function() {
+                $('.dual-list-submit option').prop('selected', true);
+            });
+        }
+    }
+
     /**************************
      * Validation             *
      **************************/
@@ -238,6 +250,7 @@ var PulsarApp = function() {
     return {
         // main function to initiate all plugins
         init: function () {
+            fixedConfigureBoxes(); // fixed configureBoxes
             initValidation(); // Validation
             initUniform(); // Uniform
             initColorpicker(); // Colorpicker
