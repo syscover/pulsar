@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.0.0-rc.1 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
@@ -25,7 +25,7 @@
 
       var contents = el.childNodes;
 
-      if (contents.length == 0 && (editor.opts.fullPage || el.tagName != 'BODY')) return el.outerHTML;
+      if (contents.length === 0 && (editor.opts.fullPage || el.tagName != 'BODY')) return el.outerHTML;
 
       var str = '';
       for (var i = 0; i < contents.length; i++) {
@@ -94,7 +94,7 @@
 
       // Replace script comments with the original script.
       encoded_html = encoded_html.replace(/<!--\[FROALA\.EDITOR\.SCRIPT ([\d]*)]-->/gi, function (str, a1) {
-        return scripts[parseInt(a1)];
+        return scripts[parseInt(a1, 10)];
       });
 
       encoded_html = encoded_html.replace(/<img((?:[\w\W]*?)) data-src="/g, '<img$1 src="');

@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.0.0-rc.1 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
@@ -31,8 +31,9 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       this.$document = $(this.document);
       this.$window = $(this.window);
 
+      var md;
       if (this.opts.initOnClick) {
-        var md = this.load($.FroalaEditor.MODULES, this);
+        md = this.load($.FroalaEditor.MODULES, this);
         this.tearUp(md, this);
 
         this.$el.on('mousedown.init dragenter.init focus.init', $.proxy(function (e) {
@@ -50,7 +51,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         }, this));
       }
       else {
-        var md = this.load($.FroalaEditor.MODULES, this);
+        md = this.load($.FroalaEditor.MODULES, this);
         this.tearUp(md, this);
 
         var pl = this.load($.FroalaEditor.PLUGINS, this);
@@ -123,7 +124,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       this._original_html = this.$original_element.val();
 
       // Before submit textarea do a sync.
-      this.$original_element.parents('form').on('submit.' + this.id, $.proxy(function (e) {
+      this.$original_element.parents('form').on('submit.' + this.id, $.proxy(function () {
         this.events.trigger('form.submit');
       }, this));
 
@@ -233,10 +234,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
     this.$original_element.removeData('froala.editor');
   }
 
-  // EDITABLE PLUGIN DEFINITION
+  // FROALA EDITOR PLUGIN DEFINITION
   // ==========================
-
-  var old = $.fn.froalaEditor;
   $.fn.froalaEditor = function (option) {
     var arg_list = [];
     for (var i = 0; i < arguments.length; i++) {
@@ -295,16 +294,9 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
   $.fn.froalaEditor.Constructor = FroalaEditor;
   $.FroalaEditor = FroalaEditor;
+}(jQuery);
 
-  // EDITABLE NO CONFLICT
-  // ==========================
-  $.fn.froalaEditor.noConflict = function () {
-    $.fn.froalaEditor = old;
-    return this;
-  };
-}(window.jQuery);
-
-!function(a){"use strict";a.FroalaEditor.MODULES.data=function(a){function b(a){for(var b=a.toString(),c=0,d=0;d<b.length;d++)c+=parseInt(b.charAt(d),10);return c>10?c%9+1:c}function c(a,b,c){for(var d=Math.abs(c);d-->0;)a-=b;return 0>c&&(a+=123),a}function d(a){return a}function e(a){if(!a)return a;for(var e="",f=d("charCodeAt"),g=d("fromCharCode"),h=l.indexOf(a[0]),i=1;i<a.length-2;i++){for(var j=b(++h),k=a[f](i),m="";/[0-9-]/.test(a[i+1]);)m+=a[++i];m=parseInt(m,10)||0,k=c(k,j,m),k^=h-1&31,e+=String[g](k)}return e}function f(a){return a&&"none"==a.css("display")?(a.remove(),!0):!1}function g(){return f(j)||f(k)}function h(){return a.$box?(a.$box.append(m(d(m("kTDD4spmKD1klaMB1C7A5RA1G3RA10YA5qhrjuvnmE1D3FD2bcG-7noHE6B2JB4C3xXA8WF6F-10RG2C3G3B-21zZE3C3H3xCA16NC4DC1f1hOF1MB3B-21whzQH5UA2WB10kc1C2F4D3XC2YD4D1C4F3GF2eJ2lfcD-13HF1IE1TC11TC7WE4TA4d1A2YA6XA4d1A3yCG2qmB-13GF4A1B1KH1HD2fzfbeQC3TD9VE4wd1H2A20A2B-22ujB3nBG2A13jBC10D3C2HD5D1H1KB11uD-16uWF2D4A3F-7C9D-17c1E4D4B3d1D2CA6B2B-13qlwzJF2NC2C-13E-11ND1A3xqUA8UE6bsrrF-7C-22ia1D2CF2H1E2akCD2OE1HH1dlKA6PA5jcyfzB-22cXB4f1C3qvdiC4gjGG2H2gklC3D-16wJC1UG4dgaWE2D5G4g1I2H3B7vkqrxH1H2EC9C3E4gdgzKF1OA1A5PF5C4WWC3VA6XA4e1E3YA2YA5HE4oGH4F2H2IB10D3D2NC5G1B1qWA9PD6PG5fQA13A10XA4C4A3e1H2BA17kC-22cmOB1lmoA2fyhcptwWA3RA8A-13xB-11nf1I3f1B7GB3aD3pavFC10D5gLF2OG1LSB2D9E7fQC1F4F3wpSB5XD3NkklhhaE-11naKA9BnIA6D1F5bQA3A10c1QC6Kjkvitc2B6BE3AF3E2DA6A4JD2IC1jgA-64MB11D6C4==")))),j=a.$box.find("> div:last"),void(k=j.find("> a"))):!1}function i(){var b=a.opts.key||[""];"string"==typeof b&&(b=[b]),a.ul=!0;for(var c=0;c<b.length;c++){var e=m(b[c])||"";if(!(e!==m(d(m("mcVRDoB1BGILD7YFe1BTXBA7B6==")))&&e.indexOf(n,e.length-n.length)<0&&[m("9qqG-7amjlwq=="),m("KA3B3C2A6D1D5H5H1A3==")].indexOf(n)<0)){a.ul=!1;break}}1==a.ul&&h(),a.events.on("contentChanged",function(){1==a.ul&&g()&&h()})}var j,k,l="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",m=d(e),n=function(){for(var a=0,b=document.domain,c=b.split("."),d="_gd"+(new Date).getTime();a<c.length-1&&-1==document.cookie.indexOf(d+"="+d);)b=c.slice(-1-++a).join("."),document.cookie=d+"="+d+";domain="+b+";";return document.cookie=d+"=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain="+b+";",b}();return{require:["core"],_init:i}}}(jQuery);
+!function(a){"use strict";a.FroalaEditor.MODULES.data=function(a){function b(a){return a}function c(a){if(!a)return a;for(var c="",f=b("charCodeAt"),g=b("fromCharCode"),h=l.indexOf(a[0]),i=1;i<a.length-2;i++){for(var j=d(++h),k=a[f](i),m="";/[0-9-]/.test(a[i+1]);)m+=a[++i];m=parseInt(m,10)||0,k=e(k,j,m),k^=h-1&31,c+=String[g](k)}return c}function d(a){for(var b=a.toString(),c=0,d=0;d<b.length;d++)c+=parseInt(b.charAt(d),10);return c>10?c%9+1:c}function e(a,b,c){for(var d=Math.abs(c);d-->0;)a-=b;return 0>c&&(a+=123),a}function f(a){return a&&"none"==a.css("display")?(a.remove(),!0):!1}function g(){return f(j)||f(k)}function h(){return a.$box?(a.$box.append(n(b(n("kTDD4spmKD1klaMB1C7A5RA1G3RA10YA5qhrjuvnmE1D3FD2bcG-7noHE6B2JB4C3xXA8WF6F-10RG2C3G3B-21zZE3C3H3xCA16NC4DC1f1hOF1MB3B-21whzQH5UA2WB10kc1C2F4D3XC2YD4D1C4F3GF2eJ2lfcD-13HF1IE1TC11TC7WE4TA4d1A2YA6XA4d1A3yCG2qmB-13GF4A1B1KH1HD2fzfbeQC3TD9VE4wd1H2A20A2B-22ujB3nBG2A13jBC10D3C2HD5D1H1KB11uD-16uWF2D4A3F-7C9D-17c1E4D4B3d1D2CA6B2B-13qlwzJF2NC2C-13E-11ND1A3xqUA8UE6bsrrF-7C-22ia1D2CF2H1E2akCD2OE1HH1dlKA6PA5jcyfzB-22cXB4f1C3qvdiC4gjGG2H2gklC3D-16wJC1UG4dgaWE2D5G4g1I2H3B7vkqrxH1H2EC9C3E4gdgzKF1OA1A5PF5C4WWC3VA6XA4e1E3YA2YA5HE4oGH4F2H2IB10D3D2NC5G1B1qWA9PD6PG5fQA13A10XA4C4A3e1H2BA17kC-22cmOB1lmoA2fyhcptwWA3RA8A-13xB-11nf1I3f1B7GB3aD3pavFC10D5gLF2OG1LSB2D9E7fQC1F4F3wpSB5XD3NkklhhaE-11naKA9BnIA6D1F5bQA3A10c1QC6Kjkvitc2B6BE3AF3E2DA6A4JD2IC1jgA-64MB11D6C4==")))),j=a.$box.find("> div:last"),void(k=j.find("> a"))):!1}function i(){var c=a.opts.key||[""];"string"==typeof c&&(c=[c]),a.ul=!0;for(var d=0;d<c.length;d++){var e=n(c[d])||"";if(!(e!==n(b(n("mcVRDoB1BGILD7YFe1BTXBA7B6==")))&&e.indexOf(m,e.length-m.length)<0&&[n("9qqG-7amjlwq=="),n("KA3B3C2A6D1D5H5H1A3==")].indexOf(m)<0)){a.ul=!1;break}}a.ul===!0&&h(),a.events.on("contentChanged",function(){a.ul===!0&&g()&&h()})}var j,k,l="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",m=function(){for(var a=0,b=document.domain,c=b.split("."),d="_gd"+(new Date).getTime();a<c.length-1&&-1==document.cookie.indexOf(d+"="+d);)b=c.slice(-1-++a).join("."),document.cookie=d+"="+d+";domain="+b+";";return document.cookie=d+"=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain="+b+";",b}(),n=b(c);return{require:["core"],_init:i}}}(jQuery);
 (function ($) {
   'use strict';
 
@@ -325,7 +317,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
   },
 
   $.FroalaEditor.MODULES.clean = function (editor) {
-    var $iframe, html, body;
+    var $iframe, body;
     var allowedTagsRE, removeTagsRE, allowedAttrsRE;
 
     function _removeInvisible (node) {
@@ -333,26 +325,32 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
       var contents = editor.node.contents(node);
       var markers = [];
-      for (var i = 0; i < contents.length; i++) {
+      var i;
+
+      // Get markers.
+      for (i = 0; i < contents.length; i++) {
         if (contents[i].className && contents[i].className.indexOf('fr-marker') >= 0) {
           markers.push(contents[i]);
         }
       }
 
       // Reasess contents.
-      if (contents.length - markers.length == 1 && node.textContent.replace(/\u200b/g, '').length == 0) {
-        for (var i = 0; i < markers.length; i++) {
+      if (contents.length - markers.length == 1 && node.textContent.replace(/\u200b/g, '').length === 0) {
+        for (i = 0; i < markers.length; i++) {
           node.parentNode.insertBefore(markers[i].cloneNode(true), node);
         }
         node.parentNode.removeChild(node);
         return false;
       }
 
-      for (var i = 0; i < contents.length; i++) {
+      for (i = 0; i < contents.length; i++) {
         if (contents[i].nodeType == Node.ELEMENT_NODE) {
           if (contents[i].textContent.replace(/\u200b/g, '').length != contents[i].textContent.length) {
             _removeInvisible(contents[i]);
           }
+        }
+        else if (contents[i].nodeType == Node.TEXT_NODE) {
+          contents[i].textContent = contents[i].textContent.replace(/\u200b/g, '');
         }
       }
     }
@@ -418,7 +416,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
     function _decode (dirty_html) {
       // Replace script comments with the original script.
       dirty_html = dirty_html.replace(/<!--\[FROALA\.EDITOR\.SCRIPT ([\d]*)]-->/gi, function (str, a1) {
-        return scripts[parseInt(a1)];
+        return scripts[parseInt(a1, 10)];
       });
 
       if (editor.opts.htmlRemoveTags.indexOf('script') >= 0) {
@@ -499,10 +497,6 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
     }
 
     function _run (node) {
-      if (typeof node == 'undefined') {
-        node = html;
-      }
-
       var contents = editor.node.contents(node);
       for (var i = 0; i < contents.length; i++) {
         if (contents[i].nodeType != Node.TEXT_NODE) {
@@ -539,14 +533,15 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       dirty_html = dirty_html.replace(/\u0009/g, '');
 
       var allowed_tags = $.merge([], editor.opts.htmlAllowedTags);
-      for (var i = 0; i < denied_tags.length; i++) {
+      var i;
+      for (i = 0; i < denied_tags.length; i++) {
         if (allowed_tags.indexOf(denied_tags[i]) >= 0) {
           allowed_tags.splice(allowed_tags.indexOf(denied_tags[i]), 1);
         }
       }
 
       var allowed_attrs = $.merge([], editor.opts.htmlAllowedAttrs);
-      for (var i = 0; i < denied_attrs.length; i++) {
+      for (i = 0; i < denied_attrs.length; i++) {
         if (allowed_attrs.indexOf(denied_attrs[i]) >= 0) {
           allowed_attrs.splice(allowed_attrs.indexOf(denied_attrs[i]), 1);
         }
@@ -568,16 +563,16 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       $iframe.get(0).contentWindow.document.close();
 
       if (editor.opts.fullPage && full_page) {
-        html = $iframe.contents().find('html').get(0);
+        var html_el = $iframe.contents().find('html').get(0);
 
         // Run the cleaning process.
-        _run();
+        _run(html_el);
 
         var doctype = editor.html.getDoctype($iframe.get(0).contentWindow.document);
 
         dirty_html = doctype +
-                '<html' + editor.node.attributes(html) + '>' +
-                html.innerHTML +
+                '<html' + editor.node.attributes(html_el) + '>' +
+                html_el.innerHTML +
                 '</html>';
 
         $iframe.remove();
@@ -604,10 +599,10 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
      */
     function quotes () {
       // Join quotes.
-      var quotes = editor.$el.find('blockquote + blockquote');
-      for (var k = 0; k < quotes.length; k++) {
-        var $quote = $(quotes[k]);
-        if (editor.node.attributes(quotes[k]) == editor.node.attributes($quote.prev().get(0))) {
+      var sibling_quotes = editor.$el.find('blockquote + blockquote');
+      for (var k = 0; k < sibling_quotes.length; k++) {
+        var $quote = $(sibling_quotes[k]);
+        if (editor.node.attributes(sibling_quotes[k]) == editor.node.attributes($quote.prev().get(0))) {
           $quote.prev().append($quote.html());
           $quote.remove();
         }
@@ -624,7 +619,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
       for (var i = 0; i < trs.length; i++) {
         var $thead = $(trs[i]).closest('table').find('thead');
-        if ($thead.length == 0) {
+        if ($thead.length === 0) {
           $thead = $('<thead>');
           $(trs[i]).closest('table').prepend($thead);
         }
@@ -653,8 +648,22 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
      * Clean lists.
      */
     function lists () {
+      // Join lists.
+      var sibling_lists = editor.$el.find('ol + ol, ul + ul');
+      for (var k = 0; k < sibling_lists.length; k++) {
+        var $list = $(sibling_lists[k]);
+        if (editor.node.attributes(sibling_lists[k]) == editor.node.attributes($list.prev().get(0))) {
+          $list.prev().append($list.html());
+          $list.remove();
+        }
+      }
+
       // Find missplaced list items.
       var $lis = [];
+      var filterListItem = function () {
+        return !editor.node.isList(this.parentNode);
+      };
+
       do {
         if ($lis.length) {
           var li = $lis.get(0);
@@ -666,12 +675,18 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
           } while (li && li.tagName == 'LI');
         }
 
-        $lis = editor.$el.find('li').filter(function () {
-          return !editor.node.isList(this.parentNode);
-        });
+        $lis = editor.$el.find('li').filter(filterListItem);
       } while ($lis.length > 0);
 
       var do_remove;
+      var removeEmptyList = function (index, lst) {
+        var $lst = $(lst);
+        if ($lst.find('LI').length === 0) {
+          do_remove = true;
+          $lst.remove();
+        }
+      };
+
       do {
         do_remove = false;
 
@@ -679,14 +694,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         editor.$el.find('li:empty').remove();
 
         // Remove empty ul and ol.
-        editor.$el.find('ul, ol').each (function (index, lst) {
-          var $lst = $(lst);
-          if ($lst.find('LI').length === 0) {
-            do_remove = true;
-            $lst.remove();
-          }
-        });
-      } while (do_remove == true);
+        editor.$el.find('ul, ol').each (removeEmptyList);
+      } while (do_remove === true);
 
       // Do not allow list directly inside another list.
       var direct_lists = editor.$el.find('ol, ul').find('> ul, > ol');
@@ -740,16 +749,6 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         }
       });
 
-      // Join lists.
-      var lists = editor.$el.find('ol + ol, ul + ul');
-      for (var k = 0; k < lists.length; k++) {
-        var $list = $(lists[k]);
-        if (editor.node.attributes(lists[k]) == editor.node.attributes($list.prev().get(0))) {
-          $list.prev().append($list.html());
-          $list.remove();
-        }
-      }
-
       // Remove empty li.
       editor.$el.find('li:empty').remove();
     }
@@ -782,7 +781,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
   $.FroalaEditor.COMMANDS = {
     bold: {
-      title: 'Bold',
+      title: 'Bold'
     },
     italic: {
       title: 'Italic'
@@ -909,7 +908,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
      */
     function exec (cmd, params) {
       // Trigger before command to see if to execute the default callback.
-      if (editor.events.trigger('commands.before', $.merge([cmd], params || [])) != false) {
+      if (editor.events.trigger('commands.before', $.merge([cmd], params || [])) !== false) {
         // Get the callback.
         var callback = ($.FroalaEditor.COMMANDS[cmd] && $.FroalaEditor.COMMANDS[cmd].callback) || mapping[cmd];
 
@@ -919,13 +918,13 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         }
 
         // Make sure we have focus.
-        if (!editor.$el.is(':focus') && focus) {
+        if (!editor.core.hasFocus() && focus) {
           editor.events.focus(true);
         }
 
         // Callback.
         // Save undo step.
-        if ($.FroalaEditor.COMMANDS[cmd] && $.FroalaEditor.COMMANDS[cmd].undo != false) {
+        if ($.FroalaEditor.COMMANDS[cmd] && $.FroalaEditor.COMMANDS[cmd].undo !== false) {
           editor.undo.saveStep();
         }
 
@@ -937,7 +936,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         editor.events.trigger('commands.after', $.merge([cmd], params || []));
 
         // Save undo step again.
-        if ($.FroalaEditor.COMMANDS[cmd] && $.FroalaEditor.COMMANDS[cmd].undo != false) editor.undo.saveStep();
+        if ($.FroalaEditor.COMMANDS[cmd] && $.FroalaEditor.COMMANDS[cmd].undo !== false) editor.undo.saveStep();
       }
     }
 
@@ -953,7 +952,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       }
       else {
         var el = editor.selection.element();
-        if (editor.selection.isCollapsed() && editor.document.queryCommandState(cmd) === true && el.tagName == tag.toUpperCase() && (el.textContent || '').replace(/\u200B/g, '').length == 0) {
+        if (editor.selection.isCollapsed() && editor.document.queryCommandState(cmd) === true && el.tagName == tag.toUpperCase() && (el.textContent || '').replace(/\u200B/g, '').length === 0) {
           $(el).replaceWith($.FroalaEditor.MARKERS);
           editor.selection.restore();
         }
@@ -1072,6 +1071,12 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
           }
         }
 
+        var filter_spans = function () {
+          return $(this).attr('style').indexOf(prop + ':') === 0 || $(this).attr('style').indexOf(';' + prop + ':') >= 0 || $(this).attr('style').indexOf('; ' + prop + ':') >= 0;
+        };
+
+        var i;
+
         // Replace font with spans.
         while (editor.$el.find('font').length > 0) {
           var $font = editor.$el.find('font:first');
@@ -1080,14 +1085,12 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
           // Replace in reverse order to take care of the inner spans first.
           var inner_spans = $span.find('span');
-          for (var i = inner_spans.length - 1; i >= 0; i--) {
+          for (i = inner_spans.length - 1; i >= 0; i--) {
             clean_format(inner_spans[i]);
           }
 
           // Look at parents with the same property.
-          var $outer_span = $span.parentsUntil(editor.$el, 'span:first').filter(function () {
-            return $(this).attr('style').indexOf(prop + ':') >= 0;
-          });
+          var $outer_span = $span.parentsUntil(editor.$el, 'span:first').filter(filter_spans);
           if ($outer_span.length) {
             var c_str = '';
             var o_str = '';
@@ -1121,7 +1124,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
         // Join current spans together if they are one next to each other.
         var just_spans = editor.$el.find('.fr-just + .fr-just');
-        for (var i = 0; i < just_spans.length; i++) {
+        for (i = 0; i < just_spans.length; i++) {
           var $s = $(just_spans[i]);
           $s.prepend($s.prev().html());
           $s.prev().remove();
@@ -1155,7 +1158,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
     return $.extend(resp, {
       require: ['events', 'core'],
       exec: exec,
-      applyProperty: applyProperty,
+      applyProperty: applyProperty
     });
   };
 })(jQuery);
@@ -1165,7 +1168,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
   // Extend defaults.
   $.extend($.FroalaEditor.DEFAULTS, {
-    editorClass: '',
+    editorClass: null,
     typingTimer: 500,
     iframe: false,
     requestWithCORS: true,
@@ -1175,7 +1178,9 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
     iframeStyle: 'html{margin: 0px;}body{padding:10px;background:transparent;color:#000000;position:relative;z-index: 2;-webkit-user-select:auto;margin:0px}body:after{content:"";clear:both;display:block}hr{clear:both;user-select:none;-o-user-select:none;-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:none;-ms-user-select:none;}pre{white-space:pre-wrap;word-wrap: break-word;}',
     direction: 'auto',
     zIndex: 1,
-    disableRightClick: false
+    disableRightClick: false,
+    scrollableContainer: 'body',
+    keepFormatOnDelete: false
   })
 
   $.FroalaEditor.MODULES.core = function (editor) {
@@ -1195,7 +1200,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
      * Init the editor style.
      */
     function _initStyle () {
-      editor.$box.addClass('fr-box' + (editor.opts.coreClasss ? ' ' + editor.opts.coreClasss : ''));
+      editor.$box.addClass('fr-box' + (editor.opts.editorClass ? ' ' + editor.opts.editorClass : ''));
       editor.$wp.addClass('fr-wrapper');
 
       _initElementStyle();
@@ -1211,6 +1216,10 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
       if (editor.opts.zIndex > 1) {
         editor.$box.css('z-index', editor.opts.zIndex);
+      }
+
+      if (editor.$box && editor.opts.theme) {
+        editor.$box.addClass(editor.opts.theme + '-theme');
       }
     }
 
@@ -1256,11 +1265,29 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
     }
 
     function _destroy () {
-      if (editor.$wp) {
-        editor.$el.off('contextmenu.rightClick');
-        editor.$wp.replaceWith(editor.html.get());
-        editor.$box.removeClass('fr-view fr-ltr fr-box');
+      if (editor.$original_element.get(0).tagName == 'TEXTAREA') {
+        editor.$original_element.val(editor.html.get());
       }
+
+      if (editor.$wp) {
+        if (editor.$original_element.get(0).tagName == 'TEXTAREA') {
+          editor.$box.replaceWith(editor.$original_element);
+          editor.$original_element.show();
+        }
+        else {
+          editor.$el.off('contextmenu.rightClick');
+          editor.$wp.replaceWith(editor.html.get());
+          editor.$box.removeClass('fr-view fr-ltr fr-box ' + (editor.opts.editorClass || ''));
+
+          if (editor.opts.theme) {
+            editor.$box.addClass(editor.opts.theme + '-theme');
+          }
+        }
+      }
+    }
+
+    function hasFocus () {
+      return editor.node.hasFocus(editor.$el.get(0));
     }
 
     /**
@@ -1278,6 +1305,13 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
         // Set spellcheck.
         editor.$el.attr('spellcheck', editor.opts.spellcheck);
+
+        // Disable autocomplete.
+        if (editor.helpers.isMobile()) {
+          editor.$el.attr('autocomplete', editor.opts.spellcheck ? 'on' : 'off');
+          editor.$el.attr('autocorrect', editor.opts.spellcheck ? 'on' : 'off');
+          editor.$el.attr('autocapitalize', editor.opts.spellcheck ? 'on' : 'off');
+        }
 
         // Disable right click.
         if (editor.opts.disableRightClick) {
@@ -1314,7 +1348,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       _init: _init,
       isEmpty: isEmpty,
       getXHR: getXHR,
-      injectStyle: injectStyle
+      injectStyle: injectStyle,
+      hasFocus: hasFocus
     }
   }
 })(jQuery);
@@ -1377,14 +1412,15 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
      * Check if the node is inside a LI.
      */
     function _inLi (node) {
-      return $(node).parentsUntil(editor.$el, 'LI').length > 0 && $(node).parentsUntil('LI', 'TABLE').length == 0;
+      return $(node).parentsUntil(editor.$el, 'LI').length > 0 && $(node).parentsUntil('LI', 'TABLE').length === 0;
     }
 
     /**
      * Do backspace at the start of a block tag.
      */
     function _startBackspace (marker) {
-      var deep_parent = editor.node.deepestParent(marker);
+      var quote = $(marker).parentsUntil(editor.$el, 'BLOCKQUOTE').length > 0;
+      var deep_parent = editor.node.deepestParent(marker, [], !quote);
 
       if (deep_parent && deep_parent.tagName == 'BLOCKQUOTE') {
         var m_parent = editor.node.deepestParent(marker, [$(marker).parentsUntil(editor.$el, 'BLOCKQUOTE').get(0)]);
@@ -1396,6 +1432,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       // Deepest parent is not the main element.
       if (deep_parent !== null) {
         var prev_node = deep_parent.previousSibling;
+        var contents;
 
         // We are inside a block tag.
         if (editor.node.isBlock(deep_parent)) {
@@ -1412,14 +1449,14 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
                 }
 
                 // Remove last BR.
-                var contents = editor.node.contents(prev_node);
+                contents = editor.node.contents(prev_node);
                 if (contents.length && contents[contents.length - 1].tagName == 'BR') {
                   $(contents[contents.length - 1]).remove();
                 }
 
                 // Prev node is blockquote but the current one isn't.
                 if (prev_node.tagName == 'BLOCKQUOTE' && deep_parent.tagName != 'BLOCKQUOTE') {
-                  var contents = editor.node.contents(prev_node);
+                  contents = editor.node.contents(prev_node);
                   while (contents.length && editor.node.isBlock(contents[contents.length - 1])) {
                     prev_node = contents[contents.length - 1];
                     contents = editor.node.contents(prev_node);
@@ -1427,7 +1464,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
                 }
                 // Prev node is not blockquote, but the current one is.
                 else if (prev_node.tagName != 'BLOCKQUOTE' && deep_parent.tagName == 'BLOCKQUOTE') {
-                  var contents = editor.node.contents(deep_parent);
+                  contents = editor.node.contents(deep_parent);
                   while (contents.length && editor.node.isBlock(contents[0])) {
                     deep_parent = contents[0];
                     contents = editor.node.contents(deep_parent);
@@ -1483,7 +1520,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         contents = editor.node.contents(prev_node);
 
         // Previous node is text.
-        while (prev_node.nodeType != Node.TEXT_NODE && contents.length) {
+        while (prev_node.nodeType != Node.TEXT_NODE && contents.length && !$(prev_node).is('[contenteditable=\'false\']')) {
           prev_node = contents[contents.length - 1];
           contents = editor.node.contents(prev_node);
         }
@@ -1497,7 +1534,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
           }
         }
         else {
-          if (editor.events.trigger('node.remove', [$(prev_node)]) != false) {
+          if (editor.events.trigger('node.remove', [$(prev_node)]) !== false) {
             $(prev_node).after($.FroalaEditor.MARKERS);
             $(prev_node).remove();
           }
@@ -1520,7 +1557,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
           }
 
           contents = editor.node.contents(prev_node);
-          while(contents && editor.node.isBlock(contents[contents.length - 1])) {
+          while (contents && editor.node.isBlock(contents[contents.length - 1])) {
             prev_node = contents[contents.length - 1];
             contents = editor.node.contents(prev_node);
           }
@@ -1597,7 +1634,6 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       editor.html.cleanEmptyTags(true);
       editor.clean.quotes();
       editor.clean.lists();
-
       editor.html.normalizeSpaces();
       editor.selection.restore();
     }
@@ -1606,7 +1642,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
      * Delete at the end of a block tag.
      */
     function _endDel (marker) {
-      var deep_parent = editor.node.deepestParent(marker);
+      var quote = $(marker).parentsUntil(editor.$el, 'BLOCKQUOTE').length > 0;
+      var deep_parent = editor.node.deepestParent(marker, [], !quote);
 
       if (deep_parent && deep_parent.tagName == 'BLOCKQUOTE') {
         var m_parent = editor.node.deepestParent(marker, [$(marker).parentsUntil(editor.$el, 'BLOCKQUOTE').get(0)]);
@@ -1618,6 +1655,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       // Deepest parent is not the main element.
       if (deep_parent !== null) {
         var next_node = deep_parent.nextSibling;
+        var contents;
 
         // We are inside a block tag.
         if (editor.node.isBlock(deep_parent)) {
@@ -1637,7 +1675,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
                   var $li = $(next_node).find('li:first');
 
                   if (deep_parent.tagName == 'BLOCKQUOTE') {
-                    var contents = editor.node.contents(deep_parent);
+                    contents = editor.node.contents(deep_parent);
                     if (contents.length && editor.node.isBlock(contents[contents.length - 1])) {
                       deep_parent = contents[contents.length - 1];
                     }
@@ -1663,20 +1701,20 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
               }
               else {
                 // Remove last BR.
-                var contents = editor.node.contents(next_node);
+                contents = editor.node.contents(next_node);
                 if (contents.length && contents[0].tagName == 'BR') {
                   $(contents[0]).remove();
                 }
 
                 if (next_node.tagName != 'BLOCKQUOTE' && deep_parent.tagName == 'BLOCKQUOTE') {
-                  var contents = editor.node.contents(deep_parent);
+                  contents = editor.node.contents(deep_parent);
                   while (contents.length && editor.node.isBlock(contents[contents.length - 1])) {
                     deep_parent = contents[contents.length - 1];
                     contents = editor.node.contents(deep_parent);
                   }
                 }
                 else if (next_node.tagName == 'BLOCKQUOTE' && deep_parent.tagName != 'BLOCKQUOTE') {
-                  var contents = editor.node.contents(next_node);
+                  contents = editor.node.contents(next_node);
                   while (contents.length && editor.node.isBlock(contents[0])) {
                     next_node = contents[0];
                     contents = editor.node.contents(next_node);
@@ -1766,7 +1804,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         contents = editor.node.contents(next_node);
 
         // Next node is text.
-        while (next_node.nodeType != Node.TEXT_NODE && contents.length) {
+        while (next_node.nodeType != Node.TEXT_NODE && contents.length && !$(next_node).is('[contenteditable=\'false\']')) {
           next_node = contents[0];
           contents = editor.node.contents(next_node);
         }
@@ -1782,7 +1820,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
           }
         }
         else {
-          if (editor.events.trigger('node.remove', [$(next_node)]) != false) {
+          if (editor.events.trigger('node.remove', [$(next_node)]) !== false) {
             $(next_node).before($.FroalaEditor.MARKERS);
             $(next_node).remove();
           }
@@ -1883,15 +1921,29 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       editor.selection.restore();
     }
 
+    function _cleanNodesToRemove() {
+      editor.$el.find('.fr-to-remove').each (function () {
+        var contents = editor.node.contents(this);
+        for (var i = 0; i < contents.length; i++) {
+          if (contents[i].nodeType == Node.TEXT_NODE) {
+            contents[i].textContent = contents[i].textContent.replace(/\u200B/g, '');
+          }
+        }
+
+        $(this).replaceWith(this.innerHTML);
+      })
+    }
+
     /**
      * Enter at the end of a block tag.
      */
     function _endEnter (marker, shift, quote) {
       var deep_parent = editor.node.deepestParent(marker, [], !quote);
+      var default_tag;
 
       if (deep_parent && deep_parent.tagName == 'BLOCKQUOTE') {
         if (_isAtEnd(marker, deep_parent)) {
-          var default_tag = editor.html.defaultTag();
+          default_tag = editor.html.defaultTag();
           if (default_tag) {
             $(deep_parent).after('<' + default_tag + '>' + $.FroalaEditor.MARKERS + '<br>' + '</' + default_tag + '>');
           }
@@ -1925,7 +1977,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         var c_str = '';
         var o_str = '';
 
-        var default_tag = editor.html.defaultTag();
+        default_tag = editor.html.defaultTag();
         var open_default_tag = '';
         var close_default_tag = '';
         if (default_tag && editor.node.isBlock(deep_parent)) {
@@ -1938,13 +1990,16 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
           // Shift condition.
           if (!shift || c_node != deep_parent || (shift && !editor.node.isBlock(deep_parent))) {
+            // Close str.
             c_str = c_str + editor.node.closeTagString(c_node);
 
+            // Open str when there is a block parent.
             if (c_node == deep_parent && editor.node.isBlock(deep_parent)) {
               o_str = open_default_tag + o_str;
             }
             else {
-              o_str = editor.node.openTagString(c_node) + o_str;
+              var cls = (c_node.tagName == 'A' && _isAtEnd(marker, c_node)) ? 'fr-to-remove' : '';
+              o_str = editor.node.openTagString($(c_node).clone().addClass(cls).get(0)) + o_str;
             }
           }
         } while (c_node != deep_parent);
@@ -1966,7 +2021,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
         var html;
         // No shift.
-        if (!shift) {
+        if (!shift && editor.node.isBlock(deep_parent)) {
           html = editor.node.openTagString(deep_parent) + $(deep_parent).html() + close_default_tag;
         }
         else {
@@ -1974,6 +2029,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         }
 
         html = html.replace(/<span id="fr-break"><\/span>/g, str);
+
         $(deep_parent).replaceWith(html);
       }
     }
@@ -1981,8 +2037,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
     /**
      * Start at the beginning of a block tag.
      */
-    function _startEnter (marker, shift) {
-      var deep_parent = editor.node.deepestParent(marker);
+    function _startEnter (marker, shift, quote) {
+      var deep_parent = editor.node.deepestParent(marker, [], !quote);
 
       if (deep_parent && deep_parent.tagName == 'BLOCKQUOTE') {
         if (_isAtStart(marker, deep_parent)) {
@@ -2074,17 +2130,21 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
             // 2. c_node is not deep parent.
             // 3. Shift and deep parent is not block tag.
             if (!shift || c_node != deep_parent || (shift && !editor.node.isBlock(deep_parent))) {
-              c_str = c_str + editor.node.closeTagString(c_node)
-              o_str = editor.node.openTagString(c_node) + o_str;
+              c_str = c_str + editor.node.closeTagString(c_node);
+
+              var cls = (c_node.tagName == 'A' && _isAtEnd(marker, c_node)) ? 'fr-to-remove' : '';
+              o_str = editor.node.openTagString($(c_node).clone().addClass(cls).get(0)) + o_str;
             }
           }
         } while (c_node != deep_parent);
 
         // We should add an invisible space if:
         // 1. parent node is not deep parent and block tag.
-        // 2. if the marker has no next sibling.
-        var add = ((deep_parent == marker.parentNode && editor.node.isBlock(deep_parent)) ||
-                    marker.nextSibling)
+        // 2. marker has no next sibling.
+        var add = (
+                    (deep_parent == marker.parentNode && editor.node.isBlock(deep_parent)) ||
+                    marker.nextSibling
+                  );
 
         if (deep_parent.tagName == 'BLOCKQUOTE') {
           if (marker.previousSibling && editor.node.isBlock(marker.previousSibling) && marker.nextSibling && marker.nextSibling.tagName == 'BR') {
@@ -2144,7 +2204,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
           editor.cursorLists._startEnter(marker);
         }
         else {
-          _startEnter(marker, shift);
+          _startEnter(marker, shift, quote);
         }
       }
 
@@ -2159,6 +2219,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         }
       }
 
+      _cleanNodesToRemove();
+
       editor.html.fillEmptyBlocks(true);
       editor.html.cleanEmptyTags(true);
       editor.clean.lists();
@@ -2170,7 +2232,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       require: ['node', 'html', 'cursorLists', 'selection'],
       enter: enter,
       backspace: backspace,
-      del: del
+      del: del,
+      isAtEnd: _isAtEnd
     }
   }
 })(jQuery);
@@ -2323,7 +2386,10 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       var c_str = '';
       while (node != li) {
         node = node.parentNode;
-        o_str = editor.node.openTagString(node) + o_str;
+
+        var cls = (node.tagName == 'A' && editor.cursor.isAtEnd(marker, node)) ? 'fr-to-remove' : '';
+
+        o_str = editor.node.openTagString($(node).clone().addClass(cls).get(0)) + o_str;
         c_str = editor.node.closeTagString(node) + c_str;
       }
 
@@ -2349,7 +2415,10 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       var node = marker;
       while (node != li) {
         node = node.parentNode;
-        str = editor.node.openTagString(node) + str + editor.node.closeTagString(node);
+
+        var cls = (node.tagName == 'A' && editor.cursor.isAtEnd(marker, node)) ? 'fr-to-remove' : '';
+
+        str = editor.node.openTagString($(node).clone().addClass(cls).get(0)) + str + editor.node.closeTagString(node);
       }
 
       $(marker).remove();
@@ -2571,8 +2640,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
   'use strict';
 
   $.FroalaEditor.INVISIBLE_SPACE = '&#8203;';
-  $.FroalaEditor.START_MARKER = '<span class="fr-marker" data-id="0" data-type="true">' + $.FroalaEditor.INVISIBLE_SPACE + '</span>';
-  $.FroalaEditor.END_MARKER = '<span class="fr-marker" data-id="0" data-type="false">'  + $.FroalaEditor.INVISIBLE_SPACE + '</span>';
+  $.FroalaEditor.START_MARKER = '<span class="fr-marker" data-id="0" data-type="true" style="display: none; line-height: 0;">' + $.FroalaEditor.INVISIBLE_SPACE + '</span>';
+  $.FroalaEditor.END_MARKER = '<span class="fr-marker" data-id="0" data-type="false" style="display: none; line-height: 0;">'  + $.FroalaEditor.INVISIBLE_SPACE + '</span>';
   $.FroalaEditor.MARKERS = $.FroalaEditor.START_MARKER + $.FroalaEditor.END_MARKER;
 
   $.FroalaEditor.MODULES.markers = function (editor) {
@@ -2580,7 +2649,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
      * Build marker element.
      */
     function _build (marker, id) {
-      return $('<span class="fr-marker" data-id="' + id + '" data-type="' + marker + '">' + $.FroalaEditor.INVISIBLE_SPACE + '</span>', editor.document)[0];
+      return $('<span class="fr-marker" data-id="' + id + '" data-type="' + marker + '" style="display: none; line-height: 0;">' + $.FroalaEditor.INVISIBLE_SPACE + '</span>', editor.document)[0];
     }
 
     /**
@@ -2629,6 +2698,13 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
             $(sibling).append($(marker));
           }
+
+          // https://github.com/froala/wysiwyg-editor/issues/705
+          if (marker.parentNode && ['TD', 'TH'].indexOf(marker.parentNode.tagName) >= 0) {
+            if (marker.parentNode.previousSibling && !marker.previousSibling) {
+              $(marker.parentNode.previousSibling).append(marker);
+            }
+          }
         }
       }
       catch (ex) {
@@ -2645,7 +2721,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         var boundary = editor.selection.ranges(0).cloneRange();
         boundary.collapse(true);
 
-        var mk = $('<span class="fr-marker">' + $.FroalaEditor.INVISIBLE_SPACE + '</span>', editor.document)[0];
+        var mk = $('<span class="fr-marker" style="display: inline; line-height: 0;">' + $.FroalaEditor.INVISIBLE_SPACE + '</span>', editor.document)[0];
 
         boundary.insertNode(mk);
 
@@ -2762,6 +2838,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
      * Check if a DOM element is empty.
      */
     function isEmpty (el, ignore_markers) {
+      if ($(el).find('table').length > 0) return false;
+
       // Get element contents.
       var contents = getContents(el);
 
@@ -2813,7 +2891,11 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         return null;
       }
 
-      while (until.indexOf(node.parentNode) < 0 && node.parentNode && !$(node.parentNode).hasClass('fr-inner') && ( $.FroalaEditor.SIMPLE_ENTER_TAGS.indexOf(node.parentNode.tagName) < 0 || !simple_enter)) {
+      // 1. Before until.
+      // 2. Parent node doesn't has class fr-inner.
+      // 3. Parent node is not a simple enter tag or quote.
+      // 4. Parent node is not a block tag
+      while (until.indexOf(node.parentNode) < 0 && node.parentNode && !$(node.parentNode).hasClass('fr-inner') && ($.FroalaEditor.SIMPLE_ENTER_TAGS.indexOf(node.parentNode.tagName) < 0 || !simple_enter) && (!(isBlock(node) && isBlock(node.parentNode)) || !simple_enter)) {
         node = node.parentNode;
       }
 
@@ -2903,6 +2985,13 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       return node === editor.$el.get(0);
     }
 
+    /**
+     * Check if the node has focus.
+     */
+    function hasFocus(node) {
+      return node == editor.document.activeElement;
+    }
+
     return {
       isBlock: isBlock,
       isEmpty: isEmpty,
@@ -2917,7 +3006,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       isList: isList,
       isElement: isElement,
       contents: getContents,
-      isVoid: isVoid
+      isVoid: isVoid,
+      hasFocus: hasFocus
     }
   };
 
@@ -3250,8 +3340,10 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         return false;
       }
 
+      var scroll_top = $(editor.original_window).scrollTop();
+
       // Focus.
-      if (!editor.$el.is(':focus') || !editor.browser.msie) {
+      if (!editor.core.hasFocus() || !editor.browser.msie) {
         editor.$el.focus();
       }
 
@@ -3274,7 +3366,23 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
           try {
             // If we have markers one next to each other inside text, then we should normalize text by joining it.
             var special_case = false;
-            if (start_marker.nextSibling == end_marker || end_marker.nextSibling == start_marker ) {
+
+            // Clear empty text nodes.
+            var s_node = start_marker.nextSibling;
+            while (s_node && s_node.nodeType == Node.TEXT_NODE && s_node.textContent.length == 0) {
+              var tmp = s_node;
+              s_node = s_node.nextSibling;
+              $(tmp).remove();
+            }
+
+            var e_node = end_marker.nextSibling;
+            while (e_node && e_node.nodeType == Node.TEXT_NODE && e_node.textContent.length == 0) {
+              var tmp = e_node;
+              e_node = e_node.nextSibling;
+              $(tmp).remove();
+            }
+
+            if (start_marker.nextSibling == end_marker || end_marker.nextSibling == start_marker) {
               // Decide which is first and which is last between markers.
               var first_node = (start_marker.nextSibling == end_marker) ? start_marker : end_marker;
               var last_node = (first_node == start_marker) ? end_marker : start_marker;
@@ -3317,26 +3425,24 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
               if (next_node && editor.node.isVoid(next_node)) next_node = null;
 
               // Previous node and next node are both text.
-              if (prev_node && prev_node.nodeType == Node.TEXT_NODE) {
-                if (next_node && next_node.nodeType == Node.TEXT_NODE) {
-                  // Remove markers.
-                  $(start_marker).remove();
-                  $(end_marker).remove();
+              if (prev_node && next_node && prev_node.nodeType == Node.TEXT_NODE && next_node.nodeType == Node.TEXT_NODE) {
+                // Remove markers.
+                $(start_marker).remove();
+                $(end_marker).remove();
 
-                  // Save cursor position.
-                  var len = prev_node.textContent.length;
-                  prev_node.textContent = prev_node.textContent + next_node.textContent;
-                  $(next_node).remove();
+                // Save cursor position.
+                var len = prev_node.textContent.length;
+                prev_node.textContent = prev_node.textContent + next_node.textContent;
+                $(next_node).remove();
 
-                  // Normalize spaces.
-                  editor.html.normalizeSpaces(prev_node);
+                // Normalize spaces.
+                editor.html.normalizeSpaces(prev_node);
 
-                  // Restore position.
-                  range.setStart(prev_node, len);
-                  range.setEnd(prev_node, len);
+                // Restore position.
+                range.setStart(prev_node, len);
+                range.setEnd(prev_node, len);
 
-                  special_case = true;
-                }
+                special_case = true;
               }
               else if (!prev_node && next_node && next_node.nodeType == Node.TEXT_NODE) {
                 // Remove markers.
@@ -3393,6 +3499,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
       // Remove used markers.
       editor.markers.remove();
+
+      $(editor.original_window).scrollTop(scroll_top);
     }
 
     /**
@@ -3494,10 +3602,57 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
     function isFull () {
       if (isCollapsed()) return false;
 
-      var inf = info(editor.$el.get(0));
-      if (inf.atStart && inf.atEnd) return true;
+      // https://github.com/froala/wysiwyg-editor/issues/710
+      editor.$el.find('td').prepend('<span class="fr-mk">' + $.FroalaEditor.INVISIBLE_SPACE + '</span>');
+      editor.$el.find('img').before('<span class="fr-mk">' + $.FroalaEditor.INVISIBLE_SPACE + '</span>');
 
-      return false;
+      var full = false;
+      var inf = info(editor.$el.get(0));
+      if (inf.atStart && inf.atEnd) full = true;
+
+      // https://github.com/froala/wysiwyg-editor/issues/710
+      editor.$el.find('.fr-mk').remove();
+
+      return full;
+    }
+
+    /**
+     * Remove HTML from inner nodes when we deal with keepFormatOnDelete option.
+     */
+    function _emptyInnerNodes (node, first) {
+      if (typeof first == 'undefined') first = true;
+
+      // Remove invisible spaces.
+      var h = $(node).html();
+      if (h && h.replace(/\u200b/g, '').length != h.length) $(node).html(h.replace(/\u200b/g, ''));
+
+      // Loop contents.
+      var contents = editor.node.contents(node);
+      for (var j = 0; j < contents.length; j++) {
+        // Remove text nodes.
+        if (contents[j].nodeType != Node.ELEMENT_NODE) {
+          $(contents[j]).remove();
+        }
+
+        // Empty inner nodes further.
+        else {
+          // j == 0 determines if the node is the first one and we should keep format.
+          _emptyInnerNodes(contents[j], j == 0);
+
+          // There are inner nodes, ignore the current one.
+          if (j == 0) first = false;
+        }
+      }
+
+      // First node is a text node, so replace it with a span.
+      if (node.nodeType == Node.TEXT_NODE) {
+        $(node).replaceWith('<span data-first="true" data-text="true"></span>');
+      }
+
+      // Add the first node marker so that we add selection in it later on.
+      else if (first) {
+        $(node).attr('data-first', true);
+      }
     }
 
     /**
@@ -3525,7 +3680,12 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
           }
           else {
             if (['TD', 'TH'].indexOf(node.tagName) < 0 && !$(node).hasClass('fr-inner')) {
-              $(node).remove();
+              if (!editor.opts.keepFormatOnDelete || should_delete > 1 || editor.$el.find('[data-first]').length > 0) {
+                $(node).remove();
+              }
+              else {
+                _emptyInnerNodes(node);
+              }
             }
             else if ($(node).hasClass('fr-inner')) {
               if ($(node).find('.fr-inner').length == 0) {
@@ -3622,98 +3782,114 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       if (_canDelete()) {
         _processNodeDelete(editor.$el, 0);
 
-        // Remove tables.
-        editor.$el.find('table').filter(function () {
-          var ok = $(this).find('[data-del-cell]').length > 0 && $(this).find('[data-del-cell]').length == $(this).find('td, th').length;
+        // Look for selection marker.
+        var $first_node = editor.$el.find('[data-first="true"]');
+        if ($first_node.length) {
+          // Remove markers.
+          editor.$el.find('.fr-marker').remove();
 
-          // Normalize markers inside table.
-          if (ok) {
+          // Add markers in the node that we marked as the first one.
+          $first_node
+            .append($.FroalaEditor.INVISIBLE_SPACE + $.FroalaEditor.MARKERS)
+            .removeAttr('data-first');
 
+          // Remove span with data-text if there is one.
+          if ($first_node.attr('data-text')) {
+            $first_node.replaceWith($first_node.html());
           }
+        }
+        else {
+          // Remove tables.
+          editor.$el.find('table').filter(function () {
+            var ok = $(this).find('[data-del-cell]').length > 0 && $(this).find('[data-del-cell]').length == $(this).find('td, th').length;
 
-          return ok;
-        }).remove();
-        editor.$el.find('[data-del-cell]').removeAttr('data-del-cell');
+            return ok;
+          }).remove();
+          editor.$el.find('[data-del-cell]').removeAttr('data-del-cell');
 
-        // Merge contents between markers.
-        var start_markers = editor.$el.find('.fr-marker[data-type="true"]');
-        for (var i = 0; i < start_markers.length; i++) {
-          // Get start marker.
-          var start_marker = start_markers[i];
+          // Merge contents between markers.
+          var start_markers = editor.$el.find('.fr-marker[data-type="true"]');
+          for (var i = 0; i < start_markers.length; i++) {
+            // Get start marker.
+            var start_marker = start_markers[i];
 
-          // Get the next node after start marker.
-          var next_node = start_marker.nextSibling;
+            // Get the next node after start marker.
+            var next_node = start_marker.nextSibling;
 
-          // Get the end node.
-          var end_marker = editor.$el.find('.fr-marker[data-type="false"][data-id="' + $(start_marker).data('id') + '"]').get(0);
+            // Get the end node.
+            var end_marker = editor.$el.find('.fr-marker[data-type="false"][data-id="' + $(start_marker).data('id') + '"]').get(0);
 
-          if (end_marker) {
-            // Markers are next to other.
-            if (next_node && next_node == end_marker) {
-              // Do nothing.
+            if (end_marker) {
+              // Markers are next to other.
+              if (next_node && next_node == end_marker) {
+                // Do nothing.
+              }
+              else if (start_marker) {
+                // Get the parents of the nodes.
+                var start_parent = editor.node.blockParent(start_marker);
+                var end_parent = editor.node.blockParent(end_marker);
+
+                // Move end marker next to start marker.
+                $(start_marker).after(end_marker);
+
+                // We're in the same parent. Moving marker is enough.
+                if (start_parent == end_parent) {
+                }
+
+                // The block parent of the start marker is the element itself.
+                else if (start_parent == null) {
+                  var deep_parent = editor.node.deepestParent(start_marker);
+
+                  // There is a parent for the marker. Move the end html to it.
+                  if (deep_parent) {
+                    $(deep_parent).after($(end_parent).html());
+                    $(end_parent).remove();
+                  }
+
+                  // There is no parent for the marker.
+                  else if ($(end_parent).parentsUntil(editor.$el, 'table').length == 0) {
+                    $(start_marker).next().after($(end_parent).html());
+                    $(end_parent).remove();
+                  }
+                }
+
+                // End marker is inside element. We don't merge in table.
+                else if (end_parent == null && $(start_parent).parentsUntil(editor.$el, 'table').length == 0) {
+                  // Get the node that has a next sibling.
+                  var next_node = start_parent;
+                  while (!next_node.nextSibling && next_node.parentNode != editor.$el.get(0)) {
+                    next_node = next_node.parentNode;
+                  }
+                  next_node = next_node.nextSibling;
+
+                  // Join HTML inside the start node.
+                  while (next_node && next_node.tagName != 'BR') {
+                    var tmp_node = next_node.nextSibling;
+                    $(start_parent).append(next_node);
+                    next_node = tmp_node;
+                  }
+                }
+
+                // Join end block with start block.
+                else if ($(start_parent).parentsUntil(editor.$el, 'table').length == 0 && $(end_parent).parentsUntil(editor.$el, 'table').length == 0) {
+                  $(start_parent).append($(end_parent).html());
+                  $(end_parent).remove();
+                }
+              }
             }
-            else if (start_marker) {
-              // Get the parents of the nodes.
-              var start_parent = editor.node.blockParent(start_marker);
-              var end_parent = editor.node.blockParent(end_marker);
 
-              // Move end marker next to start marker.
+            else {
+              end_marker = $(start_marker).clone().attr('data-type', false);
               $(start_marker).after(end_marker);
-
-              // We're in the same parent. Moving marker is enough.
-              if (start_parent == end_parent) {
-              }
-
-              // The block parent of the start marker is the element itself.
-              else if (start_parent == null) {
-                var deep_parent = editor.node.deepestParent(start_marker);
-
-                // There is a parent for the marker. Move the end html to it.
-                if (deep_parent) {
-                  $(deep_parent).after($(end_parent).html());
-                  $(end_parent).remove();
-                }
-
-                // There is no parent for the marker.
-                else if ($(end_parent).parentsUntil(editor.$el, 'table').length == 0) {
-                  $(start_marker).next().after($(end_parent).html());
-                  $(end_parent).remove();
-                }
-              }
-
-              // End marker is inside element. We don't merge in table.
-              else if (end_parent == null && $(start_parent).parentsUntil(editor.$el, 'table').length == 0) {
-                // Get the node that has a next sibling.
-                var next_node = start_parent;
-                while (!next_node.nextSibling && next_node.parentNode != editor.$el.get(0)) {
-                  next_node = next_node.parentNode;
-                }
-                next_node = next_node.nextSibling;
-
-                // Join HTML inside the start node.
-                while (next_node && next_node.tagName != 'BR') {
-                  var tmp_node = next_node.nextSibling;
-                  $(start_parent).append(next_node);
-                  next_node = tmp_node;
-                }
-              }
-
-              // Join end block with start block.
-              else if ($(start_parent).parentsUntil(editor.$el, 'table').length == 0 && $(end_parent).parentsUntil(editor.$el, 'table').length == 0) {
-                $(start_parent).append($(end_parent).html());
-                $(end_parent).remove();
-              }
             }
-          }
-
-          else {
-            end_marker = $(start_marker).clone().attr('data-type', false);
-            $(start_marker).after(end_marker);
           }
         }
       }
 
-      editor.html.fillEmptyBlocks(true);
+      if (!editor.opts.keepFormatOnDelete) {
+        editor.html.fillEmptyBlocks(true);
+      }
+
       editor.html.cleanEmptyTags(true);
       editor.clean.lists();
 
@@ -3930,13 +4106,13 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       if (!editor.$wp) return false;
 
       // If there is no focus, then force focus.
-      if (!editor.$el.is(':focus') && do_focus) {
+      if (!editor.core.hasFocus() && do_focus) {
         editor.$el.focus();
         return false;
       }
 
       // Don't go further if we haven't focused or there are markers.
-      if (!editor.$el.is(':focus') || editor.$el.find('.fr-marker').length > 0) {
+      if (!editor.core.hasFocus() || editor.$el.find('.fr-marker').length > 0) {
         return false;
       }
 
@@ -3968,7 +4144,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       _assignEvent(editor.$el, 'focus', function (e) {
         if (blurActive()) {
           focus(false);
-          if (focused == false) {
+          if (focused === false) {
             trigger(e.type, [e]);
           }
         }
@@ -3976,7 +4152,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
       _assignEvent(editor.$el, 'blur', function (e) {
         if (blurActive() /* && document.activeElement != this */) {
-          if (focused == true) {
+          if (focused === true) {
             trigger(e.type, [e]);
           }
         }
@@ -4021,13 +4197,13 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         e.preventDefault();
       }
 
-      if (editor.helpers.isAndroid() && $btn.parents('.fr-dropdown-menu').length == 0) {
+      if (editor.helpers.isAndroid() && $btn.parents('.fr-dropdown-menu').length === 0) {
         e.preventDefault();
         e.stopPropagation();
       }
 
       // Simulate click.
-      $btn.addClass('fr-selected', true);
+      $btn.addClass('fr-selected');
 
       editor.events.trigger('commands.mousedown', [$btn]);
     }
@@ -4431,7 +4607,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 (function ($) {
   'use strict';
 
-  $.FroalaEditor.UNICODE_NBSP = '\u00A0';
+  $.FroalaEditor.UNICODE_NBSP = String.fromCharCode(160);
 
   // Void Elements http://www.w3.org/html/wg/drafts/html/master/syntax.html#void-elements
   $.FroalaEditor.VOID_ELEMENTS = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'menuitem', 'meta', 'param', 'source', 'track', 'wbr'];
@@ -4464,7 +4640,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       var i;
 
       if (!with_text) {
-        els = editor.$el.find(_emptyBlockTagsQuery());
+        els = editor.$el.find(emptyBlockTagsQuery());
 
         // Make sure we don't add TABLE and TD at the same time for instance.
         for (i = 0; i < els.length; i++) {
@@ -4675,14 +4851,10 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
     function _cleanBlankSpaces (node) {
       if (typeof node == 'undefined') node = editor.$el.get(0);
 
-      var trim = function (text) {
-        return text.replace(/^ */,'').replace(/ *$/,'');
-      }
-
       var contents = editor.node.contents(node);
 
       for (var i = contents.length - 1; i >= 0; i--) {
-        if (contents[i].nodeType == Node.TEXT_NODE) {
+        if (contents[i].nodeType == Node.TEXT_NODE && editor.node.isBlock(node)) {
           var len = -1;
           while (len != contents[i].textContent.length) {
             len = contents[i].textContent.length;
@@ -4735,7 +4907,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
           var new_text = ''
           for (var t = 0; t < txt.length; t++) {
-            if (txt.charCodeAt(t) == 32 && (t == 0 || new_text.charCodeAt(t - 1) == 32)) {
+            if (txt.charCodeAt(t) == 32 && (t === 0 || new_text.charCodeAt(t - 1) == 32)) {
               new_text += $.FroalaEditor.UNICODE_NBSP;
             }
             else {
@@ -4743,7 +4915,6 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
             }
           }
 
-          node.textContent = new_text;
           if (!node.nextSibling) new_text = new_text.replace(/ $/, $.FroalaEditor.UNICODE_NBSP);
           if (node.previousSibling && !editor.node.isVoid(node.previousSibling)) new_text = new_text.replace(/^\u00A0([^ $])/, ' $1');
 
@@ -4858,8 +5029,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
     }
 
     function checkIfEmpty () {
-      if (defaultTag() != null && editor.core.isEmpty()) {
-        if (editor.$el.is(':focus')) {
+      if (defaultTag() != null && editor.core.isEmpty() && editor.$el.find(blockTagsQuery()).length === 0) {
+        if (editor.core.hasFocus()) {
           editor.$el.html('<' + defaultTag() + '>' + $.FroalaEditor.MARKERS + '<br/></' + defaultTag() + '>');
           editor.selection.restore();
         }
@@ -4935,7 +5106,6 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       if (!editor.core.isEmpty()) {
         if (typeof keep_markers == 'undefined') keep_markers = false;
 
-        var html;
         if (!editor.opts.fullPage) {
           html = editor.$el.html();
         }
@@ -5146,16 +5316,18 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       }
 
       var $possible_elements;
+      var removed;
       do {
-        var removed = false;
+        removed = false;
         $possible_elements = editor.$el.find('*').not($el).not('.fr-marker');
-        $possible_elements.each(function () {
-          var text = this.textContent;
-          if ($(this).find('*').length == 0 && text.length == 1 && text.charCodeAt(0) == 8203) {
-            $(this).remove();
+        for (var i = 0; i < $possible_elements.length; i++) {
+          var el = $possible_elements.get(i);
+          var text = el.textContent;
+          if ($(el).find('*').length === 0 && text.length === 1 && text.charCodeAt(0) == 8203) {
+            $(el).remove();
             removed = true;
           }
-        });
+        }
       } while (removed);
     }
 
@@ -5296,6 +5468,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
   });
 
   $.FroalaEditor.MODULES.keys = function (editor) {
+    var IME = false;
+
     /**
      * ENTER.
      */
@@ -5392,9 +5566,28 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
     }
 
     /**
+     * Handle typing in Korean for FF.
+     */
+    function _input () {
+      // Select is collapsed and we're not using IME.
+      if (editor.browser.mozilla && editor.selection.isCollapsed() && !IME) {
+        var range = editor.selection.ranges(0);
+        var start_container = range.startContainer;
+        var start_offset = range.startOffset;
+
+        // Start container is text and last char before cursor is space.
+        if (start_container && start_container.nodeType == Node.TEXT_NODE && start_offset <= start_container.textContent.length && start_offset > 0 && start_container.textContent.charCodeAt(start_offset - 1) == 32) {
+          editor.selection.save();
+          editor.html.normalizeSpaces();
+          editor.selection.restore();
+        }
+      }
+    }
+
+    /**
      * Cut.
      */
-    function _cut(e) {
+    function _cut() {
       if (editor.selection.isFull()) {
         setTimeout(function () {
           var default_tag = editor.html.defaultTag();
@@ -5436,10 +5629,13 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
       var key_code = e.which;
 
-      // Other key when CTRL_A is set to true.
-      if (editor.selection.isFull()) {
-        if ((isCharacter(key_code) && !ctrlKey(e)) || key_code == $.FroalaEditor.KEYCODE.BACKSPACE || key_code == $.FroalaEditor.KEYCODE.DELETE) {
-          editor.CTRL_A = false;
+      var char_key = (isCharacter(key_code) && !ctrlKey(e));
+      var del_key = (key_code == $.FroalaEditor.KEYCODE.BACKSPACE || key_code == $.FroalaEditor.KEYCODE.DELETE);
+
+      // 1. Selection is full.
+      // 2. Del key is hit, editor is empty and there is keepFormatOnDelete.
+      if ((editor.selection.isFull() && !editor.opts.keepFormatOnDelete) || (del_key && editor.placeholder.isVisible() && editor.opts.keepFormatOnDelete)) {
+        if (char_key || del_key) {
           var default_tag = editor.html.defaultTag();
           if (default_tag) {
             editor.$el.html('<' + default_tag + '>' + $.FroalaEditor.MARKERS + '<br/></' + default_tag + '>');
@@ -5447,9 +5643,9 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
           else {
             editor.$el.html($.FroalaEditor.MARKERS + '<br/>');
           }
-
-          editor.selection.restore();
         }
+
+        editor.selection.restore();
       }
 
       // ENTER.
@@ -5463,12 +5659,12 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       }
 
       // Backspace.
-      else if (key_code == $.FroalaEditor.KEYCODE.BACKSPACE) {
+      else if (key_code == $.FroalaEditor.KEYCODE.BACKSPACE && !ctrlKey(e)) {
         _backspace(e);
       }
 
       // Delete.
-      else if (key_code == $.FroalaEditor.KEYCODE.DELETE) {
+      else if (key_code == $.FroalaEditor.KEYCODE.DELETE && !ctrlKey(e)) {
         _del(e);
       }
 
@@ -5494,7 +5690,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       for (var i = 0; i < contents.length; i++) {
         if (contents[i].nodeType == Node.TEXT_NODE && /\u200B/gi.test(contents[i].textContent)) {
           contents[i].textContent = contents[i].textContent.replace(/\u200B/gi, '');
-          if (contents[i].textContent.length == 0) {
+          if (contents[i].textContent.length === 0) {
             $(contents[i]).remove();
           }
         }
@@ -5502,10 +5698,52 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       }
     }
 
+    function _positionCaret () {
+      var info;
+      if (!editor.opts.height && !editor.opts.heightMax) {
+        // Make sure we scroll bottom.
+        info = editor.position.getBoundingRect().top;
+        if (editor.opts.iframe) {
+          info += editor.$iframe.offset().top;
+        }
+
+        if (info > $(editor.original_window).height() - 20) {
+          $(editor.original_window).scrollTop(info + $(editor.original_window).scrollTop() - $(editor.original_window).height() + 20);
+        }
+
+        // Make sure we scroll top.
+        info = editor.position.getBoundingRect().top;
+        if (editor.opts.iframe) {
+          info += editor.$iframe.offset().top;
+        }
+        if (info < editor.$tb.height() + 20) {
+          $(editor.original_window).scrollTop(info + $(editor.original_window).scrollTop() - editor.$tb.height() - 20);
+        }
+      }
+      else {
+        // Make sure we scroll bottom.
+        info = editor.position.getBoundingRect().top;
+
+        if (editor.opts.iframe) {
+          info += editor.$iframe.offset().top;
+        }
+
+        if (info > editor.$wp.offset().top - $(editor.original_window).scrollTop() + editor.$wp.height() - 20) {
+          editor.$wp.scrollTop(info + editor.$wp.scrollTop() - (editor.$wp.height() + editor.$wp.offset().top) + $(editor.original_window).scrollTop() + 20);
+        }
+      }
+    }
+
     /**
      * Map keyUp actions.
      */
     function _mapKeyUp () {
+      _positionCaret();
+
+      // IME IE.
+      if (IME) return false;
+      if (!editor.selection.isCollapsed()) return false;
+
       // Remove BR from elements that are not empty.
       var brs = editor.$el.find(editor.html.blockTagsQuery()).andSelf().not('TD, TH').find(' > br');
       for (var i = 0; i < brs.length; i++) {
@@ -5518,7 +5756,9 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         var parent_node = editor.node.blockParent(br) || editor.$el.get(0);
 
         if (prev_node && parent_node && prev_node.tagName != 'BR' && !editor.node.isBlock(prev_node) && !next_node && $(parent_node).text().replace(/\u200B/g, '').length > 0 && $(prev_node).text().length > 0) {
+          editor.selection.save();
           $(br).remove();
+          editor.selection.restore();
         }
       }
 
@@ -5633,12 +5873,12 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       }
     }
 
-
     /**
      * Tear up.
      */
     function _init () {
       editor.events.on('keydown', _typingKeyDown);
+      editor.events.on('input', _input);
       editor.events.on('keyup', _typingKeyUp);
 
       // Register for handling.
@@ -5647,6 +5887,23 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
       // Handle cut.
       editor.events.on('cut', _cut);
+
+
+      // IME
+      if (editor.$el.get(0).msGetInputContext) {
+        try {
+          editor.$el.get(0).msGetInputContext().addEventListener('MSCandidateWindowShow', function () {
+            IME = true;
+          })
+
+          editor.$el.get(0).msGetInputContext().addEventListener('MSCandidateWindowHide', function () {
+            IME = false;
+            _mapKeyUp();
+          })
+        }
+        catch (ex) {
+        }
+      }
     }
 
     return {
@@ -5712,9 +5969,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
   // Extend defaults.
   $.extend($.FroalaEditor.DEFAULTS, {
     placeholderText: 'Type something',
-    placeholderFontSize: 14,
-    placeholderFontFamily: 'Arial, Helvetica, sans-serif',
-    placeholderLineHeight: 1.4
+    placeholderFontFamily: 'Arial, Helvetica, sans-serif'
   });
 
   $.FroalaEditor.MODULES.placeholder = function (editor) {
@@ -5729,14 +5984,14 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         editor.$placeholder.css('line-height', $(contents[0]).css('line-height'));
       }
       else {
-        editor.$placeholder.css('font-size', editor.opts.placeholderFontSize);
-        editor.$placeholder.css('line-height', editor.opts.placeholderLineHeight);
+        editor.$placeholder.css('font-size', editor.$el.css('font-size'));
+        editor.$placeholder.css('line-height', editor.$el.css('line-height'));
       }
 
       editor.$wp.addClass('show-placeholder');
       editor.$placeholder
         .css('margin-top', margin_top)
-        .text(editor.opts.placeholderText);
+        .text(editor.opts.placeholderText || editor.$original_element.attr('placeholder') || '');
     }
 
     /* Hide placeholder. */
@@ -5761,18 +6016,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       }
     }
 
-    /* Update the placeholder based on the options. */
-    function _update () {
-      editor.$placeholder
-        .text(editor.opts.placeholderText)
-        .css('font-size', editor.opts.placeholderFontSize)
-        .css('font-family', editor.opts.placeholderFontFamily)
-        .css('line-height', editor.opts.placeholderLineHeight);
-    }
-
     /* Initialize */
     function _up () {
-      _update();
       refresh();
     }
 
@@ -5814,14 +6059,21 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
   $.FroalaEditor.MODULES.size = function (editor) {
     function syncIframe () {
+      if (editor.opts.height) {
+        editor.$el.css('minHeight', editor.opts.height - editor.helpers.getPX(editor.$el.css('padding-top')) - editor.helpers.getPX(editor.$el.css('padding-bottom')));
+      }
+
       editor.$iframe.height(editor.$el.outerHeight(true));
     }
 
     function refresh () {
-      editor.$el.height(editor.opts.height);
+      // Set height.
+      editor.$wp.height(editor.opts.height);
+      editor.$el.css('minHeight', editor.opts.height - editor.helpers.getPX(editor.$el.css('padding-top')) - editor.helpers.getPX(editor.$el.css('padding-bottom')));
+
       editor.$el.css('minHeight', editor.opts.heightMin);
       editor.$wp.css('maxHeight', editor.opts.heightMax);
-      editor.$wp.width(editor.opts.width)
+      editor.$box.width(editor.opts.width)
     }
 
     function _init () {
@@ -5886,7 +6138,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
     function _handlePaste (e) {
       if (e.originalEvent) e = e.originalEvent;
 
-      if (editor.events.trigger('paste.before', [e]) == false) {
+      if (editor.events.trigger('paste.before', [e]) === false) {
         return false;
       }
 
@@ -5918,7 +6170,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         }
 
         else if (/text\/plain/.test(types) && !this.browser.mozilla) {
-          clipboard_html = editor.html.escapeEntities(e.clipboardData.getData('text/plain')).replace(/\n/g, '<br/>');
+          clipboard_html = editor.html.escapeEntities(e.clipboardData.getData('text/plain')).replace(/\n/g, '<br>');
         }
 
         if (clipboard_html !== '') {
@@ -6059,7 +6311,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         var $li = $(li);
         if ($li.prev('li').length > 0) {
           var $list = $li.prev('li').find('> ul, > ol');
-          if ($list.length == 0) {
+          if ($list.length === 0) {
             $list = $('ul');
             $li.prev('li').append($list);
           }
@@ -6172,6 +6424,11 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
       // Check if there is anything to clean.
       if (clipboard_html !== '') {
+        // Normalize spaces.
+        var $tmp = $('<div>').html(clipboard_html);
+        editor.html.normalizeSpaces($tmp.get(0));
+        clipboard_html = $tmp.html();
+
         // Insert HTML.
         editor.html.insert(clipboard_html, true);
       }
@@ -6210,7 +6467,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       var divs = $div.find('> div:not([style]), td > div, th > div, li > div');
       while (divs.length) {
         var $dv = $(divs[divs.length - 1]);
-        $dv.replaceWith($dv.html() + '<br/>');
+        $dv.replaceWith($dv.html() + '<br>');
         divs = $div.find('> div:not([style]), td > div, th > div, li > div');
       }
 
@@ -6424,7 +6681,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       snapshot.html = editor.$el.html();
 
       snapshot.ranges = [];
-      if (editor.selection.inEditor() && editor.$el.is(':focus')) {
+      if (editor.selection.inEditor() && editor.core.hasFocus()) {
         var ranges = editor.selection.ranges();
         for (var i = 0; i < ranges.length; i++) {
           snapshot.ranges.push(_getRange(ranges[i]));
@@ -6584,7 +6841,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       // Get command, value and additional params.
       var cmd = $btn.data('cmd');
       var params = [];
-      while ($btn.data('param' + (params.length + 1))) {
+      while (typeof $btn.data('param' + (params.length + 1)) != 'undefined') {
         params.push($btn.data('param' + (params.length + 1)));
       }
 
@@ -6609,7 +6866,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
     function _click (e) {
       var $btn = $(e.currentTarget);
 
-      if ($btn.parents('.fr-popup').length == 0) {
+      if ($btn.parents('.fr-popup').length == 0 && !$btn.data('popup')) {
         editor.popups.hideAll();
       }
 
@@ -6666,8 +6923,10 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       // Hide dropdowns that might be active.
       var _document = $el.get(0).ownerDocument;
       var _window = 'defaultView' in _document ? _document.defaultView : _document.parentWindow;
-      var hideDropdowns = function () {
-        _hideActiveDropdowns($el);
+      var hideDropdowns = function (e) {
+        if (!e || (e.type == 'mouseup' && e.target != $('html').get(0)) || (e.type == 'keydown' && ((editor.keys.isCharacter(e.which) && !editor.keys.ctrlKey(e)) || e.which == $.FroalaEditor.KEYCODE.ESC))) {
+          _hideActiveDropdowns($el);
+        }
       }
       $(_window).on(editor._mouseup + '.command' + editor.id + ' resize.command' + editor.id + ' keydown.command' + editor.id, hideDropdowns);
 
@@ -6734,7 +6993,9 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         icon = editor.icon.create(info.icon || command)
       }
 
-      var btn = '<a role="button" tabindex="-1" title="' + editor.language.translate(info.title) + '" class="fr-command fr-btn' + (info.type == 'dropdown' ? ' fr-dropdown' : '') + (info.back ? ' fr-back' : '') + '" data-cmd="' + command + '">' + icon + '</a>';
+      var popup = info.popup ? ' data-popup="true"' : '';
+
+      var btn = '<a role="button" tabindex="-1" title="' + editor.language.translate(info.title) + '" class="fr-command fr-btn' + (info.type == 'dropdown' ? ' fr-dropdown' : '') + (info.back ? ' fr-back' : '') + '" data-cmd="' + command + '"' + popup + '>' + icon + '</a>';
 
       if (info.type == 'dropdown') {
         // Build dropdown.
@@ -6796,7 +7057,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       if (editor.events.trigger('buttons.refresh') == false) return false;
 
       setTimeout(function () {
-        var focused = (editor.selection.inEditor() && editor.$el.is(':focus'));
+        var focused = (editor.selection.inEditor() && editor.core.hasFocus());
+
         for (var i = 0; i < buttons.length; i++) {
           var $btn = $(buttons[i]);
           var cmd = $btn.data('cmd');
@@ -6932,7 +7194,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
       // Inline mode when container is toolbar.
       if (editor.opts.toolbarInline && $container && editor.$tb && $container.get(0) == editor.$tb.get(0)) {
-        setContainer(id, editor.opts.toolbarInline ? $('body') : editor.$box);
+        setContainer(id, editor.opts.toolbarInline ? $(editor.opts.scrollableContainer) : editor.$box);
         if (top) top = editor.$tb.offset().top - editor.helpers.getPX(editor.$tb.css('margin-top'));
         if (left) left = editor.$tb.offset().left + editor.$tb.width() / 2;
 
@@ -6970,13 +7232,19 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       }
 
       if (editor.opts.toolbarInline && !editor.helpers.isMobile()) editor.toolbar.hide();
+
+      editor.events.trigger('popups.show.' + id);
+    }
+
+    function onShow (id, callback) {
+      editor.events.on('popups.show.' + id, callback);
     }
 
     /**
      * Find visible popup.
      */
     function isVisible (id) {
-      return (popups[id] && popups[id].hasClass('fr-active'));
+      return (popups[id] && popups[id].hasClass('fr-active')) || false;
     }
 
     /**
@@ -7077,6 +7345,14 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       var html = _buildTemplate(id, template);
 
       var $popup = $('<div class="fr-popup' + (editor.helpers.isMobile() ? ' fr-mobile' : ' fr-desktop') +  (editor.opts.toolbarInline ? ' fr-inline' : '') + '">' + html + '</div>');
+
+      if (editor.opts.theme) {
+        $popup.addClass(editor.opts.theme + '-theme');
+      }
+
+      if (editor.opts.zIndex > 1) {
+        editor.$tb.css('z-index', editor.opts.zIndex + 2);
+      }
 
       if (editor.opts.direction != 'auto') {
         $popup.removeClass('fr-ltr fr-rtl').addClass('fr-' + editor.opts.direction);
@@ -7282,8 +7558,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       // Update the position of the popup.
       if (editor.$wp && !editor.helpers.isMobile()) {
         editor.$wp.on('scroll.popup' + id, function (e) {
-          if (isVisible(id) && $popup.parent().get(0) == editor.$box.get(0)) {
-            var p_top = $popup.position().top - editor.$wp.position().top;
+          if (isVisible(id) && $popup.parent().get(0) == $(editor.opts.scrollableContainer).get(0)) {
+            var p_top = $popup.offset().top - editor.$wp.offset().top;
             var w_scroll = editor.$wp.scrollTop();
             var w_height = editor.$wp.outerHeight();
 
@@ -7295,6 +7571,16 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
             }
           }
         });
+      }
+
+      // Toggle checkbox.
+      if (editor.helpers.isIOS()) {
+        $popup.on('touchend', 'label', function () {
+          $('#' + $(this).attr('for')).prop('checked', function (i, val) {
+            return !val;
+          })
+        });
+
       }
 
       return $popup;
@@ -7345,6 +7631,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       setContainer: setContainer,
       refresh: refresh,
       onRefresh: onRefresh,
+      onShow: onShow,
       isVisible: isVisible,
       areVisible: areVisible
     }
@@ -7406,7 +7693,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         var p_offset = $el.parent().offset().top;
         var new_top = top - height - (obj_height || 0);
 
-        if ($el.parent().get(0).tagName == 'BODY') p_offset = p_offset - $el.parent().position().top;
+        if ($el.parent().get(0) == $(editor.opts.scrollableContainer).get(0)) p_offset = p_offset - $el.parent().position().top;
 
         if (p_offset + top + height > $(editor.original_document).outerHeight() && $el.parent().offset().top + new_top > 0) {
           top = new_top;
@@ -7427,13 +7714,13 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       var width = $el.outerWidth();
 
       // Normalize right.
-      if ($el.parent().offset().left + left + width > $(window).width() - 10) {
-       left = $(window).width() - width - 10 - $el.parent().offset().left;
+      if ($el.parent().offset().left + left + width > $(editor.opts.scrollableContainer).width() - 10) {
+       left = $(editor.opts.scrollableContainer).width() - width - 10 - $el.parent().offset().left + $(editor.opts.scrollableContainer).offset().left;
       }
 
       // Normalize left.
-      if ($el.parent().offset().left + left < 0) {
-        left = 10 - $el.parent().offset().left;
+      if ($el.parent().offset().left + left < $(editor.opts.scrollableContainer).offset().left) {
+        left = 10 - $el.parent().offset().left + $(editor.opts.scrollableContainer).offset().left;
       }
 
       return left;
@@ -7496,7 +7783,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 			}
 
       // Position sticky doesn't work when the keyboard is on the screen.
-      if (editor.selection.inEditor() || editor.$tb.find('input:visible:focus').length > 0) {
+      if (editor.core.hasFocus() || editor.$tb.find('input:visible:focus').length > 0) {
         // Get the current scroll.
         var x_scroll = $(window).scrollTop();
 
@@ -7711,8 +7998,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
           animate();
 
           // Hide toolbar on touchmove. This is very useful on iOS versions < 8.
-          $(editor.original_window).on('touchmove.sticky' + editor.id, function () {
-            if (editor.selection.inEditor && editor.$el.is(':focus')) {
+          $(editor.original_window).on('scroll.sticky' + editor.id, function () {
+            if (editor.core.hasFocus()) {
               for (var i = 0; i < editor._stickyElements.length; i++) {
                 var $el = $(editor._stickyElements[i]);
                 var $parent = $el.parent();
@@ -7731,6 +8018,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
         // Default case. Do the updates on scroll.
         else {
           var bulkUpdate = function () {
+            refresh();
+
             for (var i = 0; i < editor._stickyElements.length; i++) {
               _updateSticky(editor._stickyElements[i]);
             }
@@ -7741,6 +8030,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
           editor.events.on('initialized', bulkUpdate);
           editor.events.on('focus', bulkUpdate);
+
+          $(editor.original_window).on('resize', 'textarea', refresh);
         }
       }
     }
@@ -7758,8 +8049,26 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       }
     }
 
+    function refresh () {
+      if (!_testSticky()) {
+        if (!editor.helpers.isIOS()) {
+          for (var i = 0; i < editor._stickyElements.length; i++) {
+            var $el = $(editor._stickyElements[i]);
+            $el.removeClass('fr-sticky-on fr-sticky-off');
+            $el.width('');
+            $el.parent().find('.fr-sticky-dummy').remove();
+            $el.removeData('sticky-offset');
+            $el.removeData('sticky-position');
+            if ($el.css('top')) $el.css('top', $el.data('top'));
+            if ($el.css('bottom')) $el.css('bottom', $el.data('bottom'));
+            $el.removeData('top');
+            $el.removeData('bottom');
+          }
+        }
+      }
+    }
+
     function _destroy () {
-      $(editor.original_window).off('touchmove.sticky' + editor.id);
       $(editor.original_window).off('scroll.sticky' + editor.id);
       $(editor.original_window).off('resize.sticky' + editor.id);
     }
@@ -7773,6 +8082,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
     return {
       require: ['events'],
       _init: _init,
+      refresh: refresh,
       forSelection: forSelection,
       addSticky: addSticky,
       at: at,
@@ -7802,6 +8112,19 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       $btn.toggleClass('fr-disabled', !editor.undo.canRedo());
     }
 
+    function indent ($btn) {
+      var blocks = editor.selection.blocks();
+      for (var i = 0; i < blocks.length; i++) {
+        if (blocks[i].tagName == 'LI' && !blocks[i].previousSibling) {
+          $btn.addClass('fr-disabled');
+        }
+        else {
+          $btn.removeClass('fr-disabled');
+          return true;
+        }
+      }
+    }
+
     function outdent ($btn) {
       var prop = editor.opts.direction == 'rtl' ? 'margin-right' : 'margin-left'
 
@@ -7826,7 +8149,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
       default: _default,
       undo: undo,
       redo: redo,
-      outdent: outdent
+      outdent: outdent,
+      indent: indent
     }
   };
 })(jQuery);
@@ -7841,7 +8165,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
   $.FroalaEditor.MODULES.textEdit = function (editor) {
     function _initPopup () {
       // Image buttons.
-      var txt = '<div id="fr-text-edit-' + editor.id + '" class="fr-layer fr-text-edit-layer"><div class="fr-input-line"><input type="text" placeholder="' + editor.language.translate('Text') + '" tabIndex="1"></div><div class="fr-action-buttons"><button class="fr-command fr-submit" data-cmd="updateText" tabIndex="2">' + editor.language.translate('Update') + '</button></div></div>'
+      var txt = '<div id="fr-text-edit-' + editor.id + '" class="fr-layer fr-text-edit-layer"><div class="fr-input-line"><input type="text" placeholder="' + editor.language.translate('Text') + '" tabIndex="1"></div><div class="fr-action-buttons"><button type="button" class="fr-command fr-submit" data-cmd="updateText" tabIndex="2">' + editor.language.translate('Update') + '</button></div></div>'
 
       var template = {
         edit: txt
@@ -7955,7 +8279,7 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
           if (e && e.which == $.FroalaEditor.KEYCODE.ESC) {
             // Nothing.
           }
-          else if (editor.selection.inEditor() && editor.$el.is(':focus') && !editor.popups.areVisible()) {
+          else if (editor.selection.inEditor() && editor.core.hasFocus() && !editor.popups.areVisible()) {
             if (editor.opts.toolbarVisibleWithoutSelection || editor.selection.text() !== '' || force) {
               // Check if we should actually show the toolbar.
               if (editor.events.trigger('toolbar.show') == false) return false;
@@ -8029,10 +8353,10 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
         // Mobile should handle this as regular.
         if (!editor.helpers.isMobile()) {
-          $('body').append(editor.$tb);
+          $(editor.opts.scrollableContainer).append(editor.$tb);
 
           // Add toolbar to body.
-          editor.$tb.data('container', $('body'));
+          editor.$tb.data('container', $(editor.opts.scrollableContainer));
 
           // Add inline class.
           editor.$tb.addClass('fr-inline');
@@ -8098,6 +8422,8 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
      * Destroy.
      */
     function _destroy () {
+      editor.$box.removeClass('fr-top fr-bottom fr-inline fr-basic');
+      editor.$box.find('.fr-sticky-dummy').remove();
       editor.$tb.off(editor._mousedown + ' ' + editor._mouseup);
       editor.$tb.html('').removeData().remove();
     }
@@ -8110,6 +8436,14 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
 
       // Create toolbar object.
       editor.$tb = $('<div class="fr-toolbar"></div>');
+
+      if (editor.opts.theme) {
+        editor.$tb.addClass(editor.opts.theme + '-theme');
+      }
+
+      if (editor.opts.zIndex > 1) {
+        editor.$tb.css('z-index', editor.opts.zIndex + 1);
+      }
 
       // Set direction.
       if (editor.opts.direction != 'auto') {
@@ -8222,6 +8556,10 @@ if (typeof jQuery === "undefined") { throw new Error("Froala requires jQuery") }
     function _init () {
       if (!editor.helpers.isMobile()) {
         editor.$tooltip = $('<div class="fr-tooltip"></div>');
+
+        if (editor.opts.theme) {
+          editor.$tooltip.addClass(editor.opts.theme + '-theme');
+        }
 
         $('body').append(editor.$tooltip);
 

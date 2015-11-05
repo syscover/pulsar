@@ -186,4 +186,5 @@ return [
     'icon'                                  => 'Icon|Icons',
     'of'                                    => 'of',
     'showing'                               => 'Showing',
+    'wildcard'                              => 'Wildcard|Wildcards',
 ];

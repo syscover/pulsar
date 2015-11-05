@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.0.0-rc.1 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
@@ -75,7 +75,7 @@
         var $popup = editor.popups.get('table.edit');
         if (!$popup) $popup = _initEditPopup();
 
-        editor.popups.setContainer('table.edit', $('body'));
+        editor.popups.setContainer('table.edit', $(editor.opts.scrollableContainer));
         var offset = _selectionOffset(map);
         var left = (offset.left + offset.right) / 2;
         var top = offset.bottom;
@@ -111,7 +111,7 @@
         var $popup = editor.popups.get('table.colors');
         if (!$popup) $popup = _initColorsPopup();
 
-        editor.popups.setContainer('table.colors', $('body'));
+        editor.popups.setContainer('table.colors', $(editor.opts.scrollableContainer));
         var offset = _selectionOffset(map);
         var left = (offset.left + offset.right) / 2;
         var top = offset.bottom;
@@ -129,22 +129,6 @@
     function _hideEditPopup () {
       // Enable toolbar.
       editor.toolbar.enable();
-    }
-
-    /*
-     * Hide insert table popup.
-     */
-    function _hideInsertPopup () {
-      // Hide popup.
-      editor.popups.hide('table.insert');
-    }
-
-    /*
-     * Hide table colors popup.
-     */
-    function _hideColorsPopup () {
-      // Hide popup.
-      editor.popups.hide('table.colors');
     }
 
     /**
@@ -963,9 +947,9 @@
     }
 
     /*
-     * Split cell vertically method.
+     * Split cell horizontally method.
      */
-    function splitCellVertically () {
+    function splitCellHorizontally () {
       // We have only one cell selected in a table.
       if (editor.$el.find('.fr-selected-cell').length == 1) {
         var $selected_cell = editor.$el.find('.fr-selected-cell');
@@ -1044,9 +1028,9 @@
     }
 
     /*
-     * Split cell horizontally method.
+     * Split cell vertically method.
      */
-    function splitCellHorizontally () {
+    function splitCellVertically () {
       // We have only one cell selected in a table.
       if (editor.$el.find('.fr-selected-cell').length == 1) {
         var $selected_cell = editor.$el.find('.fr-selected-cell');
@@ -1490,6 +1474,9 @@
         cell = $target.closest('th').get(0);
       }
 
+      // Cell should reside inside editor.
+      if (editor.$el.find(cell).length === 0) return null;
+
       return cell;
     }
 
@@ -1715,15 +1702,18 @@
 
       // The tag should be a table cell (TD or TH).
       if (tag_under && (tag_under.tagName == 'TD' || tag_under.tagName == 'TH')) {
-        var $tag_under = $(tag_under);
+        $tag_under = $(tag_under);
+
+        // https://github.com/froala/wysiwyg-editor/issues/786.
+        if (editor.$el.find($tag_under).length === 0) return false;
 
         // Tag's left and right coordinate.
         var tag_left = $tag_under.offset().left - 1;
         var tag_right = tag_left + $tag_under.outerWidth();
 
         // Only if the mouse is close enough to the left or right edges.
-        if (Math.abs(tag_left - e.pageX) <= editor.opts.tableResizerOffset ||
-            Math.abs(e.pageX - tag_right) <= editor.opts.tableResizerOffset) {
+        if (Math.abs(e.pageX - tag_left) <= editor.opts.tableResizerOffset ||
+            Math.abs(tag_right - e.pageX) <= editor.opts.tableResizerOffset) {
 
           // Create a table map.
           var map = _tableMap($tag_under.closest('table'));
@@ -1745,7 +1735,7 @@
           var max_right;
 
           // Mouse is near the cells's left margin.
-          if (Math.abs(tag_left - e.pageX) < Math.abs(e.pageX - tag_right)) {
+          if (e.pageX - tag_left <= editor.opts.tableResizerOffset) {
             // Table resizer's left position.
             resizer_left = tag_left;
 
@@ -1786,7 +1776,7 @@
           }
 
           // Mouse is near the cell's right margin.
-          else if (Math.abs(tag_left - e.pageX) >= Math.abs(e.pageX - tag_right)) {
+          else if (tag_right - e.pageX <= editor.opts.tableResizerOffset) {
             // Table resizer's left possition.
             resizer_left = tag_right;
 
@@ -1857,6 +1847,10 @@
           $resizer.css('left', left);
           $resizer.css('height', resizer_height);
           $resizer.find('div').css('height', resizer_height);
+
+          // Set padding according to tableResizerOffset.
+          $resizer.css('padding-left', editor.opts.tableResizerOffset);
+          $resizer.css('padding-right', editor.opts.tableResizerOffset);
 
           // Show table resizer.
           $resizer.show();
@@ -1962,6 +1956,8 @@
       $resizer.removeData('first');
       $resizer.removeData('second');
       $resizer.removeData('table');
+
+      editor.undo.saveStep();
     }
 
     /*
@@ -2149,8 +2145,15 @@
         editor.$el.on('mousedown.table' + editor.id, _mouseDown);
 
         // Deselect table cells when user clicks on an image.
-        editor.events.on('image.mousedown', function () {
+        editor.popups.onShow('image.edit', function () {
           _removeSelection();
+          mouseDownFlag = false;
+        });
+
+        // Deselect table cells when user clicks on a link.
+        editor.popups.onShow('link.edit', function () {
+          _removeSelection();
+          mouseDownFlag = false;
         });
 
         // Deselect table cells when a command is run.
@@ -2284,10 +2287,8 @@
       removeHeader: removeHeader,
       setBackground: setBackground,
       showInsertPopup: _showInsertPopup,
-      hideInsertPopup: _hideInsertPopup,
       showEditPopup: _showEditPopup,
       showColorsPopup: _showColorsPopup,
-      hideColorsPopup: _hideColorsPopup,
       back: back,
       verticalAlign: verticalAlign,
       applyStyle: applyStyle
@@ -2301,15 +2302,21 @@
     undo: false,
     focus: false,
     refreshOnCallback: false,
+    popup: true,
     callback: function () {
-      this.table.showInsertPopup();
+      if (!this.popups.isVisible('table.insert')) {
+        this.table.showInsertPopup();
+      }
+      else {
+        this.popups.hide('table.insert');
+      }
     }
   });
 
   $.FroalaEditor.RegisterCommand('tableInsert', {
     callback: function (cmd, rows, cols) {
       this.table.insert(rows, cols);
-      this.table.hideInsertPopup();
+      editor.popups.hide('table.insert');
     }
   })
 
@@ -2349,14 +2356,14 @@
   });
 
   // Table rows action dropdown.
-  $.FroalaEditor.DefineIcon('tableRows', { NAME: 'bars'})
+  $.FroalaEditor.DefineIcon('tableRows', { NAME: 'bars' })
   $.FroalaEditor.RegisterCommand('tableRows', {
     type: 'dropdown',
     focus: false,
     title: 'Row',
     options: {
-      'above': 'Insert row above',
-      'below': 'Insert row below',
+      above: 'Insert row above',
+      below: 'Insert row below',
       'delete': 'Delete row'
     },
     html: function () {
@@ -2379,14 +2386,14 @@
   });
 
   // Table columns action dropdown.
-  $.FroalaEditor.DefineIcon('tableColumns', { NAME: 'bars fa-rotate-90'})
+  $.FroalaEditor.DefineIcon('tableColumns', { NAME: 'bars fa-rotate-90' })
   $.FroalaEditor.RegisterCommand('tableColumns', {
     type: 'dropdown',
     focus: false,
     title: 'Column',
     options: {
-      'before': 'Insert column before',
-      'after': 'Insert column after',
+      before: 'Insert column before',
+      after: 'Insert column after',
       'delete': 'Delete column'
     },
     html: function () {
@@ -2409,13 +2416,13 @@
   });
 
   // Table cells action dropdown.
-  $.FroalaEditor.DefineIcon('tableCells', { NAME: 'square-o'})
+  $.FroalaEditor.DefineIcon('tableCells', { NAME: 'square-o' })
   $.FroalaEditor.RegisterCommand('tableCells', {
     type: 'dropdown',
     focus: false,
     title: 'Cell',
     options: {
-      'merge': 'Merge cells',
+      merge: 'Merge cells',
       'vertical-split': 'Vertical split',
       'horizontal-split': 'Horizontal split'
     },
@@ -2498,7 +2505,7 @@
       this.table.back();
     },
     refresh: function ($btn) {
-      if (this.$el.find('.fr-selected-cell').length == 0 && !this.opts.toolbarInline ) {
+      if (this.$el.find('.fr-selected-cell').length === 0 && !this.opts.toolbarInline) {
         $btn.addClass('fr-hidden');
         $btn.next('.fr-separator').addClass('fr-hidden');
       }
@@ -2510,15 +2517,15 @@
   });
 
   // Table vertical align dropdown.
-  $.FroalaEditor.DefineIcon('tableVerticalAlign', { NAME: 'arrows-v'})
+  $.FroalaEditor.DefineIcon('tableVerticalAlign', { NAME: 'arrows-v' })
   $.FroalaEditor.RegisterCommand('tableVerticalAlign', {
     type: 'dropdown',
     focus: false,
     title: 'Vertical Align',
     options: {
-      'Top': 'Align Top',
-      'Middle': 'Align Middle',
-      'Bottom': 'Align Bottom'
+      Top: 'Align Top',
+      Middle: 'Align Middle',
+      Bottom: 'Align Bottom'
     },
     html: function () {
       var c = '<ul class="fr-dropdown-list">';

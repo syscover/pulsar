@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.0.0-rc.1 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
@@ -31,6 +31,9 @@
   background: #1e88e5;
   border: solid 1px #ffffff;
   z-index: 4;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .fr-image-resizer .fr-handler.fr-hnw {
   cursor: nw-resize;
@@ -158,10 +161,10 @@
   height: 100%;
   width: 0%;
   background: #1e88e5;
-  -webkit-transition: width 0.2s;
-  -moz-transition: width 0.2s;
-  -ms-transition: width 0.2s;
-  -o-transition: width 0.2s;
+  -webkit-transition: width 0.2s ease 0s;
+  -moz-transition: width 0.2s ease 0s;
+  -ms-transition: width 0.2s ease 0s;
+  -o-transition: width 0.2s ease 0s;
 }
 .fr-image-progress-bar-layer > div.fr-loader.fr-indeterminate span {
   width: 30% !important;

@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.0.0-rc.1 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
@@ -101,6 +101,7 @@
       var tag_top = $tag.offset().top;
       var tag_bottom = $tag.offset().top + $tag.outerHeight();
       var $sibling;
+      var tag;
 
       // Only if the mouse is close enough to the bottom or top edges.
       if (Math.abs(tag_bottom - mouseY) <= editor.opts.lineBreakerOffset ||
@@ -108,7 +109,7 @@
 
         // Mouse is near bottom check for next sibling.
         if (Math.abs(tag_bottom - mouseY) < Math.abs(mouseY - tag_top)) {
-          var tag = $tag.get(0);
+          tag = $tag.get(0);
 
           var next_node = tag.nextSibling;
           while (next_node && next_node.nodeType == Node.TEXT_NODE && next_node.textContent.length === 0) {
@@ -134,7 +135,7 @@
 
         // Mouse is near top check for prev sibling.
         else {
-          var tag = $tag.get(0);
+          tag = $tag.get(0);
 
           // No prev sibling.
           if (!tag.previousSibling) {

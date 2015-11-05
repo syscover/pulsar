@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.0.0-rc.1 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
@@ -187,10 +187,15 @@
      */
     function refresh($btn, tag_name) {
       var $el = $(editor.selection.element());
-      var li = $el.closest('li').get(0);
+      if ($el.get(0) != editor.$el.get(0)) {
+        var li = $el.get(0);
+        if (li.tagName != 'LI') {
+          li = $el.parents('li').get(0);
+        }
 
-      if (li && li.parentNode.tagName == tag_name) {
-        $btn.addClass('fr-active');
+        if (li && li.parentNode.tagName == tag_name) {
+          $btn.addClass('fr-active');
+        }
       }
     }
 
@@ -276,6 +281,35 @@
      */
     function _init () {
       editor.events.on('commands.after', _afterCommand);
+
+      // TAB key in lists.
+      editor.events.on('keydown', function (e) {
+        if (e.which == $.FroalaEditor.KEYCODE.TAB) {
+          var do_indent;
+          var blocks = editor.selection.blocks();
+          var blks = [];
+          for (var i = 0; i < blocks.length; i++) {
+            if (blocks[i].tagName == 'LI') {
+              do_indent = true;
+              blks.push(blocks[i]);
+            }
+            else if (blocks[i].parentNode.tagName == 'LI') {
+              do_indent = true;
+              blks.push(blocks[i].parentNode);
+            }
+          }
+
+          if (do_indent) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (!e.shiftKey) _indent(blks);
+            else _outdent(blks);
+
+            return false;
+          }
+        }
+      }, true);
     }
 
     return {

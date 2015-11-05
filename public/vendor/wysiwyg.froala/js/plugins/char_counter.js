@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.0.0-rc.1 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
@@ -50,7 +50,7 @@
      * Check chars on paste.
      */
     function _checkCharNumberOnPaste (html) {
-      if (editor.opts.charCounterMax < 0) return true;
+      if (editor.opts.charCounterMax < 0) return html;
 
       var len = $('<div>').html(html).text().length;
       if (len + _charNumber() <= editor.opts.charCounterMax) return html;

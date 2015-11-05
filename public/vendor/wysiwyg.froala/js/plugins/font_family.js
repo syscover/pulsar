@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.0.0-rc.1 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
@@ -25,7 +25,7 @@
     }
 
     function refreshOnShow($btn, $dropdown) {
-      var val = $(editor.selection.element()).css('font-family');
+      var val = $(editor.selection.element()).css('font-family').replace(/"/g, '\'').replace(/ /g, '');
       $dropdown.find('.fr-command.fr-active').removeClass('fr-active');
       $dropdown.find('.fr-command[data-param1="' + val + '"]').addClass('fr-active');
 

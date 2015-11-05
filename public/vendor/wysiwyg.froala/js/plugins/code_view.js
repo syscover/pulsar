@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.0.0-rc.1 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
@@ -14,7 +14,7 @@
       tabMode: 'indent',
       indentWithTabs: true,
       lineWrapping: true,
-      mode: "text/html",
+      mode: 'text/html',
       tabSize: 2
     },
     codeBeautifier: true
@@ -23,7 +23,6 @@
   $.FroalaEditor.PLUGINS.codeView = function (editor) {
     var $html_area;
     var code_mirror;
-    var snapshot;
 
     /**
      * Check if code view is enabled.
@@ -92,10 +91,13 @@
         });
       }
 
+      var s_index;
+      var e_index;
+
       // Code mirror is enabled.
       if (code_mirror) {
-        var s_index = html.indexOf('FROALA-SM');
-        var e_index = html.indexOf('FROALA-EM');
+        s_index = html.indexOf('FROALA-SM');
+        e_index = html.indexOf('FROALA-EM');
 
         if (s_index > e_index) {
           s_index = e_index;
@@ -105,24 +107,24 @@
         }
 
         html = html.replace(/FROALA-SM/g, '').replace(/FROALA-EM/g, '')
-        var s_line = html.substring(0, s_index).length - html.substring(0, s_index).replace(/\n/g, "").length;
-        var e_line = html.substring(0, e_index).length - html.substring(0, e_index).replace(/\n/g, "").length;
+        var s_line = html.substring(0, s_index).length - html.substring(0, s_index).replace(/\n/g, '').length;
+        var e_line = html.substring(0, e_index).length - html.substring(0, e_index).replace(/\n/g, '').length;
 
-        var s_index = html.substring(0, s_index).length - html.substring(0, html.substring(0, s_index).lastIndexOf('\n') + 1).length;
-        var e_index = html.substring(0, e_index).length - html.substring(0, html.substring(0, e_index).lastIndexOf('\n')  + 1).length;
+        s_index = html.substring(0, s_index).length - html.substring(0, html.substring(0, s_index).lastIndexOf('\n') + 1).length;
+        e_index = html.substring(0, e_index).length - html.substring(0, html.substring(0, e_index).lastIndexOf('\n')  + 1).length;
 
         code_mirror.setSize(null, height);
         code_mirror.setValue(html);
         code_mirror.focus();
-        code_mirror.setSelection({line: s_line, ch: s_index}, {line: e_line, ch: e_index})
+        code_mirror.setSelection({ line: s_line, ch: s_index }, { line: e_line, ch: e_index })
         code_mirror.refresh();
         code_mirror.clearHistory();
       }
 
       // No code mirror.
       else {
-        var s_index = html.indexOf('FROALA-SM');
-        var e_index = html.indexOf('FROALA-EM') - 9;
+        s_index = html.indexOf('FROALA-SM');
+        e_index = html.indexOf('FROALA-EM') - 9;
 
         $html_area.css('height', height);
         $html_area.val(html.replace(/FROALA-SM/g, '').replace(/FROALA-EM/g, ''));
@@ -164,11 +166,14 @@
         toggle(editor.$tb.find('button[data-cmd="html"]'));
         $html_area.val('').removeData().remove();
       }
+
+      if ($back_button) $back_button.remove();
     }
 
     /**
      * Initialize.
      */
+    var $back_button;
     function _init () {
       if (!editor.$wp) return false;
 
@@ -184,7 +189,7 @@
 
       // Exit code view button for inline toolbar.
       if (editor.opts.toolbarInline) {
-        var $back_button = $('<a data-cmd="html" title="Code View" class="fr-command fr-btn html-switch' + (editor.helpers.isMobile() ? '' : ' fr-desktop') + '" role="button" tabindex="-1"><i class="fa fa-code"></i></button>');
+        $back_button = $('<a data-cmd="html" title="Code View" class="fr-command fr-btn html-switch' + (editor.helpers.isMobile() ? '' : ' fr-desktop') + '" role="button" tabindex="-1"><i class="fa fa-code"></i></button>');
         editor.$box.append($back_button);
 
         editor.events.bindClick(editor.$box, 'a.html-switch', function () {
@@ -808,7 +813,7 @@
           var next_tag = this.get_tag(true /* peek. */ );
 
           // test next_tag to see if it is just html tag (no external content)
-          var tag = (next_tag || "").match(/^\s*<\s*\/?([a-z]*)\s*[^>]*>\s*$/);
+          var tag = (next_tag || '').match(/^\s*<\s*\/?([a-z]*)\s*[^>]*>\s*$/);
 
           // if next_tag comes back but is not an isolated tag, then
           // let's treat the 'a' tag as having content

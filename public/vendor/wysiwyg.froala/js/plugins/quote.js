@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.0.0-rc.1 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
@@ -19,9 +19,10 @@
     function _increase () {
       // Get blocks.
       var blocks = editor.selection.blocks();
+      var i;
 
       // Normalize blocks.
-      for (var i = 0; i < blocks.length; i++) {
+      for (i = 0; i < blocks.length; i++) {
         blocks[i] = _deepestParent(blocks[i]);
       }
 
@@ -30,7 +31,7 @@
 
       var $quote = $('<blockquote>');
       $quote.insertBefore(blocks[0]);
-      for (var i = 0; i < blocks.length; i++) {
+      for (i = 0; i < blocks.length; i++) {
         $quote.append(blocks[i]);
       }
 
@@ -43,8 +44,9 @@
     function _decrease () {
       // Get blocks.
       var blocks = editor.selection.blocks();
+      var i;
 
-      for (var i = 0; i < blocks.length; i++) {
+      for (i = 0; i < blocks.length; i++) {
         if (blocks[i].tagName != 'BLOCKQUOTE') {
           blocks[i] = $(blocks[i]).parentsUntil(editor.$el, 'BLOCKQUOTE').get(0);
         }
@@ -52,7 +54,7 @@
 
       editor.selection.save();
 
-      for (var i = 0; i < blocks.length; i++) {
+      for (i = 0; i < blocks.length; i++) {
         if (blocks[i]) {
           $(blocks[i]).replaceWith(blocks[i].innerHTML);
         }
@@ -92,8 +94,8 @@
     title: 'Quote',
     type: 'dropdown',
     options: {
-      'increase': 'Increase',
-      'decrease': 'Decrease'
+      increase: 'Increase',
+      decrease: 'Decrease'
     },
     callback: function (cmd, val) {
       this.quote.apply(val);

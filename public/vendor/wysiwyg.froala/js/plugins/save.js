@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.0.0-rc.1 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
@@ -43,7 +43,7 @@
       if (typeof html == 'undefined') html = editor.html.get();
 
       // Trigger before save event.
-      if (editor.events.trigger('save.before') == false) return false;
+      if (editor.events.trigger('save.before') === false) return false;
 
       if (editor.opts.saveURL) {
         var params = {};

@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.0.0-rc.1 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
@@ -19,7 +19,7 @@
     linkAutoPrefix: 'http://',
     linkStyles: {
       'fr-green': 'Green',
-      'fr-strong': 'Thik'
+      'fr-strong': 'Thick'
     },
     linkMultipleStyles: true,
     linkConvertEmailAddress: true,
@@ -37,10 +37,11 @@
         target: '_blank'
       },
       {
-        text: 'Facebook',
+        displayText: 'Facebook',
         href: 'https://facebook.com'
       }
-    ]
+    ],
+    linkText: true
   });
 
   $.FroalaEditor.PLUGINS.link = function (editor) {
@@ -69,7 +70,7 @@
 
         return null;
       }
-      else if (editor.$el.get(0).tagName == 'A' && editor.$el.is(':focus')) {
+      else if (editor.$el.get(0).tagName == 'A' && editor.core.hasFocus()) {
         return editor.$el;
       }
       else {
@@ -177,7 +178,7 @@
         editor.popups.refresh('link.edit');
       }
 
-      editor.popups.setContainer('link.edit', $('body'));
+      editor.popups.setContainer('link.edit', $(editor.opts.scrollableContainer));
       var left = $link.offset().left + $(link).outerWidth() / 2;
       var top = $link.offset().top + $link.outerHeight();
 
@@ -206,9 +207,6 @@
       // Set the template in the popup.
       var $popup = editor.popups.create('link.edit', template);
 
-      editor.popups.onHide('link.edit', function (e) {
-      })
-
       if (editor.$wp) {
         editor.$wp.on('scroll.link-edit', function () {
           if (get() && editor.popups.isVisible('link.edit')) {
@@ -236,7 +234,7 @@
       }
     }
 
-    function _refreshInsertPopup (back) {
+    function _refreshInsertPopup () {
       var $popup = editor.popups.get('link.insert');
       var link = get();
 
@@ -246,28 +244,27 @@
         var check_inputs = $popup.find('input.fr-link-attr[type="checkbox"]');
 
 
-        for (var i = 0; i < text_inputs.length; i++) {
-          var $input = $(text_inputs[i]);
+        var i;
+        var $input;
+        for (i = 0; i < text_inputs.length; i++) {
+          $input = $(text_inputs[i]);
           $input.val($link.attr($input.attr('name') || ''));
         }
 
         check_inputs.prop('checked', false);
-        for (var i = 0; i < check_inputs.length; i++) {
-          var $input = $(check_inputs[i]);
+        for (i = 0; i < check_inputs.length; i++) {
+          $input = $(check_inputs[i]);
           if ($link.attr($input.attr('name')) == $input.data('checked')) {
             $input.prop('checked', true);
           }
         }
 
         $popup.find('input.fr-link-attr[type="text"][name="text"]').val($link.text());
-        // $popup.find('button.fr-command[data-cmd="linkInsert"]').text('Update');
       }
       else {
         $popup.find('input.fr-link-attr[type="text"]').val('');
         $popup.find('input.fr-link-attr[type="checkbox"]').prop('checked', false);
         $popup.find('input.fr-link-attr[type="text"][name="text"]').val(editor.selection.text());
-
-        //$popup.find('button.fr-command[data-cmd="linkInsert"]').text('Insert');
       }
 
       $popup.find('input.fr-link-attr').trigger('change');
@@ -289,7 +286,7 @@
 
       if (!$popup.hasClass('fr-active')) {
         editor.popups.refresh('link.insert');
-        editor.popups.setContainer('link.insert', editor.$tb || $('body'));
+        editor.popups.setContainer('link.insert', editor.$tb || $(editor.opts.scrollableContainer));
 
         editor.selection.save();
 
@@ -299,8 +296,8 @@
           editor.popups.show('link.insert', left, top, $btn.outerHeight());
         }
         else {
-          editor.popups.show('link.insert');
           editor.position.forSelection($popup);
+          editor.popups.show('link.insert');
         }
       }
     }
@@ -318,8 +315,11 @@
       var input_layer = '';
       var tab_idx = 0;
       input_layer = '<div class="fr-link-insert-layer fr-layer fr-active" id="fr-link-insert-layer-' + editor.id + '">';
-      input_layer += '<div class="fr-input-line"><input name="href" type="text" class="fr-link-attr" placeholder="http://" tabIndex="' + (++tab_idx) + '"></div>';
-      input_layer += '<div class="fr-input-line"><input name="text" type="text" class="fr-link-attr" placeholder="' + editor.language.translate('Text') + '" tabIndex="' + (++tab_idx) + '"></div>';
+      input_layer += '<div class="fr-input-line"><input name="href" type="text" class="fr-link-attr" placeholder="URL" tabIndex="' + (++tab_idx) + '"></div>';
+
+      if (editor.opts.linkText) {
+        input_layer += '<div class="fr-input-line"><input name="text" type="text" class="fr-link-attr" placeholder="' + editor.language.translate('Text') + '" tabIndex="' + (++tab_idx) + '"></div>';
+      }
 
       // Add any additional fields.
       for (var attr in editor.opts.linkAttributes) {
@@ -370,7 +370,7 @@
       var link = get();
       var $current_image = editor.image ? editor.image.get() : null;
 
-      if (editor.events.trigger('link.beforeRemove', [link]) == false) return false;
+      if (editor.events.trigger('link.beforeRemove', [link]) === false) return false;
 
       if ($current_image && link) {
         $current_image.unwrap();
@@ -402,8 +402,10 @@
       var text_inputs = $popup.find('input.fr-link-attr[type="text"]');
       var check_inputs = $popup.find('input.fr-link-attr[type="checkbox"]');
 
-      for (var i = 0; i < text_inputs.length; i++) {
-        var $input = $(text_inputs[i]);
+      var $input;
+      var i;
+      for (i = 0; i < text_inputs.length; i++) {
+        $input = $(text_inputs[i]);
         if (link[$input.attr('name')]) {
           $input.val(link[$input.attr('name')]);
         }
@@ -412,8 +414,8 @@
         }
       }
 
-      for (var i = 0; i < check_inputs.length; i++) {
-        var $input = $(check_inputs[i]);
+      for (i = 0; i < check_inputs.length; i++) {
+        $input = $(check_inputs[i]);
         $input.prop('checked', $input.data('checked') == link[$input.attr('name')]);
       }
     }
@@ -427,15 +429,17 @@
       var text = text_inputs.filter('[name="text"]').val();
 
       var attrs = {};
-      for (var i = 0; i < text_inputs.length; i++) {
-        var $input = $(text_inputs[i]);
+      var $input;
+      var i;
+      for (i = 0; i < text_inputs.length; i++) {
+        $input = $(text_inputs[i]);
         if (['href', 'text'].indexOf($input.attr('name')) < 0) {
           attrs[$input.attr('name')] = $input.val();
         }
       }
 
-      for (var i = 0; i < check_inputs.length; i++) {
-        var $input = $(check_inputs[i]);
+      for (i = 0; i < check_inputs.length; i++) {
+        $input = $(check_inputs[i]);
         if ($input.is(':checked')) {
           attrs[$input.attr('name')] = $input.data('checked');
         }
@@ -451,37 +455,38 @@
 
     function _split () {
       if (!editor.selection.isCollapsed()) {
-         editor.selection.save();
-         var markers = editor.$el.find('.fr-marker').addClass('fr-unprocessed').toArray();
-         while (markers.length) {
-           var $marker = $(markers.pop());
-           $marker.removeClass('fr-unprocessed');
+        editor.selection.save();
+        var markers = editor.$el.find('.fr-marker').addClass('fr-unprocessed').toArray();
+        while (markers.length) {
+          var $marker = $(markers.pop());
+          $marker.removeClass('fr-unprocessed');
 
-           var deep_parent = editor.node.deepestParent($marker.get(0));
-           if (deep_parent) {
-             var node = $marker.get(0);
-             var close_str = '';
-             var open_str = '';
-             do {
-               node = node.parentNode;
-               if (!editor.node.isBlock(node)) {
-                 close_str = close_str + editor.node.closeTagString(node);
-                 open_str = editor.node.openTagString(node) + open_str;
-               }
-             } while (node != deep_parent);
+          var deep_parent = editor.node.deepestParent($marker.get(0));
+          if (deep_parent) {
+            var node = $marker.get(0);
+            var close_str = '';
+            var open_str = '';
+            do {
+              node = node.parentNode;
+              if (!editor.node.isBlock(node)) {
+                close_str = close_str + editor.node.closeTagString(node);
+                open_str = editor.node.openTagString(node) + open_str;
+              }
+            } while (node != deep_parent);
 
-             var marker_str = editor.node.openTagString($marker.get(0)) + $marker.html() +  editor.node.closeTagString($marker.get(0));
+            var marker_str = editor.node.openTagString($marker.get(0)) + $marker.html() +  editor.node.closeTagString($marker.get(0));
 
-             $marker.replaceWith('<span id="fr-break"></span>');
-             var h = $(deep_parent).html();
-             h = h.replace(/<span id="fr-break"><\/span>/g, close_str + marker_str + open_str);
+            $marker.replaceWith('<span id="fr-break"></span>');
+            var h = $(deep_parent).html();
+            h = h.replace(/<span id="fr-break"><\/span>/g, close_str + marker_str + open_str);
 
-             $(deep_parent).html(h);
-           }
+            $(deep_parent).html(h);
+          }
 
-           markers = editor.$el.find('.fr-marker.fr-unprocessed').toArray();
-         }
-         editor.selection.restore();
+          markers = editor.$el.find('.fr-marker.fr-unprocessed').toArray();
+        }
+
+        editor.selection.restore();
       }
     }
 
@@ -506,7 +511,7 @@
 
       // Convert email address.
       if (editor.opts.linkConvertEmailAddress) {
-        var regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/i;
+        var regex = /^[\w._]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/i;
 
         if (regex.test(href) && href.indexOf('mailto:') !== 0) {
           href = 'mailto:' + href;
@@ -537,8 +542,19 @@
 
       // Check if we have selection only in one link.
       var link = get();
+      var $link;
+
       if (link) {
-        var $link = $(link);
+        $link = $(link);
+
+        // Clear attributes.
+        var a_list = editor.node.rawAttributes(link);
+        for (var attr in a_list) {
+          if (attr != 'class' && attr != 'style') {
+            $link.removeAttr(attr);
+          }
+        }
+
         $link.attr('href', href);
 
         // Change text if it is different.
@@ -559,7 +575,7 @@
           editor.selection.restore();
         }
       }
-      else  {
+      else {
         // We don't have any image selected.
         if (!$current_image) {
           // Remove current links.
@@ -567,20 +583,23 @@
 
           // Nothing is selected.
           if (editor.selection.isCollapsed()) {
-            text = text.length == 0 ? original_href : text;
-            editor.html.insert($.FroalaEditor.START_MARKER + text + $.FroalaEditor.END_MARKER);
+            text = (text.length === 0 ? original_href : text);
+            editor.html.insert('<a href="' + href + '">' + $.FroalaEditor.START_MARKER + text + $.FroalaEditor.END_MARKER + '</a>');
+            editor.selection.restore();
           }
           else {
             if (text.length > 0 && text != editor.selection.text()) {
               editor.selection.remove();
-              editor.html.insert($.FroalaEditor.START_MARKER + text + $.FroalaEditor.END_MARKER);
+              editor.html.insert('<a href="' + href + '">' + $.FroalaEditor.START_MARKER + text + $.FroalaEditor.END_MARKER + '</a>');
+              editor.selection.restore();
+            }
+            else {
+              _split();
+
+              // Add link.
+              editor.document.execCommand('createLink', false, href);
             }
           }
-
-          _split();
-
-          // Add link.
-          editor.document.execCommand('createLink', false, href);
         }
         else {
           // Just wrap current image with a link.
@@ -590,7 +609,7 @@
         // Set attributes.
         var links = allSelected();
         for (var i = 0; i < links.length; i++) {
-          var $link = $(links[i]);
+          $link = $(links[i]);
           $link.attr(attrs);
           $link.removeAttr('_moz_dirty');
         }
@@ -603,11 +622,14 @@
 
           editor.selection.restore();
         }
+        else {
+          editor.popups.hide('link.insert');
+        }
       }
 
       // Hide popup and try to edit.
       if (!$current_image) {
-       editor.popups.get('link.insert');
+        editor.popups.get('link.insert');
         _edit();
       }
       else {
@@ -623,7 +645,6 @@
         var $popup = editor.popups.get('link.insert');
         if (!$popup) $popup = _initInsertPopup();
 
-        var $link = $(link);
         if (!editor.popups.isVisible('link.insert')) {
           editor.popups.refresh('link.insert');
           editor.selection.save();
@@ -634,7 +655,7 @@
           }
         }
 
-        editor.popups.setContainer('link.insert', $('body'));
+        editor.popups.setContainer('link.insert', $(editor.opts.scrollableContainer));
         var $ref = (editor.image ? editor.image.get() : null) || $(link);
         var left = $ref.offset().left + $ref.outerWidth() / 2;
         var top = $ref.offset().top + $ref.outerHeight();
@@ -646,7 +667,6 @@
     function back () {
       var $current_image = editor.image ? editor.image.get() : null;
       if (!$current_image) {
-
         editor.events.disableBlur();
         editor.selection.restore();
         editor.events.enableBlur();
@@ -675,7 +695,7 @@
         if (!$popup) $popup = _initInsertPopup();
 
         _refreshInsertPopup(true);
-        editor.popups.setContainer('link.insert', $('body'));
+        editor.popups.setContainer('link.insert', $(editor.opts.scrollableContainer));
         var left = $current_image.offset().left + $current_image.outerWidth() / 2;
         var top = $current_image.offset().top + $current_image.outerHeight();
 
@@ -713,8 +733,7 @@
       allSelected: allSelected,
       back: back,
       imageLink: imageLink,
-      applyStyle: applyStyle,
-
+      applyStyle: applyStyle
     }
   }
 
@@ -725,8 +744,15 @@
     title: 'Insert Link',
     undo: false,
     focus: true,
+    refreshOnCallback: false,
+    popup: true,
     callback: function () {
-      this.link.showInsertPopup();
+      if (!this.popups.isVisible('link..insert')) {
+        this.link.showInsertPopup();
+      }
+      else {
+        this.popups.hide('link..insert');
+      }
     }
   })
 
@@ -821,7 +847,7 @@
       var c = '<ul class="fr-dropdown-list">';
       var options =  this.opts.linkList;
       for (var i = 0; i < options.length; i++) {
-        c += '<li><a class="fr-command" data-cmd="linkList" data-param1="' + i + '">' + options[i].text + '</a></li>';
+        c += '<li><a class="fr-command" data-cmd="linkList" data-param1="' + i + '">' + (options[i].displayText || options[i].text) + '</a></li>';
       }
       c += '</ul>';
 
@@ -860,8 +886,10 @@
     },
     refresh: function ($btn) {
       var link = this.link.get();
+      var $prev;
+
       if (link) {
-        var $prev = $btn.prev();
+        $prev = $btn.prev();
         if ($prev.hasClass('fr-separator')) {
           $prev.removeClass('fr-hidden');
         }
@@ -869,7 +897,7 @@
         $btn.addClass('fr-hidden');
       }
       else {
-        var $prev = $btn.prev();
+        $prev = $btn.prev();
         if ($prev.hasClass('fr-separator')) {
           $prev.addClass('fr-hidden');
         }

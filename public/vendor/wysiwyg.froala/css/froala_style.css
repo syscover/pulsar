@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.0.0-rc.1 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
@@ -57,24 +57,42 @@
   word-wrap: break-word;
 }
 .fr-view blockquote {
-  border-left: solid 2px #5E35B1;
+  border-left: solid 2px #5e35b1;
   margin-left: 0;
   padding-left: 5px;
-  color: #5E35B1;
+  color: #5e35b1;
 }
 .fr-view blockquote blockquote {
-  border-color: #00BCD4;
-  color: #00BCD4;
+  border-color: #00bcd4;
+  color: #00bcd4;
 }
 .fr-view blockquote blockquote blockquote {
-  border-color: #43A047;
-  color: #43A047;
+  border-color: #43a047;
+  color: #43a047;
 }
 .fr-view a.fr-strong {
   font-weight: 700;
 }
 .fr-view a.fr-green {
   color: green;
+}
+.fr-view span.fr-emoticon {
+  font-weight: normal;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "NotoColorEmoji", "Segoe UI Symbol", "Android Emoji", "EmojiSymbols";
+}
+.text-gray {
+  color: #AAA !important;
+}
+.text-bordered {
+  border-top: solid 1px #222;
+  border-bottom: solid 1px #222;
+  padding: 10px 0;
+}
+.text-spaced {
+  letter-spacing: 1px;
+}
+.text-uppercase {
+  text-transform: uppercase;
 }
 /**
  * Image style.

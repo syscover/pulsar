@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.0.0-rc.1 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
@@ -128,11 +128,12 @@
       var $element = $(editor.selection.element());
 
       // The color css property.
+      var color_type;
       if (tab == 'background') {
-        var color_type = 'background-color';
+        color_type = 'background-color';
       }
       else {
-        var color_type = 'color';
+        color_type = 'color';
       }
 
       // Remove current color selection.
@@ -178,9 +179,6 @@
     function background (val) {
       // Set background  color.
       if (val != 'REMOVE') {
-        editor.events.focus();
-        editor.selection.restore();
-
         editor.commands.applyProperty('background-color', val);
       }
 
@@ -209,7 +207,7 @@
     function text (val) {
       // Set text color.
       if (val != 'REMOVE') {
-        editor.commands.applyProperty('color', val)
+        editor.commands.applyProperty('color', val);
       }
 
       // Remove text color.
@@ -254,8 +252,14 @@
     undo: false,
     focus: false,
     refreshOnCallback: false,
+    popup: true,
     callback: function () {
-      this.colors.showColorsPopup();
+      if (!this.popups.isVisible('colors.picker')) {
+        this.colors.showColorsPopup();
+      }
+      else {
+        this.popups.hide('colors.picker');
+      }
     }
   });
 

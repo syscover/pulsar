@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.0.0-rc.1 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
@@ -8,7 +8,7 @@
   'use strict';
 
   $.extend($.FroalaEditor.POPUP_TEMPLATES, {
-    'file.insert': '[_BUTTONS_][_UPLOAD_LAYER_][_PROGRESS_BAR_]',
+    'file.insert': '[_BUTTONS_][_UPLOAD_LAYER_][_PROGRESS_BAR_]'
   })
 
   // Extend defaults.
@@ -34,15 +34,14 @@
     var BAD_FILE_TYPE = 6;
     var NO_CORS_IE = 7;
 
-    var error_messages = {
-      BAD_LINK: 'File cannot be loaded from the passed link.',
-      MISSING_LINK: 'No link in upload response.',
-      ERROR_DURING_UPLOAD: 'Error during file upload.',
-      BAD_RESPONSE: 'Parsing response failed.',
-      MAX_SIZE_EXCEEDED: 'File is too large.',
-      BAD_FILE_TYPE: 'File file type is invalid.',
-      NO_CORS_IE: 'Files can be uploaded only to same domain in IE 8 and IE 9.'
-    }
+    var error_messages = {};
+    error_messages[BAD_LINK] = 'File cannot be loaded from the passed link.';
+    error_messages[MISSING_LINK] = 'No link in upload response.';
+    error_messages[ERROR_DURING_UPLOAD] = 'Error during file upload.';
+    error_messages[BAD_RESPONSE] = 'Parsing response failed.';
+    error_messages[MAX_SIZE_EXCEEDED] = 'File is too large.';
+    error_messages[BAD_FILE_TYPE] = 'File file type is invalid.';
+    error_messages[NO_CORS_IE] = 'Files can be uploaded only to same domain in IE 8 and IE 9.';
 
     function showInsertPopup () {
       var $btn = editor.$tb.find('.fr-command[data-cmd="insertFile"]');
@@ -70,6 +69,7 @@
       var $popup = editor.popups.get('file.insert');
       $popup.find('.fr-layer.fr-active').removeClass('fr-active').addClass('fr-pactive');
       $popup.find('.fr-file-progress-bar-layer').addClass('fr-active');
+      $popup.find('.fr-buttons').hide();
 
       _setProgressMessage('Uploading', 0);
     }
@@ -77,11 +77,17 @@
     /**
      * Hide progress bar.
      */
-    function hideProgressBar () {
-      if (editor.popups.isVisible('file.insert')) {
-        var $popup = editor.popups.get('file.insert');
+    function hideProgressBar (dismiss) {
+      var $popup = editor.popups.get('file.insert');
+
+      if ($popup) {
         $popup.find('.fr-layer.fr-pactive').addClass('fr-active').removeClass('fr-pactive');
         $popup.find('.fr-file-progress-bar-layer').removeClass('fr-active');
+        $popup.find('.fr-buttons').show();
+
+        if (dismiss) {
+          editor.popups.show('file.insert', null, null);
+        }
       }
     }
 
@@ -143,7 +149,7 @@
      */
     function _parseResponse (response) {
       try {
-        if (editor.events.trigger('file.uploaded', [response], true) == false) {
+        if (editor.events.trigger('file.uploaded', [response], true) === false) {
           editor.edit.on();
           return false;
         }
@@ -172,7 +178,7 @@
         var link = $(response).find('Location').text();
         var key = $(response).find('Key').text();
 
-        if (editor.events.trigger('file.uploadedToS3', [link, key, response], true) == false) {
+        if (editor.events.trigger('file.uploadedToS3', [link, key, response], true) === false) {
           editor.edit.on();
           return false;
         }
@@ -254,7 +260,7 @@
 
     function upload (files) {
       // Check if we should cancel the file upload.
-      if (editor.events.trigger('file.beforeUpload', [files]) == false) {
+      if (editor.events.trigger('file.beforeUpload', [files]) === false) {
         return false;
       }
 
@@ -282,6 +288,8 @@
 
         // Prepare form data for request.
         if (form_data) {
+          var key;
+
           // Upload to S3.
           if (editor.opts.fileUploadToS3 !== false) {
             form_data.append('key', editor.opts.fileUploadToS3.keyStart + (new Date()).getTime() + '-' + (file.name || 'untitled'));
@@ -295,7 +303,7 @@
           }
 
           // Add upload params.
-          for (var key in editor.opts.fileUploadParams) {
+          for (key in editor.opts.fileUploadParams) {
             form_data.append(key, editor.opts.fileUploadParams[key]);
           }
 
@@ -351,15 +359,12 @@
         }
       });
 
-      $popup.on('change', '.fr-file-upload-layer input[type="file"]', function (e) {
+      $popup.on('change', '.fr-file-upload-layer input[type="file"]', function () {
         if (this.files) {
           upload(this.files);
         }
 
-        // IE 9 case.
-        else {
-
-        }
+        // Else IE 9 case.
 
         // Chrome fix.
         $(this).val('');
@@ -373,9 +378,7 @@
     function _initInsertPopup () {
       // Image buttons.
       var file_buttons = '';
-      if (editor.opts.linkInsertButtons.length >= 1) {
-        file_buttons = '<div class="fr-buttons">' + editor.button.buildList(editor.opts.fileInsertButtons) + '</div>';
-      }
+      file_buttons = '<div class="fr-buttons">' + editor.button.buildList(editor.opts.fileInsertButtons) + '</div>';
 
       // File upload layer.
       var upload_layer = '';
@@ -383,7 +386,7 @@
 
 
       // Progress bar.
-      var progress_bar_layer = '<div class="fr-file-progress-bar-layer fr-layer"><h3 class="fr-message">Uploading</h3><div class="fr-loader"><span class="fr-progress"></span></div><div class="fr-action-buttons"><button class="fr-command" data-cmd="fileDismissError" tabIndex="2">OK</button></div></div>';
+      var progress_bar_layer = '<div class="fr-file-progress-bar-layer fr-layer"><h3 class="fr-message">Uploading</h3><div class="fr-loader"><span class="fr-progress"></span></div><div class="fr-action-buttons"><button type="button" class="fr-command" data-cmd="fileDismissError" tabIndex="2">OK</button></div></div>';
 
       var template = {
         buttons: file_buttons,
@@ -395,7 +398,7 @@
       var $popup = editor.popups.create('file.insert', template);
 
       editor.popups.onHide('file.insert', _hideInsertPopup);
-     _bindInsertEvents($popup);
+      _bindInsertEvents($popup);
 
       return $popup;
     }
@@ -434,7 +437,7 @@
               // Show the file insert popup.
               var $popup = editor.popups.get('file.insert');
               if (!$popup) $popup = _initInsertPopup();
-              editor.popups.setContainer('file.insert', $('body'));
+              editor.popups.setContainer('file.insert', $(editor.opts.scrollableContainer));
               editor.popups.show('file.insert', e.originalEvent.pageX, e.originalEvent.pageY);
               showProgressBar();
 
@@ -473,7 +476,8 @@
       showInsertPopup: showInsertPopup,
       upload: upload,
       insert: insert,
-      back: back
+      back: back,
+      hideProgressBar: hideProgressBar
     }
   }
 
@@ -482,8 +486,16 @@
   $.FroalaEditor.RegisterCommand('insertFile', {
     title: 'Upload File',
     undo: false,
+    focus: false,
+    refershAfterCallback: false,
+    popup: true,
     callback: function () {
-      this.file.showInsertPopup();
+      if (!this.popups.isVisible('file.insert')) {
+        this.file.showInsertPopup();
+      }
+      else {
+        this.popups.hide('file.insert');
+      }
     }
   });
 
@@ -508,4 +520,11 @@
       }
     }
   });
+
+  $.FroalaEditor.RegisterCommand('fileDismissError', {
+    title: 'OK',
+    callback: function () {
+      this.file.hideProgressBar(true);
+    }
+  })
 })(jQuery);

@@ -186,4 +186,5 @@ return [
     'icon'                                  => 'Icono|Iconos',
     'of'                                    => 'de',
     'showing'                               => 'Mostrando',
+    'wildcard'                              => 'Comodín|Comodines',
 ];

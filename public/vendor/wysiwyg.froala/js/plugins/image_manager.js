@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.0.0-rc.1 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
@@ -132,8 +132,14 @@
      * The media manager modal HTML.
      */
     function _modalHTML () {
+      var cls = '';
+
+      if (editor.opts.theme) {
+        cls = ' ' + editor.opts.theme + '-theme';
+      }
+
       // Modal wrapper.
-      var html = '<div class="fr-modal"><div class="fr-modal-wrapper">';
+      var html = '<div class="fr-modal' + cls + '"><div class="fr-modal-wrapper">';
 
       // Modal title.
       html += '<div class="fr-modal-title"><div class="fr-modal-title-line"><i class="fa fa-bars fr-modal-more fr-not-available" id="fr-modal-more-' + editor.id + '" title="' + editor.language.translate('Tags') + '"></i><h4 data-text="true">' + editor.language.translate('Manage Images') + '</h4><i title="' + editor.language.translate('Cancel') + '" class="fa fa-times fr-modal-close" id="fr-modal-close-' + editor.id + '"></i></div>';
@@ -170,6 +176,10 @@
 
       $overlay = $('<div class="fr-overlay">').appendTo('body');
 
+      if (editor.opts.theme) {
+        $overlay.addClass(editor.opts.theme + '-theme');
+      }
+
       // Finished building the media manager.
       hide();
     }
@@ -185,24 +195,23 @@
       if (editor.opts.imageManagerLoadURL) {
         // Make GET request to get the images.
         $.ajax({
-          method: editor.opts.imageManagerLoadMethod,
           url: editor.opts.imageManagerLoadURL,
+          method: editor.opts.imageManagerLoadMethod,
           data: editor.opts.imageManagerLoadParams,
           dataType: 'json'
         })
+        // On success start processing the response.
+        .done(function (data, status, xhr) {
+          editor.events.trigger('imageManager.imagesLoaded', [data]);
+          _processLoadedImages(data, xhr.response);
+          $preloader.hide();
+        })
 
-          // On success start processing the response.
-          .done(function (data, status, xhr) {
-            editor.events.trigger('imageManager.imagesLoaded', [data]);
-            _processLoadedImages(data, xhr.response);
-            $preloader.hide();
-          })
-
-          // On fail throw error during request.
-          .fail(function () {
-            var xhr = this.xhr();
-            _throwError(ERROR_DURING_LOAD, xhr.response || xhr.responseText);
-          });
+        // On fail throw error during request.
+        .fail(function () {
+          var xhr = this.xhr();
+          _throwError(ERROR_DURING_LOAD, xhr.response || xhr.responseText);
+        });
       }
 
       // Throw missing imageManagerLoadURL option error.
@@ -514,12 +523,16 @@
       // Image to insert.
       var $img = $(e.currentTarget).siblings('img');
 
+      hide();
+      editor.image.showProgressBar();
+
       if (!$current_image) {
         // Make sure we have focus.
-        editor.events.focus();
+        editor.events.focus(true);
         editor.selection.restore();
 
         var rect = editor.position.getBoundingRect();
+
         var left = rect.left + rect.width / 2;
         var top = rect.top + rect.height;
 
@@ -530,7 +543,6 @@
       else {
         $current_image.trigger('click');
       }
-      editor.image.showProgressBar();
 
       // Copy additional image attributes.
       // data-url is set as src therefore not needed anymore.
@@ -545,7 +557,6 @@
       }
 
       editor.image.insert($img.data('url'), false, img_attributes, $current_image);
-      hide();
     }
 
     /*
@@ -574,7 +585,7 @@
             $.ajax({
               method: editor.opts.imageManagerDeleteMethod,
               url: editor.opts.imageManagerDeleteURL,
-              data: $.extend({src: $img.attr('src')}, editor.opts.imageManagerDeleteParams)
+              data: $.extend({ src: $img.attr('src') }, editor.opts.imageManagerDeleteParams)
             })
 
               // On success remove the image from the image manager.

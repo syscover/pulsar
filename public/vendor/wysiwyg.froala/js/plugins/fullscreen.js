@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.0.0-rc.1 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
@@ -13,7 +13,7 @@
     /**
      * Check if fullscreen mode is active.
      */
-    function _isActive () {
+    function isActive () {
       return editor.$box.hasClass('fr-fullscreen');
     }
 
@@ -73,7 +73,7 @@
      * Exec fullscreen.
      */
     function toggle () {
-      if (!_isActive()) {
+      if (!isActive()) {
         _on();
       }
       else {
@@ -84,7 +84,7 @@
     }
 
     function refresh ($btn) {
-      var active = _isActive();
+      var active = isActive();
 
       $btn.toggleClass('fr-active', active);
       $btn.find('i')
@@ -96,11 +96,14 @@
       if (!editor.$wp) return false;
 
       $(editor.original_window).on('resize.fullscreen' + editor.id, function () {
-        if (_isActive()) _on();
+        if (isActive()) {
+          _off();
+          _on();
+        }
       });
 
       editor.events.on('toolbar.hide', function () {
-        if (_isActive() && editor.helpers.isMobile()) return false;
+        if (isActive() && editor.helpers.isMobile()) return false;
       })
 
       editor.events.on('destroy', function () {
@@ -111,7 +114,8 @@
     return {
       _init: _init,
       toggle: toggle,
-      refresh: refresh
+      refresh: refresh,
+      isActive: isActive
     }
   }
 

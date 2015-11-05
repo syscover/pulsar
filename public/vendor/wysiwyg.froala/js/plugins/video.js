@@ -1,5 +1,5 @@
 /*!
- * froala_editor v2.0.0-rc.1 (https://www.froala.com/wysiwyg-editor/v2.0)
+ * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
@@ -83,7 +83,7 @@
         editor.popups.refresh('video.insert');
         editor.popups.setContainer('video.insert', editor.$tb);
 
-        if (editor.$el.is(':focus')) {
+        if (editor.core.hasFocus()) {
           editor.selection.save();
         }
 
@@ -100,7 +100,7 @@
       var $popup = editor.popups.get('video.edit');
       if (!$popup) $popup = _initEditPopup();
 
-      editor.popups.setContainer('video.edit', $('body'));
+      editor.popups.setContainer('video.edit', $(editor.opts.scrollableContainer));
       editor.popups.refresh('video.edit');
 
       var $video_obj = $current_video.find('iframe, embed, video');
@@ -120,13 +120,13 @@
       // Video by url layer.
       var by_url_layer = '';
       if (editor.opts.videoInsertButtons.indexOf('videoByURL') >= 0) {
-        by_url_layer = '<div class="fr-video-by-url-layer fr-layer fr-active" id="fr-video-by-url-layer-' + editor.id + '"><div class="fr-input-line"><input type="text" placeholder="http://" tabIndex="1"></div><div class="fr-action-buttons"><button class="fr-command fr-submit" data-cmd="videoInsertByURL" tabIndex="2">' + editor.language.translate('Insert') + '</button></div></div>'
+        by_url_layer = '<div class="fr-video-by-url-layer fr-layer fr-active" id="fr-video-by-url-layer-' + editor.id + '"><div class="fr-input-line"><input type="text" placeholder="http://" tabIndex="1"></div><div class="fr-action-buttons"><button type="button" class="fr-command fr-submit" data-cmd="videoInsertByURL" tabIndex="2">' + editor.language.translate('Insert') + '</button></div></div>'
       }
 
       // Video embed layer.
       var embed_layer = '';
       if (editor.opts.videoInsertButtons.indexOf('videoEmbed') >= 0) {
-        embed_layer = '<div class="fr-video-embed-layer fr-layer" id="fr-video-embed-layer-' + editor.id + '"><div class="fr-input-line"><textarea type="text" placeholder="' + editor.language.translate('Embedded Code') + '" tabIndex="1" rows="5"></textarea></div><div class="fr-action-buttons"><button class="fr-command fr-submit" data-cmd="videoInsertEmbed" tabIndex="2">' + editor.language.translate('Insert') + '</button></div></div>'
+        embed_layer = '<div class="fr-video-embed-layer fr-layer" id="fr-video-embed-layer-' + editor.id + '"><div class="fr-input-line"><textarea type="text" placeholder="' + editor.language.translate('Embedded Code') + '" tabIndex="1" rows="5"></textarea></div><div class="fr-action-buttons"><button type="button" class="fr-command fr-submit" data-cmd="videoInsertEmbed" tabIndex="2">' + editor.language.translate('Insert') + '</button></div></div>'
       }
 
       var template = {
@@ -259,7 +259,7 @@
         code = $popup.find('.fr-video-embed-layer textarea').val() || '';
       }
 
-      if (code.length == 0) {
+      if (code.length === 0) {
         editor.events.trigger('video.codeError', [code]);
       }
       else {
@@ -274,9 +274,16 @@
       e.preventDefault();
       e.stopPropagation();
 
+      var c_x = e.pageX || (e.originalEvent.touches ? e.originalEvent.touches[0].pageX : null);
+      var c_y = e.pageY || (e.originalEvent.touches ? e.originalEvent.touches[0].pageY : null);
+
+      if (!c_x || !c_y) {
+        return false;
+      }
+
       $handler = $(this);
-      $handler.data('start-x', e.pageX || e.originalEvent.touches[0].pageX);
-      $handler.data('start-y', e.pageY || e.originalEvent.touches[0].pageY);
+      $handler.data('start-x', c_x);
+      $handler.data('start-y', c_y);
       $overlay.show();
       editor.popups.hideAll();
     }
@@ -438,7 +445,7 @@
      * Exit edit.
      */
     function _exitEdit (force_exit) {
-      if (force_exit == true) exit_flag = true;
+      if (force_exit === true) exit_flag = true;
 
       if ($current_video && exit_flag) {
         $video_resizer.removeClass('fr-active');
@@ -529,7 +536,7 @@
       if (!$popup) $popup = _initSizePopup();
 
       editor.popups.refresh('video.size');
-      editor.popups.setContainer('video.size', $('body'));
+      editor.popups.setContainer('video.size', $(editor.opts.scrollableContainer));
       var $video_obj = $current_video.find('iframe, embed, video')
       var left = $video_obj.offset().left + $video_obj.width() / 2;
       var top = $video_obj.offset().top + $video_obj.height();
@@ -547,7 +554,7 @@
 
       // Size layer.
       var size_layer = '';
-      size_layer = '<div class="fr-video-size-layer fr-layer fr-active" id="fr-video-size-layer-' + editor.id + '"><div class="fr-video-group"><div class="fr-input-line"><input type="text" name="width" placeholder="' + editor.language.translate('Width') + '" tabIndex="1"></div><div class="fr-input-line"><input type="text" name="height" placeholder="' + editor.language.translate('Height') + '" tabIndex="1"></div></div><div class="fr-action-buttons"><button class="fr-command fr-submit" data-cmd="videoSetSize" tabIndex="2">'+ editor.language.translate('Update') + '</button></div></div>';
+      size_layer = '<div class="fr-video-size-layer fr-layer fr-active" id="fr-video-size-layer-' + editor.id + '"><div class="fr-video-group"><div class="fr-input-line"><input type="text" name="width" placeholder="' + editor.language.translate('Width') + '" tabIndex="1"></div><div class="fr-input-line"><input type="text" name="height" placeholder="' + editor.language.translate('Height') + '" tabIndex="1"></div></div><div class="fr-action-buttons"><button type="button" class="fr-command fr-submit" data-cmd="videoSetSize" tabIndex="2">' + editor.language.translate('Update') + '</button></div></div>';
 
       var template = {
         buttons: video_buttons,
@@ -651,7 +658,7 @@
      */
     function remove () {
       if ($current_video) {
-        if (editor.events.trigger('video.beforeRemove', [$current_video]) != false) {
+        if (editor.events.trigger('video.beforeRemove', [$current_video]) !== false) {
           var $video = $current_video;
           editor.popups.hideAll();
           _exitEdit(true);
@@ -676,10 +683,10 @@
         $video.css('float', 'none');
         if ($video.css('display') == 'block') {
           $video.css('float', flt);
-          if (parseInt($video.css('margin-left'), 10) == 0 && ($video.attr('style') || '').indexOf('margin-right: auto') >= 0) {
+          if (parseInt($video.css('margin-left'), 10) === 0 && ($video.attr('style') || '').indexOf('margin-right: auto') >= 0) {
             $video.addClass('fr-fvl');
           }
-          else if (parseInt($video.css('margin-right'), 10) == 0 && ($video.attr('style') || '').indexOf('margin-left: auto') >= 0) {
+          else if (parseInt($video.css('margin-right'), 10) === 0 && ($video.attr('style') || '').indexOf('margin-left: auto') >= 0) {
             $video.addClass('fr-fvr');
           }
 
@@ -744,13 +751,13 @@
         else {
           $.extend(style, {
             'float': 'none',
-            'margin': 'auto'
+            margin: 'auto'
           });
         }
       }
       else {
         $.extend(style, {
-          'display': 'inline-block'
+          display: 'inline-block'
         });
 
         if ($video.hasClass('fr-fvr')) {
@@ -771,7 +778,7 @@
       }
 
       $video.removeClass('fr-dvb fr-dvi fr-fvr fr-fvl fr-fvn');
-      if ($video.attr('class') == '') $video.removeAttr('class');
+      if ($video.attr('class') === '') $video.removeAttr('class');
 
       $video.css(style);
     }
@@ -782,7 +789,7 @@
     function _refreshVideoList () {
       // Find possible candidates that are not wrapped.
       editor.$el.find('video').filter(function () {
-        return $(this).parents('span.fr-video').length == 0;
+        return $(this).parents('span.fr-video').length === 0;
       }).wrap('<span class="fr-video"></span>');
 
       editor.$el.find('embed, iframe').filter(function () {
@@ -797,7 +804,7 @@
         }
         return false;
       }).map(function () {
-        return $(this).parents('object').length == 0 ? this : $(this).parents('object').get(0);
+        return $(this).parents('object').length === 0 ? this : $(this).parents('object').get(0);
       }).wrap('<span class="fr-video"></span>');
 
       var videos = editor.$el.find('span.fr-video');
@@ -940,8 +947,14 @@
     undo: false,
     focus: false,
     refreshAfterCallback: false,
+    popup: true,
     callback: function () {
-      this.video.showInsertPopup();
+      if (!this.popups.isVisible('video.insert')) {
+        this.video.showInsertPopup();
+      }
+      else {
+        this.popups.hide('video.insert');
+      }
     }
   })
 
@@ -1000,8 +1013,8 @@
     title: 'Display',
     type: 'dropdown',
     options: {
-      'inline': 'Inline',
-      'block': 'Break Text'
+      inline: 'Inline',
+      block: 'Break Text'
     },
     callback: function (cmd, val) {
       this.video.display(val);
@@ -1015,14 +1028,14 @@
   })
 
   // Image align.
-  $.FroalaEditor.DefineIcon('videoAlign', { NAME: 'align-center'})
+  $.FroalaEditor.DefineIcon('videoAlign', { NAME: 'align-center' })
   $.FroalaEditor.RegisterCommand('videoAlign', {
     type: 'dropdown',
     title: 'Align',
     options: {
-      'left': 'Align Left',
-      'justify': 'None',
-      'right': 'Align Right'
+      left: 'Align Left',
+      justify: 'None',
+      right: 'Align Right'
     },
     html: function () {
       var c = '<ul class="fr-dropdown-list">';
@@ -1095,5 +1108,4 @@
       this.video.setSize();
     }
   })
-
 })(jQuery);
