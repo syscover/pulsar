@@ -101,53 +101,64 @@ este es un envío de pruebas, si está recibiendo este correo, su cuenta se ha c
      *  Patterns function to replace their values
      *
      * @access	public
+     * @param   array   $data
      * @return  array
      */
     public static function setTemplate($data)
     {
         /***********************************
-         * Message Subject
+         * Message subject replace
          ************************************/
 
-        if (isset($data['message']))    $data['subject']    = str_replace("#message#", $data['message'], $data['subject']);      // Message coded ID, to track (comunik)
-        if (isset($data['contact']))    $data['subject']    = str_replace("#contact#", $data['contact'], $data['subject']);      // Contact coded ID, to track (comunik)
-        if (isset($data['company']))    $data['subject']    = str_replace("#company#", $data['company'], $data['subject']);      // Company name (comunik)
-        if (isset($data['name']))       $data['subject']    = str_replace("#name#", $data['name'], $data['subject']);            // Contact name (comunik)
-        if (isset($data['surname']))    $data['subject']    = str_replace("#surname#", $data['surname'], $data['subject']);      // Contact surname (comunik)
-        if (isset($data['birthday']))   $data['subject']    = str_replace("#birthday#", $data['birthday'], $data['subject']);    // Birthdate (comunik)
-        if (isset($data['email']))      $data['subject']    = str_replace("#email#", $data['email'], $data['subject']);          // Contact email (comunik)
-        $data['subject']                                    = str_replace("#date#", date('d-m-Y'), $data['subject']);            // Current date
+        //if (isset($data['message']))    $data['subject']    = str_replace("#message#", $data['message'], $data['subject']);      // Message coded ID, to track (comunik)
+        if (isset($data['contactKey'])) $data['subject']    = str_replace("#contactKey#",   $data['contactKey'],                    $data['subject']);  // Contact coded ID, to track (comunik)
+        if (isset($data['company']))    $data['subject']    = str_replace("#company#",      $data['company'],                       $data['subject']);  // Company name (comunik)
+        if (isset($data['name']))       $data['subject']    = str_replace("#name#",         $data['name'],                          $data['subject']);  // Contact name (comunik)
+        if (isset($data['surname']))    $data['subject']    = str_replace("#surname#",      $data['surname'],                       $data['subject']);  // Contact surname (comunik)
+        if (isset($data['birthDate']))  $data['subject']    = str_replace("#birthDate#",    $data['birthDate'],                     $data['subject']);  // BirthDate (comunik)
+        if (isset($data['email']))      $data['subject']    = str_replace("#email#",        $data['email'],                         $data['subject']);  // Contact email (comunik)
+        $data['subject']                                    = str_replace("#date#",         date(config('pulsar.datePattern')),     $data['subject']);  // Current date
 
+        /***********************************
+         * Message html format replace
+         ************************************/
         if(isset($data['html']))
-        {
             $data = self::replaceWildcard($data, 'html');
-        }
 
+        /***********************************
+         * Message text format replace
+         ************************************/
         if(isset($data['text']))
-        {
             $data = self::replaceWildcard($data, 'text');
-        }
 
         return $data;
     }
 
+    /**
+     *  Patterns function to replace their values
+     *
+     * @access	public
+     * @param   array   $data
+     * @param   string  $index
+     * @return  array
+     */
     private static function replaceWildcard($data, $index)
     {
         // Message body
-        $data[$index] = str_replace("#link#", url(config('pulsar::pulsar.rootUri')) . '/comunik/email/services/campanas/show/#message#/#contact#', $data[$index]);
-        $data[$index] = str_replace("#unsubscribe#", url(config('pulsar::pulsar.rootUri')) . '/comunik/contactos/unsubscribe/email/#contact#', $data[$index]);
-        $data[$index] = str_replace("#pixel#", url(config('pulsar::pulsar.rootUri')) . '/comunik/email/services/campanas/analytics/#campana#/#envio#', $data[$index]);
+        $data[$index] = str_replace("#link#", route('showComunikEmailCampaign', ['campaign' => '#campaign#', 'contactKey' => '#contactKey#']), $data[$index]);
+        $data[$index] = str_replace("#unsubscribe#", route('getUnsubscribeComunikContact', ['contactKey' => '#contact#']) , $data[$index]);
+        $data[$index] = str_replace("#pixel#", url(config('pulsar.appName')) . config('comunik.trackPixel'), $data[$index]);
 
-        if (isset($data['message']))    $data[$index]   = str_replace("#message#",    $data['message'],   $data[$index]);     // Message coded ID, to track (comunik)
-        if (isset($data['contact']))    $data[$index]   = str_replace("#contact#",    $data['contact'],   $data[$index]);     // Contact coded ID, to track (comunik)
-        if (isset($data['company']))    $data[$index]   = str_replace("#company#",    $data['company'],   $data[$index]);     // Company name (comunik)
-        if (isset($data['name']))       $data[$index]   = str_replace("#name#",       $data['name'],      $data[$index]);     // Contact name (comunik)
-        if (isset($data['surname']))    $data[$index]   = str_replace("#surname#",    $data['surname'],   $data[$index]);     // Contact surname (comunik)
-        if (isset($data['birthday']))   $data[$index]   = str_replace("#birthday#",   $data['birthday'],  $data[$index]);     // Birthdate (comunik)
-        if (isset($data['email']))      $data[$index]   = str_replace("#email#",      $data['email'],     $data[$index]);     // Contact email (comunik)
-        if (isset($data['campaign']))   $data[$index]   = str_replace("#campaign#",   $data['campaign'],  $data[$index]);     // Campaign coded ID, to track (comunik)
-        if (isset($data['sending']))    $data[$index]   = str_replace("#sending#",    $data['sending'],   $data[$index]);     // Sending coded ID, to track (comunik)
-        $data[$index]                                   = str_replace("#date#",       date('d-m-Y'), $data[$index]);          // Current date
+        //if (isset($data['message']))    $data[$index]   = str_replace("#message#",    $data['message'],   $data[$index]);     // Message coded ID, to track (comunik)
+        if (isset($data['contactKey']))     $data[$index]   = str_replace("#contactKey#",   $data['contactKey'],                   $data[$index]);     // Contact coded ID, to track (comunik)
+        if (isset($data['company']))        $data[$index]   = str_replace("#company#",      $data['company'],                   $data[$index]);     // Company name (comunik)
+        if (isset($data['name']))           $data[$index]   = str_replace("#name#",         $data['name'],                      $data[$index]);     // Contact name (comunik)
+        if (isset($data['surname']))        $data[$index]   = str_replace("#surname#",      $data['surname'],                   $data[$index]);     // Contact surname (comunik)
+        if (isset($data['birthDate']))      $data[$index]   = str_replace("#birthDate#",    $data['birthDate'],                 $data[$index]);     // birth date (comunik)
+        if (isset($data['email']))          $data[$index]   = str_replace("#email#",        $data['email'],                     $data[$index]);     // Contact email (comunik)
+        if (isset($data['campaign']))       $data[$index]   = str_replace("#campaign#",     $data['campaign'],                  $data[$index]);     // Campaign coded ID, to track (comunik)
+        if (isset($data['historicalId']))   $data[$index]   = str_replace("#historicalId#", $data['historicalId'],              $data[$index]);     // Sending coded ID, to track (comunik)
+        $data[$index]                                       = str_replace("#date#",         date(config('pulsar.datePattern')), $data[$index]);     // Current date
 
         // function designed to replace the word #subject# in the title of HTML templates
         if (isset($data['subject'])) $data[$index] = str_replace("#subject#", $data['subject'], $data[$index]);
