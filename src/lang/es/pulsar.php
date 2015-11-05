@@ -108,7 +108,7 @@ return [
     'phone'                                 => 'Teléfono',
     'company_name'                          => 'Nombre empresa',
     'company'                               => 'Empresa',
-    'birthdate'                             => 'Fecha de nacimiento',
+    'birth_date'                            => 'Fecha de nacimiento',
     'tin'                                   => 'CIF',
     'web'                                   => 'Web',
     'cp'                                    => 'CP',
@@ -187,4 +187,5 @@ return [
     'of'                                    => 'de',
     'showing'                               => 'Mostrando',
     'wildcard'                              => 'Comodín|Comodines',
+    'preview'                               => 'Vista previa'
 ];

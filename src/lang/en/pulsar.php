@@ -108,7 +108,7 @@ return [
     'phone'                                 => 'Phone',
     'company_name'                          => 'Company name',
     'company'                               => 'Company | Companies',
-    'birthdate'                             => 'Birthdate',
+    'birth_date'                            => 'Birth date',
     'tin'                                   => 'TIN',
     'web'                                   => 'Web',
     'cp'                                    => 'CP',
@@ -187,4 +187,5 @@ return [
     'of'                                    => 'of',
     'showing'                               => 'Showing',
     'wildcard'                              => 'Wildcard|Wildcards',
+    'preview'                               => 'Preview'
 ];

@@ -16,7 +16,8 @@
         "zendframework/zend-permissions-acl": "2.3.*",
         "mtdowling/cron-expression": "^1.0",
         "tecnickcom/tcpdf": "^6.2",
-        "phpoffice/phpexcel": "^1.8"
+        "phpoffice/phpexcel": "^1.8",
+        "leafo/scssphp": "0.3.3"
     },
     "autoload": {
         "psr-4": {

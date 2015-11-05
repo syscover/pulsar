@@ -1,6 +1,7 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
 use Illuminate\Http\Request;
+use Leafo\ScssPhp\Compiler;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 
@@ -11,6 +12,7 @@ class ContentBuilderController extends Controller {
         // get parameters from url route, input y theme
         $parameters = $request->route()->parameters();
 
+        /*
         if(file_exists (public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/settings.json"))
         {
             $parameters['settings'] = json_decode(file_get_contents(public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/settings.json"), true);
@@ -21,8 +23,23 @@ class ContentBuilderController extends Controller {
             $css                = file_get_contents(public_path() . config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/content.stpl");
             $parameters['css']  = $this->changeWildcards($css, $parameters['settings']);
         }
+*/
+        if(file_exists (public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/style.scss") && file_exists (public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/settings.json"))
+        {
+            $sourceScss = file_get_contents(public_path() . config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/style.scss");
 
-        return view('pulsar::contentbuilder.index', $parameters);
+            $scss = new Compiler();
+            $css = $scss->compile($sourceScss);
+
+            return view('pulsar::common.views.html_display', ['html' => $css]);
+
+            //$parameters['css']  = $this->changeWildcards($css, $parameters['settings']);
+        }
+
+
+
+
+        //return view('pulsar::contentbuilder.index', $parameters);
     }
 
     public function saveImage(Request $request)
