@@ -31,7 +31,7 @@ var PulsarApp = function() {
     "use strict";
 
     /******************************
-     * FIXED duallist box Uniform *
+     * FIXED dual list box        *
      ******************************/
     var fixedConfigureBoxes = function() {
         if ($.configureBoxes)
