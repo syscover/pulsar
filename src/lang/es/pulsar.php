@@ -184,4 +184,6 @@ return [
     'content'                               => 'Contenido|Contenidos',
     'filter_records'                        => 'Filtrar registros',
     'icon'                                  => 'Icono|Iconos',
+    'of'                                    => 'de',
+    'showing'                               => 'Mostrando',
 ];

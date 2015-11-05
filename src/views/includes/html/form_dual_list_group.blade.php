@@ -30,7 +30,7 @@
     <!-- Right box -->
     <div class="right-box">
         <input type="text" id="box{{ $idList2 }}Filter" class="form-control box-filter" placeholder="{{ trans('pulsar::pulsar.filter_records') }}"><button type="button" id="box{{ $idList2 }}Clear" class="filter">x</button>
-        <select id="box{{ $idList2 }}View" multiple="multiple" class="multiple required" name="{{ $name }}[]">
+        <select id="box{{ $idList2 }}View" multiple="multiple" class="multiple dual-list-submit" name="{{ $name }}[]"{{ isset($required) && $required? ' required' : null }}>
             @if(isset($objectsSelect))
                 @foreach ($objectsSelect as $object)
                     <option value="{{ $object->{$idSelect} }}">{{ $object->{$nameSelect} }}</option>

@@ -184,4 +184,6 @@ return [
     'content'                               => 'Content|Contents',
     'filter_records'                        => 'Filter records',
     'icon'                                  => 'Icon|Icons',
+    'of'                                    => 'of',
+    'showing'                               => 'Showing',
 ];

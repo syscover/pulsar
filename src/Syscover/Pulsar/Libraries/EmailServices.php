@@ -17,7 +17,7 @@ use Illuminate\Support\MessageBag;
 class EmailServices {
 
     /**
-     *  Function that sends a email
+     *  Function that send a email
      *
      * @access	public
      * @param   array   $data
