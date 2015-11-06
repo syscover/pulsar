@@ -29,10 +29,16 @@
             // create contentBuilder object
             $("#contentarea").contentbuilder({
                 zoom: 1,
-                snippetFile: '{{ asset(config($package . '.themesFolder') . $theme . '/snippets.html') }}',
+                snippetFile:        '{{ asset(config($package . '.themesFolder') . $theme . '/snippets.html') }}',
                 snippetPathReplace: ['{{ config($package . '.themesFolder') . $theme }}','{{ asset(config($package . '.themesFolder') . $theme . '/') }}'],
-                snippetTool: 'left'
+                snippetTool:        'left'
             });
+
+            @if(isset($input))
+            // load html from parent if input cont
+            $("#contentarea").data('contentbuilder').loadHTML(parent.$('[name={{ $input }}]').val());
+            console.log(parent.$('[name={{ $input }}]').val())
+            @endif
 
             // fullscreen function
             $('.fr-toolbar .fa-expand').parent('a').on('click', function(){
@@ -50,7 +56,7 @@
                 }
             });
 
-            // set camvas width
+            // set canvas width
             $('[name=canvasWidth]').val({{ $settings['width'] }});
             $('#contentarea').css("width", "{{ $settings['width'] }}px");
             $('[name=canvasWidth]').on('change', function(e) {
@@ -67,7 +73,9 @@
                     handler: '{{ route('contentbuilderSaveImage') }}',
                     onComplete: function () {
                         var html                   = $('#contentarea').data('contentbuilder').html();
-/*
+                        var settings  = JSON.parse('{!! json_encode($settings) !!}');
+
+                        /*
                         settings.width              = $('#canvasWidth').val();
                         settings.backgroundColor    = $('#backgroundColor').attr('data-value');
                         settings.canvasColor        = $('#canvasColor').attr('data-value');
@@ -75,11 +83,10 @@
                         settings.textColor          = $('#textColor').attr('data-value');
                         settings.titleColor         = $('#titleColor').attr('data-value');
                         settings.linkColor          = $('#linkColor').attr('data-value');
-*/
-                        //parent.getValueContentBuilder(sHTML, settings);
-                        parent.getValueContentBuilder(html);
+                        */
 
-                        //parent.$.lightbox().close();
+                        if (typeof parent.getValueContentBuilder == 'function')
+                            parent.getValueContentBuilder(html, settings);
 
                         parent.$.cssLoader.hide();
                         if(parent.$.fn.magnificPopup && parent.$.magnificPopup.instance.isOpen)
@@ -95,12 +102,13 @@
         });
 
 
-        function getContentBuilderHtml()
+        var getContentBuilderHtml = function()
         {
             return $('#contentarea').data('contentbuilder').html();
         }
 
-        function getParentHtml(name)
+
+        var getParentHtml = function(name)
         {
             $('#contentarea').data('contentbuilder').loadHTML(parent.$('[name=' + name + ']').val());
         }
