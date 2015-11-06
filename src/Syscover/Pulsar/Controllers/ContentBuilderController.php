@@ -2,8 +2,6 @@
 
 use Illuminate\Http\Request;
 use Leafo\ScssPhp\Compiler;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\View;
 
 class ContentBuilderController extends Controller {
 

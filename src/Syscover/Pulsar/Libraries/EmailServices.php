@@ -149,8 +149,7 @@ este es un envío de pruebas, si está recibiendo este correo, su cuenta se ha c
         $data[$index] = str_replace("#unsubscribe#", route('getUnsubscribeComunikContact', ['contactKey' => '#contact#']) , $data[$index]);
         $data[$index] = str_replace("#pixel#", url(config('pulsar.appName')) . config('comunik.trackPixel'), $data[$index]);
 
-        //if (isset($data['message']))    $data[$index]   = str_replace("#message#",    $data['message'],   $data[$index]);     // Message coded ID, to track (comunik)
-        if (isset($data['contactKey']))     $data[$index]   = str_replace("#contactKey#",   $data['contactKey'],                   $data[$index]);     // Contact coded ID, to track (comunik)
+        if (isset($data['contactKey']))     $data[$index]   = str_replace("#contactKey#",   $data['contactKey'],                $data[$index]);     // Contact coded ID, to track (comunik)
         if (isset($data['company']))        $data[$index]   = str_replace("#company#",      $data['company'],                   $data[$index]);     // Company name (comunik)
         if (isset($data['name']))           $data[$index]   = str_replace("#name#",         $data['name'],                      $data[$index]);     // Contact name (comunik)
         if (isset($data['surname']))        $data[$index]   = str_replace("#surname#",      $data['surname'],                   $data[$index]);     // Contact surname (comunik)
