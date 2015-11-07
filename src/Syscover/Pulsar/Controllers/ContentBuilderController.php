@@ -33,14 +33,13 @@ class ContentBuilderController extends Controller {
 
     public function saveImage(Request $request)
     {
-        /*
         header('Cache-Control: no-cache, must-revalidate');
 
         //Specify storage folder
-        $dir        = public_path() . '/packages/pulsar/comunik/storage/assets/';
+        $dir        = public_path() . '/packages/syscover/comunik/email/assets/';
 
         //Specify url path
-        $path       = asset('/packages/pulsar/comunik/storage/assets/');
+        $path       = asset('/packages/syscover/comunik/email/assets/');
 
         //Read image
         $count      = $request->input('count');
@@ -63,8 +62,7 @@ class ContentBuilderController extends Controller {
 
         $data['html'] = "<html><body onload=\"parent.document.getElementById('img-" . $count . "').setAttribute('src','" . $path. '/' . $image . "');  parent.document.getElementById('img-" . $count . "').removeAttribute('id') \"></body></html>";
 
-        return view('pulsar::pulsar.pulsar.common.html_display', $data);
-        */
+        return view('pulsar::common.views.html_display', $data);
     }
 
     public function getBlocks(Request $request)

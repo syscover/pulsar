@@ -21,7 +21,7 @@
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/libs/jquery-2.1.3.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/jquery-ui/jquery-ui.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/contentbuilder/scripts/contentbuilder.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/contentbuilder/scripts/saveimages.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/contentbuilder/scripts/jquery.saveimages.js') }}"></script>
 
     <script type="text/javascript">
         $(document).ready(function($){
@@ -69,8 +69,9 @@
                 parent.$.cssLoader.show({useLayer: false, layerOpacity: 100});
 
                 // declare save function
-                $("#contentarea").saveimages({
+                $("#contentarea").saveImages({
                     handler: '{{ route('contentbuilderSaveImage') }}',
+                    csfr: '{{ csrf_token() }}',
                     onComplete: function () {
                         var html                   = $('#contentarea').data('contentbuilder').html();
                         var settings  = JSON.parse('{!! json_encode($settings) !!}');
@@ -91,13 +92,11 @@
                         parent.$.cssLoader.hide();
                         if(parent.$.fn.magnificPopup && parent.$.magnificPopup.instance.isOpen)
                             parent.$.magnificPopup.instance.close();
-
-
                     }
                 });
 
                 // execute save function
-                $("#contentarea").data('saveimages').save();
+                $("#contentarea").data('saveImages').save();
             });
         });
 
