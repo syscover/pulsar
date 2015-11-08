@@ -24,10 +24,6 @@
     <!-- /pulsar::email_account.index -->
 @stop
 
-@section('headButtons')
-
-@stop
-
 @section('tHead')
     <!-- pulsar::email_account.index -->
     <tr>
