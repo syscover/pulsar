@@ -21,15 +21,17 @@ return [
     'administration'                        => 'Administration',
     'email'                                 => 'Email',
     'enter_email'                           => 'Enter your email',
+    'error'                                 => 'Error|Errors',
     'field'                                 => 'Field|Fields',
     'group'                                 => 'Group|Groups',
     'login'                                 => 'Login',
     'logout'                                => 'Logout',
     'password'                              => 'Password',
     'remember_password'                     => 'Remember password',
-
     'reset_password'                        => 'Reset your password',
     'reset_password_successful'             => 'Great, we are sending you a email',
+    'row'                                   => 'Row|Rows',
+
     'error_reset_password'                  => 'Please enter your email',
     'error2_reset_password'                 => 'Error, the user doesn\'t exist',
     'change_password_successful'            => 'Great, We\'ve sent an email',

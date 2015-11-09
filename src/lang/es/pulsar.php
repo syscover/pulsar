@@ -21,15 +21,17 @@ return [
     'administration'                        => 'Administración',
     'email'                                 => 'Email',
     'enter_email'                           => 'Indique su dirección de email',
+    'error'                                 => 'Error|Errores',
     'field'                                 => 'Campo|Campos',
     'group'                                 => 'Grupo|Grupos',
     'login'                                 => 'Iniciar sesión',
     'logout'                                => 'Cerrar sesión',
     'password'                              => 'Contraseña',
     'remember_password'                     => '¿Olvidó su contraseña?',
-
     'reset_password'                        => 'Cambie su contraseña',
     'reset_password_successful'             => 'Perfecto, Le hemos enviado un email',
+    'row'                                   => 'Fila|Filas',
+
     'error_reset_password'                  => 'Por favor introduzca su email',
     'error2_reset_password'                 => 'Error, su usuario no existe',
     'change_password_successful'            => 'Estupendo, Le hemos enviado un email',
