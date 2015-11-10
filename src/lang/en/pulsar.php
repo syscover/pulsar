@@ -31,6 +31,7 @@ return [
     'reset_password'                        => 'Reset your password',
     'reset_password_successful'             => 'Great, we are sending you a email',
     'row'                                   => 'Row|Rows',
+    'type_something'                        => 'Type something',
 
     'error_reset_password'                  => 'Please enter your email',
     'error2_reset_password'                 => 'Error, the user doesn\'t exist',

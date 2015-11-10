@@ -31,6 +31,7 @@ return [
     'reset_password'                        => 'Cambie su contraseña',
     'reset_password_successful'             => 'Perfecto, Le hemos enviado un email',
     'row'                                   => 'Fila|Filas',
+    'type_something'                        => 'Escribe algo',
 
     'error_reset_password'                  => 'Por favor introduzca su email',
     'error2_reset_password'                 => 'Error, su usuario no existe',
