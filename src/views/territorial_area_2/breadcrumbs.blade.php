@@ -1,6 +1,6 @@
 <!-- pulsar::territorial_areas_2.breadcrumbs -->
 <li>
-    <a href="javascript:void(0);">{{ trans('pulsar::pulsar.administration') }}</a>
+    <a href="javascript:void(0)">{{ trans('pulsar::pulsar.administration') }}</a>
 </li>
 <li>
     <a href="{{ route('Country', ['lang' => session('baseLang'), 'offset' => $parentOffset]) }}">{{ trans_choice('pulsar::pulsar.country', 2) }}</a>

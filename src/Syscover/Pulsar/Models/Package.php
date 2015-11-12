@@ -20,8 +20,9 @@ class Package extends Model {
 
 	protected $table        = '001_012_package';
     protected $primaryKey   = 'id_012';
+    protected $sufix        = '012';
     public $timestamps      = false;
-    protected $fillable     = ['id_012', 'name_012', 'folder_012', 'active_012'];
+    protected $fillable     = ['id_012', 'name_012', 'folder_012', 'active_012', 'sorting_012'];
     protected $casts        = ['active_012' => 'boolean'];
     private static $rules   = [
         'name'    =>  'required|between:2,50',
@@ -33,7 +34,17 @@ class Package extends Model {
         return Validator::make($data, static::$rules);
 	}
 
-    public static function getModulesForSession()
+    public static function getRecords($args)
+    {
+        $query = Package::query();
+
+        if(isset($args['active_012']))  $query->where('active_012', $args['active_012']);
+        if(isset($args['orderBy']))     $query->orderBy($args['orderBy']['column'], $args['orderBy']['order']);
+
+        return $query->get();
+    }
+/*
+    public static function ()
     {
         $modules = Package::get();
         $arrayAux = array();
@@ -43,4 +54,5 @@ class Package extends Model {
         }
         return $arrayAux;
     }
+*/
 }

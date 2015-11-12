@@ -1,6 +1,6 @@
 <!-- pulsar::permissions.breadcrumbs -->
 <li>
-    <a href="javascript:void(0);">{{ trans('pulsar::pulsar.administration') }}</a>
+    <a href="javascript:void(0)">{{ trans('pulsar::pulsar.administration') }}</a>
 </li>
 <li>
     <a href="{{ route($routeSuffixProfile, $offsetProfile) }}">{{ trans_choice('pulsar::pulsar.profile', 2) }}</a>

@@ -313,6 +313,6 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | GOOGLE SERVICES
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName').'/pulsar/google/services',                                      ['as'=>'googleServices', 'uses'=>'Syscover\Pulsar\Controllers\GoogleServices@index',            'resource' => 'admin-lang',             'action' => 'delete']);
-    Route::post(config('pulsar.appName').'/pulsar/google/services/update',                              ['as'=>'updateGoogleServices', 'uses'=>'Syscover\Pulsar\Controllers\GoogleServices@update',            'resource' => 'admin-lang',             'action' => 'delete']);
+    //Route::any(config('pulsar.appName').'/pulsar/google/services',                                      ['as'=>'googleServices', 'uses'=>'Syscover\Pulsar\Controllers\GoogleServices@index',            'resource' => 'admin-lang',             'action' => 'delete']);
+    //Route::post(config('pulsar.appName').'/pulsar/google/services/update',                              ['as'=>'updateGoogleServices', 'uses'=>'Syscover\Pulsar\Controllers\GoogleServices@update',            'resource' => 'admin-lang',             'action' => 'delete']);
 });

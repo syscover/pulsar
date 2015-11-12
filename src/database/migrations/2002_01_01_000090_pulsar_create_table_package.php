@@ -17,6 +17,7 @@ class PulsarCreateTablePackage extends Migration
                 $table->string('name_012', 50);
 				$table->string('folder_012', 50);
                 $table->boolean('active_012');
+				$table->integer('sorting_012')->unsigned();
             });
 	}
 

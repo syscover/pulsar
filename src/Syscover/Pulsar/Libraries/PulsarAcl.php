@@ -10,11 +10,12 @@
  * @filesource  Librarie extend from Zend Acl
  */
 
-use Syscover\Pulsar\Models\Resource,
-    Syscover\Pulsar\Models\Permission,
-    Zend\Permissions\Acl\Acl,
-    Zend\Permissions\Acl\Role\GenericRole as Role,
-    Zend\Permissions\Acl\Resource\GenericResource as AclResource;
+use Syscover\Pulsar\Models\Resource;
+use Syscover\Pulsar\Models\Permission;
+use Zend\Permissions\Acl\Exception;
+use Zend\Permissions\Acl\Acl;
+use Zend\Permissions\Acl\Role\GenericRole as Role;
+use Zend\Permissions\Acl\Resource\GenericResource as AclResource;
 
 class PulsarAcl extends Acl
 {
@@ -60,13 +61,25 @@ class PulsarAcl extends Acl
         {
             if(parent::isAllowed($profile, $resource, $action->id_008))
             {
-                if($flag) $actionsAllowed .=',';
-                $actionsAllowed .= '"'.$action->id_008.'"';
+                if($flag) $actionsAllowed .= ',';
+                $actionsAllowed .= '"' . $action->id_008 . '"';
                 $flag =true;
             }
         }
         
         $actionsAllowed .= ']';
         return $actionsAllowed;    
+    }
+
+    public function isAllowed($role = null, $resource = null, $privilege = null)
+    {
+        try
+        {
+            return parent::isAllowed($role, $resource, $privilege);
+        }
+        catch(Exception\InvalidArgumentException $e)
+        {
+            return false;
+        }
     }
 }

@@ -2,7 +2,7 @@
 use Illuminate\Database\Seeder;
 use Syscover\Pulsar\Models\Country;
 
-class CountryTableSeeder extends Seeder
+class PulsarCountryTableSeeder extends Seeder
 {
     public function run()
     {
@@ -1021,5 +1021,5 @@ class CountryTableSeeder extends Seeder
 
 /*
  * Command to run:
- * php artisan db:seed --class="CoutryTableSeeder"
+ * php artisan db:seed --class="PulsarCountryTableSeeder"
  */

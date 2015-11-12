@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Syscover\Pulsar\Models\TerritorialArea1;
 
-class TerritorialArea1TableSeeder extends Seeder
+class PulsarTerritorialArea1TableSeeder extends Seeder
 {
     public function run()
     {
@@ -3345,5 +3345,5 @@ class TerritorialArea1TableSeeder extends Seeder
 }
 /*
  * Command to run:
- * php artisan db:seed --class="TerritorialArea1TableSeeder"
+ * php artisan db:seed --class="PulsarTerritorialArea1TableSeeder"
  */

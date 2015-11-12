@@ -13,6 +13,8 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Http\Request as HttpRequest;
+
+use Syscover\Pulsar\Libraries\PulsarAcl;
 use Syscover\Pulsar\Models\Profile;
 use Syscover\Pulsar\Models\Resource;
 use Syscover\Pulsar\Models\Action;
@@ -76,6 +78,10 @@ class ProfileController extends Controller {
 
         Permission::deleteRecordsProfile($parameters['id']);
         Permission::insert($permissions);
+
+        // if profile it's same that our profile, overwrite ours permissions
+        if($profile->id_006 == $request->user()->profile_010)
+            session(['userAcl' => PulsarAcl::getProfileAcl($request->user()->profile_010)]);
 
         return redirect()->route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,

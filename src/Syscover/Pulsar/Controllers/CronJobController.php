@@ -34,13 +34,13 @@ class CronJobController extends Controller
 
     public function jsonCustomDataBeforeActions($aObject)
     {
-        return  session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('run' . $this->routeSuffix, [$aObject['id_011'], Request::input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.run') . '"><i class="fa fa-bolt"></i></a>' : null;
+        return session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('run' . $this->routeSuffix, [$aObject['id_011'], Request::input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.run') . '"><i class="fa fa-bolt"></i></a>' : null;
     }
 
     public function run($id, $offset = 0)
     {
-        $cronJob    = CronJob::find($id);
-        $callable     = config('cron.' . $cronJob->key_011); // don't use helper config to dont't marked like error
+        $cronJob  = CronJob::find($id);
+        $callable = config('cron.' . $cronJob->key_011); // don't use helper config to dont't marked like error
 
         call_user_func($callable); // call to static method
 

@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Syscover\Pulsar\Models\Profile;
 
-class ProfileTableSeeder extends Seeder
+class PulsarProfileTableSeeder extends Seeder
 {
     public function run()
     {
@@ -15,5 +15,5 @@ class ProfileTableSeeder extends Seeder
 
 /*
  * Command to run:
- * php artisan db:seed --class="ProfileTableSeeder"
+ * php artisan db:seed --class="PulsarProfileTableSeeder"
  */

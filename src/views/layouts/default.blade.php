@@ -111,7 +111,7 @@
 
                     <!-- Only visible on smartphones, menu toggle -->
                     <ul class="nav navbar-nav">
-                        <li class="nav-toggle"><a href="javascript:void(0);"><i class="fa fa-reorder"></i></a></li>
+                        <li class="nav-toggle"><a href="javascript:void(0)"><i class="fa fa-reorder"></i></a></li>
                     </ul>
 
                     <!-- Logo -->
@@ -137,10 +137,8 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> Settings <i class="fa fa-caret-down small"></i></a>
                             <ul class="dropdown-menu">
-                                @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-google-services', 'access'))
-                                    <li><a href="{{ route('googleServices') }}"><i class="icomoon-icon-google"></i>Google Services</a></li>
-                                    <!-- <li class="divider"></li> -->
-                                @endif
+                                <!-- <li><a href="#"><i class="icomoon-icon-google"></i>Google Services</a></li> -->
+                                <!-- <li class="divider"></li> -->
                             </ul>
                         </li>
                     </ul>
@@ -167,7 +165,7 @@
                 <div id="sidebar" class="sidebar-fixed">
                     <div id="sidebar-content">
                         <!--=== Navigation ===-->
-                        @include('pulsar::includes.nav.main')
+                        @include('pulsar::includes.nav.layout')
                         <!-- /Navigation -->
                     </div>
                     <div id="divider" class="resizeable"></div>

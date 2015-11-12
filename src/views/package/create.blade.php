@@ -6,5 +6,6 @@
     @include('pulsar::includes.html.form_text_group', ['label' => trans('pulsar::pulsar.name'), 'name' => 'name', 'value' => Input::old('name'), 'maxLength' => '50', 'rangeLength' => '2,50', 'required' => true])
     @include('pulsar::includes.html.form_text_group', ['label' => trans_choice('pulsar::pulsar.folder', 1), 'name' => 'folder', 'value' => Input::old('folder'), 'maxLength' => '50', 'rangeLength' => '2,50', 'required' => true])
     @include('pulsar::includes.html.form_checkbox_group', ['label' => trans('pulsar::pulsar.active'), 'name' => 'active', 'value' => 1, 'checked' => Input::old('active')])
+    @include('pulsar::includes.html.form_text_group', ['label' => trans('pulsar::pulsar.sorting'), 'name' => 'sorting', 'value' => Input::old('sorting'), 'type' => 'number', 'fieldSize' => 2])
     <!-- /pulsar::packages.create -->
 @stop

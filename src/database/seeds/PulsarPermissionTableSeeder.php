@@ -1,10 +1,9 @@
-
 <?php
 
 use Illuminate\Database\Seeder;
 use Syscover\Pulsar\Models\Permission;
 
-class PermissionTableSeeder extends Seeder {
+class PulsarPermissionTableSeeder extends Seeder {
 
     public function run()
     {
@@ -95,5 +94,5 @@ class PermissionTableSeeder extends Seeder {
 
 /*
  * Command to run:
- * php artisan db:seed --class="PermissionTableSeeder"
+ * php artisan db:seed --class="PulsarPermissionTableSeeder"
  */

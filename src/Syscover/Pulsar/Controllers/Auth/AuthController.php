@@ -88,7 +88,7 @@ class AuthController extends Controller {
                     ]);
             }
 
-            session(['packages' => Package::getModulesForSession()]);
+            session(['packages' => Package::getRecords(['active_012' => true, 'orderBy' => ['column' => 'sorting_012', 'order' => 'desc']])]);
             session(['baseLang' => Lang::getBaseLang()]);
 
             return redirect()->intended($this->redirectPath());

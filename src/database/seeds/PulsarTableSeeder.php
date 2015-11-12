@@ -9,16 +9,16 @@ class PulsarTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call(LangTableSeeder::class);
-        $this->call(CountryTableSeeder::class);
-        $this->call(TerritorialArea1TableSeeder::class);
-        $this->call(TerritorialArea2TableSeeder::class);
-        $this->call(ActionTableSeeder::class);
-        $this->call(PackageTableSeeder::class);
-        $this->call(ProfileTableSeeder::class);
-        $this->call(ResourceTableSeeder::class);
-        $this->call(UserTableSeeder::class);
-        $this->call(PermissionTableSeeder::class);
+        $this->call(PulsarLangTableSeeder::class);
+        $this->call(PulsarCountryTableSeeder::class);
+        $this->call(PulsarTerritorialArea1TableSeeder::class);
+        $this->call(PulsarTerritorialArea2TableSeeder::class);
+        $this->call(PulsarActionTableSeeder::class);
+        $this->call(PulsarPackageTableSeeder::class);
+        $this->call(PulsarProfileTableSeeder::class);
+        $this->call(PulsarResourceTableSeeder::class);
+        $this->call(PulsarUserTableSeeder::class);
+        $this->call(PulsarPermissionTableSeeder::class);
     }
 }
 
