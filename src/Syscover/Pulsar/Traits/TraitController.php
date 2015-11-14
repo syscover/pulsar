@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Syscover\Pulsar\Exceptions\InvalidArgumentException;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Models\Lang;
 
@@ -475,11 +476,21 @@ trait TraitController {
             {
                 $parameters['object'] = call_user_func($this->model . '::getCustomTranslationRecord', $parameters);
             }
-            else
+            elseif(method_exists($this->model, 'getTranslationRecord'))
             {
                 $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], $parameters['lang']);
             }
+            else
+            {
+                throw new InvalidArgumentException('The methods getCustomTranslationRecord or getTranslationRecord on ' . $this->model . ' is not instantiated');
+            }
+
             $parameters['lang']     = $parameters['object']->lang;
+
+            if($parameters['lang'] === null)
+            {
+                throw new InvalidArgumentException('The language object is not instantiated, method lang on model ' . $this->model . ' is not defined');
+            }
         }
         else
         {
@@ -578,7 +589,7 @@ trait TraitController {
 
         if(method_exists($this, 'deleteCustomRecord'))
         {
-            $this->deleteCustomRecord($object);
+            $this->deleteCustomRecord($request, $object);
         }
 
         // delete records after deleteCustomRecords, if we need do a select
@@ -589,7 +600,7 @@ trait TraitController {
 
         if(method_exists($this, 'deleteCustomRecordRedirect'))
         {
-            return $this->deleteCustomRecordRedirect($object, $parameters);
+            return $this->deleteCustomRecordRedirect($request, $object, $parameters);
         }
 
         return redirect()->route($this->routeSuffix, $parameters)->with([
@@ -619,7 +630,7 @@ trait TraitController {
 
         if(method_exists($this, 'deleteCustomTranslationRecord'))
         {
-            $this->deleteCustomTranslationRecord($object);
+            $this->deleteCustomTranslationRecord($request, $object);
         }
 
         if(isset($this->langModel))
@@ -664,7 +675,7 @@ trait TraitController {
 
         if(method_exists($this, 'deleteCustomRecords'))
         {
-            $this->deleteCustomRecords($ids);
+            $this->deleteCustomRecords($request, $ids);
         }
 
         // delete records after deleteCustomRecords, if we need do a select
@@ -672,7 +683,7 @@ trait TraitController {
 
         if(method_exists($this, 'deleteCustomRecordsRedirect'))
         {
-            return $this->deleteCustomRecordsRedirect($parameters);
+            return $this->deleteCustomRecordsRedirect($request, $parameters);
         }
 
         return redirect()->route($this->routeSuffix, $parameters)->with([

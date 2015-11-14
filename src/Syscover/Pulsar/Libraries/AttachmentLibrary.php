@@ -11,6 +11,7 @@
  */
 
 use Illuminate\Support\Facades\File;
+use Syscover\Pulsar\Exceptions\InvalidArgumentException;
 use Syscover\Pulsar\Models\Attachment;
 
 class AttachmentLibrary {
@@ -150,13 +151,28 @@ class AttachmentLibrary {
 
         if(isset($lang))
         {
-            // delete all attachments from this object
-            $response = File::deleteDirectory(public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId. '/' . $lang);
+            if(!empty($objectId) &&  !empty($lang))
+            {
+                // delete all attachments from this object
+                $response = File::deleteDirectory(public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId. '/' . $lang);
+            }
+            else
+            {
+                throw new InvalidArgumentException('Object Id, is not defined to delete attachment files');
+            }
+
         }
         else
         {
-            // delete all attachments from this object
-            $response = File::deleteDirectory(public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId);
+            if(!empty($objectId))
+            {
+                // delete all attachments from this object
+                $response = File::deleteDirectory(public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId);
+            }
+            else
+            {
+                throw new InvalidArgumentException('Object Id, is not defined to delete attachment files');
+            }
         }
 
         return $response;
