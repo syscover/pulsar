@@ -11,7 +11,7 @@ Pulsar is an application that generates a control panel where you start creating
 "syscover/pulsar": "dev-master"
 
 ```
-and execute on console:
+execute on console:
 ```
 composer update
 ```
@@ -39,42 +39,16 @@ Syscover\Pulsar\PulsarServiceProvider::class,
 
 ```
 
-**5 - Config file config/database.php with your database parameters connections**
-
-**6 - To publish package, you must type on console**
-
-```
-php artisan vendor:publish --force
-
-```
-
-**7 - Optimized class loader**
-
-```
-php artisan optimize
-
-```
-
-**8 - Run migrate database**
-
-```
-php artisan migrate
-```
-
-**9 - Run seed database**
-
-```
-php artisan db:seed --class="PulsarTableSeeder"
-```
-
-**10 - Register cron command on file app/Console/Kernel.php add to $commands array**
+**5 - Register cron command on file app/Console/Kernel.php add to $commands array**
 
 ```
 \Syscover\Pulsar\Commands\Cron::class,
 
 ```
 
-**11 - To future updates, you must change your composer.json, replace post-update-cmd for this code**
+**6 - Config file config/database.php with your database parameters connections**
+
+**7 - setup your composer.json, to updates and installation pulsar package, replace post-update-cmd for this code**
 
 ```
 "post-update-cmd": [
@@ -86,8 +60,18 @@ php artisan db:seed --class="PulsarTableSeeder"
 
 ```
 
+**8 - execute on console:**
+```
+composer update
+```
 
-**12 - When the installation is complete you can access these data**
+**9 - Run seed database**
+
+```
+php artisan db:seed --class="PulsarTableSeeder"
+```
+
+**10 - When the installation is complete you can access these data**
 ```
 url: http://www.your-domain.com/pulsar
 user: admin@pulsar.local
