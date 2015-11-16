@@ -16,7 +16,7 @@
                     ],
                     "bProcessing": true,
                     "bServerSide": true,
-                    "sAjaxSource": "{{ route('jsonData' . $routeSuffix, ['country' => $country->id_002, 'parentOffset' => $parentOffset]) }}"
+                    "sAjaxSource": "{{ route('jsonData' . ucfirst($routeSuffix), ['country' => $country->id_002, 'parentOffset' => $parentOffset]) }}"
                 }).fnSetFilteringDelay();
             }
         });

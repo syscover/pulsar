@@ -7,7 +7,7 @@
         <a id="cancel" class="btn btn-inverse" href="{{ route($routeSuffix, $urlParameters) }}">{{ trans('pulsar::pulsar.cancel') }}</a>
         @endif
         @if($action != 'store' && isset($lang) && $lang->id_001 != session('baseLang')->id_001)
-            <a class="btn btn-danger marginL10 delete-lang-record" data-delete-url="{{ route('deleteTranslation' . $routeSuffix, $urlParameters) }}">{{ trans('pulsar::pulsar.delete_translation') }}</a>
+            <a class="btn btn-danger marginL10 delete-lang-record" data-delete-url="{{ route('deleteTranslation' . ucfirst($routeSuffix), $urlParameters) }}">{{ trans('pulsar::pulsar.delete_translation') }}</a>
         @endif
     </div>
 </form>

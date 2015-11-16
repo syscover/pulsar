@@ -19,7 +19,7 @@ class CustomFieldFamilyController extends Controller {
 
     use TraitController;
 
-    protected $routeSuffix  = 'CustomFieldFamily';
+    protected $routeSuffix  = 'customFieldFamily';
     protected $folder       = 'field_family';
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_025', 'name_025', 'name_025', 'data_025'];

@@ -198,17 +198,17 @@ trait TraitController {
 
                 if(($showIfNotEdit) && (isset($this->jsonParam['show']) && $this->jsonParam['show'] == true))
                 {
-                    $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('show' . $this->routeSuffix, $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.view_record') . '"><i class="fa fa-eye"></i></a>' : null;
+                    $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('show' . ucfirst($this->routeSuffix), $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.view_record') . '"><i class="fa fa-eye"></i></a>' : null;
                 }
 
                 if(($onlyEditOwner) && (isset($this->jsonParam['edit']) && $this->jsonParam['edit'] == true || !isset($this->jsonParam['edit'])))
                 {
-                    $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('edit' . $this->routeSuffix, $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="fa fa-pencil"></i></a>' : null;
+                    $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('edit' . ucfirst($this->routeSuffix), $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="fa fa-pencil"></i></a>' : null;
                 }
 
                 if(isset($this->jsonParam['delete']) && $this->jsonParam['delete'] == true || !isset($this->jsonParam['delete']))
                 {
-                    $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete') ? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] . '" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . $this->routeSuffix, $actionUrlParameters) . '"><i class="fa fa-trash"></i></a>' : null;
+                    $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'delete') ? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] . '" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . ucfirst($this->routeSuffix), $actionUrlParameters) . '"><i class="fa fa-trash"></i></a>' : null;
                 }
             }
 
@@ -247,11 +247,11 @@ trait TraitController {
                         $actions .= '<li><a class="bs-tooltip" href="';
                         if($isCreated)
                         {
-                            $actions .= route('edit' . $this->routeSuffix, $actionUrlParameters);
+                            $actions .= route('edit' . ucfirst($this->routeSuffix), $actionUrlParameters);
                         }
                         else
                         {
-                            $actions .= route('create' . $this->routeSuffix, $actionUrlParameters);
+                            $actions .= route('create' . ucfirst($this->routeSuffix), $actionUrlParameters);
                         }
 
                         $actions .= '" data-original-title="' . $lang->name_001 . '"><img src="' . asset('/packages/syscover/pulsar/storage/langs/' . $lang->image_001) . '"> ';
@@ -345,7 +345,7 @@ trait TraitController {
 
         if(method_exists($this, 'checkSpecialRulesToStore'))
         {
-            $parameters = $this->checkSpecialRulesToStore($parameters);
+            $parameters = $this->checkSpecialRulesToStore($request, $parameters);
         }
 
         if(!isset($parameters['specialRules']))
@@ -357,7 +357,7 @@ trait TraitController {
 
         if ($validation->fails())
         {
-            return redirect()->route('create' . $this->routeSuffix, $parameters['urlParameters'])->withErrors($validation)->withInput();
+            return redirect()->route('create' . ucfirst($this->routeSuffix), $parameters['urlParameters'])->withErrors($validation)->withInput();
         }
 
         if(method_exists($this, 'storeCustomRecord'))
@@ -545,7 +545,7 @@ trait TraitController {
 
         if ($validation->fails())
         {
-            return redirect()->route('edit' . $this->routeSuffix, $parameters['urlParameters'])->withErrors($validation);
+            return redirect()->route('edit' . ucfirst($this->routeSuffix), $parameters['urlParameters'])->withErrors($validation);
         }
 
         if(method_exists($this, 'updateCustomRecord'))

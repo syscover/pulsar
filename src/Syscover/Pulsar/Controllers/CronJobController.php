@@ -23,7 +23,7 @@ class CronJobController extends Controller
 {
     use TraitController;
 
-    protected $routeSuffix  = 'CronJob';
+    protected $routeSuffix  = 'cronJob';
     protected $folder       = 'cron_job';
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_011', 'name_011', 'name_012', 'key_011', 'cron_expression_011', ['data' => 'active_011', 'type' => 'active'], ['data' => 'last_run_011', 'type' => 'date'], ['data' => 'next_run_011', 'type' => 'date']];
@@ -34,7 +34,7 @@ class CronJobController extends Controller
 
     public function jsonCustomDataBeforeActions($aObject)
     {
-        return session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('run' . $this->routeSuffix, [$aObject['id_011'], Request::input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.run') . '"><i class="fa fa-bolt"></i></a>' : null;
+        return session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('run' . ucfirst($this->routeSuffix), [$aObject['id_011'], Request::input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.run') . '"><i class="fa fa-bolt"></i></a>' : null;
     }
 
     public function run($id, $offset = 0)
@@ -59,16 +59,16 @@ class CronJobController extends Controller
     
     public function storeCustomRecord($request, $parameters)
     {
-        $cron = CronExpression::factory(Request::input('cronExpression'));
+        $cron = CronExpression::factory($request->input('cronExpression'));
 
         CronJob::create([
-            'name_011'              => Request::input('name'),
-            'package_011'           => Request::input('package'),
-            'cron_expression_011'   => Request::input('cronExpression'),
-            'key_011'               => Request::input('key'),
+            'name_011'              => $request->input('name'),
+            'package_011'           => $request->input('package'),
+            'cron_expression_011'   => $request->input('cronExpression'),
+            'key_011'               => $request->input('key'),
             'last_run_011'          => 0,
             'next_run_011'          => $cron->getNextRunDate()->getTimestamp(),
-            'active_011'            => Request::input('active', 0)
+            'active_011'            => $request->input('active', 0)
         ]);
     }
     
@@ -85,11 +85,11 @@ class CronJobController extends Controller
     public function updateCustomRecord($request, $parameters)
     {
         CronJob::where('id_011', $parameters['id'])->update([
-            'name_011'              => Request::input('name'),
-            'package_011'           => Request::input('package'),
-            'cron_expression_011'   => Request::input('cronExpression'),
-            'key_011'               => Request::input('key'),
-            'active_011'            => Request::input('active', 0)
+            'name_011'              => $request->input('name'),
+            'package_011'           => $request->input('package'),
+            'cron_expression_011'   => $request->input('cronExpression'),
+            'key_011'               => $request->input('key'),
+            'active_011'            => $request->input('active', 0)
         ]);
     }
 }

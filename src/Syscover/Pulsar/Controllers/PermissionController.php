@@ -24,10 +24,10 @@ class PermissionController extends Controller
 {
     use TraitController;
 
-    protected $routeSuffixProfile   = 'Profile';
+    protected $routeSuffixProfile   = 'profile';
     protected $areDeleteRecord      = true;
 
-    protected $routeSuffix          = 'Permission';
+    protected $routeSuffix          = 'permission';
     protected $folder               = 'permission';
     protected $package              = 'pulsar';
     protected $aColumns             = ['id_007', 'name_012', 'name_007'];

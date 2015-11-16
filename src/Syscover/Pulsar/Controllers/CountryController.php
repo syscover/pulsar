@@ -18,10 +18,10 @@ class CountryController extends Controller {
 
     use TraitController;
 
-    protected $routeSuffix  = 'Country';
+    protected $routeSuffix  = 'country';
     protected $folder       = 'country';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_002', 'name_001', 'name_002', 'sorting_002', 'prefix_002', ['data' => 'territorial_area_1_002', 'route' => 'TerritorialArea1', 'type' => 'territorialArea'], ['data' => 'territorial_area_2_002', 'route' => 'TerritorialArea2', 'type' => 'territorialArea'], ['data' => 'territorial_area_3_002', 'route' => 'TerritorialArea3', 'type' => 'territorialArea']];
+    protected $aColumns     = ['id_002', 'name_001', 'name_002', 'sorting_002', 'prefix_002', ['data' => 'territorial_area_1_002', 'route' => 'territorialArea1', 'type' => 'territorialArea'], ['data' => 'territorial_area_2_002', 'route' => 'territorialArea2', 'type' => 'territorialArea'], ['data' => 'territorial_area_3_002', 'route' => 'territorialArea3', 'type' => 'territorialArea']];
     protected $nameM        = 'name_002';
     protected $model        = '\Syscover\Pulsar\Models\Country';
     protected $icon         = 'fa fa-globe';
@@ -50,7 +50,7 @@ class CountryController extends Controller {
         return $row;
     }
 
-    public function checkSpecialRulesToStore($parameters)
+    public function checkSpecialRulesToStore($request, $parameters)
     {
         // check special rule to objects with multiple language if is new object translation or new object
         if(Request::has('lang') && Request::input('lang') != session('baseLang')->id_001)

@@ -19,7 +19,7 @@ class AttachmentFamilyController extends Controller {
 
     use TraitController;
 
-    protected $routeSuffix  = 'AttachmentFamily';
+    protected $routeSuffix  = 'attachmentFamily';
     protected $folder       = 'attachment_family';
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_015', 'name_007', 'name_015'];

@@ -15,7 +15,7 @@
                     ],
                     "bProcessing": true,
                     "bServerSide": true,
-                    "sAjaxSource": "{{ route('jsonData' . $routeSuffix, [session('baseLang')]) }}"
+                    "sAjaxSource": "{{ route('jsonData' . ucfirst($routeSuffix), [session('baseLang')]) }}"
                 }).fnSetFilteringDelay();
             }
         });

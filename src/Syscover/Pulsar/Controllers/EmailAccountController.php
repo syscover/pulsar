@@ -20,7 +20,7 @@ class EmailAccountController extends Controller {
 
     use TraitController;
 
-    protected $routeSuffix  = 'EmailAccount';
+    protected $routeSuffix  = 'emailAccount';
     protected $folder       = 'email_account';
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_013', 'name_013', ['data' => 'email_013', 'type' => 'email']];

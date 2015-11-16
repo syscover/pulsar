@@ -18,7 +18,7 @@ class TerritorialArea1Controller extends Controller {
 
     use TraitController;
 
-    protected $routeSuffix          = 'TerritorialArea1';
+    protected $routeSuffix          = 'territorialArea1';
     protected $folder               = 'territorial_area_1';
     protected $package              = 'pulsar';
     protected $aColumns             = ['id_003', 'name_003'];

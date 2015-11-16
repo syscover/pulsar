@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | ACTIONS
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/actions/{offset?}',                          ['as'=>'Action',                'uses'=>'Syscover\Pulsar\Controllers\ActionController@index',                      'resource' => 'admin-perm-action',        'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/actions/{offset?}',                          ['as'=>'action',                'uses'=>'Syscover\Pulsar\Controllers\ActionController@index',                      'resource' => 'admin-perm-action',        'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/actions/json/data',                          ['as'=>'jsonDataAction',        'uses'=>'Syscover\Pulsar\Controllers\ActionController@jsonData',                   'resource' => 'admin-perm-action',        'action' => 'access']);
     Route::get(config('pulsar.appName') . '/pulsar/actions/create/{offset}',                    ['as'=>'createAction',          'uses'=>'Syscover\Pulsar\Controllers\ActionController@createRecord',               'resource' => 'admin-perm-action',        'action' => 'create']);
     Route::post(config('pulsar.appName') . '/pulsar/actions/store/{offset}',                    ['as'=>'storeAction',           'uses'=>'Syscover\Pulsar\Controllers\ActionController@storeRecord',                'resource' => 'admin-perm-action',        'action' => 'create']);
@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | RESOURCES
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/resources/{offset?}',                        ['as'=>'Resource',              'uses'=>'Syscover\Pulsar\Controllers\ResourceController@index',                    'resource' => 'admin-perm-resource',    'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/resources/{offset?}',                        ['as'=>'resource',              'uses'=>'Syscover\Pulsar\Controllers\ResourceController@index',                    'resource' => 'admin-perm-resource',    'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/resources/json/data',                        ['as'=>'jsonDataResource',      'uses'=>'Syscover\Pulsar\Controllers\ResourceController@jsonData',                 'resource' => 'admin-perm-resource',    'action' => 'access']);
     Route::get(config('pulsar.appName') . '/pulsar/resources/create/{offset}',                  ['as'=>'createResource',        'uses'=>'Syscover\Pulsar\Controllers\ResourceController@createRecord',             'resource' => 'admin-perm-resource',    'action' => 'create']);
     Route::post(config('pulsar.appName') . '/pulsar/resources/store/{offset}',                  ['as'=>'storeResource',         'uses'=>'Syscover\Pulsar\Controllers\ResourceController@storeRecord',              'resource' => 'admin-perm-resource',    'action' => 'create']);
@@ -73,7 +73,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | PROFILES
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/profiles/{offset?}',                         ['as'=>'Profile',               'uses'=>'Syscover\Pulsar\Controllers\ProfileController@index',                     'resource' => 'admin-perm-profile',    'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/profiles/{offset?}',                         ['as'=>'profile',               'uses'=>'Syscover\Pulsar\Controllers\ProfileController@index',                     'resource' => 'admin-perm-profile',    'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/profiles/json/data',                         ['as'=>'jsonDataProfile',       'uses'=>'Syscover\Pulsar\Controllers\ProfileController@jsonData',                  'resource' => 'admin-perm-profile',    'action' => 'access']);
     Route::get(config('pulsar.appName') . '/pulsar/profiles/create/{offset}',                   ['as'=>'createProfile',         'uses'=>'Syscover\Pulsar\Controllers\ProfileController@createRecord',              'resource' => 'admin-perm-profile',    'action' => 'create']);
     Route::post(config('pulsar.appName') . '/pulsar/profiles/store/{offset}',                   ['as'=>'storeProfile',          'uses'=>'Syscover\Pulsar\Controllers\ProfileController@storeRecord',               'resource' => 'admin-perm-profile',    'action' => 'create']);
@@ -88,7 +88,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | PERMISSIONS
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/permissions/{offset}/{profile}/{offsetProfile?}',        ['as'=>'Permission',                'uses'=>'Syscover\Pulsar\Controllers\PermissionController@index',                'resource' => 'admin-perm-perm',    'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/permissions/{offset}/{profile}/{offsetProfile?}',        ['as'=>'permission',                'uses'=>'Syscover\Pulsar\Controllers\PermissionController@index',                'resource' => 'admin-perm-perm',    'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/permissions/json/data/profile/{profile}',                ['as'=>'jsonDataPermission',        'uses'=>'Syscover\Pulsar\Controllers\PermissionController@jsonData',             'resource' => 'admin-perm-perm',    'action' => 'access']);
     Route::post(config('pulsar.appName') . '/pulsar/permissions/json/create/{num}/{num1}/{any}',            ['as'=>'jsonCreatePermission',      'uses'=>'Syscover\Pulsar\Controllers\PermissionController@jsonCreate',           'resource' => 'admin-perm-perm',    'action' => 'create']);
     Route::post(config('pulsar.appName') . '/pulsar/permissions/json/delete/{num}/{num1}/{any}',            ['as'=>'jsonDestroyPermission',     'uses'=>'Syscover\Pulsar\Controllers\PermissionController@jsonDestroy',          'resource' => 'admin-perm-perm',    'action' => 'delete']);
@@ -98,7 +98,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | PACKAGES
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/packages/{offset?}',                         ['as'=>'Package',               'uses'=>'Syscover\Pulsar\Controllers\PackageController@index',                     'resource' => 'admin-package',         'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/packages/{offset?}',                         ['as'=>'package',               'uses'=>'Syscover\Pulsar\Controllers\PackageController@index',                     'resource' => 'admin-package',         'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/packages/json/data',                         ['as'=>'jsonDataPackage',       'uses'=>'Syscover\Pulsar\Controllers\PackageController@jsonData',                  'resource' => 'admin-package',         'action' => 'access']);
     Route::get(config('pulsar.appName') . '/pulsar/packages/create/{offset}',                   ['as'=>'createPackage',         'uses'=>'Syscover\Pulsar\Controllers\PackageController@createRecord',              'resource' => 'admin-package',         'action' => 'create']);
     Route::post(config('pulsar.appName') . '/pulsar/packages/store/{offset}',                   ['as'=>'storePackage',          'uses'=>'Syscover\Pulsar\Controllers\PackageController@storeRecord',               'resource' => 'admin-package',         'action' => 'create']);
@@ -112,7 +112,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | CRON JOBS
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/cronjobs/{offset?}',                         ['as'=>'CronJob',               'uses'=>'Syscover\Pulsar\Controllers\CronJobController@index',                     'resource' => 'admin-cron',             'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/cronjobs/{offset?}',                         ['as'=>'cronJob',               'uses'=>'Syscover\Pulsar\Controllers\CronJobController@index',                     'resource' => 'admin-cron',             'action' => 'access']);
     Route::get(config('pulsar.appName') . '/pulsar/cronjobs/{id}/run/{offset}',                 ['as'=>'runCronJob',            'uses'=>'Syscover\Pulsar\Controllers\CronJobController@run',                       'resource' => 'admin-cron',             'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/cronjobs/json/data',                         ['as'=>'jsonDataCronJob',       'uses'=>'Syscover\Pulsar\Controllers\CronJobController@jsonData',                  'resource' => 'admin-cron',             'action' => 'access']);
     Route::get(config('pulsar.appName') . '/pulsar/cronjobs/create/{offset}',                   ['as'=>'createCronJob',         'uses'=>'Syscover\Pulsar\Controllers\CronJobController@createRecord',              'resource' => 'admin-cron',             'action' => 'create']);
@@ -127,7 +127,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | LANGUAGES
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/langs/{offset?}',                            ['as' => 'Lang',                'uses' => 'Syscover\Pulsar\Controllers\LangController@index',                      'resource' => 'admin-lang',             'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/langs/{offset?}',                            ['as' => 'lang',                'uses' => 'Syscover\Pulsar\Controllers\LangController@index',                      'resource' => 'admin-lang',             'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/langs/json/data',                            ['as' => 'jsonDataLang',        'uses' => 'Syscover\Pulsar\Controllers\LangController@jsonData',                   'resource' => 'admin-lang',             'action' => 'access']);
     Route::get(config('pulsar.appName') . '/pulsar/langs/create/{offset}',                      ['as' => 'createLang',          'uses' => 'Syscover\Pulsar\Controllers\LangController@createRecord',               'resource' => 'admin-lang',             'action' => 'create']);
     Route::post(config('pulsar.appName') . '/pulsar/langs/store/{offset}',                      ['as' => 'storeLang',           'uses' => 'Syscover\Pulsar\Controllers\LangController@storeRecord',                'resource' => 'admin-lang',             'action' => 'create']);
@@ -142,7 +142,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | COUNTRIES
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/countries/{lang}/{offset?}',                         ['as'=>'Country',                   'uses'=>'Syscover\Pulsar\Controllers\CountryController@index',                    'resource' => 'admin-country',          'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/countries/{lang}/{offset?}',                         ['as'=>'country',                   'uses'=>'Syscover\Pulsar\Controllers\CountryController@index',                    'resource' => 'admin-country',          'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/countries/json/data/{lang}',                         ['as'=>'jsonDataCountry',           'uses'=>'Syscover\Pulsar\Controllers\CountryController@jsonData',                 'resource' => 'admin-country',          'action' => 'access']);
     Route::get(config('pulsar.appName') . '/pulsar/countries/create/{lang}/{offset}/{id?}',             ['as'=>'createCountry',             'uses'=>'Syscover\Pulsar\Controllers\CountryController@createRecord',             'resource' => 'admin-country',          'action' => 'create']);
     Route::post(config('pulsar.appName') . '/pulsar/countries/store/{lang}/{offset}/{id?}',             ['as'=>'storeCountry',              'uses'=>'Syscover\Pulsar\Controllers\CountryController@storeRecord',              'resource' => 'admin-country',          'action' => 'create']);
@@ -161,7 +161,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | URL jsonDataTerritorialArea1 has to go first to avoid enter in TerritorialArea1 when we call to jsonDataTerritorialArea1
     */
     Route::any(config('pulsar.appName') . '/pulsar/territorialareas1/json/data/{country}/{parentOffset}/{offset?}',             ['as'=>'jsonDataTerritorialArea1',              'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea1Controller@jsonData',                             'resource' => 'admin-country-at1',  'action' => 'access']);
-    Route::any(config('pulsar.appName') . '/pulsar/territorialareas1/{country}/{parentOffset}/{offset?}',                       ['as'=>'TerritorialArea1',                      'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea1Controller@index',                                'resource' => 'admin-country-at1',  'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/territorialareas1/{country}/{parentOffset}/{offset?}',                       ['as'=>'territorialArea1',                      'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea1Controller@index',                                'resource' => 'admin-country-at1',  'action' => 'access']);
     Route::get(config('pulsar.appName') . '/pulsar/territorialareas1/create/{country}/{parentOffset}/{offset}',                 ['as'=>'createTerritorialArea1',                'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea1Controller@createRecord',                         'resource' => 'admin-country-at1',  'action' => 'create']);
     Route::post(config('pulsar.appName') . '/pulsar/territorialareas1/store/{country}/{parentOffset}/{offset}',                 ['as'=>'storeTerritorialArea1',                 'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea1Controller@storeRecord',                          'resource' => 'admin-country-at1',  'action' => 'create']);
     Route::get(config('pulsar.appName') . '/pulsar/territorialareas1/{id}/edit/{country}/{parentOffset}/{offset}',              ['as'=>'editTerritorialArea1',                  'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea1Controller@editRecord',                           'resource' => 'admin-country-at1',  'action' => 'access']);
@@ -176,7 +176,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     |--------------------------------------------------------------------------
     */
     Route::any(config('pulsar.appName') . '/pulsar/territorialareas2/json/data/{country}/{parentOffset}/{offset?}',             ['as'=>'jsonDataTerritorialArea2',              'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea2Controller@jsonData',                                  'resource' => 'admin-country-at2',  'action' => 'access']);
-    Route::any(config('pulsar.appName') . '/pulsar/territorialareas2/{country}/{parentOffset}/{offset?}',                       ['as'=>'TerritorialArea2',                      'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea2Controller@index',                                     'resource' => 'admin-country-at2',  'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/territorialareas2/{country}/{parentOffset}/{offset?}',                       ['as'=>'territorialArea2',                      'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea2Controller@index',                                     'resource' => 'admin-country-at2',  'action' => 'access']);
     Route::get(config('pulsar.appName') . '/pulsar/territorialareas2/create/{country}/{parentOffset}/{offset}',                 ['as'=>'createTerritorialArea2',                'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea2Controller@createRecord',                              'resource' => 'admin-country-at2',  'action' => 'create']);
     Route::post(config('pulsar.appName') . '/pulsar/territorialareas2/store/{country}/{parentOffset}/{offset}',                 ['as'=>'storeTerritorialArea2',                 'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea2Controller@storeRecord',                               'resource' => 'admin-country-at2',  'action' => 'create']);
     Route::get(config('pulsar.appName') . '/pulsar/territorialareas2/{id}/edit/{country}/{parentOffset}/{offset}',              ['as'=>'editTerritorialArea2',                  'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea2Controller@editRecord',                                'resource' => 'admin-country-at2',  'action' => 'access']);
@@ -191,7 +191,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     |--------------------------------------------------------------------------
     */
     Route::any(config('pulsar.appName') . '/pulsar/territorialareas3/json/data/country/{country}/{parentOffset}/{offset?}',     ['as'=>'jsonDataTerritorialArea3',              'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea3Controller@jsonData',                                     'resource' => 'admin-country-at3',  'action' => 'access']);
-    Route::any(config('pulsar.appName') . '/pulsar/territorialareas3/{country}/{parentOffset}/{offset?}',                       ['as'=>'TerritorialArea3',                      'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea3Controller@index',                                        'resource' => 'admin-country-at3',  'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/territorialareas3/{country}/{parentOffset}/{offset?}',                       ['as'=>'territorialArea3',                      'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea3Controller@index',                                        'resource' => 'admin-country-at3',  'action' => 'access']);
     Route::get(config('pulsar.appName') . '/pulsar/territorialareas3/create/{country}/{parentOffset}/{offset}',                 ['as'=>'createTerritorialArea3',                'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea3Controller@createRecord',                                 'resource' => 'admin-country-at3',  'action' => 'create']);
     Route::post(config('pulsar.appName') . '/pulsar/territorialareas3/store/{country}/{parentOffset}/{offset}',                 ['as'=>'storeTerritorialArea3',                 'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea3Controller@storeRecord',                                  'resource' => 'admin-country-at3',  'action' => 'create']);
     Route::get(config('pulsar.appName') . '/pulsar/territorialareas3/{id}/edit/{country}/{parentOffset}/{offset}',              ['as'=>'editTerritorialArea3',                  'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea3Controller@editRecord',                                   'resource' => 'admin-country-at3',  'action' => 'access']);
@@ -205,7 +205,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | USER
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/users/{offset?}',                        ['as'=>'User',              'uses'=>'Syscover\Pulsar\Controllers\UserController@index',                'resource' => 'admin-user',             'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/users/{offset?}',                        ['as'=>'user',              'uses'=>'Syscover\Pulsar\Controllers\UserController@index',                'resource' => 'admin-user',             'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/users/json/data',                        ['as'=>'jsonDataUser',      'uses'=>'Syscover\Pulsar\Controllers\UserController@jsonData',             'resource' => 'admin-user',             'action' => 'access']);
     Route::get(config('pulsar.appName') . '/pulsar/users/create/{offset}',                  ['as'=>'createUser',        'uses'=>'Syscover\Pulsar\Controllers\UserController@createRecord',         'resource' => 'admin-user',             'action' => 'create']);
     Route::post(config('pulsar.appName') . '/pulsar/users/store/{offset}',                  ['as'=>'storeUser',         'uses'=>'Syscover\Pulsar\Controllers\UserController@storeRecord',          'resource' => 'admin-user',             'action' => 'create']);
@@ -219,7 +219,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | EMAIL ACCOUNTS
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/email/accounts/{offset?}',                   ['as'=>'EmailAccount',              'uses'=>'Syscover\Pulsar\Controllers\EmailAccountController@index',                  'resource' => 'admin-email-account',    'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/email/accounts/{offset?}',                   ['as'=>'emailAccount',              'uses'=>'Syscover\Pulsar\Controllers\EmailAccountController@index',                  'resource' => 'admin-email-account',    'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/email/accounts/json/data',                   ['as'=>'jsonDataEmailAccount',      'uses'=>'Syscover\Pulsar\Controllers\EmailAccountController@jsonData',               'resource' => 'admin-email-account',    'action' => 'access']);
     Route::get(config('pulsar.appName') . '/pulsar/email/accounts/create/{offset}',             ['as'=>'createEmailAccount',        'uses'=>'Syscover\Pulsar\Controllers\EmailAccountController@createRecord',           'resource' => 'admin-email-account',    'action' => 'create']);
     Route::post(config('pulsar.appName') . '/pulsar/email/accounts/store/{offset}',             ['as'=>'storeEmailAccount',         'uses'=>'Syscover\Pulsar\Controllers\EmailAccountController@storeRecord',            'resource' => 'admin-email-account',    'action' => 'create']);
@@ -244,7 +244,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | LIBRARY
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/library/{offset?}',                 ['as'=>'AttachmentLibrary',                   'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@index',                  'resource' => 'admin-attachment-library',        'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/library/{offset?}',                 ['as'=>'attachmentLibrary',                   'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@index',                  'resource' => 'admin-attachment-library',        'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/library/json/data',                 ['as'=>'jsonDataAttachmentLibrary',           'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@jsonData',               'resource' => 'admin-attachment-library',        'action' => 'access']);
     Route::get(config('pulsar.appName') . '/pulsar/library/create/{offset}',           ['as'=>'createAttachmentLibrary',             'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@createRecord',           'resource' => 'admin-attachment-library',        'action' => 'create']);
     Route::post(config('pulsar.appName') . '/pulsar/library/store/api',                ['as'=>'storeAttachmentLibrary',              'uses'=>'Syscover\Pulsar\Controllers\AttachmentLibraryController@storeAttachmentLibrary', 'resource' => 'admin-attachment-library',        'action' => 'create']);
@@ -257,7 +257,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | ATTACHMENT FAMILY
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/attachment/families/{offset?}',                  ['as'=>'AttachmentFamily',                'uses'=>'Syscover\Pulsar\Controllers\AttachmentFamilyController@index',                     'resource' => 'admin-attachment-family',        'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/attachment/families/{offset?}',                  ['as'=>'attachmentFamily',                'uses'=>'Syscover\Pulsar\Controllers\AttachmentFamilyController@index',                     'resource' => 'admin-attachment-family',        'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/attachment/families/json/data',                  ['as'=>'jsonDataAttachmentFamily',        'uses'=>'Syscover\Pulsar\Controllers\AttachmentFamilyController@jsonData',                  'resource' => 'admin-attachment-family',        'action' => 'access']);
     Route::get(config('pulsar.appName') . '/pulsar/attachment/families/create/{offset}',            ['as'=>'createAttachmentFamily',          'uses'=>'Syscover\Pulsar\Controllers\AttachmentFamilyController@createRecord',              'resource' => 'admin-attachment-family',        'action' => 'create']);
     Route::post(config('pulsar.appName') . '/pulsar/attachment/families/store/{offset}',            ['as'=>'storeAttachmentFamily',           'uses'=>'Syscover\Pulsar\Controllers\AttachmentFamilyController@storeRecord',               'resource' => 'admin-attachment-family',        'action' => 'create']);
@@ -281,7 +281,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | FIELD FAMILY
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/custom/field/families/{offset?}',                  ['as'=>'CustomFieldFamily',                'uses'=>'Syscover\Pulsar\Controllers\CustomFieldFamilyController@index',                     'resource' => 'admin-field-family',        'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/custom/field/families/{offset?}',                  ['as'=>'customFieldFamily',                'uses'=>'Syscover\Pulsar\Controllers\CustomFieldFamilyController@index',                     'resource' => 'admin-field-family',        'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/custom/field/families/json/data',                  ['as'=>'jsonDataCustomFieldFamily',        'uses'=>'Syscover\Pulsar\Controllers\CustomFieldFamilyController@jsonData',                  'resource' => 'admin-field-family',        'action' => 'access']);
     Route::get(config('pulsar.appName') . '/pulsar/custom/field/families/create/{offset}',            ['as'=>'createCustomFieldFamily',          'uses'=>'Syscover\Pulsar\Controllers\CustomFieldFamilyController@createRecord',              'resource' => 'admin-field-family',        'action' => 'create']);
     Route::post(config('pulsar.appName') . '/pulsar/custom/field/families/store/{offset}',            ['as'=>'storeCustomFieldFamily',           'uses'=>'Syscover\Pulsar\Controllers\CustomFieldFamilyController@storeRecord',               'resource' => 'admin-field-family',        'action' => 'create']);

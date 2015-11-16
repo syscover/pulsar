@@ -25,7 +25,7 @@ class ProfileController extends Controller {
 
     use TraitController;
 
-    protected $routeSuffix  = 'Profile';
+    protected $routeSuffix  = 'profile';
     protected $folder       = 'profile';
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_006', 'name_006'];
@@ -38,7 +38,7 @@ class ProfileController extends Controller {
 
     public function jsonCustomDataBeforeActions($aObject)
     {
-        $actions = session('userAcl')->isAllowed(Auth::user()->profile_010, $this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('Permission', [0, $aObject['id_006'], Request::input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_permissions').'"><i class="fa fa-shield"></i></a>' : null;
+        $actions = session('userAcl')->isAllowed(Auth::user()->profile_010, $this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('permission', [0, $aObject['id_006'], Request::input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_permissions').'"><i class="fa fa-shield"></i></a>' : null;
         $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip all-permissions" onClick="setAllPermissions(this)" data-all-permissions-url="' . route('allPermissionsProfile', [$aObject['id_006'], Request::input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.set_all_permissions').'"><i class="fa fa-unlock-alt"></i></a>' : null;
 
         return $actions;

@@ -20,7 +20,7 @@ class AttachmentLibraryController extends Controller {
 
     use TraitController;
 
-    protected $routeSuffix  = 'AttachmentLibrary';
+    protected $routeSuffix  = 'attachmentLibrary';
     protected $folder       = 'attachment_library';
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_014', ['type' => 'library_img', 'data' => 'file_name_014'], 'file_name_014', ['type' => 'size', 'data' => 'size_014'], 'mime_014', 'type_text_014'];

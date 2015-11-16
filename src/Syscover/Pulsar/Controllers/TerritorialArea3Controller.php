@@ -20,7 +20,7 @@ class TerritorialArea3Controller extends Controller {
 
     use TraitController;
 
-    protected $routeSuffix          = 'TerritorialArea3';
+    protected $routeSuffix          = 'territorialArea3';
     protected $folder               = 'territorial_area_3';
     protected $package              = 'pulsar';
     protected $aColumns             = ['id_005', 'name_003', 'name_004', 'name_005'];

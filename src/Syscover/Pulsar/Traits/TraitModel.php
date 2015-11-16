@@ -191,6 +191,43 @@ trait TraitModel {
     }
 
     /**
+     *  Function to check if slug exists
+     *
+     * @access  public
+     * @param   string          $slugField
+     * @param   string          $slug
+     * @param   integer|string  $id
+     * @return  string          $slug
+     */
+    public static function checkSlug($slugField, $slug, $id = null)
+    {
+        $instance   = new static;
+
+        $slug   = $slug;
+        $query = $instance->where($slugField, $slug)->newQuery();
+
+        if($id != null)
+        {
+            $query->whereNotIn($instance->getKeyName(), [$id]);
+        }
+
+        $nObjects = $query->count();
+
+        if($nObjects > 0)
+        {
+            $sufix = 0;
+            while($nObjects > 0)
+            {
+                $sufix++;
+                $slug       = $slug . '-' . $sufix;
+                $nObjects   = $instance->where($slugField, $slug)->count();
+            }
+        }
+
+        return $slug;
+    }
+
+    /**
      * @access	public
      * @param   void
      * @return	string
