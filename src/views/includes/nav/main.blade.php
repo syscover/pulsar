@@ -2,7 +2,7 @@
     <a href="javascript:void(0)"><i class="fa fa-cog"></i>{{ trans('pulsar::pulsar.administration') }}</a>
     <ul class="sub-menu">
         @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-user', 'access'))
-            <li{!! Miscellaneous::setCurrentPage('admin-user') !!}><a href="{{ route('user') }}"><i class="icomoon-icon-users"></i>{{ trans_choice('pulsar::pulsar.user', 2) }}</a></li>
+            <li{!! Miscellaneous::setCurrentPage('admin-user') !!}><a href="{{ route('user') }}"><i class="fa fa-users"></i>{{ trans_choice('pulsar::pulsar.user', 2) }}</a></li>
         @endif
         @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-lang', 'access'))
                 <li{!! Miscellaneous::setCurrentPage('admin-lang') !!}><a href="{{ route('lang') }}"><i class="fa fa-language"></i>{{ trans_choice('pulsar::pulsar.language', 2) }}</a></li>

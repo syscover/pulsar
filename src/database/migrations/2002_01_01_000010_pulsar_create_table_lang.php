@@ -13,9 +13,9 @@ class PulsarCreateTableLang extends Migration
 	{   
             Schema::create('001_001_lang', function($table) {
                 $table->engine = 'InnoDB';
-                $table->string('id_001',2)->primary();
-                $table->string('name_001',50);
-                $table->string('image_001',255)->nullable();
+                $table->string('id_001', 2)->primary();
+                $table->string('name_001', 50);
+                $table->string('image_001', 255)->nullable();
                 $table->smallInteger('sorting_001')->unsigned();
                 $table->boolean('base_001');
                 $table->boolean('active_001');
