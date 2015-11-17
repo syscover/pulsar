@@ -77,8 +77,8 @@ class AttachmentController extends Controller {
 
             Attachment::where('id_016', $attachment['id'])->where('lang_016', $parameters['lang'])->update([
                 'family_016'            => $attachment['family'] == ""? null : $attachment['family'],
-                'library_016'           => $attachment['library'],
-                'library_file_name_016' => $attachment['libraryFileName'] == ""? null : $attachment['libraryFileName'],
+                'library_016'           => empty($attachment['library'])? null : $attachment['library'],
+                'library_file_name_016' => empty($attachment['libraryFileName'])? null : $attachment['libraryFileName'],
                 'sorting_016'           => $attachment['sorting'],
                 //'url_016'               => $attachment['url'] == ""? null : $attachment['url'],
                 'name_016'              => $attachment['name'] == ""? null : $attachment['name'],
@@ -121,8 +121,8 @@ class AttachmentController extends Controller {
 
                 Attachment::where('id_016', $attachment['id'])->where('lang_016', $parameters['lang'])->update([
                     'family_016'            => $attachment['family'] == ""? null : $attachment['family'],
-                    'library_016'           => $attachment['library'],
-                    'library_file_name_016' => $attachment['libraryFileName'] == ""? null : $attachment['libraryFileName'],
+                    'library_016'           => empty($attachment['library'])? null : $attachment['library'],
+                    'library_file_name_016' => empty($attachment['libraryFileName'])? null : $attachment['libraryFileName'],
                     'sorting_016'           => $attachment['sorting'],
                     //'url_016'               => $attachment['url'] == ""? null : $attachment['url'],
                     'name_016'              => $attachment['name'] == ""? null : $attachment['name'],
