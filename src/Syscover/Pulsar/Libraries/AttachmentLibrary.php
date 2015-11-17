@@ -82,9 +82,9 @@ class AttachmentLibrary {
      * @param   boolean     $copyAttachment
      * @return  array       $response
      */
-    public static function getAttachments($routesConfigFile, $resource, $objectId, $lang, $copyAttachment = false)
+    public static function getRecords($routesConfigFile, $resource, $objectId, $lang, $copyAttachment = false)
     {
-        $response['attachments'] = Attachment::getAttachments([
+        $response['attachments'] = Attachment::getRecords([
             'lang_016'      => $lang,
             'resource_016'  => $resource,
             'object_016'    => $objectId,

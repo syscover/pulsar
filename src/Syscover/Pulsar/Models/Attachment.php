@@ -48,7 +48,7 @@ class Attachment extends Model {
             ->first();
     }
 
-    public static function getAttachments($args)
+    public static function getRecords($args)
     {
         $query =  Attachment::leftJoin('001_015_attachment_family', '001_016_attachment.family_016', '=', '001_015_attachment_family.id_015')->newQuery();
 

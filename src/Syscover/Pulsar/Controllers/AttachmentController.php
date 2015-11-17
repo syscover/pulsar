@@ -13,7 +13,6 @@
 use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\File;
 use Syscover\Pulsar\Models\Attachment;
-use Syscover\Pulsar\Controllers\Controller;
 
 class AttachmentController extends Controller {
 
