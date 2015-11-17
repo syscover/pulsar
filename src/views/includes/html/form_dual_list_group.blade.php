@@ -1,6 +1,7 @@
 <div class="widget-content clearfix">
     <!-- Left box -->
     <div class="left-box">
+        <label>{{ $labelList1 or trans('pulsar::pulsar.objects_list') }}</label>
         <input type="text" id="box{{ $idList1 }}Filter" class="form-control box-filter" placeholder="{{ trans('pulsar::pulsar.filter_records') }}"><button type="button" id="box{{ $idList1 }}Clear" class="filter">x</button>
         <select id="box{{ $idList1 }}View" multiple="multiple" class="multiple">
             @foreach ($objects as $object)
@@ -29,6 +30,7 @@
 
     <!-- Right box -->
     <div class="right-box">
+        <label>{{ $labelList2 or trans('pulsar::pulsar.selected_objects') }}</label>
         <input type="text" id="box{{ $idList2 }}Filter" class="form-control box-filter" placeholder="{{ trans('pulsar::pulsar.filter_records') }}"><button type="button" id="box{{ $idList2 }}Clear" class="filter">x</button>
         <select id="box{{ $idList2 }}View" multiple="multiple" class="multiple dual-list-submit" name="{{ $name }}[]"{{ isset($required) && $required? ' required' : null }}>
             @if(isset($objectsSelect))
