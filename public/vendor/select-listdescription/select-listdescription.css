@@ -1,0 +1,31 @@
+.card{
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius:2px;
+    padding: 30px;
+    width: calc(100% - 30px);
+    margin:0 15px;
+    margin-bottom: 30px;
+}
+.card .card-image{
+    max-height: 200px;
+}
+.card .card-toggle > *{
+    float: right;
+}
+.card .card-title h4{
+    margin:0;
+    padding-bottom: 20px;
+}
+.card .card-description textarea{
+    width:100%;
+}
+.content-product{
+    max-height: 70vh;
+    overflow-y: auto;
+}
+@media(max-height: 991px){
+    .card .card-toggle{
+        float: left;
+        margin-bottom: 20px;
+    }
+}
