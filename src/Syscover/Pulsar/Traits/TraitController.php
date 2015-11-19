@@ -485,7 +485,7 @@ trait TraitController {
                 throw new InvalidArgumentException('The methods getCustomTranslationRecord or getTranslationRecord on ' . $this->model . ' is not instantiated');
             }
 
-            $parameters['lang']     = $parameters['object']->lang;
+            $parameters['lang'] = $parameters['object']->lang;
 
             if($parameters['lang'] === null)
             {
