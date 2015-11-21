@@ -1,4 +1,4 @@
-<li{!! Miscellaneous::setCurrentOpenPage(['admin-user', 'admin-lang', 'admin-country', 'admin-country-at1', 'admin-country-at2', 'admin-country-at3', 'admin-package', 'admin-cron', 'admin-perm-profile', 'admin-perm-resource', 'admin-perm-action', 'admin-perm-perm', 'admin-email-account', 'admin-attachment-family', 'admin-attachment-library','admin-field-family']) !!}>
+<li{!! Miscellaneous::setCurrentOpenPage(['admin-user', 'admin-lang', 'admin-country', 'admin-country-at1', 'admin-country-at2', 'admin-country-at3', 'admin-package', 'admin-cron', 'admin-perm-profile', 'admin-perm-resource', 'admin-perm-action', 'admin-perm-perm', 'admin-email-account', 'admin-attachment-family', 'admin-attachment-library','admin-field', 'admin-field-family']) !!}>
     <a href="javascript:void(0)"><i class="fa fa-cog"></i>{{ trans('pulsar::pulsar.administration') }}</a>
     <ul class="sub-menu">
         @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-user', 'access'))
@@ -20,10 +20,13 @@
                 <li{!! Miscellaneous::setCurrentPage('admin-email-account') !!}><a href="{{ route('emailAccount') }}"><i class="fa fa-envelope"></i>{{ trans_choice('pulsar::pulsar.account', 2) }}</a></li>
         @endif
         @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-field', 'access'))
-            <li{!! Miscellaneous::setOpenPage(['admin-field-family']) !!}>
+            <li{!! Miscellaneous::setOpenPage(['admin-field', 'admin-field-family']) !!}>
                 <a href="javascript:void(0)"><i class="fa fa-cubes"></i>{{ trans_choice('pulsar::pulsar.custom_field', 2) }}<span class="arrow"></span></a>
-                <ul class="sub-menu"{!! Miscellaneous::setDisplayPage(['admin-field-family']) !!}>
-                    @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-attachment-family', 'access'))
+                <ul class="sub-menu"{!! Miscellaneous::setDisplayPage(['admin-field', 'admin-field-family']) !!}>
+                    @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-field', 'access'))
+                        <li{!! Miscellaneous::setCurrentPage('admin-field') !!}><a href="{{ route('customField', [session('baseLang')]) }}"><i class="fa fa-i-cursor"></i>{{ trans_choice('pulsar::pulsar.field', 2) }}</a></li>
+                    @endif
+                    @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-field-family', 'access'))
                         <li{!! Miscellaneous::setCurrentPage('admin-field-family') !!}><a href="{{ route('customFieldFamily') }}"><i class="fa fa-th"></i>{{ trans_choice('pulsar::pulsar.field_family', 2) }}</a></li>
                     @endif
                 </ul>

@@ -10,7 +10,6 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\Resource;
 use Syscover\Pulsar\Models\CustomFieldFamily;
@@ -38,8 +37,8 @@ class CustomFieldFamilyController extends Controller {
     public function storeCustomRecord($request, $parameters)
     {
         CustomFieldFamily::create([
-            'resource_025'  => Request::input('resource'),
-            'name_025'      => Request::input('name')
+            'resource_025'  => $request->input('resource'),
+            'name_025'      => $request->input('name')
         ]);
     }
     
@@ -53,8 +52,8 @@ class CustomFieldFamilyController extends Controller {
     public function updateCustomRecord($request, $parameters)
     {
         CustomFieldFamily::where('id_025', $parameters['id'])->update([
-            'resource_025'  => Request::input('resource'),
-            'name_025'      => Request::input('name')
+            'resource_025'  => $request->input('resource'),
+            'name_025'      => $request->input('name')
         ]);
     }
 }
