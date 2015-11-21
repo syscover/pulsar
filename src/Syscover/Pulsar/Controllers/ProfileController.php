@@ -10,10 +10,7 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Http\Request as HttpRequest;
-
+use Illuminate\Http\Request;
 use Syscover\Pulsar\Libraries\PulsarAcl;
 use Syscover\Pulsar\Models\Profile;
 use Syscover\Pulsar\Models\Resource;
@@ -36,10 +33,10 @@ class ProfileController extends Controller {
 
     private $rePermission   = 'admin-perm-perm';
 
-    public function jsonCustomDataBeforeActions($aObject)
+    public function jsonCustomDataBeforeActions($request, $aObject)
     {
-        $actions = session('userAcl')->isAllowed(Auth::user()->profile_010, $this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('permission', [0, $aObject['id_006'], Request::input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_permissions').'"><i class="fa fa-shield"></i></a>' : null;
-        $actions .= session('userAcl')->isAllowed(Auth::user()->profile_010, $this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip all-permissions" onClick="setAllPermissions(this)" data-all-permissions-url="' . route('allPermissionsProfile', [$aObject['id_006'], Request::input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.set_all_permissions').'"><i class="fa fa-unlock-alt"></i></a>' : null;
+        $actions = session('userAcl')->isAllowed($request->user()->profile_010, $this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('permission', [0, $aObject['id_006'], $request->input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_permissions').'"><i class="fa fa-shield"></i></a>' : null;
+        $actions .= session('userAcl')->isAllowed($request->user()->profile_010, $this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip all-permissions" onClick="setAllPermissions(this)" data-all-permissions-url="' . route('allPermissionsProfile', [$aObject['id_006'], $request->input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.set_all_permissions').'"><i class="fa fa-unlock-alt"></i></a>' : null;
 
         return $actions;
     }
@@ -58,7 +55,7 @@ class ProfileController extends Controller {
         ]);
     }
 
-    public function setAllPermissions(HttpRequest $request)
+    public function setAllPermissions(Request $request)
     {
         // get parameters from url route
         $parameters = $request->route()->parameters();

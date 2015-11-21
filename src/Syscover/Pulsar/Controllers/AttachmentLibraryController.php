@@ -30,7 +30,7 @@ class AttachmentLibraryController extends Controller {
     protected $objectTrans  = 'library';
     protected $jsonParam    = ['edit' => false];
 
-    public function customColumnType($row, $aColumn, $aObject, $request)
+    public function customColumnType($request, $row, $aColumn, $aObject)
     {
         switch ($aColumn['type'])
         {

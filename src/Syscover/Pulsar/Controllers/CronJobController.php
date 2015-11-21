@@ -10,10 +10,6 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Lang;
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Models\CronJob;
 use Cron\CronExpression;
@@ -32,9 +28,9 @@ class CronJobController extends Controller
     protected $icon         = 'icomoon-icon-stopwatch';
     protected $objectTrans  = 'cronjob';
 
-    public function jsonCustomDataBeforeActions($aObject)
+    public function jsonCustomDataBeforeActions($request, $aObject)
     {
-        return session('userAcl')->isAllowed(Auth::user()->profile_010, $this->resource, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('run' . ucfirst($this->routeSuffix), [$aObject['id_011'], Request::input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.run') . '"><i class="fa fa-bolt"></i></a>' : null;
+        return session('userAcl')->isAllowed($request->user()->profile_010, $this->resource, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('run' . ucfirst($this->routeSuffix), [$aObject['id_011'], $request->input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.run') . '"><i class="fa fa-bolt"></i></a>' : null;
     }
 
     public function run($id, $offset = 0)
@@ -46,7 +42,7 @@ class CronJobController extends Controller
 
         return redirect()->route($this->routeSuffix, $offset)->with([
             'msg'        => 1,
-            'txtMsg'     => Lang::get('pulsar::pulsar.action_successful', ['name' => $cronJob->name_011])
+            'txtMsg'     => trans('pulsar::pulsar.action_successful', ['name' => $cronJob->name_011])
         ]);
     }
     

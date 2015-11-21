@@ -39,7 +39,7 @@ class CountryController extends Controller {
         return $parameters;
     }
 
-    public function customColumnType($row, $aColumn, $aObject, $request)
+    public function customColumnType($request, $row, $aColumn, $aObject)
     {
         switch ($aColumn['type'])
         {
