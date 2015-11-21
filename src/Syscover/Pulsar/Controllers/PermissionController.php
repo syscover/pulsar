@@ -10,8 +10,7 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Request;
-use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Http\Request;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Libraries\PulsarAcl;
 use Syscover\Pulsar\Models\Permission;
@@ -45,7 +44,7 @@ class PermissionController extends Controller
         return $parameters;
     }
 
-    public function jsonData(HttpRequest $request)
+    public function jsonData(Request $request)
     {
         // get parameters from url route
         $parameters = $request->route()->parameters();
@@ -71,7 +70,7 @@ class PermissionController extends Controller
         $class          = new \ReflectionClass($this->model);
 
         $response = [
-            "sEcho"                 => intval(Request::input('sEcho')),
+            "sEcho"                 => intval($request->input('sEcho')),
             "iTotalRecords"         => $iTotal,
             "iTotalDisplayRecords"  => $iFilteredTotal,
             "aaData"                => []
