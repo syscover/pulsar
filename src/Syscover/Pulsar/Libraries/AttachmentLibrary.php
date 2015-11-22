@@ -20,11 +20,11 @@ class AttachmentLibrary {
      *  Function to store attachment elements
      *
      * @access	public
-     * @param   \Illuminate\Support\Facades\Request   $attachments
-     * @param   string      $lang
-     * @param   string      $routesConfigFile
-     * @param   integer     $objectId
-     * @param   string      $resource
+     * @param   \Illuminate\Support\Facades\Request     $attachments
+     * @param   string                                  $lang
+     * @param   string                                  $routesConfigFile
+     * @param   integer                                 $objectId
+     * @param   string                                  $resource
      * @return  boolean
      */
     public static function storeAttachments($attachments, $routesConfigFile, $resource, $objectId, $lang)

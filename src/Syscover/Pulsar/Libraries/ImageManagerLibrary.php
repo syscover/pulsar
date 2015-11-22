@@ -138,15 +138,10 @@ class ImageManagerLibrary
     /**
      * Function to store attachment elements
      *
-     * @access    public
-     * @param $path
-     * @return bool
-     * @throws \Exception
-     * @internal param \Illuminate\Support\Facades\Request $attachments
-     * @internal param string $lang
-     * @internal param string $routesConfigFile
-     * @internal param int $objectId
-     * @internal param string $resource
+     * @access  public
+     * @param   string  $path
+     * @return  bool
+     * @throws  \Exception
      */
     public static function iOSCheckOrientation($path)
     {

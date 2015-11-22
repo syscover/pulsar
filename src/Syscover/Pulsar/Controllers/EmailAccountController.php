@@ -11,7 +11,6 @@
  */
 
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Libraries\EmailServices;
 use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\EmailAccount;

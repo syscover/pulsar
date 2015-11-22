@@ -12,7 +12,6 @@
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Lang;
 

@@ -10,7 +10,6 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Request;
 use Syscover\Pulsar\Models\Country;
 use Syscover\Pulsar\Traits\TraitController;
 
