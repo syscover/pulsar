@@ -106,7 +106,7 @@ trait TraitModel {
 
         if($deleteLangDataRecord)
         {
-            $instance::deleteLangDataRecord($parameters['id'], $parameters['lang']);
+            $instance::deleteLangDataRecord($parameters);
         }
     }
 
@@ -172,10 +172,17 @@ trait TraitModel {
         return $jsonString;
     }
 
-    public static function deleteLangDataRecord($id, $lang)
+    /**
+     *  Function to delete lang record from json field
+     *
+     * @access  public
+     * @param   array   $parameters     [id, lang]
+     * @return  void
+     */
+    public static function deleteLangDataRecord($parameters)
     {
         $instance   = new static;
-        $object     = $instance::find($id);
+        $object     = $instance::find($parameters['id']);
 
         if($object != null)
         {
@@ -185,7 +192,7 @@ trait TraitModel {
             $newArrayLang = [];
             foreach($jsonObject->langs as $keyLang)
             {
-                if($keyLang != $lang)
+                if($keyLang != $parameters['lang'])
                 {
                     $newArrayLang[] = $keyLang;
                 }
@@ -193,7 +200,7 @@ trait TraitModel {
             $jsonObject->langs = $newArrayLang;
             $jsonString = json_encode($jsonObject);
 
-            $instance::where($instance->getKeyName(), $id)->update([
+            $instance::where($instance->getKeyName(), $parameters['id'])->update([
                 'data_lang_' . $instance->sufix  => $jsonString
             ]);
         }

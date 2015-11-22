@@ -76,6 +76,6 @@ class CustomField extends Model
         ]);
 
         // set values on data_lang_026
-        CustomField::deleteLangDataRecord($parameters['id'], $parameters['lang']);
+        CustomField::deleteLangDataRecord($parameters);
     }
 }

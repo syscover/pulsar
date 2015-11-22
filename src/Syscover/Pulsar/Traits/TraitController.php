@@ -628,7 +628,7 @@ trait TraitController {
             // this option is to tables that dependent of other tables to set your languages, example 007_170_hotel and 007_171_hotel_lang
             call_user_func($this->langModel . '::deleteTranslationRecord', $parameters, false);
             // this kind of tables has field data_lang in main table, not in language table
-            call_user_func($this->model . '::deleteLangDataRecord', $parameters['id'], $parameters['lang']);
+            call_user_func($this->model . '::deleteLangDataRecord', $parameters);
         }
         else
         {
