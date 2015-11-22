@@ -311,7 +311,7 @@ trait TraitController {
         {
             $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', ['id' => $parameters['id'], 'lang' => session('baseLang')->id_001]);
         }
-        
+
         // get lang object
         if(isset($parameters['lang']))
         {
