@@ -55,23 +55,27 @@ class CustomField extends Model
             ->where('id_026', $parameters['id'])
             ->first();
 
-        $data = collect(json_decode($customField->data_026, true)['labels'])->keyBy('lang');
-        $customField->label_026 = $data[$parameters['lang']]['name'];
-        $customField->lang_026 = $data[$parameters['lang']]['lang'];
+        $data = collect(json_decode($customField->data_026, true)['labels']);
+
+        $customField->label_026     = $data[$parameters['lang']];
+        $customField->lang_026      = $parameters['lang'];
 
         return $customField;
     }
 
-    public static function deleteTranslationRecord($id, $lang, $deleteLangDataRecord = true)
+    public static function deleteTranslationRecord($parameters)
     {
-        $customField = CustomField::find($id);
+        $customField = CustomField::find($parameters['id']);
 
         // get values
-        $data = collect(json_decode($customField->data_026, true)['labels'])->keyBy('lang');
-        unset($data[$lang]);
+        $data = collect(json_decode($customField->data_026, true)['labels']);
+        unset($data[$parameters['lang']]);
 
-        CustomField::where('id_026', $id)->update([
-            'data_lang_026'     => json_encode(['labels' => $data])
+        CustomField::where('id_026', $parameters['id'])->update([
+            'data_026' => json_encode(['labels' => $data])
         ]);
+
+        // set values on data_lang_026
+        CustomField::deleteLangDataRecord($parameters['id'], $parameters['lang']);
     }
 }

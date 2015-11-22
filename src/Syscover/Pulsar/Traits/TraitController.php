@@ -610,11 +610,12 @@ trait TraitController {
 
         if(isset($this->langModel))
         {
-            $object = call_user_func($this->langModel . '::getTranslationRecord', $parameters['id'], $parameters['lang']);
+            // this option is to tables that dependent of other tables to set your languages, example 007_170_hotel and 007_171_hotel_lang
+            $object = call_user_func($this->langModel . '::getTranslationRecord', $parameters);
         }
         else
         {
-            $object = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], $parameters['lang']);
+            $object = call_user_func($this->model . '::getTranslationRecord', $parameters);
         }
 
         if(method_exists($this, 'addToDeleteTranslationRecord'))
@@ -625,13 +626,13 @@ trait TraitController {
         if(isset($this->langModel))
         {
             // this option is to tables that dependent of other tables to set your languages, example 007_170_hotel and 007_171_hotel_lang
-            call_user_func($this->langModel . '::deleteTranslationRecord', $pa['lang'], false);
+            call_user_func($this->langModel . '::deleteTranslationRecord', $parameters, false);
             // this kind of tables has field data_lang in main table, not in language table
             call_user_func($this->model . '::deleteLangDataRecord', $parameters['id'], $parameters['lang']);
         }
         else
         {
-            call_user_func($this->model . '::deleteTranslationRecord', $pa['lang']);
+            call_user_func($this->model . '::deleteTranslationRecord', $parameters);
         }
 
         return redirect()->route($this->routeSuffix, $parameters)->with([

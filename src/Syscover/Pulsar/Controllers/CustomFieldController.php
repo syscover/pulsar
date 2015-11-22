@@ -64,8 +64,8 @@ class CustomFieldController extends Controller {
             $data                   = json_decode($customField->data_026, true);
 
             // set values
-            $dataLang['langs'][]    = $request->input('lang');
-            $data['labels'][]       = ["lang" => $request->input('lang'), "name" => $request->input('label')];
+            $dataLang['langs'][]                        = $request->input('lang');
+            $data['labels'][$request->input('lang')]    = $request->input('label');
 
             CustomField::where('id_026', $parameters['id'])->update([
                 'data_lang_026'     => json_encode($dataLang),
@@ -86,7 +86,7 @@ class CustomFieldController extends Controller {
                 'int_value_026' => true,
                 'required_026'  => false,
                 'data_lang_026' => CustomField::addLangDataRecord($request->input('lang')),
-                'data_026'      => json_encode(["labels" => [["lang" => $request->input('lang'), "name" => $request->input('label')]]])
+                'data_026'      => json_encode(["labels" => [$request->input('lang') => $request->input('label')]])
             ]);
         }
     }
@@ -100,8 +100,22 @@ class CustomFieldController extends Controller {
 
     public function updateCustomRecord($request, $parameters)
     {
-        CustomField::where('id_151', $parameters['id'])->where('lang_151', $request->input('lang'))->update([
-            'name_151'  => $request->input('name')
+        // get object to update data and data_lang field
+        $customField            = CustomField::find($request->input('id'));
+
+        // get values
+        $data                   = json_decode($customField->data_026, true);
+
+        // set values
+        $data['labels'][$request->input('lang')]    = $request->input('label');
+
+        CustomField::where('id_026', $parameters['id'])->update([
+            'family_026'    => $request->input('family'),
+            'name_026'      => $request->input('name'),
+            'type_026'      => 1,
+            'int_value_026' => true,
+            'required_026'  => false,
+            'data_026'      => json_encode($data)
         ]);
     }
 }
