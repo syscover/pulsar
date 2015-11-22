@@ -617,21 +617,21 @@ trait TraitController {
             $object = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], $parameters['lang']);
         }
 
-        if(method_exists($this, 'deleteCustomTranslationRecord'))
+        if(method_exists($this, 'addToDeleteTranslationRecord'))
         {
-            $this->deleteCustomTranslationRecord($request, $object);
+            $this->addToDeleteTranslationRecord($request, $object);
         }
 
         if(isset($this->langModel))
         {
             // this option is to tables that dependent of other tables to set your languages, example 007_170_hotel and 007_171_hotel_lang
-            call_user_func($this->langModel . '::deleteTranslationRecord', $parameters['id'], $parameters['lang'], false);
+            call_user_func($this->langModel . '::deleteTranslationRecord', $pa['lang'], false);
             // this kind of tables has field data_lang in main table, not in language table
             call_user_func($this->model . '::deleteLangDataRecord', $parameters['id'], $parameters['lang']);
         }
         else
         {
-            call_user_func($this->model . '::deleteTranslationRecord', $parameters['id'], $parameters['lang']);
+            call_user_func($this->model . '::deleteTranslationRecord', $pa['lang']);
         }
 
         return redirect()->route($this->routeSuffix, $parameters)->with([

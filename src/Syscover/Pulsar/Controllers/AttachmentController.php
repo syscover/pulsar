@@ -157,7 +157,7 @@ class AttachmentController extends Controller {
             File::delete(public_path() . config($request->input('routesConfigFile') . '.attachmentFolder') . '/' . $attachment->object_016 . '/' . $attachment->lang_016 . '/' . $attachment->file_name_016);
         }
 
-        Attachment::deleteTranslationRecord($parameters['id'], $parameters['lang']);
+        Attachment::deleteTranslationRecord($parameters);
 
         $response = [
             'success'   => true,

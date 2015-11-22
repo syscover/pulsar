@@ -49,20 +49,20 @@ class CustomField extends Model
         return $query;
     }
 
-    public static function getTranslationRecord($id, $lang)
+    public static function getTranslationRecord($parameters)
     {
         $customField =  CustomField::join('001_025_field_family', '001_026_field.family_026', '=', '001_025_field_family.id_025')
-            ->where('id_026', $id)
+            ->where('id_026', $parameters['id'])
             ->first();
 
         $data = collect(json_decode($customField->data_026, true)['labels'])->keyBy('lang');
-        $customField->label_026 = $data[$lang]['name'];
-        $customField->lang_026 = $data[$lang]['lang'];
+        $customField->label_026 = $data[$parameters['lang']]['name'];
+        $customField->lang_026 = $data[$parameters['lang']]['lang'];
 
         return $customField;
     }
 
-    public static function customDeleteTranslationRecord($id, $lang, $deleteLangDataRecord = true)
+    public static function deleteTranslationRecord($id, $lang, $deleteLangDataRecord = true)
     {
         $customField = CustomField::find($id);
 
