@@ -15,12 +15,12 @@ class PulsarCreateTableField extends Migration {
         Schema::create('001_026_field', function(Blueprint $table)
         {
             $table->engine = 'InnoDB';
-            $table->integer('id_026')->unsigned();
-            $table->string('lang_026',2);
+            $table->increments('id_026')->unsigned();
+            //$table->string('lang_026',2);
             $table->integer('family_026')->unsigned();
             $table->string('name_026', 100)->nullable();
 
-            $table->string('label_026', 100)->nullable();
+            //$table->string('label_026', 100)->nullable();
 
             $table->tinyInteger('type_026')->unsigned();
             // 1 - text
@@ -33,6 +33,7 @@ class PulsarCreateTableField extends Migration {
             //
             //
 
+            $table->boolean('int_value_026');   // determines whether this field will have numeric values or strings
             $table->boolean('required_026');
             $table->smallInteger('sorting_026')->unsigned()->nullable();
             $table->integer('max_length_026')->unsigned()->nullable();
@@ -43,9 +44,9 @@ class PulsarCreateTableField extends Migration {
             $table->string('data_lang_026',255)->nullable();
             $table->text('data_026')->nullable();
 
-            $table->primary(['id_026', 'lang_026']);
-            $table->foreign('lang_026')->references('id_001')->on('001_001_lang')
-                ->onDelete('restrict')->onUpdate('cascade');
+           // $table->primary(['id_026', 'lang_026']);
+            //$table->foreign('lang_026')->references('id_001')->on('001_001_lang')
+            //    ->onDelete('restrict')->onUpdate('cascade');
             $table->foreign('family_026')->references('id_025')->on('001_025_field_family')
                 ->onDelete('cascade')->onUpdate('cascade');
         });

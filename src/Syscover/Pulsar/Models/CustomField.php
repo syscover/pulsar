@@ -20,11 +20,12 @@ class CustomField extends Model
 
 	protected $table        = '001_026_field';
     protected $primaryKey   = 'id_026';
+    protected $sufix        = '026';
     public $timestamps      = false;
-    protected $fillable     = ['id_025', 'name_025', 'resource_025', 'data_025'];
+    protected $fillable     = ['id_026', 'name_026', 'family_026', 'data_lang_026', 'data_026'];
     private static $rules   = [
         'name'      => 'required|between:2,100',
-        'resource'  => 'required',
+        'family'    => 'required',
     ];
 
     public static function validate($data)
@@ -34,7 +35,7 @@ class CustomField extends Model
 
     public static function getCustomRecordsLimit()
     {
-        $query =  CustomFieldFamily::join('001_007_resource', '001_025_field_family.resource_025', '=', '001_007_resource.id_007')
+        $query =  CustomField::join('001_025_field_family', '001_026_field.family_026', '=', '001_025_field_family.id_025')
             ->newQuery();
 
         return $query;

@@ -10,13 +10,13 @@
  * @filesource
  */
 
-use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Syscover\Pulsar\Models\Attachment;
 
 class AttachmentController extends Controller {
 
-    public function storeAttachment(HttpRequest $request)
+    public function storeAttachment(Request $request)
     {
         $parameters             = $request->route()->parameters();
         $attachments            = $request->input('attachments');
@@ -59,7 +59,7 @@ class AttachmentController extends Controller {
         return response()->json($response);
     }
 
-    public function apiUpdateAttachment(HttpRequest $request)
+    public function apiUpdateAttachment(Request $request)
     {
         $parameters = $request->route()->parameters();
         $attachment = $request->input('attachment');
@@ -101,7 +101,7 @@ class AttachmentController extends Controller {
         return response()->json($response);
     }
 
-    public function apiUpdatesAttachment(HttpRequest $request)
+    public function apiUpdatesAttachment(Request $request)
     {
         $parameters = $request->route()->parameters();
         $attachments = $request->input('attachments');
@@ -146,7 +146,7 @@ class AttachmentController extends Controller {
         return response()->json($response);
     }
 
-    public function apiDeleteAttachment(HttpRequest $request)
+    public function apiDeleteAttachment(Request $request)
     {
         $parameters = $request->route()->parameters();
 
@@ -168,7 +168,7 @@ class AttachmentController extends Controller {
         return response()->json($response);
     }
 
-    public function apiDeleteTmpAttachment(HttpRequest $request)
+    public function apiDeleteTmpAttachment(Request $request)
     {
         File::delete(public_path() . config($request->input('routesConfigFile') . '.tmpFolder') . '/' . $request->input('fileName'));
 

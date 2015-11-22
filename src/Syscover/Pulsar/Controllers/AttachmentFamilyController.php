@@ -38,10 +38,10 @@ class AttachmentFamilyController extends Controller {
     public function storeCustomRecord($request, $parameters)
     {
         AttachmentFamily::create([
-            'resource_015'  => Request::input('resource'),
-            'name_015'      => Request::input('name'),
-            'width_015'     => Request::has('width')? Request::input('width') : null,
-            'height_015'    => Request::has('height')? Request::input('height') : null,
+            'resource_015'  => $request->input('resource'),
+            'name_015'      => $request->input('name'),
+            'width_015'     => $request->has('width')? $request->input('width') : null,
+            'height_015'    => $request->has('height')? $request->input('height') : null,
             'data_015'      => null
         ]);
     }
@@ -56,10 +56,10 @@ class AttachmentFamilyController extends Controller {
     public function updateCustomRecord($request, $parameters)
     {
         AttachmentFamily::where('id_015', $parameters['id'])->update([
-            'resource_015'  => Request::input('resource'),
-            'name_015'      => Request::input('name'),
-            'width_015'     => Request::has('width')? Request::input('width') : null,
-            'height_015'    => Request::has('height')? Request::input('height') : null,
+            'resource_015'  => $request->input('resource'),
+            'name_015'      => $request->input('name'),
+            'width_015'     => $request->has('width')? $request->input('width') : null,
+            'height_015'    => $request->has('height')? $request->input('height') : null,
             'data_015'      => null
         ]);
     }

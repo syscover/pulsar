@@ -15,14 +15,21 @@ class PulsarCreateTableFieldResult extends Migration {
         Schema::create('001_028_field_result', function(Blueprint $table)
         {
             $table->engine = 'InnoDB';
+            $table->string('lang_028', 2);
             $table->integer('field_028')->unsigned();
-            $table->integer('value_028')->unsigned();
+            $table->string('resource_028', 30);
             $table->integer('object_028')->unsigned()->nullable();
 
-            $table->primary(['field_028', 'value_028', 'object_028']);
+            // possible values
+            $table->integer('int_value_028')->unsigned()->nullable();
+            $table->text('text_value_028')->nullable();
+
+            $table->primary(['lang_028', 'field_028', 'resource_028', 'object_028']);
+            $table->foreign('lang_028')->references('id_001')->on('001_001_lang')
+                ->onDelete('restrict')->onUpdate('cascade');
             $table->foreign('field_028')->references('id_026')->on('001_026_field')
                 ->onDelete('restrict')->onUpdate('cascade');
-            $table->foreign('value_028')->references('id_027')->on('001_027_field_value')
+            $table->foreign('resource_028')->references('id_007')->on('001_007_resource')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }

@@ -140,24 +140,33 @@ trait TraitModel {
      * @param   string|null $jsonData
      * @return	string
      */
-    public static function addLangDataRecord($id, $lang)
+    public static function addLangDataRecord($lang, $id)
     {
-        $instance   = new static;
-        $object     = $instance::find($id);
-
-        if($object != null)
+        if($id === null)
         {
-            $jsonObject = json_decode($object->{'data_lang_' . $instance->sufix});
-            $jsonObject->langs[] = $lang;
-            $jsonString = json_encode($jsonObject);
-
-            $instance::where($instance->getKeyName(), $id)->update([
-                'data_lang_' . $instance->sufix => $jsonString
-            ]);
+            $jsonString = '{"langs":["' . $lang . '"]}';
         }
         else
         {
-            $jsonString = '{"langs":["' . $lang . '"]}';
+            $instance   = new static;
+            $object     = $instance::find($id);
+
+            if($object != null)
+            {
+                $jsonObject             = json_decode($object->{'data_lang_' . $instance->sufix});
+                $jsonObject->langs[]    = $lang;
+                $jsonString             = json_encode($jsonObject);
+
+                // updates all objects with new language variables
+                $instance::where($instance->getKeyName(), $id)->update([
+                    'data_lang_' . $instance->sufix => $jsonString
+                ]);
+            }
+            else
+            {
+                $jsonString = '{"langs":["' . $lang . '"]}';
+            }
+
         }
 
         return $jsonString;

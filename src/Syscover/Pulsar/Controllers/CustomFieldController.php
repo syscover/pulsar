@@ -10,9 +10,8 @@
  * @filesource
  */
 
-use Illuminate\Support\Facades\Request;
+use Syscover\Pulsar\Models\CustomField;
 use Syscover\Pulsar\Traits\TraitController;
-use Syscover\Pulsar\Models\Resource;
 use Syscover\Pulsar\Models\CustomFieldFamily;
 
 class CustomFieldController extends Controller {
@@ -22,8 +21,8 @@ class CustomFieldController extends Controller {
     protected $routeSuffix  = 'customField';
     protected $folder       = 'field';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_025', 'name_025', 'name_025', 'data_025'];
-    protected $nameM        = 'name_025';
+    protected $aColumns     = ['id_026', 'name_026', 'name_025'];
+    protected $nameM        = 'name_026';
     protected $model        = '\Syscover\Pulsar\Models\CustomField';
     protected $icon         = 'fa fa-i-cursor';
     protected $objectTrans  = 'field';
@@ -35,24 +34,36 @@ class CustomFieldController extends Controller {
         return $parameters;
     }
 
+    public function createCustomRecord($request, $parameters)
+    {
+        $parameters['families'] = CustomFieldFamily::all();
+        return $parameters;
+    }
+
     public function storeCustomRecord($request, $parameters)
     {
         // check if there is id
         if($request->has('id'))
         {
-            $id = $request->get('id');
+            $id     = $request->input('id');
+            $idLang = $id;
         }
         else
         {
-            $id = Field::max('id_151');
+            $id = CustomField::max('id_026');
             $id++;
+            $idLang = null;
         }
 
-        Decoration::create([
-            'id_151'        => $id,
-            'lang_151'      => $request->input('lang'),
-            'name_151'      => $request->input('name'),
-            'data_lang_151' => Decoration::addLangDataRecord($id, $request->input('lang'))
+        CustomField::create([
+            'id_026'        => $id,
+            'family_026'    => $request->input('family'),
+            'name_026'      => $request->input('name'),
+            'type_026'      => 1,
+            'int_value_026' => true,
+            'required_026'  => false,
+            'data_lang_026' => CustomField::addLangDataRecord($request->input('lang'), $idLang),
+            'data_026'      => '',
         ]);
     }
 

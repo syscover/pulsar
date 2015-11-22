@@ -30,16 +30,16 @@ class ActionController extends Controller {
     public function storeCustomRecord($request, $parameters)
     {
         Action::create([
-            'id_008'    => Request::input('id'),
-            'name_008'  => Request::input('name')
+            'id_008'    => $request->input('id'),
+            'name_008'  => $request->input('name')
         ]);
     }
     
     public function updateCustomRecord($request, $parameters)
     {
         Action::where('id_008', $parameters['id'])->update([
-            'id_008'    => Request::input('id'),
-            'name_008'  => Request::input('name')
+            'id_008'    => $request->input('id'),
+            'name_008'  => $request->input('name')
         ]);
     }
 }

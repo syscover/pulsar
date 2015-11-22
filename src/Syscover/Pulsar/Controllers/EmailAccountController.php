@@ -41,20 +41,20 @@ class EmailAccountController extends Controller {
     public function storeCustomRecord($request, $parameters)
     {
         $account = [
-            'name_013'              => Request::input('name'),
-            'email_013'             => Request::input('email'),
-            'reply_to_013'          => Request::input('replyTo') == ""? null : Request::get('replyTo'),
-            'outgoing_server_013'   => Request::input('outgoingServer'),
-            'outgoing_user_013'     => Request::input('outgoingUser'),
-            'outgoing_pass_013'     => Crypt::encrypt(Request::input('outgoingPass')),
-            'outgoing_secure_013'   => Request::input('outgoingSecure'),
-            'outgoing_port_013'     => Request::input('outgoingPort'),
-            'incoming_type_013'     => Request::input('incomingType'),
-            'incoming_server_013'   => Request::input('incomingServer'),
-            'incoming_user_013'     => Request::input('incomingUser'),
-            'incoming_pass_013'     => Crypt::encrypt(Request::input('incomingPass')),
-            'incoming_secure_013'   => Request::input('incomingSecure'),
-            'incoming_port_013'     => Request::input('incomingPort'),
+            'name_013'              => $request->input('name'),
+            'email_013'             => $request->input('email'),
+            'reply_to_013'          => empty($request->input('replyTo'))? null : $request->input('replyTo'),
+            'outgoing_server_013'   => $request->input('outgoingServer'),
+            'outgoing_user_013'     => $request->input('outgoingUser'),
+            'outgoing_pass_013'     => Crypt::encrypt($request->input('outgoingPass')),
+            'outgoing_secure_013'   => $request->input('outgoingSecure'),
+            'outgoing_port_013'     => $request->input('outgoingPort'),
+            'incoming_type_013'     => $request->input('incomingType'),
+            'incoming_server_013'   => $request->input('incomingServer'),
+            'incoming_user_013'     => $request->input('incomingUser'),
+            'incoming_pass_013'     => Crypt::encrypt($request->input('incomingPass')),
+            'incoming_secure_013'   => $request->input('incomingSecure'),
+            'incoming_port_013'     => $request->input('incomingPort'),
             'n_emails_013'          => 0
         ];
 
@@ -81,8 +81,8 @@ class EmailAccountController extends Controller {
 
     public function checkSpecialRulesToUpdate($request, $parameters)
     {
-        $parameters['specialRules']['outgoingPassRule'] = Request::has('outgoingPass')? false : true;
-        $parameters['specialRules']['incomingPassRule'] = Request::has('incomingPass')? false : true;
+        $parameters['specialRules']['outgoingPassRule'] = $request->has('outgoingPass')? false : true;
+        $parameters['specialRules']['incomingPassRule'] = $request->has('incomingPass')? false : true;
 
         return $parameters;
     }
@@ -90,29 +90,29 @@ class EmailAccountController extends Controller {
     public function updateCustomRecord($request, $parameters)
     {
         $account = [
-            'name_013'              => Request::input('name'),
-            'email_013'             => Request::input('email'),
-            'reply_to_013'          => Request::input('replyTo') == ""? null : Request::get('replyTo'),
-            'outgoing_server_013'   => Request::input('outgoingServer'),
-            'outgoing_user_013'     => Request::input('outgoingUser'),
-            'outgoing_secure_013'   => Request::input('outgoingSecure'),
-            'outgoing_port_013'     => Request::input('outgoingPort'),
-            'incoming_type_013'     => Request::input('incomingType'),
-            'incoming_server_013'   => Request::input('incomingServer'),
-            'incoming_user_013'     => Request::input('incomingUser'),
-            'incoming_secure_013'   => Request::input('incomingSecure'),
-            'incoming_port_013'     => Request::input('incomingPort')
+            'name_013'              => $request->input('name'),
+            'email_013'             => $request->input('email'),
+            'reply_to_013'          => empty($request->input('replyTo'))? null : $request->input('replyTo'),
+            'outgoing_server_013'   => $request->input('outgoingServer'),
+            'outgoing_user_013'     => $request->input('outgoingUser'),
+            'outgoing_secure_013'   => $request->input('outgoingSecure'),
+            'outgoing_port_013'     => $request->input('outgoingPort'),
+            'incoming_type_013'     => $request->input('incomingType'),
+            'incoming_server_013'   => $request->input('incomingServer'),
+            'incoming_user_013'     => $request->input('incomingUser'),
+            'incoming_secure_013'   => $request->input('incomingSecure'),
+            'incoming_port_013'     => $request->input('incomingPort')
         ];
 
         // Get object to read password to check account
         if($parameters['specialRules']['outgoingPassRule'] || $parameters['specialRules']['incomingPassRule'])
         {
-            $oldAccount = EmailAccount::find(Request::input('id'));
+            $oldAccount = EmailAccount::find($request->input('id'));
         }
 
         if(!$parameters['specialRules']['outgoingPassRule'])
         {
-            $account['outgoing_pass_013'] = Crypt::encrypt(Request::input('outgoingPass'));
+            $account['outgoing_pass_013'] = Crypt::encrypt($request->input('outgoingPass'));
         }
         else
         {
@@ -121,7 +121,7 @@ class EmailAccountController extends Controller {
 
         if(!$parameters['specialRules']['incomingPassRule'])
         {
-            $account['incoming_pass_013'] = Crypt::encrypt(Request::input('incomingPass'));
+            $account['incoming_pass_013'] = Crypt::encrypt($request->input('incomingPass'));
         }
         else
         {
@@ -132,7 +132,7 @@ class EmailAccountController extends Controller {
 
         if($response === true)
         {
-            EmailAccount::where('id_013', Request::input('id'))->update($account);
+            EmailAccount::where('id_013', $request->input('id'))->update($account);
         }
         else
         {

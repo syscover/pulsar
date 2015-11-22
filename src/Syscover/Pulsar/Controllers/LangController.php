@@ -34,23 +34,23 @@ class LangController extends Controller {
     {
         $filename = Miscellaneous::uploadFiles('image', public_path() . '/packages/syscover/pulsar/storage/langs');
 
-        if(Request::input('base')) Lang::resetBaseLang();
+        if($request->input('base')) Lang::resetBaseLang();
 
         Lang::create([
-            'id_001'        => Request::input('id'),
-            'name_001'      => Request::input('name'),
+            'id_001'        => $request->input('id'),
+            'name_001'      => $request->input('name'),
             'image_001'     => $filename,
-            'sorting_001'   => Request::input('sorting'),
-            'base_001'      => Request::input('base', 0),
-            'active_001'    => Request::input('active', 0)
+            'sorting_001'   => $request->input('sorting'),
+            'base_001'      => $request->input('base', 0),
+            'active_001'    => $request->input('active', 0)
         ]);
 
-        if(Request::input('base')) session(['baseLang' => Lang::getBaseLang()]);
+        if($request->input('base')) session(['baseLang' => Lang::getBaseLang()]);
     }
 
     public function checkSpecialRulesToUpdate($request, $parameters)
     {
-        if(Request::hasFile('image'))
+        if($request->hasFile('image'))
         {
             $parameters['specialRules']['imageRule'] = true;
         }
@@ -60,27 +60,27 @@ class LangController extends Controller {
 
     public function updateCustomRecord($request, $parameters)
     {
-        if(Request::hasFile('image'))
+        if($request->hasFile('image'))
         {
             $filename = Miscellaneous::uploadFiles('image', public_path() . '/packages/syscover/pulsar/storage/langs');
         }
         else
         {
-            $filename = Request::input('image');
+            $filename = $request->input('image');
         }
 
-        if(Request::input('base')) Lang::resetBaseLang();
+        if($request->input('base')) Lang::resetBaseLang();
 
         Lang::where('id_001', $parameters['id'])->update([
-            'id_001'        => Request::input('id'),
-            'name_001'      => Request::input('name'),
+            'id_001'        => $request->input('id'),
+            'name_001'      => $request->input('name'),
             'image_001'     => $filename,
-            'sorting_001'   => Request::input('sorting'),
-            'base_001'      => Request::input('base', 0),
-            'active_001'    => Request::input('active', 0)
+            'sorting_001'   => $request->input('sorting'),
+            'base_001'      => $request->input('base', 0),
+            'active_001'    => $request->input('active', 0)
         ]);
 
-        if(Request::input('base')) session(['baseLang' => Lang::getBaseLang()]);
+        if($request->input('base')) session(['baseLang' => Lang::getBaseLang()]);
     }
     
     public function deleteCustomRecord($request, $object)

@@ -29,7 +29,7 @@ class ResourceController extends Controller {
 
     public function createCustomRecord($request, $parameters)
     {
-        $parameters['packages'] = Package::get();
+        $parameters['packages'] = Package::all();
         return $parameters;
     }
     
@@ -44,7 +44,7 @@ class ResourceController extends Controller {
     
     public function editCustomRecord($request, $parameters)
     {
-        $parameters['packages'] = Package::get();
+        $parameters['packages'] = Package::all();
 
         return $parameters;
     }
