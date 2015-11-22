@@ -41,7 +41,7 @@ class CustomField extends Model
         return $this->belongsTo('Syscover\Pulsar\Models\Lang', 'lang_026');
     }
 
-    public static function getCustomRecordsLimit()
+    public static function addToGetRecordsLimit()
     {
         $query =  CustomField::join('001_025_field_family', '001_026_field.family_026', '=', '001_025_field_family.id_025')
             ->newQuery();

@@ -32,7 +32,7 @@ class CustomFieldFamily extends Model
         return Validator::make($data, static::$rules);
     }
 
-    public static function getCustomRecordsLimit()
+    public static function addToGetRecordsLimit()
     {
         $query =  CustomFieldFamily::join('001_007_resource', '001_025_field_family.resource_025', '=', '001_007_resource.id_007')
             ->newQuery();

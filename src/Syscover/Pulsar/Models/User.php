@@ -43,7 +43,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return Validator::make($data, static::$rules);
     }
 
-    public static function getCustomRecordsLimit()
+    public static function addToGetRecordsLimit()
     {
         return User::join('001_006_profile', '001_010_user.profile_010', '=', '001_006_profile.id_006')->newQuery();
     }

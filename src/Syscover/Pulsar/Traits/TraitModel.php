@@ -13,9 +13,9 @@ trait TraitModel {
     {
         $instance = new static;
 
-        if(method_exists($instance, 'getCustomRecordsLimit'))
+        if(method_exists($instance, 'addToGetRecordsLimit'))
         {
-            $query = $instance->getCustomRecordsLimit($parameters);
+            $query = $instance->addToGetRecordsLimit($parameters);
         }
         else
         {

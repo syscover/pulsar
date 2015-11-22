@@ -34,7 +34,7 @@ class CronJob extends Model {
         return Validator::make($data, static::$rules);
     }
 
-    public static function getCustomRecordsLimit()
+    public static function addToGetRecordsLimit()
     {
         return CronJob::join('001_012_package', '001_011_cron_job.package_011', '=', '001_012_package.id_012')->newQuery();
     }

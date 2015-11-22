@@ -50,7 +50,7 @@ class Country extends Model
         return $this->hasMany('Syscover\Pulsar\Models\TerritorialArea1', 'country_003');
     }
     
-    public static function getCustomRecordsLimit($parameters)
+    public static function addToGetRecordsLimit($parameters)
     {
         $query =  Country::join('001_001_lang', '001_002_country.lang_002', '=', '001_001_lang.id_001')->newQuery();
              

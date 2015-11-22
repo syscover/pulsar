@@ -34,7 +34,7 @@ class AttachmentFamily extends Model {
         return Validator::make($data, static::$rules);
 	}
 
-    public static function getCustomRecordsLimit($parameters)
+    public static function addToGetRecordsLimit($parameters)
     {
         $query =  AttachmentFamily::join('001_007_resource', '001_015_attachment_family.resource_015', '=', '001_007_resource.id_007')
             ->newQuery();
