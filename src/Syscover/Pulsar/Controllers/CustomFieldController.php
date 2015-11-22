@@ -79,12 +79,17 @@ class CustomFieldController extends Controller {
 
             // create new object
             CustomField::create([
-                'id_026'        => $id,
-                'family_026'    => $request->input('family'),
-                'name_026'      => $request->input('name'),
+                'id_026'            => $id,
+                'family_026'        => $request->input('family'),
+                'name_026'          => $request->input('name'),
                 'type_026'      => 1,
-                'int_value_026' => true,
-                'required_026'  => false,
+                'int_value_026'     => $request->has('intValue'),
+                'required_026'      => $request->has('required'),
+                'sorting_026'       => $request->input('sorting'),
+                'max_length_026'    => $request->input('maxLength'),
+                'pattern_026'       => $request->input('pattern'),
+                'label_size_026'    => $request->input('labelSize'),
+                'field_size_026'    => $request->input('fieldSize'),
                 'data_lang_026' => CustomField::addLangDataRecord($request->input('lang')),
                 'data_026'      => json_encode(["labels" => [$request->input('lang') => $request->input('label')]])
             ]);
