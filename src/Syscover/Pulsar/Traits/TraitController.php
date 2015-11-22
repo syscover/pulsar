@@ -309,18 +309,9 @@ trait TraitController {
         // check if object has multiple language
         if(isset($parameters['id']) && isset($parameters['lang']))
         {
-            if(method_exists($this->model, 'getCustomTranslationRecord'))
-            {
-                // duplicate paramenters to get record whith base lang
-                $parametersAux          = $parameters;
-                $parametersAux['lang']  = session('baseLang')->id_001;
-                $parameters['object']   = call_user_func($this->model . '::getCustomTranslationRecord', $parametersAux);
-            }
-            else
-            {
-                $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], session('baseLang')->id_001);
-            }
+            $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', ['id' => $parameters['id'], 'lang' => session('baseLang')->id_001]);
         }
+        
         // get lang object
         if(isset($parameters['lang']))
         {
@@ -471,20 +462,19 @@ trait TraitController {
         // check if object has multiple language
         if(isset($parameters['lang']))
         {
-            if(method_exists($this->model, 'getCustomTranslationRecord'))
+            if(method_exists($this->model, 'getTranslationRecord'))
             {
-                $parameters['object'] = call_user_func($this->model . '::getCustomTranslationRecord', $parameters);
-            }
-            elseif(method_exists($this->model, 'getTranslationRecord'))
-            {
-                $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], $parameters['lang']);
+                $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $parameters);
             }
             else
             {
-                throw new InvalidArgumentException('The methods getCustomTranslationRecord or getTranslationRecord on ' . $this->model . ' is not instantiated');
+                throw new InvalidArgumentException('The methods getTranslationRecord on ' . $this->model . ' is not definite');
             }
 
-            $parameters['lang'] = $parameters['object']->lang;
+            if(method_exists($parameters['object'], 'lang'))
+            {
+                $parameters['lang'] = $parameters['object']->lang;
+            }
 
             if($parameters['lang'] === null)
             {
@@ -634,7 +624,7 @@ trait TraitController {
 
         if(isset($this->langModel))
         {
-            // this option is to tables that dependent of other tables to set your languages
+            // this option is to tables that dependent of other tables to set your languages, example 007_170_hotel and 007_171_hotel_lang
             call_user_func($this->langModel . '::deleteTranslationRecord', $parameters['id'], $parameters['lang'], false);
             // this kind of tables has field data_lang in main table, not in language table
             call_user_func($this->model . '::deleteLangDataRecord', $parameters['id'], $parameters['lang']);

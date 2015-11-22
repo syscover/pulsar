@@ -40,7 +40,7 @@ class Attachment extends Model {
             ->get();
     }
 
-    public static function getCustomTranslationRecord($parameters)
+    public static function getTranslationRecord($parameters)
     {
         return Attachment::leftJoin('001_015_attachment_family', '001_016_attachment.family_016', '=', '001_015_attachment_family.id_015')
             ->where('id_016', $parameters['id'])

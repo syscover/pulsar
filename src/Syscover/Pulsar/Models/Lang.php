@@ -39,16 +39,16 @@ class Lang extends Model {
 
     public static function getBaseLang()
     {
-        return Lang::where('base_001', '=', 1)->first();
+        return Lang::where('base_001', true)->first();
     }
 
     public static function resetBaseLang()
     {
-        Lang::update(['base_001' => '0']);
+        Lang::update(['base_001' => false]);
     }
 
     public static function getActivesLangs()
     {
-        return Lang::where('active_001', 1)->get();
+        return Lang::where('active_001', true)->get();
     }
 }

@@ -40,9 +40,9 @@ class CustomFieldFamily extends Model
         return $query;
     }
 
-    public static function getCustomFieldFamilies($args)
+    public static function getRecords($args)
     {
-        $query =  CustomFieldFamily::query();
+        $query = CustomFieldFamily::query();
 
         if(isset($args['resource_025'])) $query->where('resource_025', $args['resource_025']);
 

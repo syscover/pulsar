@@ -21,7 +21,7 @@ class CustomFieldController extends Controller {
     protected $routeSuffix  = 'customField';
     protected $folder       = 'field';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_026', 'name_026', 'name_025'];
+    protected $aColumns     = ['id_026', 'name_025', 'name_026'];
     protected $nameM        = 'name_026';
     protected $model        = '\Syscover\Pulsar\Models\CustomField';
     protected $icon         = 'fa fa-i-cursor';
@@ -37,6 +37,17 @@ class CustomFieldController extends Controller {
     public function createCustomRecord($request, $parameters)
     {
         $parameters['families'] = CustomFieldFamily::all();
+
+        return $parameters;
+    }
+
+    public function checkSpecialRulesToStore($request, $parameters)
+    {
+        if(isset($parameters['id']))
+        {
+            $parameters['specialRules']['family'] = true;
+        }
+
         return $parameters;
     }
 
@@ -45,31 +56,51 @@ class CustomFieldController extends Controller {
         // check if there is id
         if($request->has('id'))
         {
-            $id     = $request->input('id');
-            $idLang = $id;
+            // get object to update data and data_lang field
+            $customField            = CustomField::find($request->input('id'));
+
+            // get values
+            $dataLang               = json_decode($customField->data_lang_026, true);
+            $data                   = json_decode($customField->data_026, true);
+
+            // set values
+            $dataLang['langs'][]    = $request->input('lang');
+            $data['labels'][]       = ["lang" => $request->input('lang'), "name" => $request->input('label')];
+
+            CustomField::where('id_026', $parameters['id'])->update([
+                'data_lang_026'     => json_encode($dataLang),
+                'data_026'          => json_encode($data)
+            ]);
         }
         else
         {
             $id = CustomField::max('id_026');
             $id++;
-            $idLang = null;
-        }
 
-        CustomField::create([
-            'id_026'        => $id,
-            'family_026'    => $request->input('family'),
-            'name_026'      => $request->input('name'),
-            'type_026'      => 1,
-            'int_value_026' => true,
-            'required_026'  => false,
-            'data_lang_026' => CustomField::addLangDataRecord($request->input('lang'), $idLang),
-            'data_026'      => '',
-        ]);
+            // create new object
+            CustomField::create([
+                'id_026'        => $id,
+                'family_026'    => $request->input('family'),
+                'name_026'      => $request->input('name'),
+                'type_026'      => 1,
+                'int_value_026' => true,
+                'required_026'  => false,
+                'data_lang_026' => CustomField::addLangDataRecord($request->input('lang')),
+                'data_026'      => json_encode(["labels" => [["lang" => $request->input('lang'), "name" => $request->input('label')]]])
+            ]);
+        }
+    }
+
+    public function editCustomRecord($request, $parameters)
+    {
+        $parameters['families'] = CustomFieldFamily::all();
+
+        return $parameters;
     }
 
     public function updateCustomRecord($request, $parameters)
     {
-        Decoration::where('id_151', $parameters['id'])->where('lang_151', $request->input('lang'))->update([
+        CustomField::where('id_151', $parameters['id'])->where('lang_151', $request->input('lang'))->update([
             'name_151'  => $request->input('name')
         ]);
     }

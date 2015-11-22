@@ -62,7 +62,8 @@ trait TraitModel {
         {
             $query = $instance->customCount($parameters);
         }
-        else{
+        else
+        {
             $query = $instance->query();
         }
 
@@ -82,14 +83,13 @@ trait TraitModel {
 
     /**
      * @access	public
-     * @param   mixed     $id
-     * @param   string    $lang
+     * @param   array     $parameters   [id, lang]
      * @return	\Illuminate\Database\Eloquent\Model
      */
-    public static function getTranslationRecord($id, $lang)
+    public static function getTranslationRecord($parameters)
     {
         $instance = new static;
-        return $instance::where($instance->getKeyName(), $id)->where('lang_' . $instance->sufix, $lang)->first();
+        return $instance::where($instance->getKeyName(), $parameters['id'])->where('lang_' . $instance->sufix, $parameters['lang'])->first();
     }
 
     /**
@@ -102,7 +102,15 @@ trait TraitModel {
     public static function deleteTranslationRecord($id, $lang, $deleteLangDataRecord = true)
     {
         $instance = new static;
-        $instance::where($instance->getKeyName(), $id)->where('lang_' . $instance->sufix, $lang)->delete();
+
+        if(method_exists($instance, 'customDeleteTranslationRecord'))
+        {
+            $instance->customDeleteTranslationRecord($id, $lang, $deleteLangDataRecord);
+        }
+        else
+        {
+            $instance::where($instance->getKeyName(), $id)->where('lang_' . $instance->sufix, $lang)->delete();
+        }
 
         if($deleteLangDataRecord)
         {
@@ -140,11 +148,11 @@ trait TraitModel {
      * @param   string|null $jsonData
      * @return	string
      */
-    public static function addLangDataRecord($lang, $id)
+    public static function addLangDataRecord($lang, $id = null)
     {
         if($id === null)
         {
-            $jsonString = '{"langs":["' . $lang . '"]}';
+            $jsonString = json_encode(["langs" => [$lang]]);
         }
         else
         {

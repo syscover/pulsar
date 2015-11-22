@@ -28,9 +28,17 @@ class CustomField extends Model
         'family'    => 'required',
     ];
 
-    public static function validate($data)
+    public static function validate($data, $specialRules = [])
     {
+        if(isset($specialRules['family'])) static::$rules['family'] = '';
+
         return Validator::make($data, static::$rules);
+    }
+
+    public function lang()
+    {
+        // lang_026 comes from json field data_026
+        return $this->belongsTo('Syscover\Pulsar\Models\Lang', 'lang_026');
     }
 
     public static function getCustomRecordsLimit()
@@ -41,12 +49,29 @@ class CustomField extends Model
         return $query;
     }
 
-    public static function getCustomFieldFamilies($args)
+    public static function getTranslationRecord($id, $lang)
     {
-        $query =  CustomFieldFamily::query();
+        $customField =  CustomField::join('001_025_field_family', '001_026_field.family_026', '=', '001_025_field_family.id_025')
+            ->where('id_026', $id)
+            ->first();
 
-        if(isset($args['resource_025'])) $query->where('resource_025', $args['resource_025']);
+        $data = collect(json_decode($customField->data_026, true)['labels'])->keyBy('lang');
+        $customField->label_026 = $data[$lang]['name'];
+        $customField->lang_026 = $data[$lang]['lang'];
 
-        return $query->get();
+        return $customField;
+    }
+
+    public static function customDeleteTranslationRecord($id, $lang, $deleteLangDataRecord = true)
+    {
+        $customField = CustomField::find($id);
+
+        // get values
+        $data = collect(json_decode($customField->data_026, true)['labels'])->keyBy('lang');
+        unset($data[$lang]);
+
+        CustomField::where('id_026', $id)->update([
+            'data_lang_026'     => json_encode(['labels' => $data])
+        ]);
     }
 }
