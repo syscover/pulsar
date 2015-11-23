@@ -22,7 +22,7 @@ class CustomField extends Model
     protected $primaryKey   = 'id_026';
     protected $sufix        = '026';
     public $timestamps      = false;
-    protected $fillable     = ['id_026', 'name_026', 'family_026', 'data_lang_026', 'data_026'];
+    protected $fillable     = ['id_026', 'family_026', 'name_026', 'field_type_026', 'data_type_026', 'required_026', 'sorting_026', 'max_length_026', 'pattern_026', 'label_size_026', 'field_size_026', 'data_lang_026', 'data_026'];
     private static $rules   = [
         'name'      => 'required|between:2,100',
         'family'    => 'required',

@@ -25,4 +25,26 @@ return [
 
     // app name and url access to application
     'froalaEditorKey'           => env('FROALA_EDITOR_KEY', 'your editor key'),
+
+    //******************************************************************************************************************
+    //***   Type fields to select on fields section
+    //******************************************************************************************************************
+    'fieldTypes'                => [
+        (object)['id' => 1,    'name' => 'Text'],
+        (object)['id' => 2,    'name' => 'Select'],
+        (object)['id' => 3,    'name' => 'Select multiple'],
+        (object)['id' => 4,    'name' => 'Number'],
+        (object)['id' => 5,    'name' => 'Email'],
+        (object)['id' => 6,    'name' => 'Checkbox'],
+    ],
+
+    //******************************************************************************************************************
+    //***   Type data to select on fields section
+    //******************************************************************************************************************
+    'dataTypes'                 => [
+        (object)['id' => 1,      'name' => 'Integer'],
+        (object)['id' => 2,      'name' => 'Text'],
+        (object)['id' => 3,      'name' => 'Decimal'],
+        (object)['id' => 4,      'name' => 'Timestamp'],
+    ],
 ];

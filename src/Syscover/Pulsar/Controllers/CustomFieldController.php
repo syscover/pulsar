@@ -36,7 +36,9 @@ class CustomFieldController extends Controller {
 
     public function createCustomRecord($request, $parameters)
     {
-        $parameters['families'] = CustomFieldFamily::all();
+        $parameters['families']     = CustomFieldFamily::all();
+        $parameters['fieldTypes']   = config('pulsar.fieldTypes');
+        $parameters['dataTypes']    = config('pulsar.dataTypes');
 
         return $parameters;
     }
@@ -82,23 +84,25 @@ class CustomFieldController extends Controller {
                 'id_026'            => $id,
                 'family_026'        => $request->input('family'),
                 'name_026'          => $request->input('name'),
-                'type_026'      => 1,
-                'int_value_026'     => $request->has('intValue'),
+                'field_type_026'    => $request->input('fieldType'),
+                'data_type_026'     => $request->input('dataType'),
                 'required_026'      => $request->has('required'),
-                'sorting_026'       => $request->input('sorting'),
-                'max_length_026'    => $request->input('maxLength'),
-                'pattern_026'       => $request->input('pattern'),
-                'label_size_026'    => $request->input('labelSize'),
-                'field_size_026'    => $request->input('fieldSize'),
-                'data_lang_026' => CustomField::addLangDataRecord($request->input('lang')),
-                'data_026'      => json_encode(["labels" => [$request->input('lang') => $request->input('label')]])
+                'sorting_026'       => empty($request->input('sorting'))? null : $request->input('sorting'),
+                'max_length_026'    => empty($request->input('maxLength'))? null : $request->input('maxLength'),
+                'pattern_026'       => empty($request->input('pattern'))? null : $request->input('pattern'),
+                'label_size_026'    => empty($request->input('labelSize'))? null : $request->input('labelSize'),
+                'field_size_026'    => empty($request->input('fieldSize'))? null : $request->input('fieldSize'),
+                'data_lang_026'     => CustomField::addLangDataRecord($request->input('lang')),
+                'data_026'          => json_encode(["labels" => [$request->input('lang') => $request->input('label')]])
             ]);
         }
     }
 
     public function editCustomRecord($request, $parameters)
     {
-        $parameters['families'] = CustomFieldFamily::all();
+        $parameters['families']     = CustomFieldFamily::all();
+        $parameters['fieldTypes']   = config('pulsar.fieldTypes');
+        $parameters['dataTypes']    = config('pulsar.dataTypes');
 
         return $parameters;
     }
@@ -115,12 +119,17 @@ class CustomFieldController extends Controller {
         $data['labels'][$request->input('lang')]    = $request->input('label');
 
         CustomField::where('id_026', $parameters['id'])->update([
-            'family_026'    => $request->input('family'),
-            'name_026'      => $request->input('name'),
-            'type_026'      => 1,
-            'int_value_026' => true,
-            'required_026'  => false,
-            'data_026'      => json_encode($data)
+            'family_026'        => $request->input('family'),
+            'name_026'          => $request->input('name'),
+            'field_type_026'    => $request->input('fieldType'),
+            'data_type_026'     => $request->input('dataType'),
+            'required_026'      => $request->has('required'),
+            'sorting_026'       => empty($request->input('sorting'))? null : $request->input('sorting'),
+            'max_length_026'    => empty($request->input('maxLength'))? null : $request->input('maxLength'),
+            'pattern_026'       => empty($request->input('pattern'))? null : $request->input('pattern'),
+            'label_size_026'    => empty($request->input('labelSize'))? null : $request->input('labelSize'),
+            'field_size_026'    => empty($request->input('fieldSize'))? null : $request->input('fieldSize'),
+            'data_026'          => json_encode($data)
         ]);
     }
 }

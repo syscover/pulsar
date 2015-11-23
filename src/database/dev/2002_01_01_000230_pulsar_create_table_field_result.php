@@ -21,8 +21,10 @@ class PulsarCreateTableFieldResult extends Migration {
             $table->integer('object_028')->unsigned()->nullable();
 
             // possible values
-            $table->integer('int_value_028')->unsigned()->nullable();
+            $table->integer('int_value_028')->nullable();
             $table->text('text_value_028')->nullable();
+            $table->decimal('decimal_value_028', 10, 2)->nullable();
+            $table->timestamp('timestamp_value_028')->nullable();
 
             $table->primary(['lang_028', 'field_028', 'resource_028', 'object_028']);
             $table->foreign('lang_028')->references('id_001')->on('001_001_lang')
