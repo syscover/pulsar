@@ -11,6 +11,7 @@
  */
 
 use Syscover\Pulsar\Models\CustomField;
+use Syscover\Pulsar\Models\CustomFieldValue;
 use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\CustomFieldFamily;
 
@@ -21,7 +22,7 @@ class CustomFieldValueController extends Controller {
     protected $routeSuffix  = 'customFieldValue';
     protected $folder       = 'field_value';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_027', 'name_001', 'name_021'];
+    protected $aColumns     = ['id_027', 'name_025', 'name_026', 'name_001', 'value_027', ['data' => 'featured_027', 'type' => 'active']];
     protected $nameM        = 'name_027';
     protected $model        = '\Syscover\Pulsar\Models\CustomFieldValue';
     protected $icon         = 'fa fa-bars';
@@ -36,19 +37,8 @@ class CustomFieldValueController extends Controller {
 
     public function createCustomRecord($request, $parameters)
     {
+        $parameters['fields']       = CustomField::all();
         $parameters['families']     = CustomFieldFamily::all();
-        $parameters['fieldTypes']   = config('pulsar.fieldTypes');
-        $parameters['dataTypes']    = config('pulsar.dataTypes');
-
-        return $parameters;
-    }
-
-    public function checkSpecialRulesToStore($request, $parameters)
-    {
-        if(isset($parameters['id']))
-        {
-            $parameters['specialRules']['family'] = true;
-        }
 
         return $parameters;
     }
@@ -58,78 +48,44 @@ class CustomFieldValueController extends Controller {
         // check if there is id
         if($request->has('id'))
         {
-            // get object to update data and data_lang field
-            $customField            = CustomField::find($request->input('id'));
-
-            // get values
-            $dataLang               = json_decode($customField->data_lang_026, true);
-            $data                   = json_decode($customField->data_026, true);
-
-            // set values
-            $dataLang['langs'][]                        = $request->input('lang');
-            $data['labels'][$request->input('lang')]    = $request->input('label');
-
-            CustomField::where('id_026', $parameters['id'])->update([
-                'data_lang_026'     => json_encode($dataLang),
-                'data_026'          => json_encode($data)
-            ]);
+            $id = $request->input('id');
+            $idLang = $id;
         }
         else
         {
-            $id = CustomField::max('id_026');
+            $id = CustomFieldValue::max('id_027');
             $id++;
-
-            // create new object
-            CustomField::create([
-                'id_026'            => $id,
-                'family_026'        => $request->input('family'),
-                'name_026'          => $request->input('name'),
-                'field_type_026'    => $request->input('fieldType'),
-                'data_type_026'     => $request->input('dataType'),
-                'required_026'      => $request->has('required'),
-                'sorting_026'       => empty($request->input('sorting'))? null : $request->input('sorting'),
-                'max_length_026'    => empty($request->input('maxLength'))? null : $request->input('maxLength'),
-                'pattern_026'       => empty($request->input('pattern'))? null : $request->input('pattern'),
-                'label_size_026'    => empty($request->input('labelSize'))? null : $request->input('labelSize'),
-                'field_size_026'    => empty($request->input('fieldSize'))? null : $request->input('fieldSize'),
-                'data_lang_026'     => CustomField::addLangDataRecord($request->input('lang')),
-                'data_026'          => json_encode(["labels" => [$request->input('lang') => $request->input('label')]])
-            ]);
+            $idLang = null;
         }
+
+        // create new object
+        CustomFieldValue::create([
+            'id_027'            => $id,
+            'lang_027'          => $request->input('lang'),
+            'field_027'         => $request->input('field'),
+            'value_027'         => $request->input('value'),
+            'sorting_027'       => empty($request->input('sorting'))? null : $request->input('sorting'),
+            'featured_027'      => $request->has('featured'),
+            'data_lang_027'     => CustomFieldValue::addLangDataRecord($request->input('lang'), $idLang),
+            'data_026'          => null
+        ]);
     }
 
     public function editCustomRecord($request, $parameters)
     {
+        $parameters['fields']       = CustomField::all();
         $parameters['families']     = CustomFieldFamily::all();
-        $parameters['fieldTypes']   = config('pulsar.fieldTypes');
-        $parameters['dataTypes']    = config('pulsar.dataTypes');
 
         return $parameters;
     }
 
     public function updateCustomRecord($request, $parameters)
     {
-        // get object to update data and data_lang field
-        $customField            = CustomField::find($request->input('id'));
-
-        // get values
-        $data                   = json_decode($customField->data_026, true);
-
-        // set values
-        $data['labels'][$request->input('lang')]    = $request->input('label');
-
-        CustomField::where('id_026', $parameters['id'])->update([
-            'family_026'        => $request->input('family'),
-            'name_026'          => $request->input('name'),
-            'field_type_026'    => $request->input('fieldType'),
-            'data_type_026'     => $request->input('dataType'),
-            'required_026'      => $request->has('required'),
-            'sorting_026'       => empty($request->input('sorting'))? null : $request->input('sorting'),
-            'max_length_026'    => empty($request->input('maxLength'))? null : $request->input('maxLength'),
-            'pattern_026'       => empty($request->input('pattern'))? null : $request->input('pattern'),
-            'label_size_026'    => empty($request->input('labelSize'))? null : $request->input('labelSize'),
-            'field_size_026'    => empty($request->input('fieldSize'))? null : $request->input('fieldSize'),
-            'data_026'          => json_encode($data)
+        CustomFieldValue::where('id_027', $parameters['id'])->where('lang_027', $request->input('lang'))->update([
+            'field_027'         => $request->input('field'),
+            'value_027'         => $request->input('value'),
+            'sorting_027'       => empty($request->input('sorting'))? null : $request->input('sorting'),
+            'featured_027'      => $request->has('featured'),
         ]);
     }
 }

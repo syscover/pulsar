@@ -313,7 +313,7 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
     | FIELD VALUE
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/custom/fields/values/{field}/{offset?}',                         ['as'=>'customFieldValue',                    'uses'=>'Syscover\Pulsar\Controllers\CustomFieldValueController@index',                      'resource' => 'admin-field-value',        'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/custom/fields/values/{field}/{lang}/{offset?}',                         ['as'=>'customFieldValue',                    'uses'=>'Syscover\Pulsar\Controllers\CustomFieldValueController@index',                      'resource' => 'admin-field-value',        'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/custom/fields/values/json/data/{field}/{lang}',                  ['as'=>'jsonDataCustomFieldValue',            'uses'=>'Syscover\Pulsar\Controllers\CustomFieldValueController@jsonData',                   'resource' => 'admin-field-value',        'action' => 'access']);
 
     Route::get(config('pulsar.appName') . '/pulsar/custom/fields/values/create/{lang}/{offset}/{id?}',                 ['as'=>'createCustomFieldValue',              'uses'=>'Syscover\Pulsar\Controllers\CustomFieldValueController@createRecord',               'resource' => 'admin-field-value',        'action' => 'create']);

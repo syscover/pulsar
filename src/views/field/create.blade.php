@@ -2,7 +2,7 @@
 
 @section('rows')
     <!-- pulsar::field.create -->
-    @include('pulsar::includes.html.form_text_group', ['label' => 'ID', 'name' => 'id',  'value' => Input::old('name', isset($object->id_026)? $object->id_026 : null), 'readOnly' => true, 'fieldSize' => 2])
+    @include('pulsar::includes.html.form_text_group', ['label' => 'ID', 'name' => 'id',  'value' => Input::old('id', isset($object->id_026)? $object->id_026 : null), 'readOnly' => true, 'fieldSize' => 2])
     @include('pulsar::includes.html.form_select_group', ['label' => trans_choice('pulsar::pulsar.family', 1), 'name' => 'family', 'value' => Input::old('famlily'), 'required' => true, 'objects' => $families, 'idSelect' => 'id_025', 'nameSelect' => 'name_025', 'class' => 'form-control select2', 'fieldSize' => 5, 'data' => ['language' => config('app.locale'), 'width' => '100%', 'error-placement' => 'select2-section-outer-container', 'disabled' => isset($object->id_025)? true : null]])
     @include('pulsar::includes.html.form_image_group', ['label' => trans_choice('pulsar::pulsar.language', 1), 'name' => 'lang', 'nameImage' => $lang->name_001, 'value' => $lang->id_001, 'url' => asset('/packages/syscover/pulsar/storage/langs/' . $lang->image_001)])
     @include('pulsar::includes.html.form_text_group', ['label' => trans_choice('pulsar::pulsar.label', 1), 'name' => 'label', 'value' => Input::old('name', isset($object->label_026)? $object->label_026 : null), 'maxLength' => '100', 'rangeLength' => '2,100', 'required' => true])

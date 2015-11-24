@@ -181,7 +181,7 @@ trait TraitController {
             // check whether it is necessary to insert a data before
             if(method_exists($this, 'jsonCustomDataBeforeActions'))
             {
-                $actions = $this->jsonCustomDataBeforeActions($request, $aObject, $actionUrlParameters, $parameters);
+                $actions = $actions . $this->jsonCustomDataBeforeActions($request, $aObject, $actionUrlParameters, $parameters);
             }
 
             // check if request is modal

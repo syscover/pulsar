@@ -18,9 +18,9 @@ class PulsarCreateTableFieldValue extends Migration {
             $table->integer('id_027')->unsigned();
             $table->string('lang_027', 2);
             $table->integer('field_027')->unsigned();
+            $table->string('value_027', 255);
             $table->smallInteger('sorting_027')->unsigned()->nullable();
             $table->boolean('featured_027');
-            $table->string('value_027', 255);
             $table->string('data_lang_027', 255)->nullable();
             $table->text('data_027')->nullable();
 
