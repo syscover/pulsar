@@ -40,7 +40,7 @@ class Permission extends Model
         Permission::where('profile_009', $profile)->delete();
     }
 
-    public static function getCustomRecord($profile)
+    public static function getRecord($profile)
     {
         return Permission::where('profile_009', $profile)->get();
     }

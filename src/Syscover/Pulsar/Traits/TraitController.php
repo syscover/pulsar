@@ -408,10 +408,10 @@ trait TraitController {
         }
         else
         {
-            // check if is implements getCustomRecord function in model, for objects with joins
-            if(method_exists($this->model, 'getCustomRecord'))
+            // check if is implements getRecord function in model, for objects with joins
+            if(method_exists($this->model, 'getRecord'))
             {
-                $parameters['object']   = call_user_func($this->model . '::getCustomRecord', $parameters);
+                $parameters['object']   = call_user_func($this->model . '::getRecord', $parameters);
             }
             else
             {
@@ -483,9 +483,9 @@ trait TraitController {
         }
         else
         {
-            if(method_exists($this->model, 'getCustomRecord'))
+            if(method_exists($this->model, 'getRecord'))
             {
-                $parameters['object']   = call_user_func($this->model . '::getCustomRecord', $parameters);
+                $parameters['object']   = call_user_func($this->model . '::getRecord', $parameters);
             }
             else
             {

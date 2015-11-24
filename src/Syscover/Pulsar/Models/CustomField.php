@@ -49,6 +49,28 @@ class CustomField extends Model
         return $query;
     }
 
+    public static function getRecords($parameters)
+    {
+        $query =  CustomField::join('001_025_field_family', '001_026_field.family_026', '=', '001_025_field_family.id_025')
+            ->newQuery();
+
+        if(isset($parameters['family_026'])) $query->where('family_026', $parameters['family_026']);
+
+        $customFields = $query->get();
+
+        if(isset($parameters['lang_026']))
+        {
+            foreach($customFields as &$customField)
+            {
+                $data = collect(json_decode($customField->data_026, true)['labels']);
+                $customField->label_026     = $data[$parameters['lang_026']];
+                $customField->lang_026      = $parameters['lang_026'];
+            }
+        }
+
+        return $customFields;
+    }
+
     public static function getTranslationRecord($parameters)
     {
         $customField =  CustomField::join('001_025_field_family', '001_026_field.family_026', '=', '001_025_field_family.id_025')
