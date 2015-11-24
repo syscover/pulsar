@@ -14,23 +14,18 @@ use Syscover\Pulsar\Models\CustomField;
 use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\CustomFieldFamily;
 
-class CustomFieldController extends Controller {
+class CustomFieldValueController extends Controller {
 
     use TraitController;
 
-    protected $routeSuffix  = 'customField';
-    protected $folder       = 'field';
+    protected $routeSuffix  = 'customFieldValue';
+    protected $folder       = 'field_value';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_026', 'name_025', 'name_026'];
-    protected $nameM        = 'name_026';
-    protected $model        = '\Syscover\Pulsar\Models\CustomField';
-    protected $icon         = 'fa fa-i-cursor';
-    protected $objectTrans  = 'field';
-
-    public function jsonCustomDataBeforeActions($request, $aObject)
-    {
-        return session('userAcl')->isAllowed($request->user()->profile_010, 'admin-field-value', 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('customFieldValue', ['field' => $aObject['id_026'], 'offset' => $request->input('iDisplayStart')]) . '" data-original-title="' . trans_choice('pulsar::pulsar.value', 2) . '"><i class="fa fa-bars"></i></a>' : null;
-    }
+    protected $aColumns     = ['id_027', 'name_001', 'name_021'];
+    protected $nameM        = 'name_027';
+    protected $model        = '\Syscover\Pulsar\Models\CustomFieldValue';
+    protected $icon         = 'fa fa-bars';
+    protected $objectTrans  = 'value';
 
     public function indexCustom($parameters)
     {

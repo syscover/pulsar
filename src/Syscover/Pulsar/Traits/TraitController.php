@@ -663,9 +663,9 @@ trait TraitController {
             }
         }
 
-        if(method_exists($this, 'deleteCustomRecords'))
+        if(method_exists($this, 'addToDeleteRecordsSelect'))
         {
-            $this->deleteCustomRecords($request, $ids);
+            $this->addToDeleteRecordsSelect($request, $ids);
         }
 
         // delete records after deleteCustomRecords, if we need do a select

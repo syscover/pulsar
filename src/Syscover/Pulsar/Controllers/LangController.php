@@ -87,7 +87,7 @@ class LangController extends Controller {
         File::delete(public_path() . '/packages/syscover/pulsar/storage/langs/' . $object->image_001);
     }
     
-    public function deleteCustomRecords($request, $ids)
+    public function addToDeleteRecordsSelect($request, $ids)
     {
         $objects = Lang::getRecordsById($ids);
         

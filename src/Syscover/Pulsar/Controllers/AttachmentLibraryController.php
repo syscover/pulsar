@@ -143,7 +143,7 @@ class AttachmentLibraryController extends Controller {
     }
 
 
-    public function deleteCustomRecords($request, $ids)
+    public function addToDeleteRecordsSelect($request, $ids)
     {
         $files = AttachmentLibrary::join('001_007_resource', '001_014_attachment_library.resource_014', '=', '001_007_resource.id_007')
             ->join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012')

@@ -21,6 +21,7 @@ return [
     'administration'                        => 'Administration',
     'change_password_successful'            => 'Great, We\'ve sent an email',
     'data_type'                             => 'Data type|Data types',
+    'delete'                                => 'Delete',
     'email'                                 => 'Email',
     'enter_email'                           => 'Enter your email',
     'error'                                 => 'Error|Errors',
@@ -47,9 +48,8 @@ return [
     'save'                                  => 'Save',
     'selected_objects'                      => 'Selected objects',
     'type_something'                        => 'Type something',
+    'value'                                 => 'Value|Values',
 
-
-    'delete'                                => 'Delete',
     'cancel'                                => 'Cancel',
     'edit'                                  => 'Edit',
     'create'                                => 'Create',
