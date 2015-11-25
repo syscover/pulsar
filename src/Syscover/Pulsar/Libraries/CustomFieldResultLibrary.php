@@ -1,45 +1,35 @@
 <?php namespace Syscover\Pulsar\Libraries;
 
-/**
- * @package		Pulsar
- * @author		Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL.
- * @license
- * @link		http://www.syscover.com
- * @since		Version 1.0
- * @filesource  Librarie that instance helper functions to attachments
- */
-
-use Illuminate\Support\Facades\File;
-use Syscover\Pulsar\Exceptions\InvalidArgumentException;
-use Syscover\Pulsar\Models\Attachment;
+use Syscover\Pulsar\Models\CustomField;
+use Syscover\Pulsar\Models\CustomFieldFamily;
+use Syscover\Pulsar\Models\CustomFieldResult;
 
 class CustomFieldResultLibrary {
 
     /**
-     *  Function to store attachment elements
+     *  Function to store custom field
      *
      * @access	public
-     * @param   \Illuminate\Support\Facades\Request     $attachments
-     * @param   string                                  $lang
-     * @param   string                                  $routesConfigFile
-     * @param   integer                                 $objectId
-     * @param   string                                  $resource
-     * @return  boolean
+     * @param   \Illuminate\Http\Request                    $request
+     * @param   |Syscover\Pulsar\Models\CustomFieldFamily   $customFieldFamily
+     * @param   string                                      $resource
+     * @param   integer                                     $objectId
+     * @param   string                                      $lang
+     * @return  void
      */
-    public static function storeCustomFieldResult($request, $routesConfigFile, $resource, $objectId, $lang)
+    public static function storeCustomFieldResults($request, $customFieldFamily, $resource, $objectId, $lang)
     {
-        $customFieldFamily  = $article->family->customFieldFamily;
-        $customFields       = CustomField::getRecords(['lang_026' => $request->input('lang'), 'family_026' => $customFieldFamily->id_025]);
+        $customFieldFamily  = CustomFieldFamily::find($customFieldFamily);
+        $customFields       = CustomField::getRecords(['lang_026' => $lang, 'family_026' => $customFieldFamily->id_025]);
         $dataTypes          = collect(config('pulsar.dataTypes'))->keyBy('id');
         $customFieldResults = [];
 
         foreach($customFields as $customField)
         {
             $customFieldResult = [
-                'object_028'            => $article->id_355,
-                'lang_028'              => $request->input('lang'),
-                'resource_028'          => 'cms-article-family',
+                'object_028'            => $objectId,
+                'lang_028'              => $lang,
+                'resource_028'          => $resource,
                 'field_028'             => $customField->id_026,
                 'boolean_value_028'     => null,
                 'int_value_028'         => null,
@@ -69,5 +59,16 @@ class CustomFieldResultLibrary {
 
         if(count($customFieldResults) > 0)
             CustomFieldResult::insert($customFieldResults);
+    }
+
+    public static function deleteCustomFieldResults($resource, $objectId, $lang = null)
+    {
+        $query = CustomFieldResult::where('resource_028', $resource)
+            ->where('object_028', $objectId)
+            ->newQuery();
+
+        if(isset($lang)) $query->where('lang_028', $lang);
+
+        $query->delete();
     }
 }

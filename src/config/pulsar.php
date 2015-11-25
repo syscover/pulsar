@@ -31,8 +31,8 @@ return [
     //******************************************************************************************************************
     'fieldTypes'                => [
         (object)['id' => 1,    'name' => 'Text',                'view' => 'pulsar::includes.html.form_text_group'],
-        (object)['id' => 2,    'name' => 'Select',              'view' => 'pulsar::form_select_group'],
-        (object)['id' => 3,    'name' => 'Select multiple',     'view' => 'pulsar::form_select_group'],
+        (object)['id' => 2,    'name' => 'Select',              'view' => 'pulsar::includes.html.form_select_group'],
+        (object)['id' => 3,    'name' => 'Select multiple',     'view' => 'pulsar::includes.html.form_select_group'],
         (object)['id' => 4,    'name' => 'Number',              'view' => 'pulsar::includes.html.form_text_group'],
         (object)['id' => 5,    'name' => 'Email',               'view' => 'pulsar::includes.html.form_text_group'],
         (object)['id' => 6,    'name' => 'Checkbox',            'view' => 'pulsar::includes.html.form_checkbox_group'],

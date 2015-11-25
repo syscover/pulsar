@@ -575,9 +575,9 @@ trait TraitController {
 
         $object = call_user_func($this->model . '::find', $parameters['id']);
 
-        if(method_exists($this, 'deleteCustomRecord'))
+        if(method_exists($this, 'addToDeleteRecord'))
         {
-            $this->deleteCustomRecord($request, $object);
+            $this->addToDeleteRecord($request, $object);
         }
 
         // delete records after deleteCustomRecords, if we need do a select

@@ -41,6 +41,12 @@ class CustomField extends Model
         return $this->belongsTo('Syscover\Pulsar\Models\Lang', 'lang_026');
     }
 
+    public function values()
+    {
+        return $this->hasMany('Syscover\Pulsar\Models\CustomFieldValue', 'field_027')
+            ->where('001_027_field_value.lang_027', session('baseLang')->id_001);
+    }
+
     public static function addToGetRecordsLimit()
     {
         $query =  CustomField::join('001_025_field_family', '001_026_field.family_026', '=', '001_025_field_family.id_025')
@@ -63,8 +69,22 @@ class CustomField extends Model
             foreach($customFields as &$customField)
             {
                 $data = collect(json_decode($customField->data_026, true)['labels']);
-                $customField->label_026     = $data[$parameters['lang_026']];
-                $customField->lang_026      = $parameters['lang_026'];
+
+                if(isset($data[$parameters['lang_026']]))
+                {
+                    $customField->label_026     = $data[$parameters['lang_026']];
+                    $customField->lang_026      = $parameters['lang_026'];
+                }
+                elseif(isset($data[session('baseLang')->id_001]))
+                {
+                    $customField->label_026     = $data[session('baseLang')->id_001];
+                    $customField->lang_026      = session('baseLang')->id_001;
+                }
+                else
+                {
+                    $customField->label_026     = null;
+                    $customField->lang_026      = null;
+                }
             }
         }
 
