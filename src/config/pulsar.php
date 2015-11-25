@@ -30,21 +30,22 @@ return [
     //***   Type fields to select on fields section
     //******************************************************************************************************************
     'fieldTypes'                => [
-        (object)['id' => 1,    'name' => 'Text'],
-        (object)['id' => 2,    'name' => 'Select'],
-        (object)['id' => 3,    'name' => 'Select multiple'],
-        (object)['id' => 4,    'name' => 'Number'],
-        (object)['id' => 5,    'name' => 'Email'],
-        (object)['id' => 6,    'name' => 'Checkbox'],
+        (object)['id' => 1,    'name' => 'Text',                'view' => 'pulsar::includes.html.form_text_group'],
+        (object)['id' => 2,    'name' => 'Select',              'view' => 'form_select_group.blade'],
+        (object)['id' => 3,    'name' => 'Select multiple',     'view' => 'form_select_group.blade'],
+        (object)['id' => 4,    'name' => 'Number',              'view' => 'pulsar::includes.html.form_text_group'],
+        (object)['id' => 5,    'name' => 'Email',               'view' => 'pulsar::includes.html.form_text_group'],
+        (object)['id' => 6,    'name' => 'Checkbox',            'view' => 'pulsar::includes.html.form_checkbox_group'],
     ],
 
     //******************************************************************************************************************
     //***   Type data to select on fields section
     //******************************************************************************************************************
     'dataTypes'                 => [
-        (object)['id' => 1,      'name' => 'Integer'],
-        (object)['id' => 2,      'name' => 'Text'],
-        (object)['id' => 3,      'name' => 'Decimal'],
-        (object)['id' => 4,      'name' => 'Timestamp'],
+        (object)['id' => 1,      'name' => 'Boolean',           'column' => 'boolean_value_028'],
+        (object)['id' => 2,      'name' => 'Integer',           'column' => 'int_value_028'],
+        (object)['id' => 3,      'name' => 'Text',              'column' => 'text_value_028'],
+        (object)['id' => 4,      'name' => 'Decimal',           'column' => 'decimal_value_028'],
+        (object)['id' => 5,      'name' => 'Timestamp',         'column' => 'timestamp_value_028'],
     ],
 ];
