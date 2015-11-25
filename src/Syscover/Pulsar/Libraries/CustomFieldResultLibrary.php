@@ -1,5 +1,6 @@
 <?php namespace Syscover\Pulsar\Libraries;
 
+use Illuminate\Http\Request;
 use Syscover\Pulsar\Models\CustomField;
 use Syscover\Pulsar\Models\CustomFieldFamily;
 use Syscover\Pulsar\Models\CustomFieldResult;
@@ -70,5 +71,48 @@ class CustomFieldResultLibrary {
         if(isset($lang)) $query->where('lang_028', $lang);
 
         $query->delete();
+    }
+
+    public static function apiGetCustomFields($request)
+    {
+        // get custom fields
+        $customFields   = CustomField::getRecords(['lang_026' => $request->input('lang'), 'family_026' => $request->input('customFieldFamily')]);
+        $setValues      = false;
+        if($request->has('object'))
+        {
+            if($request->has('action') && $request->input('action') == 'create')
+                // if is a new object translated
+                $langFieldResults = session('baseLang')->id_001;
+            else
+                $langFieldResults = $request->input('lang');
+
+            // get results if there is a object
+            $customFieldResults = CustomFieldResult::getRecords(['lang_028' => $langFieldResults, 'object_028' => $request->input('object'), 'resource_028' => $request->input('resource')])->keyBy('field_028');
+            $setValues = true;
+            $dataTypes = collect(config('pulsar.dataTypes'))->keyBy('id');
+        }
+
+        $html = '';
+        foreach($customFields as $customField)
+        {
+            if(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view == 'pulsar::includes.html.form_select_group')
+            {
+                $customFieldValues = $customField->values;
+                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view, ['label' => $customField['label_026'], 'name' => $customField['name_026'], 'value' => null, 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'objects' => $customFieldValues, 'idSelect' => 'id_027', 'nameSelect' => 'name_027', 'required' => $customField->required_026, 'value' => $setValues? $customFieldResults[$customField->id_026]->{$dataTypes[$customField->data_type_026]->column} : null])->render();
+            }
+            elseif(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view == 'pulsar::includes.html.form_checkbox_group')
+            {
+                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view, ['label' => $customField['label_026'], 'name' => $customField['name_026'], 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'required' => $customField->required_026, 'checked' => $setValues? $customFieldResults[$customField->id_026]->{$dataTypes[$customField->data_type_026]->column} : null])->render();
+            }
+            else
+            {
+                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view, ['label' => $customField['label_026'], 'name' => $customField['name_026'], 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'required' => $customField->required_026, 'value' => $setValues? $customFieldResults[$customField->id_026]->{$dataTypes[$customField->data_type_026]->column} : null])->render();
+            }
+        }
+
+        return response()->json([
+            'status'    => 'success',
+            'html'      => $html
+        ]);
     }
 }
