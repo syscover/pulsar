@@ -10,13 +10,13 @@
                 $('.datatable-pulsar').dataTable({
                     'iDisplayStart' : {{ $offset }},
                     'aoColumnDefs': [
-                        { 'bSortable': false, 'aTargets': [6,7]},
-                        { 'sClass': 'checkbox-column', 'aTargets': [6]},
-                        { 'sClass': 'align-center', 'aTargets': [5,7]}
+                        { 'bSortable': false, 'aTargets': [5,6]},
+                        { 'sClass': 'checkbox-column', 'aTargets': [5]},
+                        { 'sClass': 'align-center', 'aTargets': [4,6]}
                     ],
                     "bProcessing": true,
                     "bServerSide": true,
-                    "sAjaxSource": "{{ route('jsonData' . ucfirst($routeSuffix), ['field' => $field, 'lang' => session('baseLang')]) }}"
+                    "sAjaxSource": "{{ route('jsonData' . ucfirst($routeSuffix), ['field' => $field, 'lang' => session('baseLang')->id_001]) }}"
                 }).fnSetFilteringDelay();
             }
         });
@@ -28,7 +28,6 @@
     <!-- pulsar::field_value.index -->
     <tr>
         <th data-hide="phone,tablet">ID.</th>
-        <th>{{ trans_choice('pulsar::pulsar.family', 1) }}</th>
         <th>{{ trans_choice('pulsar::pulsar.field', 1) }}</th>
         <th>{{ trans_choice('pulsar::pulsar.language', 1) }}</th>
         <th data-class="expand">{{ trans_choice('pulsar::pulsar.name', 1) }}</th>

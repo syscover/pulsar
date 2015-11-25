@@ -21,7 +21,7 @@ class CustomFieldController extends Controller {
     protected $routeSuffix  = 'customField';
     protected $folder       = 'field';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_026', 'name_025', 'name_026', ['data' => 'required_026', 'type' => 'active'], 'sorting_026', 'max_length_026'];
+    protected $aColumns     = ['id_026', 'name_025', 'name_026', 'field_type_text_026', 'data_type_text_026', ['data' => 'required_026', 'type' => 'active'], 'sorting_026', 'max_length_026'];
     protected $nameM        = 'name_026';
     protected $model        = '\Syscover\Pulsar\Models\CustomField';
     protected $icon         = 'fa fa-i-cursor';
@@ -89,19 +89,21 @@ class CustomFieldController extends Controller {
 
             // create new object
             CustomField::create([
-                'id_026'            => $id,
-                'family_026'        => $request->input('family'),
-                'name_026'          => $request->input('name'),
-                'field_type_026'    => $request->input('fieldType'),
-                'data_type_026'     => $request->input('dataType'),
-                'required_026'      => $request->has('required'),
-                'sorting_026'       => empty($request->input('sorting'))? null : $request->input('sorting'),
-                'max_length_026'    => empty($request->input('maxLength'))? null : $request->input('maxLength'),
-                'pattern_026'       => empty($request->input('pattern'))? null : $request->input('pattern'),
-                'label_size_026'    => empty($request->input('labelSize'))? null : $request->input('labelSize'),
-                'field_size_026'    => empty($request->input('fieldSize'))? null : $request->input('fieldSize'),
-                'data_lang_026'     => CustomField::addLangDataRecord($request->input('lang')),
-                'data_026'          => json_encode(["labels" => [$request->input('lang') => $request->input('label')]])
+                'id_026'                => $id,
+                'family_026'            => $request->input('family'),
+                'name_026'              => $request->input('name'),
+                'field_type_026'        => $request->input('fieldType'),
+                'field_type_text_026'   => collect(config('pulsar.fieldTypes'))->keyBy('id')[$request->input('fieldType')]->name,
+                'data_type_026'         => $request->input('dataType'),
+                'data_type_text_026'    => collect(config('pulsar.dataTypes'))->keyBy('id')[$request->input('dataType')]->name,
+                'required_026'          => $request->has('required'),
+                'sorting_026'           => empty($request->input('sorting'))? null : $request->input('sorting'),
+                'max_length_026'        => empty($request->input('maxLength'))? null : $request->input('maxLength'),
+                'pattern_026'           => empty($request->input('pattern'))? null : $request->input('pattern'),
+                'label_size_026'        => empty($request->input('labelSize'))? null : $request->input('labelSize'),
+                'field_size_026'        => empty($request->input('fieldSize'))? null : $request->input('fieldSize'),
+                'data_lang_026'         => CustomField::addLangDataRecord($request->input('lang')),
+                'data_026'              => json_encode(["labels" => [$request->input('lang') => $request->input('label')]])
             ]);
         }
     }
@@ -127,17 +129,19 @@ class CustomFieldController extends Controller {
         $data['labels'][$request->input('lang')]    = $request->input('label');
 
         CustomField::where('id_026', $parameters['id'])->update([
-            'family_026'        => $request->input('family'),
-            'name_026'          => $request->input('name'),
-            'field_type_026'    => $request->input('fieldType'),
-            'data_type_026'     => $request->input('dataType'),
-            'required_026'      => $request->has('required'),
-            'sorting_026'       => empty($request->input('sorting'))? null : $request->input('sorting'),
-            'max_length_026'    => empty($request->input('maxLength'))? null : $request->input('maxLength'),
-            'pattern_026'       => empty($request->input('pattern'))? null : $request->input('pattern'),
-            'label_size_026'    => empty($request->input('labelSize'))? null : $request->input('labelSize'),
-            'field_size_026'    => empty($request->input('fieldSize'))? null : $request->input('fieldSize'),
-            'data_026'          => json_encode($data)
+            'family_026'            => $request->input('family'),
+            'name_026'              => $request->input('name'),
+            'field_type_026'        => $request->input('fieldType'),
+            'field_type_text_026'   => collect(config('pulsar.fieldTypes'))->keyBy('id')[$request->input('fieldType')]->name,
+            'data_type_026'         => $request->input('dataType'),
+            'data_type_text_026'    => collect(config('pulsar.dataTypes'))->keyBy('id')[$request->input('dataType')]->name,
+            'required_026'          => $request->has('required'),
+            'sorting_026'           => empty($request->input('sorting'))? null : $request->input('sorting'),
+            'max_length_026'        => empty($request->input('maxLength'))? null : $request->input('maxLength'),
+            'pattern_026'           => empty($request->input('pattern'))? null : $request->input('pattern'),
+            'label_size_026'        => empty($request->input('labelSize'))? null : $request->input('labelSize'),
+            'field_size_026'        => empty($request->input('fieldSize'))? null : $request->input('fieldSize'),
+            'data_026'              => json_encode($data)
         ]);
     }
 }

@@ -22,7 +22,7 @@ class CustomFieldValueController extends Controller {
     protected $routeSuffix  = 'customFieldValue';
     protected $folder       = 'field_value';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_027', 'name_025', 'name_026', 'name_001', 'value_027', ['data' => 'featured_027', 'type' => 'active']];
+    protected $aColumns     = ['id_027', 'name_026', 'name_001', 'name_027', ['data' => 'featured_027', 'type' => 'active']];
     protected $nameM        = 'name_027';
     protected $model        = '\Syscover\Pulsar\Models\CustomFieldValue';
     protected $icon         = 'fa fa-bars';
@@ -31,15 +31,23 @@ class CustomFieldValueController extends Controller {
     public function indexCustom($parameters)
     {
         $parameters['urlParameters']['lang']    = session('baseLang');
-        $parameters['field']                    = CustomField::find($parameters['field']);
+        $parameters['field']                    = CustomField::getTranslationRecord(['id' => $parameters['field'], 'lang' => $parameters['lang']]);
+        $parameters['customTransHeader']        = trans_choice($this->objectTrans, 2) . ' (' .trans_choice('pulsar::pulsar.field', 1) . ': ' . $parameters['field']->name_026 . ')';
 
         return $parameters;
     }
 
+    public function customActionUrlParameters($actionUrlParameters, $parameters)
+    {
+        $actionUrlParameters['field'] = $parameters['field'];
+
+        return $actionUrlParameters;
+    }
+
     public function createCustomRecord($request, $parameters)
     {
-        $parameters['fields']       = CustomField::all();
-        $parameters['families']     = CustomFieldFamily::all();
+        $parameters['field']                = CustomField::getTranslationRecord(['id' => $parameters['field'], 'lang' => $parameters['lang']]);
+        $parameters['customTransHeader']    = trans_choice($this->objectTrans, 2) . ' (' .trans_choice('pulsar::pulsar.field', 1) . ': ' . $parameters['field']->name_026 . ')';
 
         return $parameters;
     }
@@ -64,7 +72,7 @@ class CustomFieldValueController extends Controller {
             'id_027'            => $id,
             'lang_027'          => $request->input('lang'),
             'field_027'         => $request->input('field'),
-            'value_027'         => $request->input('value'),
+            'name_027'          => $request->input('name'),
             'sorting_027'       => empty($request->input('sorting'))? null : $request->input('sorting'),
             'featured_027'      => $request->has('featured'),
             'data_lang_027'     => CustomFieldValue::addLangDataRecord($request->input('lang'), $idLang),
@@ -74,8 +82,8 @@ class CustomFieldValueController extends Controller {
 
     public function editCustomRecord($request, $parameters)
     {
-        $parameters['fields']       = CustomField::all();
-        $parameters['families']     = CustomFieldFamily::all();
+        $parameters['field']                = CustomField::getTranslationRecord(['id' => $parameters['field'], 'lang' => $parameters['lang']->id_001]);
+        $parameters['customTransHeader']    = trans_choice($this->objectTrans, 2) . ' (' .trans_choice('pulsar::pulsar.field', 1) . ': ' . $parameters['field']->name_026 . ')';
 
         return $parameters;
     }
@@ -84,7 +92,7 @@ class CustomFieldValueController extends Controller {
     {
         CustomFieldValue::where('id_027', $parameters['id'])->where('lang_027', $request->input('lang'))->update([
             'field_027'         => $request->input('field'),
-            'value_027'         => $request->input('value'),
+            'name_027'          => $request->input('name'),
             'sorting_027'       => empty($request->input('sorting'))? null : $request->input('sorting'),
             'featured_027'      => $request->has('featured'),
         ]);

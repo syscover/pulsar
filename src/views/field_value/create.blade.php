@@ -17,9 +17,9 @@
     <!-- pulsar::field_value.create -->
     @include('pulsar::includes.html.form_text_group', ['label' => 'ID', 'name' => 'id',  'value' => Input::old('id', isset($object->id_027)? $object->id_027 : null), 'readOnly' => true, 'fieldSize' => 2])
     @include('pulsar::includes.html.form_image_group', ['label' => trans_choice('pulsar::pulsar.language', 1), 'name' => 'lang', 'nameImage' => $lang->name_001, 'value' => $lang->id_001, 'url' => asset('/packages/syscover/pulsar/storage/langs/' . $lang->image_001)])
-    @include('pulsar::includes.html.form_select_group', ['label' => trans_choice('pulsar::pulsar.field', 1), 'name' => 'field', 'value' => Input::old('field', isset($object->field_027)? $object->field_027 : null), 'required' => true, 'objects' => $fields, 'idSelect' => 'id_026', 'nameSelect' => 'name_026', 'class' => 'form-control select2', 'fieldSize' => 5, 'data' => ['language' => config('app.locale'), 'width' => '100%', 'error-placement' => 'select2-section-outer-container', 'disabled' => isset($object->id_027)? true : null]])
-    @include('pulsar::includes.html.form_text_group', ['label' => trans_choice('pulsar::pulsar.value', 1), 'name' => 'value', 'value' => Input::old('value', isset($object->value_027)? $object->value_027 : null), 'maxLength' => '255', 'rangeLength' => '1,255', 'required' => true])
+    @include('pulsar::includes.html.form_text_group', ['label' => trans_choice('pulsar::pulsar.name', 1), 'name' => 'name', 'value' => Input::old('name', isset($object->name_027)? $object->name_027 : null), 'maxLength' => '255', 'rangeLength' => '1,255', 'required' => true])
     @include('pulsar::includes.html.form_text_group', ['label' => trans('pulsar::pulsar.sorting'), 'name' => 'sorting', 'type' => 'number', 'value' => Input::old('sorting', isset($object->sorting_027)? $object->sorting_027 : null), 'maxLength' => '3', 'rangeLength' => '1,3', 'min' => '0', 'fieldSize' => 2, 'readOnly' => isset($object->id_027)])
     @include('pulsar::includes.html.form_checkbox_group', ['label' => trans('pulsar::pulsar.featured'), 'name' => 'featured', 'value' => 1, 'checked' => Input::old('featured',  isset($object)? $object->featured_027 : null), 'disabled' => isset($object->id_026)])
+    @include('pulsar::includes.html.form_hidden', ['name' => 'field', 'value' => $field->id_026])
     <!-- ./pulsar::field_value.create -->
 @stop

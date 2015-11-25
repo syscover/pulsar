@@ -22,7 +22,7 @@ class CustomField extends Model
     protected $primaryKey   = 'id_026';
     protected $sufix        = '026';
     public $timestamps      = false;
-    protected $fillable     = ['id_026', 'family_026', 'name_026', 'field_type_026', 'data_type_026', 'required_026', 'sorting_026', 'max_length_026', 'pattern_026', 'label_size_026', 'field_size_026', 'data_lang_026', 'data_026'];
+    protected $fillable     = ['id_026', 'family_026', 'name_026', 'field_type_026', 'field_type_text_026', 'data_type_026', 'data_type_text_026', 'required_026', 'sorting_026', 'max_length_026', 'pattern_026', 'label_size_026', 'field_size_026', 'data_lang_026', 'data_026'];
     private static $rules   = [
         'name'      => 'required|between:2,100',
         'family'    => 'required',
@@ -79,8 +79,21 @@ class CustomField extends Model
 
         $data = collect(json_decode($customField->data_026, true)['labels']);
 
-        $customField->label_026     = $data[$parameters['lang']];
-        $customField->lang_026      = $parameters['lang'];
+        if(isset($data[$parameters['lang']]))
+        {
+            $customField->label_026     = $data[$parameters['lang']];
+            $customField->lang_026      = $parameters['lang'];
+        }
+        elseif(isset($data[session('baseLang')->id_001]))
+        {
+            $customField->label_026     = $data[session('baseLang')->id_001];
+            $customField->lang_026      = session('baseLang')->id_001;
+        }
+        else
+        {
+            $customField->label_026     = null;
+            $customField->lang_026      = null;
+        }
 
         return $customField;
     }

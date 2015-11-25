@@ -22,6 +22,7 @@ class PulsarCreateTableField extends Migration {
             // label_026 set in json on data_026
 
             $table->tinyInteger('field_type_026')->unsigned(); // see config/pulsar.php
+            $table->string('field_type_text_026', 100);
             // 1 - text
             // 2 - select
             // 3 - select multiple
@@ -30,6 +31,7 @@ class PulsarCreateTableField extends Migration {
             // 6 - check
 
             $table->tinyInteger('data_type_026')->unsigned();
+            $table->string('data_type_text_026', 100);
             // 1 - integer
             // 2 - text
             // 3 - decimal
