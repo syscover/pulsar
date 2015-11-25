@@ -17,7 +17,7 @@ class PulsarCreateTableResource extends Migration
                 $table->string('name_007', 50);
                 $table->integer('package_007')->unsigned();
 
-                $table->foreign('package_007')->references('id_012')->on('001_012_package')
+                $table->foreign('package_007', 'fk01_001_007_resource')->references('id_012')->on('001_012_package')
                         ->onDelete('restrict')->onUpdate('cascade');
             });
 	}

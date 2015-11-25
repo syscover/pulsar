@@ -25,9 +25,9 @@ class PulsarCreateTableFieldValue extends Migration {
             $table->text('data_027')->nullable();
 
             $table->primary(['id_027', 'lang_027']);
-            $table->foreign('lang_027')->references('id_001')->on('001_001_lang')
+            $table->foreign('lang_027', 'fk01_001_027_field_value')->references('id_001')->on('001_001_lang')
                 ->onDelete('restrict')->onUpdate('cascade');
-            $table->foreign('field_027')->references('id_026')->on('001_026_field')
+            $table->foreign('field_027', 'fk02_001_027_field_value')->references('id_026')->on('001_026_field')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }

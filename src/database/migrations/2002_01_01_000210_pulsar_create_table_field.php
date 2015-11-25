@@ -18,8 +18,10 @@ class PulsarCreateTableField extends Migration {
             $table->increments('id_026')->unsigned();
             $table->integer('family_026')->unsigned();
             $table->string('name_026', 100)->nullable();
+            // lang_026 set in json on data_026
+            // label_026 set in json on data_026
 
-            $table->tinyInteger('field_type_026')->unsigned();
+            $table->tinyInteger('field_type_026')->unsigned(); // see config/pulsar.php
             // 1 - text
             // 2 - select
             // 3 - select multiple
@@ -44,7 +46,7 @@ class PulsarCreateTableField extends Migration {
             $table->text('data_lang_026',255)->nullable();
             $table->text('data_026')->nullable();
 
-            $table->foreign('family_026')->references('id_025')->on('001_025_field_family')
+            $table->foreign('family_026', 'fk01_001_026_field')->references('id_025')->on('001_025_field_family')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }

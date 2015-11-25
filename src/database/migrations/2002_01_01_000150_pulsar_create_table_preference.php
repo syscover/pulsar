@@ -18,7 +18,7 @@ class PulsarCreateTablePreference extends Migration
 			$table->text('value_018')->nullable();
 			$table->timestamps();
 
-            $table->foreign('package_018')->references('id_012')->on('001_012_package')
+            $table->foreign('package_018', 'fk01_001_018_preference')->references('id_012')->on('001_012_package')
                 ->onDelete('restrict')->onUpdate('cascade');
 		});
 	}

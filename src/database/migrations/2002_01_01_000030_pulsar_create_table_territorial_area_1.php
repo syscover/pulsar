@@ -17,7 +17,7 @@ class PulsarCreateTableTerritorialArea1 extends Migration
                 $table->string('country_003', 2)->index();
                 $table->string('name_003', 50);
 
-                $table->foreign('country_003')->references('id_002')->on('001_002_country')
+                $table->foreign('country_003', 'fk01_001_003_territorial_area_1')->references('id_002')->on('001_002_country')
                         ->onDelete('restrict')->onUpdate('cascade');
             });
 	}
