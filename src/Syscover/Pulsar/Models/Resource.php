@@ -45,11 +45,12 @@ class Resource extends Model
         return Resource::join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012')->newQuery();
     }
 
-    public static function getResources($args)
+    public static function getRecords($args)
     {
         $query =  Resource::join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012')->newQuery();
 
-        if(isset($args['active_012'])) $query->where('active_012', $args['active_012']);
+        if(isset($args['active_012']))  $query->where('active_012', $args['active_012']);
+        if(isset($args['whereIn']))     $query->whereIn($args['whereIn']['column'], $args['whereIn']['ids']);
 
         return $query->get();
     }

@@ -46,7 +46,6 @@ trait TraitController {
         $parameters['icon']           = $this->icon;
         $parameters['objectTrans']    = isset($this->objectTrans) &&  $this->objectTrans != null? Miscellaneous::getObjectTransValue($parameters, $this->objectTrans) : null;
 
-
         if(method_exists($this, 'indexCustom'))
         {
             $parametersResponse = $this->indexCustom($parameters);
@@ -400,7 +399,7 @@ trait TraitController {
         // check if object has multiple language
         if(isset($parameters['lang']))
         {
-            $parameters['object']   = call_user_func($this->model . '::getTranslationRecord', $parameters['id'], $parameters['lang']);
+            $parameters['object']   = call_user_func($this->model . '::getTranslationRecord', ['id' => $parameters['id'], 'lang' => $parameters['lang']]);
 
 
 

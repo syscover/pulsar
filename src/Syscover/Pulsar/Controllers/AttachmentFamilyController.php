@@ -29,7 +29,7 @@ class AttachmentFamilyController extends Controller {
 
     public function createCustomRecord($request, $parameters)
     {
-        $parameters['resources'] = Resource::getResources(['active_012' => true]);
+        $parameters['resources'] = Resource::getRecords(['active_012' => true]);
 
         return $parameters;
     }
@@ -47,7 +47,7 @@ class AttachmentFamilyController extends Controller {
 
     public function editCustomRecord($request, $parameters)
     {
-        $parameters['resources'] = Resource::getResources(['active_012' => true]);
+        $parameters['resources'] = Resource::getRecords(['active_012' => true]);
 
         return $parameters;
     }

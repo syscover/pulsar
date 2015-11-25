@@ -30,7 +30,7 @@ class TerritorialArea1Controller extends Controller {
 
     public function indexCustom($parameters)
     {
-        $parameters['country']              = Country::getTranslationRecord($parameters['country'], session('baseLang')->id_001);
+        $parameters['country']              = Country::getTranslationRecord(['id' => $parameters['country'], 'lang' => session('baseLang')->id_001]);
         $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_1_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -46,7 +46,7 @@ class TerritorialArea1Controller extends Controller {
     
     public function createCustomRecord($request, $parameters)
     {
-        $parameters['country']              = Country::getTranslationRecord($parameters['country'], session('baseLang')->id_001);
+        $parameters['country']              = Country::getTranslationRecord(['id' => $parameters['country'], 'lang' => session('baseLang')->id_001]);
         $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_1_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -64,7 +64,7 @@ class TerritorialArea1Controller extends Controller {
     
     public function editCustomRecord($request, $parameters)
     {
-        $parameters['country']              = Country::getTranslationRecord($parameters['object']->country_003, session('baseLang')->id_001);
+        $parameters['country']              = Country::getTranslationRecord(['id' => $parameters['object']->country_003, 'lang' => session('baseLang')->id_001]);
         $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_1_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -89,7 +89,7 @@ class TerritorialArea1Controller extends Controller {
         else
             return response()->json([
                 'status'    => 'success',
-                'data'      => Country::getTranslationRecord($country, session('baseLang')->id_001)->territorialAreas1()->get()
+                'data'      => Countryf::getTranslationRecord(['id' => $country, 'lang' => session('baseLang')->id_001])->territorialAreas1()->get()
             ]);
     }
 }

@@ -101,7 +101,7 @@ class CountryController extends Controller {
         else
             return response()->json([
                 'status'    => 'success',
-                'data'      => Country::getTranslationRecord($id, session('baseLang')->id_001)
+                'data'      => Country::getTranslationRecord(['id' => $country, 'lang' => session('baseLang')->id_001])
             ]);
     }
 

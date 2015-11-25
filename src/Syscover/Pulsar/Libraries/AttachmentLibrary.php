@@ -57,7 +57,7 @@ class AttachmentLibrary {
                 'library_016'           => $attachment->library,
                 'library_file_name_016' => $attachment->libraryFileName == ""? null : $attachment->libraryFileName,
                 'sorting_016'           => $attachment->sorting,
-                //'url_016'               => $attachment->url,
+                //'url_016'               => $attachment->url, videos??
                 'name_016'              => $attachment->name == ""? null : $attachment->name,
                 'file_name_016'         => $attachment->fileName == ""? null : $attachment->fileName,
                 'mime_016'              => $attachment->mime,

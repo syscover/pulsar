@@ -30,7 +30,8 @@ class CustomFieldValueController extends Controller {
 
     public function indexCustom($parameters)
     {
-        $parameters['urlParameters']['lang'] = session('baseLang');
+        $parameters['urlParameters']['lang']    = session('baseLang');
+        $parameters['field']                    = CustomField::find($parameters['field']);
 
         return $parameters;
     }

@@ -48,4 +48,11 @@ return [
         (object)['id' => 4,      'name' => 'Decimal',           'column' => 'decimal_value_028'],
         (object)['id' => 5,      'name' => 'Timestamp',         'column' => 'timestamp_value_028'],
     ],
+
+    //******************************************************************************************************************
+    //***   Resources that can contain custom fields
+    //******************************************************************************************************************
+    'resourcesCustomFields'     => [
+        'cms-article-family',
+    ],
 ];
