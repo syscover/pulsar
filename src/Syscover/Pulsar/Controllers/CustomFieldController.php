@@ -12,7 +12,7 @@
 
 use Syscover\Pulsar\Models\CustomField;
 use Syscover\Pulsar\Traits\TraitController;
-use Syscover\Pulsar\Models\CustomFieldFamily;
+use Syscover\Pulsar\Models\CustomFieldGroup;
 
 class CustomFieldController extends Controller {
 
@@ -44,7 +44,7 @@ class CustomFieldController extends Controller {
 
     public function createCustomRecord($request, $parameters)
     {
-        $parameters['families']     = CustomFieldFamily::all();
+        $parameters['families']     = CustomFieldGroup::all();
         $parameters['fieldTypes']   = config('pulsar.fieldTypes');
         $parameters['dataTypes']    = config('pulsar.dataTypes');
 
@@ -90,7 +90,7 @@ class CustomFieldController extends Controller {
             // create new object
             CustomField::create([
                 'id_026'                => $id,
-                'family_026'            => $request->input('family'),
+                'group_026'            => $request->input('group'),
                 'name_026'              => $request->input('name'),
                 'field_type_026'        => $request->input('fieldType'),
                 'field_type_text_026'   => collect(config('pulsar.fieldTypes'))->keyBy('id')[$request->input('fieldType')]->name,
@@ -110,7 +110,7 @@ class CustomFieldController extends Controller {
 
     public function editCustomRecord($request, $parameters)
     {
-        $parameters['families']     = CustomFieldFamily::all();
+        $parameters['families']     = CustomFieldGroup::all();
         $parameters['fieldTypes']   = config('pulsar.fieldTypes');
         $parameters['dataTypes']    = config('pulsar.dataTypes');
 
@@ -129,7 +129,7 @@ class CustomFieldController extends Controller {
         $data['labels'][$request->input('lang')]    = $request->input('label');
 
         CustomField::where('id_026', $parameters['id'])->update([
-            'family_026'            => $request->input('family'),
+            'group_026'            => $request->input('group'),
             'name_026'              => $request->input('name'),
             'field_type_026'        => $request->input('fieldType'),
             'field_type_text_026'   => collect(config('pulsar.fieldTypes'))->keyBy('id')[$request->input('fieldType')]->name,

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PulsarCreateTableFieldFamily extends Migration {
+class PulsarCreateTableFieldGroup extends Migration {
 
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class PulsarCreateTableFieldFamily extends Migration {
      */
     public function up()
     {
-        Schema::create('001_025_field_family', function(Blueprint $table)
+        Schema::create('001_025_field_group', function(Blueprint $table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id_025')->unsigned();
@@ -20,7 +20,7 @@ class PulsarCreateTableFieldFamily extends Migration {
             $table->string('resource_025', 30);                             // resource which belong to this family field
             $table->text('data_025')->nullable();
 
-            $table->foreign('resource_025', 'fk01_001_025_field_family')->references('id_007')->on('001_007_resource')
+            $table->foreign('resource_025', 'fk01_001_025_field_group')->references('id_007')->on('001_007_resource')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -32,6 +32,6 @@ class PulsarCreateTableFieldFamily extends Migration {
      */
     public function down()
     {
-        Schema::drop('001_025_field_family');
+        Schema::drop('001_025_field_group');
     }
 }

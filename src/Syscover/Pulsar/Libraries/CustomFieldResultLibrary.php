@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Syscover\Pulsar\Models\CustomField;
-use Syscover\Pulsar\Models\CustomFieldFamily;
+use Syscover\Pulsar\Models\CustomFieldGroup;
 use Syscover\Pulsar\Models\CustomFieldResult;
 
 class CustomFieldResultLibrary {
@@ -12,16 +12,16 @@ class CustomFieldResultLibrary {
      *
      * @access	public
      * @param   \Illuminate\Http\Request                    $request
-     * @param   |Syscover\Pulsar\Models\CustomFieldFamily   $customFieldFamily
+     * @param   |Syscover\Pulsar\Models\CustomFieldGroup   $customFieldGroup
      * @param   string                                      $resource
      * @param   integer                                     $objectId
      * @param   string                                      $lang
      * @return  void
      */
-    public static function storeCustomFieldResults($request, $customFieldFamily, $resource, $objectId, $lang)
+    public static function storeCustomFieldResults($request, $customFieldGroup, $resource, $objectId, $lang)
     {
-        $customFieldFamily  = CustomFieldFamily::find($customFieldFamily);
-        $customFields       = CustomField::getRecords(['lang_026' => $lang, 'family_026' => $customFieldFamily->id_025]);
+        $customFieldGroup  = CustomFieldGroup::find($customFieldGroup);
+        $customFields       = CustomField::getRecords(['lang_026' => $lang, 'group_026' => $customFieldGroup->id_025]);
         $dataTypes          = collect(config('pulsar.dataTypes'))->keyBy('id');
         $customFieldResults = [];
 
@@ -76,7 +76,7 @@ class CustomFieldResultLibrary {
     public static function apiGetCustomFields($request)
     {
         // get custom fields
-        $customFields   = CustomField::getRecords(['lang_026' => $request->input('lang'), 'family_026' => $request->input('customFieldFamily')]);
+        $customFields   = CustomField::getRecords(['lang_026' => $request->input('lang'), 'group_026' => $request->input('customFieldGroup')]);
         $setValues      = false;
         if($request->has('object'))
         {

@@ -22,15 +22,15 @@ class CustomField extends Model
     protected $primaryKey   = 'id_026';
     protected $sufix        = '026';
     public $timestamps      = false;
-    protected $fillable     = ['id_026', 'family_026', 'name_026', 'field_type_026', 'field_type_text_026', 'data_type_026', 'data_type_text_026', 'required_026', 'sorting_026', 'max_length_026', 'pattern_026', 'label_size_026', 'field_size_026', 'data_lang_026', 'data_026'];
+    protected $fillable     = ['id_026', 'group_026', 'name_026', 'field_type_026', 'field_type_text_026', 'data_type_026', 'data_type_text_026', 'required_026', 'sorting_026', 'max_length_026', 'pattern_026', 'label_size_026', 'field_size_026', 'data_lang_026', 'data_026'];
     private static $rules   = [
         'name'      => 'required|between:2,100',
-        'family'    => 'required',
+        'group'     => 'required',
     ];
 
     public static function validate($data, $specialRules = [])
     {
-        if(isset($specialRules['family'])) static::$rules['family'] = '';
+        if(isset($specialRules['group'])) static::$rules['group'] = '';
 
         return Validator::make($data, static::$rules);
     }
@@ -49,7 +49,7 @@ class CustomField extends Model
 
     public static function addToGetRecordsLimit()
     {
-        $query =  CustomField::join('001_025_field_family', '001_026_field.family_026', '=', '001_025_field_family.id_025')
+        $query =  CustomField::join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025')
             ->newQuery();
 
         return $query;
@@ -57,10 +57,10 @@ class CustomField extends Model
 
     public static function getRecords($parameters)
     {
-        $query =  CustomField::join('001_025_field_family', '001_026_field.family_026', '=', '001_025_field_family.id_025')
+        $query =  CustomField::join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025')
             ->newQuery();
 
-        if(isset($parameters['family_026'])) $query->where('family_026', $parameters['family_026']);
+        if(isset($parameters['group_026'])) $query->where('group_026', $parameters['group_026']);
 
         $customFields = $query->get();
 
@@ -93,7 +93,7 @@ class CustomField extends Model
 
     public static function getTranslationRecord($parameters)
     {
-        $customField =  CustomField::join('001_025_field_family', '001_026_field.family_026', '=', '001_025_field_family.id_025')
+        $customField =  CustomField::join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025')
             ->where('id_026', $parameters['id'])
             ->first();
 

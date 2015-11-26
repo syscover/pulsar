@@ -14,11 +14,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Syscover\Pulsar\Traits\TraitModel;
 
-class CustomFieldFamily extends Model
+class CustomFieldGroup extends Model
 {
     use TraitModel;
 
-	protected $table        = '001_025_field_family';
+	protected $table        = '001_025_field_group';
     protected $primaryKey   = 'id_025';
     public $timestamps      = false;
     protected $fillable     = ['id_025', 'name_025', 'resource_025', 'data_025'];
@@ -34,7 +34,7 @@ class CustomFieldFamily extends Model
 
     public static function addToGetRecordsLimit()
     {
-        $query =  CustomFieldFamily::join('001_007_resource', '001_025_field_family.resource_025', '=', '001_007_resource.id_007')
+        $query =  CustomFieldGroup::join('001_007_resource', '001_025_field_group.resource_025', '=', '001_007_resource.id_007')
             ->newQuery();
 
         return $query;
@@ -42,7 +42,7 @@ class CustomFieldFamily extends Model
 
     public static function getRecords($args)
     {
-        $query = CustomFieldFamily::query();
+        $query = CustomFieldGroup::query();
 
         if(isset($args['resource_025'])) $query->where('resource_025', $args['resource_025']);
 

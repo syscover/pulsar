@@ -16,7 +16,7 @@ class PulsarCreateTableField extends Migration {
         {
             $table->engine = 'InnoDB';
             $table->increments('id_026')->unsigned();
-            $table->integer('family_026')->unsigned();
+            $table->integer('group_026')->unsigned();
             $table->string('name_026', 100)->nullable();
             // lang_026 set in json on data_026
             // label_026 set in json on data_026
@@ -48,7 +48,7 @@ class PulsarCreateTableField extends Migration {
             $table->text('data_lang_026',255)->nullable();
             $table->text('data_026')->nullable();
 
-            $table->foreign('family_026', 'fk01_001_026_field')->references('id_025')->on('001_025_field_family')
+            $table->foreign('group_026', 'fk01_001_026_field')->references('id_025')->on('001_025_field_group')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }

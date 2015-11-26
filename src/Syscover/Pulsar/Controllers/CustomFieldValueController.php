@@ -13,7 +13,7 @@
 use Syscover\Pulsar\Models\CustomField;
 use Syscover\Pulsar\Models\CustomFieldValue;
 use Syscover\Pulsar\Traits\TraitController;
-use Syscover\Pulsar\Models\CustomFieldFamily;
+use Syscover\Pulsar\Models\CustomFieldGroup;
 
 class CustomFieldValueController extends Controller {
 

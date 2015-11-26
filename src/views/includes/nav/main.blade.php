@@ -27,7 +27,7 @@
                         <li{!! Miscellaneous::setCurrentPage(['admin-field', 'admin-field-value']) !!}><a href="{{ route('customField', [session('baseLang')]) }}"><i class="fa fa-i-cursor"></i>{{ trans_choice('pulsar::pulsar.field', 2) }}</a></li>
                     @endif
                     @if(session('userAcl')->isAllowed(Auth::user()->profile_010, 'admin-field-family', 'access'))
-                        <li{!! Miscellaneous::setCurrentPage('admin-field-family') !!}><a href="{{ route('customFieldFamily') }}"><i class="fa fa-th"></i>{{ trans_choice('pulsar::pulsar.field_family', 2) }}</a></li>
+                        <li{!! Miscellaneous::setCurrentPage('admin-field-family') !!}><a href="{{ route('customFieldGroup') }}"><i class="fa fa-th"></i>{{ trans_choice('pulsar::pulsar.field_group', 2) }}</a></li>
                     @endif
                 </ul>
             </li>
