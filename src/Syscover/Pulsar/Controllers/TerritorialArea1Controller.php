@@ -89,7 +89,7 @@ class TerritorialArea1Controller extends Controller {
         else
             return response()->json([
                 'status'    => 'success',
-                'data'      => Countryf::getTranslationRecord(['id' => $country, 'lang' => session('baseLang')->id_001])->territorialAreas1()->get()
+                'data'      => Country::getTranslationRecord(['id' => $country, 'lang' => session('baseLang')->id_001])->territorialAreas1()->get()
             ]);
     }
 }
