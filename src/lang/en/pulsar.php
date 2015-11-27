@@ -31,7 +31,7 @@ return [
     'feature'                               => 'Feature|Features',
     'featured'                              => 'Featured',
     'field'                                 => 'Field|Fields',
-    'field_group'                           => 'Field group|Fields groups',
+    'field_group'                           => 'Field group|Field groups',
     'field_size'                            => 'Field size',
     'field_type'                            => 'Field type|Field types',
     'group'                                 => 'Group|Groups',
