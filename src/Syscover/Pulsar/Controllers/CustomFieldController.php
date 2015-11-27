@@ -44,7 +44,7 @@ class CustomFieldController extends Controller {
 
     public function createCustomRecord($request, $parameters)
     {
-        $parameters['families']     = CustomFieldGroup::all();
+        $parameters['groups']       = CustomFieldGroup::all();
         $parameters['fieldTypes']   = config('pulsar.fieldTypes');
         $parameters['dataTypes']    = config('pulsar.dataTypes');
 
@@ -90,7 +90,7 @@ class CustomFieldController extends Controller {
             // create new object
             CustomField::create([
                 'id_026'                => $id,
-                'group_026'            => $request->input('group'),
+                'group_026'             => $request->input('group'),
                 'name_026'              => $request->input('name'),
                 'field_type_026'        => $request->input('fieldType'),
                 'field_type_text_026'   => collect(config('pulsar.fieldTypes'))->keyBy('id')[$request->input('fieldType')]->name,
