@@ -55,7 +55,7 @@ class CustomFieldController extends Controller {
     {
         if(isset($parameters['id']))
         {
-            $parameters['specialRules']['family'] = true;
+            $parameters['specialRules']['group'] = true;
         }
 
         return $parameters;
