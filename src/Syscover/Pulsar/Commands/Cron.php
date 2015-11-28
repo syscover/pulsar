@@ -55,10 +55,10 @@ class Cron extends Command {
 
             $cron = CronExpression::factory($cronJob->cron_expression_011);
 
-            CronJob::where('id_011', $cronJob->id_011)->update(array(
+            CronJob::where('id_011', $cronJob->id_011)->update([
                 'last_run_011'  => $now,
                 'next_run_011'  => $cron->getNextRunDate()->getTimestamp()
-            ));
+            ]);
         }
 	}
 }
