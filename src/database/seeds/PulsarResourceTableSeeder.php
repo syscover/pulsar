@@ -29,7 +29,7 @@ class PulsarResourceTableSeeder extends Seeder {
             ['id_007' => 'admin-attachment-library',    'name_007' => 'Attachments - Library',                  'package_007' => '2'],
             ['id_007' => 'admin-field',                 'name_007' => 'Custom fields',                          'package_007' => '2'],
             ['id_007' => 'admin-field-value',           'name_007' => 'Custom fields - values',                 'package_007' => '2'],
-            ['id_007' => 'admin-field-family',          'name_007' => 'Custom fields - Families',               'package_007' => '2'],
+            ['id_007' => 'admin-field-group',           'name_007' => 'Custom fields - Groups',                 'package_007' => '2'],
             ['id_007' => 'pulsar',                      'name_007' => 'Pulsar',                                 'package_007' => '1']
         ]);
     }

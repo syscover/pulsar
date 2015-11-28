@@ -278,18 +278,18 @@ Route::group(['middleware' => ['auth.pulsar','permission.pulsar','locale.pulsar'
 
     /*
     |--------------------------------------------------------------------------
-    | FIELD FAMILY
+    | FIELD GROUP
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/custom/fields/families/{offset?}',                  ['as'=>'customFieldGroup',                'uses'=>'Syscover\Pulsar\Controllers\CustomFieldGroupController@index',                     'resource' => 'admin-field-family',        'action' => 'access']);
-    Route::any(config('pulsar.appName') . '/pulsar/custom/fields/families/json/data',                  ['as'=>'jsonDataCustomFieldGroup',        'uses'=>'Syscover\Pulsar\Controllers\CustomFieldGroupController@jsonData',                  'resource' => 'admin-field-family',        'action' => 'access']);
-    Route::get(config('pulsar.appName') . '/pulsar/custom/fields/families/create/{offset}',            ['as'=>'createCustomFieldGroup',          'uses'=>'Syscover\Pulsar\Controllers\CustomFieldGroupController@createRecord',              'resource' => 'admin-field-family',        'action' => 'create']);
-    Route::post(config('pulsar.appName') . '/pulsar/custom/fields/families/store/{offset}',            ['as'=>'storeCustomFieldGroup',           'uses'=>'Syscover\Pulsar\Controllers\CustomFieldGroupController@storeRecord',               'resource' => 'admin-field-family',        'action' => 'create']);
-    Route::get(config('pulsar.appName') . '/pulsar/custom/fields/families/{id}/edit/{offset}',         ['as'=>'editCustomFieldGroup',            'uses'=>'Syscover\Pulsar\Controllers\CustomFieldGroupController@editRecord',                'resource' => 'admin-field-family',        'action' => 'access']);
-    Route::put(config('pulsar.appName') . '/pulsar/custom/fields/families/update/{id}/{offset}',       ['as'=>'updateCustomFieldGroup',          'uses'=>'Syscover\Pulsar\Controllers\CustomFieldGroupController@updateRecord',              'resource' => 'admin-field-family',        'action' => 'edit']);
-    Route::get(config('pulsar.appName') . '/pulsar/custom/fields/families/delete/{id}/{offset}',       ['as'=>'deleteCustomFieldGroup',          'uses'=>'Syscover\Pulsar\Controllers\CustomFieldGroupController@deleteRecord',              'resource' => 'admin-field-family',        'action' => 'delete']);
-    Route::delete(config('pulsar.appName') . '/pulsar/custom/fields/families/delete/select/records',   ['as'=>'deleteSelectCustomFieldGroup',    'uses'=>'Syscover\Pulsar\Controllers\CustomFieldGroupController@deleteRecordsSelect',       'resource' => 'admin-field-family',        'action' => 'delete']);
-    Route::any(config('pulsar.appName') . '/pulsar/custom/fields/families/{id}/show/{api}',            ['as'=>'apiShowCustomFieldGroup',         'uses'=>'Syscover\Pulsar\Controllers\CustomFieldGroupController@showRecord',                'resource' => 'admin-field-family',        'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/custom/fields/groups/{offset?}',                  ['as'=>'customFieldGroup',                'uses'=>'Syscover\Pulsar\Controllers\CustomFieldGroupController@index',                     'resource' => 'admin-field-group',        'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/custom/fields/groups/json/data',                  ['as'=>'jsonDataCustomFieldGroup',        'uses'=>'Syscover\Pulsar\Controllers\CustomFieldGroupController@jsonData',                  'resource' => 'admin-field-group',        'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/custom/fields/groups/create/{offset}',            ['as'=>'createCustomFieldGroup',          'uses'=>'Syscover\Pulsar\Controllers\CustomFieldGroupController@createRecord',              'resource' => 'admin-field-group',        'action' => 'create']);
+    Route::post(config('pulsar.appName') . '/pulsar/custom/fields/groups/store/{offset}',            ['as'=>'storeCustomFieldGroup',           'uses'=>'Syscover\Pulsar\Controllers\CustomFieldGroupController@storeRecord',               'resource' => 'admin-field-group',        'action' => 'create']);
+    Route::get(config('pulsar.appName') . '/pulsar/custom/fields/groups/{id}/edit/{offset}',         ['as'=>'editCustomFieldGroup',            'uses'=>'Syscover\Pulsar\Controllers\CustomFieldGroupController@editRecord',                'resource' => 'admin-field-group',        'action' => 'access']);
+    Route::put(config('pulsar.appName') . '/pulsar/custom/fields/groups/update/{id}/{offset}',       ['as'=>'updateCustomFieldGroup',          'uses'=>'Syscover\Pulsar\Controllers\CustomFieldGroupController@updateRecord',              'resource' => 'admin-field-group',        'action' => 'edit']);
+    Route::get(config('pulsar.appName') . '/pulsar/custom/fields/groups/delete/{id}/{offset}',       ['as'=>'deleteCustomFieldGroup',          'uses'=>'Syscover\Pulsar\Controllers\CustomFieldGroupController@deleteRecord',              'resource' => 'admin-field-group',        'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/custom/fields/groups/delete/select/records',   ['as'=>'deleteSelectCustomFieldGroup',    'uses'=>'Syscover\Pulsar\Controllers\CustomFieldGroupController@deleteRecordsSelect',       'resource' => 'admin-field-group',        'action' => 'delete']);
+    Route::any(config('pulsar.appName') . '/pulsar/custom/fields/groups/{id}/show/{api}',            ['as'=>'apiShowCustomFieldGroup',         'uses'=>'Syscover\Pulsar\Controllers\CustomFieldGroupController@showRecord',                'resource' => 'admin-field-group',        'action' => 'access']);
 
 
     /*
