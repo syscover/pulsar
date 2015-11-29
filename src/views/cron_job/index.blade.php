@@ -34,7 +34,7 @@
     <th data-hide="phone,tablet">{{ trans('pulsar::pulsar.active') }}</th>
     <th data-hide="phone,tablet">{{ trans('pulsar::pulsar.last_run') }}</th>
     <th data-hide="phone,tablet">{{ trans('pulsar::pulsar.next_run') }}</th>
-    <th data-hide="phone"><input type="checkbox" class="uniform"></th>
+    <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
     <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>
     <!-- /pulsar::cron_jobs.index -->
 @stop

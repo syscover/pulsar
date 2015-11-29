@@ -5,7 +5,8 @@
     <!-- pulsar::countries.index -->
     <script type="text/javascript">
         $(document).ready(function() {
-            if ($.fn.dataTable) {
+            if ($.fn.dataTable)
+            {
                 $('.datatable-pulsar').dataTable({
                     'iDisplayStart' : {{ $offset }},
                     'aoColumnDefs': [
