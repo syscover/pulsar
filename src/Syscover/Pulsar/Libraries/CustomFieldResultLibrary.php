@@ -39,21 +39,21 @@ class CustomFieldResultLibrary {
                 'timestamp_value_028'   => null,
             ];
 
-            // get value and record in your field data type
+            // get value and record in your field data type, add suffix '_custom' to avoid conflict with other field names
             if( $dataTypes[$customField->data_type_026]->name == 'Boolean')
-                $customFieldResult['boolean_value_028'] = $request->has($customField->name_026);
+                $customFieldResult['boolean_value_028'] = $request->has($customField->name_026 . '_custom');
 
             if( $dataTypes[$customField->data_type_026]->name == 'Integer')
-                $customFieldResult['int_value_028'] = $request->input($customField->name_026);
+                $customFieldResult['int_value_028'] = $request->input($customField->name_026 . '_custom');
 
             if( $dataTypes[$customField->data_type_026]->name == 'Text')
-                $customFieldResult['text_value_028'] = $request->input($customField->name_026);
+                $customFieldResult['text_value_028'] = $request->input($customField->name_026 . '_custom');
 
             if( $dataTypes[$customField->data_type_026]->name == 'Decimal')
-                $customFieldResult['decimal_value_028'] = $request->input($customField->name_026);
+                $customFieldResult['decimal_value_028'] = $request->input($customField->name_026 . '_custom');
 
             if( $dataTypes[$customField->data_type_026]->name == 'Timestamp')
-                $customFieldResult['timestamp_value_028'] = $request->input($customField->name_026);
+                $customFieldResult['timestamp_value_028'] = $request->input($customField->name_026 . '_custom');
 
             $customFieldResults[]  = $customFieldResult;
         }
@@ -77,7 +77,6 @@ class CustomFieldResultLibrary {
     {
         // get custom fields
         $customFields   = CustomField::getRecords(['lang_026' => $request->input('lang'), 'group_026' => $request->input('customFieldGroup')]);
-        $setValues      = false;
         if($request->has('object'))
         {
             if($request->has('action') && $request->input('action') == 'create')
@@ -88,25 +87,27 @@ class CustomFieldResultLibrary {
 
             // get results if there is a object
             $customFieldResults = CustomFieldResult::getRecords(['lang_028' => $langFieldResults, 'object_028' => $request->input('object'), 'resource_028' => $request->input('resource')])->keyBy('field_028');
-            $setValues = true;
             $dataTypes = collect(config('pulsar.dataTypes'))->keyBy('id');
         }
 
         $html = '';
         foreach($customFields as $customField)
         {
+            $setValue = isset($customFieldResults[$customField->id_026]);
+
+            // add suffix '_custom' to avoid conflict with other field names
             if(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view == 'pulsar::includes.html.form_select_group')
             {
                 $customFieldValues = $customField->values;
-                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view, ['label' => $customField['label_026'], 'name' => $customField['name_026'], 'value' => null, 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'objects' => $customFieldValues, 'idSelect' => 'id_027', 'nameSelect' => 'name_027', 'required' => $customField->required_026, 'value' => $setValues? $customFieldResults[$customField->id_026]->{$dataTypes[$customField->data_type_026]->column} : null])->render();
+                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view, ['label' => $customField['label_026'], 'name' => $customField['name_026'] . '_custom', 'value' => null, 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'objects' => $customFieldValues, 'idSelect' => 'id_027', 'nameSelect' => 'name_027', 'required' => $customField->required_026, 'value' => $setValue? $customFieldResults[$customField->id_026]->{$dataTypes[$customField->data_type_026]->column} : null])->render();
             }
             elseif(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view == 'pulsar::includes.html.form_checkbox_group')
             {
-                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view, ['label' => $customField['label_026'], 'name' => $customField['name_026'], 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'required' => $customField->required_026, 'checked' => $setValues? $customFieldResults[$customField->id_026]->{$dataTypes[$customField->data_type_026]->column} : null])->render();
+                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view, ['label' => $customField['label_026'], 'name' => $customField['name_026'] . '_custom', 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'required' => $customField->required_026, 'checked' => $setValue? $customFieldResults[$customField->id_026]->{$dataTypes[$customField->data_type_026]->column} : null])->render();
             }
             else
             {
-                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view, ['label' => $customField['label_026'], 'name' => $customField['name_026'], 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'required' => $customField->required_026, 'value' => $setValues? $customFieldResults[$customField->id_026]->{$dataTypes[$customField->data_type_026]->column} : null])->render();
+                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view, ['label' => $customField['label_026'], 'name' => $customField['name_026'] . '_custom', 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'required' => $customField->required_026, 'value' => $setValue? $customFieldResults[$customField->id_026]->{$dataTypes[$customField->data_type_026]->column} : null])->render();
             }
         }
 

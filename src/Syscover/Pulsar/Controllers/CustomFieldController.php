@@ -110,7 +110,7 @@ class CustomFieldController extends Controller {
 
     public function editCustomRecord($request, $parameters)
     {
-        $parameters['families']     = CustomFieldGroup::all();
+        $parameters['groups']       = CustomFieldGroup::all();
         $parameters['fieldTypes']   = config('pulsar.fieldTypes');
         $parameters['dataTypes']    = config('pulsar.dataTypes');
 
