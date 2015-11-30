@@ -2,14 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-
 class PulsarUpdateV1 extends Migration
 {
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
 	public function up()
 	{
 		/* Example to create database updates
@@ -23,11 +17,5 @@ class PulsarUpdateV1 extends Migration
 		*/
 	}
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
 	public function down(){}
-
 }

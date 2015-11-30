@@ -1,7 +1,7 @@
 <?php namespace Syscover\Pulsar\Models;
 
 /**
- * @package	    Pulsar
+ * @package	    Syscover\Pulsar\Models
  * @author	    Jose Carlos Rodríguez Palacín
  * @copyright   Copyright (c) 2015, SYSCOVER, SL
  * @license
