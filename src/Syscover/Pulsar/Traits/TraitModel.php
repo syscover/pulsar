@@ -41,6 +41,7 @@ trait TraitModel {
             }
         }
 
+        // call parent constructor on Illuminate\Database\Eloquent\Model
         parent::__construct($attributes);
     }
 
