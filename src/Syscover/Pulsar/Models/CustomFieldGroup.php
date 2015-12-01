@@ -1,27 +1,32 @@
 <?php namespace Syscover\Pulsar\Models;
 
-/**
- * @package	    Syscover\Pulsar\Models
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 1.0
- * @filesource
- */
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Mappable;
+
+/**
+ * Class CustomFieldGroup
+ *
+ * Model with properties
+ * <br><b>[id, name, resource, data]</b>
+ *
+ * @package     Syscover\Pulsar\Models
+ */
 
 class CustomFieldGroup extends Model
 {
-    use TraitModel;
+    use Eloquence, Mappable;
 
 	protected $table        = '001_025_field_group';
     protected $primaryKey   = 'id_025';
     public $timestamps      = false;
     protected $fillable     = ['id_025', 'name_025', 'resource_025', 'data_025'];
+    protected $maps = [
+        'id'                    => 'id_025',
+        'name'                  => 'name_025',
+        'resource'              => 'resource_025',
+        'data'                  => 'data_025',
+    ];
     private static $rules   = [
         'name'      => 'required|between:2,100',
         'resource'  => 'required',

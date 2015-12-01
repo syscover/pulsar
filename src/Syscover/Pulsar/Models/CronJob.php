@@ -1,27 +1,36 @@
 <?php namespace Syscover\Pulsar\Models;
 
-/**
- * @package	    Syscover\Pulsar\Models
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Mappable;
+
+/**
+ * Class CronJob
+ *
+ * Model with properties
+ * <br><b>[id, name, package, key, cron_expression, last_run, next_run, active]</b>
+ *
+ * @package     Syscover\Pulsar\Models
+ */
 
 class CronJob extends Model {
 
-    use TraitModel;
+    use Eloquence, Mappable;
 
 	protected $table        = '001_011_cron_job';
     protected $primaryKey   = 'id_011';
     public $timestamps      = false;
     protected $fillable     = ['id_011', 'name_011', 'package_011', 'key_011', 'cron_expression_011', 'last_run_011', 'next_run_011', 'active_011'];
+    protected $maps = [
+        'id'                    => 'id_011',
+        'name'                  => 'name_011',
+        'package'               => 'package_011',
+        'key'                   => 'key_011',
+        'cron_expression'       => 'cron_expression_011',
+        'last_run'              => 'last_run_011',
+        'next_run'              => 'next_run_011',
+        'active'                => 'active_011',
+    ];
     private static $rules   = [
         'name'              =>  'required|between:2,100',
         'package'           =>  'not_in:null',

@@ -1,28 +1,38 @@
 <?php namespace Syscover\Pulsar\Models;
 
-/**
- * @package	    Syscover\Pulsar\Models
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 1.0
- * @filesource
- */
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Mappable;
+
+/**
+ * Class CustomFieldResult
+ *
+ * Model with properties
+ * <br><b>[object, lang, resource, field, boolean_value, int_value, text_value, decimal_value, timestamp_value]</b>
+ *
+ * @package     Syscover\Pulsar\Models
+ */
 
 class CustomFieldResult extends Model
 {
-    use TraitModel;
+    use Eloquence, Mappable;
 
 	protected $table        = '001_028_field_result';
     protected $primaryKey   = 'object_028';
     protected $sufix        = '028';
     public $timestamps      = false;
     protected $fillable     = ['object_028', 'lang_028', 'resource_028', 'field_028', 'boolean_value_028', 'int_value_028', 'text_value_028', 'decimal_value_028', 'timestamp_value_028'];
+    protected $maps = [
+        'object'            => 'object_028',
+        'lang'              => 'lang_028',
+        'resource'          => 'resource_028',
+        'field'             => 'field_028',
+        'boolean_value'     => 'boolean_value_028',
+        'int_value'         => 'int_value_028',
+        'text_value'        => 'text_value_028',
+        'decimal_value'     => 'decimal_value_028',
+        'timestamp_value'   => 'timestamp_value_028',
+    ];
     private static $rules   = [];
 
     public static function validate($data, $specialRules = [])

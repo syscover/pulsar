@@ -1,28 +1,37 @@
 <?php namespace Syscover\Pulsar\Models;
 
-/**
- * @package	    Syscover\Pulsar\Models
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 1.0
- * @filesource
- */
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Mappable;
+
+/**
+ * Class CustomFieldValue
+ *
+ * Model with properties
+ * <br><b>[id, lang, field, sorting, featured, name, data_lang, data]</b>
+ *
+ * @package     Syscover\Pulsar\Models
+ */
 
 class CustomFieldValue extends Model
 {
-    use TraitModel;
+    use Eloquence, Mappable;
 
 	protected $table        = '001_027_field_value';
     protected $primaryKey   = 'id_027';
     protected $sufix        = '027';
     public $timestamps      = false;
     protected $fillable     = ['id_027', 'lang_027', 'field_027', 'sorting_027', 'featured_027', 'name_027', 'data_lang_027', 'data_027'];
+    protected $maps = [
+        'id'                => 'id_027',
+        'lang'              => 'lang_027',
+        'field'             => 'field_027',
+        'sorting'           => 'sorting_027',
+        'featured'          => 'featured_027',
+        'name'              => 'name_027',
+        'data_lang'         => 'data_lang_027',
+        'data'              => 'data_027',
+    ];
     private static $rules   = [
         'name' => 'required'
     ];

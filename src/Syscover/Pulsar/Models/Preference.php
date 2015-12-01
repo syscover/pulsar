@@ -1,27 +1,30 @@
 <?php namespace Syscover\Pulsar\Models;
 
-/**
- * @package	    Syscover\Pulsar\Models
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Mappable;
+
+/**
+ * Class Preference
+ *
+ * Model with properties [id, value, package]
+ *
+ * @package     Syscover\Pulsar\Models
+ */
 
 class Preference extends Model {
 
-    use TraitModel;
+    use Eloquence, Mappable;
 
 	protected $table        = '001_018_preference';
     protected $primaryKey   = 'id_018';
     public $timestamps      = true;
     protected $fillable     = ['id_018', 'value_018', 'package_018'];
+    protected $maps = [
+        'id'                => 'id_018',
+        'value'             => 'value_018',
+        'package'           => 'package_018',
+    ];
     private static $rules   = [];
 
     public static function validate($data)

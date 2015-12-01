@@ -1,28 +1,44 @@
 <?php namespace Syscover\Pulsar\Models;
 
-/**
- * @package	    Syscover\Pulsar\Models
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 1.0
- * @filesource
- */
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Mappable;
+
+/**
+ * Class CustomField
+ *
+ * Model with properties
+ * <br><b>[id, group, name, field_type, field_type_text, data_type, data_type_text, required, sorting, max_length, pattern, label_size, field_size, data_lang, data]</b>
+ *
+ * @package     Syscover\Pulsar\Models
+ */
 
 class CustomField extends Model
 {
-    use TraitModel;
+    use Eloquence, Mappable;
 
 	protected $table        = '001_026_field';
     protected $primaryKey   = 'id_026';
     protected $sufix        = '026';
     public $timestamps      = false;
     protected $fillable     = ['id_026', 'group_026', 'name_026', 'field_type_026', 'field_type_text_026', 'data_type_026', 'data_type_text_026', 'required_026', 'sorting_026', 'max_length_026', 'pattern_026', 'label_size_026', 'field_size_026', 'data_lang_026', 'data_026'];
+    protected $maps = [
+        'id'                    => 'id_026',
+        'group'                 => 'group_026',
+        'name'                  => 'name_026',
+        'field_type'            => 'field_type_026',
+        'field_type_text'       => 'field_type_text_026',
+        'data_type'             => 'data_type_026',
+        'data_type_text'        => 'data_type_text_026',
+        'required'              => 'required_026',
+        'sorting'               => 'sorting_026',
+        'max_length'            => 'max_length_026',
+        'pattern'               => 'pattern_026',
+        'label_size'            => 'label_size_026',
+        'field_size'            => 'field_size_026',
+        'data_lang'             => 'data_lang_026',
+        'data'                  => 'data_026',
+    ];
     private static $rules   = [
         'name'      => 'required|between:2,100',
         'group'     => 'required',

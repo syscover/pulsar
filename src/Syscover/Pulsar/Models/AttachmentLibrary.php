@@ -1,30 +1,41 @@
 <?php namespace Syscover\Pulsar\Models;
 
-/**
- * @package	    Syscover\Pulsar\Models
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Mappable;
+
+/**
+ * Class AttachmentLibrary
+ *
+ * Model with properties
+ * <br><b>[id, resource, url, file_name, mime, size, type, type_text, width, height, data]</b>
+ *
+ * @package     Syscover\Pulsar\Models
+ */
 
 class AttachmentLibrary extends Model {
 
-    use TraitModel;
+    use Eloquence, Mappable;
 
 	protected $table        = '001_014_attachment_library';
     protected $primaryKey   = 'id_014';
     protected $sufix        = '014';
     public $timestamps      = false;
     protected $fillable     = ['id_014', 'resource_014', 'url_014', 'file_name_014', 'mime_014', 'size_014', 'type_014', 'type_text_014', 'width_014', 'height_014', 'data_014'];
-    private static $rules   = [
+    protected $maps = [
+        'id'                    => 'id_014',
+        'resource'              => 'resource_014',
+        'url'                   => 'url_014',
+        'file_name'             => 'file_name_014',
+        'mime'                  => 'mime_014',
+        'size'                  => 'size_014',
+        'type'                  => 'type_014',
+        'type_text'             => 'type_text_014',
+        'width'                 => 'width_014',
+        'height'                => 'height_014',
+        'data'                  => 'data_014',
     ];
+    private static $rules   = [];
 
     public static function validate($data)
     {

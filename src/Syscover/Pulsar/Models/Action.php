@@ -7,10 +7,12 @@ use Sofa\Eloquence\Mappable;
 /**
  * Class Action
  *
- * Model with properties [id, name]
+ * Model with properties
+ * <br><b>[id, name]</b>
  *
  * @package     Syscover\Pulsar\Models
  */
+
 class Action extends Model
 {
     use Eloquence, Mappable;

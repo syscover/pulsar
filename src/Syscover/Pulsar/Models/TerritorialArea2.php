@@ -1,27 +1,32 @@
 <?php namespace Syscover\Pulsar\Models;
 
-/**
- * @package	    Syscover\Pulsar\Models
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 1.0
- * @filesource
- */
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Mappable;
+
+/**
+ * Class TerritorialArea2
+ *
+ * Model with properties
+ * <br><b>[id, country, territorial_area_1, name]</b>
+ *
+ * @package     Syscover\Pulsar\Models
+ */
 
 class TerritorialArea2 extends Model {
 
-    use TraitModel;
+    use Eloquence, Mappable;
 
     protected $table        = '001_004_territorial_area_2';
     protected $primaryKey   = 'id_004';
     public $timestamps      = false;
     protected $fillable     = ['id_004', 'country_004', 'territorial_area_1_004', 'name_004'];
+    protected $maps = [
+        'id'                    => 'id_004',
+        'country'               => 'country_004',
+        'territorial_area_1'    => 'territorial_area_1_004',
+        'name'                  => 'name_004'
+    ];
     private static $rules   = [
         'id'                => 'required|between:1,10|unique:001_004_territorial_area_2,id_004',
         'name'              => 'required|between:2,50',
