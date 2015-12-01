@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="robots" content="index, follow, all" />
-    <title>Syscover\Pulsar\Traits\TraitModel | Pulsar API</title>
+    <title>Syscover\Pulsar\Traits\TraitModel | CMS API</title>
 
             <link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../../../css/bootstrap-theme.min.css">
@@ -45,7 +45,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="../../../index.html">Pulsar API</a>
+                <a class="navbar-brand" href="../../../index.html">CMS API</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-elements">
                 <ul class="nav navbar-nav">
@@ -77,9 +77,11 @@
     </div>
 
     <p>    trait
-    <strong>TraitModel</strong>        (<a href="https://github.com/syscover/pulsar/blob/master/Syscover/Pulsar/Traits/TraitModel.php">View source</a>)
+    <strong>TraitModel</strong>        (<a href="https://github.com/syscover/cms/blob/master/Syscover/Pulsar/Traits/TraitModel.php">View source</a>)
 </p>
 
+            <div class="description">
+            <p>Class TraitModel</p>                    </div>
     
     
     
@@ -87,6 +89,27 @@
             <h2>Methods</h2>
 
             <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method___construct">__construct</a>()
+                                            <p>overwritte construct to set params to model</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+    mixed
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_scopeBuilder">scopeBuilder</a>($query)
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
                     <div class="row">
                 <div class="col-md-2 type">
                     static&nbsp;
@@ -213,7 +236,7 @@
     string
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getSufix">getSufix</a>()
+                    <a href="#method_getSuffix">getSuffix</a>()
                                             <p class="no-description">No description</p>
                                     </div>
                 <div class="col-md-2"></div>
@@ -225,8 +248,64 @@
 
             <div id="method-details">
                     <div class="method-item">
+                    <h3 id="method___construct">
+        <div class="location">at line 17</div>
+        <code>                    
+    
+    <strong>__construct</strong>()</code>
+    </h3>
+    <div class="details">
+                    <div class="method-description">
+                                    <p>overwritte construct to set params to model</p>                                </div>
+                <div class="tags">
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_scopeBuilder">
+        <div class="location">at line 52</div>
+        <code>                    
+    mixed
+    <strong>scopeBuilder</strong>($query)</code>
+    </h3>
+    <div class="details">
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$query</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>
+    mixed</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_getRecordsLimit">
-        <div class="location">at line 12</div>
+        <div class="location">at line 63</div>
         <code>        static            
     array|<abbr title="Illuminate\Database\Eloquent\Model">Model</abbr>[]
     <strong>getRecordsLimit</strong>(
@@ -266,7 +345,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_countRecords">
-        <div class="location">at line 57</div>
+        <div class="location">at line 108</div>
         <code>        static            
     int
     <strong>countRecords</strong>(
@@ -306,7 +385,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getTranslationsRecords">
-        <div class="location">at line 78</div>
+        <div class="location">at line 129</div>
         <code>        static            
     array|<abbr title="Illuminate\Database\Query\Builder">Builder</abbr>[]
     <strong>getTranslationsRecords</strong>(
@@ -346,7 +425,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getTranslationRecord">
-        <div class="location">at line 89</div>
+        <div class="location">at line 140</div>
         <code>        static            
     <abbr title="Illuminate\Database\Eloquent\Model">Model</abbr>
     <strong>getTranslationRecord</strong>(
@@ -385,7 +464,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_deleteTranslationRecord">
-        <div class="location">at line 101</div>
+        <div class="location">at line 152</div>
         <code>        static            
     void
     <strong>deleteTranslationRecord</strong>(
@@ -432,7 +511,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_deleteRecords">
-        <div class="location">at line 118</div>
+        <div class="location">at line 169</div>
         <code>        static            
     void
     <strong>deleteRecords</strong>(
@@ -472,7 +551,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getRecordsById">
-        <div class="location">at line 129</div>
+        <div class="location">at line 180</div>
         <code>        static            
     array|<abbr title="Illuminate\Database\Query\Builder">Builder</abbr>[]
     <strong>getRecordsById</strong>(
@@ -512,7 +591,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_addLangDataRecord">
-        <div class="location">at line 143</div>
+        <div class="location">at line 194</div>
         <code>        static            
     string
     <strong>addLangDataRecord</strong>($lang, $id = null)</code>
@@ -556,7 +635,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_deleteLangDataRecord">
-        <div class="location">at line 182</div>
+        <div class="location">at line 233</div>
         <code>        static            
     void
     <strong>deleteLangDataRecord</strong>(
@@ -597,7 +676,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_checkSlug">
-        <div class="location">at line 218</div>
+        <div class="location">at line 269</div>
         <code>        static            
     string
     <strong>checkSlug</strong>(
@@ -653,11 +732,11 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getSufix">
-        <div class="location">at line 251</div>
+                    <h3 id="method_getSuffix">
+        <div class="location">at line 302</div>
         <code>        static            
     string
-    <strong>getSufix</strong>()</code>
+    <strong>getSuffix</strong>()</code>
     </h3>
     <div class="details">
                 <div class="tags">

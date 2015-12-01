@@ -14,7 +14,7 @@ trait TraitModel {
      * overwritte construct to set params to model
      *
      */
-    function __construct()
+    function __construct(array $attributes = [])
     {
         // set maps to model
         $fields = $this->fillable;
@@ -41,7 +41,7 @@ trait TraitModel {
             }
         }
 
-        parent::__construct();
+        parent::__construct($attributes);
     }
 
     /**

@@ -42,7 +42,8 @@ class UserController extends Controller {
             'access_010'    => $request->input('access',0),
             'profile_010'   => $request->input('profile'),
             'user_010'      => $request->input('user'),
-            'password_010'  => Hash::make($request->input('password'))
+            'password_010'  => Hash::make($request->input('password')),
+            //'test'          => 'Esto es una prueba'
         ]);
     }
 
