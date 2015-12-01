@@ -6,6 +6,16 @@ trait TraitModel {
 
     /**
      *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeBuilder($query)
+    {
+        return $query;
+    }
+
+    /**
+     *
      * @access	public
      * @param   array     $parameters
      * @return	array|\Illuminate\Database\Eloquent\Model[]

@@ -22,7 +22,7 @@ class PackageController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_012', 'name_012', 'folder_012', ['data' => 'active_012', 'type' => 'active'], 'sorting_012'];
     protected $nameM        = 'name_012';
-    protected $model        = '\Syscover\Pulsar\Models\Package';
+    protected $model        = \Syscover\Pulsar\Models\Package::class;
     protected $icon         = 'cut-icon-grid';
     protected $objectTrans  = 'package';
 

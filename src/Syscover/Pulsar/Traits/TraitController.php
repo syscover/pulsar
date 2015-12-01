@@ -309,10 +309,10 @@ trait TraitController {
             $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', ['id' => $parameters['id'], 'lang' => session('baseLang')->id_001]);
         }
 
-        // get lang object
+        // set lang object
         if(isset($parameters['lang']))
         {
-            $parameters['lang'] = Lang::find($parameters['lang']);
+            $parameters['lang'] = Lang::builder()->find($parameters['lang']);
         }
 
         return view($this->package . '::' . $this->folder . '.create', $parameters);
@@ -473,6 +473,7 @@ trait TraitController {
                 $parameters['lang'] = $parameters['object']->getLang;
             }
 
+            // check that we have lang object
             if($parameters['lang'] === null)
             {
                 throw new InvalidArgumentException('The language object is not instantiated, method getLang on model ' . $this->model . ' is not defined');
@@ -486,7 +487,8 @@ trait TraitController {
             }
             else
             {
-                $parameters['object']   = call_user_func($this->model . '::find', $parameters['id']);
+                // call builder, by default is instance on TraitModel or in model object
+                $parameters['object']   = call_user_func($this->model . '::builder')->find($parameters['id']);
             }
         }
 
