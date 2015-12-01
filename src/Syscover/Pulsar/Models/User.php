@@ -1,15 +1,15 @@
 <?php namespace Syscover\Pulsar\Models;
 
 /**
- * @package	    Syscover\Pulsar\Models
+ * @package	    Pulsar
  * @author	    Jose Carlos Rodríguez Palacín
  * @copyright   Copyright (c) 2015, SYSCOVER, SL
  * @license
  * @link		http://www.syscover.com
- * @since		Version 1.0
- * @filesource
  */
 
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Mappable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -19,11 +19,25 @@ use Syscover\Pulsar\Traits\TraitModel;
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
     use TraitModel;
+    use Eloquence, Mappable;
 
     protected $table        = '001_010_user';
     protected $primaryKey   = 'id_010';
     public $timestamps      = true;
     protected $fillable     = ['id_010', 'lang_010', 'profile_010', 'access_010', 'user_010', 'password_010', 'email_010', 'name_010', 'surname_010'];
+    protected $maps = [
+        'id'                => 'id_010',
+        'lang'              => 'lang_010',
+        'profile'           => 'profile_010',
+        'access'            => 'access_010',
+        'user'              => 'user_010',
+        'password'          => 'password_010',
+        'email'             => 'email_010',
+        'name'              => 'name_010',
+        'surname'           => 'surname_010',
+        'profile_id'        => 'id_006',
+        'profile_name'      => 'name_006',
+    ];
     private static $rules    = [
         'name'      => 'required|between:2,50',
         'surname'   => 'required|between:2,50',
@@ -43,9 +57,25 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return Validator::make($data, static::$rules);
     }
 
+    public function scopeBuilder($query)
+    {
+        return $query->join('001_006_profile', '001_010_user.profile_010', '=', '001_006_profile.id_006');
+    }
+
+    /**
+     * Get profile from user
+     *
+     * @return \Syscover\Pulsar\Models\Profile
+     */
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class, 'profile_010');
+    }
+
+
     public static function addToGetRecordsLimit()
     {
-        return User::join('001_006_profile', '001_010_user.profile_010', '=', '001_006_profile.id_006')->newQuery();
+        return User::join('001_006_profile', '001_010_user.profile_010', '=', '001_006_profile.id_006');
     }
 
     /**
@@ -107,5 +137,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function getEmailForPasswordReset()
     {
         return $this->email_010;
+    }
+
+    /**
+     * Get the name of the unique identifier for the user.
+     *
+     * @return string
+     */
+    public function getAuthIdentifierName()
+    {
+        return $this->user_010;
     }
 }

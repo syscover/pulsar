@@ -31,6 +31,12 @@ class Attachment extends Model {
         return Validator::make($data, static::$rules);
 	}
 
+    public function scopeBuilder()
+    {
+        return Attachment::leftJoin('001_015_attachment_family', '001_016_attachment.family_016', '=', '001_015_attachment_family.id_015')
+            ->newQuery();
+    }
+
     public static function getTranslationsAttachmentsArticle($parameters)
     {
         return Attachment::leftJoin('001_015_attachment_family', '001_016_attachment.family_016', '=', '001_015_attachment_family.id_015')

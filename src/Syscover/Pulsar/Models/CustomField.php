@@ -35,6 +35,12 @@ class CustomField extends Model
         return Validator::make($data, static::$rules);
     }
 
+    public function scopeBuilder()
+    {
+        return CustomField::join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025')
+            ->newQuery();
+    }
+
     public function lang()
     {
         // lang_026 comes from json field data_026

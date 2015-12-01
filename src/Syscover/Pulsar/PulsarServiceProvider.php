@@ -62,5 +62,4 @@ class PulsarServiceProvider extends ServiceProvider
 	{
         //
 	}
-
 }

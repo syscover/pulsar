@@ -73,6 +73,10 @@ class CustomFieldResultLibrary {
         $query->delete();
     }
 
+    /**
+     * @param   $request
+     * @return  \Illuminate\Http\JsonResponse
+     */
     public static function apiGetCustomFields($request)
     {
         // get custom fields

@@ -35,6 +35,12 @@ class Resource extends Model
         return Validator::make($data, static::$rules);
     }
 
+    public function scopeBuilder()
+    {
+        return Resource::join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012')
+            ->newQuery();
+    }
+
     public function package()
     {
         return $this->belongsTo('Syscover\Pulsar\Models\Package', 'package_007');

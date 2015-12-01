@@ -98,8 +98,7 @@ trait TraitController {
         // instance model to get primary key
         $instance = new $this->model;
 
-        $aObjects = $objects->toArray(); $i=0;
-        foreach($aObjects as $aObject)
+        foreach($objects as $key => $aObject)
         {
             $row = [];
             foreach ($this->aColumns as $aColumn)
@@ -109,11 +108,11 @@ trait TraitController {
                     switch ($aColumn['type'])
                     {
                         case 'email':
-                            $row[] = $aObject[$aColumn['data']] != ''? '<a href="mailto:' . $aObject[$aColumn['data']] . '">' . $aObject[$aColumn['data']] . '</a>' : null;
+                            $row[] = !empty($aObject->{$aColumn['data']})? '<a href="mailto:' . $aObject->{$aColumn['data']} . '">' . $aObject->{$aColumn['data']} . '</a>' : null;
                             break;
 
                         case 'img':
-                            $row[] = $aObject[$aColumn['data']] != ''? '<img src="' . asset($aColumn['url'] . $aObject[$aColumn['data']]) . '">' : null;
+                            $row[] = !empty($aObject->{$aColumn['data']})? '<img src="' . asset($aColumn['url'] . $aObject[$aColumn['data']]) . '">' : null;
                             break;
 
                         case 'check':
@@ -130,7 +129,7 @@ trait TraitController {
 
                         case 'date':
                             $date = new \DateTime();
-                            $row[] = $date->setTimestamp($aObject[$aColumn['data']])->format(isset($aColumn['format'])? $aColumn['format'] : 'd-m-Y H:i:s');
+                            $row[] = $date->setTimestamp($aObject[$aColumn['data']])->format(isset($aColumn['format'])? $aColumn['format'] : config('pulsar.datePattern') . ' H:i:s');
                             break;
 
                         case 'url':
@@ -151,13 +150,13 @@ trait TraitController {
                 }
                 else
                 {
-                    $row[] = $aObject[$aColumn];
+                    $row[] = $aObject->{$aColumn};
                 }
             }
 
             if(!isset($parameters['modal']) || isset($parameters['modal']) && !$parameters['modal'])
             {
-                $row[] = '<input type="checkbox" class="uniform" name="element' . $i . '" value="' . $aObject[$instance->getKeyName()] . '">';
+                $row[] = '<input type="checkbox" class="uniform" name="element' . $key . '" value="' . $aObject[$instance->getKeyName()] . '">';
             }
 
             $actionUrlParameters['id']        = $aObject[$instance->getKeyName()];
@@ -276,7 +275,6 @@ trait TraitController {
             $row[] =  $actions;
 
             $response['aaData'][] = $row;
-            $i++;
         }
 
         return response()->json($response);

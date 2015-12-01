@@ -29,7 +29,10 @@ class CustomFieldGroupController extends Controller {
 
     public function createCustomRecord($request, $parameters)
     {
-        $parameters['resources'] = Resource::getRecords(['active_012' => true, 'whereIn' => ['column' => 'id_007', 'ids' => config('pulsar.resourcesAttachments')]]);
+        $parameters['resources'] = Resource::builder()
+            ->where('active_012', true)
+            ->whereIn('id_007', config('pulsar.resourcesAttachments'))
+            ->get();
 
         return $parameters;
     }
@@ -44,7 +47,10 @@ class CustomFieldGroupController extends Controller {
     
     public function editCustomRecord($request, $parameters)
     {
-        $parameters['resources'] = Resource::getRecords(['active_012' => true, 'whereIn' => ['column' => 'id_007', 'ids' => config('pulsar.resourcesAttachments')]]);
+        $parameters['resources'] = Resource::builder()
+            ->where('active_012', true)
+            ->whereIn('id_007', config('pulsar.resourcesAttachments'))
+            ->get();
 
         return $parameters;
     }
