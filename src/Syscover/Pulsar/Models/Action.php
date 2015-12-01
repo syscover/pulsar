@@ -1,32 +1,33 @@
 <?php namespace Syscover\Pulsar\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Mappable;
 
 /**
  * Class Action
- * @package     Syscover\Pulsar\Models
  *
+ * Model with properties [id, name]
+ *
+ * @package     Syscover\Pulsar\Models
  */
-class Action extends Model {
-
-    use TraitModel;
+class Action extends Model
+{
+    use Eloquence, Mappable;
 
 	protected $table        = '001_008_action';
     protected $primaryKey   = 'id_008';
     public $timestamps      = false;
     protected $fillable     = ['id_008', 'name_008'];
+    protected $maps = [
+        'id'                => 'id_008',
+        'name'              => 'name_008',
+    ];
     private static $rules   = [
         'id'    => 'required|between:2,25|unique:001_008_action,id_008',
         'name'  => 'required|between:2,50'
     ];
 
-    /**
-     * @param $data
-     * @param array $specialRules
-     * @return mixed
-     */
     public static function validate($data, $specialRules = [])
     {
         if(isset($specialRules['idRule']) && $specialRules['idRule'])   static::$rules['id'] = 'required|between:2,25';

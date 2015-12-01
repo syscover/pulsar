@@ -1,22 +1,20 @@
 <?php namespace Syscover\Pulsar\Models;
 
+use Illuminate\Support\Facades\Validator;
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Mappable;
+
 /**
- * @package	    Syscover\Pulsar\Models
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
+ * Class Attachment
+ *
+ * Model with properties [id, name]
+ *
+ * @package     Syscover\Pulsar\Models
  */
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
-
-class Attachment extends Model {
-
-    use TraitModel;
+class Attachment extends Model
+{
+    use Eloquence, Mappable;
 
 	protected $table        = '001_016_attachment';
     protected $primaryKey   = 'id_016';
@@ -24,6 +22,12 @@ class Attachment extends Model {
     public $timestamps      = false;
     public $incrementing    = false;
     protected $fillable     = ['id_016', 'lang_016', 'resource_016', 'object_016', 'family_016', 'library_016', 'library_file_name_016', 'sorting_016', 'name_016', 'file_name_016', 'mime_016', 'size_016', 'type_016', 'type_text_016', 'width_016', 'height_016', 'data_lang_016', 'data_016'];
+    protected $maps = [
+        'id'                => 'id_016',
+        'name'              => 'lang_016',
+        'resource'          => 'resource_016',
+        'object'            => 'object_016',
+    ];
     private static $rules   = [];
 
     public static function validate($data)
