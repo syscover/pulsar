@@ -19,12 +19,10 @@ class Profile extends Model
 
 	protected $table        = '001_006_profile';
     protected $primaryKey   = 'id_006';
+    protected $suffix       = '006';
     public $timestamps      = false;
     protected $fillable     = ['id_006', 'name_006'];
-    protected $maps = [
-        'id'                => 'id_006',
-        'name'              => 'name_006',
-    ];
+    protected $maps         = [];
     private static $rules   = [
         'name'    =>  'required|between:2,50'
     ];

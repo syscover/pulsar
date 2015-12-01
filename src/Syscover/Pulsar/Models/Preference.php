@@ -20,13 +20,10 @@ class Preference extends Model
 
 	protected $table        = '001_018_preference';
     protected $primaryKey   = 'id_018';
+    protected $suffix       = '018';
     public $timestamps      = true;
     protected $fillable     = ['id_018', 'value_018', 'package_018'];
-    protected $maps = [
-        'id'                => 'id_018',
-        'value'             => 'value_018',
-        'package'           => 'package_018',
-    ];
+    protected $maps         = [];
     private static $rules   = [];
 
     public static function validate($data)

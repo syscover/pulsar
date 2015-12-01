@@ -1,5 +1,6 @@
 <?php namespace Syscover\Pulsar\Traits;
 
+use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 
 /**
@@ -8,6 +9,40 @@ use Syscover\Pulsar\Libraries\Miscellaneous;
  */
 
 trait TraitModel {
+
+    /**
+     * overwritte construct to set params to model
+     *
+     */
+    function __construct()
+    {
+        // set maps to model
+        $fields = $this->fillable;
+
+        // set maps if not exist
+        if(!isset($this->maps) || !is_array($this->maps))
+        {
+            throw new InvalidArgumentException('The array maps is not instantiated, you must instantiate in model ' . get_class($this));
+        }
+
+        foreach($fields as $field)
+            $this->maps[str_replace('_' . $this->suffix, '', $field)] = $field;
+
+        // set maps from relations
+        if(isset($this->relationMaps))
+        {
+            foreach($this->relationMaps as $key => $relationClass)
+            {
+                $object     = new $relationClass;
+                $maps       = $object->getMaps();
+
+                foreach($maps as $keyMap => $map)
+                    $this->maps[$key. '_' . $keyMap] = $map;
+            }
+        }
+
+        parent::__construct();
+    }
 
     /**
      *
@@ -94,7 +129,7 @@ trait TraitModel {
     public static function getTranslationsRecords($lang)
     {
         $instance = new static;
-        return $instance::where('lang_' . $instance->sufix, $lang)->get();
+        return $instance::where('lang_' . $instance->suffix, $lang)->get();
     }
 
     /**
@@ -105,7 +140,7 @@ trait TraitModel {
     public static function getTranslationRecord($parameters)
     {
         $instance = new static;
-        return $instance::builder()->where($instance->getKeyName(), $parameters['id'])->where('lang_' . $instance->sufix, $parameters['lang'])->first();
+        return $instance::builder()->where($instance->getKeyName(), $parameters['id'])->where('lang_' . $instance->suffix, $parameters['lang'])->first();
     }
 
     /**
@@ -118,7 +153,7 @@ trait TraitModel {
     {
         $instance = new static;
 
-        $instance::where($instance->getKeyName(), $parameters['id'])->where('lang_' . $instance->sufix, $parameters['lang'])->delete();
+        $instance::where($instance->getKeyName(), $parameters['id'])->where('lang_' . $instance->suffix, $parameters['lang'])->delete();
 
         if($deleteLangDataRecord)
         {
@@ -169,13 +204,13 @@ trait TraitModel {
 
             if($object != null)
             {
-                $jsonObject             = json_decode($object->{'data_lang_' . $instance->sufix});
+                $jsonObject             = json_decode($object->{'data_lang_' . $instance->suffix});
                 $jsonObject->langs[]    = $lang;
                 $jsonString             = json_encode($jsonObject);
 
                 // updates all objects with new language variables
                 $instance::where($instance->getKeyName(), $id)->update([
-                    'data_lang_' . $instance->sufix => $jsonString
+                    'data_lang_' . $instance->suffix => $jsonString
                 ]);
             }
             else
@@ -202,7 +237,7 @@ trait TraitModel {
 
         if($object != null)
         {
-            $jsonObject = json_decode($object->{'data_lang_' . $instance->sufix});
+            $jsonObject = json_decode($object->{'data_lang_' . $instance->suffix});
 
             //unset isn't correct, get error to reorder array
             $newArrayLang = [];
@@ -217,7 +252,7 @@ trait TraitModel {
             $jsonString = json_encode($jsonObject);
 
             $instance::where($instance->getKeyName(), $parameters['id'])->update([
-                'data_lang_' . $instance->sufix  => $jsonString
+                'data_lang_' . $instance->suffix  => $jsonString
             ]);
         }
     }
@@ -247,11 +282,11 @@ trait TraitModel {
 
         if($nObjects > 0)
         {
-            $sufix = 0;
+            $suffix = 0;
             while($nObjects > 0)
             {
-                $sufix++;
-                $slug       = $slug . '-' . $sufix;
+                $suffix++;
+                $slug       = $slug . '-' . $suffix;
                 $nObjects   = $instance->where($slugField, $slug)->count();
             }
         }
@@ -264,10 +299,10 @@ trait TraitModel {
      * @param   void
      * @return	string
      */
-    public static function getSufix()
+    public static function getSuffix()
     {
         $instance = new static;
 
-        return $instance->sufix;
+        return $instance->suffix;
     }
 }

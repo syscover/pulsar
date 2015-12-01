@@ -142,7 +142,7 @@ return [
     'customer'                              => 'Customer|Customers',
     'mobile'                                => 'Mobile',
     'prefix'                                => 'Prefix',
-    'sufix'                                 => 'Sufix',
+    'suffix'                                => 'Suffix',
     'code'                                  => 'Code',
     'alias'                                 => 'Alias',
     'favorite'                              => 'Favorite',

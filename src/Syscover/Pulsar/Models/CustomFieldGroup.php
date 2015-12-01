@@ -21,14 +21,10 @@ class CustomFieldGroup extends Model
 
 	protected $table        = '001_025_field_group';
     protected $primaryKey   = 'id_025';
+    protected $suffix       = '025';
     public $timestamps      = false;
     protected $fillable     = ['id_025', 'name_025', 'resource_025', 'data_025'];
-    protected $maps = [
-        'id'                    => 'id_025',
-        'name'                  => 'name_025',
-        'resource'              => 'resource_025',
-        'data'                  => 'data_025',
-    ];
+    protected $maps         = [];
     private static $rules   = [
         'name'      => 'required|between:2,100',
         'resource'  => 'required',

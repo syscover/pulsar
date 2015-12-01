@@ -21,16 +21,10 @@ class AttachmentFamily extends Model {
 
 	protected $table        = '001_015_attachment_family';
     protected $primaryKey   = 'id_015';
+    protected $suffix       = '015';
     public $timestamps      = false;
     protected $fillable     = ['id_015', 'resource_015', 'name_015', 'width_015', 'height_015', 'data_015'];
-    protected $maps = [
-        'id'                    => 'id_015',
-        'resource'              => 'resource_015',
-        'name'                  => 'name_015',
-        'width'                 => 'width_015',
-        'height'                => 'height_015',
-        'data'                  => 'data_015',
-    ];
+    protected $maps         = [];
     private static $rules   = [
         'name'      => 'required|between:2,100',
         'resource'  => 'required',

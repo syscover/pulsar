@@ -21,12 +21,10 @@ class Action extends Model
 
 	protected $table        = '001_008_action';
     protected $primaryKey   = 'id_008';
+    protected $suffix       = '008';
     public $timestamps      = false;
     protected $fillable     = ['id_008', 'name_008'];
-    protected $maps = [
-        'id'                => 'id_008',
-        'name'              => 'name_008',
-    ];
+    protected $maps         = [];
     private static $rules   = [
         'id'    => 'required|between:2,25|unique:001_008_action,id_008',
         'name'  => 'required|between:2,50'

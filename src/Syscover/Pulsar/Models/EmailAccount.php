@@ -21,27 +21,10 @@ class EmailAccount extends Model
 
 	protected $table        = '001_013_email_account';
     protected $primaryKey   = 'id_013';
+    protected $suffix       = '013';
     public $timestamps      = false;
     protected $fillable     = ['id_013', 'name_013', 'email_013', 'reply_to_013', 'outgoing_server_013', 'outgoing_user_013', 'outgoing_pass_013', 'outgoing_port_013', 'outgoing_secure_013', 'incoming_server_013', 'incoming_user_013', 'incoming_pass_013', 'incoming_port_013', 'incoming_secure_013', 'incoming_type_013', 'n_emails_013', 'last_check_uid_013'];
-    protected $maps = [
-        'id'                => 'id_013',
-        'name'              => 'name_013',
-        'mail'              => 'email_013',
-        'reply_to'          => 'reply_to_013',
-        'outgoing_server'   => 'outgoing_server_013',
-        'outgoing_user'     => 'outgoing_user_013',
-        'outgoing_pass'     => 'outgoing_pass_013',
-        'outgoing_port'     => 'outgoing_port_013',
-        'outgoing_secure'   => 'outgoing_secure_013',
-        'incoming_server'   => 'incoming_server_013',
-        'incoming_user'     => 'incoming_user_013',
-        'incoming_pass'     => 'incoming_pass_013',
-        'incoming_port'     => 'incoming_port_013',
-        'incoming_secure'   => 'incoming_secure_013',
-        'incoming_type'     => 'incoming_type_013',
-        'n_emails'          => 'n_emails_013',
-        'last_check_uid'    => 'last_check_uid_013',
-    ];
+    protected $maps         = [];
     private static $rules   = [
         'name'              => 'required|between:2,100',
         'email'             => 'required|email|between:2,100',

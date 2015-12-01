@@ -21,20 +21,10 @@ class CustomFieldResult extends Model
 
 	protected $table        = '001_028_field_result';
     protected $primaryKey   = 'object_028';
-    protected $sufix        = '028';
+    protected $suffix       = '028';
     public $timestamps      = false;
     protected $fillable     = ['object_028', 'lang_028', 'resource_028', 'field_028', 'boolean_value_028', 'int_value_028', 'text_value_028', 'decimal_value_028', 'timestamp_value_028'];
-    protected $maps = [
-        'object'            => 'object_028',
-        'lang'              => 'lang_028',
-        'resource'          => 'resource_028',
-        'field'             => 'field_028',
-        'boolean_value'     => 'boolean_value_028',
-        'int_value'         => 'int_value_028',
-        'text_value'        => 'text_value_028',
-        'decimal_value'     => 'decimal_value_028',
-        'timestamp_value'   => 'timestamp_value_028',
-    ];
+    protected $maps         = [];
     private static $rules   = [];
 
     public static function validate($data, $specialRules = [])

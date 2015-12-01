@@ -21,13 +21,10 @@ class Permission extends Model
 
 	protected $table        = '001_009_permission';
     protected $primaryKey   = 'profile_009';
+    protected $suffix       = '009';
     public $timestamps      = false;
     protected $fillable     = ['profile_009', 'resource_009', 'action_009'];
-    protected $maps = [
-        'profile'           => 'profile_009',
-        'resource'          => 'resource_009',
-        'action'            => 'action_009'
-    ];
+    protected $maps         = [];
     private static $rules   = [
         'profile_009'   =>  'required',
         'resource_009'  =>  'required',

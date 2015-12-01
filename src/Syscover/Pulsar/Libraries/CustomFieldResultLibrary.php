@@ -101,7 +101,7 @@ class CustomFieldResultLibrary {
             // add suffix '_custom' to avoid conflict with other field names
             if(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view == 'pulsar::includes.html.form_select_group')
             {
-                $customFieldValues = $customField->values;
+                $customFieldValues = $customField->getValues;
                 $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view, ['label' => $customField['label_026'], 'name' => $customField['name_026'] . '_custom', 'value' => null, 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'objects' => $customFieldValues, 'idSelect' => 'id_027', 'nameSelect' => 'name_027', 'required' => $customField->required_026, 'value' => $setValue? $customFieldResults[$customField->id_026]->{$dataTypes[$customField->data_type_026]->column} : null])->render();
             }
             elseif(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view == 'pulsar::includes.html.form_checkbox_group')

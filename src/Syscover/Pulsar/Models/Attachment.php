@@ -21,30 +21,11 @@ class Attachment extends Model
 
 	protected $table        = '001_016_attachment';
     protected $primaryKey   = 'id_016';
-    protected $sufix        = '016';
+    protected $suffix       = '016';
     public $timestamps      = false;
     public $incrementing    = false;
     protected $fillable     = ['id_016', 'lang_016', 'resource_016', 'object_016', 'family_016', 'library_016', 'library_file_name_016', 'sorting_016', 'name_016', 'file_name_016', 'mime_016', 'size_016', 'type_016', 'type_text_016', 'width_016', 'height_016', 'data_lang_016', 'data_016'];
-    protected $maps = [
-        'id'                    => 'id_016',
-        'lang'                  => 'lang_016',
-        'resource'              => 'resource_016',
-        'object'                => 'object_016',
-        'family'                => 'family_016',
-        'library'               => 'library_016',
-        'library_file_name'     => 'library_file_name_016',
-        'sorting'               => 'sorting_016',
-        'name'                  => 'name_016',
-        'file_name'             => 'file_name_016',
-        'mime'                  => 'mime_016',
-        'size'                  => 'size_016',
-        'type'                  => 'type_016',
-        'type_text'             => 'type_text_016',
-        'width'                 => 'width_016',
-        'height'                => 'height_016',
-        'data_lang'             => 'data_lang_016',
-        'data'                  => 'data_016',
-    ];
+    protected $maps         = [];
     private static $rules   = [];
 
     public static function validate($data)

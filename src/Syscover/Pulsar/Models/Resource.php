@@ -21,13 +21,10 @@ class Resource extends Model
 
 	protected $table        = '001_007_resource';
     protected $primaryKey   = 'id_007';
+    protected $suffix       = '007';
     public $timestamps      = false;
     protected $fillable     = ['id_007', 'name_007', 'package_007'];
-    protected $maps = [
-        'id'                    => 'id_003',
-        'name'                  => 'name_007',
-        'package'               => 'package_007',
-    ];
+    protected $maps         = [];
     private static $rules   = [
         'id'        =>  'required|between:2,30|unique:001_007_resource,id_007',
         'module'    =>  'not_in:null',

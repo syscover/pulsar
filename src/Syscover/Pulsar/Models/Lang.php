@@ -21,16 +21,10 @@ class Lang extends Model
 
     protected $table        = '001_001_lang';
     protected $primaryKey   = 'id_001';
+    protected $suffix       = '001';
     public $timestamps      = false;
     protected $fillable     = ['id_001', 'name_001', 'image_001', 'sorting_001', 'base_001', 'active_001'];
-    protected $maps = [
-        'id'                => 'id_001',
-        'name'              => 'name_001',
-        'image'             => 'image_001',
-        'sorting'           => 'sorting_001',
-        'base'              => 'base_001',
-        'active'            => 'active_001',
-    ];
+    protected $maps         = [];
     private static $rules   = [
         'id'        => 'required|alpha|size:2|unique:001_001_lang,id_001',
         'name'      => 'required|between:2,50',

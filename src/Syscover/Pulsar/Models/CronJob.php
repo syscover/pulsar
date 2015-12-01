@@ -21,18 +21,10 @@ class CronJob extends Model
 
 	protected $table        = '001_011_cron_job';
     protected $primaryKey   = 'id_011';
+    protected $suffix       = '011';
     public $timestamps      = false;
     protected $fillable     = ['id_011', 'name_011', 'package_011', 'key_011', 'cron_expression_011', 'last_run_011', 'next_run_011', 'active_011'];
-    protected $maps = [
-        'id'                    => 'id_011',
-        'name'                  => 'name_011',
-        'package'               => 'package_011',
-        'key'                   => 'key_011',
-        'cron_expression'       => 'cron_expression_011',
-        'last_run'              => 'last_run_011',
-        'next_run'              => 'next_run_011',
-        'active'                => 'active_011',
-    ];
+    protected $maps         = [];
     private static $rules   = [
         'name'              =>  'required|between:2,100',
         'package'           =>  'not_in:null',

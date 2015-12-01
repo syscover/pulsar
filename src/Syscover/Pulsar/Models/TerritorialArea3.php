@@ -21,15 +21,10 @@ class TerritorialArea3 extends Model
 
     protected $table        = '001_005_territorial_area_3';
     protected $primaryKey   = 'id_005';
+    protected $suffix       = '005';
     public $timestamps      = false;
     protected $fillable     = ['id_005', 'country_005', 'territorial_area_1_005', 'territorial_area_2_005', 'name_005'];
-    protected $maps = [
-        'id'                    => 'id_005',
-        'country'               => 'country_005',
-        'territorial_area_1'    => 'territorial_area_1_005',
-        'territorial_area_2'    => 'territorial_area_2_005',
-        'name'                  => 'name_005'
-    ];
+    protected $maps         = [];
     private static $rules   = [
         'id'                => 'required|between:1,10|unique:001_005_territorial_area_3,id_005',
         'name'              => 'required|between:2,50',

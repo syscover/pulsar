@@ -21,21 +21,10 @@ class Country extends Model
 
     protected $table        = '001_002_country';
     protected $primaryKey   = 'id_002';
-    protected $sufix        = '002';
+    protected $suffix       = '002';
     public $timestamps      = false;
     protected $fillable     = ['id_002', 'lang_002', 'name_002', 'sorting_002', 'prefix_002', 'territorial_area_1_002', 'territorial_area_2_002', 'territorial_area_3_002', 'data_lang_002', 'data_002'];
-    protected $maps = [
-        'id'                    => 'id_002',
-        'lang'                  => 'lang_002',
-        'name'                  => 'name_002',
-        'sorting'               => 'sorting_002',
-        'prefix'                => 'prefix_002',
-        'territorial_area_1'    => 'territorial_area_1_002',
-        'territorial_area_2'    => 'territorial_area_2_002',
-        'territorial_area_3'    => 'territorial_area_3_002',
-        'data_lang'             => 'data_lang_002',
-        'data'                  => 'data_002',
-    ];
+    protected $maps         = [];
     private static $rules   = [
         'id'                => 'required|alpha|size:2|unique:001_002_country,id_002',
         'name'              => 'required|between:2,100',

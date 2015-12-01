@@ -23,21 +23,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     protected $table        = '001_010_user';
     protected $primaryKey   = 'id_010';
+    protected $suffix       = '010';
     public $timestamps      = true;
     protected $fillable     = ['id_010', 'lang_010', 'profile_010', 'access_010', 'user_010', 'password_010', 'email_010', 'name_010', 'surname_010'];
-    protected $maps = [
-        'id'                => 'id_010',
-        'lang'              => 'lang_010',
-        'profile'           => 'profile_010',
-        'access'            => 'access_010',
-        'user'              => 'user_010',
-        'password'          => 'password_010',
-        'email'             => 'email_010',
-        'name'              => 'name_010',
-        'surname'           => 'surname_010',
-        'profile_id'        => 'id_006',
-        'profile_name'      => 'name_006',
-    ];
+    protected $maps         = [];
     private static $rules    = [
         'name'      => 'required|between:2,50',
         'surname'   => 'required|between:2,50',

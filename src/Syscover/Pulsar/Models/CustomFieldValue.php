@@ -21,19 +21,10 @@ class CustomFieldValue extends Model
 
 	protected $table        = '001_027_field_value';
     protected $primaryKey   = 'id_027';
-    protected $sufix        = '027';
+    protected $suffix       = '027';
     public $timestamps      = false;
     protected $fillable     = ['id_027', 'lang_027', 'field_027', 'sorting_027', 'featured_027', 'name_027', 'data_lang_027', 'data_027'];
-    protected $maps = [
-        'id'                => 'id_027',
-        'lang'              => 'lang_027',
-        'field'             => 'field_027',
-        'sorting'           => 'sorting_027',
-        'featured'          => 'featured_027',
-        'name'              => 'name_027',
-        'data_lang'         => 'data_lang_027',
-        'data'              => 'data_027',
-    ];
+    protected $maps         = [];
     private static $rules   = [
         'name' => 'required'
     ];

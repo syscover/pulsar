@@ -21,26 +21,10 @@ class CustomField extends Model
 
 	protected $table        = '001_026_field';
     protected $primaryKey   = 'id_026';
-    protected $sufix        = '026';
+    protected $suffix       = '026';
     public $timestamps      = false;
     protected $fillable     = ['id_026', 'group_026', 'name_026', 'field_type_026', 'field_type_text_026', 'data_type_026', 'data_type_text_026', 'required_026', 'sorting_026', 'max_length_026', 'pattern_026', 'label_size_026', 'field_size_026', 'data_lang_026', 'data_026'];
-    protected $maps = [
-        'id'                    => 'id_026',
-        'group'                 => 'group_026',
-        'name'                  => 'name_026',
-        'field_type'            => 'field_type_026',
-        'field_type_text'       => 'field_type_text_026',
-        'data_type'             => 'data_type_026',
-        'data_type_text'        => 'data_type_text_026',
-        'required'              => 'required_026',
-        'sorting'               => 'sorting_026',
-        'max_length'            => 'max_length_026',
-        'pattern'               => 'pattern_026',
-        'label_size'            => 'label_size_026',
-        'field_size'            => 'field_size_026',
-        'data_lang'             => 'data_lang_026',
-        'data'                  => 'data_026',
-    ];
+    protected $maps         = [];
     private static $rules   = [
         'name'      => 'required|between:2,100',
         'group'     => 'required',

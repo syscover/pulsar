@@ -21,13 +21,10 @@ class TerritorialArea1 extends Model
 
     protected $table        = '001_003_territorial_area_1';
     protected $primaryKey   = 'id_003';
+    protected $suffix       = '003';
     public $timestamps      = false;
     protected $fillable     = ['id_003','country_003','name_003'];
-    protected $maps = [
-        'id'                    => 'id_003',
-        'country'               => 'country_003',
-        'name'                  => 'name_003'
-    ];
+    protected $maps         = [];
     private static $rules   = [
         'id'      => 'required|between:1,6|unique:001_003_territorial_area_1,id_003',
         'name'    => 'required|between:2,50'

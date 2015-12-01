@@ -21,16 +21,10 @@ class Package extends Model
 
 	protected $table        = '001_012_package';
     protected $primaryKey   = 'id_012';
-    protected $sufix        = '012';
+    protected $suffix        = '012';
     public $timestamps      = false;
     protected $fillable     = ['id_012', 'name_012', 'folder_012', 'active_012', 'sorting_012'];
-    protected $maps = [
-        'id'                => 'id_012',
-        'name'              => 'name_012',
-        'folder'            => 'folder_012',
-        'active'            => 'active_012',
-        'sorting'           => 'sorting_012',
-    ];
+    protected $maps         = [];
     protected $casts        = ['active_012' => 'boolean'];
     private static $rules   = [
         'name'    =>  'required|between:2,50',
