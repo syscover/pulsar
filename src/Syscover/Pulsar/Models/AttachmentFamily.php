@@ -25,6 +25,9 @@ class AttachmentFamily extends Model {
     public $timestamps      = false;
     protected $fillable     = ['id_015', 'resource_015', 'name_015', 'width_015', 'height_015', 'data_015'];
     protected $maps         = [];
+    protected $relationMaps = [
+        'resource'   => \Syscover\Pulsar\Models\Resource::class,
+    ];
     private static $rules   = [
         'name'      => 'required|between:2,100',
         'resource'  => 'required',
@@ -37,16 +40,21 @@ class AttachmentFamily extends Model {
         return Validator::make($data, static::$rules);
 	}
 
+    public function scopeBuilder($query)
+    {
+        return $query->join('001_007_resource', '001_015_attachment_family.resource_015', '=', '001_007_resource.id_007');
+    }
+
     public static function addToGetRecordsLimit($parameters)
     {
-        $query =  AttachmentFamily::join('001_007_resource', '001_015_attachment_family.resource_015', '=', '001_007_resource.id_007');
+        $query =  AttachmentFamily::builder();
 
         return $query;
     }
 
     public static function getAttachmentFamilies($args)
     {
-        $query =  AttachmentFamily::query();
+        $query =  AttachmentFamily::builder();
 
         if(isset($args['resource_015'])) $query->where('resource_015', $args['resource_015']);
 

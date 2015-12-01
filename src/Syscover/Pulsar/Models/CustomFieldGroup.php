@@ -25,6 +25,9 @@ class CustomFieldGroup extends Model
     public $timestamps      = false;
     protected $fillable     = ['id_025', 'name_025', 'resource_025', 'data_025'];
     protected $maps         = [];
+    protected $relationMaps = [
+        'resource'   => \Syscover\Pulsar\Models\Resource::class,
+    ];
     private static $rules   = [
         'name'      => 'required|between:2,100',
         'resource'  => 'required',
@@ -35,9 +38,14 @@ class CustomFieldGroup extends Model
         return Validator::make($data, static::$rules);
     }
 
+    public function scopeBuilder($query)
+    {
+        return $query->join('001_007_resource', '001_025_field_group.resource_025', '=', '001_007_resource.id_007');
+    }
+
     public static function addToGetRecordsLimit()
     {
-        $query =  CustomFieldGroup::join('001_007_resource', '001_025_field_group.resource_025', '=', '001_007_resource.id_007');
+        $query =  CustomFieldGroup::builder();
 
         return $query;
     }

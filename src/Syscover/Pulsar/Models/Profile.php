@@ -23,6 +23,7 @@ class Profile extends Model
     public $timestamps      = false;
     protected $fillable     = ['id_006', 'name_006'];
     protected $maps         = [];
+    protected $relationMaps = [];
     private static $rules   = [
         'name'    =>  'required|between:2,50'
     ];

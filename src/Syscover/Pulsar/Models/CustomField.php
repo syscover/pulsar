@@ -25,6 +25,9 @@ class CustomField extends Model
     public $timestamps      = false;
     protected $fillable     = ['id_026', 'group_026', 'name_026', 'field_type_026', 'field_type_text_026', 'data_type_026', 'data_type_text_026', 'required_026', 'sorting_026', 'max_length_026', 'pattern_026', 'label_size_026', 'field_size_026', 'data_lang_026', 'data_026'];
     protected $maps         = [];
+    protected $relationMaps = [
+        'group'   => \Syscover\Pulsar\Models\CustomFieldGroup::class
+    ];
     private static $rules   = [
         'name'      => 'required|between:2,100',
         'group'     => 'required',

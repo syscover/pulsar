@@ -25,6 +25,7 @@ class Permission extends Model
     public $timestamps      = false;
     protected $fillable     = ['profile_009', 'resource_009', 'action_009'];
     protected $maps         = [];
+    protected $relationMaps = [];
     private static $rules   = [
         'profile_009'   =>  'required',
         'resource_009'  =>  'required',

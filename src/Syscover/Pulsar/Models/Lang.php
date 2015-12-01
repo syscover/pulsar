@@ -25,6 +25,7 @@ class Lang extends Model
     public $timestamps      = false;
     protected $fillable     = ['id_001', 'name_001', 'image_001', 'sorting_001', 'base_001', 'active_001'];
     protected $maps         = [];
+    protected $relationMaps = [];
     private static $rules   = [
         'id'        => 'required|alpha|size:2|unique:001_001_lang,id_001',
         'name'      => 'required|between:2,50',

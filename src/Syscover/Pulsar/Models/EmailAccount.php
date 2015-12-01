@@ -25,6 +25,7 @@ class EmailAccount extends Model
     public $timestamps      = false;
     protected $fillable     = ['id_013', 'name_013', 'email_013', 'reply_to_013', 'outgoing_server_013', 'outgoing_user_013', 'outgoing_pass_013', 'outgoing_port_013', 'outgoing_secure_013', 'incoming_server_013', 'incoming_user_013', 'incoming_pass_013', 'incoming_port_013', 'incoming_secure_013', 'incoming_type_013', 'n_emails_013', 'last_check_uid_013'];
     protected $maps         = [];
+    protected $relationMaps = [];
     private static $rules   = [
         'name'              => 'required|between:2,100',
         'email'             => 'required|email|between:2,100',

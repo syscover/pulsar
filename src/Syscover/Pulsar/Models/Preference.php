@@ -24,6 +24,7 @@ class Preference extends Model
     public $timestamps      = true;
     protected $fillable     = ['id_018', 'value_018', 'package_018'];
     protected $maps         = [];
+    protected $relationMaps = [];
     private static $rules   = [];
 
     public static function validate($data)

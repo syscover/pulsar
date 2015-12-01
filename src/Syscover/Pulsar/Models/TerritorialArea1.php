@@ -25,6 +25,7 @@ class TerritorialArea1 extends Model
     public $timestamps      = false;
     protected $fillable     = ['id_003','country_003','name_003'];
     protected $maps         = [];
+    protected $relationMaps = [];
     private static $rules   = [
         'id'      => 'required|between:1,6|unique:001_003_territorial_area_1,id_003',
         'name'    => 'required|between:2,50'
@@ -37,7 +38,7 @@ class TerritorialArea1 extends Model
         return Validator::make($data, static::$rules);
     }
 
-    public function territorialAreas2()
+    public function getTerritorialAreas2()
     {
          return $this->hasMany('Syscover\Pulsar\Models\TerritorialArea2', 'territorial_area_1_004');
     }

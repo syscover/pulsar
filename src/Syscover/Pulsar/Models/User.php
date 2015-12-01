@@ -27,6 +27,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public $timestamps      = true;
     protected $fillable     = ['id_010', 'lang_010', 'profile_010', 'access_010', 'user_010', 'password_010', 'email_010', 'name_010', 'surname_010'];
     protected $maps         = [];
+    protected $relationMaps = [
+        'profile'   => \Syscover\Pulsar\Models\Profile::class,
+    ];
     private static $rules    = [
         'name'      => 'required|between:2,50',
         'surname'   => 'required|between:2,50',

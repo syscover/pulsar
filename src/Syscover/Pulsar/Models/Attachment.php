@@ -26,6 +26,9 @@ class Attachment extends Model
     public $incrementing    = false;
     protected $fillable     = ['id_016', 'lang_016', 'resource_016', 'object_016', 'family_016', 'library_016', 'library_file_name_016', 'sorting_016', 'name_016', 'file_name_016', 'mime_016', 'size_016', 'type_016', 'type_text_016', 'width_016', 'height_016', 'data_lang_016', 'data_016'];
     protected $maps         = [];
+    protected $relationMaps = [
+        'family'   => \Syscover\Pulsar\Models\AttachmentFamily::class
+    ];
     private static $rules   = [];
 
     public static function validate($data)
@@ -40,7 +43,7 @@ class Attachment extends Model
 
     public static function getTranslationsAttachmentsArticle($parameters)
     {
-        return Attachment::leftJoin('001_015_attachment_family', '001_016_attachment.family_016', '=', '001_015_attachment_family.id_015')
+        return Attachment::builder()
             ->where('lang_016', $parameters['lang'])
             ->where('article_016', $parameters['article'])
             ->orderBy('sorting_016')
@@ -49,7 +52,7 @@ class Attachment extends Model
 
     public static function getTranslationRecord($parameters)
     {
-        return Attachment::leftJoin('001_015_attachment_family', '001_016_attachment.family_016', '=', '001_015_attachment_family.id_015')
+        return Attachment::builder()
             ->where('id_016', $parameters['id'])
             ->where('lang_016', $parameters['lang'])
             ->first();
@@ -57,7 +60,7 @@ class Attachment extends Model
 
     public static function getRecords($args)
     {
-        $query =  Attachment::leftJoin('001_015_attachment_family', '001_016_attachment.family_016', '=', '001_015_attachment_family.id_015');
+        $query =  Attachment::builder();
 
         if(isset($args['lang_016']))        $query->where('lang_016', $args['lang_016']);
         if(isset($args['resource_016']))    $query->where('resource_016', $args['resource_016']);
@@ -71,7 +74,7 @@ class Attachment extends Model
 
     public static function deleteAttachment($args)
     {
-        $query =  Attachment::query();
+        $query =  Attachment::builder();
 
         if(isset($args['lang_016']))        $query->where('lang_016', $args['lang_016']);
         if(isset($args['resource_016']))    $query->where('resource_016', $args['resource_016']);

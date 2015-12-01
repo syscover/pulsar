@@ -25,6 +25,10 @@ class TerritorialArea3 extends Model
     public $timestamps      = false;
     protected $fillable     = ['id_005', 'country_005', 'territorial_area_1_005', 'territorial_area_2_005', 'name_005'];
     protected $maps         = [];
+    protected $relationMaps = [
+        'terrirorial_area_1'   => \Syscover\Pulsar\Models\TerritorialArea1::class,
+        'terrirorial_area_2'   => \Syscover\Pulsar\Models\TerritorialArea2::class
+    ];
     private static $rules   = [
         'id'                => 'required|between:1,10|unique:001_005_territorial_area_3,id_005',
         'name'              => 'required|between:2,50',
@@ -39,10 +43,15 @@ class TerritorialArea3 extends Model
         return Validator::make($data, static::$rules);
     }
 
+    public function scopeBuilder($query)
+    {
+        return $query->join('001_003_territorial_area_1', '001_005_territorial_area_3.territorial_area_1_005', '=', '001_003_territorial_area_1.id_003')
+            ->join('001_004_territorial_area_2', '001_005_territorial_area_3.territorial_area_2_005', '=', '001_004_territorial_area_2.id_004');
+    }
+
     public static function addToGetRecordsLimit($parameters)
     {
-        $query = TerritorialArea3::join('001_003_territorial_area_1', '001_005_territorial_area_3.territorial_area_1_005', '=', '001_003_territorial_area_1.id_003')
-            ->join('001_004_territorial_area_2', '001_005_territorial_area_3.territorial_area_2_005', '=', '001_004_territorial_area_2.id_004');
+        $query = TerritorialArea3::builder();
 
         if(isset($parameters['country'])) $query->where('country_003', $parameters['country']);
 

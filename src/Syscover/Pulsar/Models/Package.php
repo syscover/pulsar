@@ -25,6 +25,7 @@ class Package extends Model
     public $timestamps      = false;
     protected $fillable     = ['id_012', 'name_012', 'folder_012', 'active_012', 'sorting_012'];
     protected $maps         = [];
+    protected $relationMaps = [];
     protected $casts        = ['active_012' => 'boolean'];
     private static $rules   = [
         'name'    =>  'required|between:2,50',
