@@ -1,28 +1,34 @@
 <?php namespace Syscover\Pulsar\Models;
 
-/**
- * @package	    Syscover\Pulsar\Models
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 1.0
- * @filesource
- */
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Mappable;
+
+/**
+ * Class Package
+ *
+ * Model with properties
+ * <br><b>[id, name, folder, active, sorting]</b>
+ *
+ * @package     Syscover\Pulsar\Models
+ */
 
 class Package extends Model {
 
-    use TraitModel;
+    use Eloquence, Mappable;
 
 	protected $table        = '001_012_package';
     protected $primaryKey   = 'id_012';
     protected $sufix        = '012';
     public $timestamps      = false;
     protected $fillable     = ['id_012', 'name_012', 'folder_012', 'active_012', 'sorting_012'];
+    protected $maps = [
+        'id'                => 'id_012',
+        'name'              => 'name_012',
+        'folder'            => 'folder_012',
+        'active'            => 'active_012',
+        'sorting'           => 'sorting_012',
+    ];
     protected $casts        = ['active_012' => 'boolean'];
     private static $rules   = [
         'name'    =>  'required|between:2,50',

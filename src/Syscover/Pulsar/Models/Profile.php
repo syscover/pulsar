@@ -1,10 +1,8 @@
 <?php namespace Syscover\Pulsar\Models;
 
+use Illuminate\Support\Facades\Validator;
 use Sofa\Eloquence\Eloquence;
 use Sofa\Eloquence\Mappable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
 
 /**
  * Class Profile
@@ -15,7 +13,6 @@ use Syscover\Pulsar\Traits\TraitModel;
  */
 class Profile extends Model
 {
-    use TraitModel;
     use Eloquence, Mappable;
 
 	protected $table        = '001_006_profile';

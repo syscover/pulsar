@@ -1,24 +1,22 @@
 <?php namespace Syscover\Pulsar\Models;
 
-/**
- * @package	    Pulsar
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- */
-
-use Sofa\Eloquence\Eloquence;
-use Sofa\Eloquence\Mappable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Syscover\Pulsar\Traits\TraitModel;
+use Illuminate\Support\Facades\Validator;
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Mappable;
+
+/**
+ * Class Profile
+ *
+ * Model with properties
+ * <br><b>[id, lang, profile, access, user, password, email, name, surname]</b>
+ *
+ * @package     Syscover\Pulsar\Models
+ */
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
-    use TraitModel;
     use Eloquence, Mappable;
 
     protected $table        = '001_010_user';
@@ -73,7 +71,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
 
-    public static function addToGetRecordsLimit()
+    protected static function addToGetRecordsLimit()
     {
         return User::join('001_006_profile', '001_010_user.profile_010', '=', '001_006_profile.id_006');
     }

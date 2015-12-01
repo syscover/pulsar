@@ -1,21 +1,16 @@
-<?php
-namespace Syscover\Pulsar\Controllers;
-
-/**
- * @package	    Pulsar
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
+<?php namespace Syscover\Pulsar\Controllers;
 
 use Illuminate\Support\Facades\Hash;
 use Syscover\Pulsar\Models\Lang;
 use Syscover\Pulsar\Models\Profile;
 use Syscover\Pulsar\Models\User;
 use Syscover\Pulsar\Traits\TraitController;
+
+/**
+ * Class UserController
+ *
+ * @package     Syscover\Pulsar\Controllers
+ */
 
 class UserController extends Controller {
 

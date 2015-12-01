@@ -1,27 +1,34 @@
 <?php namespace Syscover\Pulsar\Models;
 
-/**
- * @package	    Syscover\Pulsar\Models
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 1.0
- * @filesource
- */
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Mappable;
+
+/**
+ * Class Lang
+ *
+ * Model with properties
+ * <br><b>[id, name, image, sorting, base, active]</b>
+ *
+ * @package     Syscover\Pulsar\Models
+ */
 
 class Lang extends Model {
 
-    use TraitModel;
+    use Eloquence, Mappable;
 
     protected $table        = '001_001_lang';
     protected $primaryKey   = 'id_001';
     public $timestamps      = false;
     protected $fillable     = ['id_001', 'name_001', 'image_001', 'sorting_001', 'base_001', 'active_001'];
+    protected $maps = [
+        'id'                => 'id_001',
+        'name'              => 'name_001',
+        'image'             => 'image_001',
+        'sorting'           => 'sorting_001',
+        'base'              => 'base_001',
+        'active'            => 'active_001',
+    ];
     private static $rules   = [
         'id'        => 'required|alpha|size:2|unique:001_001_lang,id_001',
         'name'      => 'required|between:2,50',

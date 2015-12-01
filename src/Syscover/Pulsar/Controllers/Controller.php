@@ -15,16 +15,5 @@ abstract class Controller extends BaseController {
         {
             $this->resource = $request->route()->getAction()['resource'];
         }
-
-		//if (session('configPulsar') == null)
-		//{
-		//	$data = array();
-		//	$configs = ConfigPulsar::all();
-		//	foreach ($configs as $config)
-		//	{
-		//		$data[$config->id_018] = $config->value_018;
-		//	}
-		//	Session::put('configPulsar', $data);
-		//}
 	}
 }

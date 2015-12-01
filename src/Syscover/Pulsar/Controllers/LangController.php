@@ -1,19 +1,15 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-/**
- * @package	    Pulsar
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
 use Illuminate\Support\Facades\File;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Models\Lang;
 use Syscover\Pulsar\Traits\TraitController;
+
+/**
+ * Class LangController
+ *
+ * @package     Syscover\Pulsar\Controllers
+ */
 
 class LangController extends Controller {
 
@@ -27,7 +23,6 @@ class LangController extends Controller {
     protected $model        = '\Syscover\Pulsar\Models\Lang';
     protected $icon         = 'fa fa-language';
     protected $objectTrans  = 'language';
-
 
     public function storeCustomRecord($request, $parameters)
     {

@@ -10,14 +10,10 @@
  * @filesource
  */
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
 
 class Resource extends Model
 {
-    use TraitModel;
-
 	protected $table        = '001_007_resource';
     protected $primaryKey   = 'id_007';
     public $timestamps      = false;

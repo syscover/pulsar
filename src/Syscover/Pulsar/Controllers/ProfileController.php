@@ -1,15 +1,5 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-/**
- * @package	    Pulsar
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
 use Illuminate\Http\Request;
 use Syscover\Pulsar\Libraries\PulsarAcl;
 use Syscover\Pulsar\Models\Profile;
@@ -17,6 +7,12 @@ use Syscover\Pulsar\Models\Resource;
 use Syscover\Pulsar\Models\Action;
 use Syscover\Pulsar\Models\Permission;
 use Syscover\Pulsar\Traits\TraitController;
+
+/**
+ * Class ProfileController
+ *
+ * @package     Syscover\Pulsar\Controllers
+ */
 
 class ProfileController extends Controller {
 

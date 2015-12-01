@@ -1,24 +1,31 @@
 <?php namespace Syscover\Pulsar\Models;
 
-/**
- * @package	    Syscover\Pulsar\Models
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 1.0
- * @filesource
- */
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Mappable;
+
+/**
+ * Class Permission
+ *
+ * Model with properties
+ * <br><b>[profile, resource, action]</b>
+ *
+ * @package     Syscover\Pulsar\Models
+ */
 
 class Permission extends Model
 {
+    use Eloquence, Mappable;
+
 	protected $table        = '001_009_permission';
     protected $primaryKey   = 'profile_009';
     public $timestamps      = false;
     protected $fillable     = ['profile_009', 'resource_009', 'action_009'];
+    protected $maps = [
+        'profile'           => 'profile_009',
+        'resource'          => 'resource_009',
+        'action'            => 'action_009'
+    ];
     private static $rules   = [
         'profile_009'   =>  'required',
         'resource_009'  =>  'required',
