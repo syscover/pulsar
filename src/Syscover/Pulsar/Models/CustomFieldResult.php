@@ -1,6 +1,7 @@
 <?php namespace Syscover\Pulsar\Models;
 
 use Illuminate\Support\Facades\Validator;
+use Syscover\Pulsar\Traits\TraitModel;
 use Sofa\Eloquence\Eloquence;
 use Sofa\Eloquence\Mappable;
 
@@ -15,6 +16,7 @@ use Sofa\Eloquence\Mappable;
 
 class CustomFieldResult extends Model
 {
+    use TraitModel;
     use Eloquence, Mappable;
 
 	protected $table        = '001_028_field_result';
@@ -40,7 +42,7 @@ class CustomFieldResult extends Model
         return Validator::make($data, static::$rules);
     }
 
-    public function lang()
+    public function getLang()
     {
         return $this->belongsTo('Syscover\Pulsar\Models\Lang', 'lang_028');
     }

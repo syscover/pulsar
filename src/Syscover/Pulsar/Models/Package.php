@@ -1,6 +1,7 @@
 <?php namespace Syscover\Pulsar\Models;
 
 use Illuminate\Support\Facades\Validator;
+use Syscover\Pulsar\Traits\TraitModel;
 use Sofa\Eloquence\Eloquence;
 use Sofa\Eloquence\Mappable;
 
@@ -13,8 +14,9 @@ use Sofa\Eloquence\Mappable;
  * @package     Syscover\Pulsar\Models
  */
 
-class Package extends Model {
-
+class Package extends Model
+{
+    use TraitModel;
     use Eloquence, Mappable;
 
 	protected $table        = '001_012_package';
@@ -49,16 +51,4 @@ class Package extends Model {
 
         return $query->get();
     }
-/*
-    public static function ()
-    {
-        $modules = Package::get();
-        $arrayAux = array();
-        foreach ($modules as $module)
-        {
-            $arrayAux[$module->id_012] = $module;
-        }
-        return $arrayAux;
-    }
-*/
 }

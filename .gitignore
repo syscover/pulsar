@@ -1,7 +1,6 @@
 workbench/
 WORK/
 docs/cache/
-sami.phar
 .env
 
 # -- Composer -----------------------------------------

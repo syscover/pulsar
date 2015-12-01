@@ -3,6 +3,7 @@
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Support\Facades\Validator;
+use Syscover\Pulsar\Traits\TraitModel;
 use Sofa\Eloquence\Eloquence;
 use Sofa\Eloquence\Mappable;
 
@@ -15,8 +16,9 @@ use Sofa\Eloquence\Mappable;
  * @package     Syscover\Pulsar\Models
  */
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
-
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract
+{
+    use TraitModel;
     use Eloquence, Mappable;
 
     protected $table        = '001_010_user';
@@ -65,7 +67,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @return \Syscover\Pulsar\Models\Profile
      */
-    public function profile()
+    public function getProfile()
     {
         return $this->belongsTo(Profile::class, 'profile_010');
     }

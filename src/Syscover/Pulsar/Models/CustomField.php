@@ -1,6 +1,7 @@
 <?php namespace Syscover\Pulsar\Models;
 
 use Illuminate\Support\Facades\Validator;
+use Syscover\Pulsar\Traits\TraitModel;
 use Sofa\Eloquence\Eloquence;
 use Sofa\Eloquence\Mappable;
 
@@ -15,6 +16,7 @@ use Sofa\Eloquence\Mappable;
 
 class CustomField extends Model
 {
+    use TraitModel;
     use Eloquence, Mappable;
 
 	protected $table        = '001_026_field';
@@ -57,13 +59,13 @@ class CustomField extends Model
             ->newQuery();
     }
 
-    public function lang()
+    public function getLang()
     {
         // lang_026 comes from json field data_026
         return $this->belongsTo('Syscover\Pulsar\Models\Lang', 'lang_026');
     }
 
-    public function values()
+    public function getValues()
     {
         return $this->hasMany('Syscover\Pulsar\Models\CustomFieldValue', 'field_027')
             ->where('001_027_field_value.lang_027', session('baseLang')->id_001);

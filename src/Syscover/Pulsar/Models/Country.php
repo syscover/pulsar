@@ -1,6 +1,7 @@
 <?php namespace Syscover\Pulsar\Models;
 
 use Illuminate\Support\Facades\Validator;
+use Syscover\Pulsar\Traits\TraitModel;
 use Sofa\Eloquence\Eloquence;
 use Sofa\Eloquence\Mappable;
 
@@ -15,6 +16,7 @@ use Sofa\Eloquence\Mappable;
 
 class Country extends Model
 {
+    use TraitModel;
     use Eloquence, Mappable;
 
     protected $table        = '001_002_country';
@@ -51,12 +53,12 @@ class Country extends Model
         return Validator::make($data, static::$rules);
     }
 
-    public function lang()
+    public function getLang()
     {
         return $this->belongsTo('Syscover\Pulsar\Models\Lang', 'lang_002');
     }
 
-    public function territorialAreas1()
+    public function getTerritorialAreas1()
     {
         return $this->hasMany('Syscover\Pulsar\Models\TerritorialArea1', 'country_003');
     }

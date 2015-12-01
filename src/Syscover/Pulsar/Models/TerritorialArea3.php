@@ -1,6 +1,7 @@
 <?php namespace Syscover\Pulsar\Models;
 
 use Illuminate\Support\Facades\Validator;
+use Syscover\Pulsar\Traits\TraitModel;
 use Sofa\Eloquence\Eloquence;
 use Sofa\Eloquence\Mappable;
 
@@ -13,8 +14,9 @@ use Sofa\Eloquence\Mappable;
  * @package     Syscover\Pulsar\Models
  */
 
-class TerritorialArea3 extends Model {
-
+class TerritorialArea3 extends Model
+{
+    use TraitModel;
     use Eloquence, Mappable;
 
     protected $table        = '001_005_territorial_area_3';

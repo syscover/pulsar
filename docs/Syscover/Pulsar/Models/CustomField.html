@@ -77,14 +77,35 @@
     </div>
 
     <p>    class
-    <strong>CustomField</strong>        extends <abbr title="Illuminate\Database\Eloquent\Model">Model</abbr>        (<a href="https://github.com/syscover/pulsar/blob/master/Syscover/Pulsar/Models/CustomField.php">View source</a>)
+    <strong>CustomField</strong>        extends <a href="../../../Syscover/Pulsar/Models/Model.html"><abbr title="Syscover\Pulsar\Models\Model">Model</abbr></a>        (<a href="https://github.com/syscover/pulsar/blob/master/Syscover/Pulsar/Models/CustomField.php">View source</a>)
 </p>
 
+            <div class="description">
+            <p>Class CustomField</p>            <p>Model with properties
+<br><b>[id, group, name, field<em>type, field</em>type<em>text, data</em>type, data<em>type</em>text, required, sorting, max<em>length, pattern, label</em>size, field<em>size, data</em>lang, data]</b></p>        </div>
     
             <h2>Traits</h2>
 
         
     <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-6">
+                                            <abbr title="Sofa\Eloquence\Eloquence">Sofa\Eloquence\Eloquence</abbr>
+                                    </div>
+                <div class="col-md-6">
+                    
+
+                </div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <abbr title="Sofa\Eloquence\Mappable">Sofa\Eloquence\Mappable</abbr>
+                                    </div>
+                <div class="col-md-6">
+                    
+
+                </div>
+            </div>
                     <div class="row">
                 <div class="col-md-6">
                                             <a href="../../../Syscover/Pulsar/Traits/TraitModel.html"><abbr title="Syscover\Pulsar\Traits\TraitModel">Syscover\Pulsar\Traits\TraitModel</abbr></a>
@@ -158,10 +179,11 @@
                     <div class="row">
                 <div class="col-md-2 type">
                     static&nbsp;
-    
+    <abbr title="Illuminate\Database\Eloquent\Model">Model</abbr>
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getTranslationRecord">getTranslationRecord</a>($parameters)
+                    <a href="#method_getTranslationRecord">getTranslationRecord</a>(
+    array $parameters)
                                             <p class="no-description">No description</p>
                                     </div>
                 <div class="col-md-2"></div>
@@ -169,10 +191,11 @@
                     <div class="row">
                 <div class="col-md-2 type">
                     static&nbsp;
-    
+    void
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_deleteTranslationRecord">deleteTranslationRecord</a>($parameters)
+                    <a href="#method_deleteTranslationRecord">deleteTranslationRecord</a>(
+    array $parameters)
                                             <p class="no-description">No description</p>
                                     </div>
                 <div class="col-md-2"></div>
@@ -450,10 +473,11 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getTranslationRecord">
-        <div class="location">at line 100</div>
+        <div class="location">at line 116</div>
         <code>        static            
-    
-    <strong>getTranslationRecord</strong>($parameters)</code>
+    <abbr title="Illuminate\Database\Eloquent\Model">Model</abbr>
+    <strong>getTranslationRecord</strong>(
+    array $parameters)</code>
     </h3>
     <div class="details">
                 <div class="tags">
@@ -461,14 +485,25 @@
 
                     <table class="table table-condensed">
                     <tr>
-                <td></td>
-                <td>$parameters</td>
                 <td>
-</td>
+    array</td>
+                <td>$parameters</td>
+                <td>[id, lang]</td>
             </tr>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>
+    <abbr title="Illuminate\Database\Eloquent\Model">Model</abbr></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -477,10 +512,11 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_deleteTranslationRecord">
-        <div class="location">at line 127</div>
+        <div class="location">at line 143</div>
         <code>        static            
-    
-    <strong>deleteTranslationRecord</strong>($parameters)</code>
+    void
+    <strong>deleteTranslationRecord</strong>(
+    array $parameters)</code>
     </h3>
     <div class="details">
                 <div class="tags">
@@ -488,14 +524,25 @@
 
                     <table class="table table-condensed">
                     <tr>
-                <td></td>
-                <td>$parameters</td>
                 <td>
-</td>
+    array</td>
+                <td>$parameters</td>
+                <td>[id, lang]</td>
             </tr>
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>
+    void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -759,7 +806,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_validate">
-        <div class="location">at line 31</div>
+        <div class="location">at line 47</div>
         <code>        static            
     
     <strong>validate</strong>($data, $specialRules = array())</code>
@@ -792,7 +839,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_scopeBuilder">
-        <div class="location">at line 38</div>
+        <div class="location">at line 54</div>
         <code>                    
     
     <strong>scopeBuilder</strong>()</code>
@@ -808,7 +855,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_lang">
-        <div class="location">at line 44</div>
+        <div class="location">at line 60</div>
         <code>                    
     
     <strong>lang</strong>()</code>
@@ -824,7 +871,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_values">
-        <div class="location">at line 50</div>
+        <div class="location">at line 66</div>
         <code>                    
     
     <strong>values</strong>()</code>
@@ -840,7 +887,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_addToGetRecordsLimit">
-        <div class="location">at line 56</div>
+        <div class="location">at line 72</div>
         <code>        static            
     
     <strong>addToGetRecordsLimit</strong>()</code>
@@ -856,7 +903,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getRecords">
-        <div class="location">at line 64</div>
+        <div class="location">at line 80</div>
         <code>        static            
     
     <strong>getRecords</strong>($parameters)</code>

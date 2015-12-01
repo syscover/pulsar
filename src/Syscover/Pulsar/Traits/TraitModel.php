@@ -5,6 +5,7 @@ use Syscover\Pulsar\Libraries\Miscellaneous;
 trait TraitModel {
 
     /**
+     *
      * @access	public
      * @param   array     $parameters
      * @return	array|\Illuminate\Database\Eloquent\Model[]
@@ -89,7 +90,7 @@ trait TraitModel {
     public static function getTranslationRecord($parameters)
     {
         $instance = new static;
-        return $instance::where($instance->getKeyName(), $parameters['id'])->where('lang_' . $instance->sufix, $parameters['lang'])->first();
+        return $instance::builder()->where($instance->getKeyName(), $parameters['id'])->where('lang_' . $instance->sufix, $parameters['lang'])->first();
     }
 
     /**

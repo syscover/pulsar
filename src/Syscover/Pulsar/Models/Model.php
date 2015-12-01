@@ -1,7 +1,6 @@
 <?php namespace Syscover\Pulsar\Models;
 
 use Illuminate\Database\Eloquent\Model as BaseModel;
-use Syscover\Pulsar\Traits\TraitModel;
 
 /**
  * Class Model
@@ -10,7 +9,4 @@ use Syscover\Pulsar\Traits\TraitModel;
  * @package Syscover\Pulsar\Models
  */
 
-abstract class Model extends BaseModel
-{
-    use TraitModel;
-}
+abstract class Model extends BaseModel {}

@@ -468,14 +468,14 @@ trait TraitController {
                 throw new InvalidArgumentException('The methods getTranslationRecord on ' . $this->model . ' is not definite');
             }
 
-            if(method_exists($parameters['object'], 'lang'))
+            if(method_exists($parameters['object'], 'getLang'))
             {
-                $parameters['lang'] = $parameters['object']->lang;
+                $parameters['lang'] = $parameters['object']->getLang;
             }
 
             if($parameters['lang'] === null)
             {
-                throw new InvalidArgumentException('The language object is not instantiated, method lang on model ' . $this->model . ' is not defined');
+                throw new InvalidArgumentException('The language object is not instantiated, method getLang on model ' . $this->model . ' is not defined');
             }
         }
         else

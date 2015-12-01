@@ -12,15 +12,14 @@ $iterator = Finder::create()
     ->exclude('lang')
     ->exclude('views')
     ->exclude('routes.php')
-    ->exclude('Syscover\Pulsar\PulsarServiceProvider.php')
     ->in('src')
 ;
 
 return new Sami($iterator, [
     'theme'                => 'default',
-    'title'                => 'Pulsar API',
+    'title'                => 'CMS API',
     'build_dir'            => __DIR__.'/docs',
     'cache_dir'            => __DIR__.'/docs/cache',
-    'remote_repository'    => new GitHubRemoteRepository('syscover/pulsar', 'src'),
+    'remote_repository'    => new GitHubRemoteRepository('syscover/cms', 'src'),
     'default_opened_level' => 2,
 ]);

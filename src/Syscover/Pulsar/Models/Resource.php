@@ -1,6 +1,7 @@
 <?php namespace Syscover\Pulsar\Models;
 
 use Illuminate\Support\Facades\Validator;
+use Syscover\Pulsar\Traits\TraitModel;
 use Sofa\Eloquence\Eloquence;
 use Sofa\Eloquence\Mappable;
 
@@ -15,6 +16,7 @@ use Sofa\Eloquence\Mappable;
 
 class Resource extends Model
 {
+    use TraitModel;
     use Eloquence, Mappable;
 
 	protected $table        = '001_007_resource';
@@ -41,18 +43,17 @@ class Resource extends Model
 
     public function scopeBuilder()
     {
-        return Resource::join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012')
-            ->newQuery();
+        return Resource::join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012');
     }
 
-    public function package()
+    public function getPackage()
     {
         return $this->belongsTo('Syscover\Pulsar\Models\Package', 'package_007');
     }
 
     public static function addToGetRecordsLimit()
     {
-        return Resource::join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012')->newQuery();
+        return Resource::builder();
     }
 
     public static function getRecords($args)
