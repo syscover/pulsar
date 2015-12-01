@@ -55,8 +55,7 @@ class CustomField extends Model
 
     public function scopeBuilder()
     {
-        return CustomField::join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025')
-            ->newQuery();
+        return CustomField::join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025');
     }
 
     public function getLang()
@@ -73,16 +72,14 @@ class CustomField extends Model
 
     public static function addToGetRecordsLimit()
     {
-        $query =  CustomField::join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025')
-            ->newQuery();
+        $query =  CustomField::join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025');
 
         return $query;
     }
 
     public static function getRecords($parameters)
     {
-        $query =  CustomField::join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025')
-            ->newQuery();
+        $query =  CustomField::join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025');
 
         if(isset($parameters['group_026'])) $query->where('group_026', $parameters['group_026']);
 

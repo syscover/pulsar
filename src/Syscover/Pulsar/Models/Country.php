@@ -53,6 +53,11 @@ class Country extends Model
         return Validator::make($data, static::$rules);
     }
 
+    public function scopeBuilder($query)
+    {
+        return $query->join('001_001_lang', '001_002_country.lang_002', '=', '001_001_lang.id_001');
+    }
+
     public function getLang()
     {
         return $this->belongsTo('Syscover\Pulsar\Models\Lang', 'lang_002');
@@ -65,7 +70,7 @@ class Country extends Model
     
     public static function addToGetRecordsLimit($parameters)
     {
-        $query =  Country::join('001_001_lang', '001_002_country.lang_002', '=', '001_001_lang.id_001')->newQuery();
+        $query =  Country::builder();
              
         if(isset($parameters['lang'])) $query->where('lang_002', $parameters['lang']);
         

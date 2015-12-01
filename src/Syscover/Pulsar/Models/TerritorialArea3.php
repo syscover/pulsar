@@ -47,8 +47,7 @@ class TerritorialArea3 extends Model
     public static function addToGetRecordsLimit($parameters)
     {
         $query = TerritorialArea3::join('001_003_territorial_area_1', '001_005_territorial_area_3.territorial_area_1_005', '=', '001_003_territorial_area_1.id_003')
-            ->join('001_004_territorial_area_2', '001_005_territorial_area_3.territorial_area_2_005', '=', '001_004_territorial_area_2.id_004')
-            ->newQuery();
+            ->join('001_004_territorial_area_2', '001_005_territorial_area_3.territorial_area_2_005', '=', '001_004_territorial_area_2.id_004');
 
         if(isset($parameters['country'])) $query->where('country_003', $parameters['country']);
 

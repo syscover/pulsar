@@ -221,7 +221,7 @@ trait TraitModel {
         $instance   = new static;
 
         $slug   = $slug;
-        $query = $instance->where($slugField, $slug)->newQuery();
+        $query = $instance->where($slugField, $slug);
 
         if($id != null)
         {

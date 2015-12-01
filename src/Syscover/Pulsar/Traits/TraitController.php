@@ -34,7 +34,7 @@ trait TraitController {
 
         $parameters['urlParameters']  = $parameters;
 
-        // set path variable, after creating urlParameters to don't send value to URLs creates
+        // set path variable, after creating urlParameters to don't send value, to URLs creates
         $parameters['path'] = $request->path();
 
         if(!isset($parameters['modal'])) Miscellaneous::setParameterSessionPage($this->resource);

@@ -65,8 +65,7 @@ class CustomFieldResultLibrary {
     public static function deleteCustomFieldResults($resource, $objectId, $lang = null)
     {
         $query = CustomFieldResult::where('resource_028', $resource)
-            ->where('object_028', $objectId)
-            ->newQuery();
+            ->where('object_028', $objectId);
 
         if(isset($lang)) $query->where('lang_028', $lang);
 

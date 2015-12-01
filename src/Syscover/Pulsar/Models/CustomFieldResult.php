@@ -50,8 +50,7 @@ class CustomFieldResult extends Model
     public static function getRecords($args)
     {
         $query =  CustomFieldResult::join('001_001_lang', '001_028_field_result.lang_028', '=', '001_001_lang.id_001')
-            ->join('001_026_field', '001_028_field_result.field_028', '=', '001_026_field.id_026')
-            ->newQuery();
+            ->join('001_026_field', '001_028_field_result.field_028', '=', '001_026_field.id_026');
 
         if(isset($args['lang_028'])) $query->where('lang_028', $args['lang_028']);
         if(isset($args['field_028'])) $query->where('field_028', $args['field_028']);

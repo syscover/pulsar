@@ -54,8 +54,7 @@ class Attachment extends Model
 
     public function scopeBuilder()
     {
-        return Attachment::leftJoin('001_015_attachment_family', '001_016_attachment.family_016', '=', '001_015_attachment_family.id_015')
-            ->newQuery();
+        return Attachment::leftJoin('001_015_attachment_family', '001_016_attachment.family_016', '=', '001_015_attachment_family.id_015');
     }
 
     public static function getTranslationsAttachmentsArticle($parameters)
@@ -77,7 +76,7 @@ class Attachment extends Model
 
     public static function getRecords($args)
     {
-        $query =  Attachment::leftJoin('001_015_attachment_family', '001_016_attachment.family_016', '=', '001_015_attachment_family.id_015')->newQuery();
+        $query =  Attachment::leftJoin('001_015_attachment_family', '001_016_attachment.family_016', '=', '001_015_attachment_family.id_015');
 
         if(isset($args['lang_016']))        $query->where('lang_016', $args['lang_016']);
         if(isset($args['resource_016']))    $query->where('resource_016', $args['resource_016']);

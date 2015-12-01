@@ -52,8 +52,7 @@ class CustomFieldValue extends Model
     {
         $query =  CustomFieldValue::join('001_001_lang', '001_027_field_value.lang_027', '=', '001_001_lang.id_001')
             ->join('001_026_field', '001_027_field_value.field_027', '=', '001_026_field.id_026')
-            ->join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025')
-            ->newQuery();
+            ->join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025');
 
         if(isset($parameters['lang'])) $query->where('lang_027', $parameters['lang']);
         if(isset($parameters['field'])) $query->where('field_027', $parameters['field']);
