@@ -1,18 +1,13 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-/**
- * @package	    Hotels
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Syscover\Pulsar\Models\Attachment;
+
+/**
+ * Class AttachmentController
+ * @package Syscover\Pulsar\Controllers
+ */
 
 class AttachmentController extends Controller {
 

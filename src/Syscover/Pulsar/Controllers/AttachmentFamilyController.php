@@ -1,18 +1,13 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-/**
- * @package	    Cms
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
 use Syscover\Pulsar\Models\Resource;
 use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\AttachmentFamily;
+
+/**
+ * Class AttachmentFamilyController
+ * @package Syscover\Pulsar\Controllers
+ */
 
 class AttachmentFamilyController extends Controller {
 
@@ -23,7 +18,7 @@ class AttachmentFamilyController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_015', 'name_007', 'name_015'];
     protected $nameM        = 'name_015';
-    protected $model        = '\Syscover\Pulsar\Models\AttachmentFamily';
+    protected $model        = \Syscover\Pulsar\Models\AttachmentFamily::class;
     protected $icon         = 'fa fa-th';
     protected $objectTrans  = 'attachment_family';
 

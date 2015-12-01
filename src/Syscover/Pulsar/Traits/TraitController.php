@@ -5,6 +5,11 @@ use Syscover\Pulsar\Exceptions\InvalidArgumentException;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Models\Lang;
 
+/**
+ * Class TraitController
+ * @package Syscover\Pulsar\Traits
+ */
+
 trait TraitController {
 
     /**

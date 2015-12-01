@@ -1,17 +1,12 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-/**
- * @package	    Pulsar
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
 use Syscover\Pulsar\Models\Action;
 use Syscover\Pulsar\Traits\TraitController;
+
+/**
+ * Class ActionController
+ * @package Syscover\Pulsar\Controllers
+ */
 
 class ActionController extends Controller {
 
@@ -22,7 +17,7 @@ class ActionController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_008', 'name_008'];
     protected $nameM        = 'name_008';
-    protected $model        = '\Syscover\Pulsar\Models\Action';
+    protected $model        = \Syscover\Pulsar\Models\Action::class;
     protected $icon         = 'fa fa-bolt';
     protected $objectTrans  = 'action';
 

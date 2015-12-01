@@ -2,6 +2,11 @@
 
 use Syscover\Pulsar\Libraries\Miscellaneous;
 
+/**
+ * Class TraitModel
+ * @package Syscover\Pulsar\Traits
+ */
+
 trait TraitModel {
 
     /**

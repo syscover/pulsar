@@ -1,19 +1,14 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-/**
- * @package	    Pulsar
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
 use Syscover\Pulsar\Models\CustomField;
 use Syscover\Pulsar\Models\CustomFieldValue;
 use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\CustomFieldGroup;
+
+/**
+ * Class CustomFieldValueController
+ * @package Syscover\Pulsar\Controllers
+ */
 
 class CustomFieldValueController extends Controller {
 
@@ -24,7 +19,7 @@ class CustomFieldValueController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_027', 'name_026', 'name_001', 'name_027', ['data' => 'featured_027', 'type' => 'active']];
     protected $nameM        = 'name_027';
-    protected $model        = '\Syscover\Pulsar\Models\CustomFieldValue';
+    protected $model        = \Syscover\Pulsar\Models\CustomFieldValue::class;
     protected $icon         = 'fa fa-bars';
     protected $objectTrans  = 'value';
 

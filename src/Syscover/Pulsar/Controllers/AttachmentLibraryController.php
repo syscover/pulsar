@@ -1,20 +1,15 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-/**
- * @package	    Pulsar
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request as HttpRequest;
 use Syscover\Pulsar\Libraries\ImageManagerLibrary;
 use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\AttachmentLibrary;
+
+/**
+ * Class AttachmentLibraryController
+ * @package Syscover\Pulsar\Controllers
+ */
 
 class AttachmentLibraryController extends Controller {
 
@@ -25,7 +20,7 @@ class AttachmentLibraryController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_014', ['type' => 'library_img', 'data' => 'file_name_014'], 'file_name_014', ['type' => 'size', 'data' => 'size_014'], 'mime_014', 'type_text_014'];
     protected $nameM        = 'file_014';
-    protected $model        = '\Syscover\Pulsar\Models\AttachmentLibrary';
+    protected $model        = \Syscover\Pulsar\Models\AttachmentLibrary::class;
     protected $icon         = 'fa fa-book';
     protected $objectTrans  = 'library';
     protected $jsonParam    = ['edit' => false];

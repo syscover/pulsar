@@ -1,18 +1,13 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-/**
- * @package	    Pulsar
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
 use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\Resource;
 use Syscover\Pulsar\Models\CustomFieldGroup;
+
+/**
+ * Class CustomFieldGroupController
+ * @package Syscover\Pulsar\Controllers
+ */
 
 class CustomFieldGroupController extends Controller {
 
@@ -23,7 +18,7 @@ class CustomFieldGroupController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_025', 'name_007', 'name_025'];
     protected $nameM        = 'name_025';
-    protected $model        = '\Syscover\Pulsar\Models\CustomFieldGroup';
+    protected $model        = \Syscover\Pulsar\Models\CustomFieldGroup::class;
     protected $icon         = 'fa fa-th';
     protected $objectTrans  = 'field_group';
 

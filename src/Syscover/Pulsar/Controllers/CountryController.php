@@ -1,17 +1,12 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-/**
- * @package	    Pulsar
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
 use Syscover\Pulsar\Models\Country;
 use Syscover\Pulsar\Traits\TraitController;
+
+/**
+ * Class CountryController
+ * @package Syscover\Pulsar\Controllers
+ */
 
 class CountryController extends Controller {
 
@@ -22,7 +17,7 @@ class CountryController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_002', 'name_001', 'name_002', 'sorting_002', 'prefix_002', ['data' => 'territorial_area_1_002', 'route' => 'territorialArea1', 'type' => 'territorialArea'], ['data' => 'territorial_area_2_002', 'route' => 'territorialArea2', 'type' => 'territorialArea'], ['data' => 'territorial_area_3_002', 'route' => 'territorialArea3', 'type' => 'territorialArea']];
     protected $nameM        = 'name_002';
-    protected $model        = '\Syscover\Pulsar\Models\Country';
+    protected $model        = \Syscover\Pulsar\Models\Country::class;
     protected $icon         = 'fa fa-globe';
     protected $objectTrans  = 'country';
 

@@ -1,18 +1,13 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-/**
- * @package	    Pulsar
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Models\Resource;
 use Syscover\Pulsar\Traits\TraitController;
+
+/**
+ * Class ResourceController
+ * @package Syscover\Pulsar\Controllers
+ */
 
 class ResourceController extends Controller {
 
@@ -23,7 +18,7 @@ class ResourceController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_007', 'name_012', 'name_007'];
     protected $nameM        = 'name_007';
-    protected $model        = '\Syscover\Pulsar\Models\Resource';
+    protected $model        = \Syscover\Pulsar\Models\Resource::class;
     protected $icon         = 'icomoon-icon-database';
     protected $objectTrans  = 'resource';
 

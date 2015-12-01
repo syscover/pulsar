@@ -1,19 +1,14 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-/**
- * @package	    Pulsar
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
 use Illuminate\Support\Facades\Crypt;
 use Syscover\Pulsar\Libraries\EmailServices;
 use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\EmailAccount;
+
+/**
+ * Class EmailAccountController
+ * @package Syscover\Pulsar\Controllers
+ */
 
 class EmailAccountController extends Controller {
 
@@ -24,7 +19,7 @@ class EmailAccountController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_013', 'name_013', ['data' => 'email_013', 'type' => 'email']];
     protected $nameM        = 'name_013';
-    protected $model        = '\Syscover\Pulsar\Models\EmailAccount';
+    protected $model        = \Syscover\Pulsar\Models\EmailAccount::class;
     protected $icon         = 'fa fa-envelope';
     protected $objectTrans  = 'account';
 

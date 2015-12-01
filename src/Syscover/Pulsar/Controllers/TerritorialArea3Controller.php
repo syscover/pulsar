@@ -1,20 +1,15 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-/**
- * @package	    Pulsar
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
 use Syscover\Pulsar\Models\Country;
 use Syscover\Pulsar\Models\TerritorialArea1;
 use Syscover\Pulsar\Models\TerritorialArea2;
 use Syscover\Pulsar\Models\TerritorialArea3;
 use Syscover\Pulsar\Traits\TraitController;
+
+/**
+ * Class TerritorialArea3Controller
+ * @package Syscover\Pulsar\Controllers
+ */
 
 class TerritorialArea3Controller extends Controller {
 
@@ -25,7 +20,7 @@ class TerritorialArea3Controller extends Controller {
     protected $package              = 'pulsar';
     protected $aColumns             = ['id_005', 'name_003', 'name_004', 'name_005'];
     protected $nameM                = 'name_005';
-    protected $model                = '\Syscover\Pulsar\Models\TerritorialArea3';
+    protected $model                = \Syscover\Pulsar\Models\TerritorialArea3::class;
     protected $icon                 = 'entypo-icon-globe';
     protected $customTrans          = null;
     protected $customTransHeader    = null;

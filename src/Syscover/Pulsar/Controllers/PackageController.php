@@ -1,17 +1,12 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-/**
- * @package	    Pulsar
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Traits\TraitController;
+
+/**
+ * Class PackageController
+ * @package Syscover\Pulsar\Controllers
+ */
 
 class PackageController extends Controller {
 

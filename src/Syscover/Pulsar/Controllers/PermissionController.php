@@ -1,15 +1,5 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-/**
- * @package	    Pulsar
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
 use Illuminate\Http\Request;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Libraries\PulsarAcl;
@@ -18,6 +8,10 @@ use Syscover\Pulsar\Models\Profile;
 use Syscover\Pulsar\Models\Action;
 use Syscover\Pulsar\Traits\TraitController;
 
+/**
+ * Class PermissionController
+ * @package Syscover\Pulsar\Controllers
+ */
 
 class PermissionController extends Controller
 {
@@ -31,7 +25,7 @@ class PermissionController extends Controller
     protected $package              = 'pulsar';
     protected $aColumns             = ['id_007', 'name_012', 'name_007'];
     protected $nameM                = 'name_008';
-    protected $model                = '\Syscover\Pulsar\Models\Resource';
+    protected $model                = \Syscover\Pulsar\Models\Resource::class;
     protected $icon                 = 'icon-shield';
     protected $objectTrans          = 'permission';
     

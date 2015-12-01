@@ -3,6 +3,11 @@
 use Illuminate\Http\Request;
 use Leafo\ScssPhp\Compiler;
 
+/**
+ * Class ContentBuilderController
+ * @package Syscover\Pulsar\Controllers
+ */
+
 class ContentBuilderController extends Controller {
 
     public function index(Request $request)

@@ -7,8 +7,7 @@ use Syscover\Pulsar\Traits\TraitController;
 
 /**
  * Class LangController
- *
- * @package     Syscover\Pulsar\Controllers
+ * @package Syscover\Pulsar\Controllers
  */
 
 class LangController extends Controller {
@@ -20,7 +19,7 @@ class LangController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_001', ['data' =>'image_001', 'type' => 'img', 'url' => '/packages/syscover/pulsar/storage/langs/'], 'name_001', ['data' => 'base_001', 'type' => 'check'], ['data' => 'active_001', 'type' => 'active'], 'sorting_001'];
     protected $nameM        = 'name_001';
-    protected $model        = '\Syscover\Pulsar\Models\Lang';
+    protected $model        = \Syscover\Pulsar\Models\Lang::class;
     protected $icon         = 'fa fa-language';
     protected $objectTrans  = 'language';
 

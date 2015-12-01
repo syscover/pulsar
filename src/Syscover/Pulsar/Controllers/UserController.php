@@ -8,8 +8,7 @@ use Syscover\Pulsar\Traits\TraitController;
 
 /**
  * Class UserController
- *
- * @package     Syscover\Pulsar\Controllers
+ * @package Syscover\Pulsar\Controllers
  */
 
 class UserController extends Controller {

@@ -1,19 +1,14 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-/**
- * @package	    Pulsar
- * @author	    Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL
- * @license
- * @link		http://www.syscover.com
- * @since		Version 2.0
- * @filesource
- */
-
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Models\CronJob;
 use Cron\CronExpression;
 use Syscover\Pulsar\Traits\TraitController;
+
+/**
+ * Class CronJobController
+ * @package Syscover\Pulsar\Controllers
+ */
 
 class CronJobController extends Controller
 {
@@ -24,7 +19,7 @@ class CronJobController extends Controller
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_011', 'name_011', 'name_012', 'key_011', 'cron_expression_011', ['data' => 'active_011', 'type' => 'active'], ['data' => 'last_run_011', 'type' => 'date'], ['data' => 'next_run_011', 'type' => 'date']];
     protected $nameM        = 'name_012';
-    protected $model        = '\Syscover\Pulsar\Models\CronJob';
+    protected $model        = \Syscover\Pulsar\Models\CronJob::class;
     protected $icon         = 'icomoon-icon-stopwatch';
     protected $objectTrans  = 'cronjob';
 

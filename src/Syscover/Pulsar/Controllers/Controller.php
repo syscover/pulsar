@@ -3,6 +3,11 @@
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 
+/**
+ * Class Controller
+ * @package Syscover\Pulsar\Controllers
+ */
+
 abstract class Controller extends BaseController {
 
     protected $resource;
