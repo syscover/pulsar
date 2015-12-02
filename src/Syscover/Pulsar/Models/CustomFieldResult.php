@@ -26,8 +26,9 @@ class CustomFieldResult extends Model
     protected $fillable     = ['object_028', 'lang_028', 'resource_028', 'field_028', 'boolean_value_028', 'int_value_028', 'text_value_028', 'decimal_value_028', 'timestamp_value_028'];
     protected $maps         = [];
     protected $relationMaps = [
-        'lang'      => \Syscover\Pulsar\Models\Lang::class,
-        'field'     => \Syscover\Pulsar\Models\CustomField::class,
+        'lang'          => \Syscover\Pulsar\Models\Lang::class,
+        'field'         => \Syscover\Pulsar\Models\CustomField::class,
+        'int_value'     => \Syscover\Pulsar\Models\CustomFieldValue::class,
     ];
     private static $rules   = [];
 
@@ -39,7 +40,8 @@ class CustomFieldResult extends Model
     public function scopeBuilder($query)
     {
         return $query->join('001_001_lang', '001_028_field_result.lang_028', '=', '001_001_lang.id_001')
-            ->join('001_026_field', '001_028_field_result.field_028', '=', '001_026_field.id_026');
+            ->join('001_026_field', '001_028_field_result.field_028', '=', '001_026_field.id_026')
+            ->lefJoin('001_027_field_value', '001_028_field_result.int_value_028', '=', '001_027_field_value.id_027');
     }
 
     public function getLang()
