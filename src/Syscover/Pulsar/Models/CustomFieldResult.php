@@ -41,7 +41,7 @@ class CustomFieldResult extends Model
     {
         return $query->join('001_001_lang', '001_028_field_result.lang_028', '=', '001_001_lang.id_001')
             ->join('001_026_field', '001_028_field_result.field_028', '=', '001_026_field.id_026')
-            ->lefJoin('001_027_field_value', '001_028_field_result.int_value_028', '=', '001_027_field_value.id_027');
+            ->leftJoin('001_027_field_value', '001_028_field_result.int_value_028', '=', '001_027_field_value.id_027');
     }
 
     public function getLang()
