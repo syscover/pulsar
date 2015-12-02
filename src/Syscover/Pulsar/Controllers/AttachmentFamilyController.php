@@ -26,7 +26,7 @@ class AttachmentFamilyController extends Controller {
     {
         $parameters['resources'] = Resource::builder()
             ->where('active_012', true)
-            ->whereIn('id_007', config('pulsar.resourcesCustomFields'))
+            ->whereIn('id_007', config('pulsar.resourcesAttachments'))
             ->get();
 
         return $parameters;
@@ -47,7 +47,7 @@ class AttachmentFamilyController extends Controller {
     {
         $parameters['resources'] = Resource::builder()
             ->where('active_012', true)
-            ->whereIn('id_007', config('pulsar.resourcesCustomFields'))
+            ->whereIn('id_007', config('pulsar.resourcesAttachments'))
             ->get();
 
         return $parameters;
