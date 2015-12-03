@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class PulsarCreateTableUser extends Migration
 {
@@ -11,7 +12,7 @@ class PulsarCreateTableUser extends Migration
 	 */
 	public function up()
 	{
-            Schema::create('001_010_user', function($table){
+            Schema::create('001_010_user', function(Blueprint $table){
                 $table->engine = 'InnoDB';
                 $table->increments('id_010')->unsigned();
                 $table->string('remember_token_010', 100)->nullable();

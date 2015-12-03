@@ -29,6 +29,39 @@ class UserController extends Controller {
         $parameters['langs']    = Lang::getActivesLangs();
         $parameters['profiles'] = Profile::all();
 
+//        $usuario = new User;
+//        $usuario->name_010 = 'XX';
+//        $usuario->surname_010 = 'YY';
+//        $usuario->email_010 = 'Y@Y.YY';
+//        $usuario->lang_010 = 'es';
+//        $usuario->access_010 = true;
+//        $usuario->profile_010 = 1;
+//        $usuario->user_010 = 'Yo mismo';
+//        $usuario->password_010 = '123456';
+//        $usuario->test = 'ESTO ES UNA PRUEBA';
+//        $usuario->save();
+//
+//        $user = User::create([
+//            'name_010'      => 'OOOO',
+//            'surname_010'   => 'OOOO',
+//            'email_010'     => 'OOO@OO.OO',
+//            'lang_010'      => 'es',
+//            'access_010'    => true,
+//            'profile_010'   => 1,
+//            'user_010'      => 1,
+//            'password_010'  => '123456',
+//            'test'          => 'Esto es una prueba XXXXXX'
+//        ]);
+//
+//        $user->kk = 'otra manera de meter metakeys';
+//        $user->save();
+
+
+//        $user = User::latest()->first();
+//        //dd($user);
+//        dd($user->test);
+
+
         return $parameters;
     }
     
@@ -43,7 +76,7 @@ class UserController extends Controller {
             'profile_010'   => $request->input('profile'),
             'user_010'      => $request->input('user'),
             'password_010'  => Hash::make($request->input('password')),
-            //'test'          => 'Esto es una prueba'
+            'test'          => 'Esto es una prueba'
         ]);
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class PulsarCreateTableTerritorialArea1 extends Migration
 {
@@ -11,7 +12,7 @@ class PulsarCreateTableTerritorialArea1 extends Migration
 	 */
 	public function up()
 	{
-            Schema::create('001_003_territorial_area_1', function($table) {
+            Schema::create('001_003_territorial_area_1', function(Blueprint $table) {
                 $table->engine = 'InnoDB';
                 $table->string('id_003', 6)->primary();
                 $table->string('country_003', 2)->index();

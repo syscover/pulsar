@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class PulsarCreateTableResource extends Migration
 {
@@ -11,7 +12,7 @@ class PulsarCreateTableResource extends Migration
 	 */
 	public function up()
 	{
-            Schema::create('001_007_resource', function($table) {
+            Schema::create('001_007_resource', function(Blueprint $table) {
                 $table->engine = 'InnoDB';
                 $table->string('id_007', 30)->primary();
                 $table->string('name_007', 50);

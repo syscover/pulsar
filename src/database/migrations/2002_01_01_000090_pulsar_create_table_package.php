@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class PulsarCreateTablePackage extends Migration
 {
@@ -11,7 +12,7 @@ class PulsarCreateTablePackage extends Migration
 	 */
 	public function up()
 	{
-            Schema::create('001_012_package', function($table){
+            Schema::create('001_012_package', function(Blueprint $table){
                 $table->engine = 'InnoDB';
                 $table->increments('id_012')->unsigned();
                 $table->string('name_012', 50);

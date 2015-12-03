@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class PulsarCreateTablePermission extends Migration
 {
@@ -11,7 +12,7 @@ class PulsarCreateTablePermission extends Migration
 	 */
 	public function up()
 	{
-            Schema::create('001_009_permission', function($table) {
+            Schema::create('001_009_permission', function(Blueprint $table) {
                 $table->engine = 'InnoDB';
                 $table->integer('profile_009')->unsigned();
                 $table->string('resource_009', 30);

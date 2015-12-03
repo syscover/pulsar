@@ -23,6 +23,10 @@ return [
     //******************************************************************************************************************
     'datePattern'               => 'd-m-Y',
 
+    // pattern to number format
+    'decimalSeparator'          => ',',
+    'thousandSeparator'         => '.',
+
     // app name and url access to application
     'froalaEditorKey'           => env('FROALA_EDITOR_KEY', 'your editor key'),
 
@@ -50,11 +54,12 @@ return [
     //***   Type data to select on fields section
     //******************************************************************************************************************
     'dataTypes'                 => [
-        (object)['id' => 1,      'name' => 'Boolean',           'column' => 'boolean_value_028'],
-        (object)['id' => 2,      'name' => 'Integer',           'column' => 'int_value_028'],
-        (object)['id' => 3,      'name' => 'Text',              'column' => 'text_value_028'],
-        (object)['id' => 4,      'name' => 'Decimal',           'column' => 'decimal_value_028'],
-        (object)['id' => 5,      'name' => 'Timestamp',         'column' => 'timestamp_value_028'],
+        (object)['id' => 1,      'name' => 'String',            'type' => 'string'],
+        (object)['id' => 2,      'name' => 'Boolean',           'type' => 'boolean'],
+        (object)['id' => 3,      'name' => 'Integer',           'type' => 'integer'],
+        (object)['id' => 4,      'name' => 'Float',             'type' => 'float'],
+        (object)['id' => 5,      'name' => 'Array',             'type' => 'array'],
+        (object)['id' => 5,      'name' => 'Object',            'type' => 'object'],
     ],
 
     //******************************************************************************************************************

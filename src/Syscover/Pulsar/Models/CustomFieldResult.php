@@ -9,7 +9,7 @@ use Sofa\Eloquence\Mappable;
  * Class CustomFieldResult
  *
  * Model with properties
- * <br><b>[object, lang, resource, field, boolean_value, int_value, text_value, decimal_value, timestamp_value]</b>
+ * <br><b>[object, lang, resource, field, type, value]</b>
  *
  * @package     Syscover\Pulsar\Models
  */
@@ -23,14 +23,25 @@ class CustomFieldResult extends Model
     protected $primaryKey   = 'object_028';
     protected $suffix       = '028';
     public $timestamps      = false;
-    protected $fillable     = ['object_028', 'lang_028', 'resource_028', 'field_028', 'boolean_value_028', 'int_value_028', 'text_value_028', 'decimal_value_028', 'timestamp_value_028'];
+    protected $fillable     = ['object_028', 'lang_028', 'resource_028', 'field_028', 'type_028', 'value_028'];
     protected $maps         = [];
     protected $relationMaps = [
         'lang'          => \Syscover\Pulsar\Models\Lang::class,
         'field'         => \Syscover\Pulsar\Models\CustomField::class,
-        'int_value'     => \Syscover\Pulsar\Models\CustomFieldValue::class,
+        'value'         => \Syscover\Pulsar\Models\CustomFieldValue::class,
     ];
     private static $rules   = [];
+
+    /**
+     * @param $value
+     * @return string
+     */
+    public function getValue028Attribute($value)
+    {
+        settype($value, $this->type_028);
+
+        return $value;
+    }
 
     public static function validate($data, $specialRules = [])
     {
@@ -41,7 +52,12 @@ class CustomFieldResult extends Model
     {
         return $query->join('001_001_lang', '001_028_field_result.lang_028', '=', '001_001_lang.id_001')
             ->join('001_026_field', '001_028_field_result.field_028', '=', '001_026_field.id_026')
-            ->leftJoin('001_027_field_value', '001_028_field_result.int_value_028', '=', '001_027_field_value.id_027');
+            ->leftJoin('001_027_field_value', function($join) {
+                $join->on('001_028_field_result.value_028', '=', '001_027_field_value.id_027')
+                    ->on('001_027_field_value.field_027', '=', '001_026_field.id_026')
+                    ->on('001_027_field_value.lang_027', '=', '001_028_field_result.lang_028');
+            });
+
     }
 
     public function getLang()
@@ -53,10 +69,10 @@ class CustomFieldResult extends Model
     {
         $query =  CustomFieldResult::builder();
 
-        if(isset($args['lang_028'])) $query->where('lang_028', $args['lang_028']);
-        if(isset($args['field_028'])) $query->where('field_028', $args['field_028']);
-        if(isset($args['object_028'])) $query->where('object_028', $args['object_028']);
-        if(isset($args['resource_028'])) $query->where('resource_028', $args['resource_028']);
+        if(isset($args['lang_028']))        $query->where('lang_028', $args['lang_028']);
+        if(isset($args['field_028']))       $query->where('field_028', $args['field_028']);
+        if(isset($args['object_028']))      $query->where('object_028', $args['object_028']);
+        if(isset($args['resource_028']))    $query->where('resource_028', $args['resource_028']);
 
         return $query->get();
     }

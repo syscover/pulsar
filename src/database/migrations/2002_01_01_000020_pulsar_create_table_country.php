@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class PulsarCreateTableCountry extends Migration
 {
@@ -11,7 +12,7 @@ class PulsarCreateTableCountry extends Migration
 	 */
 	public function up()
 	{
-            Schema::create('001_002_country', function($table) {
+            Schema::create('001_002_country', function(Blueprint $table) {
                 $table->engine = 'InnoDB';
                 $table->string('id_002',2);
                 $table->string('lang_002',2);

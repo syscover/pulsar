@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class PulsarCreateTableCronJob extends Migration
 {
@@ -11,7 +12,7 @@ class PulsarCreateTableCronJob extends Migration
 	 */
 	public function up()
 	{
-            Schema::create('001_011_cron_job', function($table) {
+            Schema::create('001_011_cron_job', function(Blueprint $table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id_011')->unsigned();
                 $table->string('name_011', 100);
