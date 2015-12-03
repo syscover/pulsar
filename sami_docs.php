@@ -19,7 +19,7 @@ $iterator = Finder::create()
 
 return new Sami($iterator, [
     'theme'                => 'default',
-    'title'                => 'CMS API',
+    'title'                => 'Pulsar API',
     'build_dir'            => __DIR__.'/docs/api',
     'cache_dir'            => __DIR__.'/docs/cache',
     'remote_repository'    => new GitHubRemoteRepository('syscover/cms', 'src'),
