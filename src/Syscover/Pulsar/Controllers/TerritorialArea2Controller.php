@@ -89,7 +89,7 @@ class TerritorialArea2Controller extends Controller {
         else
             return response()->json([
                 'status'    => 'success',
-                'data'      => TerritorialArea1::find($territorialArea1)->territorialAreas2()->get()
+                'data'      => TerritorialArea1::find($territorialArea1)->getTerritorialAreas2
             ]);
     }
 }

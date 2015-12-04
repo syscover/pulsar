@@ -123,6 +123,7 @@ trait TraitModel {
     }
 
     /**
+     * @deprecated
      * @access	public
      * @param   string    $lang
      * @return	array|\Illuminate\Database\Query\Builder[]
@@ -134,6 +135,7 @@ trait TraitModel {
     }
 
     /**
+     * @deprecated
      * @access	public
      * @param   array     $parameters   [id, lang]
      * @return	\Illuminate\Database\Eloquent\Model

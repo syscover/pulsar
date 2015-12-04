@@ -75,6 +75,7 @@ return [
     'package_name'                          => 'Administration',
     'password'                              => 'Password',
     'pattern'                               => 'Pattern',
+    'price'                                 => 'Price|Prices',
     'remember_password'                     => 'Remember password',
     'required'                              => 'Required',
     'reset_password'                        => 'Reset your password',
@@ -85,6 +86,7 @@ return [
     'selected_objects'                      => 'Selected objects',
     'type_something'                        => 'Type something',
     'value'                                 => 'Value|Values',
+    'weight'                                => 'Weight|Weights',
 
     'edit'                                  => 'Edit',
     'create'                                => 'Create',

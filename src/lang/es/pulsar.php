@@ -1,5 +1,35 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+| Idioma: spanish
+| web: PULSAR
+|
+| *Instrucciones de traducción*
+| Solo traducir la palabras de la columna derecha, ejemplo:
+| 'aceptar' => 'texto aceptar'
+|
+| Respetar las mayúsculas y minúsculas
+|
+| En esta caso habría que traducir el texto 'texto aceptar' respetando las comillas simples.
+| Hay etiquetas que son específicas para la maquetación del texto, IMPORTANTE!! respetar las etiquetas.
+| Las etiquetas mas comunes a encontrar en los textos son:
+| <br> <span> <p> <a> <strong> <div>
+|
+| Ejemplo:
+| 'aceptar' => 'hola <strong>mundo</strong>'
+|
+| La traducción de este testo sería:
+| 'aceptar' => 'hello <strong>world</strong>'
+|
+| IMPORTANTE!!
+| Si hiciera falta poner una comilla simple en el texto, por ejemplo 'don't save' las comillas deben de estar precedicas del caracter \ para que no se tengan en cuenta a la hora de cerrar el texto, ejemplo:
+|
+| 'no_salvar'   =>  'Don't save'     *** ERROR *** la web daría un error.
+| 'no_salvar'   =>  'Don\'t save'    *** OK *** el resultado en pantalla sería, Don't save.
+|--------------------------------------------------------------------------
+*/
+
 return [
     
     /*
@@ -46,6 +76,7 @@ return [
     'package_name'                          => 'Administración',
     'password'                              => 'Contraseña',
     'pattern'                               => 'Patrón',
+    'price'                                 => 'Precio|Precios',
     'remember_password'                     => '¿Olvidó su contraseña?',
     'required'                              => 'Necesario',
     'reset_password'                        => 'Cambie su contraseña',
@@ -56,6 +87,7 @@ return [
     'selected_objects'                      => 'Objetos seleccionados',
     'type_something'                        => 'Escribe algo',
     'value'                                 => 'Valor|Valores',
+    'weight'                                => 'Peso|Pesos',
 
     'edit'                                  => 'Editar',
     'create'                                => 'Crear',

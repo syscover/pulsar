@@ -46,7 +46,7 @@ class TerritorialArea3Controller extends Controller {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
         if($request->old('territorialArea1') && $request->old('territorialArea1') != "null")
         {
-            $parameters['territorialAreas2'] = territorialArea1::find(Input::old('territorialArea1'))->territorialAreas2()->get();
+            $parameters['territorialAreas2'] = territorialArea1::find(Input::old('territorialArea1'))->getTerritorialAreas2;
         }
         else
         {
@@ -101,7 +101,7 @@ class TerritorialArea3Controller extends Controller {
         else
             return response()->json([
                 'status'    => 'success',
-                'data'      => TerritorialArea2::find($territorialArea2)->territorialAreas3()->get()
+                'data'      => TerritorialArea2::find($territorialArea2)->getTerritorialAreas3
             ]);
     }
 }
