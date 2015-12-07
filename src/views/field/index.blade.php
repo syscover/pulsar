@@ -28,7 +28,7 @@
     <!-- pulsar::field.index -->
     <tr>
         <th data-hide="phone,tablet">ID.</th>
-        <th>{{ trans_choice('pulsar::pulsar.family', 1) }}</th>
+        <th>{{ trans_choice('pulsar::pulsar.field_group', 1) }}</th>
         <th data-class="expand">{{ trans_choice('pulsar::pulsar.name', 1) }}</th>
         <th data-hide="phone">{{ trans_choice('pulsar::pulsar.field_type', 1) }}</th>
         <th data-hide="phone">{{ trans_choice('pulsar::pulsar.data_type', 1) }}</th>

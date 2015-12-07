@@ -25,7 +25,7 @@ class TerritorialArea1Controller extends Controller {
 
     public function indexCustom($parameters)
     {
-        $parameters['country']              = Country::getTranslationRecord(['id' => $parameters['country'], 'lang' => session('baseLang')->id_001]);
+        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_002', session('baseLang')->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_1_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -41,7 +41,7 @@ class TerritorialArea1Controller extends Controller {
     
     public function createCustomRecord($request, $parameters)
     {
-        $parameters['country']              = Country::getTranslationRecord(['id' => $parameters['country'], 'lang' => session('baseLang')->id_001]);
+        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_002', session('baseLang')->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_1_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -59,7 +59,7 @@ class TerritorialArea1Controller extends Controller {
     
     public function editCustomRecord($request, $parameters)
     {
-        $parameters['country']              = Country::getTranslationRecord(['id' => $parameters['object']->country_003, 'lang' => session('baseLang')->id_001]);
+        $parameters['country']              = Country::where('id_002', $parameters['object']->country_003)->where('lang_002', session('baseLang')->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_1_002 . ' (' . $parameters['country']->name_002 . ')';
 

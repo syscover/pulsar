@@ -26,7 +26,7 @@ class TerritorialArea2Controller extends Controller {
 
     public function indexCustom($parameters)
     {
-        $parameters['country']              = Country::getTranslationRecord(['id' => $parameters['country'], 'lang' => session('baseLang')->id_001]);
+        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_002', session('baseLang')->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_2_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_2_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -43,7 +43,7 @@ class TerritorialArea2Controller extends Controller {
     public function createCustomRecord($request, $parameters)
     {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
-        $parameters['country']              = Country::getTranslationRecord(['id' => $parameters['country'], 'lang' => session('baseLang')->id_001]);
+        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_002', session('baseLang')->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_2_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_2_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -63,7 +63,7 @@ class TerritorialArea2Controller extends Controller {
     public function editCustomRecord($request, $parameters)
     {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
-        $parameters['country']              = Country::getTranslationRecord(['id' => $parameters['country'], 'lang' => session('baseLang')->id_001]);
+        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_002', session('baseLang')->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_2_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_2_002 . ' (' . $parameters['country']->name_002 . ')';
 

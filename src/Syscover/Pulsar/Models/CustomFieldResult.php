@@ -65,6 +65,12 @@ class CustomFieldResult extends Model
         return $this->belongsTo('Syscover\Pulsar\Models\Lang', 'lang_028');
     }
 
+    /**
+     * @deprecated
+     * @param $args
+     * @return mixed
+     */
+
     public static function getRecords($args)
     {
         $query =  CustomFieldResult::builder();

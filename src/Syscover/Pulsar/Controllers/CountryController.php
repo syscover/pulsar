@@ -96,7 +96,7 @@ class CountryController extends Controller {
         else
             return response()->json([
                 'status'    => 'success',
-                'data'      => Country::getTranslationRecord(['id' => $country, 'lang' => session('baseLang')->id_001])
+                'data'      => Country::where('id_002', $country)->where('lang_002', session('baseLang')->id_001)->first()
             ]);
     }
 

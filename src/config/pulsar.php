@@ -43,12 +43,12 @@ return [
     //***   Type fields to select on fields section
     //******************************************************************************************************************
     'fieldTypes'                => [
-        (object)['id' => 1,    'name' => 'Text',                'view' => 'pulsar::includes.html.form_text_group'],
-        (object)['id' => 2,    'name' => 'Select',              'view' => 'pulsar::includes.html.form_select_group'],
-        (object)['id' => 3,    'name' => 'Select multiple',     'view' => 'pulsar::includes.html.form_select_group'],
-        (object)['id' => 4,    'name' => 'Number',              'view' => 'pulsar::includes.html.form_text_group'],
-        (object)['id' => 5,    'name' => 'Email',               'view' => 'pulsar::includes.html.form_text_group'],
-        (object)['id' => 6,    'name' => 'Checkbox',            'view' => 'pulsar::includes.html.form_checkbox_group'],
+        (object)['id' => 1,    'key' => 'text',             'name' => 'Text',                'view' => 'pulsar::includes.html.form_text_group'],
+        (object)['id' => 2,    'key' => 'select',           'name' => 'Select',              'view' => 'pulsar::includes.html.form_select_group'],
+        (object)['id' => 3,    'key' => 'selectMultiple',   'name' => 'Select multiple',     'view' => 'pulsar::includes.html.form_select_group'],
+        (object)['id' => 4,    'key' => 'number',           'name' => 'Number',              'view' => 'pulsar::includes.html.form_text_group'],
+        (object)['id' => 5,    'key' => 'email',            'name' => 'Email',               'view' => 'pulsar::includes.html.form_text_group'],
+        (object)['id' => 6,    'key' => 'checkbox',         'name' => 'Checkbox',            'view' => 'pulsar::includes.html.form_checkbox_group'],
     ],
 
     //******************************************************************************************************************
@@ -60,7 +60,7 @@ return [
         (object)['id' => 3,      'name' => 'Integer',           'type' => 'integer'],
         (object)['id' => 4,      'name' => 'Float',             'type' => 'float'],
         (object)['id' => 5,      'name' => 'Array',             'type' => 'array'],
-        (object)['id' => 5,      'name' => 'Object',            'type' => 'object'],
+        (object)['id' => 6,      'name' => 'Object',            'type' => 'object'],
     ],
 
     //******************************************************************************************************************
