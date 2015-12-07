@@ -49,6 +49,8 @@ return [
         (object)['id' => 4,    'key' => 'number',           'name' => 'Number',              'view' => 'pulsar::includes.html.form_text_group'],
         (object)['id' => 5,    'key' => 'email',            'name' => 'Email',               'view' => 'pulsar::includes.html.form_text_group'],
         (object)['id' => 6,    'key' => 'checkbox',         'name' => 'Checkbox',            'view' => 'pulsar::includes.html.form_checkbox_group'],
+        (object)['id' => 7,    'key' => 'select2',          'name' => 'Select 2',            'view' => 'pulsar::includes.html.form_select_group'],
+        (object)['id' => 8,    'key' => 'selectMultiple2',  'name' => 'Select multiple 2',   'view' => 'pulsar::includes.html.form_select_group'],
     ],
 
     //******************************************************************************************************************

@@ -9,7 +9,7 @@ use Sofa\Eloquence\Mappable;
  * Class CustomFieldValue
  *
  * Model with properties
- * <br><b>[id, lang, field, sorting, featured, name, data_lang, data]</b>
+ * <br><b>[id, lang, field, sorting, featured, value, data_lang, data]</b>
  *
  * @package     Syscover\Pulsar\Models
  */
@@ -23,7 +23,7 @@ class CustomFieldValue extends Model
     protected $primaryKey   = 'id_027';
     protected $suffix       = '027';
     public $timestamps      = false;
-    protected $fillable     = ['id_027', 'lang_027', 'field_027', 'sorting_027', 'featured_027', 'name_027', 'data_lang_027', 'data_027'];
+    protected $fillable     = ['id_027', 'lang_027', 'field_027', 'sorting_027', 'featured_027', 'value_027', 'data_lang_027', 'data_027'];
     protected $maps         = [];
     protected $relationMaps = [
         'lang'      => \Syscover\Pulsar\Models\Lang::class,

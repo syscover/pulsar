@@ -38,10 +38,25 @@ class CustomFieldResult extends Model
      */
     public function getValue028Attribute($value)
     {
-        settype($value, $this->type_028);
+        if($this->type_028 == 'array')
+            $value = explode(',', $value);
+        else
+            settype($value, $this->type_028);
 
         return $value;
     }
+
+    /**
+     * @param   $value
+     * @return  void
+     */
+//    public function setValue028Attribute($value)
+//    {
+//        if($this->type_028 == 'array')
+//            $this->attributes['value_028'] = implode(',', $value);
+//        else
+//            $this->attributes['value_028'] = $value;
+//    }
 
     public static function validate($data, $specialRules = [])
     {

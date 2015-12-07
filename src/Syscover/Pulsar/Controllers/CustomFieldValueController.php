@@ -17,8 +17,8 @@ class CustomFieldValueController extends Controller {
     protected $routeSuffix  = 'customFieldValue';
     protected $folder       = 'field_value';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_027', 'name_026', 'name_001', 'name_027', ['data' => 'featured_027', 'type' => 'active']];
-    protected $nameM        = 'name_027';
+    protected $aColumns     = ['id_027', 'name_026', 'name_001', 'value_027', ['data' => 'featured_027', 'type' => 'active']];
+    protected $nameM        = 'value_027';
     protected $model        = \Syscover\Pulsar\Models\CustomFieldValue::class;
     protected $icon         = 'fa fa-bars';
     protected $objectTrans  = 'value';
@@ -67,7 +67,7 @@ class CustomFieldValueController extends Controller {
             'id_027'            => $id,
             'lang_027'          => $request->input('lang'),
             'field_027'         => $request->input('field'),
-            'name_027'          => $request->input('name'),
+            'value_027'         => $request->input('value'),
             'sorting_027'       => empty($request->input('sorting'))? null : $request->input('sorting'),
             'featured_027'      => $request->has('featured'),
             'data_lang_027'     => CustomFieldValue::addLangDataRecord($request->input('lang'), $idLang),
@@ -87,7 +87,7 @@ class CustomFieldValueController extends Controller {
     {
         CustomFieldValue::where('id_027', $parameters['id'])->where('lang_027', $request->input('lang'))->update([
             'field_027'         => $request->input('field'),
-            'name_027'          => $request->input('name'),
+            'value_027'         => $request->input('value'),
             'sorting_027'       => empty($request->input('sorting'))? null : $request->input('sorting'),
             'featured_027'      => $request->has('featured'),
         ]);
