@@ -51,6 +51,7 @@ class CustomField extends Model
         return $this->belongsTo('Syscover\Pulsar\Models\Lang', 'lang_026');
     }
 
+    // TODO: Realizar una consulta que permita definir el idioma ver: http://laravel.com/docs/5.1/eloquent-relationships#eager-loading
     public function getValues()
     {
         return $this->hasMany('Syscover\Pulsar\Models\CustomFieldValue', 'field_027')

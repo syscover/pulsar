@@ -50,6 +50,11 @@ class CustomFieldGroup extends Model
         return $query;
     }
 
+    /**
+     * @deprecated
+     * @param $args
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public static function getRecords($args)
     {
         $query = CustomFieldGroup::query();

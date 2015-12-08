@@ -1,8 +1,10 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Illuminate\Http\Request;
 use Syscover\Pulsar\Models\CustomField;
 use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\CustomFieldGroup;
+use Syscover\Pulsar\Libraries\CustomFieldResultLibrary;
 
 /**
  * Class CustomFieldController
@@ -138,6 +140,11 @@ class CustomFieldController extends Controller {
             'field_size_026'        => empty($request->input('fieldSize'))? null : $request->input('fieldSize'),
             'data_026'              => json_encode($data)
         ]);
+    }
+
+    public function apiGetCustomFields(Request $request)
+    {
+        return CustomFieldResultLibrary::apiGetCustomFields($request);
     }
 }
 
