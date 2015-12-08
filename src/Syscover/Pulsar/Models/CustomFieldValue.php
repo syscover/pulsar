@@ -31,7 +31,7 @@ class CustomFieldValue extends Model
         'group'     => \Syscover\Pulsar\Models\CustomFieldGroup::class,
     ];
     private static $rules   = [
-        'name' => 'required'
+        'value' => 'required'
     ];
 
     public static function validate($data, $specialRules = [])
