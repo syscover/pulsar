@@ -52,9 +52,9 @@ class CustomField extends Model
     }
 
     /**
-     * It is likely to be filtered by language, for this use Constraining Eager Loads
+     * It is likely to be filtered by language, for this use Constraining Eager Loads<br>
+     * see <a href="http://laravel.com/docs/5.1/eloquent-relationships#eager-loading" target="_blank">Constraining Eager Loads documentation</a>
      *
-     * @link http://laravel.com/docs/5.1/eloquent-relationships#eager-loading Constraining Eager Loads documentation
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function getValues()
