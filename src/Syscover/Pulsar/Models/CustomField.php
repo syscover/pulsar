@@ -51,11 +51,15 @@ class CustomField extends Model
         return $this->belongsTo('Syscover\Pulsar\Models\Lang', 'lang_026');
     }
 
-    // TODO: Realizar una consulta que permita definir el idioma ver: http://laravel.com/docs/5.1/eloquent-relationships#eager-loading
+    /**
+     * It is likely to be filtered by language, for this use Constraining Eager Loads
+     *
+     * @link http://laravel.com/docs/5.1/eloquent-relationships#eager-loading Constraining Eager Loads documentation
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function getValues()
     {
-        return $this->hasMany('Syscover\Pulsar\Models\CustomFieldValue', 'field_027')
-            ->where('001_027_field_value.lang_027', session('baseLang')->id_001);
+        return $this->hasMany('Syscover\Pulsar\Models\CustomFieldValue', 'field_027');
     }
 
     public static function addToGetRecordsLimit()

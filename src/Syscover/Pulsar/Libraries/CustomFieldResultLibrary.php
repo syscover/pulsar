@@ -121,7 +121,10 @@ class CustomFieldResultLibrary
             // add suffix '_custom' to avoid conflict with other field names
             if(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->key == 'selectMultiple' || collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->key == 'selectMultiple2')
             {
-                $customFieldValues      = $customField->getValues;
+                $customFieldValues      = $customField->with(['getValues' => function($query){
+                    $query->where('lang_027', session('baseLang')->id_001);
+                }])->get();
+
                 $multipleSelectValue    = null;
 
                 if($setValue)
@@ -143,7 +146,9 @@ class CustomFieldResultLibrary
             }
             elseif(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->key == 'select' || collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->key == 'select2')
             {
-                $customFieldValues = $customField->getValues;
+                $customFieldValues = $customField->with(['getValues' => function($query){
+                        $query->where('lang_027', session('baseLang')->id_001);
+                    }])->get();
 
                 // check if is select2 plugin
                 $isSelect2 = collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->key == 'select2';
