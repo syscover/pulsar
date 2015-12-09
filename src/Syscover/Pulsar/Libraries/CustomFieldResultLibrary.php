@@ -125,6 +125,12 @@ class CustomFieldResultLibrary
                     $query->where('lang_027', session('baseLang')->id_001);
                 }])->get();
 
+                $customFieldValues      = $customField->getValues;
+
+
+                //var_dump($customFieldValues);
+                //exit;
+
                 $multipleSelectValue    = null;
 
                 if($setValue)
