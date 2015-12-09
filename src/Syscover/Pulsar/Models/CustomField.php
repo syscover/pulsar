@@ -52,8 +52,8 @@ class CustomField extends Model
     }
 
     /**
-     * It is likely to be filtered by language, for this use Constraining Eager Loads<br>
-     * see <a href="http://laravel.com/docs/5.1/eloquent-relationships#eager-loading" target="_blank">Constraining Eager Loads documentation</a>
+     * It is likely to be filtered by language, for this use where after method<br>
+     * see <a href="http://laravel.com/docs/5.1/eloquent-relationships#querying-relations" target="_blank">relations documentation</a>
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
