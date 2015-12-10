@@ -68,7 +68,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     protected static function addToGetRecordsLimit()
     {
-        return User::join('001_006_profile', '001_010_user.profile_010', '=', '001_006_profile.id_006');
+        return User::builder();
     }
 
     /**
