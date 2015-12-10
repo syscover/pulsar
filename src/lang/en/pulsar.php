@@ -51,6 +51,7 @@ return [
     'cancel'                                => 'Cancel',
     'change_password_successful'            => 'Great, We\'ve sent an email',
     'custom_field'                          => 'Custom field|Custom fields',
+    'confirmed'                             => 'Confirmed',
     'data_type'                             => 'Data type|Data types',
     'delete'                                => 'Delete',
     'edit'                                  => 'Edit',

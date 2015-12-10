@@ -52,6 +52,7 @@ return [
     'cancel'                                => 'Cancelar',
     'change_password_successful'            => 'Estupendo, Le hemos enviado un email',
     'custom_field'                          => 'Campo personalizado|Campos personalizados',
+    'confirmed'                             => 'Confirmado',
     'data_type'                             => 'Tipo de dato|Tipo de datos',
     'delete'                                => 'Borrar',
     'edit'                                  => 'Editar',
