@@ -1,18 +1,14 @@
 <?php namespace Syscover\Pulsar\Libraries;
 
-/**
- * @package		Pulsar
- * @author		Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL.
- * @license
- * @link		http://www.syscover.com
- * @since		Version 1.0
- * @filesource  Librarie that instance helper functions
- */
-
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\MessageBag;
+use Syscover\Pulsar\Models\Package;
+
+/**
+ * Class EmailServices
+ * @package Syscover\Pulsar\Libraries
+ */
 
 class EmailServices {
 
@@ -144,11 +140,17 @@ este es un envío de pruebas, si está recibiendo este correo, su cuenta se ha c
      */
     private static function replaceWildcard($data, $index)
     {
-        // Message body
-        $data[$index] = str_replace("#link#", route('showComunikEmailCampaign', ['campaign' => '#campaign#', 'contactKey' => '#contactKey#']), $data[$index]);
-        $data[$index] = str_replace("#unsubscribe#", route('getUnsubscribeComunikContact', ['contactKey' => '#contact#']) , $data[$index]);
-        $data[$index] = str_replace("#pixel#", url(config('pulsar.appName')) . config('comunik.trackPixel'), $data[$index]);
+        $comunikPackage = Package::where('folder', 'comunik')->first();
 
+        // check if comunik package is publish
+        if(!is_null($comunikPackage) &&  $comunikPackage->active_012)
+        {
+            $data[$index] = str_replace("#link#", route('showComunikEmailCampaign', ['campaign' => '#campaign#', 'contactKey' => '#contactKey#']), $data[$index]);
+            $data[$index] = str_replace("#unsubscribe#", route('getUnsubscribeComunikContact', ['contactKey' => '#contact#']) , $data[$index]);
+            $data[$index] = str_replace("#pixel#", url(config('pulsar.appName')) . config('comunik.trackPixel'), $data[$index]);
+        }
+
+        // Message body
         if (isset($data['contactKey']))     $data[$index]   = str_replace("#contactKey#",   $data['contactKey'],                $data[$index]);     // Contact coded ID, to track (comunik)
         if (isset($data['company']))        $data[$index]   = str_replace("#company#",      $data['company'],                   $data[$index]);     // Company name (comunik)
         if (isset($data['name']))           $data[$index]   = str_replace("#name#",         $data['name'],                      $data[$index]);     // Contact name (comunik)
