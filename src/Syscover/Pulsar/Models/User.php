@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Validator;
 use Syscover\Pulsar\Traits\TraitModel;
 use Sofa\Eloquence\Eloquence;
 use Sofa\Eloquence\Mappable;
-use Sofa\Eloquence\Metable;
 
 /**
  * Class Profile
@@ -21,7 +20,7 @@ use Sofa\Eloquence\Metable;
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
     use TraitModel;
-    use Eloquence, Mappable, Metable;
+    use Eloquence, Mappable;
     use CanResetPassword;
 
     protected $table        = '001_010_user';
