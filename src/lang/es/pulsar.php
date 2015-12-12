@@ -89,6 +89,7 @@ return [
     'row'                                   => 'Fila|Filas',
     'run'                                   => 'Ejecutar',
     'save'                                  => 'Guardar',
+    'select_category'                       => 'Seleccione una categoría',
     'selected_objects'                      => 'Objetos seleccionados',
     'type_something'                        => 'Escribe algo',
     'value'                                 => 'Valor|Valores',

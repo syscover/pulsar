@@ -88,6 +88,7 @@ return [
     'row'                                   => 'Row|Rows',
     'run'                                   => 'Run',
     'save'                                  => 'Save',
+    'select_category'                       => 'Select a category',
     'selected_objects'                      => 'Selected objects',
     'type_something'                        => 'Type something',
     'value'                                 => 'Value|Values',
