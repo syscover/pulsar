@@ -1,5 +1,6 @@
 <?php namespace Syscover\Pulsar\Models;
 
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Support\Facades\Validator;
@@ -21,6 +22,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 {
     use TraitModel;
     use Eloquence, Mappable, Metable;
+    use CanResetPassword;
 
     protected $table        = '001_010_user';
     protected $primaryKey   = 'id_010';

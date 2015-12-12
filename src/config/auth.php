@@ -41,7 +41,7 @@ return [
     |
     */
 
-    'table' => '001_010_user',
+    'table' => 'users',
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'username' => 'user_010',
+    'username' => 'user',
 
     /*
     |--------------------------------------------------------------------------
@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'password' => 'password_010',
+    'password' => 'password',
 
     /*
     |--------------------------------------------------------------------------
@@ -85,9 +85,9 @@ return [
     */
 
     'password' => [
-        'email' => 'pulsar::emails.password',
-        'table' => '001_021_password_resets',
-        'expire' => 60,
+        'email'     => 'pulsar::emails.password',
+        'table'     => '001_021_password_resets',
+        'expire'    => 60,
     ],
 
 ];

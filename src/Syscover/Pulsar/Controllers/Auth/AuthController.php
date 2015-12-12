@@ -1,10 +1,10 @@
 <?php namespace Syscover\Pulsar\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Illuminate\Http\Request;
 use Pulsar\Support\Facades\Config;
 use Syscover\Pulsar\Libraries\PulsarAcl;
 use Syscover\Pulsar\Models\Package;

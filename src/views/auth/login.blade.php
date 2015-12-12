@@ -103,7 +103,7 @@
         <!-- Shows up if reset-button was clicked -->
         <div class="forgot-password-done hide-default">
             <div class="forgot-password-ok">
-                <i class="fa fa-ok success-icon"></i>
+                <i class="fa fa-check success-icon"></i>
                 <span>{{ trans('pulsar::pulsar.reset_password_successful') }}</span>
             </div>
             <div class="forgot-password-nook">
