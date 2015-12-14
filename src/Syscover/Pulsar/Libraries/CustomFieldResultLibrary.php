@@ -75,7 +75,6 @@ class CustomFieldResultLibrary
 
         if(count($customFieldResults) > 0)
         {
-            //dd($customFieldResults);
             CustomFieldResult::insert($customFieldResults);
         }
     }
@@ -94,22 +93,22 @@ class CustomFieldResultLibrary
      * @param   $request
      * @return  \Illuminate\Http\JsonResponse
      */
-    public static function apiGetCustomFields($request)
+    public static function getCustomFields($parameters)
     {
         // get custom fields
-        $customFields   = CustomField::getRecords(['lang_026' => $request->input('lang'), 'group_026' => $request->input('customFieldGroup')]);
-        if($request->has('object'))
+        $customFields   = CustomField::getRecords(['lang_026' => $parameters['lang'], 'group_026' => $parameters['customFieldGroup']]);
+        if($parameters['object'])
         {
-            if($request->has('action') && $request->input('action') == 'create')
+            if(!empty($parameters['action']) && $parameters['action'] == 'create')
                 // if is a new object translated
                 $langFieldResults = session('baseLang')->id_001;
             else
-                $langFieldResults = $request->input('lang');
+                $langFieldResults = $parameters['lang'];
 
             // get results if there is a object
             $customFieldResults = CustomFieldResult::where('lang_028', $langFieldResults)
-                ->where('object_028', $request->input('object'))
-                ->where('resource_028', $request->input('resource'))
+                ->where('object_028', $parameters['object'])
+                ->where('resource_028', $parameters['resource'])
                 ->get();
         }
 
@@ -162,9 +161,6 @@ class CustomFieldResultLibrary
             }
         }
 
-        return response()->json([
-            'status'    => 'success',
-            'html'      => $html
-        ]);
+        return $html;
     }
 }

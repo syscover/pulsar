@@ -100,7 +100,7 @@ class CustomFieldController extends Controller {
                 'label_size_026'        => empty($request->input('labelSize'))? null : $request->input('labelSize'),
                 'field_size_026'        => empty($request->input('fieldSize'))? null : $request->input('fieldSize'),
                 'data_lang_026'         => CustomField::addLangDataRecord($request->input('lang')),
-                'data_026'              => json_encode(["labels" => [$request->input('lang') => $request->input('label')]])
+                'data_026'              => json_encode(['labels' => [$request->input('lang') => $request->input('label')]])
             ]);
         }
     }
@@ -144,7 +144,17 @@ class CustomFieldController extends Controller {
 
     public function apiGetCustomFields(Request $request)
     {
-        return CustomFieldResultLibrary::apiGetCustomFields($request);
+        $html =  CustomFieldResultLibrary::getCustomFields([
+            'lang'              => $request->input('lang'),
+            'customFieldGroup'  => $request->input('customFieldGroup'),
+            'resource'          => $request->input('resource'),
+            'action'            => $request->input('action'),
+            'object'            => $request->input('object')
+        ]);
+
+        return response()->json([
+            'status'    => 'success',
+            'html'      => $html
+        ]);
     }
 }
-
