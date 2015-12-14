@@ -58,6 +58,11 @@ class Attachment extends Model
             ->first();
     }
 
+    /**
+     * @deprecated
+     * @param $args
+     * @return mixed
+     */
     public static function getRecords($args)
     {
         $query =  Attachment::builder();
