@@ -60,7 +60,7 @@ class EmailAccountController extends Controller {
         }
         else
         {
-            return redirect()->route('create' . $this->routeSuffix, $parameters['urlParameters'])->withErrors($response)->withInput();
+            return redirect()->route('create' . ucfirst($this->routeSuffix), $parameters['urlParameters'])->withErrors($response)->withInput();
         }
     }
 
