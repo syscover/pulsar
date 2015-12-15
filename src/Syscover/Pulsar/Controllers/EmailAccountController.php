@@ -130,7 +130,7 @@ class EmailAccountController extends Controller {
         }
         else
         {
-            return redirect()->route('edit' . $this->routeSuffix, $parameters['urlParameters'])->withErrors($response)->withInput();
+            return redirect()->route('edit' . ucfirst($this->routeSuffix), $parameters['urlParameters'])->withErrors($response)->withInput();
         }
     }
 }
