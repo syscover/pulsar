@@ -16,7 +16,7 @@ class AttachmentFamilyController extends Controller {
     protected $routeSuffix  = 'attachmentFamily';
     protected $folder       = 'attachment_family';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_015', 'name_007', 'name_015'];
+    protected $aColumns     = ['id_015', 'name_007', 'name_015', 'width_015', 'height_015'];
     protected $nameM        = 'name_015';
     protected $model        = \Syscover\Pulsar\Models\AttachmentFamily::class;
     protected $icon         = 'fa fa-th';
