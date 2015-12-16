@@ -42,7 +42,7 @@ return [
     //***   Resources that can contain attachments
     //******************************************************************************************************************
     'resourcesAttachments'     => [
-        'cms-article',
+        'cms-article-family',
         'market-product',
         'hotels-hotel',
     ],
