@@ -26,7 +26,7 @@ class CustomFieldGroupController extends Controller {
     {
         $parameters['resources'] = Resource::builder()
             ->where('active_012', true)
-            ->whereIn('id_007', config('pulsar.resourcesAttachments'))
+            ->whereIn('id_007', config('pulsar.resourcesCustomFields'))
             ->get();
 
         return $parameters;
@@ -44,7 +44,7 @@ class CustomFieldGroupController extends Controller {
     {
         $parameters['resources'] = Resource::builder()
             ->where('active_012', true)
-            ->whereIn('id_007', config('pulsar.resourcesAttachments'))
+            ->whereIn('id_007', config('pulsar.resourcesCustomFields'))
             ->get();
 
         return $parameters;
