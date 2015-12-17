@@ -40,6 +40,11 @@ class TerritorialArea1 extends Model
         return Validator::make($data, static::$rules);
     }
 
+    public function scopeBuilder($query)
+    {
+        return $query->join('001_002_country', '001_003_territorial_area_1.country_003', '=', '001_002_country.id_002');
+    }
+
     public function getTerritorialAreas2()
     {
          return $this->hasMany('Syscover\Pulsar\Models\TerritorialArea2', 'territorial_area_1_004');
