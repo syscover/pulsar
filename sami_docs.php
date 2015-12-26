@@ -1,5 +1,5 @@
 <?php
-// to run exdecute $ sami update sami_docs.php
+// to run exdecute $ php sami.phar update sami_docs.php
 
 use Sami\Sami;
 use Sami\RemoteRepository\GitHubRemoteRepository;

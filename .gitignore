@@ -1,7 +1,6 @@
 workbench/
 WORK/
 docs/cache/
-sami_docs.php
 sami.phar
 .env
 
