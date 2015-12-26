@@ -56,18 +56,19 @@ trait TraitModel {
     }
 
     /**
+     * Function to get data record to list objects
      *
      * @access	public
      * @param   array     $parameters
      * @return	array|\Illuminate\Database\Eloquent\Model[]
      */
-    public static function getRecordsLimit($parameters)
+    public static function getIndexRecords($parameters)
     {
         $instance = new static;
 
-        if(method_exists($instance, 'addToGetRecordsLimit'))
+        if(method_exists($instance, 'addToGetIndexRecords'))
         {
-            $query = $instance->addToGetRecordsLimit($parameters);
+            $query = $instance->addToGetIndexRecords($parameters);
         }
         else
         {
@@ -80,7 +81,14 @@ trait TraitModel {
         if(isset($parameters['count']) &&  $parameters['count'])
         {
             // if we need count results
-            return $query->count();
+            if(method_exists($instance, 'countCustomIndexRecords'))
+            {
+                return $instance->countCustomIndexRecords($query, $parameters);
+            }
+            else
+            {
+                return $query->count();
+            }
         }
         else
         {
@@ -90,10 +98,10 @@ trait TraitModel {
             if(isset($parameters['sOrder']))      $query->orderBy($parameters['sOrder'], isset($parameters['sTypeOrder'])? $parameters['sTypeOrder'] : 'asc');
 
 
-            if(method_exists($instance, 'getCustomReturnRecordsLimit'))
+            if(method_exists($instance, 'getCustomReturnIndexRecords'))
             {
                 // if we need a custom get()
-                return $instance->getCustomReturnRecordsLimit($query, $parameters);
+                return $instance->getCustomReturnIndexRecords($query, $parameters);
             }
             else
             {

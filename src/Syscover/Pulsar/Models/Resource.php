@@ -51,7 +51,7 @@ class Resource extends Model
         return $this->belongsTo('Syscover\Pulsar\Models\Package', 'package_007');
     }
 
-    public static function addToGetRecordsLimit()
+    public static function addToGetIndexRecords($parameters)
     {
         return Resource::builder();
     }

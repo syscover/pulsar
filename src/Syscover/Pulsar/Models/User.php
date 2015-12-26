@@ -67,7 +67,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
 
-    protected static function addToGetRecordsLimit()
+    protected static function addToGetIndexRecords($parameters)
     {
         return User::builder();
     }

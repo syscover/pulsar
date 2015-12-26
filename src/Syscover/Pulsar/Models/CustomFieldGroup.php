@@ -43,7 +43,7 @@ class CustomFieldGroup extends Model
         return $query->join('001_007_resource', '001_025_field_group.resource_025', '=', '001_007_resource.id_007');
     }
 
-    public static function addToGetRecordsLimit()
+    public static function addToGetIndexRecords($parameters)
     {
         $query =  CustomFieldGroup::builder();
 

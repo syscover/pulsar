@@ -49,7 +49,7 @@ class TerritorialArea3 extends Model
             ->join('001_004_territorial_area_2', '001_005_territorial_area_3.territorial_area_2_005', '=', '001_004_territorial_area_2.id_004');
     }
 
-    public static function addToGetRecordsLimit($parameters)
+    public static function addToGetIndexRecords($parameters)
     {
         $query = TerritorialArea3::builder();
 

@@ -45,7 +45,7 @@ class AttachmentFamily extends Model {
         return $query->join('001_007_resource', '001_015_attachment_family.resource_015', '=', '001_007_resource.id_007');
     }
 
-    public static function addToGetRecordsLimit($parameters)
+    public static function addToGetIndexRecords($parameters)
     {
         $query =  AttachmentFamily::builder();
 

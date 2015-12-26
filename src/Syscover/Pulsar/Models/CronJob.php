@@ -45,7 +45,7 @@ class CronJob extends Model
         return $query->join('001_012_package', '001_011_cron_job.package_011', '=', '001_012_package.id_012');
     }
 
-    public static function addToGetRecordsLimit()
+    public static function addToGetIndexRecords($parameters)
     {
         return CronJob::builder();
     }
