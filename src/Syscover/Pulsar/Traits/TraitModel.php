@@ -77,13 +77,12 @@ trait TraitModel {
 
         $query = Miscellaneous::getQueryWhere($query, isset($parameters['aColumns'])? $parameters['aColumns'] : null, isset($parameters['sWhere'])? $parameters['sWhere'] : null, isset($parameters['sWhereColumns'])? $parameters['sWhereColumns'] : null);
 
-        // TODO: cambiar la forma de contar elementos, en comunik en contacts da fallo por el concact y en los multilenguajes da fallo al contar todos los registros de todos los idiomas
         if(isset($parameters['count']) &&  $parameters['count'])
         {
             // if we need count results
-            if(method_exists($instance, 'countCustomIndexRecords'))
+            if(method_exists($instance, 'customCountIndexRecords'))
             {
-                return $instance->countCustomIndexRecords($query, $parameters);
+                return $instance->customCountIndexRecords($query, $parameters);
             }
             else
             {
