@@ -27,7 +27,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'january'                               => 'January',
-    'february'                              => 'January',
+    'february'                              => 'February',
     'march'                                 => 'March',
     'april'                                 => 'April',
     'may'                                   => 'May',
