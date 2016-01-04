@@ -72,6 +72,7 @@ return [
     'group'                                 => 'Grupo|Grupos',
     'int_value'                             => 'Valor entero',
     'label_size'                            => 'Tamaño etiqueta',
+    'link'                                  => 'Enlace',
     'login'                                 => 'Iniciar sesión',
     'logout'                                => 'Cerrar sesión',
     'male'                                  => 'Varón',

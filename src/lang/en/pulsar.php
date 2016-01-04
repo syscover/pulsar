@@ -71,6 +71,7 @@ return [
     'group'                                 => 'Group|Groups',
     'int_value'                             => 'Int value',
     'label_size'                            => 'Label size',
+    'link'                                  => 'Link',
     'login'                                 => 'Login',
     'logout'                                => 'Logout',
     'male'                                  => 'Male',

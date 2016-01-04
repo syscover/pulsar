@@ -37,7 +37,6 @@
             @if(isset($input))
             // load html from parent if input cont
             $("#contentarea").data('contentbuilder').loadHTML(parent.$('[name={{ $input }}]').val());
-            console.log(parent.$('[name={{ $input }}]').val())
             @endif
 
             // fullscreen function
