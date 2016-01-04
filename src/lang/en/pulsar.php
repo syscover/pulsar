@@ -76,6 +76,7 @@ return [
     'logout'                                => 'Logout',
     'male'                                  => 'Male',
     'maximum_length'                        => 'Maximum length',
+    'new_window'                            => 'New window',
     'objects_list'                          => 'Objects list',
     'package'                               => 'Package|Packages',
     'package_name'                          => 'Administration',

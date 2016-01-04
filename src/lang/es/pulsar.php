@@ -77,6 +77,7 @@ return [
     'logout'                                => 'Cerrar sesión',
     'male'                                  => 'Varón',
     'maximum_length'                        => 'Longitus máxima',
+    'new_window'                            => 'Nueva ventana',
     'objects_list'                          => 'Lista de objetos',
     'package'                               => 'Paquete|Paquetes',
     'package_name'                          => 'Administración',
