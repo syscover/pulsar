@@ -51,6 +51,7 @@ return [
     'administration'                        => 'Administración',
     'cancel'                                => 'Cancelar',
     'change_password_successful'            => 'Estupendo, Le hemos enviado un email',
+    'create'                                => 'Crear',
     'custom_field'                          => 'Campo personalizado|Campos personalizados',
     'confirmed'                             => 'Confirmado',
     'data_type'                             => 'Tipo de dato|Tipo de datos',
@@ -71,6 +72,7 @@ return [
     'gender'                                => 'Género',
     'group'                                 => 'Grupo|Grupos',
     'int_value'                             => 'Valor entero',
+    'instructions'                          => 'Instrucciones',
     'label_size'                            => 'Tamaño etiqueta',
     'link'                                  => 'Enlace',
     'login'                                 => 'Iniciar sesión',
@@ -97,7 +99,7 @@ return [
     'value'                                 => 'Valor|Valores',
     'weight'                                => 'Peso|Pesos',
 
-    'create'                                => 'Crear',
+
     'new'                                   => 'Nuevo',
     'new2'                                  => 'Nueva',
     'file_not_select'                       => 'Fichero no seleccionado',

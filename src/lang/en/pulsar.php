@@ -50,6 +50,7 @@ return [
     'administration'                        => 'Administration',
     'cancel'                                => 'Cancel',
     'change_password_successful'            => 'Great, We\'ve sent an email',
+    'create'                                => 'Create',
     'custom_field'                          => 'Custom field|Custom fields',
     'confirmed'                             => 'Confirmed',
     'data_type'                             => 'Data type|Data types',
@@ -70,6 +71,7 @@ return [
     'gender'                                => 'Gender',
     'group'                                 => 'Group|Groups',
     'int_value'                             => 'Int value',
+    'instructions'                          => 'Instructions',
     'label_size'                            => 'Label size',
     'link'                                  => 'Link',
     'login'                                 => 'Login',
@@ -96,7 +98,6 @@ return [
     'value'                                 => 'Value|Values',
     'weight'                                => 'Weight|Weights',
 
-    'create'                                => 'Create',
     'new'                                   => 'New',
     'new2'                                  => 'New',
     'file_not_select'                       => 'File not select',
