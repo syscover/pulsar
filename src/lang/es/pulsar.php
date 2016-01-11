@@ -73,6 +73,7 @@ return [
     'group'                                 => 'Grupo|Grupos',
     'int_value'                             => 'Valor entero',
     'instructions'                          => 'Instrucciones',
+    'ip'                                    => 'IP',
     'label_size'                            => 'Tamaño etiqueta',
     'link'                                  => 'Enlace',
     'login'                                 => 'Iniciar sesión',

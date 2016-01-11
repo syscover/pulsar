@@ -72,6 +72,7 @@ return [
     'group'                                 => 'Group|Groups',
     'int_value'                             => 'Int value',
     'instructions'                          => 'Instructions',
+    'ip'                                    => 'IP',
     'label_size'                            => 'Label size',
     'link'                                  => 'Link',
     'login'                                 => 'Login',
