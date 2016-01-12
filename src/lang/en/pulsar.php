@@ -102,6 +102,7 @@ return [
     'save'                                  => 'Save',
     'select_category'                       => 'Select a category',
     'selected_objects'                      => 'Selected objects',
+    'setting'                               => 'Setting|Settings',
     'single'                                => 'Single',
     'state'                                 => 'State|States',
     'treatment'                             => 'Treatment|Treatment',

@@ -103,6 +103,7 @@ return [
     'save'                                  => 'Guardar',
     'select_category'                       => 'Seleccione una categoría',
     'selected_objects'                      => 'Objetos seleccionados',
+    'setting'                               => 'Ajuste|Ajustes',
     'single'                                => 'Soltero/a',
     'state'                                 => 'Estado|Estados',
     'treatment'                             => 'Tratamiento|Tramientos',
