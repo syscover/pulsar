@@ -54,6 +54,13 @@ class Preference extends Model
         }
     }
 
+    public static function getValues($package)
+    {
+        return  Preference::where([
+            'package_018'   => $package
+        ])->get();
+    }
+
     public static function setValue($id, $package, $value)
     {
         return Preference::updateOrCreate(['id_018' => $id],[
