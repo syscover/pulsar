@@ -81,6 +81,7 @@ return [
     'male'                                  => 'Male',
     'married'                               => 'Married',
     'maximum_length'                        => 'Maximum length',
+    'mode'                                  => 'Mode|Modes',
     'mr'                                    => 'Mr.',
     'mrs'                                   => 'Mrs.',
     'ms'                                    => 'Ms.',

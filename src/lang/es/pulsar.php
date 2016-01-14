@@ -82,6 +82,7 @@ return [
     'male'                                  => 'Varón',
     'married'                               => 'Casado/a',
     'maximum_length'                        => 'Longitus máxima',
+    'mode'                                  => 'Modo|Modos',
     'mr'                                    => 'Sr.',
     'mrs'                                   => 'Sra.',
     'ms'                                    => 'Srta.',
