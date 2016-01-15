@@ -17,7 +17,7 @@
         "tecnickcom/tcpdf": "^6.2",
         "phpoffice/phpexcel": "1.8.1",
         "leafo/scssphp": "0.3.3",
-        "sofa/eloquence": "~5.1@dev"
+        "sofa/eloquence": "5.1.5"
     },
     "autoload": {
         "psr-4": {
