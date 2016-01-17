@@ -97,6 +97,7 @@ return [
     //******************************************************************************************************************
     'resourcesCustomFields'     => [
         'cms-article-family',
-        'market-product'
+        'market-product',
+        'hotels-hotel'
     ],
 ];
