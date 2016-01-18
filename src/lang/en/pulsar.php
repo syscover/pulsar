@@ -48,6 +48,7 @@ return [
     'active'                                => 'Active',
     'address'                               => 'Address|Addresses',
     'administration'                        => 'Administration',
+    'amount'                                => 'Amount|Amounts',
     'cancel'                                => 'Cancel',
     'change_password_successful'            => 'Great, We\'ve sent an email',
     'create'                                => 'Create',

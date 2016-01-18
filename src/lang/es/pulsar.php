@@ -49,6 +49,7 @@ return [
     'active'                                => 'Activo',
     'address'                               => 'Dirección|Direcciones',
     'administration'                        => 'Administración',
+    'amount'                                => 'Cantidad|Cantidades',
     'cancel'                                => 'Cancelar',
     'change_password_successful'            => 'Estupendo, Le hemos enviado un email',
     'create'                                => 'Crear',
