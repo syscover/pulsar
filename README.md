@@ -36,6 +36,7 @@ Syscover\Pulsar\PulsarServiceProvider::class,
 'auth.pulsar' 			=> \Syscover\Pulsar\Middleware\Auth::class,
 'locale.pulsar'         => \Syscover\Pulsar\Middleware\Locale::class,
 'permission.pulsar' 	=> \Syscover\Pulsar\Middleware\Permission::class,
+'https.pulsar'          => \Syscover\Pulsar\Middleware\HttpsProtocol::class,
 
 ```
 
