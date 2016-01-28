@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Pulsar\Support\Facades\Config;
-use Syscover\Pulsar\Libraries\PulsarAcl;
+use Syscover\Pulsar\Libraries\AclLibrary;
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Models\Lang;
 
@@ -25,17 +25,30 @@ class AuthController extends Controller {
 
 	use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
+    /**
+     * Where to redirect users after login / registration.
+     *
+     * @var string
+     */
+    protected $redirectTo;
 
-    protected  $loginPath;
-    protected  $redirectPath;
+    /**
+     * Here you can customize your guard, this guar has to set in auth.php config
+     *
+     * @var string
+     */
+    protected $guard;
+
+
+    //protected  $loginPath;
+    //protected  $redirectPath;
 
 	/**
 	 * Create a new authentication controller instance.
 	 */
 	public function __construct()
 	{
-        $this->loginPath        = route('getLogin');
-        $this->redirectPath     = route('dashboard');
+        $this->redirectTo       = route('dashboard');
 	}
 
     /**
@@ -62,10 +75,10 @@ class AuthController extends Controller {
 
         $credentials = $request->only('user_010', 'password');
 
-        if (Auth::attempt($credentials, $request->has('remember')))
+        if(Auth::guard('pulsar')->attempt($credentials, $request->has('remember')))
         {
             // check if user has access
-            if (!Auth::user()->access_010)
+            if(!Auth::guard('pulsar')->user()->access_010)
             {
                 Auth::logout();
                 return redirect($this->loginPath())
@@ -75,10 +88,11 @@ class AuthController extends Controller {
                     ]);
             }
 
-            session(['userAcl' => PulsarAcl::getProfileAcl(Auth::user()->profile_010)]);
+            // set user access control list
+            session(['userAcl' => AclLibrary::getProfileAcl(Auth::guard('pulsar')->user()->profile_010)]);
 
             // check if user has permission to access
-            if (!session('userAcl')->isAllowed(Auth::user()->profile_010, 'pulsar', 'access'))
+            if (!session('userAcl')->allows('pulsar', 'access'))
             {
                 Auth::logout();
                 return redirect($this->loginPath())

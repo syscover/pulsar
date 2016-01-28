@@ -1,8 +1,6 @@
 <?php namespace Syscover\Pulsar\Models;
 
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Validator;
 use Syscover\Pulsar\Traits\TraitModel;
 use Sofa\Eloquence\Eloquence;
@@ -17,17 +15,17 @@ use Sofa\Eloquence\Mappable;
  * @package     Syscover\Pulsar\Models
  */
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract
+class User extends Authenticatable
 {
     use TraitModel;
     use Eloquence, Mappable;
-    use CanResetPassword;
 
     protected $table        = '001_010_user';
     protected $primaryKey   = 'id_010';
     protected $suffix       = '010';
     public $timestamps      = true;
     protected $fillable     = ['id_010', 'lang_010', 'profile_010', 'access_010', 'user_010', 'password_010', 'email_010', 'name_010', 'surname_010'];
+    protected $hidden       = ['password_010', 'remember_token_010'];
     protected $maps         = [];
     protected $relationMaps = [
         'profile'   => \Syscover\Pulsar\Models\Profile::class,

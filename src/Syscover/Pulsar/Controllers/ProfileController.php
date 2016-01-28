@@ -1,7 +1,7 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
 use Illuminate\Http\Request;
-use Syscover\Pulsar\Libraries\PulsarAcl;
+use Syscover\Pulsar\Libraries\AclLibrary;
 use Syscover\Pulsar\Models\Profile;
 use Syscover\Pulsar\Models\Resource;
 use Syscover\Pulsar\Models\Action;
@@ -30,8 +30,8 @@ class ProfileController extends Controller {
 
     public function jsonCustomDataBeforeActions($request, $aObject)
     {
-        $actions = session('userAcl')->isAllowed($request->user()->profile_010, $this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('permission', [0, $aObject['id_006'], $request->input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_permissions').'"><i class="fa fa-shield"></i></a>' : null;
-        $actions .= session('userAcl')->isAllowed($request->user()->profile_010, $this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip all-permissions" onClick="setAllPermissions(this)" data-all-permissions-url="' . route('allPermissionsProfile', [$aObject['id_006'], $request->input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.set_all_permissions').'"><i class="fa fa-unlock-alt"></i></a>' : null;
+        $actions = session('userAcl')->allows($this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('permission', [0, $aObject['id_006'], $request->input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_permissions').'"><i class="fa fa-shield"></i></a>' : null;
+        $actions .= session('userAcl')->allows($this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip all-permissions" onClick="setAllPermissions(this)" data-all-permissions-url="' . route('allPermissionsProfile', [$aObject['id_006'], $request->input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.set_all_permissions').'"><i class="fa fa-unlock-alt"></i></a>' : null;
 
         return $actions;
     }
@@ -73,7 +73,7 @@ class ProfileController extends Controller {
 
         // if profile it's same that our profile, overwrite ours permissions
         if($profile->id_006 == $request->user()->profile_010)
-            session(['userAcl' => PulsarAcl::getProfileAcl($request->user()->profile_010)]);
+            session(['userAcl' => AclLibrary::getProfileAcl($request->user()->profile_010)]);
 
         return redirect()->route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,

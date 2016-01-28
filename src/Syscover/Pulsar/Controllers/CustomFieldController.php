@@ -29,7 +29,7 @@ class CustomFieldController extends Controller {
         // get parameters from url route
         $parameters = $request->route()->parameters();
 
-        return session('userAcl')->isAllowed($request->user()->profile_010, 'admin-field-value', 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('customFieldValue', ['field' => $aObject['id_026'], 'lang' => $parameters['lang'], 'offset' => $request->input('iDisplayStart')]) . '" data-original-title="' . trans_choice('pulsar::pulsar.value', 2) . '"><i class="fa fa-bars"></i></a>' : null;
+        return session('userAcl')->allows('admin-field-value', 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('customFieldValue', ['field' => $aObject['id_026'], 'lang' => $parameters['lang'], 'offset' => $request->input('iDisplayStart')]) . '" data-original-title="' . trans_choice('pulsar::pulsar.value', 2) . '"><i class="fa fa-bars"></i></a>' : null;
     }
 
     public function indexCustom($parameters)

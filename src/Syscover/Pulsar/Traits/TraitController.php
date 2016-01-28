@@ -190,7 +190,7 @@ trait TraitController {
             // check if request is modal
             if(isset($parameters['modal']) && $parameters['modal'])
             {
-                $actions .= session('userAcl')->isAllowed($request->user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip related-record" data-json=\'' . json_encode($aObject) . '\' data-original-title="' . trans('pulsar::pulsar.related_record') . '"><i class="icon-link"></i></a>' : null;
+                $actions .= session('userAcl')->allows($this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip related-record" data-json=\'' . json_encode($aObject) . '\' data-original-title="' . trans('pulsar::pulsar.related_record') . '"><i class="icon-link"></i></a>' : null;
             }
             else
             {
@@ -200,17 +200,17 @@ trait TraitController {
 
                 if(($showIfNotEdit) && (isset($this->jsonParam['show']) && $this->jsonParam['show'] == true))
                 {
-                    $actions .= session('userAcl')->isAllowed($request->user()->profile_010, $this->resource, 'access')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('show' . ucfirst($this->routeSuffix), $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.view_record') . '"><i class="fa fa-eye"></i></a>' : null;
+                    $actions .= session('userAcl')->allows($this->resource, 'access')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('show' . ucfirst($this->routeSuffix), $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.view_record') . '"><i class="fa fa-eye"></i></a>' : null;
                 }
 
                 if(($onlyEditOwner) && (isset($this->jsonParam['edit']) && $this->jsonParam['edit'] == true || !isset($this->jsonParam['edit'])))
                 {
-                    $actions .= session('userAcl')->isAllowed($request->user()->profile_010, $this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('edit' . ucfirst($this->routeSuffix), $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="fa fa-pencil"></i></a>' : null;
+                    $actions .= session('userAcl')->allows($this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('edit' . ucfirst($this->routeSuffix), $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="fa fa-pencil"></i></a>' : null;
                 }
 
                 if(isset($this->jsonParam['delete']) && $this->jsonParam['delete'] == true || !isset($this->jsonParam['delete']))
                 {
-                    $actions .= session('userAcl')->isAllowed($request->user()->profile_010, $this->resource, 'delete') ? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] . '" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . ucfirst($this->routeSuffix), $actionUrlParameters) . '"><i class="fa fa-trash"></i></a>' : null;
+                    $actions .= session('userAcl')->allows($this->resource, 'delete') ? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] . '" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . ucfirst($this->routeSuffix), $actionUrlParameters) . '"><i class="fa fa-trash"></i></a>' : null;
                 }
             }
 
@@ -244,7 +244,7 @@ trait TraitController {
                     $isCreated = in_array($lang->id_001, $jsonObject->langs);
                     $actionUrlParameters['lang'] = $lang->id_001;
 
-                    if(session('userAcl')->isAllowed($request->user()->profile_010, $this->resource, 'edit') && session('userAcl')->isAllowed($request->user()->profile_010, $this->resource, 'create'))
+                    if(session('userAcl')->allows($this->resource, 'edit') && session('userAcl')->allows($this->resource, 'create'))
                     {
                         $actions .= '<li><a class="bs-tooltip" href="';
                         if($isCreated)

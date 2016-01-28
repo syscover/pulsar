@@ -17,7 +17,7 @@ use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Role\GenericRole as Role;
 use Zend\Permissions\Acl\Resource\GenericResource as AclResource;
 
-class PulsarAcl extends Acl
+class AclLibrary extends Acl
 {
     /**
      *  Function instance the acl of a particular profile
@@ -28,19 +28,23 @@ class PulsarAcl extends Acl
      */
     public static function getProfileAcl($profile)
     {
-        $acl            = new PulsarAcl();
-        $resources      = Resource::get();
+        $acl            = new AclLibrary();
+        // get all resources in application
+        $resources      = Resource::all();
+        // get all permissions fron this profile
         $permissions    = Permission::getRecord($profile);
-        
+
+        // set profile id
         $acl->addRole(new Role($profile));
+
+        // add resources to acl element
         foreach($resources as $resource)
-        {
             $acl->addResource(new AclResource($resource->id_007));
-        }
+
+        // add resources to acl element
         foreach($permissions as $permission)
-        {
             $acl->allow($profile, $permission->resource_009, $permission->action_009);
-        }
+
         return $acl;
     }
     
@@ -71,11 +75,22 @@ class PulsarAcl extends Acl
         return $actionsAllowed;    
     }
 
-    public function isAllowed($role = null, $resource = null, $privilege = null)
+    /**
+     * Function to check permission
+     *
+     * @param null $resource
+     * @param null $privilege
+     * @param null $profile
+     * @return bool
+     */
+    public function allows($resource = null, $privilege = null, $profile = null)
     {
+        if($profile === null)
+            $profile = auth('pulsar')->user()->profile_010;
+
         try
         {
-            return parent::isAllowed($role, $resource, $privilege);
+            return parent::isAllowed($profile, $resource, $privilege);
         }
         catch(Exception\InvalidArgumentException $e)
         {
