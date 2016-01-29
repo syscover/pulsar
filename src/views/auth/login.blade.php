@@ -5,7 +5,7 @@
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/login.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            @if($errors->has('loginErrors') && $errors->first('loginErrors') == 1)
+            @if(isset($errors) && $errors->has('loginErrors') && $errors->first('loginErrors') == 1)
             new PNotify({
                 type:   'error',
                 title:  '{{ trans('pulsar::pulsar.message_error_login') }}',
@@ -15,7 +15,7 @@
             });
             @endif
 
-            @if($errors->has('loginErrors') && $errors->first('loginErrors') == 2)
+            @if(isset($errors) && $errors->has('loginErrors') && $errors->first('loginErrors') == 2)
             new PNotify({
                 type:   'error',
                 title:  '{{ trans('pulsar::pulsar.message_error_login') }}',
@@ -26,7 +26,7 @@
             @endif
 
             // user don
-            @if($errors->has('loginErrors') && $errors->first('loginErrors') == 3)
+            @if(isset($errors) && $errors->has('loginErrors') && $errors->first('loginErrors') == 3)
             new PNotify({
                 type:   'error',
                 title:  '{{ trans('pulsar::pulsar.message_error_login') }}',
@@ -55,7 +55,7 @@
     <div class="form-group">
         <div class="input-icon">
             <i class="fa fa-user"></i>
-            <input type="text" name="user_010" value="{{ Input::old('user_010') }}" class="form-control" placeholder="{{ trans_choice('pulsar::pulsar.user', 1) }}" autofocus="autofocus" data-rule-required="true" data-msg-required="{{ trans('pulsar::pulsar.message_user') }}">
+            <input type="text" name="user_010" value="{{ old('user_010') }}" class="form-control" placeholder="{{ trans_choice('pulsar::pulsar.user', 1) }}" autofocus="autofocus" data-rule-required="true" data-msg-required="{{ trans('pulsar::pulsar.message_user') }}">
         </div>
     </div>
     <div class="form-group">

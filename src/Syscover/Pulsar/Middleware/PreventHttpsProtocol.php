@@ -2,14 +2,12 @@
 
 use Closure;
 
-class PreventHttpsProtocol {
-
+class PreventHttpsProtocol
+{
     public function handle($request, Closure $next)
     {
-        if ($request->secure() && env('APP_ENV') === 'prod')
-        {
+        if ($request->secure() && config('app.env') === 'production')
             return redirect($request->getRequestUri(), 302, [], false);
-        }
 
         return $next($request);
     }
