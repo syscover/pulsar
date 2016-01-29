@@ -21,6 +21,7 @@ class Action extends Model
 
 	protected $table        = '001_008_action';
     protected $primaryKey   = 'id_008';
+    public $incrementing    = false;
     protected $suffix       = '008';
     public $timestamps      = false;
     protected $fillable     = ['id_008', 'name_008'];

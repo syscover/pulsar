@@ -21,6 +21,7 @@ class TerritorialArea1 extends Model
 
     protected $table        = '001_003_territorial_area_1';
     protected $primaryKey   = 'id_003';
+    public $incrementing    = false;
     protected $suffix       = '003';
     public $timestamps      = false;
     protected $fillable     = ['id_003','country_003','name_003'];

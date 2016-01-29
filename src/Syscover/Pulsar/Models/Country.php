@@ -21,6 +21,7 @@ class Country extends Model
 
     protected $table        = '001_002_country';
     protected $primaryKey   = 'id_002';
+    public $incrementing    = false;
     protected $suffix       = '002';
     public $timestamps      = false;
     protected $fillable     = ['id_002', 'lang_002', 'name_002', 'sorting_002', 'prefix_002', 'territorial_area_1_002', 'territorial_area_2_002', 'territorial_area_3_002', 'data_lang_002', 'data_002'];

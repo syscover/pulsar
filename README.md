@@ -40,6 +40,16 @@ Syscover\Pulsar\PulsarServiceProvider::class,
 
 ```
 
+also you must to add inside $middlewareGroups this array:
+
+```
+'pulsar' => [
+    \Syscover\Pulsar\Middleware\Authenticate::class,
+    \Syscover\Pulsar\Middleware\Locale::class,
+    \Syscover\Pulsar\Middleware\Permission::class,
+],
+```
+
 **5 - Register cron command on file app/Console/Kernel.php add to $commands array**
 
 ```
@@ -53,8 +63,8 @@ Syscover\Pulsar\PulsarServiceProvider::class,
 
 ```
 "post-update-cmd": [
-    "php artisan vendor:publish --force",
     "php artisan optimize",
+    "php artisan vendor:publish --force",
     "php artisan migrate",
     "php artisan migrate --path=database/migrations/updates"
 ],

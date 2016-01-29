@@ -20,6 +20,7 @@ class Preference extends Model
 
 	protected $table        = '001_018_preference';
     protected $primaryKey   = 'id_018';
+    public $incrementing    = false;
     protected $suffix       = '018';
     public $timestamps      = true;
     protected $fillable     = ['id_018', 'value_018', 'package_018'];
