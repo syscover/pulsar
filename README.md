@@ -40,9 +40,16 @@ Syscover\Pulsar\PulsarServiceProvider::class,
 
 ```
 
-also you must to add inside $middlewareGroups this array:
+also you must to add inside $middlewareGroups array this values:
 
 ```
+'noCsrWeb' => [
+    \App\Http\Middleware\EncryptCookies::class,
+    \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+    \Illuminate\Session\Middleware\StartSession::class,
+    \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+],
+
 'pulsar' => [
     \Syscover\Pulsar\Middleware\Authenticate::class,
     \Syscover\Pulsar\Middleware\Locale::class,
