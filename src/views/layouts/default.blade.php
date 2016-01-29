@@ -150,7 +150,7 @@
                         <li class="dropdown user">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-male"></i>
-                                <span class="username">{{ Auth::user()->user_010 }}</span>
+                                <span class="username">{{ Auth::guard('pulsar')->user()->user_010 }}</span>
                                 <i class="fa fa-caret-down small"></i>
                             </a>
                             <ul class="dropdown-menu">

@@ -165,12 +165,11 @@
     array|<abbr title="Illuminate\Database\Eloquent\Model">Model</abbr>[]
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_getRecordsLimit">getRecordsLimit</a>(
+                    <a href="#method_getIndexRecords">getIndexRecords</a>(
     array $parameters)
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Function to get data record to list objects</p>                </div>
                 <div class="col-md-2"><small>from&nbsp;
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getRecordsLimit"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a></small></div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getIndexRecords"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a></small></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
@@ -340,6 +339,17 @@
     
                 </div>
                 <div class="col-md-8 type">
+                    <a href="#method_getValues">getValues</a>($package)
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;
+    
+                </div>
+                <div class="col-md-8 type">
                     <a href="#method_setValue">setValue</a>($id, $package, $value)
                                             <p class="no-description">No description</p>
                                     </div>
@@ -423,15 +433,17 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_getRecordsLimit">
+                    <h3 id="method_getIndexRecords">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getRecordsLimit"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 64</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getIndexRecords"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 65</div>
         <code>        static            
     array|<abbr title="Illuminate\Database\Eloquent\Model">Model</abbr>[]
-    <strong>getRecordsLimit</strong>(
+    <strong>getIndexRecords</strong>(
     array $parameters)</code>
     </h3>
     <div class="details">
+                    <div class="method-description">
+                                    <p>Function to get data record to list objects</p>                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -466,7 +478,7 @@
                     <div class="method-item">
                     <h3 id="method_countRecords">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_countRecords"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 109</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_countRecords"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 117</div>
         <code>        static            
     int
     <strong>countRecords</strong>(
@@ -507,7 +519,7 @@
                     <div class="method-item">
                     <h3 id="method_getTranslationsRecords">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getTranslationsRecords"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 130</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getTranslationsRecords"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 139</div>
         <code>        static            
     array|<abbr title="Illuminate\Database\Query\Builder">Builder</abbr>[]
     <strong>getTranslationsRecords</strong>(
@@ -548,7 +560,7 @@
                     <div class="method-item">
                     <h3 id="method_getTranslationRecord">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getTranslationRecord"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 141</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getTranslationRecord"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 151</div>
         <code>        static            
     <abbr title="Illuminate\Database\Eloquent\Model">Model</abbr>
     <strong>getTranslationRecord</strong>(
@@ -588,7 +600,7 @@
                     <div class="method-item">
                     <h3 id="method_deleteTranslationRecord">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_deleteTranslationRecord"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 153</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_deleteTranslationRecord"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 163</div>
         <code>        static            
     void
     <strong>deleteTranslationRecord</strong>(
@@ -636,7 +648,7 @@
                     <div class="method-item">
                     <h3 id="method_deleteRecords">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_deleteRecords"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 170</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_deleteRecords"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 180</div>
         <code>        static            
     void
     <strong>deleteRecords</strong>(
@@ -677,7 +689,7 @@
                     <div class="method-item">
                     <h3 id="method_getRecordsById">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getRecordsById"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 181</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getRecordsById"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 191</div>
         <code>        static            
     array|<abbr title="Illuminate\Database\Query\Builder">Builder</abbr>[]
     <strong>getRecordsById</strong>(
@@ -718,7 +730,7 @@
                     <div class="method-item">
                     <h3 id="method_addLangDataRecord">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_addLangDataRecord"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 195</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_addLangDataRecord"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 205</div>
         <code>        static            
     string
     <strong>addLangDataRecord</strong>($lang, $id = null)</code>
@@ -763,7 +775,7 @@
                     <div class="method-item">
                     <h3 id="method_deleteLangDataRecord">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_deleteLangDataRecord"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 234</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_deleteLangDataRecord"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 244</div>
         <code>        static            
     void
     <strong>deleteLangDataRecord</strong>(
@@ -805,7 +817,7 @@
                     <div class="method-item">
                     <h3 id="method_checkSlug">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_checkSlug"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 270</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_checkSlug"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 280</div>
         <code>        static            
     string
     <strong>checkSlug</strong>(
@@ -863,7 +875,7 @@
                     <div class="method-item">
                     <h3 id="method_getSuffix">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getSuffix"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 303</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getSuffix"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 313</div>
         <code>        static            
     string
     <strong>getSuffix</strong>()</code>
@@ -982,8 +994,35 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_setValue">
+                    <h3 id="method_getValues">
         <div class="location">at line 57</div>
+        <code>        static            
+    
+    <strong>getValues</strong>($package)</code>
+    </h3>
+    <div class="details">
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$package</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setValue">
+        <div class="location">at line 64</div>
         <code>        static            
     
     <strong>setValue</strong>($id, $package, $value)</code>

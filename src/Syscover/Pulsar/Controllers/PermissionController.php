@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Syscover\Pulsar\Libraries\Miscellaneous;
-use Syscover\Pulsar\Libraries\PulsarAcl;
+use Syscover\Pulsar\Libraries\AclLibrary;
 use Syscover\Pulsar\Models\Permission;
 use Syscover\Pulsar\Models\Profile;
 use Syscover\Pulsar\Models\Action;
@@ -44,7 +44,7 @@ class PermissionController extends Controller
         $parameters = $request->route()->parameters();
 
         $actionsAcl     = Action::get();
-        $acl            = PulsarAcl::getProfileAcl($parameters['profile']);
+        $acl            = AclLibrary::getProfileAcl($parameters['profile']);
 
         $parameters         =  Miscellaneous::paginateDataTable($parameters);
         $parameters         =  Miscellaneous::dataTableSorting($parameters, $this->aColumns);
@@ -85,7 +85,7 @@ class PermissionController extends Controller
             $actions = '<div><select id="re' . $aObject[$instance->getKeyName()] . '" data-resource="' . $aObject[$instance->getKeyName()] . '" data-nresource="' . $aObject['name_007'] . '" multiple style="width: 100%;">';
             foreach ($actionsAcl as $actionAcl)
             {
-                $selected = $acl->isAllowed($parameters['profile'], $aObject['id_007'], $actionAcl->id_008)? ' selected' : null;
+                $selected = $acl->allows($aObject['id_007'], $actionAcl->id_008, $parameters['profile'])? ' selected' : null;
                 $actions .= '<option value="' . $actionAcl->id_008 . '"' . $selected . '>' . $actionAcl->name_008 . '</option>';
             }
             $actions .= '</select></div>';

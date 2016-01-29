@@ -21,6 +21,7 @@ class Lang extends Model
 
     protected $table        = '001_001_lang';
     protected $primaryKey   = 'id_001';
+    public $incrementing    = false;
     protected $suffix       = '001';
     public $timestamps      = false;
     protected $fillable     = ['id_001', 'name_001', 'image_001', 'sorting_001', 'base_001', 'active_001'];

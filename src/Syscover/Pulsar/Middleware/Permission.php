@@ -30,7 +30,7 @@ class Permission {
 	public function handle($request, Closure $next)
 	{
 		// check permission user, all parameters ['resource', 'action'] are passed in route.php file
-		if(!$this->pulsarAcl->isAllowed($this->auth->user()->profile_010, $request->route()->getAction()['resource'], $request->route()->getAction()['action']))
+		if(!$this->pulsarAcl->allows($request->route()->getAction()['resource'], $request->route()->getAction()['action']))
 		{
             return view('pulsar::errors.default', [
                 'error'     => 403,

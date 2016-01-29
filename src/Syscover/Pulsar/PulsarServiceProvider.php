@@ -28,23 +28,22 @@ class PulsarServiceProvider extends ServiceProvider
 
 		// register config files
 		$this->publishes([
-            realpath(__DIR__ . '/../../config/pulsar.php') => config_path('pulsar.php'),
-            realpath(__DIR__ . '/../../config/auth.php') => config_path('auth.php'),
-            realpath(__DIR__ . '/../../config/cron.php') => config_path('cron.php'),
-			realpath(__DIR__ . '/../../config/api.php') => config_path('api.php')
+            realpath(__DIR__ . '/../../config/pulsar.php') 	=> config_path('pulsar.php'),
+            realpath(__DIR__ . '/../../config/auth.php') 	=> config_path('auth.php'),
+            realpath(__DIR__ . '/../../config/cron.php') 	=> config_path('cron.php'),
+			realpath(__DIR__ . '/../../config/api.php') 	=> config_path('api.php')
         ]);
 
-
         // register custom validator
-        $this->app['validator']->resolver(function($translator, $data, $rules, $messages)
-        {
-            return new CustomValidator($translator, $data, $rules, $messages);
-        });
+//        $this->app['validator']->resolver(function($translator, $data, $rules, $messages)
+//        {
+//            return new CustomValidator($translator, $data, $rules, $messages);
+//        });
 
         // register migrations
         $this->publishes([
-            __DIR__.'/../../database/migrations/' => base_path('/database/migrations'),
-			__DIR__.'/../../database/migrations/updates/' => base_path('/database/migrations/updates'),
+            __DIR__.'/../../database/migrations/' 			=> base_path('/database/migrations'),
+			__DIR__.'/../../database/migrations/updates/' 	=> base_path('/database/migrations/updates'),
         ], 'migrations');
 
         // register migrations

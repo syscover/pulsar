@@ -1,6 +1,6 @@
 {
     "name": "syscover/pulsar",
-    "version": "2.0.0",
+    "version": "5.2",
     "description": "Pulsar package",
     "keywords": ["syscover","pulsar","laravel","syscover","intranet"],
     "license": "MIT",
@@ -11,13 +11,13 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "zendframework/zend-permissions-acl": "2.3.*",
-        "mtdowling/cron-expression": "^1.0",
+        "php": ">=5.5.9",
+        "zendframework/zend-permissions-acl": "2.5.*",
+        "mtdowling/cron-expression": "^1.1",
         "tecnickcom/tcpdf": "^6.2",
         "phpoffice/phpexcel": "1.8.1",
-        "leafo/scssphp": "0.3.3",
-        "sofa/eloquence": "~5.1@dev"
+        "leafo/scssphp": "0.6.3",
+        "sofa/eloquence": "5.2.*"
     },
     "autoload": {
         "psr-4": {

@@ -77,8 +77,7 @@
     </div>
 
     <p>    class
-    <strong>User</strong>        extends <a href="../../../Syscover/Pulsar/Models/Model.html"><abbr title="Syscover\Pulsar\Models\Model">Model</abbr></a>        implements
-        <abbr title="Illuminate\Contracts\Auth\Authenticatable">Authenticatable</abbr>, <abbr title="Illuminate\Contracts\Auth\CanResetPassword">CanResetPassword</abbr>        (<a href="https://github.com/syscover/cms/blob/master/Syscover/Pulsar/Models/User.php">View source</a>)
+    <strong>User</strong>        extends <abbr title="Illuminate\Foundation\Auth\User">User</abbr>        (<a href="https://github.com/syscover/cms/blob/master/Syscover/Pulsar/Models/User.php">View source</a>)
 </p>
 
             <div class="description">
@@ -109,15 +108,6 @@
                     <div class="row">
                 <div class="col-md-6">
                                             <abbr title="Sofa\Eloquence\Mappable">Sofa\Eloquence\Mappable</abbr>
-                                    </div>
-                <div class="col-md-6">
-                    
-
-                </div>
-            </div>
-                    <div class="row">
-                <div class="col-md-6">
-                                            <abbr title="Illuminate\Auth\Passwords\CanResetPassword">Illuminate\Auth\Passwords\CanResetPassword</abbr>
                                     </div>
                 <div class="col-md-6">
                     
@@ -442,7 +432,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_scopeBuilder">
-        <div class="location">at line 54</div>
+        <div class="location">at line 52</div>
         <code>                    
     
     <strong>scopeBuilder</strong>($query)</code>
@@ -513,7 +503,7 @@
                     <div class="method-item">
                     <h3 id="method_countRecords">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_countRecords"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 118</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_countRecords"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 117</div>
         <code>        static            
     int
     <strong>countRecords</strong>(
@@ -554,7 +544,7 @@
                     <div class="method-item">
                     <h3 id="method_getTranslationsRecords">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getTranslationsRecords"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 140</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getTranslationsRecords"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 139</div>
         <code>        static            
     array|<abbr title="Illuminate\Database\Query\Builder">Builder</abbr>[]
     <strong>getTranslationsRecords</strong>(
@@ -595,7 +585,7 @@
                     <div class="method-item">
                     <h3 id="method_getTranslationRecord">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getTranslationRecord"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 152</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getTranslationRecord"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 151</div>
         <code>        static            
     <abbr title="Illuminate\Database\Eloquent\Model">Model</abbr>
     <strong>getTranslationRecord</strong>(
@@ -635,7 +625,7 @@
                     <div class="method-item">
                     <h3 id="method_deleteTranslationRecord">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_deleteTranslationRecord"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 164</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_deleteTranslationRecord"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 163</div>
         <code>        static            
     void
     <strong>deleteTranslationRecord</strong>(
@@ -683,7 +673,7 @@
                     <div class="method-item">
                     <h3 id="method_deleteRecords">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_deleteRecords"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 181</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_deleteRecords"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 180</div>
         <code>        static            
     void
     <strong>deleteRecords</strong>(
@@ -724,7 +714,7 @@
                     <div class="method-item">
                     <h3 id="method_getRecordsById">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getRecordsById"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 192</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getRecordsById"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 191</div>
         <code>        static            
     array|<abbr title="Illuminate\Database\Query\Builder">Builder</abbr>[]
     <strong>getRecordsById</strong>(
@@ -765,7 +755,7 @@
                     <div class="method-item">
                     <h3 id="method_addLangDataRecord">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_addLangDataRecord"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 206</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_addLangDataRecord"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 205</div>
         <code>        static            
     string
     <strong>addLangDataRecord</strong>($lang, $id = null)</code>
@@ -810,7 +800,7 @@
                     <div class="method-item">
                     <h3 id="method_deleteLangDataRecord">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_deleteLangDataRecord"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 245</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_deleteLangDataRecord"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 244</div>
         <code>        static            
     void
     <strong>deleteLangDataRecord</strong>(
@@ -852,7 +842,7 @@
                     <div class="method-item">
                     <h3 id="method_checkSlug">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_checkSlug"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 281</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_checkSlug"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 280</div>
         <code>        static            
     string
     <strong>checkSlug</strong>(
@@ -910,7 +900,7 @@
                     <div class="method-item">
                     <h3 id="method_getSuffix">
         <div class="location">in 
-    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getSuffix"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 314</div>
+    <a href="../../../Syscover/Pulsar/Traits/TraitModel.html#method_getSuffix"><abbr title="Syscover\Pulsar\Traits\TraitModel">TraitModel</abbr></a> at line 313</div>
         <code>        static            
     string
     <strong>getSuffix</strong>()</code>
@@ -937,7 +927,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_validate">
-        <div class="location">at line 45</div>
+        <div class="location">at line 43</div>
         <code>        static            
     
     <strong>validate</strong>($data, $specialRules = array())</code>
@@ -970,7 +960,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getProfile">
-        <div class="location">at line 64</div>
+        <div class="location">at line 62</div>
         <code>                    
     <a href="../../../Syscover/Pulsar/Models/Profile.html"><abbr title="Syscover\Pulsar\Models\Profile">Profile</abbr></a>
     <strong>getProfile</strong>()</code>
@@ -999,7 +989,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getAuthIdentifier">
-        <div class="location">at line 80</div>
+        <div class="location">at line 78</div>
         <code>                    
     mixed
     <strong>getAuthIdentifier</strong>()</code>
@@ -1028,7 +1018,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getAuthPassword">
-        <div class="location">at line 90</div>
+        <div class="location">at line 88</div>
         <code>                    
     string
     <strong>getAuthPassword</strong>()</code>
@@ -1057,7 +1047,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getRememberToken">
-        <div class="location">at line 100</div>
+        <div class="location">at line 98</div>
         <code>                    
     string
     <strong>getRememberToken</strong>()</code>
@@ -1086,7 +1076,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_setRememberToken">
-        <div class="location">at line 111</div>
+        <div class="location">at line 109</div>
         <code>                    
     void
     <strong>setRememberToken</strong>(
@@ -1128,7 +1118,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getRememberTokenName">
-        <div class="location">at line 121</div>
+        <div class="location">at line 119</div>
         <code>                    
     string
     <strong>getRememberTokenName</strong>()</code>
@@ -1157,7 +1147,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getEmailForPasswordReset">
-        <div class="location">at line 131</div>
+        <div class="location">at line 129</div>
         <code>                    
     string
     <strong>getEmailForPasswordReset</strong>()</code>
@@ -1186,7 +1176,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getAuthIdentifierName">
-        <div class="location">at line 141</div>
+        <div class="location">at line 139</div>
         <code>                    
     string
     <strong>getAuthIdentifierName</strong>()</code>
