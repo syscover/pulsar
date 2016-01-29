@@ -9,7 +9,8 @@ use Syscover\Pulsar\Libraries\AclLibrary;
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Models\Lang;
 
-class AuthController extends Controller {
+class AuthController extends Controller
+{
 
 	/*
 	|--------------------------------------------------------------------------
@@ -37,10 +38,6 @@ class AuthController extends Controller {
      * @var string
      */
     protected $guard;
-
-
-    //protected  $loginPath;
-    //protected  $redirectPath;
 
 	/**
 	 * Create a new authentication controller instance.
