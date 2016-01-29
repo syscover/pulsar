@@ -34,12 +34,6 @@ class PulsarServiceProvider extends ServiceProvider
 			realpath(__DIR__ . '/../../config/api.php') 	=> config_path('api.php')
         ]);
 
-        // register custom validator
-//        $this->app['validator']->resolver(function($translator, $data, $rules, $messages)
-//        {
-//            return new CustomValidator($translator, $data, $rules, $messages);
-//        });
-
         // register migrations
         $this->publishes([
             __DIR__.'/../../database/migrations/' 			=> base_path('/database/migrations'),

@@ -1,10 +1,9 @@
 <?php namespace Syscover\Pulsar\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
-class Authenticate {
-
+class Authenticate
+{
 	/**
 	 * Handle an incoming request.
 	 *
@@ -15,19 +14,14 @@ class Authenticate {
 	 */
 	public function handle($request, Closure $next, $guard = 'pulsar')
 	{
-		if (Auth::guard($guard)->guest())
+		if (auth($guard)->guest())
 		{
 			if ($request->ajax())
-			{
 				return response('Unauthorized.', 401);
-			}
 			else
-			{
 				return redirect()->guest(route('getLogin'));
-			}
 		}
 
 		return $next($request);
 	}
-
 }
