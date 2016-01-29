@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Pulsar\Support\Facades\Config;
@@ -75,12 +74,12 @@ class AuthController extends Controller {
 
         $credentials = $request->only('user_010', 'password');
 
-        if(Auth::guard('pulsar')->attempt($credentials, $request->has('remember')))
+        if(auth('pulsar')->attempt($credentials, $request->has('remember')))
         {
             // check if user has access
-            if(!Auth::guard('pulsar')->user()->access_010)
+            if(!auth('pulsar')->user()->access_010)
             {
-                Auth::logout();
+                auth('pulsar')->logout();
                 return redirect($this->loginPath())
                     ->withInput($request->only('user_010', 'remember'))
                     ->withErrors([
@@ -89,12 +88,12 @@ class AuthController extends Controller {
             }
 
             // set user access control list
-            session(['userAcl' => AclLibrary::getProfileAcl(Auth::guard('pulsar')->user()->profile_010)]);
+            session(['userAcl' => AclLibrary::getProfileAcl(auth('pulsar')->user()->profile_010)]);
 
             // check if user has permission to access
             if (!session('userAcl')->allows('pulsar', 'access'))
             {
-                Auth::logout();
+                auth('pulsar')->logout();
                 return redirect($this->loginPath())
                     ->withInput($request->only('user_010', 'remember'))
                     ->withErrors([
@@ -122,7 +121,7 @@ class AuthController extends Controller {
      */
     public function getLogout()
     {
-        Auth::logout();
+        auth('pulsar')->logout();
         session()->flush();
         return redirect(config('pulsar.appName'));
     }
