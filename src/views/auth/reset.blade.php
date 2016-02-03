@@ -7,7 +7,7 @@
 
 @section('mainContent')
 <form class="form-vertical login-form" action="{{ route('postResetPassword') }}" method="post">
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    {{ csrf_field() }}
     <input type="hidden" name="token" value="{{ $token }}">
 
     <h3 class="form-title">{{ trans('pulsar::pulsar.reset_password') }}</h3>

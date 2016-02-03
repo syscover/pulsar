@@ -23,6 +23,20 @@ class PasswordController extends Controller
     use ResetsPasswords;
 
     /**
+     * The authentication guard that should be used.
+     *
+     * @var string
+     */
+    protected $guard = 'pulsar';
+
+    /**
+     * The password broker that should be used.
+     *
+     * @var string
+     */
+    protected $broker = 'pulsarPasswordBroker';
+
+    /**
      * Create a new password controller instance.
      *
      * @return void
@@ -40,11 +54,13 @@ class PasswordController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postEmail(Request $request)
+    public function sendResetLinkEmail(Request $request)
     {
         $this->validate($request, ['email_010' => 'required|email']);
 
-        $response = Password::sendResetLink($request->only('email_010'), function (Message $message) {
+        $broker = $this->getBroker();
+
+        $response = Password::broker($broker)->sendResetLink($request->only('email_010'), function (Message $message) {
             $message->subject($this->getEmailSubject());
         });
 
@@ -55,6 +71,7 @@ class PasswordController extends Controller
                 ]);
 
             case Password::INVALID_USER:
+            default:
                 return response()->json([
                     'success' => false,
                     'message' => 'Invalid user'

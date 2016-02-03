@@ -84,8 +84,8 @@
         <a href="#" class="forgot-password-link">{{ trans('pulsar::pulsar.remember_password') }}</a>
 
         <!-- Forgot Password Formular -->
-        <form id="forgot-password" class="form-vertical forgot-password-form hide-default" action="{{ route('emailResetPassword') }}" method="post" onsubmit="return false">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <form id="forgot-password" class="form-vertical forgot-password-form hide-default" action="{{ route('sendResetLinkEmail') }}" method="post" onsubmit="return false">
+            {{ csrf_field() }}
 
             <div class="form-group">
                 <div class="input-icon">
@@ -94,9 +94,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="submit btn btn-default btn-block">
-                {{ trans('pulsar::pulsar.reset_password') }}
-            </button>
+            <button type="submit" class="submit btn btn-default btn-block">{{ trans('pulsar::pulsar.reset_password') }}</button>
         </form>
         <!-- /Forgot Password Formular -->
 

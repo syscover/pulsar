@@ -38,9 +38,9 @@ Route::group(['middleware' => ['web']], function() {
     | PASSWORD REMINDER
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/email/reset/password',       ['as' => 'emailResetPassword',      'uses' => 'Syscover\Pulsar\Controllers\Auth\PasswordController@postEmail']);
-    Route::get(config('pulsar.appName') . '/pulsar/password/reset/{token}',     ['as' => 'getResetPassword',        'uses' => 'Syscover\Pulsar\Controllers\Auth\PasswordController@getReset']);
-    Route::post(config('pulsar.appName') . '/pulsar/password/reset/{token}',    ['as' => 'postResetPassword',       'uses' => 'Syscover\Pulsar\Controllers\Auth\PasswordController@postReset']);
+    Route::any(config('pulsar.appName') . '/pulsar/email/send/reset/link/email',    ['as' => 'sendResetLinkEmail',      'uses' => 'Syscover\Pulsar\Controllers\Auth\PasswordController@sendResetLinkEmail']);
+    Route::get(config('pulsar.appName') . '/pulsar/password/reset/{token}',         ['as' => 'getResetPassword',        'uses' => 'Syscover\Pulsar\Controllers\Auth\PasswordController@getReset']);
+    Route::post(config('pulsar.appName') . '/pulsar/password/reset/{token}',        ['as' => 'postResetPassword',       'uses' => 'Syscover\Pulsar\Controllers\Auth\PasswordController@postReset']);
 });
 
 Route::group(['middleware' => ['web','pulsar']], function() {

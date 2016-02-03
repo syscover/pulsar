@@ -185,9 +185,9 @@ var Login = function() {
                         type: "post",
                         url: $(form).attr('action'),
                         dataType: 'json',
+						headers: { 'X-CSRF-TOKEN': $('input[name=_token]').val() },
                         data: {
-                            'email_010': $('input[name=email_010]').val(),
-                            _token: $('input[name=_token]').val()
+                            'email_010': $('input[name=email_010]').val()
                         },
                         success: function(data)
                         {

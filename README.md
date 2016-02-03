@@ -1,4 +1,4 @@
-# Pulsar App to Laravel 5.1
+# Pulsar App to Laravel 5.2
 
 Pulsar is an application that generates a control panel where you start creating custom solutions, provides the resources necessary for any web application.
 
@@ -64,9 +64,21 @@ also you must to add inside $middlewareGroups array this values:
 
 ```
 
-**6 - Config file config/database.php with your database parameters connections**
+**6 - Change on file config/mail.php this line**
 
-**7 - setup your composer.json, to updates and installation pulsar package, replace post-update-cmd for this code**
+```
+'from' => ['address' => null, 'name' => null],
+```
+
+for that
+
+```
+'from' => ['address' => env('MAIL_ADDRESS'), 'name' => env('MAIL_NAME')],
+```
+
+**7 - Config file config/database.php with your database parameters connections**
+
+**8 - setup your composer.json, to updates and installation pulsar package, replace post-update-cmd for this code**
 
 ```
 "post-update-cmd": [
@@ -78,18 +90,18 @@ also you must to add inside $middlewareGroups array this values:
 
 ```
 
-**8 - execute on console:**
+**9 - execute on console:**
 ```
 composer update
 ```
 
-**9 - Run seed database**
+**10 - Run seed database**
 
 ```
 php artisan db:seed --class="PulsarTableSeeder"
 ```
 
-**10 - When the installation is complete you can access these data**
+**11 - When the installation is complete you can access these data**
 ```
 url: http://www.your-domain.com/pulsar
 user: admin@pulsar.local
