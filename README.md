@@ -76,9 +76,37 @@ for that
 'from' => ['address' => env('MAIL_ADDRESS'), 'name' => env('MAIL_NAME')],
 ```
 
-**7 - Config file config/database.php with your database parameters connections**
+**7 - include this arrays in config/auth.php**
 
-**8 - setup your composer.json, to updates and installation pulsar package, replace post-update-cmd for this code**
+Inside guards array
+```
+'pulsar' => [
+    'driver'    => 'session',
+    'provider'  => 'pulsarUser',
+],
+```
+
+Inside providers array
+```
+'pulsarUser' => [
+    'driver'    => 'eloquent',
+    'model'     => Syscover\Pulsar\Models\User::class,
+],
+```
+
+Inside passwords array
+```
+'pulsarPasswordBroker' => [
+    'provider'  => 'pulsarUser',
+    'email'     => 'pulsar::emails.password',
+    'table'     => '001_021_password_resets',
+    'expire'    => 60,
+],
+```
+
+**8 - Config file config/database.php with your database parameters connections**
+
+**9 - setup your composer.json, to updates and installation pulsar package, replace post-update-cmd for this code**
 
 ```
 "post-update-cmd": [
@@ -90,18 +118,18 @@ for that
 
 ```
 
-**9 - execute on console:**
+**10 - execute on console:**
 ```
 composer update
 ```
 
-**10 - Run seed database**
+**11 - Run seed database**
 
 ```
 php artisan db:seed --class="PulsarTableSeeder"
 ```
 
-**11 - When the installation is complete you can access these data**
+**12 - When the installation is complete you can access these data**
 ```
 url: http://www.your-domain.com/pulsar
 user: admin@pulsar.local

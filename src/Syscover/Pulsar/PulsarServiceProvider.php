@@ -29,7 +29,6 @@ class PulsarServiceProvider extends ServiceProvider
 		// register config files
 		$this->publishes([
             realpath(__DIR__ . '/../../config/pulsar.php') 	=> config_path('pulsar.php'),
-            realpath(__DIR__ . '/../../config/auth.php') 	=> config_path('auth.php'),
             realpath(__DIR__ . '/../../config/cron.php') 	=> config_path('cron.php'),
 			realpath(__DIR__ . '/../../config/api.php') 	=> config_path('api.php')
         ]);
