@@ -6,34 +6,44 @@
     <script type="text/javascript">
         $(document).ready(function() {
             @if(isset($errors) && $errors->has('loginErrors') && $errors->first('loginErrors') == 1)
-            new PNotify({
-                type:   'error',
-                title:  '{{ trans('pulsar::pulsar.message_error_login') }}',
-                text:   '{{ trans('pulsar::pulsar.message_error_login_msg_1') }}',
-                opacity: .9,
-                styling: 'fontawesome'
-            });
+                new PNotify({
+                    type:   'error',
+                    title:  '{{ trans('pulsar::pulsar.message_error_login') }}',
+                    text:   '{{ trans('pulsar::pulsar.message_error_login_msg_1') }}',
+                    opacity: .9,
+                    styling: 'fontawesome'
+                });
             @endif
 
             @if(isset($errors) && $errors->has('loginErrors') && $errors->first('loginErrors') == 2)
-            new PNotify({
-                type:   'error',
-                title:  '{{ trans('pulsar::pulsar.message_error_login') }}',
-                text:   '{{ trans('pulsar::pulsar.message_error_login_msg_2') }}',
-                opacity: .9,
-                styling: 'fontawesome'
-            });
+                new PNotify({
+                    type:   'error',
+                    title:  '{{ trans('pulsar::pulsar.message_error_login') }}',
+                    text:   '{{ trans('pulsar::pulsar.message_error_login_msg_2') }}',
+                    opacity: .9,
+                    styling: 'fontawesome'
+                });
             @endif
 
-            // user don
             @if(isset($errors) && $errors->has('loginErrors') && $errors->first('loginErrors') == 3)
-            new PNotify({
-                type:   'error',
-                title:  '{{ trans('pulsar::pulsar.message_error_login') }}',
-                text:   '{{ trans('pulsar::pulsar.message_error_login_msg_3') }}',
-                opacity: .9,
-                styling: 'fontawesome'
-            });
+                new PNotify({
+                    type:   'error',
+                    title:  '{{ trans('pulsar::pulsar.message_error_login') }}',
+                    text:   '{{ trans('pulsar::pulsar.message_error_login_msg_3') }}',
+                    opacity: .9,
+                    styling: 'fontawesome'
+                });
+            @endif
+
+            // passwors has reset
+            @if(session('status') !== null)
+                new PNotify({
+                    type:   'success',
+                    title:  '{{ trans('pulsar::pulsar.reset_password') }}',
+                    text:   '{{ session('status') }}',
+                    opacity: .9,
+                    styling: 'fontawesome'
+                });
             @endif
         });
     </script>

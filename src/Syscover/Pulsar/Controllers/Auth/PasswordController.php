@@ -1,11 +1,12 @@
 <?php namespace Syscover\Pulsar\Controllers\Auth;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\Session;
 
 class PasswordController extends Controller
 {
@@ -37,6 +38,20 @@ class PasswordController extends Controller
     protected $broker = 'pulsarPasswordBroker';
 
     /**
+     * The view to reset email.
+     *
+     * @var string
+     */
+    protected $resetView = 'pulsar::auth.reset';
+
+    /**
+     * Subject of reset email.
+     *
+     * @var string
+     */
+    protected $subject;
+
+    /**
      * Create a new password controller instance.
      *
      * @return void
@@ -44,7 +59,7 @@ class PasswordController extends Controller
     public function __construct()
     {
         $this->subject      = trans('pulsar::pulsar.subject_password_reset');
-        $this->redirectPath = route('dashboard');
+        $this->redirectPath = route('getLogin');
     }
 
 
@@ -54,7 +69,7 @@ class PasswordController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function sendResetLinkEmail(Request $request)
+    public function postEmail(Request $request)
     {
         $this->validate($request, ['email_010' => 'required|email']);
 
@@ -79,21 +94,32 @@ class PasswordController extends Controller
         }
     }
 
+
     /**
      * Display the password reset view for the given token.
      *
-     * @param  string  $token
+     * If no token is present, display the link request form.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string|null  $token
      * @return \Illuminate\Http\Response
      */
-    public function getReset($token = null)
+    public function getReset(Request $request, $token = null)
     {
         if (is_null($token))
-        {
-            throw new NotFoundHttpException;
-        }
+            return $this->getEmail();
 
-        return view('pulsar::auth.reset')->with('token', $token);
+        $email = $request->input('email');
+
+        if (property_exists($this, 'resetView'))
+            return view($this->resetView)->with(compact('token', 'email_010'));
+
+        if (view()->exists('auth.passwords.reset'))
+            return view('auth.passwords.reset')->with(compact('token', 'email'));
+
+        return view('auth.reset')->with(compact('token', 'email'));
     }
+
 
     /**
      * Reset the given user's password.
@@ -106,27 +132,55 @@ class PasswordController extends Controller
         $this->validate($request, [
             'token'         => 'required',
             'email_010'     => 'required|email',
-            'password'      => 'required|confirmed|',
+            'password'      => 'required|confirmed|min:6',
         ]);
 
         $credentials = $request->only(
             'email_010', 'password', 'password_confirmation', 'token'
         );
 
-        $response = Password::reset($credentials, function ($user, $password) {
+        $broker = $this->getBroker();
+
+        $response = Password::broker($broker)->reset($credentials, function ($user, $password) {
             $this->resetPassword($user, $password);
         });
 
         switch ($response) {
             case Password::PASSWORD_RESET:
-                return redirect($this->redirectPath())->with('status', trans($response));
+                return $this->getResetSuccessResponse('pulsar::passwords.reset');
 
             default:
-                return redirect()->back()
-                    ->withInput($request->only('email_010'))
-                    ->withErrors(['email_010' => trans($response)]);
+                return $this->getResetFailureResponse($request, $response);
         }
     }
+
+    /**
+     * Get the response for after a successful password reset.
+     *
+     * @param  string  $response
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function getResetSuccessResponse($response)
+    {
+        Session::flash('status', trans($response));
+
+        return redirect($this->redirectPath());
+    }
+
+    /**
+     * Get the response for after a failing password reset.
+     *
+     * @param  Request  $request
+     * @param  string  $response
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function getResetFailureResponse(Request $request, $response)
+    {
+        return redirect()->back()
+            ->withInput($request->only('email_010'))
+            ->withErrors(['email_010' => trans($response)]);
+    }
+
 
     /**
      * Reset the given user's password.
@@ -140,5 +194,8 @@ class PasswordController extends Controller
         $user->password_010 = bcrypt($password);
 
         $user->save();
+
+        // if redirect to user zone, we set new user on Auth
+        //Auth::guard($this->getGuard())->login($user);
     }
 }

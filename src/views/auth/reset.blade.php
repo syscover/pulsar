@@ -6,7 +6,7 @@
 @stop
 
 @section('mainContent')
-<form class="form-vertical login-form" action="{{ route('postResetPassword') }}" method="post">
+<form class="form-vertical login-form" action="{{ route('postResetPassword', ['token' => $token]) }}" method="post">
     {{ csrf_field() }}
     <input type="hidden" name="token" value="{{ $token }}">
 
@@ -23,6 +23,7 @@
             <i class="icon-envelope"></i>
             <input type="email" name="email_010" class="form-control required" placeholder="{{ trans('pulsar::pulsar.email') }}" autofocus="autofocus">
             {!! $errors->first('email_010', config('pulsar.errorDelimiters')) !!}
+            {!! $errors->first('token', config('pulsar.errorDelimiters')) !!}
         </div>
     </div>
     <div class="form-group">

@@ -1,7 +1,7 @@
 <?php namespace Syscover\Pulsar\Controllers\Auth;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Pulsar\Support\Facades\Config;
@@ -33,19 +33,38 @@ class AuthController extends Controller
     protected $redirectTo;
 
     /**
+     * Login route
+     *
+     * @var string
+     */
+    protected $loginPath;
+
+    /**
      * Here you can customize your guard, this guar has to set in auth.php config
      *
      * @var string
      */
     protected $guard;
 
+
 	/**
 	 * Create a new authentication controller instance.
 	 */
 	public function __construct()
 	{
-        $this->redirectTo       = route('dashboard');
+        $this->redirectTo   = route('dashboard');
+        $this->loginPath    = route('getLogin');
 	}
+
+    /**
+     * Show the application login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function loginPath()
+    {
+        return $this->loginPath;
+    }
 
     /**
      * Show the application login form.
