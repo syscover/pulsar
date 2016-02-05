@@ -61,16 +61,6 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function loginPath()
-    {
-        return $this->loginPath;
-    }
-
-    /**
-     * Show the application login form.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function getLogin()
     {
         return view('pulsar::auth.login');
@@ -96,7 +86,7 @@ class AuthController extends Controller
             if(!auth('pulsar')->user()->access_010)
             {
                 auth('pulsar')->logout();
-                return redirect($this->loginPath())
+                return redirect($this->loginPath)
                     ->withInput($request->only('user_010', 'remember'))
                     ->withErrors([
                         'loginErrors' => 3
@@ -110,7 +100,7 @@ class AuthController extends Controller
             if (!session('userAcl')->allows('pulsar', 'access'))
             {
                 auth('pulsar')->logout();
-                return redirect($this->loginPath())
+                return redirect($this->loginPath)
                     ->withInput($request->only('user_010', 'remember'))
                     ->withErrors([
                         'loginErrors' => 2
@@ -123,7 +113,7 @@ class AuthController extends Controller
             return redirect()->intended($this->redirectPath());
         }
 
-        return redirect($this->loginPath())
+        return redirect($this->loginPath)
             ->withInput($request->only('user_010', 'remember'))
             ->withErrors([
                 'loginErrors' => 1
