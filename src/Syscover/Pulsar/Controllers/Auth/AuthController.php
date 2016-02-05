@@ -33,7 +33,7 @@ class AuthController extends Controller
     protected $redirectTo;
 
     /**
-     * Route when login is successful
+     * Route to get login form
      *
      * @var string
      */
@@ -57,7 +57,7 @@ class AuthController extends Controller
 	}
 
     /**
-     * Show the application login form.
+     * Return view with login form.
      *
      * @return \Illuminate\Http\Response
      */
