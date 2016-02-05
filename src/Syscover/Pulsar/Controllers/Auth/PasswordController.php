@@ -109,10 +109,10 @@ class PasswordController extends Controller
         if (is_null($token))
             return $this->getEmail();
 
-        $email = $request->input('email');
+        $email = $request->input('email_010');
 
         if (property_exists($this, 'resetView'))
-            return view($this->resetView)->with(compact('token', 'email_010'));
+            return view($this->resetView)->with(compact('token', 'email'));
 
         if (view()->exists('auth.passwords.reset'))
             return view('auth.passwords.reset')->with(compact('token', 'email'));

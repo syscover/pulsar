@@ -43,7 +43,7 @@ Route::group(['middleware' => ['web']], function() {
     Route::post(config('pulsar.appName') . '/pulsar/password/reset/{token}',        ['as' => 'postResetPassword',       'uses' => 'Syscover\Pulsar\Controllers\Auth\PasswordController@postReset']);
 });
 
-Route::group(['middleware' => ['web','pulsar']], function() {
+Route::group(['middleware' => ['web', 'pulsar']], function() {
 
     /*
     |--------------------------------------------------------------------------
