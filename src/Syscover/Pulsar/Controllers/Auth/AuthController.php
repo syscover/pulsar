@@ -33,7 +33,7 @@ class AuthController extends Controller
     protected $redirectTo;
 
     /**
-     * Login route
+     * Route when login is successful
      *
      * @var string
      */
