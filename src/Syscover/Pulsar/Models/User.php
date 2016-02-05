@@ -7,7 +7,7 @@ use Sofa\Eloquence\Eloquence;
 use Sofa\Eloquence\Mappable;
 
 /**
- * Class Profile
+ * Class User
  *
  * Model with properties
  * <br><b>[id, lang, profile, access, user, password, email, name, surname]</b>
