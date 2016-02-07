@@ -335,9 +335,9 @@ Route::group(['middleware' => ['web', 'pulsar']], function() {
     | FROALA
     |--------------------------------------------------------------------------
     */
-    Route::post(config('pulsar.appName') . '/pulsar/froala/upload/image',                                       ['as'=>'froalaUploadImage',             'uses'=>'Syscover\Pulsar\Controllers\FroalaController@uploadImage',     'resource' => 'admin-field-value',        'action' => 'create']);
-    Route::get(config('pulsar.appName') . '/pulsar/froala/load/images/{package}',                               ['as'=>'froalaLoadImages',              'uses'=>'Syscover\Pulsar\Controllers\FroalaController@loadImages',      'resource' => 'admin-field-value',        'action' => 'access']);
-    Route::post(config('pulsar.appName') . '/pulsar/froala/delete/image',                                       ['as'=>'froalaDeleteImage',             'uses'=>'Syscover\Pulsar\Controllers\FroalaController@deleteImage',     'resource' => 'admin-field-value',        'action' => 'delete']);
+    Route::post(config('pulsar.appName') . '/pulsar/froala/upload/image',                                       ['as'=>'froalaUploadImage',             'uses'=>'Syscover\Pulsar\Controllers\FroalaController@uploadImage']);
+    Route::get(config('pulsar.appName') . '/pulsar/froala/load/images/{package}',                               ['as'=>'froalaLoadImages',              'uses'=>'Syscover\Pulsar\Controllers\FroalaController@loadImages']);
+    Route::post(config('pulsar.appName') . '/pulsar/froala/delete/image',                                       ['as'=>'froalaDeleteImage',             'uses'=>'Syscover\Pulsar\Controllers\FroalaController@deleteImage']);
 
 
 
