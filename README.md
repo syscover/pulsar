@@ -104,7 +104,14 @@ Inside passwords array
 ],
 ```
 
-**8 - Config file config/database.php with your database parameters connections**
+**8 - Config .env file with your database parameters connections and this example parameters**
+```
+APP_URL=http://mydomain.local
+APP_LOG=daily
+
+MAIL_ADDRESS=info@mydomain.local
+MAIL_NAME="MY DOMAIN"
+```
 
 **9 - setup your composer.json, to updates and installation pulsar package, replace post-update-cmd for this code**
 
