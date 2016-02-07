@@ -319,7 +319,7 @@ class Miscellaneous
     {
         $fileNameOld    = $fileName;
         $extension      = File::extension($fileName);
-        $baseName       = basename($fileName,'.'.$extension);
+        $baseName       = basename($fileName, '.' . $extension);
 
         if ($encryption)
         {
