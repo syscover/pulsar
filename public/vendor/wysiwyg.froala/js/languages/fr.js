@@ -1,3 +1,9 @@
+/*!
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms
+ * Copyright 2014-2016 Froala Labs
+ */
+
 /**
  * French
  */
@@ -78,7 +84,7 @@ $.FroalaEditor.LANGUAGE['fr'] = {
     "Drop image": "D\u00e9posez l'image",
     "or click": "ou cliquez",
     "Manage Images": "Gestion des images",
-    "Loading": "En chargeant",
+    "Loading": "Chargement",
     "Deleting": "Suppression",
     "Tags": "\u00c9tiquettes",
     "Are you sure? Image will be deleted.": "Etes-vous s\u00fbr? Image sera supprim\u00e9e.",
@@ -210,7 +216,12 @@ $.FroalaEditor.LANGUAGE['fr'] = {
     "Select All": "Tout s\u00e9lectionner",
 
     // Code view
-    "Code View": "Vue de code"
+    "Code View": "Vue de code",
+
+    // Quote
+    "Quote": "Citer",
+    "Increase": "Augmentation",
+    "Decrease": "Diminution"
   },
   direction: "ltr"
 };

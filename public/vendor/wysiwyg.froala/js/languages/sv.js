@@ -1,3 +1,9 @@
+/*!
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms
+ * Copyright 2014-2016 Froala Labs
+ */
+
 /**
  * Swedish
  */
@@ -210,7 +216,12 @@ $.FroalaEditor.LANGUAGE['sv'] = {
     "Select All": "Markera allt",
 
     // Code view
-    "Code View": "Kodvyn"
+    "Code View": "Kodvyn",
+
+    // Quote
+    "Quote": "Citerar",
+    "Increase": "\u00d6ka",
+    "Decrease": "Minska"
   },
   direction: "ltr"
 };

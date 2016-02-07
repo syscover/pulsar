@@ -1,9 +1,10 @@
 /*!
- * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
- * License http://editor.froala.com/license
- * Copyright 2014-2015 Froala Labs
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms
+ * Copyright 2014-2016 Froala Labs
  */
-.clearfix:after {
+
+.clearfix::after {
   clear: both;
   display: block;
   content: "";
@@ -39,9 +40,9 @@ body.prevent-scroll.fr-mobile {
   background: #ffffff;
   min-width: 300px;
   text-align: center;
-  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  -webkit-box-shadow: 0 5px 8px rgba(0, 0, 0, 0.19), 0 4px 6px rgba(0, 0, 0, 0.23);
+  -moz-box-shadow: 0 5px 8px rgba(0, 0, 0, 0.19), 0 4px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.19), 0 4px 6px rgba(0, 0, 0, 0.23);
   border: 0px;
   border-top: 5px solid #222222;
   overflow: hidden;
@@ -67,9 +68,9 @@ body.prevent-scroll.fr-mobile {
 }
 .fr-modal .fr-modal-wrapper .fr-modal-title {
   background: #ffffff;
-  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
+  -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
   border-bottom: 0px;
   overflow: hidden;
   position: absolute;
@@ -80,7 +81,7 @@ body.prevent-scroll.fr-mobile {
   -ms-transition: height 0.2s ease 0s;
   -o-transition: height 0.2s ease 0s;
 }
-.fr-modal .fr-modal-wrapper .fr-modal-title .fr-modal-title-line:after {
+.fr-modal .fr-modal-wrapper .fr-modal-title .fr-modal-title-line::after {
   clear: both;
   display: block;
   content: "";
@@ -166,7 +167,7 @@ body.prevent-scroll.fr-mobile {
   margin: 0 10px;
   padding: 0;
 }
-.fr-modal .fr-modal-wrapper div.fr-scroller div.fr-image-list:after {
+.fr-modal .fr-modal-wrapper div.fr-scroller div.fr-image-list::after {
   clear: both;
   display: block;
   content: "";
@@ -209,7 +210,7 @@ body.prevent-scroll.fr-mobile {
 .fr-modal .fr-modal-wrapper div.fr-scroller div.fr-image-list div.fr-image-container + div {
   margin-top: 10px;
 }
-.fr-modal .fr-modal-wrapper div.fr-scroller div.fr-image-list div.fr-image-container.fr-image-deleting:after {
+.fr-modal .fr-modal-wrapper div.fr-scroller div.fr-image-list div.fr-image-container.fr-image-deleting::after {
   position: absolute;
   -webkit-opacity: 0.5;
   -moz-opacity: 0.5;
@@ -227,7 +228,7 @@ body.prevent-scroll.fr-mobile {
   right: 0;
   z-index: 2;
 }
-.fr-modal .fr-modal-wrapper div.fr-scroller div.fr-image-list div.fr-image-container.fr-image-deleting:before {
+.fr-modal .fr-modal-wrapper div.fr-scroller div.fr-image-list div.fr-image-container.fr-image-deleting::before {
   content: attr(data-deleting);
   color: #ffffff;
   top: 0;
@@ -245,7 +246,7 @@ body.prevent-scroll.fr-mobile {
   background: #cccccc;
   z-index: 1;
 }
-.fr-modal .fr-modal-wrapper div.fr-scroller div.fr-image-list div.fr-image-container.fr-empty:after {
+.fr-modal .fr-modal-wrapper div.fr-scroller div.fr-image-list div.fr-image-container.fr-empty::after {
   position: absolute;
   margin: auto;
   top: 0;

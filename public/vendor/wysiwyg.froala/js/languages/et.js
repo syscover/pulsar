@@ -1,3 +1,9 @@
+/*!
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms
+ * Copyright 2014-2016 Froala Labs
+ */
+
 /**
  * Estonian
  */
@@ -210,7 +216,12 @@ $.FroalaEditor.LANGUAGE['et'] = {
     "Select All": "Vali k\u00f5ik",
 
     // Code view
-    "Code View": "Koodi vaadata"
+    "Code View": "Koodi vaadata",
+
+    // Quote
+    "Quote": "Tsitaat",
+    "Increase": "Suurendama",
+    "Decrease": "V\u00e4henda"
   },
   direction: "ltr"
 };

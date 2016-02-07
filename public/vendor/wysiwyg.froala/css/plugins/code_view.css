@@ -1,9 +1,10 @@
 /*!
- * froala_editor v2.0.0-rc.3 (https://www.froala.com/wysiwyg-editor/v2.0)
- * License http://editor.froala.com/license
- * Copyright 2014-2015 Froala Labs
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms
+ * Copyright 2014-2016 Froala Labs
  */
-.clearfix:after {
+
+.clearfix::after {
   clear: both;
   display: block;
   content: "";
@@ -34,6 +35,7 @@ textarea.fr-code {
 }
 .fr-box.fr-code-view textarea.fr-code {
   display: block;
+  min-height: 150px;
 }
 .fr-box.fr-code-view.fr-inline {
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);

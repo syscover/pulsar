@@ -1,3 +1,9 @@
+/*!
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms
+ * Copyright 2014-2016 Froala Labs
+ */
+
 /**
  * Norwegian
  */
@@ -210,7 +216,12 @@ $.FroalaEditor.LANGUAGE['nb'] = {
     "Select All": "Marker alt",
 
     // Code view
-    "Code View": "Kodevisning"
+    "Code View": "Kodevisning",
+
+    // Quote
+    "Quote": "Sitat",
+    "Increase": "\u00d8ke",
+    "Decrease": "Nedgang"
   },
   direction: "ltr"
 };

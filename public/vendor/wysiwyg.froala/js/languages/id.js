@@ -1,3 +1,9 @@
+/*!
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms
+ * Copyright 2014-2016 Froala Labs
+ */
+
 /**
  * Indonesian
  */
@@ -211,6 +217,11 @@ $.FroalaEditor.LANGUAGE['id'] = {
 
     // Code view
     "Code View": "Melihat kode",
+
+    // Quote
+    "Quote": "Kutipan",
+    "Increase": "Meningkat",
+    "Decrease": "Penurunan"
   },
   direction: "ltr"
 };

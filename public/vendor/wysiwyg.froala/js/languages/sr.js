@@ -1,3 +1,9 @@
+/*!
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms
+ * Copyright 2014-2016 Froala Labs
+ */
+
 /**
  * Serbian (Latin)
  */
@@ -210,7 +216,12 @@ $.FroalaEditor.LANGUAGE['sr'] = {
     "Select All": "Izaberi sve",
 
     // Code view
-    "Code View": "Prikaz koda"
+    "Code View": "Prikaz koda",
+
+    // Quote
+    "Quote": "Ponude",
+    "Increase": "Pove\u0107anje",
+    "Decrease": "Smanjivanje"
   },
   direction: "ltr"
 };

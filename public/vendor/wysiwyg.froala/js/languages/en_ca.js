@@ -1,3 +1,9 @@
+/*!
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms
+ * Copyright 2014-2016 Froala Labs
+ */
+
 /**
  * English spoken in Canada
  */
@@ -154,7 +160,12 @@ $.FroalaEditor.LANGUAGE['en_ca'] = {
     "Select All": "Select All",
 
     // Code view
-    "Code View": "Code View"
+    "Code View": "Code View",
+
+    // Quote
+    "Quote": "Quote",
+    "Increase": "Increase",
+    "Decrease": "Decrease"
   },
   direction: "ltr"
 };

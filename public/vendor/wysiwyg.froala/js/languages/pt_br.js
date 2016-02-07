@@ -1,3 +1,9 @@
+/*!
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms
+ * Copyright 2014-2016 Froala Labs
+ */
+
 /**
  * Portuguese spoken in Brazil
  */
@@ -210,7 +216,12 @@ $.FroalaEditor.LANGUAGE['pt_br'] = {
     "Select All": "Selecionar tudo",
 
     // Code view
-    "Code View": "Exibi\u00e7\u00e3o de c\u00f3digo"
+    "Code View": "Exibi\u00e7\u00e3o de c\u00f3digo",
+
+    // Quote
+    "Quote": "Cita\u00e7\u00e3o",
+    "Increase": "Aumentar",
+    "Decrease": "Diminuir"
   },
   direction: "ltr"
 };

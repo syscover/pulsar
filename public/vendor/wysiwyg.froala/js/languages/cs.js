@@ -1,3 +1,9 @@
+/*!
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms
+ * Copyright 2014-2016 Froala Labs
+ */
+
 /**
  * Czech
  */
@@ -210,7 +216,12 @@ $.FroalaEditor.LANGUAGE['cs'] = {
     "Select All": "Vybrat v\u0161e",
 
     // Code view
-    "Code View": "Zobrazen\u00ed k\u00f3d"
+    "Code View": "Zobrazen\u00ed k\u00f3d",
+
+    // Quote
+    "Quote": "Cit\u00e1t",
+    "Increase": "Nav\u00fd\u0161it",
+    "Decrease": "Sn\u00ed\u017een\u00ed"
   },
   direction: "ltr"
 };

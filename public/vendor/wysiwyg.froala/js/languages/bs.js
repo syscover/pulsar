@@ -1,3 +1,9 @@
+/*!
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms
+ * Copyright 2014-2016 Froala Labs
+ */
+
 /**
  * Bosnian
  */
@@ -210,7 +216,12 @@ $.FroalaEditor.LANGUAGE['bs'] = {
     "Select All": "Ozna\u010di sve",
 
     // Code view
-    "Code View": "Kod pogled"
+    "Code View": "Kod pogled",
+
+    // Quote
+    "Quote": "Citat",
+    "Increase": "Pove\u0107ati",
+    "Decrease": "Smanjenje"
   },
   direction: "ltr"
 };

@@ -1,3 +1,9 @@
+/*!
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms
+ * Copyright 2014-2016 Froala Labs
+ */
+
 /**
  * Polish
  */
@@ -210,7 +216,12 @@ $.FroalaEditor.LANGUAGE['pl'] = {
     "Select All": "Zaznacz wszystko",
 
     // Code view
-    "Code View": "Widok kod"
+    "Code View": "Widok kod",
+
+    // Quote
+    "Quote": "Cytat",
+    "Increase": "Wzrost",
+    "Decrease": "Zmniejszenie"
   },
   direction: "ltr"
 };

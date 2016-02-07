@@ -1,3 +1,9 @@
+/*!
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms
+ * Copyright 2014-2016 Froala Labs
+ */
+
 /**
  * Dutch
  */
@@ -210,7 +216,12 @@ $.FroalaEditor.LANGUAGE['nl'] = {
     "Select All": "Alles selecteren",
 
     // Code view
-    "Code View": "Codeweergave"
+    "Code View": "Codeweergave",
+
+    // Quote
+    "Quote": "Citaat",
+    "Increase": "Toenemen",
+    "Decrease": "Daling"
   },
   direction: "ltr"
 };

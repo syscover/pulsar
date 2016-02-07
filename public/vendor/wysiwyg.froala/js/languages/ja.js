@@ -1,3 +1,9 @@
+/*!
+ * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms
+ * Copyright 2014-2016 Froala Labs
+ */
+
 /**
  * Japanese
  */
@@ -210,7 +216,12 @@ $.FroalaEditor.LANGUAGE['ja'] = {
     "Select All": "\u5168\u3066\u3092\u9078\u629e",
 
     // Code view
-    "Code View": "\u30b3\u30fc\u30c9\u30d3\u30e5\u30fc"
+    "Code View": "\u30b3\u30fc\u30c9\u30d3\u30e5\u30fc",
+
+    // Quote
+    "Quote": "\u5f15\u7528",
+    "Increase": "\u5897\u52a0",
+    "Decrease": "\u6e1b\u5c11"
   },
   direction: "ltr"
 };
