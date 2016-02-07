@@ -26,22 +26,26 @@ class FroalaController extends Controller
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mime = finfo_file($finfo, $_FILES["file"]["tmp_name"]);
 
-        if ((($mime == "image/gif")
-                || ($mime == "image/jpeg")
-                || ($mime == "image/pjpeg")
-                || ($mime == "image/x-png")
-                || ($mime == "image/png"))
-            && in_array(strtolower($extension), $allowedExts)) {
+        if ((($mime == "image/gif") || ($mime == "image/jpeg") || ($mime == "image/pjpeg") || ($mime == "image/x-png") || ($mime == "image/png")) && in_array(strtolower($extension), $allowedExts))
+        {
+            // set filename
+            $extension  = $request->file('file')->getClientOriginalExtension();
+            $basename   = str_slug(basename($request->file('file')->getClientOriginalName(), '.' . $extension));
+            $filename   = $basename . '.' . $extension;
 
-            // Generate new random name.
-            $name = sha1(microtime()) . "." . $extension;
+            $i = 0;
+            while (file_exists(public_path() . '/packages/syscover/' . $request->input('package') . '/storage/wysiwyg/' . $filename))
+            {
+                $i++;
+                $filename = $basename . '-' . $i . '.' . $extension;
+            }
 
             // Save file in the uploads folder. file is the name of input file
-            $request->file('file')->move(public_path() . '/packages/syscover/' . $request->input('package') . '/storage/wysiwyg', $name);
+            $request->file('file')->move(public_path() . '/packages/syscover/' . $request->input('package') . '/storage/wysiwyg', $filename);
 
             // Generate response.
             $response = new \StdClass;
-            $response->link = '/packages/syscover/' . $request->input('package') . '/storage/wysiwyg/' . $name;
+            $response->link = '/packages/syscover/' . $request->input('package') . '/storage/wysiwyg/' . $filename;
 
             echo stripslashes(json_encode($response));
         }
