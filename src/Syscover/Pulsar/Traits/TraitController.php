@@ -195,7 +195,7 @@ trait TraitController {
             else
             {
                 //check special cases, allowed show or edit element if is the owner
-                $onlyEditOwner = !isset($this->jsonParam['onlyEditOwner']) || isset($this->jsonParam['onlyEditOwner']) && $aObject[$this->jsonParam['onlyEditOwner']] == $request->user()->id_010;
+                $onlyEditOwner = !isset($this->jsonParam['onlyEditOwner']) || isset($this->jsonParam['onlyEditOwner']) && $aObject[$this->jsonParam['onlyEditOwner']] == auth('pulsar')->user()->id_010;
                 $showIfNotEdit = !isset($this->jsonParam['showIfNotEdit']) || isset($this->jsonParam['showIfNotEdit']) && $this->jsonParam['showIfNotEdit'] && !$onlyEditOwner;
 
                 if(($showIfNotEdit) && (isset($this->jsonParam['show']) && $this->jsonParam['show'] == true))
