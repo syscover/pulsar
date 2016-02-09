@@ -155,12 +155,12 @@
             // comprobamos que hay una familia elegida y que ha cambiado algún valor del attachemnt
             if($(this).closest('li').find('select').val() != '' && $(this).closest('li').find('.attachment-family').hasClass('changed'))
             {
-                var url = '{{ route('apiShowAttachmentFamily', ['id' => 'id', 'api' => 1]) }}';
+                var url = '{{ route('apiShowAttachmentFamily', ['id' => '%id%', 'api' => 1]) }}';
                 var that = this;
 
                 // get select attachment family
                 $.ajax({
-                    url:    url.replace('id', $(this).closest('li').find('select').val()),
+                    url:    url.replace('%id%', $(this).closest('li').find('select').val()),
                     headers:  {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
@@ -250,11 +250,11 @@
                     attachmentToUpdate = attachment;
                 }
             });
-            var url = '{{ route('updateAttachment', ['object'=> isset($objectId)? $objectId : null , 'lang'=> $lang->id_001, 'id' => 'id']) }}';
+            var url = '{{ route('updateAttachment', ['object'=> isset($objectId)? $objectId : null , 'lang'=> $lang->id_001, 'id' => '%id%']) }}';
 
             // update attachment across ajax
             $.ajax({
-                url:    url.replace('id', $(element).closest('li').data('id')),
+                url:    url.replace('%id%', $(element).closest('li').data('id')),
                 headers:  {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
@@ -310,9 +310,9 @@
                 if($(this).data('id') != undefined)
                 {
                     // delete file from attachment folder
-                    var url = '{{ route('deleteAttachment', ['lang'=> $lang->id_001, 'id' => 'id']) }}';
+                    var url = '{{ route('deleteAttachment', ['lang'=> $lang->id_001, 'id' => '%id%']) }}';
                     $.ajax({
-                        url:    url.replace('id', $(this).data('id')),
+                        url:    url.replace('%id%', $(this).data('id')),
                         headers:  {
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
                         },
