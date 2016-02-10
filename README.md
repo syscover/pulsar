@@ -117,10 +117,10 @@ MAIL_NAME="MY DOMAIN"
 
 ```
 "post-update-cmd": [
-    "php artisan optimize",
     "php artisan vendor:publish --force",
     "php artisan migrate",
-    "php artisan migrate --path=database/migrations/updates"
+    "php artisan migrate --path=database/migrations/updates",
+    "php artisan optimize"
 ],
 
 ```
