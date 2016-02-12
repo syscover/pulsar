@@ -121,7 +121,7 @@ MAIL_NAME="MY DOMAIN"
     "php artisan migrate",
     "php artisan migrate --path=database/migrations/updates",
     "php artisan optimize"
-],
+]
 
 ```
 
