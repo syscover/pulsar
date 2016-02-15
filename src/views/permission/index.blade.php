@@ -37,9 +37,11 @@
                             var element     = this;
                             var dataEvent   = e.params.data;
 
+                            var url = "{{ route('jsonCreatePermission', ['profile' => $profile->id_006, 'resource' => '%resource%', 'action' => '%action%']) }}";
+
                             $.ajax({
                                 type: "POST",
-                                url: "{{ route('jsonCreatePermission', $profile->id_006) }}/" + $(this).data('resource') + "/" + dataEvent.id,
+                                url: url.replace('%resource%', $(this).data('resource')).replace('%action%', dataEvent.id),
                                 data: {
                                     _token : '{{ csrf_token() }}'
                                 },
@@ -70,9 +72,11 @@
                             var element     = this;
                             var dataEvent   = e.params.data;
 
+                            var url = "{{ route('jsonDestroyPermission', ['profile' => $profile->id_006, 'resource' => '%resource%', 'action' => '%action%']) }}";
+
                             $.ajax({
                                 type: "POST",
-                                url: "{{ route('jsonDestroyPermission', $profile->id_006) }}/" + $(this).data('resource') + "/" + dataEvent.id,
+                                url: url.replace('%resource%', $(this).data('resource')).replace('%action%', dataEvent.id),
                                 data: {
                                     _token : '{{ csrf_token() }}'
                                 },

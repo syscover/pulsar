@@ -95,8 +95,8 @@ Route::group(['middleware' => ['web', 'pulsar']], function() {
     */
     Route::any(config('pulsar.appName') . '/pulsar/permissions/{offset}/{profile}/{offsetProfile?}',        ['as'=>'permission',                'uses'=>'Syscover\Pulsar\Controllers\PermissionController@index',                'resource' => 'admin-perm-perm',    'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/permissions/json/data/profile/{profile}',                ['as'=>'jsonDataPermission',        'uses'=>'Syscover\Pulsar\Controllers\PermissionController@jsonData',             'resource' => 'admin-perm-perm',    'action' => 'access']);
-    Route::post(config('pulsar.appName') . '/pulsar/permissions/json/create/{num}/{num1}/{any}',            ['as'=>'jsonCreatePermission',      'uses'=>'Syscover\Pulsar\Controllers\PermissionController@jsonCreate',           'resource' => 'admin-perm-perm',    'action' => 'create']);
-    Route::post(config('pulsar.appName') . '/pulsar/permissions/json/delete/{num}/{num1}/{any}',            ['as'=>'jsonDestroyPermission',     'uses'=>'Syscover\Pulsar\Controllers\PermissionController@jsonDestroy',          'resource' => 'admin-perm-perm',    'action' => 'delete']);
+    Route::post(config('pulsar.appName') . '/pulsar/permissions/json/create/{profile}/{resource}/{action}', ['as'=>'jsonCreatePermission',      'uses'=>'Syscover\Pulsar\Controllers\PermissionController@jsonCreate',           'resource' => 'admin-perm-perm',    'action' => 'create']);
+    Route::post(config('pulsar.appName') . '/pulsar/permissions/json/delete/{profile}/{resource}/{action}', ['as'=>'jsonDestroyPermission',     'uses'=>'Syscover\Pulsar\Controllers\PermissionController@jsonDestroy',          'resource' => 'admin-perm-perm',    'action' => 'delete']);
 
     /*
     |--------------------------------------------------------------------------
