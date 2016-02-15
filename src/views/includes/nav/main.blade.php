@@ -8,7 +8,7 @@
                 <li{!! Miscellaneous::setCurrentPage('admin-lang') !!}><a href="{{ route('lang') }}"><i class="fa fa-language"></i>{{ trans_choice('pulsar::pulsar.language', 2) }}</a></li>
         @endif
         @if(session('userAcl')->allows('admin-country', 'access'))
-                <li{!! Miscellaneous::setCurrentPage(['admin-country','admin-country-at1','admin-country-at2','admin-country-at3']) !!}><a href="{{ route('country', [session('baseLang')]) }}"><i class="fa fa-globe"></i>{{ trans_choice('pulsar::pulsar.country', 2) }}</a></li>
+                <li{!! Miscellaneous::setCurrentPage(['admin-country','admin-country-at1','admin-country-at2','admin-country-at3']) !!}><a href="{{ route('country', [session('baseLang')->id_001]) }}"><i class="fa fa-globe"></i>{{ trans_choice('pulsar::pulsar.country', 2) }}</a></li>
         @endif
         @if(session('userAcl')->allows('admin-package', 'access'))
                 <li{!! Miscellaneous::setCurrentPage('admin-package') !!}><a href="{{ route('package') }}"><i class="cut-icon-grid"></i>{{ trans_choice('pulsar::pulsar.package', 2) }}</a></li>
@@ -24,7 +24,7 @@
                 <a href="javascript:void(0)"><i class="fa fa-cubes"></i>{{ trans_choice('pulsar::pulsar.custom_field', 2) }}<span class="arrow"></span></a>
                 <ul class="sub-menu"{!! Miscellaneous::setDisplayPage(['admin-field', 'admin-field-value', 'admin-field-group']) !!}>
                     @if(session('userAcl')->allows('admin-field', 'access'))
-                        <li{!! Miscellaneous::setCurrentPage(['admin-field', 'admin-field-value']) !!}><a href="{{ route('customField', [session('baseLang')]) }}"><i class="fa fa-i-cursor"></i>{{ trans_choice('pulsar::pulsar.field', 2) }}</a></li>
+                        <li{!! Miscellaneous::setCurrentPage(['admin-field', 'admin-field-value']) !!}><a href="{{ route('customField', [session('baseLang')->id_001]) }}"><i class="fa fa-i-cursor"></i>{{ trans_choice('pulsar::pulsar.field', 2) }}</a></li>
                     @endif
                     @if(session('userAcl')->allows('admin-field-group', 'access'))
                         <li{!! Miscellaneous::setCurrentPage('admin-field-group') !!}><a href="{{ route('customFieldGroup') }}"><i class="fa fa-th"></i>{{ trans_choice('pulsar::pulsar.field_group', 2) }}</a></li>
