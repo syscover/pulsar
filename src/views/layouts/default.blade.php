@@ -26,7 +26,7 @@
         <!--[if IE 8]>
 		<link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/css/ie8.css') }}">
 	    <![endif]-->
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
 
         <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/cssloader/css/cssloader.css') }}">
         <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/plugins/jquery.msgbox/javascript/msgbox/jquery.msgbox.css') }}">
