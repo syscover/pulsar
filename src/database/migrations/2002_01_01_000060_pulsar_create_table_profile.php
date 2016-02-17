@@ -12,11 +12,14 @@ class PulsarCreateTableProfile extends Migration
 	 */
 	public function up()
 	{
-            Schema::create('001_006_profile', function(Blueprint $table) {
-                $table->engine = 'InnoDB';
-                $table->increments('id_006')->unsigned();
-                $table->string('name_006', 50);
-            });
+		if(!Schema::hasTable('001_006_profile'))
+		{
+			Schema::create('001_006_profile', function (Blueprint $table) {
+				$table->engine = 'InnoDB';
+				$table->increments('id_006')->unsigned();
+				$table->string('name_006', 50);
+			});
+		}
 	}
 
 	/**

@@ -12,7 +12,9 @@ class PulsarCreateTableUser extends Migration
 	 */
 	public function up()
 	{
-            Schema::create('001_010_user', function(Blueprint $table){
+        if(!Schema::hasTable('001_010_user'))
+        {
+            Schema::create('001_010_user', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id_010')->unsigned();
                 $table->string('remember_token_010', 100)->nullable();
@@ -28,10 +30,11 @@ class PulsarCreateTableUser extends Migration
                 $table->timestamps();
 
                 $table->foreign('lang_010', 'fk01_001_010_user')->references('id_001')->on('001_001_lang')
-                        ->onDelete('restrict')->onUpdate('cascade');
+                    ->onDelete('restrict')->onUpdate('cascade');
                 $table->foreign('profile_010', 'fk02_001_010_user')->references('id_006')->on('001_006_profile')
-                        ->onDelete('restrict')->onUpdate('cascade');
+                    ->onDelete('restrict')->onUpdate('cascade');
             });
+        }
 	}
 
 	/**

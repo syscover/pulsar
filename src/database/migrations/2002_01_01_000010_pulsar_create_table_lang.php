@@ -11,16 +11,19 @@ class PulsarCreateTableLang extends Migration
 	 * @return void
 	 */
 	public function up()
-	{   
-            Schema::create('001_001_lang', function(Blueprint $table) {
-                $table->engine = 'InnoDB';
-                $table->string('id_001', 2)->primary();
-                $table->string('name_001', 50);
-                $table->string('image_001', 255)->nullable();
-                $table->smallInteger('sorting_001')->unsigned();
-                $table->boolean('base_001');
-                $table->boolean('active_001');
-            });
+	{
+		if(!Schema::hasTable('001_001_lang'))
+		{
+			Schema::create('001_001_lang', function (Blueprint $table) {
+				$table->engine = 'InnoDB';
+				$table->string('id_001', 2)->primary();
+				$table->string('name_001', 50);
+				$table->string('image_001', 255)->nullable();
+				$table->smallInteger('sorting_001')->unsigned();
+				$table->boolean('base_001');
+				$table->boolean('active_001');
+			});
+		}
 	}
 
 	/**
