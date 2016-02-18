@@ -51,17 +51,23 @@ trait TraitController {
         $parameters['icon']           = $this->icon;
         $parameters['objectTrans']    = isset($this->objectTrans) &&  $this->objectTrans != null? Miscellaneous::getObjectTransValue($parameters, $this->objectTrans) : null;
 
-        if(method_exists($this, 'indexCustom'))
-        {
-            $parametersResponse = $this->indexCustom($parameters);
-            if(is_array($parametersResponse))
-            {
-                $parameters = array_merge($parameters, $parametersResponse);
-            }
-        }
+
+        $parametersResponse = $this->indexCustom($parameters);
+        if(is_array($parametersResponse))
+            $parameters = array_merge($parameters, $parametersResponse);
+
 
         return view($this->package . '::' . $this->folder . '.index', $parameters);
     }
+
+    /**
+     * function to be overriden
+     *
+     * @access	public
+     * @param   array   $parameters
+     * @return	array   $parameters | void
+     */
+    public function indexCustom($parameters){}
 
     /**
      * @access      public
@@ -297,10 +303,7 @@ trait TraitController {
 
         $parameters['urlParameters']  = $parameters;
 
-        if(method_exists($this, 'createCustomRecord'))
-        {
-            $parameters = $this->createCustomRecord($request, $parameters);
-        }
+        $parameters = $this->createCustomRecord($request, $parameters);
 
         $parameters['package']        = $this->package;
         $parameters['folder']         = $this->folder;
@@ -310,17 +313,26 @@ trait TraitController {
 
         // check if object has multiple language
         if(isset($parameters['id']) && isset($parameters['lang']))
-        {
             $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', ['id' => $parameters['id'], 'lang' => session('baseLang')->id_001]);
-        }
 
         // set lang object
         if(isset($parameters['lang']))
-        {
             $parameters['lang'] = Lang::builder()->find($parameters['lang']);
-        }
 
         return view($this->package . '::' . $this->folder . '.create', $parameters);
+    }
+
+    /**
+     * function to be overriden
+     *
+     * @access	public
+     * @param   \Illuminate\Http\Request    $request
+     * @param   array                       $parameters
+     * @return	array                       $parameters
+     */
+    public function createCustomRecord($request, $parameters)
+    {
+        return $parameters;
     }
 
     /**
@@ -336,47 +348,53 @@ trait TraitController {
         $parameters['urlParameters']  = $parameters;
 
         if(method_exists($this, 'checkSpecialRulesToStore'))
-        {
             $parameters = $this->checkSpecialRulesToStore($request, $parameters);
-        }
+
 
         if(!isset($parameters['specialRules']))
-        {
             $parameters['specialRules']  = [];
-        }
+
 
         $validation = call_user_func($this->model . '::validate', $request->all(), $parameters['specialRules']);
 
+
         if ($validation->fails())
-        {
             return redirect()->route('create' . ucfirst($this->routeSuffix), $parameters['urlParameters'])->withErrors($validation)->withInput();
-        }
 
-        if(method_exists($this, 'storeCustomRecord'))
-        {
-            $parametersResponse = $this->storeCustomRecord($request, $parameters);
 
-            if(is_object($parametersResponse) && get_class($parametersResponse) == "Illuminate\\Http\\RedirectResponse")
-            {
-                return $parametersResponse;
-            }
+        $parametersResponse = $this->storeCustomRecord($request, $parameters);
 
-            if(is_array($parametersResponse))
-            {
-                $parameters = array_merge($parameters, $parametersResponse);
-            }
-        }
 
+        // check if parametersResponse is a RedirectResponse objecto, to send request to other url
+        if(is_object($parametersResponse) && get_class($parametersResponse) == "Illuminate\\Http\\RedirectResponse")
+            return $parametersResponse;
+
+
+        // merge with array from storeCustomRecords
+        if(is_array($parametersResponse))
+            $parameters = array_merge($parameters, $parametersResponse);
+
+
+        // return to modal view
         if(isset($parameters['modal']) && $parameters['modal'])
-        {
             return view('pulsar::common.views.redirect_modal');
-        }
+
 
         return redirect()->route($this->routeSuffix, $parameters['urlParameters'])->with([
             'msg'        => 1,
             'txtMsg'     => trans('pulsar::pulsar.message_create_record_successful', ['name' => $request->input('name')])
         ]);
     }
+
+    /**
+     * function to be overriden
+     *
+     * @access	public
+     * @param   \Illuminate\Http\Request    $request
+     * @param   array                       $parameters
+     * @return	array                       $parameters | void
+     */
+    public function storeCustomRecord($request, $parameters) {}
 
     /**
      * @access	public
@@ -404,40 +422,41 @@ trait TraitController {
         {
             $parameters['object']   = call_user_func($this->model . '::getTranslationRecord', ['id' => $parameters['id'], 'lang' => $parameters['lang']]);
 
-
-
             $parameters['lang']     = $parameters['object']->lang;
         }
         else
         {
             // check if is implements getRecord function in model, for objects with joins
             if(method_exists($this->model, 'getRecord'))
-            {
                 $parameters['object']   = call_user_func($this->model . '::getRecord', $parameters);
-            }
             else
-            {
                 $parameters['object']   = call_user_func($this->model . '::find', $parameters['id']);
-            }
         }
 
 
-        if(method_exists($this, 'showCustomRecord'))
-        {
-            $parameters = $this->showCustomRecord($parameters);
+        $parameters = $this->showCustomRecord($parameters);
 
-            if(is_object($parameters) && get_class($parameters) == "Illuminate\\Http\\RedirectResponse")
-            {
-                return $parameters;
-            }
-        }
+        if(is_object($parameters) && get_class($parameters) == "Illuminate\\Http\\RedirectResponse")
+            return $parameters;
 
+
+        // check if response is json format or not
         if(isset($parameters['api']) && $parameters['api'])
-        {
             return response()->json($parameters['object']);
-        }
 
         return view($this->package . '::' . $this->folder . '.show', $parameters);
+    }
+
+    /**
+     * function to be overriden
+     *
+     * @access	public
+     * @param   array                       $parameters
+     * @return	array                       $parameters
+     */
+    public function showCustomRecord($parameters)
+    {
+        return $parameters;
     }
 
     /**
@@ -465,45 +484,46 @@ trait TraitController {
         if(isset($parameters['lang']))
         {
             if(method_exists($this->model, 'getTranslationRecord'))
-            {
                 $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $parameters);
-            }
             else
-            {
                 throw new InvalidArgumentException('The methods getTranslationRecord on ' . $this->model . ' is not definite');
-            }
+
 
             if(method_exists($parameters['object'], 'getLang'))
-            {
                 $parameters['lang'] = $parameters['object']->getLang;
-            }
+
 
             // check that we have lang object
             if($parameters['lang'] === null)
-            {
                 throw new InvalidArgumentException('The language object is not instantiated, method getLang on model ' . $this->model . ' is not defined');
-            }
         }
         else
         {
+            // check if is implements getRecord function in model, for objects with joins
             if(method_exists($this->model, 'getRecord'))
-            {
                 $parameters['object']   = call_user_func($this->model . '::getRecord', $parameters);
-            }
             else
-            {
                 // call builder, by default is instance on TraitModel or in model object
                 $parameters['object']   = call_user_func($this->model . '::builder')->find($parameters['id']);
-            }
         }
 
 
-        if(method_exists($this, 'editCustomRecord'))
-        {
-            $parameters = $this->editCustomRecord($request, $parameters);
-        }
+        $parameters = $this->editCustomRecord($request, $parameters);
 
         return view($this->package . '::' . $this->folder . '.edit', $parameters);
+    }
+
+    /**
+     * function to be overriden
+     *
+     * @access	public
+     * @param   \Illuminate\Http\Request    $request
+     * @param   array                       $parameters
+     * @return	array                       $parameters
+     */
+    public function editCustomRecord($request, $parameters)
+    {
+        return $parameters;
     }
 
     /**
@@ -519,54 +539,52 @@ trait TraitController {
         $parameters['urlParameters']  = $parameters;
 
         if(method_exists($this, 'checkSpecialRulesToUpdate'))
-        {
             $parameters = $this->checkSpecialRulesToUpdate($request, $parameters);
-        }
 
         // check special rule to objects with writable IDs like actions
         if($request->has('id') && $request->input('id') == $parameters['id'])
-        {
             $parameters['specialRules']['idRule'] = true;
-        }
 
         if(!isset($parameters['specialRules']))
-        {
             $parameters['specialRules']  = [];
-        }
 
         $validation = call_user_func($this->model . '::validate', $request->all(), $parameters['specialRules']);
 
         if ($validation->fails())
-        {
             return redirect()->route('edit' . ucfirst($this->routeSuffix), $parameters['urlParameters'])->withErrors($validation);
-        }
 
-        if(method_exists($this, 'updateCustomRecord'))
-        {
-            // we use parametersResponse, because updateCustomRecord may be "void"
-            $parametersResponse = $this->updateCustomRecord($request, $parameters);
+        // we use parametersResponse, because updateCustomRecord may be "void"
+        $parametersResponse = $this->updateCustomRecord($request, $parameters);
 
-            if(is_object($parametersResponse) && get_class($parametersResponse) == "Illuminate\\Http\\RedirectResponse")
-            {
-                return $parametersResponse;
-            }
 
-            if(is_array($parametersResponse))
-            {
-                $parameters = array_merge($parameters, $parametersResponse);
-            }
-        }
+        if(is_object($parametersResponse) && get_class($parametersResponse) == "Illuminate\\Http\\RedirectResponse")
+            return $parametersResponse;
 
+
+        if(is_array($parametersResponse))
+            $parameters = array_merge($parameters, $parametersResponse);
+
+
+        // return to modal view
         if(isset($parameters['modal']) && $parameters['modal'])
-        {
             return view('pulsar::common.views.redirect_modal');
-        }
+
 
         return redirect()->route($this->routeSuffix, $parameters['urlParameters'])->with([
             'msg'        => 1,
             'txtMsg'     => trans('pulsar::pulsar.message_update_record', ['name' => $request->input('name')])
         ]);
     }
+
+    /**
+     * function to be overriden
+     *
+     * @access	public
+     * @param   \Illuminate\Http\Request    $request
+     * @param   array                       $parameters
+     * @return	array                       $parameters | void
+     */
+    public function updateCustomRecord($request, $parameters) {}
 
     /**
      * @access      public
@@ -580,10 +598,7 @@ trait TraitController {
 
         $object = call_user_func($this->model . '::find', $parameters['id']);
 
-        if(method_exists($this, 'addToDeleteRecord'))
-        {
-            $this->addToDeleteRecord($request, $object);
-        }
+        $this->deleteCustomRecord($request, $object);
 
         // delete records after deleteCustomRecords, if we need do a select
         call_user_func($this->model . '::destroy', $parameters['id']);
@@ -592,15 +607,24 @@ trait TraitController {
         unset($parameters['id']);
 
         if(method_exists($this, 'deleteCustomRecordRedirect'))
-        {
             return $this->deleteCustomRecordRedirect($request, $object, $parameters);
-        }
 
         return redirect()->route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,
             'txtMsg'     => trans('pulsar::pulsar.message_delete_record_successful', ['name' => $object->{$this->nameM}])
         ]);
     }
+
+    /**
+     * function to be overriden
+     *
+     * @access	public
+     * @param   \Illuminate\Http\Request    $request
+     * @param   mixed                       $object
+     * @return	void
+     */
+    public function deleteCustomRecord($request, $object) {}
+
 
     /**
      * @access      public
@@ -613,19 +637,13 @@ trait TraitController {
         $parameters = $request->route()->parameters();
 
         if(isset($this->langModel))
-        {
             // this option is to tables that dependent of other tables to set your languages, example 007_170_hotel and 007_171_hotel_lang
             $object = call_user_func($this->langModel . '::getTranslationRecord', $parameters);
-        }
         else
-        {
             $object = call_user_func($this->model . '::getTranslationRecord', $parameters);
-        }
 
-        if(method_exists($this, 'addToDeleteTranslationRecord'))
-        {
-            $this->addToDeleteTranslationRecord($request, $object);
-        }
+
+        $this->deleteCustomTranslationRecord($request, $object);
 
         if(isset($this->langModel))
         {
@@ -645,6 +663,16 @@ trait TraitController {
         ]);
     }
 
+    /**
+     * function to be overriden
+     *
+     * @access	public
+     * @param   \Illuminate\Http\Request    $request
+     * @param   mixed                       $object
+     * @return	void
+     */
+    public function deleteCustomTranslationRecord($request, $object) {}
+
 
     /**
      * @access      public
@@ -662,27 +690,31 @@ trait TraitController {
         for($i=0; $i < $nElements; $i++)
         {
             if($request->input('element' . $i) != false)
-            {
                 array_push($ids, $request->input('element' . $i));
-            }
         }
 
-        if(method_exists($this, 'addToDeleteRecordsSelect'))
-        {
-            $this->addToDeleteRecordsSelect($request, $ids);
-        }
+        $this->deleteCustomRecordsSelect($request, $ids);
 
         // delete records after deleteCustomRecords, if we need do a select
         call_user_func($this->model . '::deleteRecords', $ids);
 
         if(method_exists($this, 'deleteCustomRecordsRedirect'))
-        {
             return $this->deleteCustomRecordsRedirect($request, $parameters);
-        }
+
 
         return redirect()->route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,
             'txtMsg'     => trans('pulsar::pulsar.message_delete_records_successful')
         ]);
     }
+
+    /**
+     * function to be overriden
+     *
+     * @access	public
+     * @param   \Illuminate\Http\Request    $request
+     * @param   array                       $ids
+     * @return	void
+     */
+    public function deleteCustomRecordsSelect($request, $ids) {}
 }
