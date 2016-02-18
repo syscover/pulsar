@@ -133,7 +133,7 @@ class AttachmentLibraryController extends Controller {
 
     public function deleteCustomRecord($request, $object)
     {
-        $package = $object->resource->package;
+        $package = $object->getResource->getPackage;
         File::delete(public_path() . config($package->folder_012 . '.libraryFolder') . '/' . $object->file_name_014);
     }
 
