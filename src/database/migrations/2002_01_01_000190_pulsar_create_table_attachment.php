@@ -25,12 +25,12 @@ class PulsarCreateTableAttachment extends Migration {
                 $table->string('library_file_name_016', 1020)->nullable();
                 $table->integer('sorting_016')->unsigned()->nullable();
                 $table->string('url_016', 1020)->nullable();
-                $table->string('name_016', 255)->nullable();
+                $table->string('name_016')->nullable();
                 $table->string('file_name_016', 1020)->nullable();
-                $table->string('mime_016', 255)->nullable();
+                $table->string('mime_016')->nullable();
                 $table->integer('size_016')->unsigned()->nullable();
                 $table->tinyInteger('type_016')->unsigned();                    // 1 = image, 2 = file, 3 = video
-                $table->string('type_text_016', 50);
+                $table->string('type_text_016');
                 $table->smallInteger('width_016')->unsigned()->nullable();
                 $table->smallInteger('height_016')->unsigned()->nullable();
 

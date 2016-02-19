@@ -17,7 +17,7 @@ class PulsarCreateTableAction extends Migration
 			Schema::create('001_008_action', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
 				$table->string('id_008', 25)->primary();
-				$table->string('name_008', 50);
+				$table->string('name_008');
 			});
 		}
 	}

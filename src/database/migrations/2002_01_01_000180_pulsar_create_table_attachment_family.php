@@ -18,7 +18,7 @@ class PulsarCreateTableAttachmentFamily extends Migration {
                 $table->engine = 'InnoDB';
                 $table->increments('id_015')->unsigned();
                 $table->string('resource_015', 30);                             // resource which belong to this attachment
-                $table->string('name_015', 100);
+                $table->string('name_015');
                 $table->smallInteger('width_015')->unsigned()->nullable();
                 $table->smallInteger('height_015')->unsigned()->nullable();
                 $table->text('data_015')->nullable();

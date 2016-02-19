@@ -17,15 +17,15 @@ class PulsarCreateTableUser extends Migration
             Schema::create('001_010_user', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id_010')->unsigned();
-                $table->string('remember_token_010', 100)->nullable();
+                $table->string('remember_token_010')->nullable();
                 $table->string('lang_010', 2);
                 $table->integer('profile_010')->unsigned();
                 $table->boolean('access_010');
-                $table->string('user_010', 50);
-                $table->string('password_010', 255);
-                $table->string('email_010', 50);
-                $table->string('name_010', 50);
-                $table->string('surname_010', 50)->nullable();
+                $table->string('user_010');
+                $table->string('password_010');
+                $table->string('email_010');
+                $table->string('name_010');
+                $table->string('surname_010')->nullable();
 
                 $table->timestamps();
 
