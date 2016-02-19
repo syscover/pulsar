@@ -61,7 +61,7 @@ trait TraitController {
     }
 
     /**
-     * function to be overriden
+     * function to be overridden
      *
      * @access	public
      * @param   array   $parameters
@@ -323,7 +323,7 @@ trait TraitController {
     }
 
     /**
-     * function to be overriden
+     * function to be overridden
      *
      * @access	public
      * @param   \Illuminate\Http\Request    $request
@@ -387,7 +387,7 @@ trait TraitController {
     }
 
     /**
-     * function to be overriden
+     * function to be overridden
      *
      * @access	public
      * @param   \Illuminate\Http\Request    $request
@@ -448,7 +448,7 @@ trait TraitController {
     }
 
     /**
-     * function to be overriden
+     * function to be overridden
      *
      * @access	public
      * @param   array                       $parameters
@@ -514,7 +514,7 @@ trait TraitController {
     }
 
     /**
-     * function to be overriden
+     * function to be overridden
      *
      * @access	public
      * @param   \Illuminate\Http\Request    $request
@@ -577,7 +577,7 @@ trait TraitController {
     }
 
     /**
-     * function to be overriden
+     * function to be overridden
      *
      * @access	public
      * @param   \Illuminate\Http\Request    $request
@@ -616,7 +616,7 @@ trait TraitController {
     }
 
     /**
-     * function to be overriden
+     * function to be overridden
      *
      * @access	public
      * @param   \Illuminate\Http\Request    $request
@@ -664,7 +664,7 @@ trait TraitController {
     }
 
     /**
-     * function to be overriden
+     * function to be overridden
      *
      * @access	public
      * @param   \Illuminate\Http\Request    $request
@@ -709,7 +709,7 @@ trait TraitController {
     }
 
     /**
-     * function to be overriden
+     * function to be overridden
      *
      * @access	public
      * @param   \Illuminate\Http\Request    $request
