@@ -47,6 +47,9 @@ class PulsarCreateTableEmailAccount extends Migration
      */
     public function down()
     {
-        Schema::drop('001_013_email_account');
+        if (Schema::hasTable('001_013_email_account'))
+        {
+            Schema::drop('001_013_email_account');
+        }
     }
 }

@@ -29,7 +29,9 @@ class PulsarCreateTablePasswordResets extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('001_021_password_resets');
+		if (Schema::hasTable('001_021_password_resets'))
+		{
+			Schema::drop('001_021_password_resets');
+		}
 	}
-
 }

@@ -32,7 +32,9 @@ class PulsarCreateTablePackage extends Migration
 	 */
 	public function down()
 	{
-            Schema::drop('001_012_package');
+		if (Schema::hasTable('001_012_package'))
+		{
+			Schema::drop('001_012_package');
+		}
 	}
-
 }

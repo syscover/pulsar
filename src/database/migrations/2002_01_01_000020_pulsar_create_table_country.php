@@ -42,7 +42,9 @@ class PulsarCreateTableCountry extends Migration
 	 */
 	public function down()
 	{
+        if (Schema::hasTable('001_002_country'))
+        {
             Schema::drop('001_002_country');
+        }
 	}
-
 }

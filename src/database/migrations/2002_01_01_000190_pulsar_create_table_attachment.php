@@ -59,6 +59,9 @@ class PulsarCreateTableAttachment extends Migration {
      */
     public function down()
     {
-        Schema::drop('001_016_attachment');
+        if (Schema::hasTable('001_016_attachment'))
+        {
+            Schema::drop('001_016_attachment');
+        }
     }
 }

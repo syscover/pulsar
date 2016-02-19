@@ -44,7 +44,9 @@ class PulsarCreateTableUser extends Migration
 	 */
 	public function down()
 	{
+        if (Schema::hasTable('001_010_user'))
+        {
             Schema::drop('001_010_user');
+        }
 	}
-
 }

@@ -38,7 +38,9 @@ class PulsarCreateTableCronJob extends Migration
 	 */
 	public function down()
 	{
-            Schema::drop('001_011_cron_job');
+		if (Schema::hasTable('001_011_cron_job'))
+		{
+			Schema::drop('001_011_cron_job');
+		}
 	}
-
 }

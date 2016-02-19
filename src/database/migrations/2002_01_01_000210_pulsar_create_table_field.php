@@ -62,6 +62,9 @@ class PulsarCreateTableField extends Migration {
      */
     public function down()
     {
-        Schema::drop('001_026_field');
+        if (Schema::hasTable('001_026_field'))
+        {
+            Schema::drop('001_026_field');
+        }
     }
 }

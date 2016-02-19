@@ -34,6 +34,9 @@ class PulsarCreateTableFieldGroup extends Migration {
      */
     public function down()
     {
-        Schema::drop('001_025_field_group');
+        if (Schema::hasTable('001_025_field_group'))
+        {
+            Schema::drop('001_025_field_group');
+        }
     }
 }

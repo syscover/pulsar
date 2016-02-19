@@ -29,7 +29,9 @@ class PulsarCreateTableProfile extends Migration
 	 */
 	public function down()
 	{
-            Schema::drop('001_006_profile');
+		if (Schema::hasTable('001_006_profile'))
+		{
+			Schema::drop('001_006_profile');
+		}
 	}
-
 }

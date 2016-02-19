@@ -39,7 +39,9 @@ class PulsarCreateTableTerritorialArea3 extends Migration
 	 */
 	public function down()
 	{
-            Schema::drop('001_005_territorial_area_3');
+		if (Schema::hasTable('001_005_territorial_area_3'))
+		{
+			Schema::drop('001_005_territorial_area_3');
+		}
 	}
-
 }

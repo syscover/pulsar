@@ -33,7 +33,9 @@ class PulsarCreateTableResource extends Migration
 	 */
 	public function down()
 	{
-            Schema::drop('001_007_resource');
+		if (Schema::hasTable('001_007_resource'))
+		{
+			Schema::drop('001_007_resource');
+		}
 	}
-
 }

@@ -29,7 +29,9 @@ class PulsarCreateTableAction extends Migration
 	 */
 	public function down()
 	{
-            Schema::drop('001_008_action');
+		if (Schema::hasTable('001_008_action'))
+		{
+			Schema::drop('001_008_action');
+		}
 	}
-
 }

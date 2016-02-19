@@ -33,7 +33,9 @@ class PulsarCreateTablePreference extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('001_018_preference');
+		if (Schema::hasTable('001_018_preference'))
+		{
+			Schema::drop('001_018_preference');
+		}
 	}
-
 }

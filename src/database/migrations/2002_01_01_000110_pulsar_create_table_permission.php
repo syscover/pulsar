@@ -38,7 +38,9 @@ class PulsarCreateTablePermission extends Migration
 	 */
 	public function down()
 	{
-            Schema::drop('001_009_permission');
+		if (Schema::hasTable('001_009_permission'))
+		{
+			Schema::drop('001_009_permission');
+		}
 	}
-
 }

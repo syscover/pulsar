@@ -35,5 +35,4 @@ class PulsarCreateTableLang extends Migration
 	{
             Schema::drop('001_001_lang');
 	}
-
 }

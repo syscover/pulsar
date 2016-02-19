@@ -42,6 +42,9 @@ class PulsarCreateTableFieldResult extends Migration {
      */
     public function down()
     {
-        Schema::drop('001_028_field_result');
+        if (Schema::hasTable('001_028_field_result'))
+        {
+            Schema::drop('001_028_field_result');
+        }
     }
 }
