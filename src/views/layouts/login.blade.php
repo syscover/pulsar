@@ -49,16 +49,16 @@
         <![endif]-->
 
         <!-- Beautiful Checkboxes -->
-        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/uniform/jquery.uniform.min.js') }}"></script>
+        <script src="{{ asset('packages/syscover/pulsar/plugins/uniform/jquery.uniform.min.js') }}"></script>
 
         <!-- Form Validation -->
-        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/validation/jquery.validate.min.js') }}"></script>
+        <script src="{{ asset('packages/syscover/pulsar/plugins/validation/jquery.validate.min.js') }}"></script>
 
         <!-- Slim Progress Bars -->
-        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/nprogress/nprogress.js') }}"></script>
+        <script src="{{ asset('packages/syscover/pulsar/plugins/nprogress/nprogress.js') }}"></script>
         
         <!-- Mensajes -->
-        <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/pnotify/pnotify.custom.min.js') }}"></script>
+        <script src="{{ asset('packages/syscover/pulsar/vendor/pnotify/pnotify.custom.min.js') }}"></script>
                 
         <!-- Librerías JS y JS inline -->
         @yield('script')
