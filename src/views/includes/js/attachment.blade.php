@@ -9,6 +9,7 @@
             $.setEventSaveAttachmentProperties();
         @endif
 
+        // efects to drag and drop files
         $.dragDropEffects();
 
         // we create a getFile object, on layer attachments
@@ -19,13 +20,61 @@
                 folder:             '{{ config($routesConfigFile . '.libraryFolder') }}',
                 tmpFolder:          '{{ config($routesConfigFile . '.libraryFolder') }}',
                 multiple:           true,
-                activateTmpDelete:  false
+                activateTmpDelete:  false,
+                spinner:            false
             },
             function(dataUploaded)
             {
                 if(dataUploaded.success && Array.isArray(dataUploaded.files))
                 {
-                    $.storeLibrary(dataUploaded.files);
+                    var errorFiles = [];
+                    // comprobamos si hay algún error en la subida de ficheros
+                    $.each(dataUploaded.files, function(index, value){
+                        if(!value.success)
+                        {
+                            new PNotify({
+                                type:   'error',
+                                title:  'Error',
+                                text:   value.message,
+                                opacity: .9,
+                                styling: 'fontawesome'
+                            });
+                            // añadimos los indices de los elementos con errores
+                            errorFiles.push(index);
+                        }
+                    })
+
+                    // borramos del los ficheros, aquellos que contienen algún error
+                    $.each(errorFiles, function(index, value){
+                        dataUploaded.files.splice(value, 1);
+                    })
+
+                    // si hay ficheros que subir los guardamos
+                    if(dataUploaded.files.length > 0)
+                        $.storeLibrary(dataUploaded.files)
+                }
+
+                if(dataUploaded.success && dataUploaded.action == 'loading')
+                {
+                    // si la barra no está visible la enseñamos
+                    if(!$('#attachment-library-progress-bar').is(":visible"))
+                    {
+                        $('#attachment-library-progress-bar').fadeIn(300)
+                    }
+
+                    // progress bar
+                    $('#upload-progress-bar').html(dataUploaded.percentage + '%')
+                    $('#upload-progress-bar').attr('aria-valuenow', dataUploaded.percentage)
+                    $('#upload-progress-bar').css('width', dataUploaded.percentage + '%')
+
+                    if(dataUploaded.percentage == 100)
+                    {
+                        $('#attachment-library-progress-bar').fadeOut(300, function(){
+                            $('#upload-progress-bar').html('0%')
+                            $('#upload-progress-bar').attr('aria-valuenow', 0)
+                            $('#upload-progress-bar').css('width', '0')
+                        });
+                    }
                 }
             }
         );
@@ -152,6 +201,7 @@
 
         // Bottom to save properties for attachment
         $('.save-attachment').off('click').on('click', function() {
+
             // comprobamos que hay una familia elegida y que ha cambiado algún valor del attachemnt
             if($(this).closest('li').find('select').val() != '' && $(this).closest('li').find('.attachment-family').hasClass('changed'))
             {

@@ -18,7 +18,7 @@ $.dragDropEffects = function() {
     {
         e.preventDefault();
         var al = $('#attachment-library').get(0);
-        if($.contains(al, e.target) || e.target.id=='attachment-library-mask' || e.target.id == 'attachment-library-content' || e.target.id == 'attachment-library')
+        if($.contains(al, e.target) || e.target.id == 'attachment-library-mask' || e.target.id == 'attachment-library-content' || e.target.id == 'attachment-library')
         {
             $('#attachment-library-mask').css('z-index', 9999999999).css('opacity', 1);
             $('#library-placeholder').css('opacity', 0).css('z-index', -1);
@@ -28,7 +28,7 @@ $.dragDropEffects = function() {
     $(document).on('dragleave', function(e)
     {
         e.preventDefault();
-        if(e.target.id=='attachment-library-mask' || e.target.id=='attachment-library-content')
+        if(e.target.id == 'attachment-library-mask' || e.target.id == 'attachment-library-content')
         {
             $('#attachment-library-mask').css('opacity', 0).css('z-index', -1);
             $('#library-placeholder').css('opacity', 1).css('z-index', 'auto');
