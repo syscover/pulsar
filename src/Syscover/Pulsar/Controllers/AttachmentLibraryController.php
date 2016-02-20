@@ -20,7 +20,7 @@ class AttachmentLibraryController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_014', ['type' => 'library_img', 'data' => 'file_name_014'], 'file_name_014', ['type' => 'size', 'data' => 'size_014'], 'mime_014', 'type_text_014'];
     protected $nameM        = 'file_014';
-    protected $model        = \Syscover\Pulsar\Models\AttachmentLibrary::class;
+    protected $model        = AttachmentLibrary::class;
     protected $icon         = 'fa fa-book';
     protected $objectTrans  = 'library';
     protected $jsonParam    = ['edit' => false];

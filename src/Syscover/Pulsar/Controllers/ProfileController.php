@@ -22,7 +22,7 @@ class ProfileController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_006', 'name_006'];
     protected $nameM        = 'name_006';
-    protected $model        = \Syscover\Pulsar\Models\Profile::class;
+    protected $model        = Profile::class;
     protected $icon         = 'icomoon-icon-users-2';
     protected $objectTrans  = 'profile';
 

@@ -17,7 +17,7 @@ class ActionController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_008', 'name_008'];
     protected $nameM        = 'name_008';
-    protected $model        = \Syscover\Pulsar\Models\Action::class;
+    protected $model        = Action::class;
     protected $icon         = 'fa fa-bolt';
     protected $objectTrans  = 'action';
 

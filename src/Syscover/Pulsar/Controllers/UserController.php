@@ -20,7 +20,7 @@ class UserController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_010', 'name_010', 'surname_010', ['data' => 'email_010', 'type' => 'email'], 'name_006', ['data' => 'access_010', 'type' => 'active']];
     protected $nameM        = 'name_010';
-    protected $model        = \Syscover\Pulsar\Models\User::class;
+    protected $model        = User::class;
     protected $icon         = 'fa fa-users';
     protected $objectTrans  = 'user';
 

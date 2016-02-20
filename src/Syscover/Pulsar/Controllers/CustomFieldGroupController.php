@@ -18,7 +18,7 @@ class CustomFieldGroupController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_025', 'name_007', 'name_025'];
     protected $nameM        = 'name_025';
-    protected $model        = \Syscover\Pulsar\Models\CustomFieldGroup::class;
+    protected $model        = CustomFieldGroup::class;
     protected $icon         = 'fa fa-th';
     protected $objectTrans  = 'field_group';
 

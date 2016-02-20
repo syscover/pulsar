@@ -19,7 +19,7 @@ class CustomFieldValueController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_027', 'name_026', 'name_001', 'value_027', ['data' => 'featured_027', 'type' => 'active']];
     protected $nameM        = 'value_027';
-    protected $model        = \Syscover\Pulsar\Models\CustomFieldValue::class;
+    protected $model        = CustomFieldValue::class;
     protected $icon         = 'fa fa-bars';
     protected $objectTrans  = 'value';
 

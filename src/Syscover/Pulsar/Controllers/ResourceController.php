@@ -18,7 +18,7 @@ class ResourceController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_007', 'name_012', 'name_007'];
     protected $nameM        = 'name_007';
-    protected $model        = \Syscover\Pulsar\Models\Resource::class;
+    protected $model        = Resource::class;
     protected $icon         = 'icomoon-icon-database';
     protected $objectTrans  = 'resource';
 

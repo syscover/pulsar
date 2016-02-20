@@ -19,7 +19,7 @@ class EmailAccountController extends Controller {
     protected $package      = 'pulsar';
     protected $aColumns     = ['id_013', 'name_013', ['data' => 'email_013', 'type' => 'email']];
     protected $nameM        = 'name_013';
-    protected $model        = \Syscover\Pulsar\Models\EmailAccount::class;
+    protected $model        = EmailAccount::class;
     protected $icon         = 'fa fa-envelope';
     protected $objectTrans  = 'account';
 

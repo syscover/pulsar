@@ -20,7 +20,7 @@ class TerritorialArea3Controller extends Controller {
     protected $package              = 'pulsar';
     protected $aColumns             = ['id_005', 'name_003', 'name_004', 'name_005'];
     protected $nameM                = 'name_005';
-    protected $model                = \Syscover\Pulsar\Models\TerritorialArea3::class;
+    protected $model                = TerritorialArea3::class;
     protected $icon                 = 'entypo-icon-globe';
     protected $customTrans          = null;
     protected $customTransHeader    = null;
