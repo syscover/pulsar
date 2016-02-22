@@ -31,8 +31,6 @@
         <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/cssloader/css/cssloader.css') }}">
         <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/plugins/jquery.msgbox/javascript/msgbox/jquery.msgbox.css') }}">
 
-        <!-- custom css -->
-        @yield('css')
         <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/css/custom/style.css') }}">
 
         <!--=== JavaScript ===-->
@@ -87,8 +85,8 @@
             });
         </script>
 
-        <!-- custom script -->
-        @yield('script')
+        <!-- custom head -->
+        @yield('head')
     </head>
     
     <body class="theme-dark">

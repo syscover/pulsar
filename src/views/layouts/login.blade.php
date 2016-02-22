@@ -59,10 +59,7 @@
         
         <!-- Mensajes -->
         <script src="{{ asset('packages/syscover/pulsar/vendor/pnotify/pnotify.custom.min.js') }}"></script>
-                
-        <!-- Librerías JS y JS inline -->
-        @yield('script')
-        
+
         <!-- JS personalizadas -->
         <script type="text/javascript">
         $(document).ready(function() {
@@ -73,10 +70,12 @@
                 spinnerColor: '#4d7496',
                 theme: 'material'
             });
-
             Login.init(); // Init login JavaScript
         });
         </script>
+
+        <!-- custom head -->
+        @yield('head')
     </head>
 
     <body class="login">

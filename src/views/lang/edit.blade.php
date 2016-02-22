@@ -1,6 +1,6 @@
 @extends('pulsar::layouts.form', ['action' => 'update', 'enctype' => true])
 
-@section('script')
+@section('head')
     @parent
     @include('pulsar::includes.js.delete_image')
     <script type="text/javascript">

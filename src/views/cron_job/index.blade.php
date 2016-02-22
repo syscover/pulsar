@@ -1,6 +1,6 @@
 @extends('pulsar::layouts.index', ['newTrans' => 'new2'])
 
-@section('script')
+@section('head')
     @parent
     <!-- pulsar::cron_jobs.index -->
     <script type="text/javascript">

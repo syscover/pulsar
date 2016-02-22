@@ -1,6 +1,6 @@
 @extends('pulsar::layouts.login')
 
-@section('script')
+@section('head')
     <!-- App -->
     <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/login.js') }}"></script>
     <script type="text/javascript">

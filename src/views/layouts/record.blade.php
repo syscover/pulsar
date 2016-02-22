@@ -1,6 +1,7 @@
 @extends(isset($extends) && is_array($extends) && isset($extends['record'])? $extends['record'] : 'pulsar::layouts.default')
 
-@section('script')
+@section('head')
+    @parent
     @include('pulsar::includes.js.header_form')
 @stop
 

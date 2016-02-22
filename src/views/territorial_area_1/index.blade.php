@@ -1,6 +1,6 @@
 @extends('pulsar::layouts.index', ['newTrans' => 'new2'])
 
-@section('script')
+@section('head')
     @parent
     <!-- pulsar::territorial_areas_1.index -->
     <script type="text/javascript">

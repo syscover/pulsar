@@ -1,4 +1,4 @@
-@section('script')
+@section('head')
     @parent
     <script type="text/javascript">
         $(document).ready(function() {

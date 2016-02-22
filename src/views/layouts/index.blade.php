@@ -1,6 +1,7 @@
 @extends('pulsar::layouts.default')
 
-@section('script')
+@section('head')
+    @parent
     <!-- pulsar::layouts.index -->
     @include('pulsar::includes.js.header_list')
     @include('pulsar::includes.js.success_message')

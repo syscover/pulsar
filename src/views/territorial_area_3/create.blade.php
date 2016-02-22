@@ -1,6 +1,6 @@
 @extends('pulsar::layouts.form', ['action' => 'store'])
 
-@section('script')
+@section('head')
     @parent
     <!-- pulsar::territorial_areas_3.create -->
     <script type="text/javascript">
