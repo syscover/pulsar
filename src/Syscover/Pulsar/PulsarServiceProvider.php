@@ -15,6 +15,9 @@ class PulsarServiceProvider extends ServiceProvider
 		// include route.php file
 		include realpath(__DIR__ . '/../../routes.php');
 
+		// include helpers file
+		include __DIR__ . '/Helpers/helpers.php';
+
 		// register views
 		$this->loadViewsFrom(realpath(__DIR__ . '/../../views'), 'pulsar');
 
