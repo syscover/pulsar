@@ -28,7 +28,7 @@ class User extends Authenticatable
     protected $hidden       = ['password_010', 'remember_token_010'];
     protected $maps         = [];
     protected $relationMaps = [
-        'profile'   => \Syscover\Pulsar\Models\Profile::class,
+        'profile'   => Profile::class,
     ];
     private static $rules    = [
         'name'      => 'required|between:2,50',

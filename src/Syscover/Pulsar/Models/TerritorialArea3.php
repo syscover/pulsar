@@ -27,8 +27,8 @@ class TerritorialArea3 extends Model
     protected $fillable     = ['id_005', 'country_005', 'territorial_area_1_005', 'territorial_area_2_005', 'name_005'];
     protected $maps         = [];
     protected $relationMaps = [
-        'terrirorial_area_1'   => \Syscover\Pulsar\Models\TerritorialArea1::class,
-        'terrirorial_area_2'   => \Syscover\Pulsar\Models\TerritorialArea2::class
+        'terrirorial_area_1'   => TerritorialArea1::class,
+        'terrirorial_area_2'   => TerritorialArea2::class
     ];
     private static $rules   = [
         'id'                => 'required|between:1,10|unique:001_005_territorial_area_3,id_005',

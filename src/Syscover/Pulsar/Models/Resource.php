@@ -27,7 +27,7 @@ class Resource extends Model
     protected $fillable     = ['id_007', 'name_007', 'package_007'];
     protected $maps         = [];
     protected $relationMaps = [
-        'package'      => \Syscover\Pulsar\Models\Package::class,
+        'package'      => Package::class,
     ];
     private static $rules   = [
         'id'        =>  'required|between:2,30|unique:001_007_resource,id_007',
