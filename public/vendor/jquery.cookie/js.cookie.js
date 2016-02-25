@@ -1,8 +1,8 @@
 /*!
- * JavaScript Cookie v2.0.0-pre
+ * JavaScript Cookie v2.1.0
  * https://github.com/js-cookie/js-cookie
  *
- * Copyright 2006, 2015 Klaus Hartl
+ * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
  * Released under the MIT license
  */
 (function (factory) {
@@ -12,7 +12,7 @@
 		module.exports = factory();
 	} else {
 		var _OldCookies = window.Cookies;
-		var api = window.Cookies = factory(window.jQuery);
+		var api = window.Cookies = factory();
 		api.noConflict = function () {
 			window.Cookies = _OldCookies;
 			return api;
@@ -55,8 +55,12 @@
 					}
 				} catch (e) {}
 
-				value = encodeURIComponent(String(value));
-				value = value.replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
+				if (!converter.write) {
+					value = encodeURIComponent(String(value))
+						.replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
+				} else {
+					value = converter.write(value, key);
+				}
 
 				key = encodeURIComponent(String(key));
 				key = key.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent);
@@ -67,7 +71,7 @@
 					attributes.expires && '; expires=' + attributes.expires.toUTCString(), // use expires attribute, max-age is not supported by IE
 					attributes.path    && '; path=' + attributes.path,
 					attributes.domain  && '; domain=' + attributes.domain,
-					attributes.secure  && '; secure'
+					attributes.secure ? '; secure' : ''
 				].join(''));
 			}
 
@@ -93,22 +97,26 @@
 					cookie = cookie.slice(1, -1);
 				}
 
-				cookie = converter && converter(cookie, name) || cookie.replace(rdecode, decodeURIComponent);
+				try {
+					cookie = converter.read ?
+						converter.read(cookie, name) : converter(cookie, name) ||
+					cookie.replace(rdecode, decodeURIComponent);
 
-				if (this.json) {
-					try {
-						cookie = JSON.parse(cookie);
-					} catch (e) {}
-				}
+					if (this.json) {
+						try {
+							cookie = JSON.parse(cookie);
+						} catch (e) {}
+					}
 
-				if (key === name) {
-					result = cookie;
-					break;
-				}
+					if (key === name) {
+						result = cookie;
+						break;
+					}
 
-				if (!key) {
-					result[name] = cookie;
-				}
+					if (!key) {
+						result[name] = cookie;
+					}
+				} catch (e) {}
 			}
 
 			return result;
@@ -133,5 +141,5 @@
 		return api;
 	}
 
-	return init();
+	return init(function () {});
 }));
