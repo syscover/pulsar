@@ -70,6 +70,7 @@ return [
     'field_group'                           => 'Field group|Field groups',
     'field_size'                            => 'Field size',
     'field_type'                            => 'Field type|Field types',
+    'file_not_select'                       => 'File not select',
     'gender'                                => 'Gender',
     'group'                                 => 'Group|Groups',
     'int_value'                             => 'Int value',
@@ -107,13 +108,14 @@ return [
     'setting'                               => 'Setting|Settings',
     'single'                                => 'Single',
     'state'                                 => 'State|States',
+    'transport'                             => 'Transport|Transports',
     'treatment'                             => 'Treatment|Treatment',
     'type_something'                        => 'Type something',
     'value'                                 => 'Value|Values',
     'weight'                                => 'Weight|Weights',
     'widower'                               => 'Widower',
 
-    'file_not_select'                       => 'File not select',
+
     'select'                                => 'Select',
     'sorting'                               => 'Sorting',
     'dashboard'                             => 'Dashboard',

@@ -71,6 +71,7 @@ return [
     'field_group'                           => 'Grupo de campos|Grupos de campos',
     'field_size'                            => 'Tamaño campo',
     'field_type'                            => 'Tipo de campo|Tipo de campos',
+    'file_not_select'                       => 'Fichero no seleccionado',
     'gender'                                => 'Género',
     'group'                                 => 'Grupo|Grupos',
     'int_value'                             => 'Valor entero',
@@ -108,6 +109,7 @@ return [
     'setting'                               => 'Ajuste|Ajustes',
     'single'                                => 'Soltero/a',
     'state'                                 => 'Estado|Estados',
+    'transport'                             => 'Transporte|Transportes',
     'treatment'                             => 'Tratamiento|Tramientos',
     'type_something'                        => 'Escribe algo',
     'value'                                 => 'Valor|Valores',
@@ -115,7 +117,6 @@ return [
     'widower'                               => 'Viudo/a',
 
 
-    'file_not_select'                       => 'Fichero no seleccionado',
     'select'                                => 'Seleccionar',
     'sorting'                               => 'Orden',
     'dashboard'                             => 'Escritorio',
