@@ -1,7 +1,6 @@
 <?php namespace Syscover\Pulsar;
 
 use Illuminate\Support\ServiceProvider;
-use Syscover\Pulsar\Libraries\CustomValidator;
 
 class PulsarServiceProvider extends ServiceProvider
 {
