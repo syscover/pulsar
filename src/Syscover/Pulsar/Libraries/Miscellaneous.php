@@ -651,4 +651,34 @@ class Miscellaneous
 
         return $momentFormat;
     }
+
+
+    public static function  generateRandomString($length = 10, $type = null)
+    {
+        switch ($type) {
+            case 'uppercase':
+                $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                break;
+            case 'lowercase':
+                $characters = 'abcdefghijklmnopqrstuvwxyz';
+                break;
+            case 'uppercase-number':
+                $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                break;
+            case 'lowercase-number':
+                $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+                break;
+            default:
+                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                break;
+        }
+
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+
+        return $randomString;
+    }
 }
