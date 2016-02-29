@@ -1,5 +1,7 @@
 var cb_list='';
 var cb_edit = true;
+var cb_snippetList = '#divSnippetList';
+var cb_snippetPageSliding = false;
 
 var oScripts=document.getElementsByTagName("script"); 
 var sScriptPath;
@@ -12,29 +14,31 @@ for(var i=0;i<oScripts.length;i++) {
 var sScriptPathArray = sScriptPath.split("?");
 sScriptPath = sScriptPathArray[0];
 
-if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
-    var sc = document.createElement('script');
-    sc.src = sScriptPath + 'megapix-image.js';
-    document.getElementsByTagName('head')[0].appendChild(sc);
-}
+var sc = document.createElement('script');
+sc.src = sScriptPath + 'load-image.all.min.js';
+document.getElementsByTagName('head')[0].appendChild(sc);
 
 (function (jQuery) {
 
     var $activeRow;
 
     jQuery.contentbuilder = function (element, options) {
-
+        
         var defaults = {
             zoom: '1',
-            selectable: "h1,h2,h3,h4,h5,h6,p,ul,ol,small,.edit",
+            selectable: "h1,h2,h3,h4,h5,h6,p,blockquote,ul,ol,small,.edit",
             editMode: 'default',
             onRender: function () { },
             onDrop: function () { },
+            onImageBrowseClick: function () { },
+            onImageSettingClick: function () { },        
             snippetFile: 'assets/default/snippets.html',
             snippetPathReplace: ['',''],
             hiquality: false,
             snippetTool: 'right',
             snippetOpen: false,
+            snippetPageSliding: false, 
+            scrollHelper: false,
             snippetCategories: [
                 [0,"Default"],
                 [-1,"All"],
@@ -60,9 +64,13 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                 [19,"Separator"]
                 ],
             imageselect: '',
-            imageEmbed: true,
-            sourceEditor: true,
             fileselect: '',
+            onImageSelectClick: function () { },    
+            onFileSelectClick: function () { },    
+            imageEmbed: true,
+            embedOriginalChecked: false,
+            hideEmbedOriginal: false,
+            sourceEditor: true,            
             enableZoom: true,
             colors: ["#ffffc5","#e9d4a7","#ffd5d5","#ffd4df","#c5efff","#b4fdff","#c6f5c6","#fcd1fe","#ececec",                            
                 "#f7e97a","#d09f5e","#ff8d8d","#ff80aa","#63d3ff","#7eeaed","#94dd95","#ef97f3","#d4d4d4",                         
@@ -85,6 +93,17 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
             this.settings = jQuery.extend({}, defaults, options);
 
             //$element.css({ 'margin-top': '80px', 'margin-bottom': '80px' });
+
+            if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+                this.settings.enableZoom = false;
+            }
+            
+            var is_edge = detectEdge();
+            if(is_edge) {
+                this.settings.enableZoom = false;
+                this.settings.zoom = 1;
+                localStorage.zoom = 1;
+            }
 
             /**** Zoom ****/
             if (!this.settings.enableZoom) {
@@ -120,6 +139,10 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
             else {
                 cb_list = cb_list + ',#'+$element.attr('id');
             }
+
+            /**** Set global vars (used by all instances of ContentBuilder) ****/
+            cb_snippetList = this.settings.snippetList;
+            cb_snippetPageSliding = this.settings.snippetPageSliding;
       
             /**** Enlarge droppable area ****/
             $element.css({ 'min-height': '50px' });
@@ -149,6 +172,8 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                 s += '<br><div id="divRange"><input type="range" id="inpZoom" min="80" max="100" value="100"></div>';
                 s += '';
                 s += '<a id="lnkToolOpen" href="#"><i class="cb-icon-left-open-big" style="font-size: 15px;"></i></a></div>';
+                s += '<div id="divSnippetScrollUp" style="display:none;background:rgba(0,0,0,0.3);width:45px;height:45px;line-height:45px;color:#eee;position:fixed;z-index:100000;border-radius:8px;text-align:center;font-size:12px;cursor:pointer;font-family:sans-serif;">&#9650;</div>' +
+                     '<div id="divSnippetScrollDown" style="display:none;background:rgba(0,0,0,0.3);width:45px;height:45px;line-height:45px;color:#eee;position:fixed;z-index:100000;border-radius:8px;text-align:center;font-size:12px;cursor:pointer;font-family:sans-serif;">&#9660;</div>';
                 jQuery('#divCb').append(s);
 
                 jQuery('#inpZoom').val(this.settings.zoom * 100);
@@ -170,7 +195,7 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                 });
 
                 //Enable/disable Zoom
-                if (!this.settings.enableZoom && this.settings.snippetList=='#divSnippetList') {
+                if (!this.settings.enableZoom && cb_snippetList=='#divSnippetList') {
                     jQuery('#divRange').css('display', 'none');
                     jQuery('#divSnippetList').css('height', '100%');
                 }
@@ -211,16 +236,16 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                     jQuery('#divSnippets').html(htmlData);
 
                     //jQuery('#divSnippetList').html(htmlThumbs);
-                    jQuery($element.data('contentbuilder').settings.snippetList).html(htmlThumbs);
+                    jQuery(cb_snippetList).html(htmlThumbs);
                     
                     //Snippets Filter
                    
                     if(bUseSnippetsFilter){
                         var cats = [];
 
-                        //jQuery($element.data('contentbuilder').settings.snippetList + ' > div').css('display','none');
+                        //jQuery(cb_snippetList + ' > div').css('display','none');
                         var defaultExists = false;
-                        jQuery($element.data('contentbuilder').settings.snippetList + ' > div').each(function () {
+                        jQuery(cb_snippetList + ' > div').each(function () {
                             for(var j=0;j<jQuery(this).attr('data-cat').split(',').length;j++){
                                 var catid = jQuery(this).attr('data-cat').split(',')[j];
                                 if(catid == 0){
@@ -244,7 +269,7 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                         });
 
                         if(!defaultExists){//old version: default not exists, show all (backward compatibility)
-                            jQuery($element.data('contentbuilder').settings.snippetList + ' > div').css('display','block');
+                            jQuery(cb_snippetList + ' > div').css('display','block');
                             jQuery("#selSnips option[value='0']").remove();
                         }
 
@@ -255,12 +280,12 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                             var optionSelected = jQuery("option:selected", this);
                             var valueSelected = this.value;
                             if(valueSelected=='-1'){
-                                //jQuery($element.data('contentbuilder').settings.snippetList + ' > div').css('display','block');
-                                jQuery($element.data('contentbuilder').settings.snippetList + ' > div').fadeIn(200);
+                                //jQuery(cb_snippetList + ' > div').css('display','block');
+                                jQuery(cb_snippetList + ' > div').fadeIn(200);
                             } else {
-                                //jQuery($element.data('contentbuilder').settings.snippetList + ' > div').css('display','none');                            
+                                //jQuery(cb_snippetList + ' > div').css('display','none');                            
                                 //jQuery("[data-cat=" +valueSelected+ "]").css('display','block');
-                                jQuery($element.data('contentbuilder').settings.snippetList + ' > div').fadeOut(200, function () {
+                                jQuery(cb_snippetList + ' > div').fadeOut(200, function () {
                                     //jQuery("[data-cat=" +valueSelected+ "]").fadeIn(400);
                                     for(var j=0;j<jQuery(this).attr('data-cat').split(',').length;j++){
                                         if(valueSelected == jQuery(this).attr('data-cat').split(',')[j]){
@@ -274,114 +299,63 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                     }
 
                     /* Draggable */
-                    var bJUIStable = false;
-                    if(jQuery.ui.version=='1.11.0'){
-                        bJUIStable = true; 
-                    }
-
-                    if(bJUIStable){
-
-                        jQuery($element.data('contentbuilder').settings.snippetList + ' > div').draggable({
-                            cursor: 'move',
-                            helper: function () {
-                                return jQuery("<div class='dynamic'></div>")[0];
-                            },
-                            connectToSortable: cb_list, /*"#" + $element.attr('id'),*/
-                            stop: function (event, ui) {
-
-                                /* fix bug */
-                                $element.children("div").each(function () {
-                                    if (jQuery(this).children("img").length == 1) {
-                                        jQuery(this).remove();
-                                    }
-                                });
-
-                            }
-                        });
-
-                    } else {
-                        
-                        jQuery($element.data('contentbuilder').settings.snippetList + ' > div').draggable({ //jQuery('#divSnippetList > div').draggable({
-                            cursor: 'move',
-                            //helper: function () { /* Custom helper not returning draggable item using the latest jQuery UI */
-                            //    return jQuery("<div class='dynamic'></div>")[0];
-                            //},
-                            helper: "clone", /* So we use cloned draggable item as the helper */
-                            drag: function (event, ui) {
-
-                                /* Needed by latest jQuery UI: styling the helper */
-                                jQuery(ui.helper).css("overflow","hidden");
-                                jQuery(ui.helper).css("padding-top","60px"); //make helper content empty by adding a top padding the same as height
-                                jQuery(ui.helper).css("box-sizing","border-box");
-                                jQuery(ui.helper).css("width","150px");
-                                jQuery(ui.helper).css("height","60px");
-                                jQuery(ui.helper).css("border","rgba(225,225,225,0.9) 5px solid");
-
-                                /* Needed by latest jQuery UI: adjust helper position */
-                                var zoom = localStorage.zoom;
-                                if (zoom == 'normal') zoom = 1;
-                                if (zoom == undefined) zoom = 1;
-
-                                //IE fix
-                                zoom = zoom + ''; //Fix undefined
-                                if (zoom.indexOf('%') != -1) {
-                                    zoom = zoom.replace('%', '') / 100;
-                                }
-                                if (zoom == 'NaN') {
-                                    zoom = 1;
-                                }
-
-                                zoom = zoom*1;
-
-                                var scrolltop = jQuery(window).scrollTop();
-                                var offsettop = jQuery(event.target).offset().top;
-                                var offsetleft = jQuery(event.target).offset().left;
-
-                                var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-                                var is_ie = detectIE();
-                                var browserok = true;
-                                if (is_firefox||is_ie) browserok = false;
-                                if(browserok){
-                                    //Chrome 37, Opera 24
-                                    var adjy = 0;
-                                    var adjx = 60;
-                                
-                                    var newzoom = (5*zoom -1)/4; //if zoom = 0.8, make it 0.75 (to fix wrong jquery ui handler position)
-
-                                    jQuery(ui.helper).css("margin-top", (event.clientY + adjy - ((event.clientY + adjy) * newzoom)) + (scrolltop + 0 - ((scrolltop + 0) * newzoom)));
-                                    jQuery(ui.helper).css("margin-left", event.clientX + adjx - ((event.clientX + adjx) * zoom));
-
-                                } else {
-                                    if(is_ie){
-                                        //IE 11 (No Adjustment required)
-
-                                    }  
-                                    if(is_firefox) {
-                                        //Firefox (hidden => not needed)                                    
-
-                                    }
-                                }   
-
-                            },
-                            connectToSortable: cb_list, /*"#" + $element.attr('id'),*/
-                            stop: function (event, ui) {
-
-                                /* fix bug */
-                                $element.children("div").each(function () {
-                                    if (jQuery(this).children("img").length == 1) {
-                                        jQuery(this).remove();
-                                    }
-                                });
-
-                            }
-                        });
-
-                    } 
-                    /* /Draggable */
+                    $element.data('contentbuilder').applyDraggable();
 
                 });
 
+            } else {
+                
+                //Snippets already added here. This section is executed if a new instance is dynamically added.
+
+                /* Draggable */
+                this.applyDraggable();
+
             }
+
+            /**** Additional Scroll Helper for Touch Devices ****/    
+            var maxScroll=100000000;       
+            jQuery('#divSnippetScrollUp').css('display','none');
+            jQuery('#divSnippetScrollUp').bind("click touchup", function() { 
+                jQuery("#divSnippetList").animate({ scrollTop: (jQuery("#divSnippetList").scrollTop() - (jQuery("#divSnippetList").height()-150) ) + "px" },300, function(){
+                    if(jQuery("#divSnippetList").scrollTop()!=0){
+                        jQuery('#divSnippetScrollUp').fadeIn(300);
+                    } else {
+                         jQuery('#divSnippetScrollUp').fadeOut(300);
+                    }
+                    if(jQuery("#divSnippetList").scrollTop() != maxScroll){
+                        jQuery('#divSnippetScrollDown').fadeIn(300);
+                    } else {
+                         jQuery('#divSnippetScrollDown').fadeOut(300);
+                    }  
+                });           
+
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                return false;
+            });            
+            jQuery('#divSnippetScrollDown').bind("click touchup", function() { 
+                jQuery("#divSnippetList").animate({ scrollTop: (jQuery("#divSnippetList").scrollTop() + (jQuery("#divSnippetList").height()-150) ) + "px" }, 300, function() {
+                    if(jQuery("#divSnippetList").scrollTop()!=0){
+                        jQuery('#divSnippetScrollUp').fadeIn(300);
+                    } else {
+                        jQuery('#divSnippetScrollUp').fadeOut(300);
+                        
+                    }
+                    if(maxScroll==100000000){
+                        maxScroll = jQuery('#divSnippetList').prop('scrollHeight') - jQuery('#divSnippetList').height() - 10;
+                    }  
+
+                    if(jQuery("#divSnippetList").scrollTop() != maxScroll){
+                        jQuery('#divSnippetScrollDown').fadeIn(300);
+                    } else {
+                        jQuery('#divSnippetScrollDown').fadeOut(300);
+                    }  
+                });
+
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                return false;
+            });
             
             /**** Apply builder elements ****/            
             $element.children("*").wrap("<div class='ui-draggable'></div>"); //$element.children("*").not('link').wrap("<div class='ui-draggable'></div>");
@@ -403,26 +377,110 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
             if (windowsize < 600) {
                 toolwidth = 150;
             }
+            if (windowsize <= 320) {
+                $element.css("margin-left", "35px");
+                $element.css("margin-right", "35px");
+                $element.css("width", "80%");
+            }
+
+            var bUseScrollHelper=this.settings.scrollHelper;
+            if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+                bUseScrollHelper=true;
+            }
 
             if (this.settings.snippetTool == 'right') {
-                // Sliding from Right
-                jQuery('#divTool').css('width', toolwidth + 'px');
-                jQuery('#divTool').css('right', '-' + toolwidth + 'px');
 
+                // Sliding from Right
+                jQuery('#divSnippetScrollUp').css('right','10px');
+                jQuery('#divSnippetScrollDown').css('right','10px');
+
+                //alert(jQuery('#divTool').css('right'))
+                if(jQuery('#divTool').css('right')!='0px'){ //if right=0px means snippets already exist and opened, so on new init (new instance), don't close by setting it =-toolwidth.
+                    jQuery('#divTool').css('width', toolwidth + 'px');
+                    jQuery('#divTool').css('right', '-' + toolwidth + 'px');
+                }
                 jQuery("#lnkToolOpen").unbind('click');
                 jQuery("#lnkToolOpen").click(function (e) {
-                    $element.data('contentbuilder').clearControls();
 
-                    if (parseInt(jQuery('#divTool').css('right')) == 0) {
-                        jQuery('#divTool').animate({
-                            right: '-=' + toolwidth + 'px'
-                        }, 200);
-                        jQuery("#lnkToolOpen i").attr('class','cb-icon-left-open-big');
+                    //Clear Controls (clearControls)
+                    jQuery('.row-tool').stop(true, true).fadeOut(0);
+                    jQuery(".ui-draggable").removeClass('code');
+                    jQuery(".ui-draggable").removeClass('ui-dragbox-outlined');
+                    jQuery('#rte-toolbar').css('display', 'none');
+
+                    if(cb_snippetPageSliding ||
+                        ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i)))
+                        ) {
+                        if (parseInt(jQuery('#divTool').css('right')) == 0) {
+                            //Close
+                            jQuery('#divTool').animate({
+                                right: '-=' + toolwidth + 'px'
+                            }, 200);
+                            jQuery('body').animate({
+                            marginRight: '-=' + toolwidth + 'px'
+                            }, 250);
+                            jQuery('#rte-toolbar').animate({ // Slide the editor toolbar
+                            paddingRight: '-=' + toolwidth + 'px'
+                            }, 250);
+                            jQuery('#lnkToolOpen i').attr('class','cb-icon-left-open-big');
+
+                            jQuery('#divSnippetScrollUp').fadeOut(300);
+                            jQuery('#divSnippetScrollDown').fadeOut(300);
+                        } else {
+                            //Open
+                            jQuery('#divTool').animate({
+                                right: '+=' + toolwidth + 'px'
+                            }, 200);
+                            jQuery('body').animate({
+                            marginRight: '+=' + toolwidth + 'px'
+                            }, 250);
+                            jQuery('#rte-toolbar').animate({ // Slide the editor toolbar
+                            paddingRight: '+=' + toolwidth + 'px'
+                            }, 250);
+                            jQuery('#lnkToolOpen i').attr('class','cb-icon-right-open-big');
+
+                            if(bUseScrollHelper){
+                                var ypos = jQuery('#divSnippetList').height()/2 - 60;
+                                jQuery('#divSnippetScrollUp').css('top',ypos);
+                                jQuery('#divSnippetScrollDown').css('top',ypos + 60);
+                                if(jQuery("#divSnippetList").scrollTop()!=0){
+                                    jQuery('#divSnippetScrollUp').fadeIn(300);
+                                } else {
+                                    jQuery('#divSnippetScrollUp').fadeOut(300);
+                                }
+                                jQuery('#divSnippetScrollDown').fadeIn(300);
+                            }
+                        }
+                        jQuery('#rte-toolbar').css('display', 'none');
                     } else {
-                        jQuery('#divTool').animate({
-                            right: '+=' + toolwidth + 'px'
-                        }, 200);
-                        jQuery("#lnkToolOpen i").attr('class','cb-icon-right-open-big');
+                        if (parseInt(jQuery('#divTool').css('right')) == 0) {
+                            //Close
+                            jQuery('#divTool').animate({
+                                right: '-=' + toolwidth + 'px'
+                            }, 200);
+                            jQuery('#lnkToolOpen i').attr('class','cb-icon-left-open-big');
+
+                            jQuery('#divSnippetScrollUp').css('display','none');
+                            jQuery('#divSnippetScrollDown').css('display','none');
+                        } else {
+                            //Open
+                            jQuery('#divTool').animate({
+                                right: '+=' + toolwidth + 'px'
+                            }, 200);
+                            jQuery('#lnkToolOpen i').attr('class','cb-icon-right-open-big');
+
+                            if(bUseScrollHelper){
+                                var ypos = jQuery('#divSnippetList').height()/2 - 60;
+                                jQuery('#divSnippetScrollUp').css('top',ypos);
+                                jQuery('#divSnippetScrollDown').css('top',ypos + 60);
+                                if(jQuery("#divSnippetList").scrollTop()!=0){
+                                    jQuery('#divSnippetScrollUp').fadeIn(300);
+                                } else {
+                                    jQuery('#divSnippetScrollUp').fadeOut(300);
+                                }
+                                jQuery('#divSnippetScrollDown').fadeIn(300);
+                            }
+                        }
                     }
 
                     e.preventDefault();
@@ -449,6 +507,10 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
             } else {
 
                 // Sliding from Left
+                jQuery("#lnkToolOpen i").attr('class','cb-icon-right-open-big');
+                jQuery('#divSnippetScrollUp').css('left','10px');
+                jQuery('#divSnippetScrollDown').css('left','10px');
+
                 jQuery('#divTool').css('width', toolwidth + 'px');
                 jQuery('#divTool').css('left', '-' + toolwidth + 'px');
 
@@ -456,18 +518,86 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
 
                 jQuery("#lnkToolOpen").unbind('click');
                 jQuery("#lnkToolOpen").click(function (e) {
-                    $element.data('contentbuilder').clearControls();
 
-                    if (parseInt(jQuery('#divTool').css('left')) == 0) {
-                        jQuery('#divTool').animate({
-                            left: '-=' + (toolwidth + 0) + 'px'
-                        }, 200);
-                        jQuery("#lnkToolOpen i").attr('class','cb-icon-right-open-big');
+                    //Clear Controls (clearControls)
+                    jQuery('.row-tool').stop(true, true).fadeOut(0);
+                    jQuery(".ui-draggable").removeClass('code');
+                    jQuery(".ui-draggable").removeClass('ui-dragbox-outlined');
+                    jQuery('#rte-toolbar').css('display', 'none');
+
+                    if(cb_snippetPageSliding ||
+                        ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i)))
+                        ) {
+                        if (parseInt(jQuery('#divTool').css('left')) == 0) {
+                            //Close
+                            jQuery('#divTool').animate({
+                                left: '-=' + (toolwidth + 0) + 'px'
+                            }, 200);
+                            jQuery('body').animate({
+                            marginLeft: '-=' + toolwidth + 'px'
+                            }, 250);
+                            jQuery('#rte-toolbar').animate({
+                            paddingLeft: '-=' + toolwidth + 'px'
+                            }, 250);
+                            jQuery("#lnkToolOpen i").attr('class','cb-icon-right-open-big');
+
+                            jQuery('#divSnippetScrollUp').fadeOut(300);
+                            jQuery('#divSnippetScrollDown').fadeOut(300);
+                        } else {
+                            //Open
+                            jQuery('#divTool').animate({
+                                left: '+=' + (toolwidth + 0) + 'px'
+                            }, 200);
+                            jQuery('body').animate({
+                            marginLeft: '+=' + toolwidth + 'px'
+                            }, 250);
+                            jQuery('#rte-toolbar').animate({ // CUSTOM
+                            paddingLeft: '+=' + toolwidth + 'px'
+                            }, 250);
+                            jQuery("#lnkToolOpen i").attr('class','cb-icon-left-open-big');
+
+                            if(bUseScrollHelper){
+                                var ypos = jQuery('#divSnippetList').height()/2 - 60;
+                                jQuery('#divSnippetScrollUp').css('top',ypos);
+                                jQuery('#divSnippetScrollDown').css('top',ypos + 60);
+                                if(jQuery("#divSnippetList").scrollTop()!=0){
+                                    jQuery('#divSnippetScrollUp').fadeIn(300);
+                                } else {
+                                    jQuery('#divSnippetScrollUp').fadeOut(300);
+                                }
+                                jQuery('#divSnippetScrollDown').fadeIn(300);
+                            }
+                        }
+                        jQuery('#rte-toolbar').css('display', 'none');
                     } else {
-                        jQuery('#divTool').animate({
-                            left: '+=' + (toolwidth + 0) + 'px'
-                        }, 200);
-                        jQuery("#lnkToolOpen i").attr('class','cb-icon-left-open-big');
+                        if (parseInt(jQuery('#divTool').css('left')) == 0) {
+                            //Close
+                            jQuery('#divTool').animate({
+                                left: '-=' + (toolwidth + 0) + 'px'
+                            }, 200);
+                            jQuery("#lnkToolOpen i").attr('class','cb-icon-right-open-big');
+
+                            jQuery('#divSnippetScrollUp').css('display','none');
+                            jQuery('#divSnippetScrollDown').css('display','none');
+                        } else {
+                            //Open
+                            jQuery('#divTool').animate({
+                                left: '+=' + (toolwidth + 0) + 'px'
+                            }, 200);
+                            jQuery("#lnkToolOpen i").attr('class','cb-icon-left-open-big');
+
+                            if(bUseScrollHelper){
+                                var ypos = jQuery('#divSnippetList').height()/2 - 60;
+                                jQuery('#divSnippetScrollUp').css('top',ypos);
+                                jQuery('#divSnippetScrollDown').css('top',ypos + 60);
+                                if(jQuery("#divSnippetList").scrollTop()!=0){
+                                    jQuery('#divSnippetScrollUp').fadeIn(300);
+                                } else {
+                                    jQuery('#divSnippetScrollUp').fadeOut(300);
+                                }
+                                jQuery('#divSnippetScrollDown').fadeIn(300);
+                            }
+                        }
                     }
 
                     e.preventDefault();
@@ -497,18 +627,24 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
             /**** Apply builder behaviors ****/
             this.applyBehavior();
 
+            /**** Function to run when column/grid changed ****/
+            this.blockChanged();
+
             /**** Trigger Render event ****/
             this.settings.onRender();
 
             /**** DRAG & DROP behavior ****/          
             $element.sortable({
+                helper: function(event, ui){
+                    /* 
+                    Fix incorrect helper position while sorting 
+                    http://stackoverflow.com/questions/5791886/jquery-draggable-shows-helper-in-wrong-place-after-page-scrolled
+                    */
+                    var $clone =  jQuery(ui).clone();
+                    $clone .css('position','absolute');
+                    return $clone.get(0);
+                  },
                 sort: function(event, ui) {  
-                    var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-                    var is_ie = detectIE();
-                    if(is_firefox) { 
-                        //ui.helper.css({'top' : ui.position.top + jQuery(window).scrollTop() - 100 + 'px'});
-                        ui.helper.css({'display' : 'none'});
-                    }
                     if($element.data('contentbuilder').settings.hideDragPreview){
                         ui.helper.css({'display' : 'none'});
                     }
@@ -554,7 +690,7 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                                 jQuery(this).wrap("<div class='ui-draggable'></div>");
                             }
                         });
-
+                        
                         $element.children('.ui-draggable').each(function () {
                             if (jQuery(this).find('.row-tool').length == 0) {
                                 jQuery(this).append('<div class="row-tool">' +
@@ -595,12 +731,15 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                     //Apply builder behaviors
                     $element.data('contentbuilder').applyBehavior();
 
+                    /**** Function to run when column/grid changed ****/
+                    $element.data('contentbuilder').blockChanged();
+
                     //Trigger Render event
                     $element.data('contentbuilder').settings.onRender();
 
                     //Trigger Drop event
-                    if(bDrop) $element.data('contentbuilder').settings.onDrop(event, ui); 
-
+                    //if(bDrop) $element.data('contentbuilder').settings.onDrop(event, ui); 
+                    $element.data('contentbuilder').settings.onDrop(event, ui); 
                 }
             });
 
@@ -626,16 +765,43 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                         var snipHtml = jQuery('#snip' + snip).text();
                         jQuery(ui.draggable).data('snip', null); //clear
                         return ui.draggable.html(snipHtml);
-                        event.preventDefault();
+                        event.preventDefault();                        
                     }
                 },
                 tolerance: 'pointer',
-                greedy: true
+                greedy: true,
+                deactivate: function (event, ui) {
+                    //If focus is still on an instance, but snippet is dropped on another instance, sortable deactivate not fully run (because of id checking). So droppable deactivate is used (to add row-tool on newly added content block)
+                    jQuery(cb_list).each(function(){
+                        var $cb = jQuery(this);
+
+                        $cb.children('.ui-draggable').each(function () {
+                            if (jQuery(this).find('.row-tool').length == 0) {
+                                jQuery(this).append('<div class="row-tool">' +
+                                '<div class="row-handle"><i class="cb-icon-move"></i></div>' +
+                                '<div class="row-html"><i class="cb-icon-code"></i></div>' +
+                                '<div class="row-copy"><i class="cb-icon-plus"></i></div>' +
+                                '<div class="row-remove"><i class="cb-icon-cancel"></i></div>' +
+                                '</div>');
+                            }
+                        });
+                       
+                        //Apply builder behaviors
+                        $cb.data('contentbuilder').applyBehavior();
+
+                    });
+                }
             });
 
 
             jQuery(document).bind('mousedown', function (event) {
 
+                var $active_element;
+                if(jQuery(event.target).parents(".ui-draggable").length>0){
+                    if( jQuery(event.target).parents(".ui-draggable").parent().data('contentbuilder') ) {
+                        $active_element = jQuery(event.target).parents(".ui-draggable").parent(); //Get current Builder element                        
+                    }                
+                } 
                 //console.log(jQuery(event.target).prop("tagName").toLowerCase());
 
                 //Remove Overlay on embedded object to enable the object.
@@ -662,8 +828,10 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                     if(is_firefox) jQuery(event.target).parents(".ui-draggable").addClass('firefox');
 
                     jQuery('.row-tool').stop(true, true).fadeOut(0);
-                    if( jQuery(event.target).parents(".ui-draggable").find("[data-html-edit='off']").length > 0 || !$element.data('contentbuilder').settings.sourceEditor){
-                        jQuery(event.target).parents(".ui-draggable").find('.row-tool .row-html').css({ display: 'none' });
+                    if($active_element) {
+                        if( jQuery(event.target).parents(".ui-draggable").find("[data-html-edit='off']").length > 0 || !$active_element.data('contentbuilder').settings.sourceEditor){
+                            jQuery(event.target).parents(".ui-draggable").find('.row-tool .row-html').css({ display: 'none' });
+                        }
                     }
                     jQuery(event.target).parents(".ui-draggable").find('.row-tool').stop(true, true).css({ display: 'none' }).fadeIn(300);
                     /****************************/
@@ -693,10 +861,164 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                     }
 
                 });
-   
-                $element.data('contentbuilder').clearControls();
 
+                //Clear Controls (clearControls)
+                jQuery('.row-tool').stop(true, true).fadeOut(0);
+                jQuery(".ui-draggable").removeClass('code');
+                jQuery(".ui-draggable").removeClass('ui-dragbox-outlined');
+                jQuery('#rte-toolbar').css('display', 'none');
             });
+
+        };
+
+        /**** Apply Draggable to Snippets ****/
+        this.applyDraggable = function (obj) {
+
+            var bJUIStable = false;
+            if(jQuery.ui.version=='1.11.0'){
+                bJUIStable = true; 
+            }
+
+            if(bJUIStable){
+
+                jQuery(cb_snippetList + ' > div').draggable({
+                    cursor: 'move',
+                    helper: function () {
+                        return jQuery("<div class='dynamic'></div>")[0];
+                    },
+                    delay: 200,
+                    /*drag: function(e, ui) {
+
+                        var yPos = jQuery(this).offset().top;
+                                
+                        //var sLog = jQuery("#divSnippetList").scrollTop() + ' - ' +  (yPos) + ' - ' + ui.position.top ; // $("#divSnippetList").get(0).scrollHeight
+                        //console.log( sLog );
+                        //if( yPos - ui.position.top > 110 ) {
+                        //    //in Safari iOS, yPos gets incorrect value if the div scrolls down max to the bottom. 
+                        //    return true;
+                        //}                                
+
+                        if(yPos - ui.position.top > 50 && ui.position.left>-20){
+                            //UP
+                            jQuery("#divSnippetList").animate({ scrollTop: (jQuery("#divSnippetList").scrollTop() + (yPos - ui.position.top) * 7 ) + "px" });
+                            return false;
+                        } else if (yPos - ui.position.top < -50 && ui.position.left>-20) {
+                            //DOWN
+                            jQuery("#divSnippetList").animate({ scrollTop: (jQuery("#divSnippetList").scrollTop() + (yPos - ui.position.top) * 7 ) + "px" });
+                            return false;
+                        } else {
+                            //DRAG
+                        }
+
+                    } ,*/
+                    connectToSortable: cb_list, /*"#" + $element.attr('id'),*/
+                    stop: function (event, ui) {
+
+                        // fix bug
+                        jQuery(cb_list).each(function(){
+                            var $cb = jQuery(this);
+
+                            $cb.children("div").each(function () {
+                                if (jQuery(this).children("img").length == 1) {
+                                    jQuery(this).remove();
+                                }
+                            });
+                        });
+
+                    }
+                });
+
+            } else {
+                        
+                jQuery(cb_snippetList + ' > div').draggable({ //jQuery('#divSnippetList > div').draggable({
+                    cursor: 'move',
+                    //helper: function () { /* Custom helper not returning draggable item using the latest jQuery UI */
+                    //    return jQuery("<div class='dynamic'></div>")[0];
+                    //},
+                    helper: "clone", /* So we use cloned draggable item as the helper */
+                    drag: function (event, ui) {
+
+                        /* Needed by latest jQuery UI: styling the helper */
+                        jQuery(ui.helper).css("overflow","hidden");
+                        jQuery(ui.helper).css("padding-top","60px"); //make helper content empty by adding a top padding the same as height
+                        jQuery(ui.helper).css("box-sizing","border-box");
+                        jQuery(ui.helper).css("width","150px");
+                        jQuery(ui.helper).css("height","60px");
+                        jQuery(ui.helper).css("border","rgba(225,225,225,0.9) 5px solid");
+
+                        /* Needed by latest jQuery UI: adjust helper position 
+                        var zoom = localStorage.zoom;
+                        if (zoom == 'normal') zoom = 1;
+                        if (zoom == undefined) zoom = 1;
+
+                        //IE fix
+                        zoom = zoom + ''; //Fix undefined
+                        if (zoom.indexOf('%') != -1) {
+                            zoom = zoom.replace('%', '') / 100;
+                        }
+                        if (zoom == 'NaN') {
+                            zoom = 1;
+                        }
+
+                        zoom = zoom*1;
+
+                        var scrolltop = jQuery(window).scrollTop();
+                        var offsettop = jQuery(event.target).offset().top;
+                        var offsetleft = jQuery(event.target).offset().left;
+
+                        var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+                        var is_ie = detectIE();
+                        var browserok = true;
+                        if (is_firefox||is_ie) browserok = false;
+                        if(browserok){
+                            //Chrome 37, Opera 24
+                            var adjy = 0;
+                            var adjx = 60;
+                                
+                            var newzoom = (5*zoom -1)/4; //if zoom = 0.8, make it 0.75 (to fix wrong jquery ui handler position)
+
+                            jQuery(ui.helper).css("margin-top", (event.clientY + adjy - ((event.clientY + adjy) * newzoom)) + (scrolltop + 0 - ((scrolltop + 0) * newzoom)));
+                            jQuery(ui.helper).css("margin-left", event.clientX + adjx - ((event.clientX + adjx) * zoom));
+
+                        } else {
+                            if(is_ie){
+                                //IE 11 (No Adjustment required)
+
+                            }  
+                            if(is_firefox) {
+                                //Firefox (hidden => not needed)                                    
+
+                            }
+                        }   */
+
+                        /* 
+                        Fix incorrect helper position while dragging 
+                        http://stackoverflow.com/questions/33683926/how-to-fix-wrongly-positioned-draggable-helpers-for-connected-sortables-partial/33844608
+                        */
+                        jQuery(ui.helper).css('position','absolute');
+                        if (!ui.helper.parent().is('body')) {
+                          ui.helper.appendTo(jQuery('body'));
+                        }                        
+
+                    },
+                    connectToSortable: cb_list, /*"#" + $element.attr('id'),*/
+                    stop: function (event, ui) {
+
+                        // fix bug
+                        jQuery(cb_list).each(function(){
+                            var $cb = jQuery(this);
+
+                            $cb.children("div").each(function () {
+                                    if (jQuery(this).children("img").length == 1) {
+                                    jQuery(this).remove();
+                                }
+                            });
+                        });
+
+                    }
+                });
+
+            }    
 
         };
 
@@ -732,7 +1054,11 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
 
             localStorage.zoom = n;
 
-            this.clearControls();
+            //Clear Controls (clearControls)
+            jQuery('.row-tool').stop(true, true).fadeOut(0);
+            jQuery(".ui-draggable").removeClass('code');
+            jQuery(".ui-draggable").removeClass('ui-dragbox-outlined');
+            jQuery('#rte-toolbar').css('display', 'none');
         };
 
         this.clearControls = function () {
@@ -772,6 +1098,9 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                 //Apply builder behaviors
                 $element.data('contentbuilder').applyBehavior();
 
+                /**** Function to run when column/grid changed ****/
+                $element.data('contentbuilder').blockChanged();
+
                 //Trigger Render event
                 $element.data('contentbuilder').settings.onRender();
 
@@ -794,8 +1123,12 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
             //Apply builder behaviors
             $element.data('contentbuilder').applyBehavior();
 
+            /**** Function to run when column/grid changed ****/
+            $element.data('contentbuilder').blockChanged();
+
             //Trigger Render event
             $element.data('contentbuilder').settings.onRender();
+
         };
 
         this.applyBehavior = function () {
@@ -814,10 +1147,16 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
             var selectable = this.settings.selectable;
             var hq = this.settings.hiquality;
             var imageEmbed = this.settings.imageEmbed;
+            var embedOriginalChecked = this.settings.embedOriginalChecked;
+            var hideEmbedOriginal = this.settings.hideEmbedOriginal;            
             var colors = this.settings.colors;
             var editMode = this.settings.editMode;
             var toolbar = this.settings.toolbar;
             var toolbarDisplay = this.settings.toolbarDisplay;
+            var onImageSelectClick = this.settings.onImageSelectClick;
+            var onFileSelectClick = this.settings.onFileSelectClick;
+            var onImageBrowseClick = this.settings.onImageBrowseClick;
+            var onImageSettingClick = this.settings.onImageSettingClick;
 
             //Custom Image Select
             var imageselect = this.settings.imageselect;
@@ -834,11 +1173,11 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
 
                 if( jQuery(this).parents("[data-mode='readonly']").length > 0 ) return; //Mode: readonly
 
-                jQuery(this).imageembed({ hiquality: hq, imageselect: imageselect, fileselect: fileselect, imageEmbed: imageEmbed });
+                jQuery(this).imageembed({ hiquality: hq, imageselect: imageselect, fileselect: fileselect, imageEmbed: imageEmbed, embedOriginalChecked: embedOriginalChecked, hideEmbedOriginal: hideEmbedOriginal, onImageBrowseClick: onImageBrowseClick, onImageSettingClick: onImageSettingClick, onImageSelectClick: onImageSelectClick, onFileSelectClick: onFileSelectClick});
                 //to prevent icon dissapear if hovered above absolute positioned image caption
                 if (jQuery(this).parents('figure').length != 0) {
                     if (jQuery(this).parents('figure').find('figcaption').css('position') == 'absolute') {
-                        jQuery(this).parents('figure').imageembed({ hiquality: hq, imageselect: imageselect, fileselect: fileselect, imageEmbed: imageEmbed });
+                        jQuery(this).parents('figure').imageembed({ hiquality: hq, imageselect: imageselect, fileselect: fileselect, imageEmbed: imageEmbed, embedOriginalChecked: embedOriginalChecked, hideEmbedOriginal: hideEmbedOriginal, onImageBrowseClick: onImageBrowseClick, onImageSettingClick: onImageSettingClick, onImageSelectClick: onImageSelectClick, onFileSelectClick: onFileSelectClick });
                     }
                 }
 
@@ -928,6 +1267,9 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                         //Apply builder behaviors
                         //$element.data('contentbuilder').applyBehavior();
 
+                        /**** Function to run when column/grid changed ****/
+                        $element.data('contentbuilder').blockChanged();
+
                         //Trigger Render event
                         $element.data('contentbuilder').settings.onRender();
 
@@ -991,6 +1333,9 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                     //Apply builder behaviors
                     $element.data('contentbuilder').applyBehavior();
 
+                    /**** Function to run when column/grid changed ****/
+                    $element.data('contentbuilder').blockChanged();
+
                     //Trigger Render event
                     $element.data('contentbuilder').settings.onRender();
             });
@@ -1047,6 +1392,9 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                     //Apply builder behaviors
                     $element.data('contentbuilder').applyBehavior();
 
+                    /**** Function to run when column/grid changed ****/
+                    $element.data('contentbuilder').blockChanged();
+
                     //Trigger Render event
                     $element.data('contentbuilder').settings.onRender();
 
@@ -1054,6 +1402,35 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                 /**** /Custom Modal ****/
 
             });
+
+        };
+
+        this.blockChanged = function () {
+
+            if($element.children().length==0) {
+                
+                //$element.css('border','rgba(255, 156, 38, 0.5) 1px solid');
+                $element.css('border','rgba(0, 0, 0, 0.25) 1px dashed');
+
+                //Insert
+                $element.append('<div style="height:250px"></div>');
+
+                //Re-Init
+                $element.children("*").each(function () {
+
+                    if (!jQuery(this).hasClass('ui-draggable')) {
+                        jQuery(this).wrap("<div id='empty-info' class='ui-draggable'  data-mode='readonly'></div>");
+                    }
+                });
+
+            } 
+            else if ($element.children().length==1 && jQuery("#empty-info").length == 1) {
+
+            }
+            else {
+                $element.css('border','');
+                jQuery("#empty-info").remove();
+            }
 
         };
 
@@ -1082,14 +1459,14 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
 			
 			// ---by jack
 			if(cb_list=="") {
-				jQuery('#divCb').remove();				
+				jQuery('#divCb').remove();
+                jQuery(document).unbind('mousedown');		
 			}
-			// ---end by jack
-			
-			$element.removeData('contentbuilder');
+			// ---end by jack		
+            	
+            $element.removeData('contentbuilder');
             $element.removeData('contenteditor');
             $element.unbind();
-            jQuery(document).unbind('mousedown');
         };
 
         this.init();
@@ -1111,6 +1488,8 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
 
 /*******************************************************************************************/
 
+var ce_toolbarDisplay = 'auto';
+var ce_outline = false;
 
 (function (jQuery) {
 
@@ -1162,25 +1541,28 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                 jQuery('body').append('<div id="divCb"></div>');
             }
 
+            ce_toolbarDisplay = this.settings.toolbarDisplay;
+            ce_outline = this.settings.outline;
+
             var toolbar_attr = '';
             if(this.settings.toolbar=='left')toolbar_attr=' class="rte-side"';
             if(this.settings.toolbar=='right')toolbar_attr=' class="rte-side right"';
 
             var html_rte = '<div id="rte-toolbar"' + toolbar_attr + '>' +
-					    '<a href="#" data-rte-cmd="bold"> <i class="cb-icon-bold"></i> </a>' +
-					    '<a href="#" data-rte-cmd="italic"> <i class="cb-icon-italic"></i> </a>' +
-					    '<a href="#" data-rte-cmd="underline"> <i class="cb-icon-underline"></i> </a>' +
-					    '<a href="#" data-rte-cmd="strikethrough"> <i class="cb-icon-strike"></i> </a>' +
-                        '<a href="#" data-rte-cmd="color"> <i class="cb-icon-color"></i> </a>' +
-                        '<a href="#" data-rte-cmd="fontsize"> <i class="cb-icon-fontsize"></i> </a>' +
-                        '<a href="#" data-rte-cmd="removeFormat"> <i class="cb-icon-eraser"></i> </a>' +
-                        '<a href="#" data-rte-cmd="formatPara"> <i class="cb-icon-header"></i> </a>' +
-                        '<a href="#" data-rte-cmd="font"> <i class="cb-icon-font"></i> </a>' +
-                        '<a href="#" data-rte-cmd="align"> <i class="cb-icon-align-justify"></i> </a>' +
-                        '<a href="#" data-rte-cmd="list"> <i class="cb-icon-list-bullet" style="font-size:14px;line-height:1.3"></i> </a>' +
-					    '<a href="#" data-rte-cmd="createLink"> <i class="cb-icon-link"></i> </a>' +
-                        '<a href="#" data-rte-cmd="unlink"> <i class="cb-icon-unlink"></i> </a>' +
-                        '<a href="#" data-rte-cmd="html"> <i class="cb-icon-code"></i> </a>' +
+					    '<a href="#" data-rte-cmd="bold" title="Bold"> <i class="cb-icon-bold"></i> </a>' +
+					    '<a href="#" data-rte-cmd="italic" title="Italic"> <i class="cb-icon-italic"></i> </a>' +
+					    '<a href="#" data-rte-cmd="underline" title="Underline"> <i class="cb-icon-underline"></i> </a>' +
+					    '<a href="#" data-rte-cmd="strikethrough" title="Strikethrough"> <i class="cb-icon-strike"></i> </a>' +
+                        '<a href="#" data-rte-cmd="color" title="Color"> <i class="cb-icon-color"></i> </a>' +
+                        '<a href="#" data-rte-cmd="fontsize" title="Font Size"> <i class="cb-icon-fontsize"></i> </a>' +
+                        '<a href="#" data-rte-cmd="removeFormat" title="Clean"> <i class="cb-icon-eraser"></i> </a>' +
+                        '<a href="#" data-rte-cmd="formatPara" title="Paragraph"> <i class="cb-icon-header"></i> </a>' +
+                        '<a href="#" data-rte-cmd="font" title="Font"> <i class="cb-icon-font"></i> </a>' +
+                        '<a href="#" data-rte-cmd="align" title="Alignment"> <i class="cb-icon-align-justify"></i> </a>' +
+                        '<a href="#" data-rte-cmd="list" title="List"> <i class="cb-icon-list-bullet" style="font-size:14px;line-height:1.3"></i> </a>' +
+					    '<a href="#" data-rte-cmd="createLink" title="Link"> <i class="cb-icon-link"></i> </a>' +
+                        '<a href="#" data-rte-cmd="unlink" title="Remove Link"> <i class="cb-icon-unlink"></i> </a>' +
+                        '<a href="#" data-rte-cmd="html" title="HTML"> <i class="cb-icon-code"></i> </a>' +
 					    /*'<a href="#" data-rte-cmd="removeElement"> <i class="cb-icon-trash"></i> </a>' +*/
 				'</div>' +
 				'' +
@@ -1195,7 +1577,7 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                 '<div class="md-modal" id="md-createlink">' +
 			        '<div class="md-content">' +
 				        '<div class="md-body">' +
-                            '<div class="md-label">URL:</div>' +
+                            '<div class="md-label">Link:</div>' +
                             (bUseCustomFileSelect ? '<input type="text" id="txtLink" class="inptxt" style="float:left;width:50%;" value="http:/' + '/"></input><i class="cb-icon-link md-btnbrowse" id="btnLinkBrowse" style="width:10%;"></i>' : '<input type="text" id="txtLink" class="inptxt" value="http:/' + '/" style="float:left;width:60%"></input>') +
                             '<br style="clear:both">' +
                             '<div class="md-label">Text:</div>' +
@@ -1224,10 +1606,10 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                 '<div class="md-modal" id="md-align" style="background:#fff;padding:15px 0px 15px 15px;border-radius:12px">' +
 			        '<div class="md-content">' +
 				        '<div class="md-body">' +
-                            '<button class="md-pickalign" data-align="left"> <i class="cb-icon-align-left"></i> <span>Left</span> </button>' +
-                            '<button class="md-pickalign" data-align="center"> <i class="cb-icon-align-center"></i> <span>Center</span> </button>' +
-                            '<button class="md-pickalign" data-align="right"> <i class="cb-icon-align-right"></i> <span>Right</span> </button>' +
-                            '<button class="md-pickalign" data-align="justify"> <i class="cb-icon-align-justify"></i> <span>Full</span> </button>' +                          
+                            '<button class="md-pickalign" data-align="left" title="Left"> <i class="cb-icon-align-left"></i> <span>Left</span> </button>' +
+                            '<button class="md-pickalign" data-align="center" title="Center"> <i class="cb-icon-align-center"></i> <span>Center</span> </button>' +
+                            '<button class="md-pickalign" data-align="right" title="Right"> <i class="cb-icon-align-right"></i> <span>Right</span> </button>' +
+                            '<button class="md-pickalign" data-align="justify" title="Full"> <i class="cb-icon-align-justify"></i> <span>Full</span> </button>' +                          
 				        '</div>' +
 			        '</div>' +
 		        '</div>' +
@@ -1235,11 +1617,11 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                 '<div class="md-modal" id="md-list" style="background:#fff;padding:15px 0px 15px 15px;border-radius:12px">' +
 			        '<div class="md-content">' +
 				        '<div class="md-body">' +
-                            '<button class="md-picklist half" data-list="indent" style="margin-right:0px"> <i class="cb-icon-indent-left"></i> </button>' +
-                            '<button class="md-picklist half" data-list="outdent"> <i class="cb-icon-indent-right"></i> </button>' +                             
-                            '<button class="md-picklist" data-list="insertUnorderedList"> <i class="cb-icon-list-bullet"></i> <span>Bullet</span> </button>' +
-                            '<button class="md-picklist" data-list="insertOrderedList"> <i class="cb-icon-list-numbered"></i> <span>Numbered</span> </button>' +
-                            '<button class="md-picklist" data-list="normal"> <i class="cb-icon-cancel"></i> <span>None</span> </button>' +
+                            '<button class="md-picklist half" data-list="indent" title="Indent" style="margin-right:0px"> <i class="cb-icon-indent-left"></i> </button>' +
+                            '<button class="md-picklist half" data-list="outdent" title="Outdent"> <i class="cb-icon-indent-right"></i> </button>' +                             
+                            '<button class="md-picklist" data-list="insertUnorderedList" title="Bulleted List"> <i class="cb-icon-list-bullet"></i> <span>Bulleted</span> </button>' +
+                            '<button class="md-picklist" data-list="insertOrderedList" title="Numbered List"> <i class="cb-icon-list-numbered"></i> <span>Numbered</span> </button>' +
+                            '<button class="md-picklist" data-list="normal" title="Remove List"> <i class="cb-icon-cancel"></i> <span>Remove</span> </button>' +
 				        '</div>' +
 			        '</div>' +
 		        '</div>' +
@@ -1308,8 +1690,8 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
 				        '<div class="md-body">' +                            
                             '<div style="padding:12px 20px 25px;text-align:center;">' +
                             '<p>Are you sure you want to delete this block?</p>' +
-                            '<button class="btn btn-default" id="btnDelRowCancel"> CANCEL </button>' +
-                            '<button class="btn btn-primary" id="btnDelRowOk" style="margin-left:12px"> OK </button>' +
+                            '<button id="btnDelRowCancel"> CANCEL </button>' +
+                            '<button id="btnDelRowOk" style="margin-left:12px"> OK </button>' +
                             '</div>' +
 				        '</div>' +
 			        '</div>' +
@@ -1437,6 +1819,13 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
             // finish editing on click outside
             jQuery(document).on('mousedown', function (event) {
 
+                var $active_element;
+                if(jQuery(event.target).parents(".ui-draggable").length>0){
+	                if( jQuery(event.target).parents(".ui-draggable").parent().data('contentbuilder') ) {
+		                $active_element = jQuery(event.target).parents(".ui-draggable").parent(); //Get current Builder element                        
+	                }                
+                } 
+
                 var bEditable = false;
 
                 if (jQuery('#rte-toolbar').css('display') == 'none') return;
@@ -1487,19 +1876,39 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                 if (!bEditable) {
                     $activeElement = null;
 
-                    if ($element.data('contenteditor').settings.toolbarDisplay=='auto') {
+                    if (ce_toolbarDisplay=='auto') {
+
+                        var el;
+                        if (window.getSelection) {
+                            el = window.getSelection().getRangeAt(0).commonAncestorContainer.parentNode;
+                        }
+                        else if (document.selection) {
+                            el = document.selection.createRange().parentElement();
+                        }
+
+                        var found=false;
+                        jQuery(el).parents().each(function () {
+                            if (jQuery(this).data('contentbuilder')) {
+                                found=true;
+                            }
+                        });
+
+                        if(!found)                       
                         jQuery('#rte-toolbar').css('display', 'none');
                     }
 
-                    if ($element.data('contenteditor').settings.outline) {
+                    if (ce_outline) {
                         for (var i = 0; i < instances.length; i++) {
                             jQuery(instances[i]).css('outline', '');
                             jQuery(instances[i]).find('*').css('outline', '');
                         }
                     }
               
-                    $element.data('contentbuilder').clearControls();
-
+                    //Clear Controls (clearControls)
+                    jQuery('.row-tool').stop(true, true).fadeOut(0);
+                    jQuery(".ui-draggable").removeClass('code');
+                    jQuery(".ui-draggable").removeClass('ui-dragbox-outlined');
+                    jQuery('#rte-toolbar').css('display', 'none');
                 }
             });
 
@@ -1576,7 +1985,7 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
 
                     jQuery("#rte-toolbar").stop(true, true).fadeIn(200);
 
-                    if ($element.data('contenteditor').settings.outline) {
+                    if (ce_outline) {
                         for (var i = 0; i < instances.length; i++) {
                             jQuery(instances[i]).css('outline', '');
                             jQuery(instances[i]).find('*').css('outline', '');
@@ -1627,7 +2036,7 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                     $activeElement = jQuery(this);
 
                     jQuery("#rte-toolbar").stop(true, true).fadeIn(200);
-                    if ($element.data('contenteditor').settings.outline) {
+                    if (ce_outline) {
                         for (var i = 0; i < instances.length; i++) {
                             jQuery(instances[i]).css('outline', '');
                             jQuery(instances[i]).find('*').css('outline', '');
@@ -2241,13 +2650,18 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                     jQuery('#ifrFonts').attr('src',sScriptPath+'fonts.html');
                 }
 
+                //Prepare 
+                var text = getSelected();   
+
                 jQuery('.md-pickfontfamily').unbind('click');
                 jQuery('.md-pickfontfamily').click(function(){
                     
                     restoreSelection(savedSel);
 
                     var el;
+                    var curr;
                     if (window.getSelection) {
+                        curr = window.getSelection().getRangeAt(0).commonAncestorContainer;
                         el = window.getSelection().getRangeAt(0).commonAncestorContainer.parentNode;
                         //TODO
                         if (el.nodeName != 'H1' && el.nodeName != 'H2' && el.nodeName != 'H3' &&
@@ -2257,6 +2671,7 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                         }
                     }
                     else if (document.selection) {
+                        curr = document.selection.createRange();
                         el = document.selection.createRange().parentElement();
                         if (el.nodeName != 'H1' && el.nodeName != 'H2' && el.nodeName != 'H3' &&
                             el.nodeName != 'H4' && el.nodeName != 'H5' && el.nodeName != 'H6' &&
@@ -2265,8 +2680,31 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                         }
                     }
 
-                    var s = jQuery(this).attr('data-font-family');                    
-                    jQuery(el).css('font-family', s);
+                    var s = jQuery(this).attr('data-font-family');  
+                                      
+                    //jQuery(el).css('font-family', s);
+                    if (jQuery.trim(text) != '' && jQuery(curr).text() != text) {
+                        document.execCommand("fontName", false, s);
+                        var fontElements = document.getElementsByTagName("font");
+                        for (var i = 0, len = fontElements.length; i < len; ++i) {
+                            if (fontElements[i].face == s) {
+                                fontElements[i].removeAttribute("face");
+                                fontElements[i].style.fontFamily = s;
+                            }
+                        }
+                    }
+                    else if (jQuery(curr).text() == text) {//selection fully mode on text AND element. Use element then.
+                        if(jQuery(curr).html()){
+                            jQuery(curr).css('font-family', s);
+                        } else {
+                            jQuery(curr).parent().css('font-family', s);
+                        }
+                    }
+                    else{
+                        jQuery(el).css('font-family', s);
+                    };
+
+
                     var fontname = s.split(',')[0];
                     var provider = jQuery(this).attr('data-provider');
                     if(provider=='google'){
@@ -2277,36 +2715,47 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                             sSrc = sSrc.replace(/\+/g,' ').replace(/%20/g,' '); 
                             if(sSrc.indexOf(fontname.toLowerCase())!=-1) bExist=true;
                         }
-                        if(!bExist) $element.append('<link href="//fonts.googleapis.com/css?family='+fontname+'" rel="stylesheet" property="stylesheet" type="text/css">');
+                        if(!bExist) {
+                            //$element.append('<link href="//fonts.googleapis.com/css?family='+fontname+'" rel="stylesheet" property="stylesheet" type="text/css">');
+                            jQuery(el).parents().each(function () {
+                                if (jQuery(this).data('contentbuilder')) {
+                                    jQuery(this).append('<link href="//fonts.googleapis.com/css?family='+fontname+'" rel="stylesheet" property="stylesheet" type="text/css">');
+                                }
+                            }); 
+                            /*
+                            Or simply use this:
+                            jQuery(el).parents(".ui-draggable").parent().append('<link href="//fonts.googleapis.com/css?family='+fontname+'" rel="stylesheet" property="stylesheet" type="text/css">');
+                            */                                                    
+                        }
                     }
 
                     //TODO: make function
                     //Cleanup Google font css link
-                    $element.find('link').each(function(){
-                        var sSrc=jQuery(this).attr('href').toLowerCase();
-                        if(sSrc.indexOf('googleapis')!=-1) {
-                            //get fontname
-                            sSrc = sSrc.replace(/\+/g,' ').replace(/%20/g,' '); 
-                            var fontname = sSrc.substr( sSrc.indexOf('family=') + 7 );
-                            if(fontname.indexOf(':') != -1){
-                                fontname = fontname.split(':')[0];
+                    jQuery(cb_list).each(function(){
+                        var $cb = jQuery(this);
+                        $cb.find('link').each(function(){
+                            var sSrc=jQuery(this).attr('href').toLowerCase();
+                            if(sSrc.indexOf('googleapis')!=-1) {
+                                //get fontname
+                                sSrc = sSrc.replace(/\+/g,' ').replace(/%20/g,' '); 
+                                var fontname = sSrc.substr( sSrc.indexOf('family=') + 7 );
+                                if(fontname.indexOf(':') != -1){
+                                    fontname = fontname.split(':')[0];
+                                }
+                                if(fontname.indexOf('|') != -1){
+                                    fontname = fontname.split('|')[0];
+                                }
+                                //check if fontname used in content
+                                var tmp = $cb.data('contentbuilder').html().toLowerCase();
+                                var count = tmp.split(fontname).length;
+                                if(count<3){
+                                    //not used                              
+                                    jQuery(this).attr('rel','_del');
+                                }
                             }
-                            if(fontname.indexOf('|') != -1){
-                                fontname = fontname.split('|')[0];
-                            }
-                            //check if fontname used in content
-                            var tmp = '';
-                            jQuery(cb_list).each(function(){
-                                tmp += jQuery(this).data('contentbuilder').html().toLowerCase();
-                            });
-                            //var tmp = $element.html().toLowerCase();
-                            var count = tmp.split(fontname).length;
-                            if(count<3){
-                                //not used                              
-                                jQuery(this).attr('rel','_del');
-                            }
-                        }
+                        });
                     });
+
                     $element.find('[rel="_del"]').remove();//del not used google font css link
 
                     jQuery(this).blur();
@@ -2394,6 +2843,19 @@ if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i
                             document.execCommand('outdent', false, null);                            
                         } else {
                             document.execCommand(s, false, null);
+
+                            /* Applying <blockquote> inside <p> resulting: <p></p><blockquote>Lorem Ipsum..</blockquote><p></p>
+                            Debug here:
+                            var el;
+                            if (window.getSelection) {
+                                el = window.getSelection().getRangeAt(0).commonAncestorContainer.parentNode;
+                                el = el.parentNode;
+                            }
+                            else if (document.selection) {
+                                el = document.selection.createRange().parentElement();
+                                el = el.parentElement();
+                            }                           
+                            alert(el.nodeName); //returns P. Blockquote cannot be inside P, that's why the output is the above result. */
                         }
                     } catch (e) {
                         //FF fix
@@ -3017,9 +3479,15 @@ function getSelected() {
             imageselect: '',
             fileselect: '',
             imageEmbed: true,
+            embedOriginalChecked: false,
+            hideEmbedOriginal: false,
             linkDialog: true,
             zoom: 0,
-            onChanged: function () { }
+            onChanged: function () { },
+            onImageBrowseClick: function () { },
+            onImageSettingClick: function () { },      
+            onImageSelectClick: function () { },    
+            onFileSelectClick: function () { }
         };
 
         this.settings = {};
@@ -3038,7 +3506,7 @@ function getSelected() {
 
             var html_photo_file = '';
             var html_photo_file2 = '';
-            if (this.settings.imageEmbed) {
+            //if (this.settings.imageEmbed) {
                 if (navigator.appName.indexOf('Microsoft') != -1) {
                     html_photo_file = '<div id="divToolImg"><div class="fileinputs"><input type="file" name="file" class="my-file" /><div class="fakefile"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAC+klEQVRoQ+2au24aQRSGz+ySkEvPA9AQubNEhXgCSogEShmZGkSQpTS8AjUNSAjXlCRNStpQ8QK8AI6UOLazM5lZvGRvswsz43hYz0iWZe3uzPnOf25rQOVymcAzWsgAZ1xto3DGBQajsFE4Yx4wIZ0xQSM4RmGjcMY8YEI6Y4LKFy0H/9TCJ7b1VsiOo0PaAAv5Wf4ho/CBPjQhneYokRyezWZQKpW4WzuOA71eD5bLZdrx++vahnSz2YRutwu5XC4RZrPZQL1eP33g4XAI1Wo1FeRYlbVQ+FA1U+kfblitVtBut2Nvf3LgQqEAk8kE2G9VC2MM4/EYRqNRZMsnBy4WizCdTiGfz6vidffhqaw98Ha7hU6nA+v1OuCQfr8PLBV46ySB/bAeoL8qJ0GfHLA/D8P9OOmap/jJAXvq1mq12NB1lW404LL/GVqtD5QTPfwwZEJz+DtcXHwEDPf0z3+f+2mbw17oxvZjhIBgGz71LqFSqcQ6xK8wgT+AyZ0L/t+AMflNz3MiNYZXpXkKI2SDhfKw3V67xYwXAdGQJhT6lj77SqgbHP3ywMLMITeB8GIn84C9PJ3P5/s+vYPdGbxYLGAwGABv3k4aPkSIBYAZMg0tfBs4L6kP+yvy7OoKzt6dg3+UTJrQtABmpOHQThs8PGjbeuMrSuDmbdLLhTbAYZXTgJmTEMrBj+sbbs6yPb1KzMIewOJOWiLh7Nog85UH/7vxobO0bb12QYJrV4jCxZA56OuXb26Oq1pSwOGwTgtPz2gLvaRqv9gzOORXpAiyiywN3jdagXtlwaWACbnf9UWBxdRjbWmnLA1l3qK92kYs79UsOeCYaq3GrOAuokNGnC1SwLRWg4NpT37kpREwHUIwzb9HXs8LWKccZsKK/Nv24IBwYdkIGm5jB+8QuVEyh+WA2XDBqjVygfyvheJAaU9KA6cdoNt1A6ybIqrtMQqr9qhu+xmFdVNEtT1GYdUe1W0/o7Buiqi2xyis2qO67WcU1k0R1fb8BZv85KDCNGIQAAAAAElFTkSuQmCC" /></div></div></div>';
                     html_photo_file2 = '';
@@ -3048,7 +3516,7 @@ function getSelected() {
                             '<i id="lnkEditImage" class="cb-icon-camera"></i>' +
                         '</div>';
                 }
-            }
+            //}
 
             var html_photo_tool = '<div id="divTempContent" style="display:none"></div>' +
                     '<div class="overlay-bg" style="position:fixed;top:0;left:0;width:1;height:1;z-index:10000;zoom 1;background:#fff;opacity:0.8"></div>' +
@@ -3081,9 +3549,21 @@ function getSelected() {
             var bUseCustomImageSelect = false;
             if(this.settings.imageselect!='') bUseCustomImageSelect=true;
 
+            var sFunc = (this.settings.onImageSelectClick+'').replace( /\s/g, '');
+            if(sFunc != 'function(){}'){ //If custom event set, enable the button
+                bUseCustomImageSelect=true;
+            }
+
             //Custom File Select
             var bUseCustomFileSelect = false;
             if(this.settings.fileselect!='') bUseCustomFileSelect=true;
+
+            var sFunc = (this.settings.onFileSelectClick+'').replace( /\s/g, '');
+            if(sFunc != 'function(){}'){ //If custom event set, enable the button
+                bUseCustomFileSelect=true;
+            }   
+            
+            var imageEmbed = this.settings.imageEmbed;      
 
             var html_hover_icons = html_photo_file2 +
                     '<div id="divToolImgSettings">' +
@@ -3128,19 +3608,24 @@ function getSelected() {
                                     html_hover_icons +=  '<option value="square">Square</option>';
                                     html_hover_icons +=  '<option value="circle">Circle</option>';
                                     html_hover_icons += '</select>';
-                                    html_hover_icons += '<button class="btn btn-default" id="btnInsertPlh" style="margin-left:12px"> REPLACE </button>';
+                                    html_hover_icons += '<button id="btnInsertPlh" style="margin-left:12px"> REPLACE </button>';
                                     html_hover_icons += '</div>' +
                                 '</div>' +
                                 '<div id="divImgLnk">' +
-                                    '<div class="md-label">Image URL:</div>' +
+                                    '<div class="md-label">Source:</div>' +
                                     (bUseCustomImageSelect ? '<input type="text" id="txtImgUrl" class="inptxt" style="float:left;width:50%"></input><i class="cb-icon-link md-btnbrowse" id="btnImageBrowse" style="width:10%;"></i>' : '<input type="text" id="txtImgUrl" class="inptxt" style="float:left;width:60%"></input>') +
                                     '<br style="clear:both">' +
-                                    '<div class="md-label">Alternate Text:</div>' +
-                                    '<input type="text" id="txtAltText" class="inptxt" style="float:right;width:60%"></input>' +
+                                    '<div class="md-label">Title:</div>' +
+                                    '<input type="text" id="txtAltText" class="inptxt" style="float:right;width:60%"></input>' +                                    
                                     '<br style="clear:both">' +
-                                    '<div class="md-label">Navigate URL:</div>' +
+                                    '<div class="md-label">Link:</div>' +
                                     (bUseCustomFileSelect ? '<input type="text" id="txtLinkUrl" class="inptxt" style="float:left;width:50%"></input><i class="cb-icon-link md-btnbrowse" id="btnFileBrowse" style="width:10%;"></i>' : '<input type="text" id="txtLinkUrl" class="inptxt" style="float:left;width:60%"></input>') +
-				                '</div>' +
+				                    '<br style="clear:both">' +
+                                    '<div id="divEmbedOriginal">' +
+                                        '<div class="md-label">&nbsp;</div>' +
+                                        '<label style="float:left;" for="chkEmbedOriginal" class="inpchk"><input type="checkbox" id="chkEmbedOriginal"></input> Embed original image</label>' +
+                                    '</div>' +
+                                '</div>' +
                             '</div>' +
 					        '<div id="divImgLnkOk" class="md-footer">' +
                                 '<button id="btnImgOk"> Ok </button>' +
@@ -3170,9 +3655,9 @@ function getSelected() {
                     }
 
             if (jQuery('#divToolImg').length == 0) {
-                if (this.settings.imageEmbed) {
+                //if (this.settings.imageEmbed) {
                     jQuery('#divCb').append(html_photo_tool);
-                }
+                //}
                 jQuery('#divCb').append(html_hover_icons);
             }
 
@@ -3235,8 +3720,9 @@ function getSelected() {
                 var offsetleft = jQuery(this).offset().left;
                 var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
                 var is_ie = detectIE();
+                var is_edge = detectEdge();
                 var browserok = true;
-                if (is_firefox||is_ie) browserok = false;
+                if (is_firefox||is_ie||is_edge) browserok = false;
 
                 var _top_adj = !jQuery(this).data("imageembed").settings.imageEmbed ? 9 : -35;
 
@@ -3246,6 +3732,9 @@ function getSelected() {
                     _left = ((offsetleft + parseInt(jQuery(this).css('width')) / 2) - 15) * zoom;
                     _top2 = _top + _top_adj;
                 } else {
+                    if(is_edge){
+                        //
+                    }
                     if(is_ie){
                         //IE 11 (Adjustment required)
 
@@ -3280,6 +3769,7 @@ function getSelected() {
                 /* <img data-fixed="1" src=".." /> (image must be fixed, cannot be replaced) */
                 var fixedimage = false;
                 $imgActive = jQuery(this);
+                
                 if($imgActive.attr('data-fixed')==1) {
                     fixedimage = true;
                 }
@@ -3288,7 +3778,9 @@ function getSelected() {
                 if(cb_edit && !fixedimage){
                     jQuery("#divToolImg").css("top", _top + "px");
                     jQuery("#divToolImg").css("left", _left + "px");
-                    jQuery("#divToolImg").stop(true, true).css({ display: 'none' }).fadeIn(20);
+                    if (jQuery(this).data("imageembed").settings.imageEmbed) {
+                        jQuery("#divToolImg").stop(true, true).css({ display: 'none' }).fadeIn(20);
+                    }
 
                     if( jQuery(this).data("imageembed").settings.linkDialog ) {
                         jQuery("#divToolImgSettings").css("top", _top2 + "px");
@@ -3298,21 +3790,61 @@ function getSelected() {
                         jQuery("#divToolImgSettings").css("top", "-10000px"); //hide it
                     }
                 }
-                
+
+                /* Fix the need to tap twice */
+                if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+                    /* File Input programmatically click failed in iOS9
+                    jQuery("#divToolImg").on('touchstart mouseenter focus', function(e) {
+                        if(e.type == 'touchstart') {
+                            e.stopImmediatePropagation();
+                            e.preventDefault();
+                        }
+
+                        jQuery("#divToolImg").click();
+                    
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                    });
+                    */
+                    jQuery("#lnkImageSettings").on('touchstart mouseenter focus', function(e) {
+                        if(e.type == 'touchstart') {
+                            e.stopImmediatePropagation();
+                            e.preventDefault();
+                        }
+
+                        jQuery("#lnkImageSettings").click();
+                    
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                    });
+                }
+
                 /* Browse local Image */
                 jQuery("#divToolImg").unbind('click');
                 jQuery("#divToolImg").bind('click', function (e) {
 
-                    jQuery(this).data('image', $imgActive); //img1: Simpan wkt click browse, krn @imgActive berubah2 tergantung hover
+                    jQuery("#divToolImg").data('image', $imgActive); //img1: Simpan wkt click browse, krn @imgActive berubah2 tergantung hover
 
-                    jQuery('input.my-file[type=file]').click();
+                    var sFunc = ($element.data('imageembed').settings.onImageBrowseClick+'').replace( /\s/g, '');
+                    if(sFunc != 'function(){}'){
 
+                        $element.data('imageembed').settings.onImageBrowseClick();
+
+                    } else {
+
+                        jQuery('input.my-file[type=file]').click();
+
+                    }
+                    
                     e.preventDefault();
                     e.stopImmediatePropagation();
                 });
+
                 jQuery("#divToolImg").unbind('hover');
-                jQuery("#divToolImg").hover(function (e) {
-                    jQuery("#divToolImg").stop(true, true).css("display", "block"); /* Spy tdk flickr */
+                jQuery("#divToolImg").hover(function (e) {                   
+                    if (imageEmbed) { /* $element.data('imageembed').settings.imageEmbed */
+                        jQuery("#divToolImg").stop(true, true).css("display", "block"); /* Spy tdk flickr */
+                    }                 
                     jQuery("#divToolImgSettings").stop(true, true).css("display", "block"); /* Spy tdk flickr */
                 }, function () {
                     jQuery("#divToolImg").stop(true, true).fadeOut(0);
@@ -3320,7 +3852,9 @@ function getSelected() {
                 });
                 $element.find('figcaption').unbind('hover');
                 $element.find('figcaption').hover(function (e) {
-                    jQuery("#divToolImg").stop(true, true).css("display", "block"); /* Spy tdk flickr */
+                    if (imageEmbed) {
+                        jQuery("#divToolImg").stop(true, true).css("display", "block"); /* Spy tdk flickr */
+                    }
                     jQuery("#divToolImgSettings").stop(true, true).css("display", "block"); /* Spy tdk flickr */
                 }, function () {
                     jQuery("#divToolImg").stop(true, true).fadeOut(0);
@@ -3328,7 +3862,9 @@ function getSelected() {
                 });
                 jQuery("#divToolImgSettings").unbind('hover');
                 jQuery("#divToolImgSettings").hover(function (e) {
-                    jQuery("#divToolImg").stop(true, true).css("display", "block"); /* Spy tdk flickr */
+                    if (imageEmbed) {
+                        jQuery("#divToolImg").stop(true, true).css("display", "block"); /* Spy tdk flickr */
+                    }
                     jQuery("#divToolImgSettings").stop(true, true).css("display", "block"); /* Spy tdk flickr */
                 }, function () {
                     jQuery("#divToolImg").stop(true, true).fadeOut(0);
@@ -3339,11 +3875,20 @@ function getSelected() {
                 jQuery("#lnkImageSettings").unbind('click');
                 jQuery("#lnkImageSettings").bind('click', function (e) {
 
-                    jQuery(this).data('image', $imgActive); //img1: Simpan wkt click browse, krn @imgActive berubah2 tergantung hover
+                    jQuery("#divToolImg").data('image', $imgActive); //img1: Simpan wkt click browse, krn @imgActive berubah2 tergantung hover
 
                     //Clear Controls
                     jQuery("#divToolImg").stop(true, true).fadeOut(0);
                     jQuery("#divToolImgSettings").stop(true, true).fadeOut(0);
+
+                    var sFunc = ($element.data('imageembed').settings.onImageSettingClick+'').replace( /\s/g, '');
+                    if(sFunc != 'function(){}'){
+
+                        $element.data('imageembed').settings.onImageSettingClick();
+
+                        return;
+
+                    } 
 
                     /**** Custom Modal ****/
                     jQuery('#md-img').css('max-width', '800px');
@@ -3364,6 +3909,21 @@ function getSelected() {
                         jQuery('#txtLinkUrl').val($img.parents('a:first').attr('href'));
                     }
 
+                    
+                    
+                    jQuery('#chkEmbedOriginal').removeAttr('checked');
+
+
+                    if ($element.data('imageembed').settings.hideEmbedOriginal) {
+                        jQuery('#divEmbedOriginal').css("display","none");
+                    }
+                    if ($element.data('imageembed').settings.embedOriginalChecked) {
+                        jQuery('#chkEmbedOriginal').prop( "checked", true );
+                    }
+                    if (!$element.data('imageembed').settings.imageEmbed) {
+                        jQuery('#divEmbedOriginal').css("display","none");
+                        jQuery('#chkEmbedOriginal').prop( "checked", true );
+                    }
 
                     /*
                     jQuery('#tabImgLnk').css({'text-decoration':'','cursor':'','background':'#515151','color':'#fff'});
@@ -3372,7 +3932,6 @@ function getSelected() {
                     jQuery('#divImgLnk').css('display', 'block');
                     jQuery('#divImgLnkOk').css('display', 'block');
                     */
-                  
 
                     jQuery('#btnImgOk').unbind('click');
                     jQuery('#btnImgOk').bind('click', function (e) {
@@ -3385,14 +3944,36 @@ function getSelected() {
                             }
                         });
 
-                        //Remove wxh from blank placeholder if replaced with other image
-                        if( $img.attr('src').indexOf('scripts/image.png') != -1 && jQuery('#txtImgUrl').val().indexOf('scripts/image.png') == -1 ){
-                            $img.css('width', '');
-                            $img.css('height', '');
+                        //Replace image
+                        var insertOri=false;
+                        if(jQuery('#chkEmbedOriginal').is(":checked")){
+                            insertOri=true;
+                        }
+
+                        if(insertOri==false){
+                            if(jQuery('#txtImgUrl').val().indexOf("http")!=-1) {
+                                //alert("External image will be embedded as is");
+                                insertOri = true;
+                            }
+                        }
+
+                        if($img.attr('src')!=jQuery('#txtImgUrl').val()) {
+                            if(insertOri) {
+                                //Remove wxh from blank placeholder if replaced with other image                        
+                                if( $img.attr('src').indexOf(sScriptPath + 'image.png') != -1 && jQuery('#txtImgUrl').val().indexOf(sScriptPath + 'image.png') == -1 ){ //if( $img.attr('src').indexOf('scripts/image.png') != -1 && jQuery('#txtImgUrl').val().indexOf('scripts/image.png') == -1 ){
+                                    $img.css('width', '');
+                                    $img.css('height', '');
+                                }
+
+                                $img.attr('src', jQuery('#txtImgUrl').val()); //replaced with processImage() above
+                            } else {
+
+                                processImage( jQuery('#txtImgUrl').val() );
+
+                            }
                         }
 
                         //Set image properties
-                        $img.attr('src', jQuery('#txtImgUrl').val());
                         $img.attr('alt', jQuery('#txtAltText').val());
 
                         if (jQuery('#txtLinkUrl').val() == 'http://' || jQuery('#txtLinkUrl').val() == '') {
@@ -3419,8 +4000,8 @@ function getSelected() {
                     var actualW = $img[0].naturalWidth; //parseInt($img.css('width'));
                     var actualH = $img[0].naturalHeight; //parseInt($img.css('height'));
                     
-                    //If it is image placeholder with specified css width/height                 
-                    if( $img.attr('src').indexOf('scripts/image.png') != -1 ){
+                    //If it is image placeholder with specified css width/height
+                    if( $img.attr('src').indexOf(sScriptPath + 'image.png') != -1 ){ //if( $img.attr('src').indexOf('scripts/image.png') != -1 ){
                         for(var i=0;i<$img.attr("style").split(";").length;i++) {
                             var cssval = $img.attr("style").split(";")[i];
                             if(jQuery.trim(cssval.split(":")[0]) == "width") {
@@ -3511,21 +4092,30 @@ function getSelected() {
                 jQuery("#btnImageBrowse").unbind('click');
                 jQuery("#btnImageBrowse").bind('click', function (e) {
 
-                    jQuery('#ifrImageBrowse').attr('src',$element.data('imageembed').settings.imageselect);
-
                     //Clear Controls
                     jQuery("#divToolImg").stop(true, true).fadeOut(0);
                     jQuery("#divToolImgSettings").stop(true, true).fadeOut(0);
                     jQuery("#divRteLink").stop(true, true).fadeOut(0);
                     jQuery("#divFrameLink").stop(true, true).fadeOut(0);
 
-                    jQuery('#active-input').val('txtImgUrl');
+                    var sFunc = ($element.data('imageembed').settings.onImageSelectClick+'').replace( /\s/g, '');
+                    if(sFunc != 'function(){}'){
+
+                        //$element.data('imageembed').settings.onImageSelectClick();
+                        $element.data('imageembed').settings.onImageSelectClick({targetInput: jQuery("#txtImgUrl").get(0), theTrigger: jQuery("#btnImageBrowse").get(0)});
+
+                    } else {
+
+                        jQuery('#ifrImageBrowse').attr('src',$element.data('imageembed').settings.imageselect);
+                        jQuery('#active-input').val('txtImgUrl');
        
-                    /**** Custom Modal ****/
-                    jQuery('#md-imageselect').css('width', '65%');
-                    jQuery('#md-imageselect').simplemodal();
-                    jQuery('#md-imageselect').data('simplemodal').show();
-                    /**** /Custom Modal ****/
+                        /**** Custom Modal ****/
+                        jQuery('#md-imageselect').css('width', '65%');
+                        jQuery('#md-imageselect').simplemodal();
+                        jQuery('#md-imageselect').data('simplemodal').show();
+                        /**** /Custom Modal ****/
+
+                    }
 
                 });
 
@@ -3533,21 +4123,30 @@ function getSelected() {
                 jQuery("#btnFileBrowse").unbind('click');
                 jQuery("#btnFileBrowse").bind('click', function (e) {
 
-                    jQuery('#ifrFileBrowse').attr('src',$element.data('imageembed').settings.fileselect);
-
                     //Clear Controls
                     jQuery("#divToolImg").stop(true, true).fadeOut(0);
                     jQuery("#divToolImgSettings").stop(true, true).fadeOut(0);
                     jQuery("#divRteLink").stop(true, true).fadeOut(0);
                     jQuery("#divFrameLink").stop(true, true).fadeOut(0);
 
-                    jQuery('#active-input').val('txtLinkUrl');
+                    var sFunc = ($element.data('imageembed').settings.onFileSelectClick+'').replace( /\s/g, '');
+                    if(sFunc != 'function(){}'){
 
-                    /**** Custom Modal ****/
-                    jQuery('#md-fileselect').css('width', '65%');
-                    jQuery('#md-fileselect').simplemodal();
-                    jQuery('#md-fileselect').data('simplemodal').show();
-                    /**** /Custom Modal ****/
+                        //$element.data('imageembed').settings.onFileSelectClick();
+                        $element.data('imageembed').settings.onFileSelectClick({targetInput: jQuery("#txtLinkUrl").get(0), theTrigger: jQuery("#btnFileBrowse").get(0)});
+
+                    } else {
+
+                        jQuery('#ifrFileBrowse').attr('src',$element.data('imageembed').settings.fileselect);
+                        jQuery('#active-input').val('txtLinkUrl');
+
+                        /**** Custom Modal ****/
+                        jQuery('#md-fileselect').css('width', '65%');
+                        jQuery('#md-fileselect').simplemodal();
+                        jQuery('#md-fileselect').data('simplemodal').show();
+                        /**** /Custom Modal ****/
+
+                    }
 
                 });
 
@@ -3596,440 +4195,594 @@ function getSelected() {
 
         /* IMAGE EMBEDDING PROCESS */
         var changeImage = function (e) {
+
             if (typeof FileReader == "undefined") return true;
 
-            var elem = jQuery(this);
-            var files = e.target.files;
+            var file = e.target.files[0];
+
+            var extension = file.name.substr((file.name.lastIndexOf('.') + 1)).toLowerCase();
+            if (extension != 'jpg' && extension != 'jpeg' && extension != 'png' && extension != 'gif' && extension != 'bmp') {
+                alert('Please select an image');
+                return;
+            }
+
+            //Start Loading Image
+            jQuery("#divToolImg").stop(true, true).fadeOut(0);
+            jQuery("#divToolImgSettings").stop(true, true).fadeOut(0);
+            jQuery('.overlay-bg').css('width', '100%');
+            jQuery('.overlay-bg').css('height', '100%');
+            //jQuery('body').css('overflow', 'hidden'); // This makes unwanted zoom-in in iOS Safari
+            jQuery("#divToolImgLoader").css('top', jQuery('#divToolImg').css('top'));
+            jQuery("#divToolImgLoader").css('left', jQuery('#divToolImg').css('left'));
+            jQuery("#divToolImgLoader").css('display', 'block');
+
+            processImage(file);
+        };
+
+        var processImage = function (file) { //file can also be an URL (from the same host), ex. file = "/ContentBuilder/assets/minimalist/a05-2.jpg";
+
+            var imgname, extension;
+            if(!file.name){
+                //file is an URL
+                imgname = file.substr((file.lastIndexOf('/') + 1));
+                extension = file.substr((file.lastIndexOf('.') + 1)).toLowerCase();
+            } else {
+                //file is an image file
+                imgname = file.name;
+                extension = file.name.substr((file.name.lastIndexOf('.') + 1)).toLowerCase();
+            }
 
             var hiquality = false;
             try {
                 hiquality = $element.data('imageembed').settings.hiquality;
             } catch (e) { };
-
-            for (var i = 0, file; file = files[i]; i++) {
-
-                var imgname = file.name;
-                var extension = imgname.substr((imgname.lastIndexOf('.') + 1)).toLowerCase();
-                if (extension == 'jpg' || extension == 'jpeg' || extension == 'png' || extension == 'gif' || extension == 'bmp') {
-
+            var type, quality; 
+            if (hiquality == false) {
+                if (extension == 'jpg' || extension == 'jpeg') {
+                    type = 'image/jpeg';
+                    quality = 0.92;
                 } else {
-                    alert('Please select an image');
-                    return;
+                    type = 'image/png';
+                    quality = 1;
+                }
+            } else {
+                type = 'image/png';
+                quality = 1;
+            }
+
+            loadImage.parseMetaData(file, function (data) {
+
+                var orientation_num;
+                if (data.exif) {
+                    orientation_num = data.exif.get('Orientation');
                 }
 
-                if (file.type.match('image.*')) {
+                loadImage(
+                    file,
+                    function (img) {
 
-                    //Start Loading Image
-                    jQuery("#divToolImg").stop(true, true).fadeOut(0);
-                    jQuery("#divToolImgSettings").stop(true, true).fadeOut(0);
-                    jQuery('.overlay-bg').css('width', '100%');
-                    jQuery('.overlay-bg').css('height', '100%');
-                    jQuery('body').css('overflow', 'hidden');
-                    jQuery("#divToolImgLoader").css('top', jQuery('#divToolImg').css('top'));
-                    jQuery("#divToolImgLoader").css('left', jQuery('#divToolImg').css('left'));
-                    jQuery("#divToolImgLoader").css('display', 'block');
 
-                    var reader = new FileReader();
-                    reader.onload = (function (theFile) {
-                        return function (e) {
+                        //Embedding Image Step 1: Read the image (base64 string)
+                        //Load into tmpCanvas first, then read using tmpCanvas.toDataURL. Output to "image" variable.
+                        //Limit dimension to save resource (reduce dimension if larger than 2500px):
+                        var cW, cH;
+                        if(img.width > 3200 || img.height > 3200){ 
+                            cW = img.width/2;
+                            cH = img.height/2;
+                        }
+                        else if(img.width > 2500 || img.height > 2500){ 
+                            cW = img.width/1.25;
+                            cH = img.height/1.25;
+                        } else {
+                            cW = img.width;
+                            cH = img.height;
+                        }
 
-                            //Embedding Image Step 1: Read the image (base64 string)
-                            var image = e.target.result; 
+                        /* 
+                        Check orientation
+                        http://stackoverflow.com/questions/20600800/js-client-side-exif-orientation-rotate-and-mirror-jpeg-images
+                        */
+                        if(orientation_num==5 || orientation_num==6 || orientation_num==7 || orientation_num==8){ 
+                            //potrait
+                            tmpCanvas.width = cH;
+                            tmpCanvas.height = cW;
+
+                            nInitialWidth = cH;
+                            nInitialHeight = cW; 
+                        } else {
+                            //landscape
+                            tmpCanvas.width = cW;
+                            tmpCanvas.height = cH;
+
+                            nInitialWidth = cW;
+                            nInitialHeight = cH;
+                        }
+                        var context = tmpCanvas.getContext( '2d' );
+
+                        if(orientation_num==1){
+                            context.transform(1, 0, 0, 1, 0, 0);                                            
+                        }                      
+                        else if(orientation_num==2){
+                            context.transform(-1, 0, 0, 1, cW, 0);                                                 
+                        }                      
+                        else if(orientation_num==3){
+                            context.transform(-1, 0, 0, -1, cW, cH );                                                
+                        }                      
+                        else if(orientation_num==4){
+                            context.transform(1, 0, 0, -1, 0, cH );                                                 
+                        }                      
+                        else if(orientation_num==5){
+                            context.transform(0, 1, 1, 0, 0, 0);                                               
+                        }                      
+                        else if(orientation_num==6){
+                            context.transform(0, 1, -1, 0, cH , 0);                                                  
+                        }                      
+                        else if(orientation_num==7){
+                            context.transform(0, -1, -1, 0, cH , cW);                                                 
+                        }                    
+                        else if(orientation_num==8){
+                            context.transform(0, -1, 1, 0, 0, cW);                                                 
+                        } else {
+                            //
+                        }
+
+                        context.drawImage( img, 0, 0, cW, cH );     
+                        var image = tmpCanvas.toDataURL( type, quality );
+
+                        //Embedding Image Step 2: Resize the div image mask according to image placeholder dimension (proportion)
+                        //and enlarge it to the actual image placeholder (in case the image placeholder get smaller in mobile screen)
+                        //so that embedding image from mobile will still embed actual (larger) dimension to be seen on desktop
+
+                        $imgActive = jQuery("#divToolImg").data('image'); //img2: Selang antara klik browse & select image, hover diabaikan. $imgActive di-set dgn image yg active wkt klik browse.
+
+                        var zoom = localStorage.zoom;                            
+                        if($element.data('imageembed').settings.zoom==1){
+                            zoom = 1;
+                        }
+
+                        var enlarge;
+                        if ($imgActive.prop("tagName").toLowerCase() == 'img') {
+                            enlarge = $imgActive[0].naturalWidth / $imgActive.width(); //2
+                        } else if ($imgActive.prop("tagName").toLowerCase() == 'figure') { //new fix
+                            enlarge = $imgActive.find('img')[0].naturalWidth / $imgActive.find('img').width(); 
+                        }
+
+                        //If it is image placeholder with specified css width/height
+                        var specifiedCssWidth=0;
+                        var specifiedCssHeight=0; 
+                        if ($imgActive.prop("tagName").toLowerCase() == 'img') {
+                            if($imgActive.attr("src").indexOf(sScriptPath + "image.png")!=-1){ //if($imgActive.attr("src").indexOf("scripts/image.png")!=-1){
+                                for(var i=0;i<$imgActive.attr("style").split(";").length;i++) {
+                                    var cssval = $imgActive.attr("style").split(";")[i];
+                                    if(jQuery.trim(cssval.split(":")[0]) == "width") {
+                                        specifiedCssWidth = parseInt(jQuery.trim(cssval.split(":")[1]));
+
+                                        enlarge = specifiedCssWidth / $imgActive.width();
+                                    } 
+                                    if(jQuery.trim(cssval.split(":")[0]) == "height") {
+                                        specifiedCssHeight = parseInt(jQuery.trim(cssval.split(":")[1]));
+                                    } 
+                                }
+                            }
+
+                            //todo: in iOS sometimes get blank when dragging (if a blank spot seen within area when dragging)
+
+                        } else if ($imgActive.prop("tagName").toLowerCase() == 'figure') { //new fix
+         
+                            if($imgActive.find('img').attr("src").indexOf(sScriptPath + "image.png")!=-1){ //if($imgActive.find('img').attr("src").indexOf("scripts/image.png")!=-1){
+                                for(var i=0;i<$imgActive.find('img').attr("style").split(";").length;i++) {
+                                    var cssval = $imgActive.find('img').attr("style").split(";")[i];
+                                    if(jQuery.trim(cssval.split(":")[0]) == "width") {
+                                        specifiedCssWidth = parseInt(jQuery.trim(cssval.split(":")[1]));
+                                        enlarge = specifiedCssWidth / $imgActive.find('img').width();
+                                    } 
+                                    if(jQuery.trim(cssval.split(":")[0]) == "height") {
+                                        specifiedCssHeight = parseInt(jQuery.trim(cssval.split(":")[1]));
+                                    } 
+                                }
+                            }
+
+                        } 
+
+                        var maskAdj = 1.1; //Adjustment to reduce the mask dimension. This is for fixing bug of unwanted black line added in the image edge as a result of 
+                                            //reading canvas image using canvas.toDataURL("image/jpeg", 0.92). No problem if using "image/png".
+                                            //Usage: jQuery("#my-mask").css('width', ($imgActive.width() * enlarge) - maskAdj + 'px');
+                        if ($imgActive.prop("tagName").toLowerCase() == 'img') {
+                            jQuery("#my-mask").css('width', ($imgActive.width() * enlarge) - maskAdj + 'px'); //multiply width & height with enlarge value
+                            jQuery("#my-mask").css('height', ($imgActive.height() * enlarge) - maskAdj + 'px');
+                        } else {
+                            jQuery("#my-mask").css('width', ($imgActive.innerWidth() * enlarge) - maskAdj + 'px');
+                            jQuery("#my-mask").css('height', ($imgActive.innerHeight() * enlarge) - maskAdj + 'px');
+                        }
+
+                        //If it is image placeholder with specified css width/height
+                        if(specifiedCssWidth!=0) jQuery("#my-mask").css('width', specifiedCssWidth + 'px');
+                        if(specifiedCssHeight!=0) jQuery("#my-mask").css('height', specifiedCssHeight + 'px');
+
+                        jQuery("#my-mask").css('zoom', zoom / enlarge); //divide zoom with enlarge value
+                        jQuery("#my-mask").css('-moz-transform', 'scale(' + zoom / enlarge + ')');
+
+
+
+                        //Embedding Image Step 3: Get dimension (programmatically) for chosen image to fit with its image placeholder
+                        var newW;
+                        var newY;
+
+                        /* source: http://stackoverflow.com/questions/3987644/resize-and-center-image-with-jquery */
+                        var maskWidth = $imgActive.width(); //image placeholder width
+                        var maskHeight = $imgActive.height(); //image placeholder height
+
+                        var photoAspectRatio = nInitialWidth / nInitialHeight;
+                        var canvasAspectRatio = maskWidth / maskHeight;
+                        if (photoAspectRatio < canvasAspectRatio) {
+                            newW = maskWidth;
+                            newY = (nInitialHeight * maskWidth) / nInitialWidth;
+                        }
+                        else {
+                            newW = (nInitialWidth * maskHeight) / nInitialHeight;
+                            newY = maskHeight;
+                        }
+
+
+
+                        //Embedding Image Step 4: Apply the dimension and enlarge it according to the enlarge value
+                        //so that embedding image from mobile will still embed actual (larger) dimension to be seen on desktop
+                        newW = newW * enlarge; //multiply width & height with 2
+                        newY = newY * enlarge;
+
+
+
+                        //Embedding Image Step 5: Load chosen image in an IMG element ('<div id="my-mask"><img id="my-image"></div>) 
+                        //and set with the new dimension. Remember we have made the container (<div id="my-mask">) 2 times bigger.
+                        jQuery('#my-image').attr('src', image);
+                        jQuery('#my-image').on('load', function () {
+
+                            jQuery('.overlay-bg').css('width', '100%');
+                            jQuery('.overlay-bg').css('height', '100%');
+                            //jQuery('body').css('overflow', 'hidden');  // This makes unwanted zoom-in in iOS Safari
 
                             $imgActive = jQuery("#divToolImg").data('image'); //img2: Selang antara klik browse & select image, hover diabaikan. $imgActive di-set dgn image yg active wkt klik browse.
+                            
+                            jQuery("#my-image").css('top', '0px');
+                            jQuery("#my-image").css('left', '0px');
+
+                            jQuery("#my-image").css('width', newW + 'px'); //Set with the new dimension
+                            jQuery("#my-image").css('height', newY + 'px');
 
                             var zoom = localStorage.zoom;
-                            
+
+                            zoom = zoom*1;
+
                             if($element.data('imageembed').settings.zoom==1){
                                 zoom = 1;
                             }
 
-                            
-                            //Embedding Image Step 2: Resize the div image mask according to image placeholder dimension (proportion)
-                            //and enlarge it to the actual image placeholder (in case the image placeholder get smaller in mobile screen)
-                            //so that embedding image from mobile will still embed actual (larger) dimension to be seen on desktop
+                            //Embedding Image Step 6: Show image control (zoom, etc) with correct position 
+                            /*var adjy = $element.data('imageembed').settings.adjy*1;
+                            var adjy_val = (-adjy/0.183)*zoom + (adjy/0.183);
 
-                            var enlarge;
-                            if ($imgActive.prop("tagName").toLowerCase() == 'img') {
-                                enlarge = $imgActive[0].naturalWidth / $imgActive.width(); //2
-                            } else if ($imgActive.prop("tagName").toLowerCase() == 'figure') { //new fix
-                                enlarge = $imgActive.find('img')[0].naturalWidth / $imgActive.find('img').width(); 
-                            }
-
-                            //If it is image placeholder with specified css width/height
-                            var specifiedCssWidth=0;
-                            var specifiedCssHeight=0; 
-                            if ($imgActive.prop("tagName").toLowerCase() == 'img') {
-
-                                if($imgActive.attr("src").indexOf("scripts/image.png")!=-1){
-                                    for(var i=0;i<$imgActive.attr("style").split(";").length;i++) {
-                                        var cssval = $imgActive.attr("style").split(";")[i];
-                                        if(jQuery.trim(cssval.split(":")[0]) == "width") {
-                                            specifiedCssWidth = parseInt(jQuery.trim(cssval.split(":")[1]));
-
-                                            enlarge = specifiedCssWidth / $imgActive.width();
-                                        } 
-                                        if(jQuery.trim(cssval.split(":")[0]) == "height") {
-                                            specifiedCssHeight = parseInt(jQuery.trim(cssval.split(":")[1]));
-                                        } 
-                                    }
-                                }
-
-                            } else if ($imgActive.prop("tagName").toLowerCase() == 'figure') { //new fix
-         
-                                if($imgActive.find('img').attr("src").indexOf("scripts/image.png")!=-1){
-                                    for(var i=0;i<$imgActive.find('img').attr("style").split(";").length;i++) {
-                                        var cssval = $imgActive.find('img').attr("style").split(";")[i];
-                                        if(jQuery.trim(cssval.split(":")[0]) == "width") {
-                                            specifiedCssWidth = parseInt(jQuery.trim(cssval.split(":")[1]));
-                                            enlarge = specifiedCssWidth / $imgActive.find('img').width();
-                                        } 
-                                        if(jQuery.trim(cssval.split(":")[0]) == "height") {
-                                            specifiedCssHeight = parseInt(jQuery.trim(cssval.split(":")[1]));
-                                        } 
-                                    }
-                                }
-
-                            } 
-
-                            if ($imgActive.prop("tagName").toLowerCase() == 'img') {
-                                jQuery("#my-mask").css('width', $imgActive.width() * enlarge + 'px'); //multiply width & height with enlarge value
-                                jQuery("#my-mask").css('height', $imgActive.height() * enlarge + 'px');
+                            var p = $imgActive.getPos();
+                            jQuery('#divImageEdit').css('display', 'inline-block');
+                            if ($imgActive.attr('class') == 'img-polaroid') {
+                                jQuery("#divImageEdit").css("top", (p.top + 5) * zoom + adjy_val + "px");
+                                jQuery("#divImageEdit").css("left", (p.left + 5) * zoom + "px");
                             } else {
-                                jQuery("#my-mask").css('width', $imgActive.innerWidth() * enlarge + 'px');
-                                jQuery("#my-mask").css('height', $imgActive.innerHeight() * enlarge + 'px');
-                            }
+                                jQuery("#divImageEdit").css("top", (p.top) * zoom + adjy_val + "px");
+                                jQuery("#divImageEdit").css("left", (p.left) * zoom + "px");
+                            }*/
+                            var _top; var _left; var _top_polaroid; var _left_polaroid;
+                            var scrolltop = jQuery(window).scrollTop();
+                            var offsettop = $imgActive.offset().top;
+                            var offsetleft = $imgActive.offset().left;
+                            var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+                            var is_ie = detectIE();
+                            var browserok = true;
+                            if (is_firefox||is_ie) browserok = false;
+                            if(browserok){
+                                //Chrome 37, Opera 24
+                                _top = (offsettop * zoom) + (scrolltop - scrolltop * zoom);
+                                _left = offsetleft * zoom;
+                                _top_polaroid = ((offsettop + 5) * zoom) + (scrolltop - scrolltop * zoom);
+                                _left_polaroid = (offsetleft + 5) * zoom;
+                            } else {
+                                if(is_ie){
+                                    //IE 11 (Adjustment required)
 
-                            //If it is image placeholder with specified css width/height
-                            if(specifiedCssWidth!=0) jQuery("#my-mask").css('width', specifiedCssWidth + 'px');
-                            if(specifiedCssHeight!=0) jQuery("#my-mask").css('height', specifiedCssHeight + 'px');
-
-                            jQuery("#my-mask").css('zoom', zoom / enlarge); //divide zoom with enlarge value
-                            jQuery("#my-mask").css('-moz-transform', 'scale(' + zoom / enlarge + ')');
-
-                            var oimg = new Image();
-                            oimg.onload = function (evt) {
-
-                                $imgActive = jQuery("#divToolImg").data('image'); //img2: Selang antara klik browse & select image, hover diabaikan. $imgActive di-set dgn image yg active wkt klik browse.
-
-                                //Embedding Image Step 3: Get dimension (programmatically) for chosen image to fit with its image placeholder
-                                nInitialWidth = this.width; //chosen image width
-                                nInitialHeight = this.height; //chosen image height
-
-                                var newW;
-                                var newY;
-
-                                /* source: http://stackoverflow.com/questions/3987644/resize-and-center-image-with-jquery */
-                                var maskWidth = $imgActive.width(); //image placeholder width
-                                var maskHeight = $imgActive.height(); //image placeholder height
-
-                                var photoAspectRatio = nInitialWidth / nInitialHeight;
-                                var canvasAspectRatio = maskWidth / maskHeight;
-                                if (photoAspectRatio < canvasAspectRatio) {
-                                    newW = maskWidth;
-                                    newY = (nInitialHeight * maskWidth) / nInitialWidth;
-                                }
-                                else {
-                                    newW = (nInitialWidth * maskHeight) / nInitialHeight;
-                                    newY = maskHeight;
-                                }
-
-                                //Embedding Image Step 4: Apply the dimension and enlarge it according to the enlarge value
-                                //so that embedding image from mobile will still embed actual (larger) dimension to be seen on desktop
-                                newW = newW * enlarge; //multiply width & height with 2
-                                newY = newY * enlarge;
-
-                                this.width = newW;
-                                this.height = newY;
-
-                                //Embedding Image Step 5: Load chosen image in an IMG element ('<div id="my-mask"><img id="my-image"></div>) 
-                                //and set with the new dimension. Remember we have made the container (<div id="my-mask">) 2 times bigger.
-                                jQuery('#my-image').attr('src', image);
-                                jQuery('#my-image').on('load', function () {
-
-                                    jQuery('.overlay-bg').css('width', '100%');
-                                    jQuery('.overlay-bg').css('height', '100%');
-                                    jQuery('body').css('overflow', 'hidden');
-
-                                    $imgActive = jQuery("#divToolImg").data('image'); //img2: Selang antara klik browse & select image, hover diabaikan. $imgActive di-set dgn image yg active wkt klik browse.
-
-                                    jQuery("#my-image").css('top', '0px');
-                                    jQuery("#my-image").css('left', '0px');
-
-                                    jQuery("#my-image").css('width', newW + 'px'); //Set with the new dimension
-                                    jQuery("#my-image").css('height', newY + 'px');
-
-                                    var zoom = localStorage.zoom;
-
-                                    zoom = zoom*1;
-
-                                    if($element.data('imageembed').settings.zoom==1){
-                                        zoom = 1;
-                                    }
-
-                                    //Embedding Image Step 6: Show image control (zoom, etc) with correct position 
-                                    /*var adjy = $element.data('imageembed').settings.adjy*1;
-                                    var adjy_val = (-adjy/0.183)*zoom + (adjy/0.183);
+                                    //Custom formula for adjustment in IE11
+                                    var space = 0;var space2 = 0;
+                                    $element.parents().each(function () {
+                                        if (jQuery(this).data('contentbuilder')) {
+                                            space = jQuery(this).getPos().top;
+                                            space2 = jQuery(this).getPos().left;
+                                        }
+                                    });
+                                    var adjy_val = -space*zoom + space; 
+                                    var adjx_val = -space2*zoom + space2; 
 
                                     var p = $imgActive.getPos();
-                                    jQuery('#divImageEdit').css('display', 'inline-block');
-                                    if ($imgActive.attr('class') == 'img-polaroid') {
-                                        jQuery("#divImageEdit").css("top", (p.top + 5) * zoom + adjy_val + "px");
-                                        jQuery("#divImageEdit").css("left", (p.left + 5) * zoom + "px");
-                                    } else {
-                                        jQuery("#divImageEdit").css("top", (p.top) * zoom + adjy_val + "px");
-                                        jQuery("#divImageEdit").css("left", (p.left) * zoom + "px");
-                                    }*/
-                                    var _top; var _left; var _top_polaroid; var _left_polaroid;
-                                    var scrolltop = jQuery(window).scrollTop();
-                                    var offsettop = $imgActive.offset().top;
-                                    var offsetleft = $imgActive.offset().left;
-                                    var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-                                    var is_ie = detectIE();
-                                    var browserok = true;
-                                    if (is_firefox||is_ie) browserok = false;
-                                    if(browserok){
-                                        //Chrome 37, Opera 24
-                                        _top = (offsettop * zoom) + (scrolltop - scrolltop * zoom);
-                                        _left = offsetleft * zoom;
-                                        _top_polaroid = ((offsettop + 5) * zoom) + (scrolltop - scrolltop * zoom);
-                                        _left_polaroid = (offsetleft + 5) * zoom;
-                                    } else {
-                                        if(is_ie){
-                                            //IE 11 (Adjustment required)
+                                    _top = (p.top * zoom) + adjy_val;
+                                    _left = (p.left * zoom) + adjx_val;
+                                    _top_polaroid = ((p.top + 5) * zoom) + adjy_val;
+                                    _left_polaroid = ((p.left + 5) * zoom) + adjx_val;
+                                } 
+                                if(is_firefox) {
+                                    //Firefox (No Adjustment required)
+                                    /*
+                                    In Firefox, if my-mask is zoomed, it will be centered within it's container divImageEdit.
+                                    Only because of this, an adjustment is needed for divImageEdit & img-control
+                                    */
+                                    var imgwidth = parseInt($imgActive.css('width'));
+                                    var imgheight = parseInt($imgActive.css('height'));
+                                    var adjx_val = imgwidth/2 - (imgwidth/2)*zoom;
+                                    var adjy_val = imgheight/2 - (imgheight/2)*zoom;
 
-                                            //Custom formula for adjustment in IE11
-                                            var space = 0;var space2 = 0;
-                                            $element.parents().each(function () {
-                                                if (jQuery(this).data('contentbuilder')) {
-                                                    space = jQuery(this).getPos().top;
-                                                    space2 = jQuery(this).getPos().left;
-                                                }
-                                            });
-                                            var adjy_val = -space*zoom + space; 
-                                            var adjx_val = -space2*zoom + space2; 
+                                    jQuery('#img-control').css('top',5+adjy_val + 'px');
+                                    jQuery('#img-control').css('left',7+adjx_val + 'px');
 
-                                            var p = $imgActive.getPos();
-                                            _top = (p.top * zoom) + adjy_val;
-                                            _left = (p.left * zoom) + adjx_val;
-                                            _top_polaroid = ((p.top + 5) * zoom) + adjy_val;
-                                            _left_polaroid = ((p.left + 5) * zoom) + adjx_val;
-                                        } 
-                                        if(is_firefox) {
-                                            //Firefox (No Adjustment required)
-                                            /*
-                                            In Firefox, if my-mask is zoomed, it will be centered within it's container divImageEdit.
-                                            Only because of this, an adjustment is needed for divImageEdit & img-control
-                                            */
-                                            var imgwidth = parseInt($imgActive.css('width'));
-                                            var imgheight = parseInt($imgActive.css('height'));
-                                            var adjx_val = imgwidth/2 - (imgwidth/2)*zoom;
-                                            var adjy_val = imgheight/2 - (imgheight/2)*zoom;
+                                    _top = offsettop-adjy_val;
+                                    _left = offsetleft-adjx_val;
+                                    _top_polaroid = offsettop-adjy_val + 5;
+                                    _left_polaroid = offsetleft-adjx_val + 5;
+                                }
+                            }
+                            jQuery('#divImageEdit').css('display', 'inline-block');
+                            if ($imgActive.attr('class') == 'img-polaroid') {
+                                jQuery("#divImageEdit").css("top", _top_polaroid + "px");
+                                jQuery("#divImageEdit").css("left", _left_polaroid + "px");
+                            } else {
+                                jQuery("#divImageEdit").css("top", _top + "px");
+                                jQuery("#divImageEdit").css("left", _left + "px");
+                            }
 
-                                            jQuery('#img-control').css('top',5+adjy_val + 'px');
-                                            jQuery('#img-control').css('left',7+adjx_val + 'px');
+                            if(parseInt(jQuery("#divImageEdit").css("top"))<25) {
+                                jQuery('#img-control').css('top','auto');
+                                jQuery('#img-control').css('bottom', "-24px");
+                            }
 
-                                            _top = offsettop-adjy_val;
-                                            _left = offsetleft-adjx_val;
-                                            _top_polaroid = offsettop-adjy_val + 5;
-                                            _left_polaroid = offsetleft-adjx_val + 5;
-                                        }
-                                    }
-                                    jQuery('#divImageEdit').css('display', 'inline-block');
-                                    if ($imgActive.attr('class') == 'img-polaroid') {
-                                        jQuery("#divImageEdit").css("top", _top_polaroid + "px");
-                                        jQuery("#divImageEdit").css("left", _left_polaroid + "px");
-                                    } else {
-                                        jQuery("#divImageEdit").css("top", _top + "px");
-                                        jQuery("#divImageEdit").css("left", _left + "px");
-                                    }
+                            //Embedding Image Step 7: Enable "DRAG TO PAN" image within its mask ('<div id="my-mask"><img id="my-image"></div>) 
+                            //Remember that the image can be bigger (in proportion) than the mask (which has the same dimension with image placeholder)
+                            panSetup();
 
-                                    if(parseInt(jQuery("#divImageEdit").css("top"))<25) {
-                                        jQuery('#img-control').css('top','auto');
-                                        jQuery('#img-control').css('bottom', "-24px");
-                                    }
+                            //Embedding Image Step 8: The resulting "DRAG TO PAN" will be transfered to a temporary canvas (<canvas id="myTmpCanvas">)
+                            tmpCanvas.width = newW;
+                            tmpCanvas.height = newY;
+                            var imageObj = jQuery("#my-image")[0];
+                            var context = tmpCanvas.getContext('2d');
 
-                                    //Embedding Image Step 7: Enable "DRAG TO PAN" image within its mask ('<div id="my-mask"><img id="my-image"></div>) 
-                                    //Remember that the image can be bigger (in proportion) than the mask (which has the same dimension with image placeholder)
-                                    panSetup();
+                            var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+                            if (is_firefox) sleep(700);//fix bug on Firefox
 
-                                    //Embedding Image Step 8: The resulting "DRAG TO PAN" will be transfered to a temporary canvas (<canvas id="myTmpCanvas">)
-                                    tmpCanvas.width = newW;
-                                    tmpCanvas.height = newY;
-                                    var imageObj = jQuery("#my-image")[0];
-                                    var context = tmpCanvas.getContext('2d');
-
-                                    var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-                                    if (is_firefox) sleep(700);//fix bug on Firefox
                               
-                                    //fix bug on iOs
-                                    if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
-                                        try {
-                                            var mpImg = new MegaPixImage(imageObj);
-                                            mpImg.render(tmpCanvas, { width: imageObj.width, height: imageObj.height });
-                                        } catch(e) {
-                                            context.drawImage(imageObj, 0, 0, newW, newY)
-                                        }
-                                    } else {
-                                        context.drawImage(imageObj, 0, 0, newW, newY);
-                                    }
-
-                                    //Embedding Image Step 9: Do the cropping (image cropped based on placeholder dimension)
-                                    //and move from "myTmpCanvas" to "myCanvas" (<canvas id="myCanvas"><canvas id="myTmpCanvas">)
-                                    crop();
-                                    if ($imgActive.attr('class') == 'img-circle') {
-                                        jQuery('#my-mask').css('-webkit-border-radius', '500px');
-                                        jQuery('#my-mask').css('-moz-border-radius', '500px');
-                                        jQuery('#my-mask').css('border-radius', '500px');
-                                    } else {
-                                        jQuery('#my-mask').css('-webkit-border-radius', '0px');
-                                        jQuery('#my-mask').css('-moz-border-radius', '0px');
-                                        jQuery('#my-mask').css('border-radius', '0px');
-                                    }
-
-                                    jQuery('#my-image').unbind('load'); //spy tdk load berulang2
-
-                                    if ($imgActive.prop("tagName").toLowerCase() == 'img') {
-
-                                    } else {
-                                        jQuery('#btnZoomIn').click(); jQuery('#btnZoomIn').click(); //fix bug
-                                    }
-
-                                    //Finished Loading Image
-                                    jQuery("#divToolImgLoader").css('display', 'none');
-
-                                });
-
-                                //Embedding Image Step 10 (finish): When user click "Ok", read the result (base64 string) from "myCanvas" 
-                                //and assign it to image placeholder ($imgActive)
-                                jQuery('#btnChangeImage').unbind('click');
-                                jQuery('#btnChangeImage').bind('click', function () {
-                                    var canvas = document.getElementById('myCanvas');
-
-                                    $imgActive = jQuery("#divToolImg").data('image'); //img2: Selang antara klik browse & select image, hover diabaikan. $imgActive di-set dgn image yg active wkt klik browse.
-
-                                    //Embed Image
-                                    var image;
-                                    if (hiquality == false) {
-                                        if (extension == 'jpg' || extension == 'jpeg') {
-                                            image = canvas.toDataURL("image/jpeg", 0.9);
-                                        } else {
-                                            image = canvas.toDataURL("image/png", 1);
-                                        }
-                                    } else {
-                                        image = canvas.toDataURL("image/png", 1);
-                                    }
-
-                                    if ($imgActive.prop("tagName").toLowerCase() == 'img') {
-                                        $imgActive.attr('src', image);
-                                        $imgActive.data('filename', imgname); //Set data attribute for filename
-                                    } else if ($imgActive.prop("tagName").toLowerCase() == 'figure') {
-                                        $imgActive.find('img').attr('src', image);
-                                        $imgActive.find('img').data('filename', imgname); //Set data attribute for filename
-                                    } else {
-                                        $imgActive.css('background-image', 'url(data:' + image + ')');
-                                        $imgActive.data('filename', imgname); //Set data attribute for filename
-                                    }
-
-                                    jQuery('#divImageEdit').css('display', 'none');
-                                    jQuery('.overlay-bg').css('width', '1px');
-                                    jQuery('.overlay-bg').css('height', '1px');
-                                    jQuery('body').css('overflow', '');
-
-                                    if ($imgActive.prop("tagName").toLowerCase() == 'img') {
-                                        $imgActive.css('width', '');
-                                        $imgActive.css('height', '');
-                                    } else if ($imgActive.prop("tagName").toLowerCase() == 'figure') {
-                                        $imgActive.find('img').css('width', '');
-                                        $imgActive.find('img').css('height', '');
-                                    }
-
-                                    $element.data('imageembed').settings.onChanged(); 
-
-                                });
-                                jQuery('#btnImageCancel').unbind('click');
-                                jQuery('#btnImageCancel').bind('click', function () {
-                                    var canvas = document.getElementById('myCanvas');
-
-                                    $imgActive = jQuery("#divToolImg").data('image'); //img2: Selang antara klik browse & select image, hover diabaikan. $imgActive di-set dgn image yg active wkt klik browse.
-
-                                    jQuery('#divImageEdit').css('display', 'none');
-                                    jQuery('.overlay-bg').css('width', '1px');
-                                    jQuery('.overlay-bg').css('height', '1px');
-                                    jQuery('body').css('overflow', '');
+                            //Fix to resize image with good quality.
+                            var tmp = new Image(), canvas;                                         
+                            cW = nInitialWidth;
+                            cH = nInitialHeight; 
+                            tmp.src = imageObj.src;
+                            tmp.onload = function() { 
+                                cW /= 2;
+                                cH /= 2; 
+                                if ( cW < imageObj.width ) cW = imageObj.width;
+                                if ( cH < imageObj.height ) cH = imageObj.height;
+ 
+                                tmpCanvas.width = cW;
+                                tmpCanvas.height = cH;
+                                context = tmpCanvas.getContext( '2d' );
+                                context.drawImage( tmp, 0, 0, cW, cH ); 
+ 
+                                if ( cW <= imageObj.width || cH <= imageObj.height ) {                                                
+                                    panSetup();crop(); //just to refresh. If not, myTmpCanvas (resized) won't not copied to myCanvas (cropped).                                  
+                                    return; 
+                                    } 
+                                tmp.src = tmpCanvas.toDataURL( type, quality );
+                            };                                    
+                            //context.drawImage(imageObj, 0, 0, newW, newY); //This is replaced with the above fix.
 
 
-                                });
+                            //Embedding Image Step 9: Do the cropping (image cropped based on placeholder dimension)
+                            //and move from "myTmpCanvas" to "myCanvas" (<canvas id="myCanvas"><canvas id="myTmpCanvas">)
+                            crop();
+                            if ($imgActive.attr('class') == 'img-circle') {
+                                jQuery('#my-mask').css('-webkit-border-radius', '500px');
+                                jQuery('#my-mask').css('-moz-border-radius', '500px');
+                                jQuery('#my-mask').css('border-radius', '500px');
+                            } else {
+                                jQuery('#my-mask').css('-webkit-border-radius', '0px');
+                                jQuery('#my-mask').css('-moz-border-radius', '0px');
+                                jQuery('#my-mask').css('border-radius', '0px');
+                            }
+
+                            jQuery('#my-image').unbind('load'); //spy tdk load berulang2
+
+                            if ($imgActive.prop("tagName").toLowerCase() == 'img') {
+
+                            } else {
+                                jQuery('#btnZoomIn').click(); jQuery('#btnZoomIn').click(); //fix bug
+                            }
+
+                            //Finished Loading Image
+                            jQuery("#divToolImgLoader").css('display', 'none');
+
+                        });
 
 
-                                jQuery('#btnZoomIn').unbind('click');
-                                jQuery('#btnZoomIn').bind('click', function () {
+                        //Embedding Image Step 10 (finish): When user click "Ok", read the result (base64 string) from "myCanvas" 
+                        //and assign it to image placeholder ($imgActive)
+                        jQuery('#btnChangeImage').unbind('click');
+                        jQuery('#btnChangeImage').bind('click', function () {
+                            var canvas = document.getElementById('myCanvas');
 
-                                    var nCurrentWidth = parseInt(jQuery("#my-image").css('width'));
-                                    var nCurrentHeight = parseInt(jQuery("#my-image").css('height'));
+                            $imgActive = jQuery("#divToolImg").data('image'); //img2: Selang antara klik browse & select image, hover diabaikan. $imgActive di-set dgn image yg active wkt klik browse.
 
-                                    //if (nInitialWidth <= (nCurrentWidth / 0.9)) return;
-                                    //if (nInitialHeight <= (nCurrentHeight / 0.9)) return;
+                            //Embed Image
+                            var image;
+                            if (hiquality == false) {
+                                if (extension == 'jpg' || extension == 'jpeg') {
+                                    image = canvas.toDataURL("image/jpeg", 0.92); //bug: sometimes the result shows a black line on the image edge
+                                } else {
+                                    image = canvas.toDataURL("image/png", 1);
+                                }
+                            } else {
+                                image = canvas.toDataURL("image/png", 1);
+                            }
+                                 
+                            if ($imgActive.prop("tagName").toLowerCase() == 'img') {
+                                $imgActive.attr('src', image);
+                                $imgActive.data('filename', imgname); //Set data attribute for filename
+                            } else if ($imgActive.prop("tagName").toLowerCase() == 'figure') {
+                                $imgActive.find('img').attr('src', image);
+                                $imgActive.find('img').data('filename', imgname); //Set data attribute for filename
+                            } else {
+                                $imgActive.css('background-image', 'url(data:' + image + ')');
+                                $imgActive.data('filename', imgname); //Set data attribute for filename
+                            }
 
-                                    jQuery("#my-image").css('width', (nCurrentWidth / 0.9) + 'px');
-                                    jQuery("#my-image").css('height', (nCurrentHeight / 0.9) + 'px');
+                            jQuery('#divImageEdit').css('display', 'none');
+                            jQuery('.overlay-bg').css('width', '1px');
+                            jQuery('.overlay-bg').css('height', '1px');
+                            jQuery('body').css('overflow', '');
 
-                                    panSetup();
+                            if ($imgActive.prop("tagName").toLowerCase() == 'img') {
+                                $imgActive.css('width', '');
+                                $imgActive.css('height', '');
+                            } else if ($imgActive.prop("tagName").toLowerCase() == 'figure') {
+                                $imgActive.find('img').css('width', '');
+                                $imgActive.find('img').css('height', '');
+                            }
 
-                                    tmpCanvas.width = (nCurrentWidth / 0.9);
-                                    tmpCanvas.height = (nCurrentHeight / 0.9);
+                            $element.data('imageembed').settings.onChanged(); 
 
-                                    var imageObj = jQuery("#my-image")[0];
-                                    var context = tmpCanvas.getContext('2d');
-                                    context.drawImage(imageObj, 0, 0, (nCurrentWidth / 0.9), (nCurrentHeight / 0.9));
+                        });
 
-                                    crop();
 
-                                });
+                        jQuery('#btnImageCancel').unbind('click');
+                        jQuery('#btnImageCancel').bind('click', function () {
+                            var canvas = document.getElementById('myCanvas');
 
-                                jQuery('#btnZoomOut').unbind('click');
-                                jQuery('#btnZoomOut').bind('click', function () {
+                            $imgActive = jQuery("#divToolImg").data('image'); //img2: Selang antara klik browse & select image, hover diabaikan. $imgActive di-set dgn image yg active wkt klik browse.
+                            
+                            jQuery('#divImageEdit').css('display', 'none');
+                            jQuery('.overlay-bg').css('width', '1px');
+                            jQuery('.overlay-bg').css('height', '1px');
+                            jQuery('body').css('overflow', '');
 
-                                    var nCurrentWidth = parseInt(jQuery("#my-image").css('width'));
-                                    var nCurrentHeight = parseInt(jQuery("#my-image").css('height'));
 
-                                    if ( (nCurrentWidth / 1.1) < jQuery("#my-mask").width()) return;
-                                    if ( (nCurrentHeight / 1.1) < jQuery("#my-mask").height()) return;
+                        });
 
-                                    //if ((nCurrentWidth / 1.1) >= parseInt(jQuery("#my-mask").css('width')) && (nCurrentHeight / 1.1) >= parseInt(jQuery("#my-mask").css('height'))) {
-                                    jQuery("#my-image").css('width', (nCurrentWidth / 1.1) + 'px');
-                                    jQuery("#my-image").css('height', (nCurrentHeight / 1.1) + 'px');
 
-                                    panSetup();
+                        jQuery('#btnZoomIn').unbind('click');
+                        jQuery('#btnZoomIn').bind('click', function () {
 
-                                    tmpCanvas.width = (nCurrentWidth / 1.1);
-                                    tmpCanvas.height = (nCurrentHeight / 1.1);
+                            var nCurrentWidth = parseInt(jQuery("#my-image").css('width'));
+                            var nCurrentHeight = parseInt(jQuery("#my-image").css('height'));
 
-                                    var imageObj = jQuery("#my-image")[0];
-                                    var context = tmpCanvas.getContext('2d');
+                            //if (nInitialWidth <= (nCurrentWidth / 0.9)) return;
+                            //if (nInitialHeight <= (nCurrentHeight / 0.9)) return;
 
-                                    context.drawImage(imageObj, 0, 0, (nCurrentWidth / 1.1), (nCurrentHeight / 1.1));
+                            jQuery("#my-image").css('width', (nCurrentWidth / 0.9) + 'px');
+                            jQuery("#my-image").css('height', (nCurrentHeight / 0.9) + 'px');
 
-                                    crop();
+                            panSetup();
 
-                                    //}
-                                });
+                            tmpCanvas.width = (nCurrentWidth / 0.9);
+                            tmpCanvas.height = (nCurrentHeight / 0.9);
 
+                            var imageObj = jQuery("#my-image")[0];
+                            var context = tmpCanvas.getContext('2d');
+
+                            //Fix to resize image with good quality.
+                            var tmp = new Image(), context, cW, cH;                                         
+                            cW = nInitialWidth;
+                            cH = nInitialHeight; 
+                            tmp.src = imageObj.src;
+                            tmp.onload = function() { 
+                                cW /= 2;
+                                cH /= 2; 
+                                if ( cW < imageObj.width ) cW = (nCurrentWidth / 0.9);
+                                if ( cH < imageObj.height ) cH = (nCurrentHeight / 0.9);
+ 
+                                tmpCanvas.width = cW;
+                                tmpCanvas.height = cH;
+                                context = tmpCanvas.getContext( '2d' );
+                                context.drawImage( tmp, 0, 0, cW, cH ); 
+ 
+                                if ( cW <= (nCurrentWidth / 0.9) || cH <= (nCurrentHeight / 0.9) ) {                                                
+                                    panSetup();crop(); //just to refresh. If not, myTmpCanvas (resized) won't not copied to myCanvas (cropped).
+                                    return; 
+                                    } 
+                                tmp.src = tmpCanvas.toDataURL( type, quality );
                             };
-                            oimg.src = image;
+                            //context.drawImage(imageObj, 0, 0, (nCurrentWidth / 0.9), (nCurrentHeight / 0.9)); //This is replaced with the above fix.
 
-                        };
-                    })(file);
-                    reader.readAsDataURL(file);
-                }
-            }
+                            crop();
 
+                        });
+
+                        jQuery('#btnZoomOut').unbind('click');
+                        jQuery('#btnZoomOut').bind('click', function () {
+
+                            var nCurrentWidth = parseInt(jQuery("#my-image").css('width'));
+                            var nCurrentHeight = parseInt(jQuery("#my-image").css('height'));
+
+                            if ( (nCurrentWidth / 1.1) < jQuery("#my-mask").width()) return;
+                            if ( (nCurrentHeight / 1.1) < jQuery("#my-mask").height()) return;
+
+                            //if ((nCurrentWidth / 1.1) >= parseInt(jQuery("#my-mask").css('width')) && (nCurrentHeight / 1.1) >= parseInt(jQuery("#my-mask").css('height'))) {
+                            jQuery("#my-image").css('width', (nCurrentWidth / 1.1) + 'px');
+                            jQuery("#my-image").css('height', (nCurrentHeight / 1.1) + 'px');
+
+                            panSetup();
+
+                            tmpCanvas.width = (nCurrentWidth / 1.1);
+                            tmpCanvas.height = (nCurrentHeight / 1.1);
+
+                            var imageObj = jQuery("#my-image")[0];
+                            var context = tmpCanvas.getContext('2d');
+
+                            //Fix to resize image with good quality.
+                            var tmp = new Image(), context, cW, cH;            
+                            cW = nInitialWidth;
+                            cH = nInitialHeight; 
+                            tmp.src = imageObj.src;
+                            tmp.onload = function() { 
+                                cW /= 2;
+                                cH /= 2; 
+                                if ( cW < imageObj.width ) cW = (nCurrentWidth / 1.1);
+                                if ( cH < imageObj.height ) cH = (nCurrentHeight / 1.1);
+ 
+                                tmpCanvas.width = cW;
+                                tmpCanvas.height = cH;
+                                context = tmpCanvas.getContext( '2d' );
+                                context.drawImage( tmp, 0, 0, cW, cH ); 
+ 
+                                if ( cW <= (nCurrentWidth / 1.1) || cH <= (nCurrentHeight / 1.1) ) {                                                
+                                    panSetup();crop(); //just to refresh. If not, myTmpCanvas (resized) won't not copied to myCanvas (cropped).
+                                    return; 
+                                    } 
+                                tmp.src = tmpCanvas.toDataURL( type, quality );
+                            };
+                            //context.drawImage(imageObj, 0, 0, (nCurrentWidth / 1.1), (nCurrentHeight / 1.1)); //This is replaced with the above fix.
+
+                            crop();
+
+                        });
+                                                
+                    },
+                    {
+                        canvas: false
+                    } 
+                ); 
+
+            });
         };
+
+
 
         var crop = function () {
             //Crop & move from "myTmpCanvas" to "myCanvas" (<canvas id="myCanvas"><canvas id="myTmpCanvas">)
-            var x = parseInt(jQuery("#my-image").css('left'));
-            var y = parseInt(jQuery("#my-image").css('top'));
+
+            var maskAdj = 1.1; //adjustment
+            var x = parseInt(jQuery("#my-image").css('left')) - maskAdj;
+            var y = parseInt(jQuery("#my-image").css('top')) - maskAdj;
 
             var dw = parseInt(jQuery("#my-mask").css('width'));
             var dh = parseInt(jQuery("#my-mask").css('height'));
@@ -4038,13 +4791,25 @@ function getSelected() {
             var context = canvas.getContext('2d');
             canvas.width = dw;
             canvas.height = dh;
-
-            var imageObj = jQuery("#my-image")[0];
+            
             var sourceX = -1 * x;
             var sourceY = -1 * y;
 
-            if (sourceY > (tmpCanvas.height - dh)) sourceY = tmpCanvas.height - dh;
-            if (sourceX > (tmpCanvas.width - dw)) sourceX = tmpCanvas.width - dw;
+            if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) { //adjustment
+                var iosAdj = 0.7;
+                sourceX = -1 * x + (x - x/iosAdj);
+                sourceY = -1 * y + (y - y/iosAdj);
+            }
+
+            /* checking
+            alert(sourceX + ' - ' + sourceY); // 1.1 - 3.3
+            alert("tmpCanvas.height=" + tmpCanvas.height + " | dh=" + dh);
+            alert("tmpCanvas.width=" + tmpCanvas.width + " | dw=" + dw);
+            */
+
+            //Prevent blank area
+            if (sourceY > (tmpCanvas.height - dh)) { sourceY = tmpCanvas.height - dh; }
+            if (sourceX > (tmpCanvas.width - dw)) { sourceX = tmpCanvas.width - dw; }
 
             context.drawImage(tmpCanvas, sourceX, sourceY, dw, dh, 0, 0, dw, dh);
         };
@@ -4327,10 +5092,16 @@ function detectIE() {
     var ua = window.navigator.userAgent;
     var msie = ua.indexOf('MSIE ');
     var trident = ua.indexOf('Trident/');
+    var edge = ua.indexOf('Edge/');
 
     if (msie > 0) {
         // IE 10 or older => return version number
         return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+    }
+
+    if (edge > 0) {
+        // IE 10 or older => return version number
+        return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
     }
 
     if (trident > 0) {
@@ -4340,6 +5111,17 @@ function detectIE() {
     }
 
     // other browser
+    return false;
+}
+
+function detectEdge() {
+    var ua = window.navigator.userAgent;
+    var edge = ua.indexOf('Edge/');
+
+    if (edge > 0) {
+        return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+    }
+
     return false;
 }
 

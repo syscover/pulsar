@@ -24,7 +24,7 @@ class Text extends Model
     public $incrementing    = false;
     protected $suffix       = '017';
     public $timestamps      = false;
-    protected $fillable     = ['id_017', 'lang_017', 'text_017'];
+    protected $fillable     = ['id_017', 'lang_id_017', 'text_017'];
     protected $maps         = [];
     private static $rules   = [
         'lang'   => Lang::class

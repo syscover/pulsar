@@ -1,22 +1,13 @@
-﻿@import url('../../scripts/icons/css/fontello.css');
+﻿@import url("http://fonts.googleapis.com/css?family=Open+Sans:300,600,800");   
+@import url("../icons/css/fontello.css");     
         
 /**********************************
-    Typography
+    General
 ***********************************/
-/*       
 body {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size:90%; 
-    line-height:1.7;
-}
-h1, h2, h3, h4, h5, h6 {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 600;
-}
-*/
-body {
-    font-family: 'Merriweather', Georgia, 'Times New Roman', Times, serif;
-    font-size:90%; 
+    margin:0;
+    font-family: "Open Sans", sans-serif;
+    font-size:100%; 
     line-height:1.7;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -31,7 +22,7 @@ h5 {font-size: 0.98em;}
 h6 {font-size: 0.85em;}
 .display h1 {
     font-weight: 800;
-    font-size: 2.8em;
+    font-size: 3em;/*2.8em*/
     line-height:1.4;
     text-transform: uppercase;
 }
@@ -39,61 +30,87 @@ h6 {font-size: 0.85em;}
     font-size: 1.5em;
     font-style: italic;
 }
-        
-        
+a {color: #08c9b9;}
+hr {border:none;border-top: rgba(0, 0, 0, 0.18) 1px solid;margin-top: 2em;margin-bottom: 2em;}    
+img {max-width:100%;}
+figure {margin:0}
+@media all and (max-width: 1024px) {
+    h1 {font-size: 1.8em;}
+    h2 {font-size: 1.5em;}
+    h3 {font-size: 1.2em;}
+    h4 {font-size: 1em;}
+    h5 {font-size: 0.9em;}
+    h6 {font-size: 0.8em;}
+    .display h1 {
+        font-size: 1.8em;
+    }
+}
+
+/* FIX: Preventing Chrome from wrapping text with span-style (when editing) */
+.display h1 span {font-size: 2.8em;line-height:1.4;}
+.display p span {font-size: 1.5em;line-height:1.7;}
+h1 span {font-size: 2.37em;line-height:1.7;}
+h2 span {font-size: 1.83em;line-height:1.7;}
+h3 span {font-size: 1.39em;line-height:1.7;}
+h4 span {font-size: 1.1em;line-height:1.7;}
+h5 span {font-size: 0.98em;line-height:1.7;}
+h6 span {font-size: 0.85em;line-height:1.7;}
+p span {font-size: 16px; line-height: 1.7;}
+li span {font-size: 16px; line-height: 1.7;}
+
+/**********************************
+    Printing
+***********************************/
+@page {
+    size: auto;   /* auto is the current printer page size */
+    margin: 20mm 0;   /* this affects the margin in the printer settings */
+}
+
 /**********************************
     Grid
 ***********************************/
 .container {
     margin: 0 auto;
-    max-width: 970px;
+    max-width: 980px;
     width: 90%;
 }
-@media (min-width: 40rem) {
+.row {padding-top:10px;padding-bottom:10px}		
+@media (min-width: 33rem) { /* 40rem */
     .column {
         float: left;
-        padding-left: 1.3rem; /* 1rem */
-        padding-right: 1.3rem;
+        padding-left: 1.32rem; /* 1rem */
+        padding-right: 1.32rem;
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
     }
     .column.full { width: 100%; }
-    .column.two-thirds { width: 66.7%; }
+    .column.two-third { width: 66.7%; }
     .column.two-fourth { width: 75%; }
     .column.two-fifth { width: 80%; }
-    .column.two-sixth { width: 85%; }
+    .column.two-sixth { width: 83.3%; }
     .column.half { width: 50%; }
     .column.third { width: 33.3%; }
     .column.fourth { width: 25%; }
     .column.fifth { width: 20%; }
-    .column.sixth { width: 15%; }
+    .column.sixth { width: 16.6%; }
     .column.flow-opposite { float: right; }  
 }
 .clearfix:before, .clearfix:after {content: " ";display: table;}
 .clearfix:after {clear: both;}
 .clearfix {*zoom: 1;}
 
-
+   
 /**********************************
-    Helpers
+    Elements
 ***********************************/
 
 .center {text-align:center}
 .right {text-align:right}
 .left {text-align:left}
-      
-        
-/**********************************
-    Elements
-***********************************/
-a {color: #08c9b9;}
-hr {border:none;border-top: rgba(0, 0, 0, 0.18) 1px solid;margin-top: 2em;margin-bottom: 2em;}
 
-img {max-width:100%;}
 img.circle {border-radius:500px;margin-top:0;}
 img.bordered {border: #ccc 1px solid;}
-figure {margin:0}
 
 .embed-responsive {position: relative;display:block;height:0;padding:0;overflow:hidden;} 
 .embed-responsive.embed-responsive-16by9 {padding-bottom: 56.25%;}
@@ -117,10 +134,11 @@ figure {margin:0}
 .quote > p {margin-left:50px;font-size: 1.5em;}
 
 .btn {
-    padding: 10px 30px;
-    font-size: 1.3em;
+    padding: 7px 25px;
+    font-size: 1em;
     line-height: 2em;
-    border-radius: 6px;
+    border-radius: 5px;
+    letter-spacing: 1px;   
 
     display: inline-block;
     margin-bottom: 0;
@@ -187,6 +205,7 @@ figure.hdr figcaption {
 figure.hdr h2 {
 	font-weight: 300;
 	text-transform: uppercase;
+    color: rgba(255,255,255,0.9);
 }
 figure.hdr h2 span {
 	font-weight: 800;

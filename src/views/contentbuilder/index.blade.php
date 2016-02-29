@@ -2,24 +2,24 @@
 
 @section('head')
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/contentbuilder/scripts/contentbuilder.css') }}">
-    <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/contentbuilder/css/contentbuilder.css') }}">
     <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/wysiwyg.froala/css/froala_editor.min.css') }}">
     <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/wysiwyg.froala/css/froala_style.min.css') }}">
 
-    <!-- load theme css -->
-    @if(file_exists(asset(config($package . '.themesFolder') . $theme . '/content.css')))
+    <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/contentbuilder/css/contentbuilder.css?07') }}">
+    <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/contentbuilder/scripts/contentbuilder.css?07') }}">
+    <script src="{{ asset('packages/syscover/pulsar/js/libs/jquery-2.1.3.min.js?05') }}"></script>
+    <script src="{{ asset('packages/syscover/pulsar/vendor/jquery-ui/jquery-ui.min.js?05') }}"></script>
+    <script src="{{ asset('packages/syscover/pulsar/vendor/contentbuilder/scripts/contentbuilder.js?07') }}"></script>
+    <script src="{{ asset('packages/syscover/pulsar/vendor/contentbuilder/scripts/jquery.saveimages.js?07') }}"></script>
+
+    <!-- theme css -->
+    @if(file_exists(public_path() . config($package . '.themesFolder') . $theme . '/content.css'))
         <link rel="stylesheet" href="{{ asset(config($package . '.themesFolder') . $theme . '/content.css') }}">
     @endif
     <style type="text/css">
         {{ $css or null }}
     </style>
-    <!--/ load theme css -->
-
-    <script src="{{ asset('packages/syscover/pulsar/js/libs/jquery-2.1.3.min.js') }}"></script>
-    <script src="{{ asset('packages/syscover/pulsar/vendor/jquery-ui/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('packages/syscover/pulsar/vendor/contentbuilder/scripts/contentbuilder.js') }}"></script>
-    <script src="{{ asset('packages/syscover/pulsar/vendor/contentbuilder/scripts/jquery.saveimages.js') }}"></script>
+    <!-- ./theme css -->
 
     <script type="text/javascript">
         $(document).ready(function($){
@@ -27,7 +27,7 @@
             // create contentBuilder object
             $("#contentarea").contentbuilder({
                 zoom: 1,
-                snippetFile:        '{{ asset(config($package . '.themesFolder') . $theme . '/snippets.html') }}',
+                snippetFile:        '{{ asset(config($package . '.themesFolder') . $theme . '/snippets.html?08') }}',
                 snippetPathReplace: ['{{ config($package . '.themesFolder') . $theme }}','{{ asset(config($package . '.themesFolder') . $theme . '/') }}'],
                 snippetTool:        'left'
             });
@@ -66,7 +66,7 @@
                 parent.$.cssLoader.show({useLayer: false, layerOpacity: 100});
 
                 // declare save function
-                $("#contentarea").saveImages({
+                $("#contentarea").saveimages({
                     handler: '{{ route('contentbuilderSaveImage') }}',
                     csfr: '{{ csrf_token() }}',
                     onComplete: function () {
@@ -74,14 +74,14 @@
                         var settings  = JSON.parse('{!! json_encode($settings) !!}');
 
                         /*
-                        settings.width              = $('#canvasWidth').val();
-                        settings.backgroundColor    = $('#backgroundColor').attr('data-value');
-                        settings.canvasColor        = $('#canvasColor').attr('data-value');
-                        settings.highlightColor     = $('#highlightColor').attr('data-value');
-                        settings.textColor          = $('#textColor').attr('data-value');
-                        settings.titleColor         = $('#titleColor').attr('data-value');
-                        settings.linkColor          = $('#linkColor').attr('data-value');
-                        */
+                         settings.width              = $('#canvasWidth').val();
+                         settings.backgroundColor    = $('#backgroundColor').attr('data-value');
+                         settings.canvasColor        = $('#canvasColor').attr('data-value');
+                         settings.highlightColor     = $('#highlightColor').attr('data-value');
+                         settings.textColor          = $('#textColor').attr('data-value');
+                         settings.titleColor         = $('#titleColor').attr('data-value');
+                         settings.linkColor          = $('#linkColor').attr('data-value');
+                         */
 
                         if (typeof parent.getValueContentBuilder == 'function')
                             parent.getValueContentBuilder(html, settings);
@@ -93,26 +93,22 @@
                 });
 
                 // execute save function
-                $("#contentarea").data('saveImages').save();
+                $("#contentarea").data('saveimages').save();
             });
         });
-
-
-        var getContentBuilderHtml = function()
-        {
+        var getContentBuilderHtml = function(){
             return $('#contentarea').data('contentbuilder').html();
         }
-
 
         var getParentHtml = function(name)
         {
             $('#contentarea').data('contentbuilder').loadHTML(parent.$('[name=' + name + ']').val());
         }
     </script>
-@stop
+    @stop
 
-@section('mainContent')
-    <!-- toolbar to contentbuider -->
+    @section('mainContent')
+            <!-- toolbar to contentbuider -->
     <div class="fr-box fr-top fr-basic">
         <div class="fr-toolbar fr-ltr fr-desktop fr-top fr-basic fr-sticky fr-sticky-off">
             <div class="bttn-wrapper" id="bttn-wrapper-1">

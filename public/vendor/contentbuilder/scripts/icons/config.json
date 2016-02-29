@@ -13,6 +13,12 @@
       "src": "fontelico"
     },
     {
+      "uid": "872d9516df93eb6b776cc4d94bd97dac",
+      "css": "video",
+      "code": 59697,
+      "src": "fontawesome"
+    },
+    {
       "uid": "381da2c2f7fd51f8de877c044d7f439d",
       "css": "picture",
       "code": 59677,
@@ -61,9 +67,21 @@
       "src": "fontawesome"
     },
     {
+      "uid": "26613a2e6bc41593c54bead46f8c8ee3",
+      "css": "file-code",
+      "code": 59699,
+      "src": "fontawesome"
+    },
+    {
       "uid": "e99461abfef3923546da8d745372c995",
       "css": "cog",
       "code": 59685,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "5bb103cd29de77e0e06a52638527b575",
+      "css": "wrench",
+      "code": 59698,
       "src": "fontawesome"
     },
     {
@@ -127,6 +145,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "8fb55fd696d9a0f58f3b27c1d8633750",
+      "css": "table",
+      "code": 59700,
+      "src": "fontawesome"
+    },
+    {
       "uid": "ca90da02d2c6a3183f2458e4dc416285",
       "css": "color",
       "code": 59672,
@@ -139,9 +163,27 @@
       "src": "fontawesome"
     },
     {
+      "uid": "d6fcb9886485b0bdb41b94521e7a3311",
+      "css": "ticket",
+      "code": 59701,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "d862a10e1448589215be19702f98f2c1",
+      "css": "smile",
+      "code": 59702,
+      "src": "fontawesome"
+    },
+    {
       "uid": "ebc57fa8400e4ede049ac5dc665210e1",
       "css": "eraser",
       "code": 59662,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "af95ef0ddda80a78828c62d386506433",
+      "css": "cubes",
+      "code": 59703,
       "src": "fontawesome"
     },
     {
@@ -202,6 +244,12 @@
       "uid": "d10920db2e79c997c5e783279291970c",
       "css": "dot",
       "code": 59680,
+      "src": "entypo"
+    },
+    {
+      "uid": "39c4d0e225a1263a398a47523cb5b9bd",
+      "css": "brush",
+      "code": 59704,
       "src": "entypo"
     },
     {

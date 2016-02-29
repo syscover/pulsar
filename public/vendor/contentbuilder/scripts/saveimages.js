@@ -5,17 +5,18 @@
         var defaults = {
             handler: 'saveimage.php',
             onComplete: function () { },
-			customval: 0,
-            csfr: null
+			customval: 0
         };
 
         this.settings = {};
 
-        var $element = jQuery(element), element = element;
+        var $element = jQuery(element),
+                element = element;
 
-        this.init = function ()
-        {
+        this.init = function () {
+
             this.settings = jQuery.extend({}, defaults, options);
+
         };
 
         this.save = function (s) {
@@ -46,7 +47,6 @@
                     //Prepare form to submit image
                     if (jQuery('#form-' + count).length == 0) {
                         var s = '<form id="form-' + count + '" target="frame-' + count + '" method="post" enctype="multipart/form-data">' +
-                        '<input name="_token" type="hidden" value="' + csfr + '" />' +
                         '<input id="hidimg-' + count + '" name="hidimg-' + count + '" type="hidden" />' +
                         '<input id="hidname-' + count + '" name="hidname-' + count + '" type="hidden" />' +
                         '<input id="hidtype-' + count + '" name="hidtype-' + count + '" type="hidden" />' +

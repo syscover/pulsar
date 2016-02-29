@@ -463,13 +463,30 @@ padding-right:4px;
 
 #btnInsertPlh, #btnDelRowCancel, #btnDelRowOk {
     padding: 0 30px;
-    line-height: 35px;
-    height: 35px;
-    font-size: 13px;  
     font-size: 11px;
-    letter-spacing: 1px;
+    line-height: 35px;
+    height: 35px;  
     text-transform: uppercase;
+
+    border-radius: 4px;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;      
 }
+#btnInsertPlh, #btnDelRowCancel {color: #333333;background-color: #d3d3d3;}
+#btnInsertPlh:hover, #btnDelRowCancel:hover {color: #111;background-color: #ccc;border-color: #ccc;}
+#btnDelRowOk {color: #ffffff;background-color: #08c9b9;}
+#btnDelRowOk:hover {color: #ffffff;background-color: #07b0a2;border-color: #07b0a2;}
 
 .custom-block {
     min-height: 100px;

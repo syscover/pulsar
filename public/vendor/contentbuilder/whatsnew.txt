@@ -1,5 +1,64 @@
 ﻿Note: to upgrade, please replace previous 'scripts' folder.
 
+What's New in Ver.1.8.6
+- Use the latest jQuery UI 1.11.4
+- Fix incorrect drag helper position while sorting & dragging
+- Show drag helper again in Firefox
+
+What's New in Ver.1.8.5
+- Fixes
+
+What's New in Ver.1.8.4
+- New parameters to control "Embed original image" checkbox on Image dialog: (see readme.txt)
+  embedOriginalChecked (default:false) & hideEmbedOriginal (default:false) 
+- Disable zoom function on Edge browser
+- Fixes
+
+What's New in Ver.1.8.3
+- Fix font selection on multiple instance
+- Fix embed image quality!!
+- Fix embed image orientation problem
+- Option to embed image (from local URL) within placeholder or insert original (image from external URL will be embedded as is)
+- Easier drag/drop when content empty
+- New "scrollHelper" parameter to show Scroll up/down helper (default: false)
+
+        $("#contentarea").contentbuilder({
+            scrollHelper: true,   
+            .....
+        });
+
+- New "snippetPageSliding" parameter for different sliding effect for snippets.
+  If set true, when snippets opens, the entire page will also slide. (default: false)
+
+        $("#contentarea").contentbuilder({
+            snippetPageSliding: true,   
+            .....
+        });
+
+- Adjust row controls on small screen
+- New "onImageBrowseClick" and "onImageSettingClick" events for custom actions 
+	- onImageBrowseClick: Triggered when image browse icon is clicked 
+	- onImageSettingClick: Triggered when image settings icon is clicked
+	Image browse icon and image settings icon are displayed when you hover an image.
+
+        $("#contentarea").contentbuilder({
+            onImageBrowseClick: function () { },
+            onImageSettingClick: function () { },    
+            .....
+        });
+
+- New "onImageSelectClick" and "onFileSelectClick" events for custom actions
+	- onImageSelectClick: Triggered when custom image select button is clicked 
+	- onFileSelectClick: Triggered when custom file select button is clicked
+	If the events are used, custom image select button and custom file select button will be displayed on the Image Settings dialog.
+
+        $("#contentarea").contentbuilder({
+            onImageSelectClick: function () { },
+            onFileSelectClick: function () { },    
+            .....
+        });
+- Fix create and destroy instance bug
+
 What's New in Ver.1.8.2
 - Update rangeslider
 - Embedding image on small screen device will create the same (actual) image dimesion as in larger screen (will look good on desktop screen)
