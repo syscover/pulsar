@@ -206,6 +206,9 @@ class ImageManagerLibrary
             case 'application/pdf':
                 return [ 'id' => 2, 'name' => trans_choice('pulsar::pulsar.file', 1), 'icon' => 'icon_PDF.png'];
                 break;
+            case 'application/zip':
+                return [ 'id' => 2, 'name' => trans_choice('pulsar::pulsar.file', 1), 'icon' => 'icon_ZIP.png'];
+                break;
             case 'video/avi':
             case 'video/mpeg':
             case 'video/quicktime':
@@ -213,7 +216,7 @@ class ImageManagerLibrary
                 return [ 'id' => 3, 'name' => trans_choice('pulsar::pulsar.video', 1), 'icon' => 'icon_Generic.png'];
                 break;
             default:
-                return null;
+                return [ 'id' => 2, 'name' => trans_choice('pulsar::pulsar.file', 1), 'icon' => 'icon_Generic.png'];
         }
     }
 }
