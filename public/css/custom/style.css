@@ -204,12 +204,11 @@ div.tagsinput span.tag {
     border-radius: 4px;
 }
 
-.form-horizontal .control-label{
-    padding-top: 0px;
-}
 .form-horizontal .control-label, .form-horizontal .radio, .form-horizontal .checkbox, .form-horizontal .radio-inline, .form-horizontal .checkbox-inline{
-    padding-top: 0px;
+    padding-top: 6px;
 }
+
+div.checker {margin: 8px 5px 5px 0;}
 
 /* CSS to html5-upload-image plugin */
 img.ghost, img.main {
