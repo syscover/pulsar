@@ -328,3 +328,13 @@ img.ghost, img.main {
 select{
     height: 32px;
 }
+
+.white-popup {position: relative;}
+.white-popup .mfp-close
+{
+    color: #333 !important;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    right: 20px;
+}
