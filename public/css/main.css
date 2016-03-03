@@ -889,6 +889,8 @@ span.red {
   padding-right: 10px;
   float: left;
   line-height: 20px;
+  width: 27px;
+  text-align: center;
 }
 #sidebar ul#nav li a i[class^="icol-"],
 #sidebar ul#nav li a i[class^="icos-"],

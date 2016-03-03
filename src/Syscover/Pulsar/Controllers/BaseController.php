@@ -6,8 +6,8 @@ use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Models\Lang;
 
 /**
- * Class TraitController
- * @package Syscover\Pulsar\Traits
+ * Class BaseController
+ * @package Syscover\Pulsar\Controllers
  */
 
 class BaseController extends Controller
@@ -25,8 +25,9 @@ class BaseController extends Controller
     */
 
 	/**
-     * @param $parameters
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @access	public
+     * @param   \Illuminate\Http\Request            $request
+     * @return	\Illuminate\Support\Facades\View
      */
     public function index(Request $request)
     {
