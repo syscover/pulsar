@@ -209,10 +209,11 @@ div.tagsinput span.tag {
 }
 
 div.checker {margin: 8px 5px 5px 0;}
+tr div.checker {margin: 0;}
 
 /* CSS to html5-upload-image plugin */
 img.ghost, img.main {
-    width: auto\9;
+    width: auto;
     height: auto;
     max-width: none !important;
     vertical-align: middle;
