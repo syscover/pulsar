@@ -12,38 +12,39 @@ class PulsarServiceProvider extends ServiceProvider
 	public function boot()
 	{
 		// include route.php file
-		include realpath(__DIR__ . '/../../routes.php');
+		if (!$this->app->routesAreCached())
+			require __DIR__ . '/../../routes.php';
 
 		// include helpers file
-		include __DIR__ . '/Helpers/helpers.php';
+		require __DIR__ . '/Helpers/helpers.php';
 
 		// register views
-		$this->loadViewsFrom(realpath(__DIR__ . '/../../views'), 'pulsar');
+		$this->loadViewsFrom(__DIR__ . '/../../views', 'pulsar');
 
 		// register translations
-		$this->loadTranslationsFrom(realpath(__DIR__ . '/../../lang'), 'pulsar');
+		$this->loadTranslationsFrom(__DIR__ . '/../../lang', 'pulsar');
 
 		// register public files
 		$this->publishes([
-			realpath(__DIR__ . '/../../../public') => public_path('/packages/syscover/pulsar')
+			__DIR__ . '/../../../public'						=> public_path('/packages/syscover/pulsar')
 		]);
 
 		// register config files
 		$this->publishes([
-            realpath(__DIR__ . '/../../config/pulsar.php') 	=> config_path('pulsar.php'),
-            realpath(__DIR__ . '/../../config/cron.php') 	=> config_path('cron.php'),
-			realpath(__DIR__ . '/../../config/api.php') 	=> config_path('api.php')
+            __DIR__ . '/../../config/pulsar.php' 				=> config_path('pulsar.php'),
+            __DIR__ . '/../../config/cron.php'					=> config_path('cron.php'),
+			__DIR__ . '/../../config/api.php' 					=> config_path('api.php')
         ]);
 
         // register migrations
         $this->publishes([
-            __DIR__.'/../../database/migrations/' 			=> base_path('/database/migrations'),
-			__DIR__.'/../../database/migrations/updates/' 	=> base_path('/database/migrations/updates'),
+            __DIR__ . '/../../database/migrations/' 			=> base_path('/database/migrations'),
+			__DIR__ . '/../../database/migrations/updates/' 	=> base_path('/database/migrations/updates'),
         ], 'migrations');
 
         // register migrations
         $this->publishes([
-            __DIR__.'/../../database/seeds/' => base_path('/database/seeds')
+            __DIR__ . '/../../database/seeds/' 					=> base_path('/database/seeds')
         ], 'seeds');
 	}
 
