@@ -68,7 +68,7 @@
                 }
             });
 
-            // check if there are dada inside inputData
+            // check if there is data inside inputData
             var data = JSON.parse($("[name=" + this.options.id + "Data]").val());
             if(data.length > 0)
             {
