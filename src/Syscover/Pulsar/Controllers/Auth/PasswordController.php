@@ -196,6 +196,6 @@ class PasswordController extends Controller
         $user->save();
 
         // if redirect to user zone, we set new user on Auth
-        //Auth::guard($this->getGuard())->login($user);
+        //auth($this->getGuard())->login($user);
     }
 }
