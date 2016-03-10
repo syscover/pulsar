@@ -1,7 +1,7 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
 
 class PulsarUpdateV3 extends Migration
 {
@@ -14,7 +14,7 @@ class PulsarUpdateV3 extends Migration
 	{
 		if(!Schema::hasColumn('001_012_package', 'sorting_012'))
 		{
-			Schema::table('001_012_package', function ($table) {
+			Schema::table('001_012_package', function (Blueprint $table) {
 				$table->integer('sorting_012')->unsigned()->nullable()->after('active_012');
 			});
 		}
@@ -26,5 +26,4 @@ class PulsarUpdateV3 extends Migration
 	 * @return void
 	 */
 	public function down(){}
-
 }

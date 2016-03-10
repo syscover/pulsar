@@ -1,7 +1,7 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
 
 class PulsarUpdateV4 extends Migration
 {
@@ -14,7 +14,7 @@ class PulsarUpdateV4 extends Migration
 	{
 		if(!Schema::hasColumn('001_026_field', 'field_type_text_026'))
 		{
-			Schema::table('001_026_field', function ($table) {
+			Schema::table('001_026_field', function (Blueprint $table) {
 				$table->string('field_type_text_026', 100)->after('field_type_026');
 				$table->string('data_type_text_026', 100)->after('data_type_026');
 			});
@@ -27,5 +27,4 @@ class PulsarUpdateV4 extends Migration
 	 * @return void
 	 */
 	public function down(){}
-
 }

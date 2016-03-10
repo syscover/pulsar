@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use \Illuminate\Support\Facades\DB;
 
@@ -24,5 +25,4 @@ class PulsarUpdateV6 extends Migration
 	 * @return void
 	 */
 	public function down(){}
-
 }

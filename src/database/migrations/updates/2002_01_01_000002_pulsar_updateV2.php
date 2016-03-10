@@ -1,7 +1,7 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
 
 class PulsarUpdateV2 extends Migration
 {
@@ -14,7 +14,7 @@ class PulsarUpdateV2 extends Migration
 	{
 		if(!Schema::hasColumn('001_018_preference', 'created_at'))
 		{
-			Schema::table('001_018_preference', function ($table) {
+			Schema::table('001_018_preference', function (Blueprint $table) {
 				$table->timestamps();
 			});
 		}
@@ -26,5 +26,4 @@ class PulsarUpdateV2 extends Migration
 	 * @return void
 	 */
 	public function down(){}
-
 }
