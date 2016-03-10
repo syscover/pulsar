@@ -108,6 +108,7 @@ return [
     'selected_objects'                      => 'Objetos seleccionados',
     'setting'                               => 'Ajuste|Ajustes',
     'single'                                => 'Soltero/a',
+    'shipping'                              => 'Envío|Envíos',
     'state'                                 => 'Estado|Estados',
     'transport'                             => 'Transporte|Transportes',
     'treatment'                             => 'Tratamiento|Tramientos',

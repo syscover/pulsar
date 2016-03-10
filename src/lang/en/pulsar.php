@@ -106,6 +106,7 @@ return [
     'select_category'                       => 'Select a category',
     'selected_objects'                      => 'Selected objects',
     'setting'                               => 'Setting|Settings',
+    'shipping'                              => 'Shipping|Shipments',
     'single'                                => 'Single',
     'state'                                 => 'State|States',
     'transport'                             => 'Transport|Transports',
