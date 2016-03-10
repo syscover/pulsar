@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\DB;
 class PulsarUpdateV7 extends Migration
 {
 	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
+ * Run the migrations.
+ *
+ * @return void
+ */
 	public function up()
 	{
 		if(Schema::hasColumn('001_017_text', 'lang_017'))
