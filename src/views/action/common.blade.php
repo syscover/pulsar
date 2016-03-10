@@ -1,4 +1,4 @@
-@extends('pulsar::layouts.form', ['action' => $action])
+@extends('pulsar::layouts.form')
 
 @section('rows')
     <!-- pulsar::actions.common -->
@@ -15,8 +15,8 @@
         'label' => trans('pulsar::pulsar.name'),
         'name' => 'name',
         'value' => old('name', isset($object)? $object->name_008 : null),
-        'maxLength' => '50',
-        'rangeLength' => '2,50',
+        'maxLength' => '255',
+        'rangeLength' => '2,255',
         'required' => true
     ])
     <!-- /pulsar::actions.common -->
