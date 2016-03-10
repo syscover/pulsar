@@ -305,6 +305,7 @@ trait TraitController {
 
         $parameters = $this->createCustomRecord($request, $parameters);
 
+        $parameters['action']         = 'store';
         $parameters['package']        = $this->package;
         $parameters['folder']         = $this->folder;
         $parameters['routeSuffix']    = $this->routeSuffix;
@@ -319,7 +320,11 @@ trait TraitController {
         if(isset($parameters['lang']))
             $parameters['lang'] = Lang::builder()->find($parameters['lang']);
 
-        return view($this->package . '::' . $this->folder . '.create', $parameters);
+        // check if exist create view, default all request go to common view
+        if(view()->exists($this->package . '::' . $this->folder . '.create', $parameters))
+            return view($this->package . '::' . $this->folder . '.create', $parameters);
+        else
+            return view($this->package . '::' . $this->folder . '.common', $parameters);
     }
 
     /**
@@ -474,6 +479,7 @@ trait TraitController {
         // set path variable, after creating urlParameters to don't send value to URLs creates
         $parameters['path'] = $request->path();
 
+        $parameters['action']         = 'update';
         $parameters['package']        = $this->package;
         $parameters['folder']         = $this->folder;
         $parameters['routeSuffix']    = $this->routeSuffix;
@@ -510,7 +516,11 @@ trait TraitController {
 
         $parameters = $this->editCustomRecord($request, $parameters);
 
-        return view($this->package . '::' . $this->folder . '.edit', $parameters);
+        // check if exist edit view, default all request go to common view
+        if(view()->exists($this->package . '::' . $this->folder . '.edit', $parameters))
+            return view($this->package . '::' . $this->folder . '.edit', $parameters);
+        else
+            return view($this->package . '::' . $this->folder . '.common', $parameters);
     }
 
     /**
