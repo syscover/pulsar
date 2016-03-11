@@ -96,8 +96,8 @@
             dataType:	'json',
             success: function(libraryDataStored)
             {
-                // Variable $action defined in edit.blade.php with a include
-                @if($action == 'edit')
+                // Variable $action defined in edit.blade.php with a include or from traitController
+                @if($action == 'update')
                     // Guardamos el adjunto en la base de datos, ya que es un objeto
                     // que estamos editando y ya está registrado en la base de datos
                     $.storeAttachment(libraryDataStored.files);
@@ -222,7 +222,7 @@
                         if($(that).closest('li').find('img').hasClass('is-image') && data.width_015 != null && data.height_015 != null)
                         {
                             // check if folder is tmp or attachment folder, depend if is a create or edit action
-                            @if($action == 'edit')
+                            @if($action == 'update')
                                 var folder      = '{{ config($routesConfigFile . '.attachmentFolder') }}/{{ isset($objectId)? $objectId : null }}/{{ $lang->id_001 }}';
                                 var fileName    = null;
                             @else
@@ -290,7 +290,7 @@
 
     // Update elements only on database
     $.updateAttachment = function(element) {
-        @if($action == 'edit')
+        @if($action == 'update')
             var attachments         = JSON.parse($('[name=attachments]').val());
             var attachmentToUpdate  = null;
 
@@ -423,7 +423,7 @@
             });
         });
 
-        @if($action == 'edit')
+        @if($action == 'update')
             // update attachment across ajax
             $.ajax({
                 url:    '{{ route('updatesAttachment', ['object' => isset($objectId)? $objectId : null ,'lang' => $lang->id_001]) }}',
