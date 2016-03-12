@@ -324,7 +324,7 @@ trait TraitController {
         if(view()->exists($this->package . '::' . $this->folder . '.create', $parameters))
             return view($this->package . '::' . $this->folder . '.create', $parameters);
         else
-            return view($this->package . '::' . $this->folder . '.common', $parameters);
+            return view($this->package . '::' . $this->folder . '.form', $parameters);
     }
 
     /**
@@ -520,7 +520,7 @@ trait TraitController {
         if(view()->exists($this->package . '::' . $this->folder . '.edit', $parameters))
             return view($this->package . '::' . $this->folder . '.edit', $parameters);
         else
-            return view($this->package . '::' . $this->folder . '.common', $parameters);
+            return view($this->package . '::' . $this->folder . '.form', $parameters);
     }
 
     /**
