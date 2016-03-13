@@ -1,5 +1,6 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Libraries\AclLibrary;
@@ -25,7 +26,7 @@ class PermissionController extends Controller
     protected $package              = 'pulsar';
     protected $aColumns             = ['id_007', 'name_012', 'name_007'];
     protected $nameM                = 'name_008';
-    protected $model                = Resource::class;
+    protected $model                = \Syscover\Pulsar\Models\Resource::class;
     protected $icon                 = 'icon-shield';
     protected $objectTrans          = 'permission';
     

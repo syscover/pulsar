@@ -79,6 +79,7 @@ return [
     'file_not_select'                       => 'Fichero no seleccionado',
     'gender'                                => 'Género',
     'group'                                 => 'Grupo|Grupos',
+    'hour'                                  => 'Hora|Horas',
     'int_value'                             => 'Valor entero',
     'instructions'                          => 'Instrucciones',
     'ip'                                    => 'IP',

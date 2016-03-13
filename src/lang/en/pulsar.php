@@ -78,6 +78,7 @@ return [
     'file_not_select'                       => 'File not select',
     'gender'                                => 'Gender',
     'group'                                 => 'Group|Groups',
+    'hour'                                  => 'Hour|Hours',
     'int_value'                             => 'Int value',
     'instructions'                          => 'Instructions',
     'ip'                                    => 'IP',

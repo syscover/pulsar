@@ -44,4 +44,3 @@ class PackageController extends Controller {
         session(['packages' => Package::getRecords(['active_012' => true, 'orderBy' => ['column' => 'sorting_012', 'order' => 'desc']])]);
     }
 }
-
