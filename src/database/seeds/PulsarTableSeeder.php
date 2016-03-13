@@ -19,6 +19,8 @@ class PulsarTableSeeder extends Seeder
         $this->call(PulsarResourceTableSeeder::class);
         $this->call(PulsarUserTableSeeder::class);
         $this->call(PulsarPermissionTableSeeder::class);
+
+        Model::reguard();
     }
 }
 

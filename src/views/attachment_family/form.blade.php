@@ -1,4 +1,4 @@
-@extends('pulsar::layouts.form', ['action' => 'store'])
+@extends('pulsar::layouts.form')
 
 @section('rows')
     <!-- pulsar::attachment_family.form -->
