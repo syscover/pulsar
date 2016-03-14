@@ -29,8 +29,8 @@
         'label' => trans('pulsar::pulsar.name'),
         'name' => 'name',
         'value' => old('name', isset($object)? $object->name_015 : null),
-        'maxLength' => '100',
-        'rangeLength' => '2,100',
+        'maxLength' => '255',
+        'rangeLength' => '2,255',
         'required' => true
     ])
     @include('pulsar::includes.html.form_text_group', [
@@ -48,5 +48,5 @@
                 'fieldSize' => 4
             ]
     ]])
-    <!-- /pulsar::attachment_family.form -->
+    <!-- ./pulsar::attachment_family.form -->
 @stop

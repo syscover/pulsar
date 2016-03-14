@@ -26,6 +26,7 @@ class PulsarResourceTableSeeder extends Seeder {
             ['id_007' => 'admin-user',                  'name_007' => 'Users',                                  'package_007' => '2'],
             ['id_007' => 'admin-attachment',            'name_007' => 'Attachments',                            'package_007' => '2'],
             ['id_007' => 'admin-attachment-family',     'name_007' => 'Attachments - Attachment Families',      'package_007' => '2'],
+            ['id_007' => 'admin-attachment-mime',       'name_007' => 'Attachments - Attachments Mimes',        'package_007' => '2'],
             ['id_007' => 'admin-attachment-library',    'name_007' => 'Attachments - Library',                  'package_007' => '2'],
             ['id_007' => 'admin-field',                 'name_007' => 'Custom fields',                          'package_007' => '2'],
             ['id_007' => 'admin-field-value',           'name_007' => 'Custom fields - Values',                 'package_007' => '2'],

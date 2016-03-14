@@ -2,9 +2,9 @@
 
 @section('head')
     @parent
-    <!-- cms::attachment_family.index -->
-    <script type="text/javascript">
-        $(document).ready(function() {
+    <!-- pulsar::attachment_family.index -->
+    <script>
+        $(document).on('ready', function() {
             if ($.fn.dataTable)
             {
                 $('.datatable-pulsar').dataTable({
@@ -21,11 +21,11 @@
             }
         });
     </script>
-    <!-- cms::attachment_family.index -->
+    <!-- ./pulsar::attachment_family.index -->
 @stop
 
 @section('tHead')
-    <!-- cms::attachment_family.index -->
+    <!-- pulsar::attachment_family.index -->
     <tr>
         <th data-hide="phone,tablet">ID.</th>
         <th data-hide="phone">{{ trans_choice('pulsar::pulsar.resource', 1) }}</th>
@@ -35,5 +35,5 @@
         <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
         <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>
     </tr>
-    <!-- /cms::attachment_family.index -->
+    <!-- ./pulsar::attachment_family.index -->
 @stop

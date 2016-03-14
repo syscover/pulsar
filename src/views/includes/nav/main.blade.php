@@ -1,4 +1,4 @@
-<li{!! Miscellaneous::setCurrentOpenPage(['admin-user', 'admin-lang', 'admin-country', 'admin-country-at1', 'admin-country-at2', 'admin-country-at3', 'admin-package', 'admin-cron', 'admin-perm-profile', 'admin-perm-resource', 'admin-perm-action', 'admin-perm-perm', 'admin-email-account', 'admin-attachment-family', 'admin-attachment-library','admin-field', 'admin-field-value', 'admin-field-group']) !!}>
+<li{!! Miscellaneous::setCurrentOpenPage(['admin-user', 'admin-lang', 'admin-country', 'admin-country-at1', 'admin-country-at2', 'admin-country-at3', 'admin-package', 'admin-cron', 'admin-perm-profile', 'admin-perm-resource', 'admin-perm-action', 'admin-perm-perm', 'admin-email-account', 'admin-attachment-family', 'admin-attachment-mime', 'admin-attachment-library','admin-field', 'admin-field-value', 'admin-field-group']) !!}>
     <a href="javascript:void(0)"><i class="fa fa-cog"></i>{{ trans('pulsar::pulsar.administration') }}</a>
     <ul class="sub-menu">
         @if(session('userAcl')->allows('admin-user', 'access'))
@@ -33,11 +33,14 @@
             </li>
         @endif
         @if(session('userAcl')->allows('admin-attachment', 'access'))
-            <li{!! Miscellaneous::setOpenPage(['admin-attachment-family', 'admin-attachment-library']) !!}>
+            <li{!! Miscellaneous::setOpenPage(['admin-attachment-family', 'admin-attachment-mime', 'admin-attachment-library']) !!}>
                 <a href="javascript:void(0)"><i class="fa fa-paperclip"></i>{{ trans_choice('pulsar::pulsar.attachment', 2) }}<span class="arrow"></span></a>
-                <ul class="sub-menu"{!! Miscellaneous::setDisplayPage(['admin-attachment-family', 'admin-attachment-library']) !!}>
+                <ul class="sub-menu"{!! Miscellaneous::setDisplayPage(['admin-attachment-family', 'admin-attachment-mime', 'admin-attachment-library']) !!}>
                     @if(session('userAcl')->allows('admin-attachment-family', 'access'))
                         <li{!! Miscellaneous::setCurrentPage('admin-attachment-family') !!}><a href="{{ route('attachmentFamily') }}"><i class="fa fa-th"></i>{{ trans_choice('pulsar::pulsar.attachment_family', 2) }}</a></li>
+                    @endif
+                    @if(session('userAcl')->allows('admin-attachment-mime', 'access'))
+                        <li{!! Miscellaneous::setCurrentPage('admin-attachment-mime') !!}><a href="{{ route('attachmentMime') }}"><i class="fa fa-file"></i>{{ trans_choice('pulsar::pulsar.attachment_mime', 2) }}</a></li>
                     @endif
                     @if(session('userAcl')->allows('admin-attachment-library', 'access'))
                         <li{!! Miscellaneous::setCurrentPage('admin-attachment-library') !!}><a href="{{ route('attachmentLibrary') }}"><i class="fa fa-book"></i>{{ trans_choice('pulsar::pulsar.library', 2) }}</a></li>

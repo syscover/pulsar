@@ -14,6 +14,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Lang;
+use Syscover\Pulsar\Models\AttachmentMime;
 
 class Miscellaneous
 {
@@ -370,6 +371,31 @@ class Miscellaneous
             return $directories;
         }
         return false;
+    }
+
+    /**
+     * get string with mimes to getfile plugin
+     *
+     * @param $resource
+     * @return null|string
+     */
+    public static function getMimesAccept($resource)
+    {
+        $attachmentMimes = AttachmentMime::builder()->where('resource_id_019', $resource)->get();
+
+        $index = 1;
+        $mimes = null;
+        foreach($attachmentMimes as $attachmentMime)
+        {
+            $mimes .= "'" . $attachmentMime->mime_019 . "'";
+
+            if($index < count($attachmentMimes))
+                $mimes .= ", ";
+
+            $index ++;
+        }
+
+        return $mimes;
     }
 
     /**

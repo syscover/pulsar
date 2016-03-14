@@ -33,6 +33,9 @@ class PulsarCreateTableLang extends Migration
 	 */
 	public function down()
 	{
-            Schema::drop('001_001_lang');
+		if (Schema::hasTable('001_001_lang'))
+		{
+			Schema::drop('001_001_lang');
+		}
 	}
 }

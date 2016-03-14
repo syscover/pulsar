@@ -274,6 +274,20 @@ Route::group(['middleware' => ['web', 'pulsar']], function() {
 
     /*
     |--------------------------------------------------------------------------
+    | ATTACHMENT MIME
+    |--------------------------------------------------------------------------
+    */
+    Route::any(config('pulsar.appName') . '/pulsar/attachment/mimes/{offset?}',                  ['as'=>'attachmentMime',                'uses'=>'Syscover\Pulsar\Controllers\AttachmentMimeController@index',                     'resource' => 'admin-attachment-mime',        'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/attachment/mimes/json/data',                  ['as'=>'jsonDataAttachmentMime',        'uses'=>'Syscover\Pulsar\Controllers\AttachmentMimeController@jsonData',                  'resource' => 'admin-attachment-mime',        'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/attachment/mimes/create/{offset}',            ['as'=>'createAttachmentMime',          'uses'=>'Syscover\Pulsar\Controllers\AttachmentMimeController@createRecord',              'resource' => 'admin-attachment-mime',        'action' => 'create']);
+    Route::post(config('pulsar.appName') . '/pulsar/attachment/mimes/store/{offset}',            ['as'=>'storeAttachmentMime',           'uses'=>'Syscover\Pulsar\Controllers\AttachmentMimeController@storeRecord',               'resource' => 'admin-attachment-mime',        'action' => 'create']);
+    Route::get(config('pulsar.appName') . '/pulsar/attachment/mimes/{id}/edit/{offset}',         ['as'=>'editAttachmentMime',            'uses'=>'Syscover\Pulsar\Controllers\AttachmentMimeController@editRecord',                'resource' => 'admin-attachment-mime',        'action' => 'access']);
+    Route::put(config('pulsar.appName') . '/pulsar/attachment/mimes/update/{id}/{offset}',       ['as'=>'updateAttachmentMime',          'uses'=>'Syscover\Pulsar\Controllers\AttachmentMimeController@updateRecord',              'resource' => 'admin-attachment-mime',        'action' => 'edit']);
+    Route::get(config('pulsar.appName') . '/pulsar/attachment/mimes/delete/{id}/{offset}',       ['as'=>'deleteAttachmentMime',          'uses'=>'Syscover\Pulsar\Controllers\AttachmentMimeController@deleteRecord',              'resource' => 'admin-attachment-mime',        'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/attachment/mimes/delete/select/records',   ['as'=>'deleteSelectAttachmentMime',    'uses'=>'Syscover\Pulsar\Controllers\AttachmentMimeController@deleteRecordsSelect',       'resource' => 'admin-attachment-mime',        'action' => 'delete']);
+
+    /*
+    |--------------------------------------------------------------------------
     | CONTENT BUILDER
     |--------------------------------------------------------------------------
     */

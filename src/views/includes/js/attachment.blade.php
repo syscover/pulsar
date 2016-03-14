@@ -1,6 +1,6 @@
-<script type="text/javascript">
+<script>
 
-    $(document).ready(function() {
+    $(document).on('ready', function() {
 
         @if(isset($attachments) && count($attachments) > 0)
             // if we have attachment, hide placehosder and
@@ -21,7 +21,10 @@
                 tmpFolder:          '{{ config($routesConfigFile . '.libraryFolder') }}',
                 multiple:           true,
                 activateTmpDelete:  false,
-                spinner:            false
+                spinner:            false,
+                mimesAccept:        [
+                    {!! Miscellaneous::getMimesAccept($resource) !!}
+                ]
             },
             function(dataUploaded)
             {
