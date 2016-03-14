@@ -5,4 +5,4 @@
 <li class="current">
     <a href="{{ route($routeSuffix) }}">{{ trans_choice($objectTrans, 2) }}</a>
 </li>
-<!-- /pulsar::packages.breadcrumbs -->
+<!-- ./pulsar::packages.breadcrumbs -->
