@@ -1,9 +1,10 @@
 <!-- pulsar::includes.js.delete_translation_record -->
-<script type="text/javascript">
-    $(document).ready(function() {
+<script>
+    $(document).on('ready', function() {
         $('.delete-lang-record').bind('click', function() {
 
-            var that = this;
+            var that = this
+
             $.msgbox('{!! trans('pulsar::pulsar.message_delete_translation_record', ['id' => $id]) !!}',
                 {
                     type:'confirm',
@@ -18,8 +19,8 @@
                         $(location).attr('href', $(that).data('delete-url'));
                     }
                 }
-            );
-        });
-    });
+            )
+        })
+    })
 </script>
-<!-- /pulsar::includes.js.delete_translation_record -->
+<!-- ./pulsar::includes.js.delete_translation_record -->

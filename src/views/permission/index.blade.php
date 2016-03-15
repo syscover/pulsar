@@ -11,6 +11,7 @@
 
     <script src="{{ asset('packages/syscover/pulsar/vendor/jquery.select2.custom/js/select2.min.js') }}"></script>
     <script src="{{ asset('packages/syscover/pulsar/vendor/jquery.select2/js/i18n/' . config('app.locale') . '.js') }}"></script>
+
     <!-- pulsar::permissions.index -->
     <script type="text/javascript">
         $(document).ready(function() {
@@ -29,13 +30,13 @@
 
                         $("[id^='re']").select2({
                             placeholder: '{{ trans('pulsar::pulsar.select_a') . ' ' . trans_choice('pulsar::pulsar.action', 1) }}'
-                        });
+                        })
 
                         $("[id^='re']").on("select2:select", function(e){
-                            var element     = this;
-                            var dataEvent   = e.params.data;
+                            var element     = this
+                            var dataEvent   = e.params.data
 
-                            var url = "{{ route('jsonCreatePermission', ['profile' => $profile->id_006, 'resource' => '%resource%', 'action' => '%action%']) }}";
+                            var url = "{{ route('jsonCreatePermission', ['profile' => $profile->id_006, 'resource' => '%resource%', 'action' => '%action%']) }}"
 
                             $.ajax({
                                 type: "POST",
@@ -51,7 +52,7 @@
                                         text:   '{!! trans('pulsar::pulsar.message_create_permission_successful', ['action' => '\' + dataEvent.text + \'', 'resource'=> '\' + $(element).data(\'nresource\') + \'']) !!}',
                                         opacity: .9,
                                         styling: 'fontawesome'
-                                    });
+                                    })
                                 },
                                 error: function () {
                                     new PNotify({
@@ -60,17 +61,17 @@
                                         text:   '{!! trans('pulsar::pulsar.message_create_permission_error', ['action'=> '\' + dataEvent.text + \'', 'resource'=> '\' + $(element).data(\'nresource\') + \'']) !!}',
                                         opacity: .9,
                                         styling: 'fontawesome'
-                                    });
+                                    })
                                 }
-                            });
+                            })
 
-                        });
+                        })
 
                         $("[id^='re']").on("select2:unselect", function(e) {
-                            var element     = this;
-                            var dataEvent   = e.params.data;
+                            var element     = this
+                            var dataEvent   = e.params.data
 
-                            var url = "{{ route('jsonDestroyPermission', ['profile' => $profile->id_006, 'resource' => '%resource%', 'action' => '%action%']) }}";
+                            var url = "{{ route('jsonDestroyPermission', ['profile' => $profile->id_006, 'resource' => '%resource%', 'action' => '%action%']) }}"
 
                             $.ajax({
                                 type: "POST",
@@ -86,7 +87,7 @@
                                         text:   '{!! trans('pulsar::pulsar.message_delete_permission_successful', ['action'=> '\' + dataEvent.text + \'', 'resource'=> '\' + $(element).data(\'nresource\') + \'']) !!}',
                                         opacity: .9,
                                         styling: 'fontawesome'
-                                    });
+                                    })
                                 },
                                 error: function (xhr, ajaxOptions, thrownError) {
                                     new PNotify({
@@ -95,53 +96,52 @@
                                         text:   '{!! trans('pulsar::pulsar.message_delete_permission_error', ['action'=> '\' + dataEvent.text + \'', 'resource'=> '\' + $(element).data(\'nresource\') + \'']) !!}',
                                         opacity: .9,
                                         styling: 'fontawesome'
-                                    });
+                                    })
                                 }
-                            });
-                        });
+                            })
+                        })
 
-                        //start lineas heredadas de views/pulsar/pulsar/includes/js/script_config_datatable.blade.php
-                        $('input[name="nElementsDataTable"]').attr('value', this.fnGetData().length);
+                        /** start lineas heredadas de views/pulsar/pulsar/includes/js/script_config_datatable.blade.php */
+                        $('input[name="nElementsDataTable"]').attr('value', this.fnGetData().length)
 
                         //activacion de los tooltips en la datatables
                         if ($.fn.tooltip) {
-                            $('.bs-tooltip').tooltip({container: 'body'});
+                            $('.bs-tooltip').tooltip({container: 'body'})
                         }
 
                         if ($.fn.uniform) {
-                            $(':radio.uniform, :checkbox.uniform').uniform();
+                            $(':radio.uniform, :checkbox.uniform').uniform()
                         }
 
                         if ($.fn.select2) {
                             $('.dataTables_length select').select2({
                                 minimumResultsForSearch: "-1"
-                            });
+                            })
                         }
 
                         // SEARCH - Add the placeholder for Search and Turn this into in-line formcontrol
-                        var search_input = $(this).closest('.dataTables_wrapper').find('div[id$=_filter] input');
+                        var search_input = $(this).closest('.dataTables_wrapper').find('div[id$=_filter] input')
 
                         // Only apply settings once
                         if (search_input.parent().hasClass('input-group'))
-                            return;
+                            return
 
                         search_input.attr('placeholder', '{{ trans('pulsar::datatable.bSearch') }}')
                         search_input.addClass('form-control')
-                        search_input.wrap('<div class="input-group"></div>');
-                        search_input.parent().prepend('<span class="input-group-addon"><i class="fa fa-search"></i></span>');
-                        //search_input.parent().prepend('<span class="input-group-addon"><i class="fa fa-search"></i></span>').css('width', '250px');
+                        search_input.wrap('<div class="input-group"></div>')
+                        search_input.parent().prepend('<span class="input-group-addon"><i class="fa fa-search"></i></span>')
 
                         // Responsive
                         if (typeof responsiveHelper != 'undefined') {
-                            responsiveHelper.respond();
+                            responsiveHelper.respond()
                         }
-                        //end lineas heredadas de views/pulsar/pulsar/includes/js/script_config_datatable.blade.php
+                        /** end lineas heredadas de views/pulsar/pulsar/includes/js/script_config_datatable.blade.php */
                     }
-                }).fnSetFilteringDelay();
+                }).fnSetFilteringDelay()
             }
         });
     </script>
-    <!-- /pulsar::permissions.index -->
+    <!-- ./pulsar::permissions.index -->
 @stop
 
 @section('mainContent')
@@ -174,5 +174,5 @@
             </div>
         </div>
     </div>
-    <!-- /pulsar::permissions.index -->
+    <!-- ./pulsar::permissions.index -->
 @stop

@@ -1,5 +1,10 @@
 @extends('pulsar::layouts.form')
 
+@section('head')
+    @parent
+    @include('pulsar::includes.js.delete_translation_record')
+@stop
+
 @section('rows')
     <!-- pulsar::country.form -->
     @include('pulsar::includes.html.form_text_group', [
@@ -65,5 +70,5 @@
         'maxLength' => '50',
         'rangeLength' => '2,50'
     ])
-    <!-- /pulsar::country.create -->
+    <!-- ./pulsar::country.create -->
 @stop

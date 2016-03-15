@@ -44,14 +44,12 @@ class TerritorialArea3Controller extends Controller {
     public function createCustomRecord($request, $parameters)
     {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
+
         if($request->old('territorialArea1') && $request->old('territorialArea1') != "null")
-        {
             $parameters['territorialAreas2'] = territorialArea1::find(Input::old('territorialArea1'))->getTerritorialAreas2;
-        }
         else
-        {
             $parameters['territorialAreas2'] = [];
-        }
+
         $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_002', session('baseLang')->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_3_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_3_002 . ' (' . $parameters['country']->name_002 . ')';
