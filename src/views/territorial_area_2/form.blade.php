@@ -1,11 +1,11 @@
-@extends('pulsar::layouts.form'])
+@extends('pulsar::layouts.form')
 
 @section('rows')
     <!-- pulsar::territorial_areas_2.create -->
     @include('pulsar::includes.html.form_text_group', [
         'label' => 'ID',
         'name' => 'id',
-        'value' => $object->id_004,
+        'value' => old('id', isset($object)? $object->id_004 : null),
         'maxLength' => '10',
         'rangeLength' => '2,10',
         'required' => true,
@@ -21,7 +21,7 @@
     @include('pulsar::includes.html.form_select_group', [
         'label' => $country->territorial_area_1_002,
         'name' => 'territorialArea1',
-        'value' => $object->territorial_area_1_004,
+        'value' => old('territorialArea1', isset($object)? $object->territorial_area_1_004 : null),
         'fieldSize' => 6,
         'objects' => $territorialAreas1,
         'idSelect' => 'id_003',
@@ -31,9 +31,9 @@
     @include('pulsar::includes.html.form_text_group', [
         'label' => trans('pulsar::pulsar.name'),
         'name' => 'name',
-        'value' => $object->name_004,
-        'maxLength' => '50',
-        'rangeLength' => '2,50',
+        'value' => old('name', isset($object)? $object->name_004 : null),
+        'maxLength' => '255',
+        'rangeLength' => '2,255',
         'required' => true
     ])
     <!-- ./pulsar::territorial_areas_2.create -->

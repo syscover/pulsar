@@ -2,7 +2,7 @@
 
 @section('head')
     @parent
-    <script type="text/javascript">
+    <script>
         $(document).ready(function() {
             $('form').on('submit', function(){
                 $('input').prop('readonly', false);

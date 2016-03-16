@@ -10,12 +10,14 @@
     <div class="row">
         <div class="col-md-12">
             <div class="widget box">
-                <div class="widget-header"><h4><i class="{{ isset($icon)? $icon : 'icomoon-icon-power' }}"></i> {{ isset($customTransHeader)? $customTransHeader : trans_choice($objectTrans, 1) }}</h4></div>
+                <div class="widget-header">
+                    <h4><i class="{{ isset($icon)? $icon : 'icomoon-icon-power' }}"></i> {{ isset($customTransHeader)? $customTransHeader : trans_choice($objectTrans, 1) }}</h4>
+                </div>
                 <div class="widget-content">
                     @yield('content')
                 </div>
             </div>
         </div>
     </div>
-    <!-- /pulsar::layouts.record -->
+    <!-- ./pulsar::layouts.record -->
 @stop

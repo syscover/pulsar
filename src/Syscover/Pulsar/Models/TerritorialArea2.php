@@ -58,21 +58,31 @@ class TerritorialArea2 extends Model
         $query = TerritorialArea2::builder();
 
         if(isset($parameters['country'])) $query->where('country_003', $parameters['country']);
+        if(isset($parameters['lang']))
+            $query->where('lang_002', $parameters['lang']);
+        else
+            $query->where('lang_002', base_lang()->id_001);
 
         return $query;
     }
 
     public static function customCount($parameters)
     {
-        $query = TerritorialArea2::query();
+        $query = TerritorialArea2::builder();
 
         if(isset($parameters['country'])) $query->where('country_004', $parameters['country']);
+        if(isset($parameters['lang']))
+            $query->where('lang_002', $parameters['lang']);
+        else
+            $query->where('lang_002', base_lang()->id_001);
 
         return $query;
     }
 
     public static function getTerritorialAreas2FromTerritorialArea1($terrirotialArea1)
     {
-        return TerritorialArea2::where('territorial_area_1_004', $terrirotialArea1)->orderBy('name_004', 'asc')->get();
+        return TerritorialArea2::where('territorial_area_1_004', $terrirotialArea1)
+            ->orderBy('name_004', 'asc')
+            ->get();
     }
 }
