@@ -139,6 +139,7 @@ return [
     'view_record'                           => 'Ver registro',
     'weight'                                => 'Peso|Pesos',
     'widower'                               => 'Viudo/a',
+    'work'                                  => 'Trabajo|Trabajos',
 
     'message_set_all_permissions'           => '¿Desea establecer todos los permisos para el perfil seleccionado?',
     'message_create_all_permissions'        => 'Los permisos para el perfil <strong>:profile</strong> han sido creados',

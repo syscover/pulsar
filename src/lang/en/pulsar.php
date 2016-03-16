@@ -134,6 +134,7 @@ return [
     'weight'                                => 'Weight|Weights',
     'view_record'                           => 'View record',
     'widower'                               => 'Widower',
+    'work'                                  => 'Work|Works',
 
     'message_create_all_permissions'        => 'Permissions to profile <strong>:profile</strong> has been properly recorded',
     'message_delete_record'                 => 'Do you want to delete the record with <strong>ID \' + $(this).data("id") + \' </strong>?',
