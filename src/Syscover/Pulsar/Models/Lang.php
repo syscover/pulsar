@@ -29,7 +29,7 @@ class Lang extends Model
     protected $relationMaps = [];
     private static $rules   = [
         'id'        => 'required|alpha|size:2|unique:001_001_lang,id_001',
-        'name'      => 'required|between:2,50',
+        'name'      => 'required|between:2,255',
         'sorting'   => 'min:0|numeric',
         'image'     => 'required'
     ];
@@ -42,6 +42,11 @@ class Lang extends Model
         return Validator::make($data, static::$rules);
     }
 
+    public function scopeBuilder($query)
+    {
+        return $query;
+    }
+
     public static function getBaseLang()
     {
         return Lang::where('base_001', true)->first();
@@ -49,7 +54,7 @@ class Lang extends Model
 
     public static function resetBaseLang()
     {
-        Lang::update(['base_001' => false]);
+        Lang::builder()->update(['base_001' => false]);
     }
 
     public static function getActivesLangs()

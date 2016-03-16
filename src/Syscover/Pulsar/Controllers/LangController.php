@@ -54,13 +54,9 @@ class LangController extends Controller {
     public function updateCustomRecord($request, $parameters)
     {
         if($request->hasFile('image'))
-        {
             $filename = Miscellaneous::uploadFiles('image', public_path() . '/packages/syscover/pulsar/storage/langs');
-        }
         else
-        {
             $filename = $request->input('image');
-        }
 
         if($request->input('base')) Lang::resetBaseLang();
 

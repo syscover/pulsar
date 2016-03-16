@@ -31,10 +31,11 @@
         'value' => old('email', isset($object)? $object->email_010 : null),
         'maxLength' => '255',
         'rangeLength' => '2,255',
-        'fieldSize' => 6, 'required' => true, 'type' => 'email'])
+        'fieldSize' => 6, 'required' => true, 'type' => 'email'
+    ])
     @include('pulsar::includes.html.form_select_group', [
-        'label' => trans_choice('pulsar::pulsar.language', 1),
         'fileSize' => 5,
+        'label' => trans_choice('pulsar::pulsar.language', 1),
         'name' => 'lang',
         'value' => old('lang', isset($object)? $object->lang_010 : null),
         'required' => true,
