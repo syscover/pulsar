@@ -115,6 +115,7 @@ return [
     'row'                                   => 'Row|Rows',
     'run'                                   => 'Run',
     'save'                                  => 'Save',
+    'searching'                             => 'Searching',
     'select'                                => 'Select',
     'select_category'                       => 'Select a category',
     'selected_objects'                      => 'Selected objects',
