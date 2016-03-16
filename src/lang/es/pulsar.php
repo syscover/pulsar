@@ -60,6 +60,7 @@ return [
     'data_type'                             => 'Tipo de dato|Tipo de datos',
     'date'                                  => 'Fecha|Fechas',
     'delete'                                => 'Borrar',
+    'delete_image'                          => 'Borrar imagen',
     'delete_record'                         => 'Borrar registro',
     'delete_translation'                    => 'Borrar traducción',
     'divorced'                              => 'Divorciado/a',

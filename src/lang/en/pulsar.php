@@ -59,6 +59,7 @@ return [
     'data_type'                             => 'Data type|Data types',
     'date'                                  => 'Date|Dates',
     'delete'                                => 'Delete',
+    'delete_image'                          => 'Delete image',
     'delete_record'                         => 'Delete record',
     'delete_translation'                    => 'Delete translation',
     'divorced'                              => 'Divorced',
