@@ -707,4 +707,32 @@ class Miscellaneous
 
         return $randomString;
     }
+
+    /**
+     * convert a array to object
+     *
+     * @param $array
+     * @return stdClass
+     */
+    public static function arrayToObject($array)
+    {
+        $obj = new \stdClass();
+        foreach($array as $k => $v)
+        {
+            if(strlen($k))
+            {
+                if(is_array($v))
+                {
+                    // recursive
+                    $instance = new static;
+                    $obj->{$k} = $instance->arrayToObject($v); //RECURSION
+                }
+                else
+                {
+                    $obj->{$k} = $v;
+                }
+            }
+        }
+        return $obj;
+    }
 }
