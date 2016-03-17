@@ -62,11 +62,55 @@
         'fieldSize' => 5,
         'disabled' => isset($object->id_026)
     ])
-    @include('pulsar::includes.html.form_select_group', ['label' => trans_choice('pulsar::pulsar.data_type', 1), 'name' => 'dataType', 'value' => old('dataType', isset($object->data_type_026)? $object->data_type_026 : null), 'required' => true, 'objects' => $dataTypes, 'idSelect' => 'id', 'nameSelect' => 'name', 'fieldSize' => 5, 'disabled' => isset($object->id_026)])
-    @include('pulsar::includes.html.form_checkbox_group', ['label' => trans('pulsar::pulsar.required'), 'name' => 'required', 'value' => 1, 'checked' => old('required',  isset($object)? $object->required_026 : null), 'disabled' => isset($object->id_026)])
-    @include('pulsar::includes.html.form_text_group', ['label' => trans('pulsar::pulsar.sorting'), 'name' => 'sorting', 'type' => 'number', 'value' => old('sorting', isset($object->sorting_026)? $object->sorting_026 : null), 'maxLength' => '3', 'rangeLength' => '1,3', 'min' => '0', 'fieldSize' => 2, 'readOnly' => isset($object->id_026)])
-    @include('pulsar::includes.html.form_text_group', ['label' => trans('pulsar::pulsar.maximum_length'), 'name' => 'maxLength', 'type' => 'number', 'value' => old('maxLength', isset($object->max_length_026)? $object->max_length_026 : null), 'maxLength' => '3', 'rangeLength' => '1,3', 'min' => '0', 'fieldSize' => 2, 'readOnly' => isset($object->id_026)])
-    @include('pulsar::includes.html.form_text_group', ['label' => trans('pulsar::pulsar.pattern'), 'name' => 'pattern', 'value' => old('pattern', isset($object->pattern_026)? $object->pattern_026 : null), 'maxLength' => '50', 'rangeLength' => '2,50', 'fieldSize' => 5, 'readOnly' => isset($object->id_026)])
+    @include('pulsar::includes.html.form_select_group', [
+        'label' => trans_choice('pulsar::pulsar.data_type', 1),
+        'name' => 'dataType',
+        'value' => old('dataType', isset($object->data_type_026)? $object->data_type_026 : null),
+        'required' => true,
+        'objects' => $dataTypes,
+        'idSelect' => 'id',
+        'nameSelect' => 'name',
+        'fieldSize' => 5,
+        'disabled' => isset($object->id_026)
+    ])
+    @include('pulsar::includes.html.form_checkbox_group', [
+        'label' => trans('pulsar::pulsar.required'),
+        'name' => 'required',
+        'value' => 1,
+        'checked' => old('required',  isset($object)? $object->required_026 : null),
+        'disabled' => isset($object->id_026)
+    ])
+    @include('pulsar::includes.html.form_text_group', [
+        'label' => trans('pulsar::pulsar.sorting'),
+        'name' => 'sorting',
+        'type' => 'number',
+        'value' => old('sorting', isset($object->sorting_026)? $object->sorting_026 : null),
+        'maxLength' => '3',
+        'rangeLength' => '1,3',
+        'min' => '0',
+        'fieldSize' => 2,
+        'readOnly' => isset($object->id_026)
+    ])
+    @include('pulsar::includes.html.form_text_group', [
+        'label' => trans('pulsar::pulsar.maximum_length'),
+        'name' => 'maxLength',
+        'type' => 'number',
+        'value' => old('maxLength', isset($object->max_length_026)? $object->max_length_026 : null),
+        'maxLength' => '3',
+        'rangeLength' => '1,3',
+        'min' => '0',
+        'fieldSize' => 2,
+        'readOnly' => isset($object->id_026)
+    ])
+    @include('pulsar::includes.html.form_text_group', [
+        'label' => trans('pulsar::pulsar.pattern'),
+        'name' => 'pattern',
+        'value' => old('pattern', isset($object->pattern_026)? $object->pattern_026 : null),
+        'maxLength' => '50',
+        'rangeLength' => '2,50',
+        'fieldSize' => 5,
+        'readOnly' => isset($object->id_026)
+    ])
     @include('pulsar::includes.html.form_text_group', [
         'label' => trans('pulsar::pulsar.label_size'),
         'name' => 'labelSize',

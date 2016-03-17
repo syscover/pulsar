@@ -1,7 +1,7 @@
 @extends('pulsar::layouts.form')
 
 @section('rows')
-    <!-- cms::categories.create -->
+    <!-- pulsar::attachment_library.create -->
     @include('pulsar::includes.html.form_text_group', [
         'label' => 'ID',
         'name' => 'id',
@@ -34,5 +34,5 @@
         'min' => '0',
         'fieldSize' => 2
     ])
-    <!-- /cms::categories.create -->
+    <!-- ./pulsar::attachment_library.create -->
 @stop
