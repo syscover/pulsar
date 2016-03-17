@@ -111,6 +111,8 @@ trait TraitController {
 
         foreach($objects as $key => $aObject)
         {
+            // start columns instance
+            // set columns with your types, check, active, etc.
             $row = [];
             foreach ($this->aColumns as $aColumn)
             {
@@ -164,6 +166,7 @@ trait TraitController {
                     $row[] = $aObject->{$aColumn};
                 }
             }
+            // end columns instance
 
             if(!isset($parameters['modal']) || isset($parameters['modal']) && !$parameters['modal'])
             {
