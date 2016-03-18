@@ -4,7 +4,7 @@
     @parent
     @include('pulsar::includes.js.delete_image')
     <script>
-        $(document).on('ready', function() {
+        $(document).ready(function() {
             $("form").submit(function() {
                 if($('input[name="base"]').is(':checked')) $('input[name="base"]').attr("disabled", false);
             });

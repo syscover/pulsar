@@ -4,7 +4,7 @@
     @parent
     <!-- pulsar::attachment_family.index -->
     <script>
-        $(document).on('ready', function() {
+        $(document).ready(function() {
             if ($.fn.dataTable)
             {
                 $('.datatable-pulsar').dataTable({

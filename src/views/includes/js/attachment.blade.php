@@ -1,7 +1,5 @@
 <script>
-
-    $(document).on('ready', function() {
-
+    $(document).ready(function() {
         @if(isset($attachments) && count($attachments) > 0)
             // if we have attachment, hide placehosder and
             $('#library-placeholder').hide();

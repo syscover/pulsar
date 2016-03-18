@@ -4,7 +4,7 @@
     @parent
     <!-- pulsar::territorial_areas_3.create -->
     <script>
-        $(document).on('ready', function() {
+        $(document).ready(function() {
             $("[name='territorialArea1']").change(function() {
 
                 $("[name='territorialArea2'] option").remove()
