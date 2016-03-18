@@ -48,9 +48,4 @@ class AttachmentMime extends Model
     {
         return $this->belongsTo('Syscover\Pulsar\Models\Resource', 'resource_id_019');
     }
-
-    public static function addToGetIndexRecords($parameters)
-    {
-        return AttachmentMime::builder();
-    }
 }

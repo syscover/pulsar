@@ -64,12 +64,6 @@ class User extends Authenticatable
         return $this->belongsTo(Profile::class, 'profile_010');
     }
 
-
-    protected static function addToGetIndexRecords($parameters)
-    {
-        return User::builder();
-    }
-
     /**
      * Get the unique identifier for the user.
      *

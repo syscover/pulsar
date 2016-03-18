@@ -45,16 +45,9 @@ class AttachmentFamily extends Model {
         return $query->join('001_007_resource', '001_015_attachment_family.resource_015', '=', '001_007_resource.id_007');
     }
 
-    public static function addToGetIndexRecords($parameters)
-    {
-        $query =  AttachmentFamily::builder();
-
-        return $query;
-    }
-
     public static function getAttachmentFamilies($args)
     {
-        $query =  AttachmentFamily::builder();
+        $query = AttachmentFamily::builder();
 
         if(isset($args['resource_015'])) $query->where('resource_015', $args['resource_015']);
 

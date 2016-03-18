@@ -69,7 +69,10 @@ trait TraitModel {
         if(method_exists($instance, 'addToGetIndexRecords'))
             $query = $instance->addToGetIndexRecords($parameters);
         else
-            $query = $instance->query();
+            if(method_exists($instance, 'scopeBuilder'))
+                $query = $instance->builder();
+            else
+                $query = $instance->query();
 
         $query = Miscellaneous::getQueryWhere($query, isset($parameters['aColumns'])? $parameters['aColumns'] : null, isset($parameters['sWhere'])? $parameters['sWhere'] : null, isset($parameters['sWhereColumns'])? $parameters['sWhereColumns'] : null);
 

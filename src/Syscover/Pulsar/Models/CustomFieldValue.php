@@ -51,9 +51,9 @@ class CustomFieldValue extends Model
         return $this->belongsTo('Syscover\Pulsar\Models\Lang', 'lang_027');
     }
 
-    public static function addToGetIndexRecords($parameters)
+    public function addToGetIndexRecords($parameters)
     {
-        $query =  CustomFieldValue::builder();
+        $query = $this->builder();
 
         if(isset($parameters['lang'])) $query->where('lang_027', $parameters['lang']);
         if(isset($parameters['field'])) $query->where('field_027', $parameters['field']);

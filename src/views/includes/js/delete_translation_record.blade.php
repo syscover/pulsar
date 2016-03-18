@@ -1,7 +1,7 @@
 <!-- pulsar::includes.js.delete_translation_record -->
 <script>
     $(document).ready(function() {
-        $('.delete-lang-record').bind('click', function() {
+        $('.delete-lang-record').on('click', function() {
 
             var that = this
 

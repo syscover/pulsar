@@ -52,11 +52,6 @@ class Resource extends Model
         return $this->belongsTo('Syscover\Pulsar\Models\Package', 'package_007');
     }
 
-    public static function addToGetIndexRecords($parameters)
-    {
-        return Resource::builder();
-    }
-
     public static function getRecords($args)
     {
         $query =  Resource::join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012');

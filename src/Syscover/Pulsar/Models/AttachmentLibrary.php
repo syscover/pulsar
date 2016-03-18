@@ -45,11 +45,4 @@ class AttachmentLibrary extends Model {
     {
         return $this->belongsTo('Syscover\Pulsar\Models\Resource', 'resource_014');
     }
-
-    public static function addToGetIndexRecords($parameters)
-    {
-        $query =  AttachmentLibrary::builder();
-
-        return $query;
-    }
 }

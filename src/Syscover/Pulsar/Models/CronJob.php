@@ -45,11 +45,6 @@ class CronJob extends Model
         return $query->join('001_012_package', '001_011_cron_job.package_011', '=', '001_012_package.id_012');
     }
 
-    public static function addToGetIndexRecords($parameters)
-    {
-        return CronJob::builder();
-    }
-
     public static function getCronJobsToRun($date)
     {
         return CronJob::builder()->where('next_run_011', '<=', $date)->where('active_011', true)->get();
