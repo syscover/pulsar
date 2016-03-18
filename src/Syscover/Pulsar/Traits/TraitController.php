@@ -57,7 +57,7 @@ trait TraitController {
 
         if(is_array($parametersResponse))
             $parameters = array_merge($parameters, $parametersResponse);
-        
+
         return view($this->package . '::' . $this->folder . '.index', $parameters);
     }
 

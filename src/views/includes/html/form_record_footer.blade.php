@@ -1,7 +1,7 @@
 <!-- pulsar::includes.html.form_record_footer -->
     <div class="form-actions">
-        @if(isset($buttonFooterBefore))
-            {!! $buttonFooterBefore !!}
+        @if(isset($beforeButtonFooter))
+            {!! $beforeButtonFooter !!}
         @endif
         @if($action != 'show')
             <button type="submit" class="btn marginR10">{{ trans('pulsar::pulsar.save') }}</button>
@@ -12,8 +12,8 @@
         @if($action != 'store' && isset($lang) && $lang->id_001 != session('baseLang')->id_001)
             <a class="btn btn-danger marginL10 delete-lang-record" data-delete-url="{{ route('deleteTranslation' . ucfirst($routeSuffix), $urlParameters) }}">{{ trans('pulsar::pulsar.delete_translation') }}</a>
         @endif
-        @if(isset($buttonFooterAfter))
-            {!! $buttonFooterAfter !!}
+        @if(isset($afterButtonFooter))
+            {!! $afterButtonFooter !!}
         @endif
     </div>
 </form>
