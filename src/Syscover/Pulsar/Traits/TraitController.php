@@ -370,7 +370,7 @@ trait TraitController {
 
 
         // check if parametersResponse is a RedirectResponse objecto, to send request to other url
-        if(is_object($parametersResponse) && get_class($parametersResponse) == "Illuminate\\Http\\RedirectResponse")
+        if(is_object($parametersResponse) && get_class($parametersResponse) == \Illuminate\Http\RedirectResponse::class)
             return $parametersResponse;
 
 
@@ -440,7 +440,7 @@ trait TraitController {
 
         $parameters = $this->showCustomRecord($parameters);
 
-        if(is_object($parameters) && get_class($parameters) == "Illuminate\\Http\\RedirectResponse")
+        if(is_object($parameters) && get_class($parameters) == \Illuminate\Http\RedirectResponse::class)
             return $parameters;
 
 
@@ -448,7 +448,11 @@ trait TraitController {
         if(isset($parameters['api']) && $parameters['api'])
             return response()->json($parameters['object']);
 
-        return view($this->package . '::' . $this->folder . '.show', $parameters);
+        // check if exist show view, default all request go to form view
+        if(view()->exists($this->package . '::' . $this->folder . '.show', $parameters))
+            return view($this->package . '::' . $this->folder . '.show', $parameters);
+        else
+            return view($this->package . '::' . $this->folder . '.form', $parameters);
     }
 
     /**
@@ -566,7 +570,7 @@ trait TraitController {
         $parametersResponse = $this->updateCustomRecord($request, $parameters);
 
 
-        if(is_object($parametersResponse) && get_class($parametersResponse) == "Illuminate\\Http\\RedirectResponse")
+        if(is_object($parametersResponse) && get_class($parametersResponse) == \Illuminate\Http\RedirectResponse::class)
             return $parametersResponse;
 
 
