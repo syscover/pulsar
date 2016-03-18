@@ -203,17 +203,17 @@ trait TraitController {
             }
             else
             {
-                if(isset($this->viewParameters['show']) && $this->viewParameters['show'] == true)
+                if($this->viewParameters['showButton'])
                 {
                     $actions .= session('userAcl')->allows($this->resource, 'access')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('show' . ucfirst($this->routeSuffix), $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.view_record') . '"><i class="fa fa-eye"></i></a>' : null;
                 }
 
-                if(isset($this->viewParameters['edit']) && $this->viewParameters['edit'] == true || !isset($this->viewParameters['edit']))
+                if($this->viewParameters['editButton'])
                 {
                     $actions .= session('userAcl')->allows($this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('edit' . ucfirst($this->routeSuffix), $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="fa fa-pencil"></i></a>' : null;
                 }
 
-                if(isset($this->viewParameters['delete']) && $this->viewParameters['delete'] == true || !isset($this->viewParameters['delete']))
+                if($this->viewParameters['deleteButton'])
                 {
                     $actions .= session('userAcl')->allows($this->resource, 'delete') ? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] . '" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . ucfirst($this->routeSuffix), $actionUrlParameters) . '"><i class="fa fa-trash"></i></a>' : null;
                 }

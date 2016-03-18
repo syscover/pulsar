@@ -12,9 +12,9 @@ abstract class Controller extends BaseController {
 
     protected $resource;
     protected $viewParameters = [
-        'show'      => false,
-        'edit'      => true,
-        'delete'    => true
+        'showButton'    => false,
+        'editButton'    => true,
+        'deleteButton'  => true
     ];
 
 	public function __construct(Request $request)

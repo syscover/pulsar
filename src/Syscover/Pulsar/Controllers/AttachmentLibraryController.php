@@ -23,7 +23,11 @@ class AttachmentLibraryController extends Controller {
     protected $model        = AttachmentLibrary::class;
     protected $icon         = 'fa fa-book';
     protected $objectTrans  = 'library';
-    protected $viewParameters    = ['edit' => false];
+    protected $viewParameters   = [
+        'showButton'    => false,
+        'editButton'    => false,
+        'deleteButton'  => true
+    ];
 
     public function customColumnType($request, $row, $aColumn, $aObject)
     {
