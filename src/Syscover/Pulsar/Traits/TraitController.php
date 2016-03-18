@@ -44,19 +44,20 @@ trait TraitController {
 
         if(!isset($parameters['modal'])) Miscellaneous::setParameterSessionPage($this->resource);
 
-        $parameters['package']        = $this->package;
-        $parameters['folder']         = $this->folder;
-        $parameters['routeSuffix']    = $this->routeSuffix;
-        $parameters['resource']       = $this->resource;
-        $parameters['icon']           = $this->icon;
-        $parameters['objectTrans']    = isset($this->objectTrans) &&  $this->objectTrans != null? Miscellaneous::getObjectTransValue($parameters, $this->objectTrans) : null;
-
+        // flag to show delete multiple records button
+        $parameters['deleteSelectButton']   = true;
+        $parameters['package']              = $this->package;
+        $parameters['folder']               = $this->folder;
+        $parameters['routeSuffix']          = $this->routeSuffix;
+        $parameters['resource']             = $this->resource;
+        $parameters['icon']                 = $this->icon;
+        $parameters['objectTrans']          = isset($this->objectTrans) &&  $this->objectTrans != null? Miscellaneous::getObjectTransValue($parameters, $this->objectTrans) : null;
 
         $parametersResponse = $this->indexCustom($parameters);
+
         if(is_array($parametersResponse))
             $parameters = array_merge($parameters, $parametersResponse);
-
-
+        
         return view($this->package . '::' . $this->folder . '.index', $parameters);
     }
 

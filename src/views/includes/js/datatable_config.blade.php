@@ -75,27 +75,26 @@
                         })
                     }
 
-
                     @if(!isset($areDeleteRecord))
-                    $('.delete-record').bind('click', function() {
-                        var that = this
-                        $.msgbox('{!! trans('pulsar::pulsar.message_delete_record') !!}',
-                            {
-                                type:'confirm',
-                                buttons: [
-                                    {type: 'submit', value: '{{ trans('pulsar::pulsar.accept') }}'},
-                                    {type: 'cancel', value: '{{ trans('pulsar::pulsar.cancel') }}'}
-                                ]
-                            },
-                            function(buttonPressed)
-                            {
-                                if(buttonPressed=='{{ trans('pulsar::pulsar.accept') }}')
+                        $('.delete-record').bind('click', function() {
+                            var that = this
+                            $.msgbox('{!! trans('pulsar::pulsar.message_delete_record') !!}',
                                 {
-                                    $(location).attr('href', $(that).data('delete-url'))
+                                    type:'confirm',
+                                    buttons: [
+                                        {type: 'submit', value: '{{ trans('pulsar::pulsar.accept') }}'},
+                                        {type: 'cancel', value: '{{ trans('pulsar::pulsar.cancel') }}'}
+                                    ]
+                                },
+                                function(buttonPressed)
+                                {
+                                    if(buttonPressed=='{{ trans('pulsar::pulsar.accept') }}')
+                                    {
+                                        $(location).attr('href', $(that).data('delete-url'))
+                                    }
                                 }
-                            }
-                        )
-                    })
+                            )
+                        })
                     @endif
 
                     // SEARCH - Add the placeholder for Search and Turn this into in-line formcontrol
@@ -114,7 +113,8 @@
                     if (typeof responsiveHelper != 'undefined')
                         responsiveHelper.respond()
 
-                    @if(!isset($modal) || isset($modal) && !$modal)
+                    {{--@if(!isset($modal) || isset($modal) && !$modal)--}}
+                    @if($deleteSelectButton)
                         $.addDeleteButton()
                     @endif
                 }
