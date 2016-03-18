@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 abstract class Controller extends BaseController {
 
     protected $resource;
+    protected $viewParameters = [
+        'show'      => false,
+        'edit'      => true,
+        'delete'    => true
+    ];
 
 	public function __construct(Request $request)
 	{
