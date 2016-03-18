@@ -415,6 +415,7 @@ trait TraitController {
         // set path variable, after creating urlParameters to don't send value to URLs creates
         $parameters['path'] = $request->path();
 
+        $parameters['action']         = 'show';
         $parameters['package']        = $this->package;
         $parameters['folder']         = $this->folder;
         $parameters['routeSuffix']    = $this->routeSuffix;
@@ -437,12 +438,10 @@ trait TraitController {
                 $parameters['object']   = call_user_func($this->model . '::find', $parameters['id']);
         }
 
-
-        $parameters = $this->showCustomRecord($parameters);
+        $parameters = $this->showCustomRecord($request, $parameters);
 
         if(is_object($parameters) && get_class($parameters) == \Illuminate\Http\RedirectResponse::class)
             return $parameters;
-
 
         // check if response is json format or not
         if(isset($parameters['api']) && $parameters['api'])
@@ -462,7 +461,7 @@ trait TraitController {
      * @param   array                       $parameters
      * @return	array                       $parameters
      */
-    public function showCustomRecord($parameters)
+    public function showCustomRecord($request, $parameters)
     {
         return $parameters;
     }
