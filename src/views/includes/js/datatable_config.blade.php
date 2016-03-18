@@ -113,8 +113,7 @@
                     if (typeof responsiveHelper != 'undefined')
                         responsiveHelper.respond()
 
-                    {{--@if(!isset($modal) || isset($modal) && !$modal)--}}
-                    @if($deleteSelectButton)
+                    @if(! isset($deleteSelectButton) || (isset($deleteSelectButton) && $deleteSelectButton))
                         $.addDeleteButton()
                     @endif
                 }

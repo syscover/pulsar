@@ -167,9 +167,9 @@ trait TraitController {
                     $row[] = $aObject->{$aColumn};
                 }
             }
-            // end columns instance
 
-            if(!isset($parameters['modal']) || isset($parameters['modal']) && !$parameters['modal'])
+            // check if show checkbocx column
+            if($this->viewParameters['checkBoxColumn'])
             {
                 $row[] = '<input type="checkbox" class="uniform" name="element' . $key . '" value="' . $aObject[$instance->getKeyName()] . '">';
             }

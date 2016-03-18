@@ -67,13 +67,9 @@ trait TraitModel {
         $instance = new static;
 
         if(method_exists($instance, 'addToGetIndexRecords'))
-        {
             $query = $instance->addToGetIndexRecords($parameters);
-        }
         else
-        {
             $query = $instance->query();
-        }
 
         $query = Miscellaneous::getQueryWhere($query, isset($parameters['aColumns'])? $parameters['aColumns'] : null, isset($parameters['sWhere'])? $parameters['sWhere'] : null, isset($parameters['sWhereColumns'])? $parameters['sWhereColumns'] : null);
 
@@ -81,13 +77,9 @@ trait TraitModel {
         {
             // if we need count results
             if(method_exists($instance, 'customCountIndexRecords'))
-            {
                 return $instance->customCountIndexRecords($query, $parameters);
-            }
             else
-            {
                 return $query->count();
-            }
         }
         else
         {
@@ -96,16 +88,11 @@ trait TraitModel {
             if(isset($parameters['sStart']))      $query->skip($parameters['sStart']);
             if(isset($parameters['sOrder']))      $query->orderBy($parameters['sOrder'], isset($parameters['sTypeOrder'])? $parameters['sTypeOrder'] : 'asc');
 
-
             if(method_exists($instance, 'getCustomReturnIndexRecords'))
-            {
                 // if we need a custom get()
                 return $instance->getCustomReturnIndexRecords($query, $parameters);
-            }
             else
-            {
                 return $query->get();
-            }
         }
     }
 
@@ -119,13 +106,9 @@ trait TraitModel {
         $instance = new static;
 
         if(method_exists($instance, 'customCount'))
-        {
             $query = $instance->customCount($parameters);
-        }
         else
-        {
             $query = $instance->query();
-        }
 
         return $query->count();
     }
@@ -167,9 +150,7 @@ trait TraitModel {
         $instance::where($instance->getKeyName(), $parameters['id'])->where('lang_' . $instance->suffix, $parameters['lang'])->delete();
 
         if($deleteLangDataRecord)
-        {
             $instance::deleteLangDataRecord($parameters);
-        }
     }
 
     /**
