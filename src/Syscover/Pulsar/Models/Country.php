@@ -61,7 +61,7 @@ class Country extends Model
         return $this->hasMany('Syscover\Pulsar\Models\TerritorialArea1', 'country_003');
     }
     
-    public function addToGetIndexRecords($parameters)
+    public function addToGetIndexRecords($request, $parameters)
     {
         $query =  $this->builder();
              
@@ -70,7 +70,7 @@ class Country extends Model
         return $query;
     }
 
-    public static function customCount($parameters)
+    public static function customCount($request, $parameters)
     {
         $query = Country::query();
 

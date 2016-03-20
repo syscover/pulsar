@@ -57,9 +57,9 @@ class PermissionController extends Controller
         $parametersCount['count']   = true;
 
         // get data to table
-        $objects        = call_user_func($this->model . '::getIndexRecords', $parameters);
-        $iFilteredTotal = call_user_func($this->model . '::getIndexRecords', $parametersCount);
-        $iTotal         = call_user_func($this->model . '::countRecords', $parameters);
+        $objects        = call_user_func($this->model . '::getIndexRecords', $request, $parameters);
+        $iFilteredTotal = call_user_func($this->model . '::getIndexRecords', $request, $parametersCount);
+        $iTotal         = call_user_func($this->model . '::countRecords', $request, $parameters);
 
         // get properties of model class
         $class          = new \ReflectionClass($this->model);

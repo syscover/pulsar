@@ -14,9 +14,9 @@ class Authenticate
 	 */
 	public function handle($request, Closure $next, $guard = 'pulsar')
 	{
-		if (auth($guard)->guest())
+		if(auth($guard)->guest())
 		{
-			if ($request->ajax())
+			if($request->ajax())
 				return response('Unauthorized.', 401);
 			else
 				return redirect()->guest(route('getLogin'));

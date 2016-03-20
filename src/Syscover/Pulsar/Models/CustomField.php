@@ -67,7 +67,7 @@ class CustomField extends Model
         return $this->hasMany('Syscover\Pulsar\Models\CustomFieldResult', 'field_028');
     }
 
-    public function addToGetIndexRecords($parameters)
+    public function addToGetIndexRecords($request, $parameters)
     {
         $query = $this->join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025');
 

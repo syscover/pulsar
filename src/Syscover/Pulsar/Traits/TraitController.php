@@ -81,7 +81,8 @@ trait TraitController {
         $parameters = $request->route()->parameters();
 
         // get active langs if object has multiple langs
-        if(isset($parameters['lang'])) $langs = Lang::getActivesLangs();
+        if(isset($parameters['lang']))
+            $langs = Lang::getActivesLangs();
 
         // table paginated
         $parameters =  Miscellaneous::paginateDataTable($parameters);
@@ -96,9 +97,9 @@ trait TraitController {
         $parametersCount['count']   = true;
 
         // get data to table
-        $objects        = call_user_func($this->model . '::getIndexRecords', $parameters);
-        $iFilteredTotal = call_user_func($this->model . '::getIndexRecords', $parametersCount);
-        $iTotal         = call_user_func($this->model . '::countRecords', $parameters);
+        $objects        = call_user_func($this->model . '::getIndexRecords', $request, $parameters);
+        $iFilteredTotal = call_user_func($this->model . '::getIndexRecords', $request, $parametersCount);
+        $iTotal         = call_user_func($this->model . '::countRecords', $request, $parameters);
 
         $response = [
             "sEcho"                 => $request->input('sEcho'),
@@ -314,7 +315,7 @@ trait TraitController {
 
         // check if object has multiple language
         if(isset($parameters['id']) && isset($parameters['lang']))
-            $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', ['id' => $parameters['id'], 'lang' => session('baseLang')->id_001]);
+            $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $request, ['id' => $parameters['id'], 'lang' => session('baseLang')->id_001]);
 
         // set lang object
         if(isset($parameters['lang']))
@@ -426,7 +427,7 @@ trait TraitController {
         // check if object has multiple language
         if(isset($parameters['lang']))
         {
-            $parameters['object']   = call_user_func($this->model . '::getTranslationRecord', ['id' => $parameters['id'], 'lang' => $parameters['lang']]);
+            $parameters['object']   = call_user_func($this->model . '::getTranslationRecord', $request, ['id' => $parameters['id'], 'lang' => $parameters['lang']]);
 
             $parameters['lang']     = $parameters['object']->lang;
         }
@@ -493,7 +494,7 @@ trait TraitController {
         if(isset($parameters['lang']))
         {
             if(method_exists($this->model, 'getTranslationRecord'))
-                $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $parameters);
+                $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $request, $parameters);
             else
                 throw new InvalidArgumentException('The methods getTranslationRecord on ' . $this->model . ' is not definite');
 
@@ -651,9 +652,9 @@ trait TraitController {
 
         if(isset($this->langModel))
             // this option is to tables that dependent of other tables to set your languages, example 007_170_hotel and 007_171_hotel_lang
-            $object = call_user_func($this->langModel . '::getTranslationRecord', $parameters);
+            $object = call_user_func($this->langModel . '::getTranslationRecord', $request, $parameters);
         else
-            $object = call_user_func($this->model . '::getTranslationRecord', $parameters);
+            $object = call_user_func($this->model . '::getTranslationRecord', $request, $parameters);
 
 
         $this->deleteCustomTranslationRecord($request, $object);
@@ -663,11 +664,11 @@ trait TraitController {
             // this option is to tables that dependent of other tables to set your languages, example 007_170_hotel and 007_171_hotel_lang
             call_user_func($this->langModel . '::deleteTranslationRecord', $parameters, false);
             // this kind of tables has field data_lang in main table, not in language table
-            call_user_func($this->model . '::deleteLangDataRecord', $parameters);
+            call_user_func($this->model . '::deleteLangDataRecord', $request, $parameters);
         }
         else
         {
-            call_user_func($this->model . '::deleteTranslationRecord', $parameters);
+            call_user_func($this->model . '::deleteTranslationRecord', $request, $parameters);
         }
 
         return redirect()->route($this->routeSuffix, $parameters)->with([
@@ -709,7 +710,7 @@ trait TraitController {
         $this->deleteCustomRecordsSelect($request, $ids);
 
         // delete records after deleteCustomRecords, if we need do a select
-        call_user_func($this->model . '::deleteRecords', $ids);
+        call_user_func($this->model . '::deleteRecords', $request, $ids);
 
         if(method_exists($this, 'deleteCustomRecordsRedirect'))
             return $this->deleteCustomRecordsRedirect($request, $parameters);

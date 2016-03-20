@@ -62,12 +62,12 @@ trait TraitModel {
      * @param   array     $parameters
      * @return	array|\Illuminate\Database\Eloquent\Model[]
      */
-    public static function getIndexRecords($parameters)
+    public static function getIndexRecords($request, $parameters)
     {
         $instance = new static;
 
         if(method_exists($instance, 'addToGetIndexRecords'))
-            $query = $instance->addToGetIndexRecords($parameters);
+            $query = $instance->addToGetIndexRecords($request, $parameters);
         else
             if(method_exists($instance, 'scopeBuilder'))
                 $query = $instance->builder();
@@ -104,12 +104,12 @@ trait TraitModel {
      * @param   array     $parameters
      * @return	int
      */
-    public static function countRecords($parameters)
+    public static function countRecords($request, $parameters)
     {
         $instance = new static;
 
         if(method_exists($instance, 'customCount'))
-            $query = $instance->customCount($parameters);
+            $query = $instance->customCount($request, $parameters);
         else
             $query = $instance->query();
 
@@ -134,7 +134,7 @@ trait TraitModel {
      * @param   array     $parameters   [id, lang]
      * @return	\Illuminate\Database\Eloquent\Model
      */
-    public static function getTranslationRecord($parameters)
+    public static function getTranslationRecord($request, $parameters)
     {
         $instance = new static;
         return $instance::builder()->where($instance->getKeyName(), $parameters['id'])->where('lang_' . $instance->suffix, $parameters['lang'])->first();
@@ -146,7 +146,7 @@ trait TraitModel {
      * @param   boolean     $deleteLangDataRecord
      * @return	void
      */
-    public static function deleteTranslationRecord($parameters, $deleteLangDataRecord = true)
+    public static function deleteTranslationRecord($request, $parameters, $deleteLangDataRecord = true)
     {
         $instance = new static;
 
@@ -161,7 +161,7 @@ trait TraitModel {
      * @param   array     $ids
      * @return	void
      */
-    public static function deleteRecords($ids)
+    public static function deleteRecords($request, $ids)
     {
         $instance = new static;
         $instance->whereIn($instance->getKeyName(), $ids)->delete();
@@ -225,7 +225,7 @@ trait TraitModel {
      * @param   array   $parameters     [id, lang]
      * @return  void
      */
-    public static function deleteLangDataRecord($parameters)
+    public static function deleteLangDataRecord($request, $parameters)
     {
         $instance   = new static;
         $object     = $instance::find($parameters['id']);

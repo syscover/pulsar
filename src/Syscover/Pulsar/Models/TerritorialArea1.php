@@ -51,7 +51,7 @@ class TerritorialArea1 extends Model
         return $this->hasMany('Syscover\Pulsar\Models\TerritorialArea2', 'territorial_area_1_004');
     }
 
-    public function addToGetIndexRecords($parameters)
+    public function addToGetIndexRecords($request, $parameters)
     {
         $query = $this->builder();
 
@@ -64,7 +64,7 @@ class TerritorialArea1 extends Model
         return $query;
     }
 
-    public static function customCount($parameters)
+    public static function customCount($request, $parameters)
     {
         $query = TerritorialArea1::builder();
 
