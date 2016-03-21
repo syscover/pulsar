@@ -113,7 +113,7 @@
                     if (typeof responsiveHelper != 'undefined')
                         responsiveHelper.respond()
 
-                    @if(! isset($deleteSelectButton) || (isset($deleteSelectButton) && $deleteSelectButton))
+                    @if(! isset($viewParameters['deleteSelectButton']) || (isset($viewParameters['deleteSelectButton']) && $viewParameters['deleteSelectButton']))
                         $.addDeleteButton()
                     @endif
                 }

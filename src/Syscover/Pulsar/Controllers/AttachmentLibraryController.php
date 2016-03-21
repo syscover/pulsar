@@ -24,10 +24,11 @@ class AttachmentLibraryController extends Controller {
     protected $icon         = 'fa fa-book';
     protected $objectTrans  = 'library';
     protected $viewParameters   = [
-        'checkBoxColumn'    => true,
-        'showButton'        => false,
-        'editButton'        => false,
-        'deleteButton'      => true
+        'checkBoxColumn'        => true,
+        'showButton'            => false,
+        'editButton'            => false,
+        'deleteButton'          => true,
+        'deleteSelectButton'    => true
     ];
 
     public function customColumnType($request, $row, $aColumn, $aObject)

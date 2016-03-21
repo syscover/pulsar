@@ -45,7 +45,7 @@ trait TraitController {
         if(!isset($parameters['modal'])) Miscellaneous::setParameterSessionPage($this->resource);
 
         // flag to show delete multiple records button
-        $parameters['deleteSelectButton']   = true;
+        $parameters['viewParameters']       = $this->viewParameters;
         $parameters['package']              = $this->package;
         $parameters['folder']               = $this->folder;
         $parameters['routeSuffix']          = $this->routeSuffix;
