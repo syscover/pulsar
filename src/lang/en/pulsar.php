@@ -100,6 +100,7 @@ return [
     'new'                                   => 'New',
     'new2'                                  => 'New',
     'new_window'                            => 'New window',
+    'notifications_account'                 => 'Notifications account',
     'objects_list'                          => 'Objects list',
     'package'                               => 'Package|Packages',
     'package_name'                          => 'Administration',

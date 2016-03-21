@@ -102,6 +102,7 @@ return [
     'new'                                   => 'Nuevo',
     'new2'                                  => 'Nueva',
     'new_window'                            => 'Nueva ventana',
+    'notifications_account'                 => 'Cuenta de notificaciones',
     'objects_list'                          => 'Lista de objetos',
     'package'                               => 'Paquete|Paquetes',
     'package_name'                          => 'Administración',
