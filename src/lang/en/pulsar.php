@@ -217,6 +217,7 @@ return [
     'account'                               => 'Account|Accounts',
     'incoming_server'                       => 'Incoming server',
     'outgoing_server'                       => 'Outgoing server',
+    'outgoing_secure'                       => 'Outgoing secure',
     'reply_to'                              => 'Reply to',
     'incoming_type'                         => 'Incoming type',
     'incoming_secure'                       => 'Incoming secure',
