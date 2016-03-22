@@ -725,7 +725,7 @@ class Miscellaneous
                 {
                     // recursive
                     $instance = new static;
-                    $obj->{$k} = $instance->arrayToObject($v); //RECURSION
+                    $obj->{$k} = $instance->arrayToObject($v);
                 }
                 else
                 {

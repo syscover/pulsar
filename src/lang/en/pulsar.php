@@ -114,7 +114,7 @@ return [
     'remember_password'                     => 'Remember password',
     'required'                              => 'Required',
     'reset_password'                        => 'Reset your password',
-    'reset_password_successful'             => 'Great, we are sending you a email',
+    'reset_password_successful'             => 'Great, we are sending you an email',
     'resource'                              => 'Resource|Resources',
     'row'                                   => 'Row|Rows',
     'run'                                   => 'Run',
