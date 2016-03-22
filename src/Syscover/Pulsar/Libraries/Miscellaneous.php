@@ -721,7 +721,7 @@ class Miscellaneous
         {
             if(strlen($k))
             {
-                if(is_array($v))
+                if(is_array($v) && count($v) > 0)
                 {
                     // recursive
                     $instance = new static;
