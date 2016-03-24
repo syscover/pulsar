@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 abstract class Controller extends BaseController {
 
     protected $resource;
+    protected $request;
     protected $viewParameters = [
         'checkBoxColumn'        => true,
         'showButton'            => false,
@@ -21,6 +22,9 @@ abstract class Controller extends BaseController {
 
 	public function __construct(Request $request)
 	{
+        // set request to all controller methods
+        $this->request = $request;
+
         $action = $request->route()->getAction();
 
         if(isset($action['resource']))
