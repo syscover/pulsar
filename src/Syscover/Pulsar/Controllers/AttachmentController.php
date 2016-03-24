@@ -145,7 +145,7 @@ class AttachmentController extends Controller {
     {
         $parameters = $request->route()->parameters();
 
-        $attachment = Attachment::getTranslationRecord(['id' => $parameters['id'], 'lang' => $parameters['lang']]);
+        $attachment = Attachment::getTranslationRecord['id' => $parameters['id'], 'lang' => $parameters['lang']]);
 
         if($attachment->file_name_016 != null && $attachment->file_name_016 != "")
         {
