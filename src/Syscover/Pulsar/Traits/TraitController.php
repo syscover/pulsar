@@ -300,6 +300,9 @@ trait TraitController {
 
         $parameters['urlParameters']  = $parameters;
 
+        // todo, instanciar el objeto lang antes del createCustomRecord
+
+
         $parameters = $this->createCustomRecord($this->request, $parameters);
 
         $parameters['action']         = 'store';
@@ -509,7 +512,6 @@ trait TraitController {
                 // call builder, by default is instance on TraitModel or in model object
                 $parameters['object']   = call_user_func($this->model . '::builder')->find($parameters['id']);
         }
-
 
         $parameters = $this->editCustomRecord($this->request, $parameters);
 
