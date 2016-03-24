@@ -1,6 +1,5 @@
 <?php namespace Syscover\Pulsar\Traits;
 
-use Illuminate\Http\Request;
 use Syscover\Pulsar\Exceptions\InvalidArgumentException;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Models\Lang;
@@ -26,13 +25,12 @@ trait TraitController {
 
     /**
      * @access	public
-     * @param   \Illuminate\Http\Request            $request
      * @return	\Illuminate\Support\Facades\View
      */
-    public function index(Request $request)
+    public function index()
     {
         // get parameters from url route
-        $parameters = $request->route()->parameters();
+        $parameters = $this->request->route()->parameters();
 
         // check if url contain offset parameter
         if(!isset($parameters['offset'])) $parameters['offset'] = 0;
@@ -40,7 +38,7 @@ trait TraitController {
         $parameters['urlParameters']  = $parameters;
 
         // set path variable, after creating urlParameters to don't send value, to URLs creates
-        $parameters['path'] = $request->path();
+        $parameters['path'] = $this->request->path();
 
         if(!isset($parameters['modal'])) Miscellaneous::setParameterSessionPage($this->resource);
 
@@ -72,13 +70,12 @@ trait TraitController {
 
     /**
      * @access      public
-     * @param       \Illuminate\Http\Request            $request
      * @return      json
      */
-    public function jsonData(Request $request)
+    public function jsonData()
     {
         // get parameters from url route
-        $parameters = $request->route()->parameters();
+        $parameters = $this->request->route()->parameters();
 
         // get active langs if object has multiple langs
         if(isset($parameters['lang']))
@@ -97,12 +94,12 @@ trait TraitController {
         $parametersCount['count']   = true;
 
         // get data to table
-        $objects        = call_user_func($this->model . '::getIndexRecords', $request, $parameters);
-        $iFilteredTotal = call_user_func($this->model . '::getIndexRecords', $request, $parametersCount);
-        $iTotal         = call_user_func($this->model . '::countRecords', $request, $parameters);
+        $objects        = call_user_func($this->model . '::getIndexRecords', $this->request, $parameters);
+        $iFilteredTotal = call_user_func($this->model . '::getIndexRecords', $this->request, $parametersCount);
+        $iTotal         = call_user_func($this->model . '::countRecords', $this->request, $parameters);
 
         $response = [
-            "sEcho"                 => $request->input('sEcho'),
+            "sEcho"                 => $this->request->input('sEcho'),
             "iTotalRecords"         => $iTotal,
             "iTotalDisplayRecords"  => $iFilteredTotal,
             "aaData"                => []
@@ -160,7 +157,7 @@ trait TraitController {
 
                     if(method_exists($this, 'customColumnType'))
                     {
-                        $row = $this->customColumnType($request, $row, $aColumn, $aObject);
+                        $row = $this->customColumnType($this->request, $row, $aColumn, $aObject);
                     }
                 }
                 else
@@ -176,7 +173,7 @@ trait TraitController {
             }
 
             $actionUrlParameters['id']        = $aObject[$instance->getKeyName()];
-            $actionUrlParameters['offset']    = $request->input('iDisplayStart');
+            $actionUrlParameters['offset']    = $this->request->input('iDisplayStart');
 
             // if we have parentOffset, we instantiate it
             if(isset($parameters['parentOffset'])) $actionUrlParameters['parentOffset'] = $parameters['parentOffset'];
@@ -195,7 +192,7 @@ trait TraitController {
             // check whether it is necessary to insert a data before
             if(method_exists($this, 'jsonCustomDataBeforeActions'))
             {
-                $actions = $actions . $this->jsonCustomDataBeforeActions($request, $aObject, $actionUrlParameters, $parameters);
+                $actions = $actions . $this->jsonCustomDataBeforeActions($this->request, $aObject, $actionUrlParameters, $parameters);
             }
 
             // check if request is modal
@@ -294,17 +291,16 @@ trait TraitController {
 
     /**
      * @access      public
-     * @param       \Illuminate\Http\Request            $request
      * @return      \Illuminate\Support\Facades\View
      */
-    public function createRecord(Request $request)
+    public function createRecord()
     {
         // get parameters from url route
-        $parameters = $request->route()->parameters();
+        $parameters = $this->request->route()->parameters();
 
         $parameters['urlParameters']  = $parameters;
 
-        $parameters = $this->createCustomRecord($request, $parameters);
+        $parameters = $this->createCustomRecord($this->request, $parameters);
 
         $parameters['action']         = 'store';
         $parameters['package']        = $this->package;
@@ -343,32 +339,31 @@ trait TraitController {
 
     /**
      * @access	public
-     * @param   \Illuminate\Http\Request    $request
      * @return	\Illuminate\Support\Facades\Redirect
      */
-    public function storeRecord(Request $request)
+    public function storeRecord()
     {
         // get parameters from url route
-        $parameters = $request->route()->parameters();
+        $parameters = $this->request->route()->parameters();
 
         $parameters['urlParameters']  = $parameters;
 
         if(method_exists($this, 'checkSpecialRulesToStore'))
-            $parameters = $this->checkSpecialRulesToStore($request, $parameters);
+            $parameters = $this->checkSpecialRulesToStore($this->request, $parameters);
 
 
         if(!isset($parameters['specialRules']))
             $parameters['specialRules']  = [];
 
 
-        $validation = call_user_func($this->model . '::validate', $request->all(), $parameters['specialRules']);
+        $validation = call_user_func($this->model . '::validate', $this->request->all(), $parameters['specialRules']);
 
 
         if ($validation->fails())
             return redirect()->route('create' . ucfirst($this->routeSuffix), $parameters['urlParameters'])->withErrors($validation)->withInput();
 
 
-        $parametersResponse = $this->storeCustomRecord($request, $parameters);
+        $parametersResponse = $this->storeCustomRecord($this->request, $parameters);
 
 
         // check if parametersResponse is a RedirectResponse objecto, to send request to other url
@@ -388,7 +383,7 @@ trait TraitController {
 
         return redirect()->route($this->routeSuffix, $parameters['urlParameters'])->with([
             'msg'        => 1,
-            'txtMsg'     => trans('pulsar::pulsar.message_create_record_successful', ['name' => $request->input('name')])
+            'txtMsg'     => trans('pulsar::pulsar.message_create_record_successful', ['name' => $this->request->input('name')])
         ]);
     }
 
@@ -404,18 +399,17 @@ trait TraitController {
 
     /**
      * @access	public
-     * @param   \Illuminate\Http\Request    $request
      * @return	\Illuminate\Support\Facades\View
      */
-    public function showRecord(Request $request)
+    public function showRecord()
     {
         // get parameters from url route
-        $parameters = $request->route()->parameters();
+        $parameters = $this->request->route()->parameters();
 
         $parameters['urlParameters']  = $parameters;
 
         // set path variable, after creating urlParameters to don't send value to URLs creates
-        $parameters['path'] = $request->path();
+        $parameters['path'] = $this->request->path();
 
         $parameters['action']         = 'show';
         $parameters['package']        = $this->package;
@@ -440,7 +434,7 @@ trait TraitController {
                 $parameters['object']   = call_user_func($this->model . '::find', $parameters['id']);
         }
 
-        $parameters = $this->showCustomRecord($request, $parameters);
+        $parameters = $this->showCustomRecord($this->request, $parameters);
 
         if(is_object($parameters) && get_class($parameters) == \Illuminate\Http\RedirectResponse::class)
             return $parameters;
@@ -470,18 +464,17 @@ trait TraitController {
 
     /**
      * @access	public
-     * @param   \Illuminate\Http\Request    $request
      * @return	\Illuminate\Support\Facades\View
      */
-    public function editRecord(Request $request)
+    public function editRecord()
     {
         // get parameters from url route
-        $parameters = $request->route()->parameters();
+        $parameters = $this->request->route()->parameters();
 
         $parameters['urlParameters']  = $parameters;
 
         // set path variable, after creating urlParameters to don't send value to URLs creates
-        $parameters['path'] = $request->path();
+        $parameters['path'] = $this->request->path();
 
         $parameters['action']         = 'update';
         $parameters['package']        = $this->package;
@@ -518,7 +511,7 @@ trait TraitController {
         }
 
 
-        $parameters = $this->editCustomRecord($request, $parameters);
+        $parameters = $this->editCustomRecord($this->request, $parameters);
 
         // check if exist edit view, default all request go to common view
         if(view()->exists($this->package . '::' . $this->folder . '.edit', $parameters))
@@ -542,33 +535,32 @@ trait TraitController {
 
     /**
      * @access	public
-     * @param   \Illuminate\Http\Request    $request
      * @return	\Illuminate\Support\Facades\Redirect
      */
-    public function updateRecord(Request $request)
+    public function updateRecord()
     {
         // get parameters from url route
-        $parameters = $request->route()->parameters();
+        $parameters = $this->request->route()->parameters();
 
         $parameters['urlParameters']  = $parameters;
 
         if(method_exists($this, 'checkSpecialRulesToUpdate'))
-            $parameters = $this->checkSpecialRulesToUpdate($request, $parameters);
+            $parameters = $this->checkSpecialRulesToUpdate($this->request, $parameters);
 
         // check special rule to objects with writable IDs like actions
-        if($request->has('id') && $request->input('id') == $parameters['id'])
+        if($this->request->has('id') && $this->request->input('id') == $parameters['id'])
             $parameters['specialRules']['idRule'] = true;
 
         if(!isset($parameters['specialRules']))
             $parameters['specialRules']  = [];
 
-        $validation = call_user_func($this->model . '::validate', $request->all(), $parameters['specialRules']);
+        $validation = call_user_func($this->model . '::validate', $this->request->all(), $parameters['specialRules']);
 
         if ($validation->fails())
             return redirect()->route('edit' . ucfirst($this->routeSuffix), $parameters['urlParameters'])->withErrors($validation);
 
         // we use parametersResponse, because updateCustomRecord may be "void"
-        $parametersResponse = $this->updateCustomRecord($request, $parameters);
+        $parametersResponse = $this->updateCustomRecord($this->request, $parameters);
 
 
         if(is_object($parametersResponse) && get_class($parametersResponse) == \Illuminate\Http\RedirectResponse::class)
@@ -586,7 +578,7 @@ trait TraitController {
 
         return redirect()->route($this->routeSuffix, $parameters['urlParameters'])->with([
             'msg'        => 1,
-            'txtMsg'     => trans('pulsar::pulsar.message_update_record', ['name' => $request->input('name')])
+            'txtMsg'     => trans('pulsar::pulsar.message_update_record', ['name' => $this->request->input('name')])
         ]);
     }
 
@@ -602,17 +594,16 @@ trait TraitController {
 
     /**
      * @access      public
-     * @param       \Illuminate\Http\Request    $request
      * @return      \Illuminate\Support\Facades\Redirect
      */
-    public function deleteRecord(Request $request)
+    public function deleteRecord()
     {
         // get parameters from url route
-        $parameters = $request->route()->parameters();
+        $parameters = $this->request->route()->parameters();
 
         $object = call_user_func($this->model . '::find', $parameters['id']);
 
-        $this->deleteCustomRecord($request, $object);
+        $this->deleteCustomRecord($this->request, $object);
 
         // delete records after deleteCustomRecords, if we need do a select
         call_user_func($this->model . '::destroy', $parameters['id']);
@@ -621,7 +612,7 @@ trait TraitController {
         unset($parameters['id']);
 
         if(method_exists($this, 'deleteCustomRecordRedirect'))
-            return $this->deleteCustomRecordRedirect($request, $object, $parameters);
+            return $this->deleteCustomRecordRedirect($this->request, $object, $parameters);
 
         return redirect()->route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,
@@ -642,13 +633,12 @@ trait TraitController {
 
     /**
      * @access      public
-     * @param       \Illuminate\Http\Request    $request
      * @return      \Illuminate\Support\Facades\Redirect
      */
-    public function deleteTranslationRecord(Request $request)
+    public function deleteTranslationRecord()
     {
         // get parameters from url route
-        $parameters = $request->route()->parameters();
+        $parameters = $this->request->route()->parameters();
 
         if(isset($this->langModel))
             // this option is to tables that dependent of other tables to set your languages, example 007_170_hotel and 007_171_hotel_lang
@@ -657,18 +647,18 @@ trait TraitController {
             $object = call_user_func($this->model . '::getTranslationRecord', $parameters);
 
 
-        $this->deleteCustomTranslationRecord($request, $object);
+        $this->deleteCustomTranslationRecord($this->request, $object);
 
         if(isset($this->langModel))
         {
             // this option is to tables that dependent of other tables to set your languages, example 007_170_hotel and 007_171_hotel_lang
             call_user_func($this->langModel . '::deleteTranslationRecord', $parameters, false);
             // this kind of tables has field data_lang in main table, not in language table
-            call_user_func($this->model . '::deleteLangDataRecord', $request, $parameters);
+            call_user_func($this->model . '::deleteLangDataRecord', $this->request, $parameters);
         }
         else
         {
-            call_user_func($this->model . '::deleteTranslationRecord', $request, $parameters);
+            call_user_func($this->model . '::deleteTranslationRecord', $this->request, $parameters);
         }
 
         return redirect()->route($this->routeSuffix, $parameters)->with([
@@ -690,30 +680,29 @@ trait TraitController {
 
     /**
      * @access      public
-     * @param       \Illuminate\Http\Request    $request
      * @return      \Illuminate\Support\Facades\Redirect
      */
-    public function deleteRecordsSelect(Request $request)
+    public function deleteRecordsSelect()
     {
         // get parameters from url route
-        $parameters = $request->route()->parameters();
+        $parameters = $this->request->route()->parameters();
 
-        $nElements = $request->input('nElementsDataTable');
+        $nElements = $this->request->input('nElementsDataTable');
         $ids = [];
 
         for($i=0; $i < $nElements; $i++)
         {
-            if($request->input('element' . $i) != false)
-                array_push($ids, $request->input('element' . $i));
+            if($this->request->input('element' . $i) != false)
+                array_push($ids, $this->request->input('element' . $i));
         }
 
-        $this->deleteCustomRecordsSelect($request, $ids);
+        $this->deleteCustomRecordsSelect($this->request, $ids);
 
         // delete records after deleteCustomRecords, if we need do a select
-        call_user_func($this->model . '::deleteRecords', $request, $ids);
+        call_user_func($this->model . '::deleteRecords', $this->request, $ids);
 
         if(method_exists($this, 'deleteCustomRecordsRedirect'))
-            return $this->deleteCustomRecordsRedirect($request, $parameters);
+            return $this->deleteCustomRecordsRedirect($this->request, $parameters);
 
 
         return redirect()->route($this->routeSuffix, $parameters)->with([
