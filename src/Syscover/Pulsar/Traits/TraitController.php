@@ -315,7 +315,7 @@ trait TraitController {
 
         // check if object has multiple language
         if(isset($parameters['id']) && isset($parameters['lang']))
-            $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $request, ['id' => $parameters['id'], 'lang' => session('baseLang')->id_001]);
+            $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', ['id' => $parameters['id'], 'lang' => session('baseLang')->id_001]);
 
         // set lang object
         if(isset($parameters['lang']))
@@ -427,7 +427,7 @@ trait TraitController {
         // check if object has multiple language
         if(isset($parameters['lang']))
         {
-            $parameters['object']   = call_user_func($this->model . '::getTranslationRecord', $request, ['id' => $parameters['id'], 'lang' => $parameters['lang']]);
+            $parameters['object']   = call_user_func($this->model . '::getTranslationRecord', ['id' => $parameters['id'], 'lang' => $parameters['lang']]);
 
             $parameters['lang']     = $parameters['object']->lang;
         }
@@ -494,7 +494,7 @@ trait TraitController {
         if(isset($parameters['lang']))
         {
             if(method_exists($this->model, 'getTranslationRecord'))
-                $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $request, $parameters);
+                $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $parameters);
             else
                 throw new InvalidArgumentException('The methods getTranslationRecord on ' . $this->model . ' is not definite');
 
@@ -652,9 +652,9 @@ trait TraitController {
 
         if(isset($this->langModel))
             // this option is to tables that dependent of other tables to set your languages, example 007_170_hotel and 007_171_hotel_lang
-            $object = call_user_func($this->langModel . '::getTranslationRecord', $request, $parameters);
+            $object = call_user_func($this->langModel . '::getTranslationRecord', $parameters);
         else
-            $object = call_user_func($this->model . '::getTranslationRecord', $request, $parameters);
+            $object = call_user_func($this->model . '::getTranslationRecord', $parameters);
 
 
         $this->deleteCustomTranslationRecord($request, $object);

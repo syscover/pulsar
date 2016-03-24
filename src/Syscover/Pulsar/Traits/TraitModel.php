@@ -134,7 +134,7 @@ trait TraitModel {
      * @param   array     $parameters   [id, lang]
      * @return	\Illuminate\Database\Eloquent\Model
      */
-    public static function getTranslationRecord($request, $parameters)
+    public static function getTranslationRecord($parameters)
     {
         $instance = new static;
         return $instance::builder()->where($instance->getKeyName(), $parameters['id'])->where('lang_' . $instance->suffix, $parameters['lang'])->first();
