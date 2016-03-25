@@ -39,7 +39,7 @@ class TerritorialArea1Controller extends Controller {
         return $actionUrlParameters;
     }
     
-    public function createCustomRecord($request, $parameters)
+    public function createCustomRecord($parameters)
     {
         $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_002', session('baseLang')->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
@@ -48,16 +48,16 @@ class TerritorialArea1Controller extends Controller {
         return $parameters;
     }
 
-    public function storeCustomRecord($request, $parameters)
+    public function storeCustomRecord($parameters)
     {
         TerritorialArea1::create([
-            'id_003'        => $request->input('id'),
+            'id_003'        => $this->request->input('id'),
             'country_003'   => $parameters['country'],
-            'name_003'      => $request->input('name')
+            'name_003'      => $this->request->input('name')
         ]);
     }
     
-    public function editCustomRecord($request, $parameters)
+    public function editCustomRecord($parameters)
     {
         $parameters['country']              = Country::where('id_002', $parameters['object']->country_003)->where('lang_002', session('baseLang')->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
@@ -66,11 +66,11 @@ class TerritorialArea1Controller extends Controller {
         return $parameters;
     }
 
-    public function updateCustomRecord($request, $parameters)
+    public function updateCustomRecord($parameters)
     {
         TerritorialArea1::where('id_003', $parameters['id'])->update([
-            'id_003'    => $request->input('id'),
-            'name_003'  => $request->input('name')
+            'id_003'    => $this->request->input('id'),
+            'name_003'  => $this->request->input('name')
         ]);
     }
 

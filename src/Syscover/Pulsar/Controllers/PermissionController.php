@@ -1,7 +1,6 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Libraries\AclLibrary;
 use Syscover\Pulsar\Models\Permission;
@@ -39,10 +38,10 @@ class PermissionController extends Controller
         return $parameters;
     }
 
-    public function jsonData(Request $request)
+    public function jsonData()
     {
         // get parameters from url route
-        $parameters = $request->route()->parameters();
+        $parameters = $this->request->route()->parameters();
 
         $actionsAcl     = Action::get();
         $acl            = AclLibrary::getProfileAcl($parameters['profile']);
@@ -57,15 +56,15 @@ class PermissionController extends Controller
         $parametersCount['count']   = true;
 
         // get data to table
-        $objects        = call_user_func($this->model . '::getIndexRecords', $request, $parameters);
-        $iFilteredTotal = call_user_func($this->model . '::getIndexRecords', $request, $parametersCount);
-        $iTotal         = call_user_func($this->model . '::countRecords', $request, $parameters);
+        $objects        = call_user_func($this->model . '::getIndexRecords', $this->request, $parameters);
+        $iFilteredTotal = call_user_func($this->model . '::getIndexRecords', $this->request, $parametersCount);
+        $iTotal         = call_user_func($this->model . '::countRecords', $this->request, $parameters);
 
         // get properties of model class
         $class          = new \ReflectionClass($this->model);
 
         $response = [
-            "sEcho"                 => intval($request->input('sEcho')),
+            "sEcho"                 => intval($this->request->input('sEcho')),
             "iTotalRecords"         => $iTotal,
             "iTotalDisplayRecords"  => $iFilteredTotal,
             "aaData"                => []

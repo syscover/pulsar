@@ -39,20 +39,20 @@ class CustomFieldValueController extends Controller {
         return $actionUrlParameters;
     }
 
-    public function createCustomRecord($request, $parameters)
+    public function createCustomRecord($parameters)
     {
-        $parameters['field']                = CustomField::getTranslationRecord(['id' => $parameters['field'], 'lang' => $parameters['lang']]);
+        $parameters['field']                = CustomField::getTranslationRecord(['id' => $parameters['field'], 'lang' => $parameters['lang']->id_001]);
         $parameters['customTransHeader']    = trans_choice($this->objectTrans, 2) . ' (' .trans_choice('pulsar::pulsar.field', 1) . ': ' . $parameters['field']->name_026 . ')';
 
         return $parameters;
     }
 
-    public function storeCustomRecord($request, $parameters)
+    public function storeCustomRecord($parameters)
     {
         // check if there is id
-        if($request->has('id'))
+        if($this->request->has('id'))
         {
-            $id = $request->input('id');
+            $id = $this->request->input('id');
             $idLang = $id;
         }
         else
@@ -65,17 +65,17 @@ class CustomFieldValueController extends Controller {
         // create new object
         CustomFieldValue::create([
             'id_027'            => $id,
-            'lang_027'          => $request->input('lang'),
-            'field_027'         => $request->input('field'),
-            'value_027'         => $request->input('value'),
-            'sorting_027'       => empty($request->input('sorting'))? null : $request->input('sorting'),
-            'featured_027'      => $request->has('featured'),
-            'data_lang_027'     => CustomFieldValue::addLangDataRecord($request->input('lang'), $idLang),
+            'lang_027'          => $this->request->input('lang'),
+            'field_027'         => $this->request->input('field'),
+            'value_027'         => $this->request->input('value'),
+            'sorting_027'       => empty($this->request->input('sorting'))? null : $this->request->input('sorting'),
+            'featured_027'      => $this->request->has('featured'),
+            'data_lang_027'     => CustomFieldValue::addLangDataRecord($this->request->input('lang'), $idLang),
             'data_026'          => null
         ]);
     }
 
-    public function editCustomRecord($request, $parameters)
+    public function editCustomRecord($parameters)
     {
         $parameters['field']                = CustomField::getTranslationRecord(['id' => $parameters['field'], 'lang' => $parameters['lang']->id_001]);
         $parameters['customTransHeader']    = trans_choice($this->objectTrans, 2) . ' (' .trans_choice('pulsar::pulsar.field', 1) . ': ' . $parameters['field']->name_026 . ')';
@@ -83,13 +83,13 @@ class CustomFieldValueController extends Controller {
         return $parameters;
     }
 
-    public function updateCustomRecord($request, $parameters)
+    public function updateCustomRecord($parameters)
     {
-        CustomFieldValue::where('id_027', $parameters['id'])->where('lang_027', $request->input('lang'))->update([
-            'field_027'         => $request->input('field'),
-            'value_027'         => $request->input('value'),
-            'sorting_027'       => empty($request->input('sorting'))? null : $request->input('sorting'),
-            'featured_027'      => $request->has('featured'),
+        CustomFieldValue::where('id_027', $parameters['id'])->where('lang_027', $this->request->input('lang'))->update([
+            'field_027'         => $this->request->input('field'),
+            'value_027'         => $this->request->input('value'),
+            'sorting_027'       => empty($this->request->input('sorting'))? null : $this->request->input('sorting'),
+            'featured_027'      => $this->request->has('featured'),
         ]);
     }
 }

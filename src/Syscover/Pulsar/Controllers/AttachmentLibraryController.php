@@ -1,7 +1,6 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
 use Illuminate\Support\Facades\File;
-use Illuminate\Http\Request as HttpRequest;
 use Syscover\Pulsar\Libraries\ImageManagerLibrary;
 use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\AttachmentLibrary;
@@ -31,7 +30,7 @@ class AttachmentLibraryController extends Controller {
         'deleteSelectButton'    => true
     ];
 
-    public function customColumnType($request, $row, $aColumn, $aObject)
+    public function customColumnType($row, $aColumn, $aObject)
     {
         switch ($aColumn['type'])
         {
@@ -55,11 +54,10 @@ class AttachmentLibraryController extends Controller {
         return $row;
     }
 
-
-    public function storeAttachmentLibrary(HttpRequest $request)
+    public function storeAttachmentLibrary()
     {
-        $parameters         = $request->route()->parameters();
-        $files              = $request->input('files');
+        $parameters         = $this->request->route()->parameters();
+        $files              = $this->request->input('files');
         $objects            = [];
         $objectsResponse    = [];
         $filesNames         = [];
@@ -68,18 +66,18 @@ class AttachmentLibraryController extends Controller {
         {
             // create tmp name
             $tmpFileName = uniqid();
-            File::copy(public_path() . config($request->input('routesConfigFile') . '.libraryFolder') . '/' . $file['name'], public_path() . config($request->input('routesConfigFile') . '.tmpFolder') . '/' . $tmpFileName);
+            File::copy(public_path() . config($this->request->input('routesConfigFile') . '.libraryFolder') . '/' . $file['name'], public_path() . config($this->request->input('routesConfigFile') . '.tmpFolder') . '/' . $tmpFileName);
 
             $width = null; $height= null;
             if($file['isImage'] == 'true')
             {
-                list($width, $height) = getimagesize(public_path() . config($request->input('routesConfigFile') . '.libraryFolder') . '/' . $file['name']);
+                list($width, $height) = getimagesize(public_path() . config($this->request->input('routesConfigFile') . '.libraryFolder') . '/' . $file['name']);
             }
 
             $type = ImageManagerLibrary::getMimeIconImage($file['mime']);
 
             $objects[] = [
-                'resource_014'      => $request->input('resource'),
+                'resource_014'      => $this->request->input('resource'),
                 'url_014'           => null,
                 'file_name_014'     => $file['name'],
                 'mime_014'          => $file['mime'],
@@ -104,7 +102,7 @@ class AttachmentLibraryController extends Controller {
                 'mime'          => $file['mime'],
                 'url'           => null,
                 'name'          => null,
-                'folder'        => config($request->input('routesConfigFile') . '.tmpFolder'),
+                'folder'        => config($this->request->input('routesConfigFile') . '.tmpFolder'),
                 'tmpFileName'   => $tmpFileName,
                 'fileName'      => $file['name'],
                 'width'         => $width,
@@ -137,14 +135,14 @@ class AttachmentLibraryController extends Controller {
     }
 
 
-    public function deleteCustomRecord($request, $object)
+    public function deleteCustomRecord($object)
     {
         $package = $object->getResource->getPackage;
         File::delete(public_path() . config($package->folder_012 . '.libraryFolder') . '/' . $object->file_name_014);
     }
 
 
-    public function deleteCustomRecordsSelect($request, $ids)
+    public function deleteCustomRecordsSelect($ids)
     {
         $files = AttachmentLibrary::join('001_007_resource', '001_014_attachment_library.resource_014', '=', '001_007_resource.id_007')
             ->join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012')

@@ -1,6 +1,5 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-use Illuminate\Http\Request;
 use Syscover\Pulsar\Models\CustomField;
 use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\CustomFieldGroup;
@@ -24,12 +23,9 @@ class CustomFieldController extends Controller {
     protected $icon         = 'fa fa-i-cursor';
     protected $objectTrans  = 'field';
 
-    public function jsonCustomDataBeforeActions($request, $aObject)
+    public function jsonCustomDataBeforeActions($aObject, $actionUrlParameters, $parameters)
     {
-        // get parameters from url route
-        $parameters = $request->route()->parameters();
-
-        return session('userAcl')->allows('admin-field-value', 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('customFieldValue', ['field' => $aObject['id_026'], 'lang' => $parameters['lang'], 'offset' => $request->input('iDisplayStart')]) . '" data-original-title="' . trans_choice('pulsar::pulsar.value', 2) . '"><i class="fa fa-bars"></i></a>' : null;
+        return session('userAcl')->allows('admin-field-value', 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('customFieldValue', ['field' => $aObject['id_026'], 'lang' => $parameters['lang'], 'offset' => $this->request->input('iDisplayStart')]) . '" data-original-title="' . trans_choice('pulsar::pulsar.value', 2) . '"><i class="fa fa-bars"></i></a>' : null;
     }
 
     public function indexCustom($parameters)
@@ -39,7 +35,7 @@ class CustomFieldController extends Controller {
         return $parameters;
     }
 
-    public function createCustomRecord($request, $parameters)
+    public function createCustomRecord($parameters)
     {
         $parameters['groups']       = CustomFieldGroup::all();
         $parameters['fieldTypes']   = config('pulsar.fieldTypes');
@@ -48,31 +44,29 @@ class CustomFieldController extends Controller {
         return $parameters;
     }
 
-    public function checkSpecialRulesToStore($request, $parameters)
+    public function checkSpecialRulesToStore($parameters)
     {
         if(isset($parameters['id']))
-        {
             $parameters['specialRules']['group'] = true;
-        }
 
         return $parameters;
     }
 
-    public function storeCustomRecord($request, $parameters)
+    public function storeCustomRecord($parameters)
     {
         // check if there is id
-        if($request->has('id'))
+        if($this->request->has('id'))
         {
             // get object to update data and data_lang field
-            $customField            = CustomField::find($request->input('id'));
+            $customField            = CustomField::find($this->request->input('id'));
 
             // get values
             $dataLang               = json_decode($customField->data_lang_026, true);
             $data                   = json_decode($customField->data_026, true);
 
             // set values
-            $dataLang['langs'][]                        = $request->input('lang');
-            $data['labels'][$request->input('lang')]    = $request->input('label');
+            $dataLang['langs'][]                        = $this->request->input('lang');
+            $data['labels'][$this->request->input('lang')]    = $this->request->input('label');
 
             CustomField::where('id_026', $parameters['id'])->update([
                 'data_lang_026'     => json_encode($dataLang),
@@ -87,25 +81,25 @@ class CustomFieldController extends Controller {
             // create new object
             CustomField::create([
                 'id_026'                => $id,
-                'group_026'             => $request->input('group'),
-                'name_026'              => $request->input('name'),
-                'field_type_026'        => $request->input('fieldType'),
-                'field_type_text_026'   => collect(config('pulsar.fieldTypes'))->keyBy('id')[$request->input('fieldType')]->name,
-                'data_type_026'         => $request->input('dataType'),
-                'data_type_text_026'    => collect(config('pulsar.dataTypes'))->keyBy('id')[$request->input('dataType')]->name,
-                'required_026'          => $request->has('required'),
-                'sorting_026'           => empty($request->input('sorting'))? null : $request->input('sorting'),
-                'max_length_026'        => empty($request->input('maxLength'))? null : $request->input('maxLength'),
-                'pattern_026'           => empty($request->input('pattern'))? null : $request->input('pattern'),
-                'label_size_026'        => empty($request->input('labelSize'))? null : $request->input('labelSize'),
-                'field_size_026'        => empty($request->input('fieldSize'))? null : $request->input('fieldSize'),
-                'data_lang_026'         => CustomField::addLangDataRecord($request->input('lang')),
-                'data_026'              => json_encode(['labels' => [$request->input('lang') => $request->input('label')]])
+                'group_026'             => $this->request->input('group'),
+                'name_026'              => $this->request->input('name'),
+                'field_type_026'        => $this->request->input('fieldType'),
+                'field_type_text_026'   => collect(config('pulsar.fieldTypes'))->keyBy('id')[$this->request->input('fieldType')]->name,
+                'data_type_026'         => $this->request->input('dataType'),
+                'data_type_text_026'    => collect(config('pulsar.dataTypes'))->keyBy('id')[$this->request->input('dataType')]->name,
+                'required_026'          => $this->request->has('required'),
+                'sorting_026'           => empty($this->request->input('sorting'))? null : $this->request->input('sorting'),
+                'max_length_026'        => empty($this->request->input('maxLength'))? null : $this->request->input('maxLength'),
+                'pattern_026'           => empty($this->request->input('pattern'))? null : $this->request->input('pattern'),
+                'label_size_026'        => empty($this->request->input('labelSize'))? null : $this->request->input('labelSize'),
+                'field_size_026'        => empty($this->request->input('fieldSize'))? null : $this->request->input('fieldSize'),
+                'data_lang_026'         => CustomField::addLangDataRecord($this->request->input('lang')),
+                'data_026'              => json_encode(['labels' => [$this->request->input('lang') => $this->request->input('label')]])
             ]);
         }
     }
 
-    public function editCustomRecord($request, $parameters)
+    public function editCustomRecord($parameters)
     {
         $parameters['groups']       = CustomFieldGroup::all();
         $parameters['fieldTypes']   = config('pulsar.fieldTypes');
@@ -114,42 +108,42 @@ class CustomFieldController extends Controller {
         return $parameters;
     }
 
-    public function updateCustomRecord($request, $parameters)
+    public function updateCustomRecord($parameters)
     {
         // get object to update data and data_lang field
-        $customField            = CustomField::find($request->input('id'));
+        $customField            = CustomField::find($this->request->input('id'));
 
         // get values
         $data                   = json_decode($customField->data_026, true);
 
         // set values
-        $data['labels'][$request->input('lang')]    = $request->input('label');
+        $data['labels'][$this->request->input('lang')]    = $this->request->input('label');
 
         CustomField::where('id_026', $parameters['id'])->update([
-            'group_026'            => $request->input('group'),
-            'name_026'              => $request->input('name'),
-            'field_type_026'        => $request->input('fieldType'),
-            'field_type_text_026'   => collect(config('pulsar.fieldTypes'))->keyBy('id')[$request->input('fieldType')]->name,
-            'data_type_026'         => $request->input('dataType'),
-            'data_type_text_026'    => collect(config('pulsar.dataTypes'))->keyBy('id')[$request->input('dataType')]->name,
-            'required_026'          => $request->has('required'),
-            'sorting_026'           => empty($request->input('sorting'))? null : $request->input('sorting'),
-            'max_length_026'        => empty($request->input('maxLength'))? null : $request->input('maxLength'),
-            'pattern_026'           => empty($request->input('pattern'))? null : $request->input('pattern'),
-            'label_size_026'        => empty($request->input('labelSize'))? null : $request->input('labelSize'),
-            'field_size_026'        => empty($request->input('fieldSize'))? null : $request->input('fieldSize'),
+            'group_026'            => $this->request->input('group'),
+            'name_026'              => $this->request->input('name'),
+            'field_type_026'        => $this->request->input('fieldType'),
+            'field_type_text_026'   => collect(config('pulsar.fieldTypes'))->keyBy('id')[$this->request->input('fieldType')]->name,
+            'data_type_026'         => $this->request->input('dataType'),
+            'data_type_text_026'    => collect(config('pulsar.dataTypes'))->keyBy('id')[$this->request->input('dataType')]->name,
+            'required_026'          => $this->request->has('required'),
+            'sorting_026'           => empty($this->request->input('sorting'))? null : $this->request->input('sorting'),
+            'max_length_026'        => empty($this->request->input('maxLength'))? null : $this->request->input('maxLength'),
+            'pattern_026'           => empty($this->request->input('pattern'))? null : $this->request->input('pattern'),
+            'label_size_026'        => empty($this->request->input('labelSize'))? null : $this->request->input('labelSize'),
+            'field_size_026'        => empty($this->request->input('fieldSize'))? null : $this->request->input('fieldSize'),
             'data_026'              => json_encode($data)
         ]);
     }
 
-    public function apiGetCustomFields(Request $request)
+    public function apiGetCustomFields()
     {
         $html =  CustomFieldResultLibrary::getCustomFields([
-            'lang'              => $request->input('lang'),
-            'customFieldGroup'  => $request->input('customFieldGroup'),
-            'resource'          => $request->input('resource'),
-            'action'            => $request->input('action'),
-            'object'            => $request->input('object')
+            'lang'              => $this->request->input('lang'),
+            'customFieldGroup'  => $this->request->input('customFieldGroup'),
+            'resource'          => $this->request->input('resource'),
+            'action'            => $this->request->input('action'),
+            'object'            => $this->request->input('object')
         ]);
 
         return response()->json([

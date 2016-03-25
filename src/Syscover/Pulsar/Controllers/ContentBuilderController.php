@@ -1,6 +1,5 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-use Illuminate\Http\Request;
 use Leafo\ScssPhp\Compiler;
 
 /**
@@ -10,10 +9,10 @@ use Leafo\ScssPhp\Compiler;
 
 class ContentBuilderController extends Controller {
 
-    public function index(Request $request)
+    public function index()
     {
         // get parameters from url route, input y theme
-        $parameters = $request->route()->parameters();
+        $parameters = $this->request->route()->parameters();
 
 
         if(file_exists (public_path() .config($parameters['package'] . '.themesFolder') . $parameters['theme'] . "/settings.json"))
@@ -36,7 +35,7 @@ class ContentBuilderController extends Controller {
         return view('pulsar::contentbuilder.index', $parameters);
     }
 
-    public function saveImage(Request $request)
+    public function saveImage()
     {
         header('Cache-Control: no-cache, must-revalidate');
 
@@ -47,10 +46,10 @@ class ContentBuilderController extends Controller {
         $path       = asset('/packages/syscover/comunik/email/assets/');
 
         //Read image
-        $count      = $request->input('count');
-        $b64str     = $request->input('hidimg-' . $count);
-        $imgname    = $request->input('hidname-' . $count);
-        $imgtype    = $request->input('hidtype-' . $count);
+        $count      = $this->request->input('count');
+        $b64str     = $this->request->input('hidimg-' . $count);
+        $imgname    = $this->request->input('hidname-' . $count);
+        $imgtype    = $this->request->input('hidtype-' . $count);
 
         //Generate random file name here
         if($imgtype == 'png')
@@ -70,19 +69,19 @@ class ContentBuilderController extends Controller {
         return view('pulsar::common.views.html_display', $data);
     }
 
-    public function getBlocks(Request $request)
+    public function getBlocks()
     {
-        $parameters = $request->route()->parameters();
+        $parameters = $this->request->route()->parameters();
 
-        $scssSource = file_get_contents(public_path() . $request->input('themeFolder') . $parameters['theme'] . "/style.scss");
+        $scssSource = file_get_contents(public_path() . $this->request->input('themeFolder') . $parameters['theme'] . "/style.scss");
 
         // complile scss
         $scss = new Compiler();
-        $scss->setVariables($request->input('settings'));
+        $scss->setVariables($this->request->input('settings'));
         $css = $scss->compile($scssSource);
 
-        $header = file_get_contents(public_path() . $request->input('themeFolder') . $parameters['theme'] . "/header.html");
-        $footer = file_get_contents(public_path() . $request->input('themeFolder') . $parameters['theme'] . "/footer.html");
+        $header = file_get_contents(public_path() . $this->request->input('themeFolder') . $parameters['theme'] . "/header.html");
+        $footer = file_get_contents(public_path() . $this->request->input('themeFolder') . $parameters['theme'] . "/footer.html");
 
         // include css in header
         $header = str_replace('/* --INCLUDE CSS-- */', $css, $header);

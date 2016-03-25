@@ -1,7 +1,5 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-use Illuminate\Http\Request;
-
 /**
  * Class FroalaController
  * @package Syscover\Pulsar\Controllers
@@ -9,7 +7,7 @@ use Illuminate\Http\Request;
 
 class FroalaController extends Controller
 {
-    public function uploadImage(Request $request)
+    public function uploadImage()
     {
         // Allowed extentions.
         $allowedExts = ["gif", "jpeg", "jpg", "png", "blob"];
@@ -29,32 +27,32 @@ class FroalaController extends Controller
         if ((($mime == "image/gif") || ($mime == "image/jpeg") || ($mime == "image/pjpeg") || ($mime == "image/x-png") || ($mime == "image/png")) && in_array(strtolower($extension), $allowedExts))
         {
             // set filename
-            $extension  = $request->file('file')->getClientOriginalExtension();
-            $basename   = str_slug(basename($request->file('file')->getClientOriginalName(), '.' . $extension));
+            $extension  = $this->request->file('file')->getClientOriginalExtension();
+            $basename   = str_slug(basename($this->request->file('file')->getClientOriginalName(), '.' . $extension));
             $filename   = $basename . '.' . $extension;
 
             $i = 0;
-            while (file_exists(public_path() . '/packages/syscover/' . $request->input('package') . '/storage/wysiwyg/' . $filename))
+            while (file_exists(public_path() . '/packages/syscover/' . $this->request->input('package') . '/storage/wysiwyg/' . $filename))
             {
                 $i++;
                 $filename = $basename . '-' . $i . '.' . $extension;
             }
 
             // Save file in the uploads folder. file is the name of input file
-            $request->file('file')->move(public_path() . '/packages/syscover/' . $request->input('package') . '/storage/wysiwyg', $filename);
+            $this->request->file('file')->move(public_path() . '/packages/syscover/' . $this->request->input('package') . '/storage/wysiwyg', $filename);
 
             // Generate response.
             $response = new \StdClass;
-            $response->link = '/packages/syscover/' . $request->input('package') . '/storage/wysiwyg/' . $filename;
+            $response->link = '/packages/syscover/' . $this->request->input('package') . '/storage/wysiwyg/' . $filename;
 
             echo stripslashes(json_encode($response));
         }
     }
 
-    public function loadImages(Request $request)
+    public function loadImages()
     {
         // get parameters from url route
-        $parameters = $request->route()->parameters();
+        $parameters = $this->request->route()->parameters();
 
         // Array of image objects to return.
         $response = [];
@@ -106,16 +104,16 @@ class FroalaController extends Controller
         echo stripslashes($response);
     }
 
-    public function deleteImage(Request $request)
+    public function deleteImage()
     {
         // Check if file exists.
-        if (file_exists(public_path() . $request->input('src'))) {
+        if (file_exists(public_path() . $this->request->input('src'))) {
             // Delete file.
-            unlink(public_path() . $request->input('src'));
+            unlink(public_path() . $this->request->input('src'));
         }
     }
 
-    public function uploadFile(Request $request)
+    public function uploadFile()
     {
         // Allowed extentions.
         $allowedExts = ["txt", "pdf", "doc"];
@@ -134,23 +132,23 @@ class FroalaController extends Controller
         if ((($mime == "text/plain") || ($mime == "application/msword") || ($mime == "application/x-pdf") || ($mime == "application/pdf") && in_array(strtolower($extension), $allowedExts)))
         {
             // set filename
-            $extension  = $request->file('file')->getClientOriginalExtension();
-            $basename   = str_slug(basename($request->file('file')->getClientOriginalName(), '.' . $extension));
+            $extension  = $this->request->file('file')->getClientOriginalExtension();
+            $basename   = str_slug(basename($this->request->file('file')->getClientOriginalName(), '.' . $extension));
             $filename   = $basename . '.' . $extension;
 
             $i = 0;
-            while (file_exists(public_path() . '/packages/syscover/' . $request->input('package') . '/storage/wysiwyg/' . $filename))
+            while (file_exists(public_path() . '/packages/syscover/' . $this->request->input('package') . '/storage/wysiwyg/' . $filename))
             {
                 $i++;
                 $filename = $basename . '-' . $i . '.' . $extension;
             }
 
             // Save file in the uploads folder. file is the name of input file
-            $request->file('file')->move(public_path() . '/packages/syscover/' . $request->input('package') . '/storage/wysiwyg', $filename);
+            $this->request->file('file')->move(public_path() . '/packages/syscover/' . $this->request->input('package') . '/storage/wysiwyg', $filename);
 
             // Generate response.
             $response = new \StdClass;
-            $response->link = '/packages/syscover/' . $request->input('package') . '/storage/wysiwyg/' . $filename;
+            $response->link = '/packages/syscover/' . $this->request->input('package') . '/storage/wysiwyg/' . $filename;
 
             echo stripslashes(json_encode($response));
         }

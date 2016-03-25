@@ -22,34 +22,35 @@ class ResourceController extends Controller {
     protected $icon         = 'icomoon-icon-database';
     protected $objectTrans  = 'resource';
 
-    public function createCustomRecord($request, $parameters)
-    {
-        $parameters['packages'] = Package::all();
-        return $parameters;
-    }
-    
-    public function storeCustomRecord($request, $parameters)
-    {
-        Resource::create([
-            'id_007'        => $request->input('id'),
-            'package_007'   => $request->input('package'),
-            'name_007'      => $request->input('name')
-        ]);
-    }
-    
-    public function editCustomRecord($request, $parameters)
+    public function createCustomRecord($parameters)
     {
         $parameters['packages'] = Package::all();
 
         return $parameters;
     }
     
-    public function updateCustomRecord($request, $parameters)
+    public function storeCustomRecord($parameters)
+    {
+        Resource::create([
+            'id_007'        => $this->request->input('id'),
+            'package_007'   => $this->request->input('package'),
+            'name_007'      => $this->request->input('name')
+        ]);
+    }
+    
+    public function editCustomRecord($parameters)
+    {
+        $parameters['packages'] = Package::all();
+
+        return $parameters;
+    }
+    
+    public function updateCustomRecord($parameters)
     {
         Resource::where('id_007', $parameters['id'])->update([
-            'id_007'        => $request->input('id'),
-            'package_007'   => $request->input('package'),
-            'name_007'      => $request->input('name')
+            'id_007'        => $this->request->input('id'),
+            'package_007'   => $this->request->input('package'),
+            'name_007'      => $this->request->input('name')
         ]);
     }
 }

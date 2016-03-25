@@ -1,6 +1,5 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-use Illuminate\Http\Request;
 use Syscover\Pulsar\Libraries\AclLibrary;
 use Syscover\Pulsar\Models\Profile;
 use Syscover\Pulsar\Models\Resource;
@@ -28,32 +27,32 @@ class ProfileController extends Controller {
 
     private $rePermission   = 'admin-perm-perm';
 
-    public function jsonCustomDataBeforeActions($request, $aObject)
+    public function jsonCustomDataBeforeActions($aObject, $actionUrlParameters, $parameters)
     {
-        $actions = session('userAcl')->allows($this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('permission', [0, $aObject['id_006'], $request->input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_permissions').'"><i class="fa fa-shield"></i></a>' : null;
-        $actions .= session('userAcl')->allows($this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip all-permissions" onClick="setAllPermissions(this)" data-all-permissions-url="' . route('allPermissionsProfile', [$aObject['id_006'], $request->input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.set_all_permissions').'"><i class="fa fa-unlock-alt"></i></a>' : null;
+        $actions = session('userAcl')->allows($this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('permission', [0, $aObject['id_006'], $this->request->input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.edit_permissions').'"><i class="fa fa-shield"></i></a>' : null;
+        $actions .= session('userAcl')->allows($this->rePermission, 'access')? '<a class="btn btn-xs bs-tooltip all-permissions" onClick="setAllPermissions(this)" data-all-permissions-url="' . route('allPermissionsProfile', [$aObject['id_006'], $this->request->input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.set_all_permissions').'"><i class="fa fa-unlock-alt"></i></a>' : null;
 
         return $actions;
     }
     
-    public function storeCustomRecord($request, $parameters)
+    public function storeCustomRecord($parameters)
     {
         Profile::create([
-            'name_006'  => $request->input('name')
+            'name_006'  => $this->request->input('name')
         ]);
     }
     
-    public function updateCustomRecord($request, $parameters)
+    public function updateCustomRecord($parameters)
     {
         Profile::where('id_006', $parameters['id'])->update([
-            'name_006'  => $request->input('name')
+            'name_006'  => $this->request->input('name')
         ]);
     }
 
-    public function setAllPermissions(Request $request)
+    public function setAllPermissions()
     {
         // get parameters from url route
-        $parameters = $request->route()->parameters();
+        $parameters = $this->request->route()->parameters();
 
         $profile    = Profile::find($parameters['id']);
         $resources  = Resource::all();

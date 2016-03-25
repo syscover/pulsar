@@ -22,7 +22,7 @@ class AttachmentMimeController extends Controller {
     protected $icon         = 'fa fa-file';
     protected $objectTrans  = 'attachment_mime';
 
-    public function createCustomRecord($request, $parameters)
+    public function createCustomRecord($parameters)
     {
         $parameters['resources'] = Resource::builder()
             ->where('active_012', true)
@@ -32,15 +32,15 @@ class AttachmentMimeController extends Controller {
         return $parameters;
     }
 
-    public function storeCustomRecord($request, $parameters)
+    public function storeCustomRecord($parameters)
     {
         AttachmentMime::create([
-            'resource_id_019'   => $request->input('resource'),
-            'mime_019'          => $request->input('mime')
+            'resource_id_019'   => $this->request->input('resource'),
+            'mime_019'          => $this->request->input('mime')
         ]);
     }
 
-    public function editCustomRecord($request, $parameters)
+    public function editCustomRecord($parameters)
     {
         $parameters['resources'] = Resource::builder()
             ->where('active_012', true)
@@ -50,11 +50,11 @@ class AttachmentMimeController extends Controller {
         return $parameters;
     }
     
-    public function updateCustomRecord($request, $parameters)
+    public function updateCustomRecord($parameters)
     {
         AttachmentMime::where('id_019', $parameters['id'])->update([
-            'resource_id_019'   => $request->input('resource'),
-            'mime_019'          => $request->input('mime')
+            'resource_id_019'   => $this->request->input('resource'),
+            'mime_019'          => $this->request->input('mime')
         ]);
     }
 }

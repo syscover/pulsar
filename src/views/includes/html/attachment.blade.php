@@ -16,12 +16,12 @@
                     @foreach($attachments as $attachment)
                         <?php $data = json_decode($attachment->data_016); ?>
                         <li data-id="{{$attachment->id_016}}">
-                            @if($action == 'store')
+                            @if($action == 'store' || $action == 'storeLang')
                                 @include('pulsar::includes.html.form_hidden', ['name' => 'tmpFileName', 'value' => $attachment->tmp_file_name_016])
                             @endif
                             <div class="attachment-item">
                                 <div class="attachment-img">
-                                    @if($action == 'store')
+                                    @if($action == 'store' || $action == 'storeLang')
                                         <img{!! $attachment->type_016 == 1? ' class="is-image"' : ' class="no-image"' !!} src="{{ $attachment->type_016 == 1? config($routesConfigFile . '.tmpFolder') . '/' . $attachment->tmp_file_name_016 : config($routesConfigFile . '.iconsFolder') . '/' . $data->icon }}" />
                                     @else
                                         <img{!! $attachment->type_016 == 1? ' class="is-image"' : ' class="no-image"' !!} src="{{ $attachment->type_016 == 1? config($routesConfigFile . '.attachmentFolder') . '/' . $attachment->object_016 . '/' . $attachment->lang_016 . '/' . $attachment->file_name_016 : config($routesConfigFile . '.iconsFolder') . '/' . $data->icon }}" />

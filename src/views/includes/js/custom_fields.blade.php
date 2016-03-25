@@ -1,5 +1,4 @@
-<script type="text/javascript">
-
+<script>
     $(document).ready(function() {
         // hide every elements
         $('#headerCustomFields').hide()
@@ -37,8 +36,8 @@
 
                         if ($.fn.select2)
                             $('.select2').each(function() {
-                                var self = $(this);
-                                $(self).select2(self.data());
+                                var self = $(this)
+                                $(self).select2(self.data())
                             })
 
                         if($.fn.froalaEditor)
@@ -61,7 +60,7 @@
                             $('#wrapperCustomFields').fadeIn()
                         }
                     }
-                });
+                })
             }
             else
             {
@@ -75,5 +74,5 @@
         if($("[name=customFieldGroup]").val())
             $("[name=customFieldGroup]").trigger('change')
 
-    });
+    })
 </script>

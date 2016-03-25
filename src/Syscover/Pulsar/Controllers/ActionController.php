@@ -21,19 +21,19 @@ class ActionController extends Controller {
     protected $icon         = 'fa fa-bolt';
     protected $objectTrans  = 'action';
 
-    public function storeCustomRecord($request, $parameters)
+    public function storeCustomRecord($parameters)
     {
         Action::create([
-            'id_008'    => $request->input('id'),
-            'name_008'  => $request->input('name')
+            'id_008'    => $this->request->input('id'),
+            'name_008'  => $this->request->input('name')
         ]);
     }
     
-    public function updateCustomRecord($request, $parameters)
+    public function updateCustomRecord($parameters)
     {
         Action::where('id_008', $parameters['id'])->update([
-            'id_008'    => $request->input('id'),
-            'name_008'  => $request->input('name')
+            'id_008'    => $this->request->input('id'),
+            'name_008'  => $this->request->input('name')
         ]);
     }
 }

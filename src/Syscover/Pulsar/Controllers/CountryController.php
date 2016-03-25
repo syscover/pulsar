@@ -33,21 +33,21 @@ class CountryController extends Controller {
         return $parameters;
     }
 
-    public function customColumnType($request, $row, $aColumn, $aObject)
+    public function customColumnType($row, $aColumn, $aObject)
     {
         switch ($aColumn['type'])
         {
             case 'territorialArea':
-                $row[] = '<a href="' . route($aColumn['route'], ['country' => $aObject['id_002'], 'parentOffset' => $request->input('iDisplayStart')]) . '">' . $aObject[$aColumn['data']] . '</a>';
+                $row[] = '<a href="' . route($aColumn['route'], ['country' => $aObject['id_002'], 'parentOffset' => $this->request->input('iDisplayStart')]) . '">' . $aObject[$aColumn['data']] . '</a>';
                 break;
         }
         return $row;
     }
 
-    public function checkSpecialRulesToStore($request, $parameters)
+    public function checkSpecialRulesToStore($parameters)
     {
         // check special rule to objects with multiple language if is new object translation or new object
-        if($request->has('lang') && $request->input('lang') != session('baseLang')->id_001)
+        if($this->request->has('lang') && $this->request->input('lang') != session('baseLang')->id_001)
         {
             $parameters['specialRules']['idRule'] = true;
         }
@@ -55,34 +55,34 @@ class CountryController extends Controller {
         return $parameters;
     }
 
-    public function storeCustomRecord($request, $parameters)
+    public function storeCustomRecord($parameters)
     {
         Country::create([
-            'id_002'                    => $request->input('id'),
-            'lang_002'                  => $request->input('lang'),
-            'name_002'                  => $request->input('name'),
-            'sorting_002'               => $request->input('sorting', 0),
-            'prefix_002'                => $request->input('prefix'),
-            'territorial_area_1_002'    => $request->input('territorialArea1'),
-            'territorial_area_2_002'    => $request->input('territorialArea2'),
-            'territorial_area_3_002'    => $request->input('territorialArea3'),
-            'data_lang_002'             => Country::addLangDataRecord($request->input('lang'), $request->input('id'))
+            'id_002'                    => $this->request->input('id'),
+            'lang_002'                  => $this->request->input('lang'),
+            'name_002'                  => $this->request->input('name'),
+            'sorting_002'               => $this->request->input('sorting', 0),
+            'prefix_002'                => $this->request->input('prefix'),
+            'territorial_area_1_002'    => $this->request->input('territorialArea1'),
+            'territorial_area_2_002'    => $this->request->input('territorialArea2'),
+            'territorial_area_3_002'    => $this->request->input('territorialArea3'),
+            'data_lang_002'             => Country::addLangDataRecord($this->request->input('lang'), $this->request->input('id'))
         ]);
     }
     
-    public function updateCustomRecord($request, $parameters)
+    public function updateCustomRecord($parameters)
     {
-        Country::where('id_002', $parameters['id'])->where('lang_002', $request->input('lang'))->update([
-            'name_002'                  => $request->input('name'),
-            'sorting_002'               => $request->input('sorting', 0),
-            'territorial_area_1_002'    => $request->input('territorialArea1'),
-            'territorial_area_2_002'    => $request->input('territorialArea2'),
-            'territorial_area_3_002'    => $request->input('territorialArea3')
+        Country::where('id_002', $parameters['id'])->where('lang_002', $this->request->input('lang'))->update([
+            'name_002'                  => $this->request->input('name'),
+            'sorting_002'               => $this->request->input('sorting', 0),
+            'territorial_area_1_002'    => $this->request->input('territorialArea1'),
+            'territorial_area_2_002'    => $this->request->input('territorialArea2'),
+            'territorial_area_3_002'    => $this->request->input('territorialArea3')
         ]);
 
         // common data
         Country::where('id_002', $parameters['id'])->update([
-            'prefix_002' => $request->input('prefix')
+            'prefix_002' => $this->request->input('prefix')
         ]);
     }
 

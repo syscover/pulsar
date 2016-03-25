@@ -21,23 +21,23 @@ class PackageController extends Controller {
     protected $icon         = 'cut-icon-grid';
     protected $objectTrans  = 'package';
 
-    public function storeCustomRecord($request, $parameters)
+    public function storeCustomRecord($parameters)
     {
         Package::create([
-            'name_012'      => $request->input('name'),
-            'folder_012'    => $request->input('folder'),
-            'active_012'    => $request->input('active', 0),
-            'sorting_012'    => $request->input('sorting')
+            'name_012'      => $this->request->input('name'),
+            'folder_012'    => $this->request->input('folder'),
+            'active_012'    => $this->request->input('active', 0),
+            'sorting_012'   => $this->request->input('sorting')
         ]);
     }
 
-    public function updateCustomRecord($request, $parameters)
+    public function updateCustomRecord($parameters)
     {
         Package::where('id_012', $parameters['id'])->update([
-            'name_012'      => $request->input('name'),
-            'folder_012'    => $request->input('folder'),
-            'active_012'    => $request->input('active', 0),
-            'sorting_012'    => $request->input('sorting')
+            'name_012'      => $this->request->input('name'),
+            'folder_012'    => $this->request->input('folder'),
+            'active_012'    => $this->request->input('active', 0),
+            'sorting_012'   => $this->request->input('sorting')
         ]);
 
         // update object packages from session

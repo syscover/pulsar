@@ -22,7 +22,7 @@ class CustomFieldGroupController extends Controller {
     protected $icon         = 'fa fa-th';
     protected $objectTrans  = 'field_group';
 
-    public function createCustomRecord($request, $parameters)
+    public function createCustomRecord($parameters)
     {
         $parameters['resources'] = Resource::builder()
             ->where('active_012', true)
@@ -32,15 +32,15 @@ class CustomFieldGroupController extends Controller {
         return $parameters;
     }
     
-    public function storeCustomRecord($request, $parameters)
+    public function storeCustomRecord($parameters)
     {
         CustomFieldGroup::create([
-            'resource_025'  => $request->input('resource'),
-            'name_025'      => $request->input('name')
+            'resource_025'  => $this->request->input('resource'),
+            'name_025'      => $this->request->input('name')
         ]);
     }
     
-    public function editCustomRecord($request, $parameters)
+    public function editCustomRecord($parameters)
     {
         $parameters['resources'] = Resource::builder()
             ->where('active_012', true)
@@ -50,11 +50,11 @@ class CustomFieldGroupController extends Controller {
         return $parameters;
     }
     
-    public function updateCustomRecord($request, $parameters)
+    public function updateCustomRecord($parameters)
     {
         CustomFieldGroup::where('id_025', $parameters['id'])->update([
-            'resource_025'  => $request->input('resource'),
-            'name_025'      => $request->input('name')
+            'resource_025'  => $this->request->input('resource'),
+            'name_025'      => $this->request->input('name')
         ]);
     }
 }

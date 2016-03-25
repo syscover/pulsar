@@ -40,7 +40,7 @@ class TerritorialArea2Controller extends Controller {
         return $actionUrlParameters;
     }
 
-    public function createCustomRecord($request, $parameters)
+    public function createCustomRecord($parameters)
     {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
         $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_002', session('baseLang')->id_001)->first();
@@ -50,17 +50,17 @@ class TerritorialArea2Controller extends Controller {
         return $parameters;
     }
 
-    public function storeCustomRecord($request, $parameters)
+    public function storeCustomRecord($parameters)
     {
         TerritorialArea2::create([
-            'id_004'                    => $request->input('id'),
+            'id_004'                    => $this->request->input('id'),
             'country_004'               => $parameters['country'],
-            'territorial_area_1_004'    => $request->input('territorialArea1'),
-            'name_004'                  => $request->input('name')
+            'territorial_area_1_004'    => $this->request->input('territorialArea1'),
+            'name_004'                  => $this->request->input('name')
         ]);
     }
 
-    public function editCustomRecord($request, $parameters)
+    public function editCustomRecord($parameters)
     {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
         $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_002', session('baseLang')->id_001)->first();
@@ -70,12 +70,12 @@ class TerritorialArea2Controller extends Controller {
         return $parameters;
     }
     
-    public function updateCustomRecord($request, $parameters)
+    public function updateCustomRecord($parameters)
     {
         TerritorialArea2::where('id_004', $parameters['id'])->update([
-            'id_004'                    => $request->input('id'),
-            'territorial_area_1_004'    => $request->input('territorialArea1'),
-            'name_004'                  => $request->input('name')
+            'id_004'                    => $this->request->input('id'),
+            'territorial_area_1_004'    => $this->request->input('territorialArea1'),
+            'name_004'                  => $this->request->input('name')
         ]);
     }
 

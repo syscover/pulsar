@@ -157,7 +157,7 @@ trait TraitController {
 
                     if(method_exists($this, 'customColumnType'))
                     {
-                        $row = $this->customColumnType($this->request, $row, $aColumn, $aObject);
+                        $row = $this->customColumnType($row, $aColumn, $aObject);
                     }
                 }
                 else
@@ -192,7 +192,7 @@ trait TraitController {
             // check whether it is necessary to insert a data before
             if(method_exists($this, 'jsonCustomDataBeforeActions'))
             {
-                $actions = $actions . $this->jsonCustomDataBeforeActions($this->request, $aObject, $actionUrlParameters, $parameters);
+                $actions = $actions . $this->jsonCustomDataBeforeActions($aObject, $actionUrlParameters, $parameters);
             }
 
             // check if request is modal
@@ -300,25 +300,30 @@ trait TraitController {
 
         $parameters['urlParameters']  = $parameters;
 
-        // todo, instanciar el objeto lang antes del createCustomRecord
+        // get lang object
+        if(isset($parameters['lang']))
+            $parameters['lang'] = Lang::builder()->find($parameters['lang']);
 
+        $parameters = $this->createCustomRecord($parameters);
 
-        $parameters = $this->createCustomRecord($this->request, $parameters);
-
-        $parameters['action']         = 'store';
         $parameters['package']        = $this->package;
         $parameters['folder']         = $this->folder;
         $parameters['routeSuffix']    = $this->routeSuffix;
         $parameters['icon']           = $this->icon;
+
+        // traslate of object that we are operate, this variable is instance in controller
         $parameters['objectTrans']    = isset($this->objectTrans) &&  $this->objectTrans != null? Miscellaneous::getObjectTransValue($parameters, $this->objectTrans) : null;
 
-        // check if object has multiple language
+        // check if action is store or storeLang
         if(isset($parameters['id']) && isset($parameters['lang']))
+        {
             $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', ['id' => $parameters['id'], 'lang' => session('baseLang')->id_001]);
-
-        // set lang object
-        if(isset($parameters['lang']))
-            $parameters['lang'] = Lang::builder()->find($parameters['lang']);
+            $parameters['action'] = 'storeLang';
+        }
+        else
+        {
+            $parameters['action'] = 'store';
+        }
 
         // check if exist create view, default all request go to common view
         if(view()->exists($this->package . '::' . $this->folder . '.create', $parameters))
@@ -331,11 +336,10 @@ trait TraitController {
      * function to be overridden
      *
      * @access	public
-     * @param   \Illuminate\Http\Request    $request
      * @param   array                       $parameters
      * @return	array                       $parameters
      */
-    public function createCustomRecord($request, $parameters)
+    public function createCustomRecord($parameters)
     {
         return $parameters;
     }
@@ -352,7 +356,7 @@ trait TraitController {
         $parameters['urlParameters']  = $parameters;
 
         if(method_exists($this, 'checkSpecialRulesToStore'))
-            $parameters = $this->checkSpecialRulesToStore($this->request, $parameters);
+            $parameters = $this->checkSpecialRulesToStore($parameters);
 
 
         if(!isset($parameters['specialRules']))
@@ -366,7 +370,7 @@ trait TraitController {
             return redirect()->route('create' . ucfirst($this->routeSuffix), $parameters['urlParameters'])->withErrors($validation)->withInput();
 
 
-        $parametersResponse = $this->storeCustomRecord($this->request, $parameters);
+        $parametersResponse = $this->storeCustomRecord($parameters);
 
 
         // check if parametersResponse is a RedirectResponse objecto, to send request to other url
@@ -394,11 +398,10 @@ trait TraitController {
      * function to be overridden
      *
      * @access	public
-     * @param   \Illuminate\Http\Request    $request
      * @param   array                       $parameters
      * @return	array                       $parameters | void
      */
-    public function storeCustomRecord($request, $parameters) {}
+    public function storeCustomRecord($parameters) {}
 
     /**
      * @access	public
@@ -437,7 +440,7 @@ trait TraitController {
                 $parameters['object']   = call_user_func($this->model . '::find', $parameters['id']);
         }
 
-        $parameters = $this->showCustomRecord($this->request, $parameters);
+        $parameters = $this->showCustomRecord($parameters);
 
         if(is_object($parameters) && get_class($parameters) == \Illuminate\Http\RedirectResponse::class)
             return $parameters;
@@ -460,7 +463,7 @@ trait TraitController {
      * @param   array                       $parameters
      * @return	array                       $parameters
      */
-    public function showCustomRecord($request, $parameters)
+    public function showCustomRecord($parameters)
     {
         return $parameters;
     }
@@ -513,7 +516,7 @@ trait TraitController {
                 $parameters['object']   = call_user_func($this->model . '::builder')->find($parameters['id']);
         }
 
-        $parameters = $this->editCustomRecord($this->request, $parameters);
+        $parameters = $this->editCustomRecord($parameters);
 
         // check if exist edit view, default all request go to common view
         if(view()->exists($this->package . '::' . $this->folder . '.edit', $parameters))
@@ -526,11 +529,10 @@ trait TraitController {
      * function to be overridden
      *
      * @access	public
-     * @param   \Illuminate\Http\Request    $request
      * @param   array                       $parameters
      * @return	array                       $parameters
      */
-    public function editCustomRecord($request, $parameters)
+    public function editCustomRecord($parameters)
     {
         return $parameters;
     }
@@ -547,7 +549,7 @@ trait TraitController {
         $parameters['urlParameters']  = $parameters;
 
         if(method_exists($this, 'checkSpecialRulesToUpdate'))
-            $parameters = $this->checkSpecialRulesToUpdate($this->request, $parameters);
+            $parameters = $this->checkSpecialRulesToUpdate($parameters);
 
         // check special rule to objects with writable IDs like actions
         if($this->request->has('id') && $this->request->input('id') == $parameters['id'])
@@ -562,7 +564,7 @@ trait TraitController {
             return redirect()->route('edit' . ucfirst($this->routeSuffix), $parameters['urlParameters'])->withErrors($validation);
 
         // we use parametersResponse, because updateCustomRecord may be "void"
-        $parametersResponse = $this->updateCustomRecord($this->request, $parameters);
+        $parametersResponse = $this->updateCustomRecord($parameters);
 
 
         if(is_object($parametersResponse) && get_class($parametersResponse) == \Illuminate\Http\RedirectResponse::class)
@@ -588,11 +590,10 @@ trait TraitController {
      * function to be overridden
      *
      * @access	public
-     * @param   \Illuminate\Http\Request    $request
      * @param   array                       $parameters
      * @return	array                       $parameters | void
      */
-    public function updateCustomRecord($request, $parameters) {}
+    public function updateCustomRecord($parameters) {}
 
     /**
      * @access      public
@@ -605,7 +606,7 @@ trait TraitController {
 
         $object = call_user_func($this->model . '::find', $parameters['id']);
 
-        $this->deleteCustomRecord($this->request, $object);
+        $this->deleteCustomRecord($object);
 
         // delete records after deleteCustomRecords, if we need do a select
         call_user_func($this->model . '::destroy', $parameters['id']);
@@ -614,7 +615,7 @@ trait TraitController {
         unset($parameters['id']);
 
         if(method_exists($this, 'deleteCustomRecordRedirect'))
-            return $this->deleteCustomRecordRedirect($this->request, $object, $parameters);
+            return $this->deleteCustomRecordRedirect($object, $parameters);
 
         return redirect()->route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,
@@ -626,11 +627,10 @@ trait TraitController {
      * function to be overridden
      *
      * @access	public
-     * @param   \Illuminate\Http\Request    $request
      * @param   mixed                       $object
      * @return	void
      */
-    public function deleteCustomRecord($request, $object) {}
+    public function deleteCustomRecord($object) {}
 
 
     /**
@@ -649,18 +649,18 @@ trait TraitController {
             $object = call_user_func($this->model . '::getTranslationRecord', $parameters);
 
 
-        $this->deleteCustomTranslationRecord($this->request, $object);
+        $this->deleteCustomTranslationRecord($object);
 
         if(isset($this->langModel))
         {
             // this option is to tables that dependent of other tables to set your languages, example 007_170_hotel and 007_171_hotel_lang
             call_user_func($this->langModel . '::deleteTranslationRecord', $parameters, false);
             // this kind of tables has field data_lang in main table, not in language table
-            call_user_func($this->model . '::deleteLangDataRecord', $this->request, $parameters);
+            call_user_func($this->model . '::deleteLangDataRecord', $parameters);
         }
         else
         {
-            call_user_func($this->model . '::deleteTranslationRecord', $this->request, $parameters);
+            call_user_func($this->model . '::deleteTranslationRecord', $parameters);
         }
 
         return redirect()->route($this->routeSuffix, $parameters)->with([
@@ -673,11 +673,10 @@ trait TraitController {
      * function to be overridden
      *
      * @access	public
-     * @param   \Illuminate\Http\Request    $request
      * @param   mixed                       $object
      * @return	void
      */
-    public function deleteCustomTranslationRecord($request, $object) {}
+    public function deleteCustomTranslationRecord($object) {}
 
 
     /**
@@ -698,13 +697,13 @@ trait TraitController {
                 array_push($ids, $this->request->input('element' . $i));
         }
 
-        $this->deleteCustomRecordsSelect($this->request, $ids);
+        $this->deleteCustomRecordsSelect($ids);
 
         // delete records after deleteCustomRecords, if we need do a select
-        call_user_func($this->model . '::deleteRecords', $this->request, $ids);
+        call_user_func($this->model . '::deleteRecords', $ids);
 
         if(method_exists($this, 'deleteCustomRecordsRedirect'))
-            return $this->deleteCustomRecordsRedirect($this->request, $parameters);
+            return $this->deleteCustomRecordsRedirect($parameters);
 
 
         return redirect()->route($this->routeSuffix, $parameters)->with([
@@ -721,5 +720,5 @@ trait TraitController {
      * @param   array                       $ids
      * @return	void
      */
-    public function deleteCustomRecordsSelect($request, $ids) {}
+    public function deleteCustomRecordsSelect($ids) {}
 }

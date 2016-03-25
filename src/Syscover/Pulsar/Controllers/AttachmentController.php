@@ -1,6 +1,5 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Syscover\Pulsar\Models\Attachment;
 
@@ -11,10 +10,10 @@ use Syscover\Pulsar\Models\Attachment;
 
 class AttachmentController extends Controller {
 
-    public function storeAttachment(Request $request)
+    public function storeAttachment()
     {
-        $parameters             = $request->route()->parameters();
-        $attachments            = $request->input('attachments');
+        $parameters             = $this->request->route()->parameters();
+        $attachments            = $this->request->input('attachments');
         $attachmentsResponse    = [];
 
         foreach($attachments as $attachment)
@@ -23,12 +22,12 @@ class AttachmentController extends Controller {
             $idAttachment++;
 
             // move file from temp file to attachment folder
-            File::move(public_path() . config($request->input('routesConfigFile') . '.tmpFolder') . '/' . $attachment['tmpFileName'], public_path() . config($request->input('routesConfigFile') . '.attachmentFolder') . '/' . $parameters['object'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']);
+            File::move(public_path() . config($this->request->input('routesConfigFile') . '.tmpFolder') . '/' . $attachment['tmpFileName'], public_path() . config($this->request->input('routesConfigFile') . '.attachmentFolder') . '/' . $parameters['object'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']);
 
             $attachmentsResponse[] = Attachment::create([
                 'id_016'                => $idAttachment,
                 'lang_016'              => $parameters['lang'],
-                'resource_016'          => $request->input('resource'),
+                'resource_016'          => $this->request->input('resource'),
                 'object_016'            => $parameters['object'],
                 'family_016'            => null,
                 'library_016'           => $attachment['library'],
@@ -37,7 +36,7 @@ class AttachmentController extends Controller {
                 'name_016'              => null,
                 'file_name_016'         => $attachment['fileName'],
                 'mime_016'              => $attachment['mime'],
-                'size_016'              => filesize(public_path() . config($request->input('routesConfigFile') . '.attachmentFolder') . '/' . $parameters['object'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']),
+                'size_016'              => filesize(public_path() . config($this->request->input('routesConfigFile') . '.attachmentFolder') . '/' . $parameters['object'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']),
                 'type_016'              => $attachment['type']['id'],
                 'type_text_016'         => $attachment['type']['name'],
                 'width_016'             => $attachment['width'],
@@ -54,15 +53,15 @@ class AttachmentController extends Controller {
         return response()->json($response);
     }
 
-    public function apiUpdateAttachment(Request $request)
+    public function apiUpdateAttachment()
     {
-        $parameters = $request->route()->parameters();
-        $attachment = $request->input('attachment');
+        $parameters = $this->request->route()->parameters();
+        $attachment = $this->request->input('attachment');
 
         // check that is a attachment stored
         // lso we control the edit action is because,
         // when creating a new language id detects and assumes that the image is in the database
-        if(isset($attachment['id']) && $request->input('action') == 'update')
+        if(isset($attachment['id']) && $this->request->input('action') == 'update')
         {
             $width = null; $height= null;
             if($attachment['type']['id'] == 1)
@@ -79,7 +78,7 @@ class AttachmentController extends Controller {
                 'name_016'              => $attachment['name'] == ""? null : $attachment['name'],
                 'file_name_016'         => $attachment['fileName'] == ""? null : $attachment['fileName'],
                 'mime_016'              => $attachment['mime'],
-                'size_016'              => filesize(public_path() . config($request->input('routesConfigFile') . '.attachmentFolder') . '/' . $parameters['object'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']),
+                'size_016'              => filesize(public_path() . config($this->request->input('routesConfigFile') . '.attachmentFolder') . '/' . $parameters['object'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']),
                 'type_016'              => $attachment['type']['id'],
                 'type_text_016'         => $attachment['type']['name'],
                 'width_016'             => $width,
@@ -96,16 +95,16 @@ class AttachmentController extends Controller {
         return response()->json($response);
     }
 
-    public function apiUpdatesAttachment(Request $request)
+    public function apiUpdatesAttachment()
     {
-        $parameters = $request->route()->parameters();
-        $attachments = $request->input('attachments');
+        $parameters = $this->request->route()->parameters();
+        $attachments = $this->request->input('attachments');
 
         foreach($attachments as $attachment)
         {
             // check that is a attachment stored also we control is a edit action because,
             // when creating a new language id detects and assumes that the image is in the database
-            if(isset($attachment['id']) && $request->input('action') == 'update')
+            if(isset($attachment['id']) && $this->request->input('action') == 'update')
             {
                 $width = null; $height= null;
                 // attachment type 1 = image, 2 = file, 3 = video
@@ -123,7 +122,7 @@ class AttachmentController extends Controller {
                     'name_016'              => $attachment['name'] == ""? null : $attachment['name'],
                     'file_name_016'         => $attachment['fileName'] == ""? null : $attachment['fileName'],
                     'mime_016'              => $attachment['mime'],
-                    'size_016'              => filesize(public_path() . config($request->input('routesConfigFile') . '.attachmentFolder') . '/' . $parameters['object'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']),
+                    'size_016'              => filesize(public_path() . config($this->request->input('routesConfigFile') . '.attachmentFolder') . '/' . $parameters['object'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']),
                     'type_016'              => $attachment['type']['id'],
                     'type_text_016'         => $attachment['type']['name'],
                     'width_016'             => $width,
@@ -141,15 +140,15 @@ class AttachmentController extends Controller {
         return response()->json($response);
     }
 
-    public function apiDeleteAttachment(Request $request)
+    public function apiDeleteAttachment()
     {
-        $parameters = $request->route()->parameters();
+        $parameters = $this->request->route()->parameters();
 
-        $attachment = Attachment::getTranslationRecord['id' => $parameters['id'], 'lang' => $parameters['lang']]);
+        $attachment = Attachment::getTranslationRecord(['id' => $parameters['id'], 'lang' => $parameters['lang']]);
 
         if($attachment->file_name_016 != null && $attachment->file_name_016 != "")
         {
-            File::delete(public_path() . config($request->input('routesConfigFile') . '.attachmentFolder') . '/' . $attachment->object_016 . '/' . $attachment->lang_016 . '/' . $attachment->file_name_016);
+            File::delete(public_path() . config($this->request->input('routesConfigFile') . '.attachmentFolder') . '/' . $attachment->object_016 . '/' . $attachment->lang_016 . '/' . $attachment->file_name_016);
         }
 
         Attachment::deleteTranslationRecord($parameters);
@@ -163,9 +162,9 @@ class AttachmentController extends Controller {
         return response()->json($response);
     }
 
-    public function apiDeleteTmpAttachment(Request $request)
+    public function apiDeleteTmpAttachment()
     {
-        File::delete(public_path() . config($request->input('routesConfigFile') . '.tmpFolder') . '/' . $request->input('fileName'));
+        File::delete(public_path() . config($this->request->input('routesConfigFile') . '.tmpFolder') . '/' . $this->request->input('fileName'));
 
         $response = [
             'success'   => true,

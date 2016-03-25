@@ -23,27 +23,27 @@ class LangController extends Controller {
     protected $icon         = 'fa fa-language';
     protected $objectTrans  = 'language';
 
-    public function storeCustomRecord($request, $parameters)
+    public function storeCustomRecord($parameters)
     {
         $filename = Miscellaneous::uploadFiles('image', public_path() . '/packages/syscover/pulsar/storage/langs');
 
-        if($request->input('base')) Lang::resetBaseLang();
+        if($this->request->input('base')) Lang::resetBaseLang();
 
         Lang::create([
-            'id_001'        => $request->input('id'),
-            'name_001'      => $request->input('name'),
+            'id_001'        => $this->request->input('id'),
+            'name_001'      => $this->request->input('name'),
             'image_001'     => $filename,
-            'sorting_001'   => $request->input('sorting'),
-            'base_001'      => $request->input('base', 0),
-            'active_001'    => $request->input('active', 0)
+            'sorting_001'   => $this->request->input('sorting'),
+            'base_001'      => $this->request->input('base', 0),
+            'active_001'    => $this->request->input('active', 0)
         ]);
 
-        if($request->input('base')) session(['baseLang' => Lang::getBaseLang()]);
+        if($this->request->input('base')) session(['baseLang' => Lang::getBaseLang()]);
     }
 
-    public function checkSpecialRulesToUpdate($request, $parameters)
+    public function checkSpecialRulesToUpdate($parameters)
     {
-        if($request->hasFile('image'))
+        if($this->request->hasFile('image'))
         {
             $parameters['specialRules']['imageRule'] = true;
         }
@@ -51,33 +51,33 @@ class LangController extends Controller {
         return $parameters;
     }
 
-    public function updateCustomRecord($request, $parameters)
+    public function updateCustomRecord($parameters)
     {
-        if($request->hasFile('image'))
+        if($this->request->hasFile('image'))
             $filename = Miscellaneous::uploadFiles('image', public_path() . '/packages/syscover/pulsar/storage/langs');
         else
-            $filename = $request->input('image');
+            $filename = $this->request->input('image');
 
-        if($request->input('base')) Lang::resetBaseLang();
+        if($this->request->input('base')) Lang::resetBaseLang();
 
         Lang::where('id_001', $parameters['id'])->update([
-            'id_001'        => $request->input('id'),
-            'name_001'      => $request->input('name'),
+            'id_001'        => $this->request->input('id'),
+            'name_001'      => $this->request->input('name'),
             'image_001'     => $filename,
-            'sorting_001'   => $request->input('sorting'),
-            'base_001'      => $request->input('base', 0),
-            'active_001'    => $request->input('active', 0)
+            'sorting_001'   => $this->request->input('sorting'),
+            'base_001'      => $this->request->input('base', 0),
+            'active_001'    => $this->request->input('active', 0)
         ]);
 
-        if($request->input('base')) session(['baseLang' => Lang::getBaseLang()]);
+        if($this->request->input('base')) session(['baseLang' => Lang::getBaseLang()]);
     }
     
-    public function deleteCustomRecord($request, $object)
+    public function deleteCustomRecord($object)
     {
         File::delete(public_path() . '/packages/syscover/pulsar/storage/langs/' . $object->image_001);
     }
     
-    public function deleteCustomRecordsSelect($request, $ids)
+    public function deleteCustomRecordsSelect($ids)
     {
         $objects = Lang::getRecordsById($ids);
         

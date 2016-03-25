@@ -41,11 +41,11 @@ class TerritorialArea3Controller extends Controller {
         return $actionUrlParameters;
     }
 
-    public function createCustomRecord($request, $parameters)
+    public function createCustomRecord($parameters)
     {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
 
-        if($request->old('territorialArea1') && $request->old('territorialArea1') != "null")
+        if($this->request->old('territorialArea1') && $this->request->old('territorialArea1') != "null")
             $parameters['territorialAreas2'] = territorialArea1::find(Input::old('territorialArea1'))->getTerritorialAreas2;
         else
             $parameters['territorialAreas2'] = [];
@@ -57,18 +57,18 @@ class TerritorialArea3Controller extends Controller {
         return $parameters;
     }
 
-    public function storeCustomRecord($request, $parameters)
+    public function storeCustomRecord($parameters)
     {
         TerritorialArea3::create([
-            'id_005'                    => $request->input('id'),
+            'id_005'                    => $this->request->input('id'),
             'country_005'               => $parameters['country'],
-            'territorial_area_1_005'    => $request->input('territorialArea1'),
-            'territorial_area_2_005'    => $request->input('territorialArea2'),
-            'name_005'                  => $request->input('name')
+            'territorial_area_1_005'    => $this->request->input('territorialArea1'),
+            'territorial_area_2_005'    => $this->request->input('territorialArea2'),
+            'name_005'                  => $this->request->input('name')
         ]);
     }
 
-    public function editCustomRecord($request, $parameters)
+    public function editCustomRecord($parameters)
     {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
         $parameters['territorialAreas2']    = TerritorialArea2::getTerritorialAreas2FromTerritorialArea1($parameters['object']->territorial_area_1_005);
@@ -79,13 +79,13 @@ class TerritorialArea3Controller extends Controller {
         return $parameters;
     }
 
-    public function updateCustomRecord($request, $parameters)
+    public function updateCustomRecord($parameters)
     {
         TerritorialArea3::where('id_005', $parameters['id'])->update([
-            'id_005'                    => $request->input('id'),
-            'territorial_area_1_005'    => $request->input('territorialArea1'),
-            'territorial_area_2_005'    => $request->input('territorialArea2'),
-            'name_005'                  => $request->input('name')
+            'id_005'                    => $this->request->input('id'),
+            'territorial_area_1_005'    => $this->request->input('territorialArea1'),
+            'territorial_area_2_005'    => $this->request->input('territorialArea2'),
+            'name_005'                  => $this->request->input('name')
         ]);
     }
 
