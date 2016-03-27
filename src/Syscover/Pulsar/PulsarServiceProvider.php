@@ -46,6 +46,16 @@ class PulsarServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../../database/seeds/' 					=> base_path('/database/seeds')
         ], 'seeds');
+
+		// register factories
+		$this->publishes([
+			__DIR__ . '/../../database/factories/' 				=> base_path('/database/factories')
+		], 'factories');
+
+		// register tests
+		$this->publishes([
+			__DIR__ . '/../../tests/' 							=> base_path('/tests')
+		], 'tests');
 	}
 
 	/**
