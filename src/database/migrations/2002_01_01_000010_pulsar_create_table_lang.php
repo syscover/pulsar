@@ -12,7 +12,7 @@ class PulsarCreateTableLang extends Migration
 	 */
 	public function up()
 	{
-		if(!Schema::hasTable('001_001_lang'))
+		if(! Schema::hasTable('001_001_lang'))
 		{
 			Schema::create('001_001_lang', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
