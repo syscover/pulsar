@@ -64,7 +64,8 @@ return [
         'cms-article',
         'market-product',
         'hotels-hotel',
-        'crm-customer'
+        'spas-spa',
+        'crm-customer',
     ],
 
     //******************************************************************************************************************
@@ -101,6 +102,7 @@ return [
     'resourcesCustomFields'     => [
         'cms-article-family',
         'market-product',
-        'hotels-hotel'
+        'hotels-hotel',
+        'spas-spa',
     ],
 ];
