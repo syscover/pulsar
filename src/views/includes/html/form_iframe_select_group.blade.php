@@ -5,7 +5,7 @@
         {!! $errors->first($name.'id', config('pulsar.errorDelimiters')) !!}
     </div>
     <div class="col-md-{{ $iconSize or 2 }}">
-        <a href="{{ $modalUrl }}" class="magnific-popup"><span class="icomoon-icon-plus"></span></a>
+        <a href="{{ $modalUrl }}" class="magnific-popup"><span class="fa fa-plus"></span></a>
         <input type="hidden" name="{{ $name.'id' }}" value="{{ isset($valueId)? $valueId : null }}"{{ isset($required) && $required? ' required' : null }}>
     </div>
 </div>

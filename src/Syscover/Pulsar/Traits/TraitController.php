@@ -51,7 +51,7 @@ trait TraitController {
         $parameters['icon']                 = $this->icon;
         $parameters['objectTrans']          = isset($this->objectTrans) &&  $this->objectTrans != null? Miscellaneous::getObjectTransValue($parameters, $this->objectTrans) : null;
 
-        $parametersResponse = $this->indexCustom($parameters);
+        $parametersResponse = $this->customIndex($parameters);
 
         if(is_array($parametersResponse))
             $parameters = array_merge($parameters, $parametersResponse);
@@ -66,7 +66,7 @@ trait TraitController {
      * @param   array   $parameters
      * @return	array   $parameters | void
      */
-    public function indexCustom($parameters){}
+    public function customIndex($parameters){}
 
     /**
      * @access      public
@@ -97,6 +97,11 @@ trait TraitController {
         $objects        = call_user_func($this->model . '::getIndexRecords', $this->request, $parameters);
         $iFilteredTotal = call_user_func($this->model . '::getIndexRecords', $this->request, $parametersCount);
         $iTotal         = call_user_func($this->model . '::countRecords', $this->request, $parameters);
+
+        if(method_exists($this, 'setViewParametersJsonData'))
+        {
+            $this->setViewParametersJsonData($parameters);
+        }
 
         $response = [
             "sEcho"                 => $this->request->input('sEcho'),
@@ -198,7 +203,7 @@ trait TraitController {
             // check if request is modal
             if(isset($parameters['modal']) && $parameters['modal'])
             {
-                $actions .= session('userAcl')->allows($this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip related-record" data-json=\'' . json_encode($aObject) . '\' data-original-title="' . trans('pulsar::pulsar.related_record') . '"><i class="icon-link"></i></a>' : null;
+                $actions .= session('userAcl')->allows($this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip related-record" data-json=\'' . json_encode($aObject) . '\' data-original-title="' . trans('pulsar::pulsar.related_record') . '"><i class="fa fa-link"></i></a>' : null;
             }
             else
             {

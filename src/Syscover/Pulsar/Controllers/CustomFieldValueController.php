@@ -23,7 +23,7 @@ class CustomFieldValueController extends Controller {
     protected $icon         = 'fa fa-bars';
     protected $objectTrans  = 'value';
 
-    public function indexCustom($parameters)
+    public function customIndex($parameters)
     {
         $parameters['urlParameters']['lang']    = session('baseLang')->id_001;
         $parameters['field']                    = CustomField::getTranslationRecord(['id' => $parameters['field'], 'lang' => $parameters['lang']]);

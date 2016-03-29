@@ -24,7 +24,7 @@ class TerritorialArea2Controller extends Controller {
     protected $customTrans          = null;
     protected $customTransHeader    = null;
 
-    public function indexCustom($parameters)
+    public function customIndex($parameters)
     {
         $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_002', session('baseLang')->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_2_002;

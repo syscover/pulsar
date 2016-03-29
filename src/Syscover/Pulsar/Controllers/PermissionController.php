@@ -29,7 +29,7 @@ class PermissionController extends Controller
     protected $icon                 = 'icon-shield';
     protected $objectTrans          = 'permission';
     
-    public function indexCustom($parameters)
+    public function customIndex($parameters)
     {
         $parameters['profile']                = Profile::find($parameters['profile']);
         $parameters['areDeleteRecord']        = $this->areDeleteRecord;

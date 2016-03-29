@@ -26,7 +26,7 @@ class CountryController extends Controller {
     protected $reArea3      = 'admin-country-at3';
 
     
-    public function indexCustom($parameters)
+    public function customIndex($parameters)
     {
         $parameters['urlParameters']['lang']    = session('baseLang')->id_001;
 
