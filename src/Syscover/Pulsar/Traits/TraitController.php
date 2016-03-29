@@ -311,6 +311,7 @@ trait TraitController {
 
         $parameters = $this->createCustomRecord($parameters);
 
+        $parameters['viewParameters'] = $this->viewParameters;
         $parameters['package']        = $this->package;
         $parameters['folder']         = $this->folder;
         $parameters['routeSuffix']    = $this->routeSuffix;
@@ -487,6 +488,7 @@ trait TraitController {
         // set path variable, after creating urlParameters to don't send value to URLs creates
         $parameters['path'] = $this->request->path();
 
+        $parameters['viewParameters'] = $this->viewParameters;
         $parameters['action']         = 'update';
         $parameters['package']        = $this->package;
         $parameters['folder']         = $this->folder;
