@@ -3,7 +3,7 @@
 @section('head')
     @parent
     <!-- pulsar::users.index -->
-    <script type="text/javascript">
+    <script>
         $(document).ready(function() {
             if ($.fn.dataTable)
             {

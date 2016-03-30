@@ -1,9 +1,7 @@
 <!-- pulsar::includes.js.delete_file -->
 <script>
-
     $(document).ready(function() {
         $('.link-delete-file').on('click', function(){
-
             $.deleteFile(this)
         })
     })

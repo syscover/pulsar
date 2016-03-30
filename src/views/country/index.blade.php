@@ -3,7 +3,7 @@
 @section('head')
     @parent
     <!-- pulsar::countries.index -->
-    <script type="text/javascript">
+    <script>
         $(document).ready(function() {
             if ($.fn.dataTable)
             {
@@ -21,7 +21,7 @@
             }
         });
     </script>
-    <!-- /pulsar::countries.index -->
+    <!-- ./pulsar::countries.index -->
 @stop
 
 @section('tHead')
@@ -36,5 +36,5 @@
     <th data-hide="phone">{{ trans_choice('pulsar::pulsar.territorial_area', 1) }} 3</th>
     <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
     <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>
-    <!-- /pulsar::countries.index -->
+    <!-- ./pulsar::countries.index -->
 @stop

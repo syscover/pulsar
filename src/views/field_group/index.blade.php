@@ -2,8 +2,8 @@
 
 @section('head')
     @parent
-    <!-- cms::field_group.index -->
-    <script type="text/javascript">
+    <!-- pulsar::field_group.index -->
+    <script>
         $(document).ready(function() {
             if ($.fn.dataTable)
             {
@@ -21,11 +21,11 @@
             }
         });
     </script>
-    <!-- cms::field_group.index -->
+    <!-- ./pulsar::field_group.index -->
 @stop
 
 @section('tHead')
-    <!-- cms::field_group.index -->
+    <!-- pulsar::field_group.index -->
     <tr>
         <th data-hide="phone,tablet">ID.</th>
         <th data-hide="phone">{{ trans_choice('pulsar::pulsar.resource', 1) }}</th>
@@ -33,5 +33,5 @@
         <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
         <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>
     </tr>
-    <!-- /cms::field_group.index -->
+    <!-- ./pulsar::field_group.index -->
 @stop

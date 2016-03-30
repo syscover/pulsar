@@ -2,8 +2,8 @@
 
 @section('head')
     @parent
-    <!-- cms::library.index -->
-    <script type="text/javascript">
+    <!-- pulsar::attachment_library.index -->
+    <script>
         $(document).ready(function() {
             if ($.fn.dataTable)
             {
@@ -21,11 +21,11 @@
             }
         });
     </script>
-    <!-- cms::evironments.index -->
+    <!-- ./pulsar::attachment_library.index -->
 @stop
 
 @section('tHead')
-    <!-- cms::library.index -->
+    <!-- pulsar::attachment_library.index -->
     <tr>
         <th data-hide="phone,tablet">ID.</th>
         <th data-hide="phone,tablet">{{ trans_choice('pulsar::pulsar.file', 1) }}</th>
@@ -36,5 +36,5 @@
         <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
         <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>
     </tr>
-    <!-- /cms::library.index -->
+    <!-- ./pulsar::attachment_library.index -->
 @stop
