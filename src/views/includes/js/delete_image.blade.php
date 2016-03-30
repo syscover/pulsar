@@ -1,9 +1,8 @@
 <!-- pulsar::includes.js.delete_image -->
-<script type="text/javascript">
+<script>
     function deleteImage(url, inputHidden, inputFile, inputImage)
     {
-        $.msgbox('{{ trans('pulsar::pulsar.message_delete_image') }}',
-            {
+        $.msgbox('{{ trans('pulsar::pulsar.message_delete_image') }}', {
                 type:'confirm',
                 buttons: [
                     {type: 'submit', value: '{{ trans('pulsar::pulsar.accept') }}'},
@@ -15,8 +14,8 @@
                 {
                     $.ajax({
                         type: "POST",
-                        data: {
-                            _token: '{{ csrf_token() }}'
+                        headers:    {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
                         },
                         url: url,
                         dataType: 'text',
@@ -53,4 +52,4 @@
         );
     }
 </script>
-<!-- pulsar::includes.js.delete_image -->
+<!-- ./pulsar::includes.js.delete_image -->

@@ -13,7 +13,7 @@
     </script>
 @stop
 
-<a class="btn btn-info marginB10" id="{{ $id }}Bt" href="#"><i class="{{ $icon }}"></i> New {{ $label }}</a>
+<a class="btn btn-info margin-b10" id="{{ $id }}Bt" href="#"><i class="{{ $icon }}"></i> New {{ $label }}</a>
 <input type="hidden" name="{{ $id }}Data" value="{{ $dataJson or '[]' }}">
 <input type="hidden" name="{{ $id }}TBody" value="{{ json_encode($tbody) }}">
 <table id="{{ $id }}" class="table table-hover table-striped">

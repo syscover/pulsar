@@ -1,7 +1,7 @@
 <!-- pulsar::includes.html.attachment -->
 @include('pulsar::includes.html.form_hidden', ['name' => 'attachments', 'value' => $attachmentsInput])
 <!--
-<div class="btn-group marginB10">
+<div class="btn-group margin-b10">
     <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-download"></i> Import from library</button>
 </div>
 -->

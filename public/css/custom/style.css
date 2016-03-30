@@ -49,17 +49,36 @@ i.color{
 .page-header-margin{
     margin-top: 20px;
 }
-.marginB10{
-    margin-bottom: 10px;
-}
-.marginR10{
+
+.margin-r10{
     margin-right: 10px;
 }
-.marginL10{
+.margin-b10{
+    margin-bottom: 10px;
+}
+.margin-b20{
+    margin-bottom: 20px;
+}
+.margin-b30{
+    margin-bottom: 30px;
+}
+.margin-b40{
+    margin-bottom: 40px;
+}
+.margin-l10{
     margin-left: 10px;
 }
-.marginT15{
-    margin-top: 15px;
+.margin-l20{
+    margin-left: 20px;
+}
+.margin-l30{
+    margin-left: 30px;
+}
+.margin-l40{
+    margin-left: 40px;
+}
+.margin-t10{
+    margin-top: 10px;
 }
 .bg-red{
     background-color: #d23459;
@@ -337,4 +356,11 @@ select{
     height: 36px;
     line-height: 36px;
     right: 20px;
+}
+
+.black-text{
+    color:black !important;
+}
+.black{
+    background-color: black !important;
 }
