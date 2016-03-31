@@ -13,10 +13,11 @@ abstract class Controller extends BaseController {
     protected $resource;
     protected $request;
     protected $viewParameters = [
-        'checkBoxColumn'        => true,
-        'showButton'            => false,
-        'editButton'            => true,
-        'deleteButton'          => true,
+        'newButton'             => true,    // button from index view to create record
+        'checkBoxColumn'        => true,    // checkbox from index view to select various records
+        'showButton'            => false,   // button from ajax response, to view record
+        'editButton'            => true,    // button from ajax response, to edit record
+        'deleteButton'          => true,    // button from ajax response, to delete record
         'deleteSelectButton'    => true     // button delete records when select checkbox on index view
     ];
 

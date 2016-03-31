@@ -423,6 +423,7 @@ trait TraitController {
         // set path variable, after creating urlParameters to don't send value to URLs creates
         $parameters['path'] = $this->request->path();
 
+        $parameters['viewParameters'] = $this->viewParameters;
         $parameters['action']         = 'show';
         $parameters['package']        = $this->package;
         $parameters['folder']         = $this->folder;
