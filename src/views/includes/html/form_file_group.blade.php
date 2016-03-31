@@ -17,7 +17,7 @@
         @if(isset($value))
         <div class="filelink">
             <a href="{{ asset($dirName . '/' . $value) }}" title="{{ $value }}" target="_blank"><i class="black-text fa-2x fa fa-arrow-circle-o-down"></i></a>
-            <a class="link-delete-file margin-l30" data-href="{{ $urlDelete }}" data-file="{{ $value }}" data-id="{{ $objectId }}" data-name="{{ $name }}"><i class="black-text fa-2x fa fa-trash"></i></a>
+            <a class="link-delete-file margin-l30" href="javascript:void(0)" data-href="{{ isset($urlDelete)? $urlDelete : null }}" data-file="{{ $value }}" data-id="{{ $objectId }}" data-name="{{ $name }}"><i class="black-text fa-2x fa fa-trash"></i></a>
             <input type="hidden" name="{{ $name }}" value="{{ $value }}">
         </div>
         @endif
