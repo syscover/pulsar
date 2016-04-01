@@ -8,6 +8,11 @@ if (! function_exists('base_lang')) {
      */
     function base_lang()
     {
-        return session('baseLang') === null? config('app.locale') : session('baseLang');
+        if(session('baseLang') === null)
+        {
+            session(['baseLang' => \Syscover\Pulsar\Models\Lang::getBaseLang()]);
+        }
+
+        return session('baseLang');
     }
 }
