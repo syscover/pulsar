@@ -64,8 +64,9 @@ return [
         'cms-article',
         'market-product',
         'hotels-hotel',
-        'spas-spa',
         'crm-customer',
+        'spas-spa',
+        'wineries-winery',
     ],
 
     //******************************************************************************************************************
@@ -104,5 +105,6 @@ return [
         'market-product',
         'hotels-hotel',
         'spas-spa',
+        'wineries-winery',
     ],
 ];
