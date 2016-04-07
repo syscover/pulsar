@@ -48,5 +48,5 @@
                 'fieldSize' => 4
             ]
     ]])
-    <!-- ./pulsar::attachment_family.form -->
+    <!-- /.pulsar::attachment_family.form -->
 @stop

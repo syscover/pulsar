@@ -61,7 +61,7 @@
         <script src="{{ asset('packages/syscover/pulsar/vendor/pnotify/pnotify.custom.min.js') }}"></script>
 
         <!-- JS personalizadas -->
-        <script type="text/javascript">
+        <script>
         $(document).ready(function() {
             "use strict";
 

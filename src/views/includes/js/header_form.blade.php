@@ -13,7 +13,7 @@
 @if(config('app.locale') != 'en')
     <script src="{{ asset('packages/syscover/pulsar/vendor/jquery.validation/localization/messages_' . config('app.locale') . '.min.js') }}"></script>
 @endif
-<!-- ./form validation -->
+<!-- /.form validation -->
 
 <script>
     $(document).ready(function() {
@@ -35,4 +35,4 @@
         }
     });
 </script>
-<!-- ./pulsar::includes.html.script_header_form -->
+<!-- /.pulsar::includes.html.script_header_form -->

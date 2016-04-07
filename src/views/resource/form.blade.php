@@ -29,5 +29,5 @@
         'rangeLength' => '2,255',
         'required' => true
     ])
-    <!-- ./pulsar::resources.create -->
+    <!-- /.pulsar::resources.create -->
 @stop

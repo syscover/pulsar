@@ -19,9 +19,9 @@
     <style type="text/css">
         {{ $css or null }}
     </style>
-    <!-- ./theme css -->
+    <!-- /.theme css -->
 
-    <script type="text/javascript">
+    <script>
         $(document).ready(function($){
 
             // create contentBuilder object

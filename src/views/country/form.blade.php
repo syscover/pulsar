@@ -72,5 +72,5 @@
         'maxLength' => '50',
         'rangeLength' => '2,50'
     ])
-    <!-- ./pulsar::country.create -->
+    <!-- /.pulsar::country.create -->
 @stop

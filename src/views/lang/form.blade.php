@@ -61,5 +61,5 @@
         'value' => 1,
         'checked' => old('active', isset($object)? $object->active_001 : true)
     ])
-    <!-- ./pulsar::lang.create -->
+    <!-- /.pulsar::lang.create -->
 @stop

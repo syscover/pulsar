@@ -19,5 +19,5 @@
             </div>
         </div>
     </div>
-    <!-- ./pulsar::layouts.record -->
+    <!-- /.pulsar::layouts.record -->
 @stop

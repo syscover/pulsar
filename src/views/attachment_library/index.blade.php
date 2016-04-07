@@ -21,7 +21,7 @@
             }
         });
     </script>
-    <!-- ./pulsar::attachment_library.index -->
+    <!-- /.pulsar::attachment_library.index -->
 @stop
 
 @section('tHead')
@@ -36,5 +36,5 @@
         <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
         <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>
     </tr>
-    <!-- ./pulsar::attachment_library.index -->
+    <!-- /.pulsar::attachment_library.index -->
 @stop

@@ -31,7 +31,7 @@
             })
         })
     </script>
-    <!-- ./pulsar::territorial_areas_3.create -->
+    <!-- /.pulsar::territorial_areas_3.create -->
 @stop
 
 @section('rows')
@@ -80,5 +80,5 @@
         'rangeLength' => '2,255',
         'required' => true
     ])
-    <!-- ./pulsar::territorial_areas_3.create -->
+    <!-- /.pulsar::territorial_areas_3.create -->
 @stop

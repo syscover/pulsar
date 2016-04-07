@@ -26,5 +26,5 @@
         'rangeLength' => '2,255',
         'required' => true
     ])
-    <!-- ./pulsar::territorial_areas_1.create -->
+    <!-- /.pulsar::territorial_areas_1.create -->
 @stop

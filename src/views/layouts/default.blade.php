@@ -71,7 +71,7 @@
         <script src="{{ asset('packages/syscover/pulsar/vendor/pnotify/pnotify.custom.min.js') }}"></script>
         <script src="{{ asset('packages/syscover/pulsar/js/custom/app.js') }}"></script>
 
-        <script type="text/javascript">
+        <script>
             $(document).ready(function()
             {
                 $.cssLoader({

@@ -21,5 +21,5 @@
     @include('pulsar::includes.html.form_text_group', ['label' => trans('pulsar::pulsar.sorting'), 'name' => 'sorting', 'type' => 'number', 'value' => old('sorting', isset($object->sorting_027)? $object->sorting_027 : null), 'maxLength' => '3', 'rangeLength' => '1,3', 'min' => '0', 'fieldSize' => 2, 'readOnly' => isset($object->id_027)])
     @include('pulsar::includes.html.form_checkbox_group', ['label' => trans('pulsar::pulsar.featured'), 'name' => 'featured', 'value' => 1, 'checked' => old('featured',  isset($object)? $object->featured_027 : null), 'disabled' => isset($object->id_026)])
     @include('pulsar::includes.html.form_hidden', ['name' => 'field', 'value' => $field->id_026])
-    <!-- ./pulsar::field_value.create -->
+    <!-- /.pulsar::field_value.create -->
 @stop

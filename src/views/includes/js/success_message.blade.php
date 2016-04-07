@@ -11,5 +11,5 @@
             });
         });
     </script>
-    <!-- ./pulsar::includes.js.success_message -->
+    <!-- /.pulsar::includes.js.success_message -->
 @endif

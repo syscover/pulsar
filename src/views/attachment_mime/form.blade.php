@@ -33,5 +33,5 @@
         'rangeLength' => '2,255',
         'required' => true
     ])
-    <!-- ./pulsar::attachment_mime.form -->
+    <!-- /.pulsar::attachment_mime.form -->
 @stop

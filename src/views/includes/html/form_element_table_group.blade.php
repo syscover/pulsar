@@ -1,6 +1,6 @@
 @section('head')
     @parent
-    <script type="text/javascript">
+    <script>
         $(document).ready(function() {
             $.elementTable({
                 id: '{{ $id }}',
