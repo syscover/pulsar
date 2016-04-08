@@ -453,7 +453,7 @@
     };
 </script>
 
-<script type="text/javascript" src="{{ asset('packages/syscover/pulsar/vendor/jquery.loadTemplate/jquery.loadTemplate-1.5.0.min.js') }}"></script>
+<script src="{{ asset('packages/syscover/pulsar/vendor/jquery.loadTemplate/jquery.loadTemplate-1.5.0.min.js') }}"></script>
 <script type="text/html" id="file">
     <li data-id="id">
         @include('pulsar::includes.html.form_hidden', ['name' => 'tmpFileName', 'data' => ['value' => 'tmpFileName']])

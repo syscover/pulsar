@@ -3,7 +3,7 @@
 @section('head')
     @parent
     <!-- pulsar::email_account.eidt -->
-    <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/plugins/bootstrap-inputmask/jquery.inputmask.min.js') }}"></script>
+    <script src="{{ asset('packages/syscover/pulsar/plugins/bootstrap-inputmask/jquery.inputmask.min.js') }}"></script>
     <!-- pulsar::email_account.create -->
 @stop
 

@@ -2,7 +2,7 @@
 
 @section('head')
     <!-- App -->
-    <script type="text/javascript" src="{{ asset('packages/syscover/pulsar/js/login.js') }}"></script>
+    <script src="{{ asset('packages/syscover/pulsar/js/login.js') }}"></script>
     <script>
         $(document).ready(function() {
             @if(isset($errors) && $errors->has('loginErrors') && $errors->first('loginErrors') == 1)
