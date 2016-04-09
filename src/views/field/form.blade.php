@@ -1,5 +1,10 @@
 @extends('pulsar::layouts.form')
 
+@section('head')
+    @parent
+    @include('pulsar::includes.js.delete_translation_record')
+@stop
+
 @section('rows')
     <!-- pulsar::field.form -->
     @include('pulsar::includes.html.form_text_group', [
@@ -24,7 +29,7 @@
             'language' => config('app.locale'),
             'width' => '100%',
             'error-placement' => 'select2-group-outer-container',
-            'disabled' => isset($object->id_025)? true : null
+            'disabled' => $action == 'update' || $action == 'store'? false : true
         ]
     ])
     @include('pulsar::includes.html.form_image_group', [
@@ -49,7 +54,7 @@
         'maxLength' => '100',
         'rangeLength' => '2,100',
         'required' => true,
-        'readOnly' => isset($object->id_026)
+        'readOnly' => $action == 'update' || $action == 'store'? false : true
     ])
     @include('pulsar::includes.html.form_select_group', [
         'label' => trans_choice('pulsar::pulsar.field_type', 1),
@@ -60,7 +65,7 @@
         'idSelect' => 'id',
         'nameSelect' => 'name',
         'fieldSize' => 5,
-        'disabled' => isset($object->id_026)
+        'disabled' => $action == 'update' || $action == 'store'? false : true
     ])
     @include('pulsar::includes.html.form_select_group', [
         'label' => trans_choice('pulsar::pulsar.data_type', 1),
@@ -71,14 +76,14 @@
         'idSelect' => 'id',
         'nameSelect' => 'name',
         'fieldSize' => 5,
-        'disabled' => isset($object->id_026)
+        'disabled' => $action == 'update' || $action == 'store'? false : true
     ])
     @include('pulsar::includes.html.form_checkbox_group', [
         'label' => trans('pulsar::pulsar.required'),
         'name' => 'required',
         'value' => 1,
         'checked' => old('required',  isset($object)? $object->required_026 : null),
-        'disabled' => isset($object->id_026)
+        'disabled' => $action == 'update' || $action == 'store'? false : true
     ])
     @include('pulsar::includes.html.form_text_group', [
         'label' => trans('pulsar::pulsar.sorting'),
@@ -89,7 +94,7 @@
         'rangeLength' => '1,3',
         'min' => '0',
         'fieldSize' => 2,
-        'readOnly' => isset($object->id_026)
+        'readOnly' => $action == 'update' || $action == 'store'? false : true
     ])
     @include('pulsar::includes.html.form_text_group', [
         'label' => trans('pulsar::pulsar.maximum_length'),
@@ -100,7 +105,7 @@
         'rangeLength' => '1,3',
         'min' => '0',
         'fieldSize' => 2,
-        'readOnly' => isset($object->id_026)
+        'readOnly' => $action == 'update' || $action == 'store'? false : true
     ])
     @include('pulsar::includes.html.form_text_group', [
         'label' => trans('pulsar::pulsar.pattern'),
@@ -109,7 +114,7 @@
         'maxLength' => '50',
         'rangeLength' => '2,50',
         'fieldSize' => 5,
-        'readOnly' => isset($object->id_026)
+        'readOnly' => $action == 'update' || $action == 'store'? false : true
     ])
     @include('pulsar::includes.html.form_text_group', [
         'label' => trans('pulsar::pulsar.label_size'),
@@ -119,7 +124,7 @@
         'maxLength' => '1',
         'min' => '0',
         'fieldSize' => 2,
-        'readOnly' => isset($object->id_026),
+        'readOnly' => $action == 'update' || $action == 'store'? false : true,
         'inputs' =>[
             [
                 'label' => trans('pulsar::pulsar.field_size'),
@@ -127,7 +132,9 @@
                 'type' => 'number',
                 'value' => old('fieldSize', isset($object->field_size_026)? $object->field_size_026 : null),
                 'maxLength' => '1',
-                'min' => '0', 'fieldSize' => 2, 'readOnly' => isset($object->id_026)]
+                'min' => '0', 'fieldSize' => 2,
+                'readOnly' => $action == 'update' || $action == 'store'? false : true
+            ]
     ]])
-    <!-- /pulsar::field.form -->
+    <!-- /.pulsar::field.form -->
 @stop
