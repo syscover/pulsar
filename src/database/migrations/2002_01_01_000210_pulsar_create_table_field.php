@@ -24,19 +24,25 @@ class PulsarCreateTableField extends Migration {
 
                 $table->tinyInteger('field_type_026')->unsigned(); // see config/pulsar.php
                 $table->string('field_type_text_026');
-                // 1 - text
-                // 2 - select
-                // 3 - select multiple
-                // 4 - number
-                // 5 - email
-                // 6 - check
+                // 1 - Text
+                // 2 - Select
+                // 3 - Select multiple
+                // 4 - Number
+                // 5 - Email
+                // 6 - Checkboc
+                // 7 - Select 2
+                // 8 - Select 2 multiple
+                // 9 - Text area
+                // 10 - Wysiwyg
 
                 $table->tinyInteger('data_type_026')->unsigned();
                 $table->string('data_type_text_026');
-                // 1 - integer
-                // 2 - text
-                // 3 - decimal
-                // 4 - timestamp
+                // 1 - String
+                // 2 - Boolean
+                // 3 - Integer
+                // 4 - Float
+                // 5 - Array
+                // 6 - Object
 
                 $table->boolean('required_026');
                 $table->smallInteger('sorting_026')->unsigned()->nullable();

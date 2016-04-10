@@ -36,7 +36,7 @@ class CustomFieldResultLibrary
                         'lang_028'              => $lang,
                         'resource_028'          => $resource,
                         'field_028'             => $customField->id_026,
-                        'type_028'              => $dataTypes[$customField->data_type_026]->type,
+                        'data_type_028'         => $dataTypes[$customField->data_type_026]->type,
                         'value_028'             => $value
                     ];
 
@@ -50,7 +50,7 @@ class CustomFieldResultLibrary
                     'lang_028'              => $lang,
                     'resource_028'          => $resource,
                     'field_028'             => $customField->id_026,
-                    'type_028'              => $dataTypes[$customField->data_type_026]->type,
+                    'data_type_028'         => $dataTypes[$customField->data_type_026]->type,
                 ];
 
                 // if we return an array and the data to be saved is an array, the array will keep like string expression.
@@ -140,7 +140,7 @@ class CustomFieldResultLibrary
                 // check if is select2 plugin
                 $isSelect2 = collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->key == 'selectMultiple2';
 
-                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view, ['label' => $customField['label_026'],'name' => $customField['name_026'] . '_custom[]', 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'objects' => $customFieldValues, 'idSelect' => 'id_027', 'nameSelect' => 'value_027', 'required' => $customField->required_026, 'class' => $isSelect2? 'select2' : null, 'id' => $customField['name_026'] . '_custom', 'multiple' => true, 'data' => $isSelect2? ['language' => config('app.locale'), 'width' => '100%', 'error-placement' => 'select2-' . $customField['name_026'] . '_custom' . '-outer-container'] : null, 'value' => $setValue? $multipleSelectValue : null])->render();
+                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view, ['label' => $customField['label_026'],'name' => $customField['name_026'] . '_custom[]', 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'objects' => $customFieldValues, 'idSelect' => 'id_027', 'nameSelect' => 'name_027', 'required' => $customField->required_026, 'class' => $isSelect2? 'select2' : null, 'id' => $customField['name_026'] . '_custom', 'multiple' => true, 'data' => $isSelect2? ['language' => config('app.locale'), 'width' => '100%', 'error-placement' => 'select2-' . $customField['name_026'] . '_custom' . '-outer-container'] : null, 'value' => $setValue? $multipleSelectValue : null])->render();
             }
             elseif(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->key == 'select' || collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->key == 'select2')
             {
@@ -149,7 +149,7 @@ class CustomFieldResultLibrary
                 // check if is select2 plugin
                 $isSelect2 = collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->key == 'select2';
 
-                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view, ['label' => $customField['label_026'], 'name' => $customField['name_026'] . '_custom', 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'objects' => $customFieldValues, 'idSelect' => 'id_027', 'nameSelect' => 'value_027', 'required' => $customField->required_026, 'class' => $isSelect2? 'select2' : null, 'id' => $customField['name_026'] . '_custom', 'data' => $isSelect2? ['language' => config('app.locale'), 'width' => '100%', 'error-placement' => 'select2-' . $customField['name_026'] . '_custom' . '-outer-container'] : null, 'value' => $setValue? $customFieldResults->where('field_028', $customField->id_026)->first()->value_028 : null])->render();
+                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->view, ['label' => $customField['label_026'], 'name' => $customField['name_026'] . '_custom', 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'objects' => $customFieldValues, 'idSelect' => 'id_027', 'nameSelect' => 'name_027', 'required' => $customField->required_026, 'class' => $isSelect2? 'select2' : null, 'id' => $customField['name_026'] . '_custom', 'data' => $isSelect2? ['language' => config('app.locale'), 'width' => '100%', 'error-placement' => 'select2-' . $customField['name_026'] . '_custom' . '-outer-container'] : null, 'value' => $setValue? $customFieldResults->where('field_028', $customField->id_026)->first()->value_028 : null])->render();
             }
             elseif(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->key == 'checkbox')
             {

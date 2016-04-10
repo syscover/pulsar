@@ -9,7 +9,7 @@ use Sofa\Eloquence\Mappable;
  * Class CustomFieldResult
  *
  * Model with properties
- * <br><b>[object, lang, resource, field, type, value]</b>
+ * <br><b>[object, lang, resource, field, data_type, value]</b>
  *
  * @package     Syscover\Pulsar\Models
  */
@@ -23,7 +23,7 @@ class CustomFieldResult extends Model
     protected $primaryKey   = 'object_028';
     protected $suffix       = '028';
     public $timestamps      = false;
-    protected $fillable     = ['object_028', 'lang_028', 'resource_028', 'field_028', 'type_028', 'value_028'];
+    protected $fillable     = ['object_028', 'lang_028', 'resource_028', 'field_028', 'data_type_028', 'value_028'];
     protected $maps         = [];
     protected $relationMaps = [
         'lang'          => \Syscover\Pulsar\Models\Lang::class,
@@ -31,32 +31,6 @@ class CustomFieldResult extends Model
         'value'         => \Syscover\Pulsar\Models\CustomFieldValue::class,
     ];
     private static $rules   = [];
-
-    /**
-     * @param $value
-     * @return string
-     */
-    public function getValue028Attribute($value)
-    {
-        if($this->type_028 == 'array')
-            $value = explode(',', $value);
-        else
-            settype($value, $this->type_028);
-
-        return $value;
-    }
-
-    /**
-     * @param   $value
-     * @return  void
-     */
-//    public function setValue028Attribute($value)
-//    {
-//        if($this->type_028 == 'array')
-//            $this->attributes['value_028'] = implode(',', $value);
-//        else
-//            $this->attributes['value_028'] = $value;
-//    }
 
     public static function validate($data, $specialRules = [])
     {
@@ -97,4 +71,30 @@ class CustomFieldResult extends Model
 
         return $query->get();
     }
+
+    /**
+     * @param $value
+     * @return string
+     */
+    public function getValue028Attribute($value)
+    {
+        if($this->data_type_028 == 'array')
+            $value = explode(',', $value);
+        else
+            settype($value, $this->data_type_028);
+
+        return $value;
+    }
+
+    /**
+     * @param   $value
+     * @return  void
+     */
+//    public function setValue028Attribute($value)
+//    {
+//        if($this->data_type_028 == 'array')
+//            $this->attributes['value_028'] = implode(',', $value);
+//        else
+//            $this->attributes['value_028'] = $value;
+//    }
 }

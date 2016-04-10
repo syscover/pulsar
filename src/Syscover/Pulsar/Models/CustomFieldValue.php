@@ -9,7 +9,7 @@ use Sofa\Eloquence\Mappable;
  * Class CustomFieldValue
  *
  * Model with properties
- * <br><b>[id, lang, field, sorting, featured, value, data_lang, data]</b>
+ * <br><b>[id, lang, field, counter, sorting, featured, name, data_lang, data]</b>
  *
  * @package     Syscover\Pulsar\Models
  */
@@ -21,9 +21,10 @@ class CustomFieldValue extends Model
 
 	protected $table        = '001_027_field_value';
     protected $primaryKey   = 'id_027';
+    public $incrementing    = false;
     protected $suffix       = '027';
     public $timestamps      = false;
-    protected $fillable     = ['id_027', 'lang_027', 'field_027', 'sorting_027', 'featured_027', 'value_027', 'data_lang_027', 'data_027'];
+    protected $fillable     = ['id_027', 'lang_027', 'field_027', 'counter_027', 'sorting_027', 'featured_027', 'name_027', 'data_lang_027', 'data_027'];
     protected $maps         = [];
     protected $relationMaps = [
         'lang'      => \Syscover\Pulsar\Models\Lang::class,
@@ -31,7 +32,7 @@ class CustomFieldValue extends Model
         'group'     => \Syscover\Pulsar\Models\CustomFieldGroup::class,
     ];
     private static $rules   = [
-        'value' => 'required'
+        'name' => 'required'
     ];
 
     public static function validate($data, $specialRules = [])
@@ -49,6 +50,22 @@ class CustomFieldValue extends Model
     public function getLang()
     {
         return $this->belongsTo('Syscover\Pulsar\Models\Lang', 'lang_027');
+    }
+
+    public static function getTranslationRecord($parameters)
+    {
+        $cartPriceRule = CustomFieldValue::builder()
+            ->where('id_027', $parameters['id'])
+            ->where('lang_027', $parameters['lang'])
+            ->where('field_027', $parameters['field'])
+            ->first();
+
+        return $cartPriceRule;
+    }
+
+    public static function customCount($request, $parameters)
+    {
+        return CustomFieldResult::builder()->where('lang_027', $parameters['lang'])->where('field_027', $parameters['field'])->getQuery();
     }
 
     public function addToGetIndexRecords($request, $parameters)

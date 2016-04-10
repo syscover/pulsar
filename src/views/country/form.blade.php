@@ -2,9 +2,7 @@
 
 @section('head')
     @parent
-    @if($action == 'update')
-        @include('pulsar::includes.js.delete_translation_record')
-    @endif
+    @include('pulsar::includes.js.delete_translation_record')
 @stop
 
 @section('rows')

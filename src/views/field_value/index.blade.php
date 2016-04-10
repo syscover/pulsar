@@ -30,7 +30,7 @@
         <th data-hide="phone,tablet">ID.</th>
         <th>{{ trans_choice('pulsar::pulsar.field', 1) }}</th>
         <th>{{ trans_choice('pulsar::pulsar.language', 1) }}</th>
-        <th data-class="expand">{{ trans_choice('pulsar::pulsar.value', 1) }}</th>
+        <th data-class="expand">{{ trans_choice('pulsar::pulsar.name', 1) }}</th>
         <th>{{ trans('pulsar::pulsar.featured') }}</th>
         <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
         <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>

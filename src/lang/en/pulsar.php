@@ -51,6 +51,7 @@ return [
     'address'                               => 'Address|Addresses',
     'administration'                        => 'Administration',
     'amount'                                => 'Amount|Amounts',
+    'assign_id'                             => 'Assign ID',
     'attachment_mime'                       => 'Mime de adjunto|mimes de adjunto',
     'cancel'                                => 'Cancel',
     'change_password_successful'            => 'Great, We\'ve sent an email',

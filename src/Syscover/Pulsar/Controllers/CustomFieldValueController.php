@@ -17,8 +17,8 @@ class CustomFieldValueController extends Controller {
     protected $routeSuffix  = 'customFieldValue';
     protected $folder       = 'field_value';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_027', 'name_026', 'name_001', 'value_027', ['data' => 'featured_027', 'type' => 'active']];
-    protected $nameM        = 'value_027';
+    protected $aColumns     = ['id_027', 'name_026', 'name_001', 'name_027', ['data' => 'featured_027', 'type' => 'active']];
+    protected $nameM        = 'name_027';
     protected $model        = CustomFieldValue::class;
     protected $icon         = 'fa fa-bars';
     protected $objectTrans  = 'value';
@@ -49,25 +49,30 @@ class CustomFieldValueController extends Controller {
 
     public function storeCustomRecord($parameters)
     {
-        // check if there is id
         if($this->request->has('id'))
         {
-            $id = $this->request->input('id');
-            $idLang = $id;
+            $id         = $this->request->input('id');
+            $counter    = null;
         }
         else
         {
-            $id = CustomFieldValue::max('id_027');
-            $id++;
-            $idLang = null;
+            $counter    = CustomFieldValue::where('field_027', $this->request->input('field'))->max('counter_027');
+            $counter++;
+            $id         = $counter;
         }
+
+        if($this->request->input('action') === 'store')
+            $idLang     = null;
+        else
+            $idLang     = $id;
 
         // create new object
         CustomFieldValue::create([
             'id_027'            => $id,
             'lang_027'          => $this->request->input('lang'),
             'field_027'         => $this->request->input('field'),
-            'value_027'         => $this->request->input('value'),
+            'counter_027'       => $counter,
+            'name_027'          => $this->request->input('name'),
             'sorting_027'       => empty($this->request->input('sorting'))? null : $this->request->input('sorting'),
             'featured_027'      => $this->request->has('featured'),
             'data_lang_027'     => CustomFieldValue::addLangDataRecord($this->request->input('lang'), $idLang),
@@ -85,9 +90,22 @@ class CustomFieldValueController extends Controller {
 
     public function updateCustomRecord($parameters)
     {
-        CustomFieldValue::where('id_027', $parameters['id'])->where('lang_027', $this->request->input('lang'))->update([
-            'field_027'         => $this->request->input('field'),
-            'value_027'         => $this->request->input('value'),
+        if($this->request->has('id'))
+        {
+            $id         = $this->request->input('id');
+            $counter    = null;
+        }
+        else
+        {
+            $counter    = CustomFieldValue::where('field_027', $this->request->input('field'))->max('counter_027');
+            $counter++;
+            $id         = $counter;
+        }
+
+        CustomFieldValue::where('id_027', $parameters['id'])->where('lang_027', $this->request->input('lang'))->where('field_027', $this->request->input('field'))->update([
+            'id_027'            => $id,
+            'counter_027'       => $counter,
+            'name_027'          => $this->request->input('name'),
             'sorting_027'       => empty($this->request->input('sorting'))? null : $this->request->input('sorting'),
             'featured_027'      => $this->request->has('featured'),
         ]);
