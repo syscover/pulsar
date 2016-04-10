@@ -24,6 +24,12 @@ class PulsarServiceProvider extends ServiceProvider
 		// register translations
 		$this->loadTranslationsFrom(__DIR__ . '/../../lang', 'pulsar');
 
+		// register translations files
+		$this->publishes([
+			__DIR__ . '/../../lang/en/validation.php'			=> resource_path('/lang/en/validation.php'),
+			__DIR__ . '/../../lang/es/validation.php'			=> resource_path('/lang/es/validation.php')
+		]);
+
 		// register public files
 		$this->publishes([
 			__DIR__ . '/../../../public'						=> public_path('/packages/syscover/pulsar')
@@ -56,6 +62,23 @@ class PulsarServiceProvider extends ServiceProvider
 		$this->publishes([
 			__DIR__ . '/../../tests/' 							=> base_path('/tests')
 		], 'tests');
+
+		// custom validator rules
+		Validator::extend('digit', function($attribute, $value, $parameters, $validator) {
+			return (strlen($value) == $parameters[0])? true : false;
+		});
+
+		Validator::extend('cronExpression', function($attribute, $value, $parameters, $validator) {
+			try
+			{
+				\Cron\CronExpression::factory($value);
+				return true;
+			}
+			catch (\InvalidArgumentException $e)
+			{
+				return false;
+			}
+		});
 	}
 
 	/**

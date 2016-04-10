@@ -14,12 +14,12 @@ use Illuminate\Validation\Validator;
 
 class CustomValidator extends Validator
 {
-    public function validateDigit($attribute, $value, $parameters)
+    public function validateDigit($attribute, $value, $parameters, $validator)
     {
         return (strlen($value) == $parameters[0])? true : false;
     }
 
-    public function validateCronExpression($attribute, $value, $parameters)
+    public function validateCronExpression($attribute, $value, $parameters, $validator)
     {
         try
         {

@@ -73,7 +73,7 @@ return [
 	"unique"               => "The :attribute has already been taken.",
 	"url"                  => "The :attribute format is invalid.",
 	"timezone"             => "The :attribute must be a valid zone.",
-    "cron_expression"      => "Cron expression validaton isn't correct",
+    "cron_expression"      => "Cron expression validation is not correct",
 
 	/*
 	|--------------------------------------------------------------------------

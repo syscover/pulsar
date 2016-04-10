@@ -2,7 +2,7 @@
 
 @section('head')
     @parent
-    <!-- pulsar::cron_jobs.index -->
+    <!-- pulsar::cron_job.index -->
     <script>
         $(document).ready(function() {
             if ($.fn.dataTable)
@@ -21,11 +21,11 @@
             }
         });
     </script>
-    <!-- /.pulsar::cron_jobs.index -->
+    <!-- /.pulsar::cron_job.index -->
 @stop
 
 @section('tHead')
-    <!-- pulsar::cron_jobs.index -->
+    <!-- pulsar::cron_job.index -->
     <th data-hide="phone,tablet">ID.</th>
     <th data-class="expand">{{ trans('pulsar::pulsar.name') }}</th>
     <th data-hide="phone,tablet">{{ trans_choice('pulsar::pulsar.package', 1) }}</th>
@@ -36,5 +36,5 @@
     <th data-hide="phone,tablet">{{ trans('pulsar::pulsar.next_run') }}</th>
     <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
     <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>
-    <!-- /.pulsar::cron_jobs.index -->
+    <!-- /.pulsar::cron_job.index -->
 @stop
