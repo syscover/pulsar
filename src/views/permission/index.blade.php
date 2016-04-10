@@ -12,7 +12,7 @@
     <script src="{{ asset('packages/syscover/pulsar/vendor/jquery.select2.custom/js/select2.min.js') }}"></script>
     <script src="{{ asset('packages/syscover/pulsar/vendor/jquery.select2/js/i18n/' . config('app.locale') . '.js') }}"></script>
 
-    <!-- pulsar::permissions.index -->
+    <!-- pulsar::permission.index -->
     <script>
         $(document).ready(function() {
             if ($.fn.dataTable)
@@ -141,11 +141,11 @@
             }
         });
     </script>
-    <!-- /.pulsar::permissions.index -->
+    <!-- /.pulsar::permission.index -->
 @stop
 
 @section('mainContent')
-    <!-- pulsar::permissions.index -->
+    <!-- pulsar::permission.index -->
     <div class="row">
         <div class="col-md-12">
             <div class="widget box">
@@ -174,5 +174,5 @@
             </div>
         </div>
     </div>
-    <!-- /.pulsar::permissions.index -->
+    <!-- /.pulsar::permission.index -->
 @stop

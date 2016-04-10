@@ -1,4 +1,4 @@
-<!-- pulsar::permissions.breadcrumbs -->
+<!-- pulsar::permission.breadcrumbs -->
 <li>
     <a href="javascript:void(0)">{{ trans('pulsar::pulsar.administration') }}</a>
 </li>
@@ -8,4 +8,4 @@
 <li class="current">
     <a href="{{ route($routeSuffix, [$offset, $profile, $offsetProfile]) }}">{{ trans_choice($objectTrans, 2) }}</a>
 </li>
-<!-- /pulsar::permissions.breadcrumbs -->
+<!-- /.pulsar::permission.breadcrumbs -->
