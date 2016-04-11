@@ -4,7 +4,7 @@
     @parent
     <!-- pulsar::email_account.form -->
     <script src="{{ asset('packages/syscover/pulsar/plugins/bootstrap-inputmask/jquery.inputmask.min.js') }}"></script>
-    <!-- /pulsar::email_account.form -->
+    <!-- /.pulsar::email_account.form -->
 @stop
 
 @section('rows')
@@ -140,5 +140,5 @@
             'mask' => '9?99'
         ]
     ])
-    <!-- /pulsar::email_account.form -->
+    <!-- /.pulsar::email_account.form -->
 @stop

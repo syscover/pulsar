@@ -1,5 +1,6 @@
 <?php namespace Syscover\Pulsar;
 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
 class PulsarServiceProvider extends ServiceProvider
@@ -67,7 +68,7 @@ class PulsarServiceProvider extends ServiceProvider
 		Validator::extend('digit', function($attribute, $value, $parameters, $validator) {
 			return (strlen($value) == $parameters[0])? true : false;
 		});
-
+		
 		Validator::extend('cronExpression', function($attribute, $value, $parameters, $validator) {
 			try
 			{

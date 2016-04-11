@@ -21,7 +21,7 @@
         'fieldSize' => 5,
         'label' => trans_choice('pulsar::pulsar.package', 1),
         'name' => 'package',
-        'value' => old('package', isset($object->package_011)? $object->package_011 : null),
+        'value' => (int) old('package', isset($object->package_011)? $object->package_011 : null),
         'required' => true,
         'objects' => $packages,
         'idSelect' => 'id_012',
@@ -30,7 +30,7 @@
     @include('pulsar::includes.html.form_text_group', [
         'label' => trans('pulsar::pulsar.cron_expression'),
         'name' => 'cronExpression',
-        'value' => old('cronExpresion', isset($object->cron_expression_011)? $object->cron_expression_011 : null),
+        'value' => old('cronExpression', isset($object->cron_expression_011)? $object->cron_expression_011 : null),
         'maxLength' => '255',
         'rangeLength' => '9,255',
         'required' => true
