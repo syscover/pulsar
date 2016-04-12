@@ -1,13 +1,4 @@
 <?php namespace Syscover\Pulsar\Libraries;
-/**
- * @package		Pulsar
- * @author		Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL.
- * @license
- * @link		http://www.syscover.com
- * @since		Version 1.0
- * @filesource  Librarie to manage image
- */
 
 class ImageManagerLibrary
 {

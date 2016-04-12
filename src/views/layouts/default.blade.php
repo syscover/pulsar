@@ -134,13 +134,13 @@
                                 <i class="fa fa-dashboard"></i> {{ trans('pulsar::pulsar.dashboard') }}
                             </a>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> Settings <i class="fa fa-caret-down small"></i></a>
-                            <ul class="dropdown-menu">
-                                <!-- <li><a href="#"><i class="icomoon-icon-google"></i>Google Services</a></li> -->
-                                <!-- <li class="divider"></li> -->
-                            </ul>
-                        </li>
+                        {{--<li class="dropdown">--}}
+                            {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> Settings <i class="fa fa-caret-down small"></i></a>--}}
+                            {{--<ul class="dropdown-menu">--}}
+                                {{--<li><a href="#"><i class="icomoon-icon-google"></i>Google Services</a></li>--}}
+                                {{--<li class="divider"></li>--}}
+                            {{--</ul>--}}
+                        {{--</li>--}}
                     </ul>
                     <!-- /Top Left Menu -->
 

@@ -35,7 +35,8 @@ class PulsarCreateTableEmailAccount extends Migration
                 $table->smallInteger('incoming_port_013');
 
                 $table->integer('n_emails_013')->unsigned();
-                $table->integer('last_check_uid_013')->unsigned();      // field that records the last uid checked to see if there are more messages bounced check
+                // field that records the last uid checked to see if there are more messages bounced check
+                $table->integer('last_check_uid_013')->unsigned();
             });
         }
     }

@@ -1,15 +1,5 @@
 <?php namespace Syscover\Pulsar\Libraries;
 
-/**
- * @package		Pulsar
- * @author		Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2014, SYSCOVER, SL.
- * @license		
- * @link		http://www.syscover.com
- * @since		Version 1.0
- * @filesource  Librarie that instance helper functions
- */
-
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\File;
@@ -599,9 +589,7 @@ class Miscellaneous
         preg_match_all($pattern, $text, $matches); //find matching pattern
 
         if(count($matches) > 0)
-        {
             $matches = $matches[0];
-        }
 
         return $matches;
     }

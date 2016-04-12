@@ -23,6 +23,5 @@
         "psr-4": {
             "Syscover\\Pulsar\\": "src/Syscover/Pulsar"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }

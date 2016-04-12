@@ -1,15 +1,5 @@
 <?php namespace Syscover\Pulsar\Libraries;
 
-/**
- * @package		Pulsar
- * @author		Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL.
- * @license		
- * @link		http://www.syscover.com
- * @since		Version 1.0
- * @filesource  Librarie extend from Zend Acl
- */
-
 use Syscover\Pulsar\Models\Resource;
 use Syscover\Pulsar\Models\Permission;
 use Zend\Permissions\Acl\Exception;

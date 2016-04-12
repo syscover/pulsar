@@ -1,15 +1,5 @@
 <?php namespace Syscover\Pulsar\Libraries;
 
-/**
- * @package		Pulsar
- * @author		Jose Carlos Rodríguez Palacín
- * @copyright   Copyright (c) 2015, SYSCOVER, SL.
- * @license
- * @link		http://www.syscover.com
- * @since		Version 1.0
- * @filesource  Librarie that instance helper functions to attachments
- */
-
 use Illuminate\Support\Facades\File;
 use Syscover\Pulsar\Exceptions\InvalidArgumentException;
 use Syscover\Pulsar\Models\Attachment;

@@ -108,7 +108,7 @@
         'readOnly' => $action == 'update' || $action == 'store'? false : true
     ])
     @include('pulsar::includes.html.form_text_group', [
-        'label' => trans('pulsar::pulsar.pattern'),
+        'label' => trans_choice('pulsar::pulsar.pattern', 1),
         'name' => 'pattern',
         'value' => old('pattern', isset($object->pattern_026)? $object->pattern_026 : null),
         'maxLength' => '50',
