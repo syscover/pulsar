@@ -31,7 +31,7 @@ return [
     //'06' => '\Syscover\Vinipadcuadernocata\Libraries\Cron::checkCallsToQueue',
 
     //Cron comprobación de correos rebotados y número de correos en cada cuenta
-    '07' => ' \Syscover\Comunik\Libraries\Cron::checkBouncedEmailsAccounts',
+    '07' => '\Syscover\Comunik\Libraries\Cron::checkBouncedEmailsAccounts',
 
     //Cron comprobación de correos rebotados y número de correos en cada cuenta
     '08' =>  '\Syscover\Forms\Libraries\Cron::checkMessageToSend'
