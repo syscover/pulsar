@@ -90,16 +90,22 @@ class CustomFieldResultLibrary
     }
 
     /**
-     * @param   $request
-     * @return  \Illuminate\Http\JsonResponse
+     * @param $parameters
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     * @throws \Throwable
      */
     public static function getCustomFields($parameters)
     {
         // get custom fields
-        $customFields   = CustomField::getRecords(['lang_026' => $parameters['lang'], 'group_026' => $parameters['customFieldGroup']]);
+        $customFields   = CustomField::getRecords([
+            'lang_026' => $parameters['lang'],
+            'group_026' => $parameters['customFieldGroup']
+        ]);
+
         if($parameters['object'])
         {
-            if(!empty($parameters['action']) && $parameters['action'] == 'create')
+            if(!empty($parameters['action']) && $parameters['action'] == 'storeLang')
                 // if is a new object translated
                 $langFieldResults = session('baseLang')->id_001;
             else
@@ -121,19 +127,28 @@ class CustomFieldResultLibrary
             if(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->key == 'selectMultiple' || collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_026]->key == 'selectMultiple2')
             {
                 // TODO: se pueden coger todos los valores antes del foreach para evitar multiples consultas
-                $customFieldValues      = $customField->getValues()->where('lang_027', session('baseLang')->id_001)->get();
+                $customFieldValues = $customField
+                    ->getValues()
+                    ->where('lang_027', session('baseLang')->id_001)
+                    ->get();
 
-                $multipleSelectValue    = null;
+                $multipleSelectValue = null;
 
                 if($setValue)
                 {
                     if(collect(config('pulsar.dataTypes'))->keyBy('id')[$customField->data_type_026]->type == 'array')
                     {
-                        $multipleSelectValue = $customFieldResults->where('field_028', $customField->id_026)->first()->value_028;
+                        $multipleSelectValue = $customFieldResults
+                            ->where('field_028', $customField->id_026)
+                            ->first()
+                            ->value_028;
                     }
                     else
                     {
-                        $multipleSelectValue = $customFieldResults->where('field_028', $customField->id_026)->pluck('value_028')->toArray();
+                        $multipleSelectValue = $customFieldResults
+                            ->where('field_028', $customField->id_026)
+                            ->pluck('value_028')
+                            ->toArray();
                     }
                 }
 
