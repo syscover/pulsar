@@ -54,6 +54,7 @@ return [
     'and'                                   => 'Y',
     'assign_id'                             => 'Asignar ID',
     'attachment_mime'                       => 'Attachment mime|Attachment mimes',
+    'budget'                                => 'Presupuesto|Presupuestos',
     'cancel'                                => 'Cancelar',
     'change_password_successful'            => 'Estupendo, le hemos enviado un email',
     'create'                                => 'Crear',

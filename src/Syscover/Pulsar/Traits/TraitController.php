@@ -31,6 +31,7 @@ trait TraitController {
     {
         // get parameters from url route
         $parameters = $this->request->route()->parameters();
+        $action     = $this->request->route()->getAction();
 
         // check if url contain offset parameter
         if(!isset($parameters['offset'])) $parameters['offset'] = 0;
@@ -50,6 +51,11 @@ trait TraitController {
         $parameters['resource']             = $this->resource;
         $parameters['icon']                 = $this->icon;
         $parameters['objectTrans']          = isset($this->objectTrans) &&  $this->objectTrans != null? Miscellaneous::getObjectTransValue($parameters, $this->objectTrans) : null;
+
+        // check if show create button
+        if(isset($action['resource']))
+            if(!session('userAcl')->allows($action['resource'], 'create'))
+                $parameters['viewParameters']['newButton'] = false;
 
         $parametersResponse = $this->customIndex($parameters);
 
