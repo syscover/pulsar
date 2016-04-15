@@ -87,12 +87,14 @@ return [
     'field_size'                            => 'Tamaño campo',
     'field_type'                            => 'Tipo de campo|Tipo de campos',
     'file_not_select'                       => 'Fichero no seleccionado',
+    'from'                                  => 'De',
     'gender'                                => 'Género',
     'group'                                 => 'Grupo|Grupos',
     'hour'                                  => 'Hora|Horas',
     'int_value'                             => 'Valor entero',
     'instructions'                          => 'Instrucciones',
     'ip'                                    => 'IP',
+    'key'                                   => 'Key',
     'label_size'                            => 'Tamaño etiqueta',
     'link'                                  => 'Enlace',
     'login'                                 => 'Iniciar sesión',
@@ -141,6 +143,7 @@ return [
     'pattern'                               => 'Patrón|Patrones',
     'permission'                            => 'Permiso|Permisos',
     'prefix'                                => 'Prefijo',
+    'preview'                               => 'Vista previa',
     'price'                                 => 'Precio|Precios',
     'profile'                               => 'Perfil|Perfiles',
     'related_record'                        => 'Relacionar registro',
@@ -163,6 +166,7 @@ return [
     'sorting'                               => 'Orden',
     'state'                                 => 'Estado|Estados',
     'territorial_area'                      => 'Area territorial|Areas territoriales',
+    'to'                                    => 'Para',
     'transport'                             => 'Transporte|Transportes',
     'treatment'                             => 'Tratamiento|Tramientos',
     'type_something'                        => 'Escribe algo',
@@ -178,7 +182,6 @@ return [
 
     'cronjob'                               => 'Cron Job|Cron Jobs',
     'cron_expression'                       => 'Expression Cron',
-    'key'                                   => 'Key',
     'country'                               => 'País|Paises',
     'name'                                  => 'Nombre',
     'surname'                               => 'Apellido',
@@ -277,5 +280,5 @@ return [
     'of'                                    => 'de',
     'showing'                               => 'Mostrando',
     'wildcard'                              => 'Comodín|Comodines',
-    'preview'                               => 'Vista previa'
+
 ];

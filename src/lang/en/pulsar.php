@@ -87,12 +87,14 @@ return [
     'field_size'                            => 'Field size',
     'field_type'                            => 'Field type|Field types',
     'file_not_select'                       => 'File not select',
+    'from'                                  => 'From',
     'gender'                                => 'Gender',
     'group'                                 => 'Group|Groups',
     'hour'                                  => 'Hour|Hours',
     'int_value'                             => 'Int value',
     'instructions'                          => 'Instructions',
     'ip'                                    => 'IP',
+    'key'                                   => 'Key',
     'label_size'                            => 'Label size',
     'link'                                  => 'Link',
     'login'                                 => 'Login',
@@ -141,6 +143,7 @@ return [
     'pattern'                               => 'Pattern|Patterns',
     'permission'                            => 'Permission|Permissions',
     'prefix'                                => 'Prefix',
+    'preview'                               => 'Preview',
     'price'                                 => 'Price|Prices',
     'profile'                               => 'Profile|Profiles',
     'related_record'                        => 'Related record',
@@ -163,6 +166,7 @@ return [
     'sorting'                               => 'Sorting',
     'state'                                 => 'State|States',
     'territorial_area'                      => 'Territorial area|Territorial areas',
+    'to'                                    => 'To',
     'transport'                             => 'Transport|Transports',
     'treatment'                             => 'Treatment|Treatment',
     'type_something'                        => 'Type something',
@@ -178,7 +182,6 @@ return [
 
     'cronjob'                               => 'Cron Job|Cron Jobs',
     'cron_expression'                       => 'Cron Expression',
-    'key'                                   => 'Key',
     'country'                               => 'Country|Countries',
     'name'                                  => 'Name',
     'surname'                               => 'Surname',
@@ -277,5 +280,5 @@ return [
     'of'                                    => 'of',
     'showing'                               => 'Showing',
     'wildcard'                              => 'Wildcard|Wildcards',
-    'preview'                               => 'Preview'
+
 ];
