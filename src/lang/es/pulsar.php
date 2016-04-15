@@ -53,7 +53,7 @@ return [
     'amount'                                => 'Cantidad|Cantidades',
     'and'                                   => 'Y',
     'assign_id'                             => 'Asignar ID',
-    'attachment_mime'                       => 'Attachment mime|Attachment mimes',
+    'attachment_mime'                       => 'Mime de adjunto|mimes de adjunto',
     'budget'                                => 'Presupuesto|Presupuestos',
     'cancel'                                => 'Cancelar',
     'change_password_successful'            => 'Estupendo, le hemos enviado un email',
