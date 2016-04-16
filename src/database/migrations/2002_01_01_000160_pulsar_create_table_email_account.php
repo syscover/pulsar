@@ -37,6 +37,8 @@ class PulsarCreateTableEmailAccount extends Migration
                 $table->integer('n_emails_013')->unsigned();
                 // field that records the last uid checked to see if there are more messages bounced check
                 $table->integer('last_check_uid_013')->unsigned();
+                // uid that is cheking
+                $table->integer('checking_uid_013')->unsigned()->nullable();
             });
         }
     }
