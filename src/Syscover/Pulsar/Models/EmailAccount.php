@@ -9,7 +9,7 @@ use Sofa\Eloquence\Mappable;
  * Class EmailAccount
  *
  * Model with properties
- * <br><b>[id, name, mail, reply_to, outgoing_server, outgoing_user, outgoing_pass, outgoing_port, outgoing_secure, incoming_server, incoming_user, incoming_pass, incoming_port, incoming_secure, incoming_type, n_emails, last_check_uid, checking_uid]</b>
+ * <br><b>[id, name, mail, reply_to, outgoing_server, outgoing_user, outgoing_pass, outgoing_port, outgoing_secure, incoming_server, incoming_user, incoming_pass, incoming_port, incoming_secure, incoming_type, n_emails, last_check_uid]</b>
  *
  * @package     Syscover\Pulsar\Models
  */
@@ -23,7 +23,7 @@ class EmailAccount extends Model
     protected $primaryKey   = 'id_013';
     protected $suffix       = '013';
     public $timestamps      = false;
-    protected $fillable     = ['id_013', 'name_013', 'email_013', 'reply_to_013', 'outgoing_server_013', 'outgoing_user_013', 'outgoing_pass_013', 'outgoing_port_013', 'outgoing_secure_013', 'incoming_server_013', 'incoming_user_013', 'incoming_pass_013', 'incoming_port_013', 'incoming_secure_013', 'incoming_type_013', 'n_emails_013', 'last_check_uid_013', 'checking_uid_013'];
+    protected $fillable     = ['id_013', 'name_013', 'email_013', 'reply_to_013', 'outgoing_server_013', 'outgoing_user_013', 'outgoing_pass_013', 'outgoing_port_013', 'outgoing_secure_013', 'incoming_server_013', 'incoming_user_013', 'incoming_pass_013', 'incoming_port_013', 'incoming_secure_013', 'incoming_type_013', 'n_emails_013', 'last_check_uid_013'];
     protected $maps         = [];
     protected $relationMaps = [];
     private static $rules   = [
