@@ -61,7 +61,7 @@ class UserController extends Controller {
 
         $parameters['specialRules']['emailRule']    = $this->request->input('email') == $user->email_010? true : false;
         $parameters['specialRules']['userRule']     = $this->request->input('user') == $user->user_010? true : false;
-        $parameters['specialRules']['passRule']     = $this->request->input('password') == ""? true : false;
+        $parameters['specialRules']['passRule']     = ! $this->request->has('password');
 
         return $parameters;
     }

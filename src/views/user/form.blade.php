@@ -67,8 +67,8 @@
         'label' => trans_choice('pulsar::pulsar.user', 1),
         'name' => 'user',
         'value' => old('user', isset($object)? $object->user_010 : null),
-        'maxLength' => '100',
-        'rangeLength' => '2,100',
+        'maxLength' => '255',
+        'rangeLength' => '2,255',
         'fieldSize' => 6,
         'required' => true
     ])

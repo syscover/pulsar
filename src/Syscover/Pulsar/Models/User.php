@@ -31,20 +31,20 @@ class User extends Authenticatable
         'profile'   => Profile::class,
     ];
     private static $rules    = [
-        'name'      => 'required|between:2,50',
-        'surname'   => 'required|between:2,50',
-        'email'     => 'required|between:2,50|email|unique:001_010_user,email_010',
+        'name'      => 'required|between:2,255',
+        'surname'   => 'required|between:2,255',
+        'email'     => 'required|between:2,255|email|unique:001_010_user,email_010',
         'lang'      => 'not_in:null',
         'profile'   => 'not_in:null',
-        'user'      => 'required|between:2,50|unique:001_010_user,user_010',
+        'user'      => 'required|between:2,255|unique:001_010_user,user_010',
         'password'  => 'required|between:4,50|same:repassword'
     ];
 
     public static function validate($data, $specialRules = [])
     {
-        if(isset($specialRules['emailRule']) && $specialRules['emailRule']) static::$rules['email'] = 'required|between:2,50|email';
-        if(isset($specialRules['userRule']) && $specialRules['userRule']) static::$rules['user'] = 'required|between:2,50';
-        if(isset($specialRules['passRule']) && $specialRules['passRule']) static::$rules['password'] = '';
+        if(isset($specialRules['emailRule']) && $specialRules['emailRule']) static::$rules['email'] = 'required|between:2,255|email';
+        if(isset($specialRules['userRule']) && $specialRules['userRule'])   static::$rules['user'] = 'required|between:2,255';
+        if(isset($specialRules['passRule']) && $specialRules['passRule'])   static::$rules['password'] = '';
 
         return Validator::make($data, static::$rules);
     }
