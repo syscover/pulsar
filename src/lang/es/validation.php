@@ -70,7 +70,7 @@ return [
         "string"  => "El campo :attribute debe tener :size caracteres.",
         "array"   => "El campo :attribute debe contener :size elementos.",
     ],
-    "unique"                => "El campo :attribute ya ha sido tomado.",
+    "unique"                => "El campo :attribute ya está en uso.",
     "url"                   => "El formato de :attribute es inválido.",
     "timezone"              => "El campo :attribute debe ser una zona válida.",
     "cron_expression"       => "Cron expression validation is not correct",
