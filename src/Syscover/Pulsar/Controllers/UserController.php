@@ -80,7 +80,7 @@ class UserController extends Controller {
 
         if($parameters['specialRules']['emailRule'])  $user['email_010']      = $this->request->input('email');
         if($parameters['specialRules']['userRule'])   $user['user_010']       = $this->request->input('user');
-        if(!$parameters['specialRules']['passRule'])  $user['password_010']   = Hash::make($this->request->input('password'));
+        if(! $parameters['specialRules']['passRule']) $user['password_010']   = Hash::make($this->request->input('password'));
 
         User::where('id_010', $parameters['id'])->update($user);
     }
