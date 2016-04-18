@@ -569,7 +569,7 @@ trait TraitController {
         if($this->request->has('id') && $this->request->input('id') == $parameters['id'])
             $parameters['specialRules']['idRule'] = true;
 
-        if(!isset($parameters['specialRules']))
+        if(! isset($parameters['specialRules']))
             $parameters['specialRules']  = [];
 
         $validation = call_user_func($this->model . '::validate', $this->request->all(), $parameters['specialRules']);
