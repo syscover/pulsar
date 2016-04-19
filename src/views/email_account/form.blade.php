@@ -44,7 +44,7 @@
     ])
     @include('pulsar::includes.html.form_section_header', [
         'label' => trans('pulsar::pulsar.outgoing_server'),
-        'icon' => 'icon-upload-alt'
+        'icon' => 'fa fa-upload'
     ])
     @include('pulsar::includes.html.form_text_group', [
         'label' => trans('pulsar::pulsar.outgoing_server'),
@@ -89,7 +89,7 @@
     ])
     @include('pulsar::includes.html.form_section_header', [
         'label' => trans('pulsar::pulsar.incoming_server'),
-        'icon' => 'icon-download-alt'
+        'icon' => 'fa fa-download'
     ])
     @include('pulsar::includes.html.form_select_group', [
         'label' => trans('pulsar::pulsar.incoming_type'),
