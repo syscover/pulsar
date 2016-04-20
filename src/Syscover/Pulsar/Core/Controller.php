@@ -7,7 +7,7 @@ use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Models\Lang;
 
 /**
- * Class TraitController
+ * Class Controller
  * @package Syscover\Pulsar\Traits
  */
 
@@ -552,7 +552,7 @@ abstract class Controller extends BaseController {
             if(method_exists($this->model, 'getRecord'))
                 $parameters['object']   = call_user_func($this->model . '::getRecord', $parameters);
             else
-                // call builder, by default is instance on TraitModel or in model object
+                // call builder, by default is instance on Core/Model or in model object
                 $parameters['object']   = call_user_func($this->model . '::builder')->find($parameters['id']);
         }
 

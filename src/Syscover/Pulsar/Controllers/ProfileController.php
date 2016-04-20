@@ -6,7 +6,6 @@ use Syscover\Pulsar\Models\Profile;
 use Syscover\Pulsar\Models\Resource;
 use Syscover\Pulsar\Models\Action;
 use Syscover\Pulsar\Models\Permission;
-use Syscover\Pulsar\Traits\TraitController;
 
 /**
  * Class ProfileController

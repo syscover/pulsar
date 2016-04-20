@@ -135,7 +135,7 @@ class CustomField extends Model
         return $customField;
     }
 
-    public static function deleteTranslationRecord($parameters)
+    public static function deleteTranslationRecord($parameters, $deleteLangDataRecord = true)
     {
         $customField = CustomField::find($parameters['id']);
 

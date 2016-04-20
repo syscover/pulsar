@@ -5,7 +5,7 @@ use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 
 /**
- * Class TraitModel
+ * Class Model
  * @package Syscover\Pulsar\Core
  */
 
