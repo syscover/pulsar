@@ -1,18 +1,16 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Syscover\Pulsar\Core\Controller;
 use Syscover\Pulsar\Models\Country;
 use Syscover\Pulsar\Models\TerritorialArea1;
-use Syscover\Pulsar\Traits\TraitController;
 
 /**
  * Class TerritorialArea1Controller
  * @package Syscover\Pulsar\Controllers
  */
 
-class TerritorialArea1Controller extends Controller {
-
-    use TraitController;
-
+class TerritorialArea1Controller extends Controller
+{
     protected $routeSuffix          = 'territorialArea1';
     protected $folder               = 'territorial_area_1';
     protected $package              = 'pulsar';

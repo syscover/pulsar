@@ -1,18 +1,16 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Syscover\Pulsar\Core\Controller;
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Models\Resource;
-use Syscover\Pulsar\Traits\TraitController;
 
 /**
  * Class ResourceController
  * @package Syscover\Pulsar\Controllers
  */
 
-class ResourceController extends Controller {
-
-    use TraitController;
-
+class ResourceController extends Controller
+{
     protected $routeSuffix  = 'resource';
     protected $folder       = 'resource';
     protected $package      = 'pulsar';

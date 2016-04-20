@@ -1,8 +1,8 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Syscover\Pulsar\Core\Controller;
 use Illuminate\Support\Facades\File;
 use Syscover\Pulsar\Libraries\ImageManagerLibrary;
-use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\AttachmentLibrary;
 
 /**
@@ -10,10 +10,8 @@ use Syscover\Pulsar\Models\AttachmentLibrary;
  * @package Syscover\Pulsar\Controllers
  */
 
-class AttachmentLibraryController extends Controller {
-
-    use TraitController;
-
+class AttachmentLibraryController extends Controller
+{
     protected $routeSuffix  = 'attachmentLibrary';
     protected $folder       = 'attachment_library';
     protected $package      = 'pulsar';

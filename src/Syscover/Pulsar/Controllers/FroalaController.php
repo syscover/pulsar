@@ -1,5 +1,7 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Syscover\Pulsar\Core\Controller;
+
 /**
  * Class FroalaController
  * @package Syscover\Pulsar\Controllers

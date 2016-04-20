@@ -1,20 +1,18 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Syscover\Pulsar\Core\Controller;
 use Illuminate\Support\Facades\Hash;
 use Syscover\Pulsar\Models\Lang;
 use Syscover\Pulsar\Models\Profile;
 use Syscover\Pulsar\Models\User;
-use Syscover\Pulsar\Traits\TraitController;
 
 /**
  * Class UserController
  * @package Syscover\Pulsar\Controllers
  */
 
-class UserController extends Controller {
-
-    use TraitController;
-
+class UserController extends Controller
+{
     protected $routeSuffix  = 'user';
     protected $folder       = 'user';
     protected $package      = 'pulsar';

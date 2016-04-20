@@ -1,19 +1,17 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Syscover\Pulsar\Core\Controller;
 use Illuminate\Support\Facades\File;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Models\Lang;
-use Syscover\Pulsar\Traits\TraitController;
 
 /**
  * Class LangController
  * @package Syscover\Pulsar\Controllers
  */
 
-class LangController extends Controller {
-
-    use TraitController;
-
+class LangController extends Controller
+{
     protected $routeSuffix  = 'lang';
     protected $folder       = 'lang';
     protected $package      = 'pulsar';

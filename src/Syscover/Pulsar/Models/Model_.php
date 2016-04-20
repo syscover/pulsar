@@ -9,4 +9,4 @@ use Illuminate\Database\Eloquent\Model as BaseModel;
  * @package Syscover\Pulsar\Models
  */
 
-abstract class Model extends BaseModel {}
+abstract class Model_ extends BaseModel {}

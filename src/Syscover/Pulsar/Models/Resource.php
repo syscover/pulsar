@@ -1,9 +1,9 @@
 <?php namespace Syscover\Pulsar\Models;
 
-use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
+use Syscover\Pulsar\Core\Model;
 use Sofa\Eloquence\Eloquence;
 use Sofa\Eloquence\Mappable;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class Resource
@@ -16,7 +16,6 @@ use Sofa\Eloquence\Mappable;
 
 class Resource extends Model
 {
-    use TraitModel;
     use Eloquence, Mappable;
 
 	protected $table        = '001_007_resource';
@@ -42,9 +41,9 @@ class Resource extends Model
         return Validator::make($data, static::$rules);
     }
 
-    public function scopeBuilder()
+    public function scopeBuilder($query)
     {
-        return Resource::join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012');
+        return $query->join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012');
     }
 
     public function getPackage()

@@ -1,5 +1,6 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Syscover\Pulsar\Core\Controller;
 use Syscover\Pulsar\Libraries\AclLibrary;
 use Syscover\Pulsar\Models\Profile;
 use Syscover\Pulsar\Models\Resource;
@@ -12,10 +13,8 @@ use Syscover\Pulsar\Traits\TraitController;
  * @package Syscover\Pulsar\Controllers
  */
 
-class ProfileController extends Controller {
-
-    use TraitController;
-
+class ProfileController extends Controller
+{
     protected $routeSuffix  = 'profile';
     protected $folder       = 'profile';
     protected $package      = 'pulsar';

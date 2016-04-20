@@ -1,5 +1,6 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Syscover\Pulsar\Core\Controller;
 use Illuminate\Support\Facades\File;
 use Syscover\Pulsar\Models\Attachment;
 
@@ -8,8 +9,8 @@ use Syscover\Pulsar\Models\Attachment;
  * @package Syscover\Pulsar\Controllers
  */
 
-class AttachmentController extends Controller {
-
+class AttachmentController extends Controller
+{
     public function storeAttachment()
     {
         $parameters             = $this->request->route()->parameters();

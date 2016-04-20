@@ -1,7 +1,7 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Syscover\Pulsar\Core\Controller;
 use Syscover\Pulsar\Models\CustomField;
-use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\CustomFieldGroup;
 use Syscover\Pulsar\Libraries\CustomFieldResultLibrary;
 
@@ -10,10 +10,8 @@ use Syscover\Pulsar\Libraries\CustomFieldResultLibrary;
  * @package Syscover\Pulsar\Controllers
  */
 
-class CustomFieldController extends Controller {
-
-    use TraitController;
-
+class CustomFieldController extends Controller
+{
     protected $routeSuffix  = 'customField';
     protected $folder       = 'field';
     protected $package      = 'pulsar';

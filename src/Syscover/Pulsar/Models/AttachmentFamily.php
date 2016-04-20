@@ -1,9 +1,9 @@
 <?php namespace Syscover\Pulsar\Models;
 
-use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
+use Syscover\Pulsar\Core\Model;
 use Sofa\Eloquence\Eloquence;
 use Sofa\Eloquence\Mappable;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class AttachmentFamily
@@ -14,9 +14,8 @@ use Sofa\Eloquence\Mappable;
  * @package     Syscover\Pulsar\Models
  */
 
-class AttachmentFamily extends Model {
-
-    use TraitModel;
+class AttachmentFamily extends Model
+{
     use Eloquence, Mappable;
 
 	protected $table        = '001_015_attachment_family';

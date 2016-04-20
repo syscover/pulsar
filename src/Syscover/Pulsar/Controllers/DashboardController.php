@@ -1,5 +1,7 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Syscover\Pulsar\Core\Controller;
+
 /**
  * Class DashboardController
  * @package Syscover\Pulsar\Controllers

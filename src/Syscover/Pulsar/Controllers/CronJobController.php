@@ -1,9 +1,9 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Syscover\Pulsar\Core\Controller;
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Models\CronJob;
 use Cron\CronExpression;
-use Syscover\Pulsar\Traits\TraitController;
 
 /**
  * Class CronJobController
@@ -12,8 +12,6 @@ use Syscover\Pulsar\Traits\TraitController;
 
 class CronJobController extends Controller
 {
-    use TraitController;
-
     protected $routeSuffix  = 'cronJob';
     protected $folder       = 'cron_job';
     protected $package      = 'pulsar';

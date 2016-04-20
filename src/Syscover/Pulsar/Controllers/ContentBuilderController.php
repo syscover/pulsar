@@ -1,5 +1,6 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Syscover\Pulsar\Core\Controller;
 use Leafo\ScssPhp\Compiler;
 
 /**
@@ -7,8 +8,8 @@ use Leafo\ScssPhp\Compiler;
  * @package Syscover\Pulsar\Controllers
  */
 
-class ContentBuilderController extends Controller {
-
+class ContentBuilderController extends Controller
+{
     public function index()
     {
         // get parameters from url route, input y theme

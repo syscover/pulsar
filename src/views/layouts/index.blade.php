@@ -13,7 +13,7 @@
     <!-- pulsar::layouts.index -->
     <div class="row">
         <div class="col-md-12">
-            @if((!isset($modal) || isset($modal) && !$modal) && $viewParameters['newButton'])
+            @if($viewParameters['newButton'])
                 <a class="btn margin-b10" href="{{ route('create' . ucfirst($routeSuffix), $urlParameters) }}"><i class="{{ isset($icon)? $icon : 'icomoon-icon-power' }}"></i> {{ trans('pulsar::pulsar.' . $newTrans) }} {{ isset($customTrans)? $customTrans : trans_choice($objectTrans, 1) }}</a>
             @endif
             @yield('headButtons')

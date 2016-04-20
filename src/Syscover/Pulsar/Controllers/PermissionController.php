@@ -1,12 +1,12 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Syscover\Pulsar\Core\Controller;
 use Illuminate\Database\Eloquent\Model;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Libraries\AclLibrary;
 use Syscover\Pulsar\Models\Permission;
 use Syscover\Pulsar\Models\Profile;
 use Syscover\Pulsar\Models\Action;
-use Syscover\Pulsar\Traits\TraitController;
 
 /**
  * Class PermissionController
@@ -15,8 +15,6 @@ use Syscover\Pulsar\Traits\TraitController;
 
 class PermissionController extends Controller
 {
-    use TraitController;
-
     protected $routeSuffixProfile   = 'profile';
     protected $areDeleteRecord      = true;
 

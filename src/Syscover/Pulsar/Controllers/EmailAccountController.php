@@ -1,8 +1,8 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Syscover\Pulsar\Core\Controller;
 use Illuminate\Support\Facades\Crypt;
 use Syscover\Pulsar\Libraries\EmailServices;
-use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\EmailAccount;
 
 /**
@@ -10,10 +10,8 @@ use Syscover\Pulsar\Models\EmailAccount;
  * @package Syscover\Pulsar\Controllers
  */
 
-class EmailAccountController extends Controller {
-
-    use TraitController;
-
+class EmailAccountController extends Controller
+{
     protected $routeSuffix  = 'emailAccount';
     protected $folder       = 'email_account';
     protected $package      = 'pulsar';

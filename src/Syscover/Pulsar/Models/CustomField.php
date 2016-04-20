@@ -1,9 +1,9 @@
 <?php namespace Syscover\Pulsar\Models;
 
-use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
+use Syscover\Pulsar\Core\Model;
 use Sofa\Eloquence\Eloquence;
 use Sofa\Eloquence\Mappable;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class CustomField
@@ -16,7 +16,6 @@ use Sofa\Eloquence\Mappable;
 
 class CustomField extends Model
 {
-    use TraitModel;
     use Eloquence, Mappable;
 
 	protected $table        = '001_026_field';
@@ -40,9 +39,9 @@ class CustomField extends Model
         return Validator::make($data, static::$rules);
     }
 
-    public function scopeBuilder()
+    public function scopeBuilder($query)
     {
-        return CustomField::join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025');
+        return $query->join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025');
     }
 
     public function getLang()

@@ -1,7 +1,7 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Syscover\Pulsar\Core\Controller;
 use Syscover\Pulsar\Models\Resource;
-use Syscover\Pulsar\Traits\TraitController;
 use Syscover\Pulsar\Models\AttachmentFamily;
 
 /**
@@ -9,10 +9,8 @@ use Syscover\Pulsar\Models\AttachmentFamily;
  * @package Syscover\Pulsar\Controllers
  */
 
-class AttachmentFamilyController extends Controller {
-
-    use TraitController;
-
+class AttachmentFamilyController extends Controller
+{
     protected $routeSuffix  = 'attachmentFamily';
     protected $folder       = 'attachment_family';
     protected $package      = 'pulsar';

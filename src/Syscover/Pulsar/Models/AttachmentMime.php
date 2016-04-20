@@ -1,9 +1,9 @@
 <?php namespace Syscover\Pulsar\Models;
 
-use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
+use Syscover\Pulsar\Core\Model;
 use Sofa\Eloquence\Eloquence;
 use Sofa\Eloquence\Mappable;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class AttachmentMime
@@ -16,7 +16,6 @@ use Sofa\Eloquence\Mappable;
 
 class AttachmentMime extends Model
 {
-    use TraitModel;
     use Eloquence, Mappable;
 
 	protected $table        = '001_019_attachment_mime';
@@ -39,9 +38,9 @@ class AttachmentMime extends Model
         return Validator::make($data, static::$rules);
     }
 
-    public function scopeBuilder()
+    public function scopeBuilder($query)
     {
-        return AttachmentMime::join('001_007_resource', '001_019_attachment_mime.resource_id_019', '=', '001_007_resource.id_007');
+        return $query->join('001_007_resource', '001_019_attachment_mime.resource_id_019', '=', '001_007_resource.id_007');
     }
 
     public function getResource()

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
  * @package Syscover\Pulsar\Controllers
  */
 
-abstract class Controller extends BaseController {
+abstract class Controller_ extends BaseController {
 
     protected $resource;
     protected $request;

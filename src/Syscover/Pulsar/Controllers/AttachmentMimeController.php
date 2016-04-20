@@ -1,6 +1,6 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
-use Syscover\Pulsar\Traits\TraitController;
+use Syscover\Pulsar\Core\Controller;
 use Syscover\Pulsar\Models\AttachmentMime;
 use Syscover\Pulsar\Models\Resource;
 
@@ -9,10 +9,8 @@ use Syscover\Pulsar\Models\Resource;
  * @package Syscover\Pulsar\Controllers
  */
 
-class AttachmentMimeController extends Controller {
-
-    use TraitController;
-
+class AttachmentMimeController extends Controller
+{
     protected $routeSuffix  = 'attachmentMime';
     protected $folder       = 'attachment_mime';
     protected $package      = 'pulsar';

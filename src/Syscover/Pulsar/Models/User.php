@@ -1,10 +1,15 @@
 <?php namespace Syscover\Pulsar\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\Validator;
-use Syscover\Pulsar\Traits\TraitModel;
+use Syscover\Pulsar\Core\Model;
 use Sofa\Eloquence\Eloquence;
 use Sofa\Eloquence\Mappable;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 /**
  * Class User
@@ -15,9 +20,9 @@ use Sofa\Eloquence\Mappable;
  * @package     Syscover\Pulsar\Models
  */
 
-class User extends Authenticatable
+class User extends Model implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
-    use TraitModel;
+    use Authenticatable, Authorizable, CanResetPassword;
     use Eloquence, Mappable;
 
     protected $table        = '001_010_user';
