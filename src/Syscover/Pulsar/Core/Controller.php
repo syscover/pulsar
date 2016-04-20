@@ -7,7 +7,7 @@ use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Models\Lang;
 
 /**
- * Class Controller
+ * Class TraitController
  * @package Syscover\Pulsar\Traits
  */
 
@@ -33,7 +33,8 @@ abstract class Controller extends BaseController {
         'showButton'            => false,   // button from ajax response, to view record
         'editButton'            => true,    // button from ajax response, to edit record
         'deleteButton'          => true,    // button from ajax response, to delete record
-        'deleteSelectButton'    => true     // button delete records when select checkbox on index view
+        'deleteSelectButton'    => true,    // button delete records when select checkbox on index view
+        'relatedButton'         => false,   // button to related elements, used on modal windows
     ];
 
     public function __construct(Request $request)
@@ -44,9 +45,7 @@ abstract class Controller extends BaseController {
         $action = $request->route()->getAction();
 
         if(isset($action['resource']))
-        {
-            $this->resource = $request->route()->getAction()['resource'];
-        }
+            $this->resource = $action['resource'];
     }
 
     /**
@@ -59,18 +58,15 @@ abstract class Controller extends BaseController {
         $parameters = $this->request->route()->parameters();
         $action     = $this->request->route()->getAction();
 
-        // check if url contain offset parameter
-        if(!isset($parameters['offset'])) $parameters['offset'] = 0;
+        // check if url contain offset parameter, if not exist, create variable with 0 value
+        if(! isset($parameters['offset'])) $parameters['offset'] = 0;
 
-        $parameters['urlParameters']  = $parameters;
+        // save original url parameters
+        $parameters['urlParameters'] = $parameters;
 
-        // set path variable, after creating urlParameters to don't send value, to URLs creates
-        $parameters['path'] = $this->request->path();
-
-        if(!isset($parameters['modal'])) Miscellaneous::setParameterSessionPage($this->resource);
-
-        // flag to show delete multiple records button
-        $parameters['viewParameters']       = $this->viewParameters;
+        // set path variable to save in cookie, search param datatable component,
+        // after creating urlParameters to don't send value, to URL create
+        $parameters['path']                 = $this->request->path();
         $parameters['package']              = $this->package;
         $parameters['folder']               = $this->folder;
         $parameters['routeSuffix']          = $this->routeSuffix;
@@ -80,13 +76,16 @@ abstract class Controller extends BaseController {
 
         // check if show create button
         if(isset($action['resource']))
-            if(!session('userAcl')->allows($action['resource'], 'create'))
-                $parameters['viewParameters']['newButton'] = false;
+            if(! is_allowed($action['resource'], 'create'))
+                $this->viewParameters['newButton'] = false;
 
         $parametersResponse = $this->customIndex($parameters);
 
         if(is_array($parametersResponse))
             $parameters = array_merge($parameters, $parametersResponse);
+
+        // set viewParamentes on parameters for throw to view
+        $parameters['viewParameters'] = $this->viewParameters;
 
         return view($this->package . '::' . $this->folder . '.index', $parameters);
     }
@@ -130,10 +129,9 @@ abstract class Controller extends BaseController {
         $iFilteredTotal = call_user_func($this->model . '::getIndexRecords', $this->request, $parametersCount);
         $iTotal         = call_user_func($this->model . '::countRecords', $this->request, $parameters);
 
-        if(method_exists($this, 'setViewParametersJsonData'))
-        {
-            $this->setViewParametersJsonData($parameters);
-        }
+        // method to do custom actions
+        if(method_exists($this, 'customJsonData'))
+            $this->customJsonData($parameters);
 
         $response = [
             "sEcho"                 => $this->request->input('sEcho'),
@@ -219,41 +217,33 @@ abstract class Controller extends BaseController {
             if(isset($parameters['lang'])) $actionUrlParameters['lang'] = $parameters['lang'];
 
             if(method_exists($this, 'customActionUrlParameters'))
-            {
                 $actionUrlParameters = $this->customActionUrlParameters($actionUrlParameters, $parameters);
-            }
+
 
             // check if is necesary add div before actions
             $actions = isset($parameters['lang'])? '<div class="btn-group">' : null;
 
-            // check whether it is necessary to insert a data before
+
+            // check whether it is necessary to insert custom actions
             if(method_exists($this, 'jsonCustomDataBeforeActions'))
-            {
                 $actions = $actions . $this->jsonCustomDataBeforeActions($aObject, $actionUrlParameters, $parameters);
-            }
 
-            // check if request is modal
-            if(isset($parameters['modal']) && $parameters['modal'])
-            {
-                $actions .= session('userAcl')->allows($this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip related-record" data-json=\'' . json_encode($aObject) . '\' data-original-title="' . trans('pulsar::pulsar.related_record') . '"><i class="fa fa-link"></i></a>' : null;
-            }
-            else
-            {
-                if($this->viewParameters['showButton'])
-                {
-                    $actions .= session('userAcl')->allows($this->resource, 'access')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('show' . ucfirst($this->routeSuffix), $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.view_record') . '"><i class="fa fa-eye"></i></a>' : null;
-                }
+            // buttons actions
+            if($this->viewParameters['relatedButton'])
+                $actions .= is_allowed($this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip related-record" data-json=\'' . json_encode($aObject) . '\' data-original-title="' . trans('pulsar::pulsar.related_record') . '"><i class="fa fa-link"></i></a>' : null;
 
-                if($this->viewParameters['editButton'])
-                {
-                    $actions .= session('userAcl')->allows($this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('edit' . ucfirst($this->routeSuffix), $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="fa fa-pencil"></i></a>' : null;
-                }
+            // TODO: para que es isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']??
+            if($this->viewParameters['showButton'])
+                $actions .= is_allowed($this->resource, 'access')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('show' . ucfirst($this->routeSuffix), $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.view_record') . '"><i class="fa fa-eye"></i></a>' : null;
 
-                if($this->viewParameters['deleteButton'])
-                {
-                    $actions .= session('userAcl')->allows($this->resource, 'delete') ? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] . '" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . ucfirst($this->routeSuffix), $actionUrlParameters) . '"><i class="fa fa-trash"></i></a>' : null;
-                }
-            }
+
+            if($this->viewParameters['editButton'])
+                $actions .= is_allowed($this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip' . (isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']? ' magnific-popup' : null) . '" href="' . route('edit' . ucfirst($this->routeSuffix), $actionUrlParameters) . '" data-original-title="' . trans('pulsar::pulsar.edit_record') . '"><i class="fa fa-pencil"></i></a>' : null;
+
+
+            if($this->viewParameters['deleteButton'])
+                $actions .= is_allowed($this->resource, 'delete') ? '<a class="btn btn-xs bs-tooltip delete-record" data-id="' . $aObject[$instance->getKeyName()] . '" data-original-title="' . trans('pulsar::pulsar.delete_record') . '" data-delete-url="' . route('delete' . ucfirst($this->routeSuffix), $actionUrlParameters) . '"><i class="fa fa-trash"></i></a>' : null;
+
 
             // set lang selector on datatable
             if(isset($parameters['lang']))
@@ -285,7 +275,7 @@ abstract class Controller extends BaseController {
                     $isCreated = in_array($lang->id_001, $jsonObject->langs);
                     $actionUrlParameters['lang'] = $lang->id_001;
 
-                    if(session('userAcl')->allows($this->resource, 'edit') && session('userAcl')->allows($this->resource, 'create'))
+                    if(is_allowed($this->resource, 'edit') && is_allowed($this->resource, 'create'))
                     {
                         $actions .= '<li><a class="bs-tooltip" href="';
                         if($isCreated)
@@ -343,7 +333,6 @@ abstract class Controller extends BaseController {
 
         $parameters = $this->createCustomRecord($parameters);
 
-        $parameters['viewParameters'] = $this->viewParameters;
         $parameters['package']        = $this->package;
         $parameters['folder']         = $this->folder;
         $parameters['routeSuffix']    = $this->routeSuffix;
@@ -355,13 +344,20 @@ abstract class Controller extends BaseController {
         // check if action is store or storeLang
         if(isset($parameters['id']) && isset($parameters['lang']))
         {
-            $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', ['id' => $parameters['id'], 'lang' => session('baseLang')->id_001]);
+            $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', [
+                'id' => $parameters['id'],
+                'lang' => session('baseLang')->id_001
+            ]);
+
             $parameters['action'] = 'storeLang';
         }
         else
         {
             $parameters['action'] = 'store';
         }
+
+        // set viewParamentes on parameters for throw to view
+        $parameters['viewParameters'] = $this->viewParameters;
 
         // check if exist create view, default all request go to common view
         if(view()->exists($this->package . '::' . $this->folder . '.create', $parameters))
@@ -396,18 +392,19 @@ abstract class Controller extends BaseController {
         if(method_exists($this, 'checkSpecialRulesToStore'))
             $parameters = $this->checkSpecialRulesToStore($parameters);
 
-
-        if(!isset($parameters['specialRules']))
+        if(! isset($parameters['specialRules']))
             $parameters['specialRules']  = [];
-
 
         $validation = call_user_func($this->model . '::validate', $this->request->all(), $parameters['specialRules']);
 
+        // validate
+        if($validation->fails())
+            return redirect()
+                ->route('create' . ucfirst($this->routeSuffix), $parameters['urlParameters'])
+                ->withErrors($validation)
+                ->withInput();
 
-        if ($validation->fails())
-            return redirect()->route('create' . ucfirst($this->routeSuffix), $parameters['urlParameters'])->withErrors($validation)->withInput();
-
-
+        // we use parametersResponse, because storeCustomRecord may be "void"
         $parametersResponse = $this->storeCustomRecord($parameters);
 
 
@@ -422,13 +419,15 @@ abstract class Controller extends BaseController {
 
 
         // return to modal view
-        if(isset($parameters['modal']) && $parameters['modal'])
+        if(isset($parameters['redirectModal']) && $parameters['redirectModal'])
             return view('pulsar::common.views.redirect_modal');
 
 
         return redirect()->route($this->routeSuffix, $parameters['urlParameters'])->with([
             'msg'        => 1,
-            'txtMsg'     => trans('pulsar::pulsar.message_create_record_successful', ['name' => $this->request->input('name')])
+            'txtMsg'     => trans('pulsar::pulsar.message_create_record_successful', [
+                'name' => $this->request->input('name')
+            ])
         ]);
     }
 
@@ -452,10 +451,9 @@ abstract class Controller extends BaseController {
 
         $parameters['urlParameters']  = $parameters;
 
-        // set path variable, after creating urlParameters to don't send value to URLs creates
-        $parameters['path'] = $this->request->path();
-
-        $parameters['viewParameters'] = $this->viewParameters;
+        // set path variable to save in cookie, search param datatable component,
+        // after creating urlParameters to don't send value, to URL create
+        $parameters['path']           = $this->request->path();
         $parameters['action']         = 'show';
         $parameters['package']        = $this->package;
         $parameters['folder']         = $this->folder;
@@ -488,6 +486,9 @@ abstract class Controller extends BaseController {
         if(isset($parameters['api']) && $parameters['api'])
             return response()->json($parameters['object']);
 
+        // set viewParamentes on parameters for throw to view
+        $parameters['viewParameters'] = $this->viewParameters;
+
         // check if exist show view, default all request go to form view
         if(view()->exists($this->package . '::' . $this->folder . '.show', $parameters))
             return view($this->package . '::' . $this->folder . '.show', $parameters);
@@ -518,16 +519,15 @@ abstract class Controller extends BaseController {
 
         $parameters['urlParameters']  = $parameters;
 
-        // set path variable, after creating urlParameters to don't send value to URLs creates
-        $parameters['path'] = $this->request->path();
-
-        $parameters['viewParameters'] = $this->viewParameters;
-        $parameters['action']         = 'update';
-        $parameters['package']        = $this->package;
-        $parameters['folder']         = $this->folder;
-        $parameters['routeSuffix']    = $this->routeSuffix;
-        $parameters['icon']           = $this->icon;
-        $parameters['objectTrans']    = isset($this->objectTrans) &&  $this->objectTrans != null? Miscellaneous::getObjectTransValue($parameters, $this->objectTrans) : null;
+        // set path variable to save in cookie, search param datatable component,
+        // after creating urlParameters to don't send value, to URL create
+        $parameters['path']         = $this->request->path();
+        $parameters['action']       = 'update';
+        $parameters['package']      = $this->package;
+        $parameters['folder']       = $this->folder;
+        $parameters['routeSuffix']  = $this->routeSuffix;
+        $parameters['icon']         = $this->icon;
+        $parameters['objectTrans']  = isset($this->objectTrans) &&  $this->objectTrans != null? Miscellaneous::getObjectTransValue($parameters, $this->objectTrans) : null;
 
         // check if object has multiple language
         if(isset($parameters['lang']))
@@ -552,11 +552,14 @@ abstract class Controller extends BaseController {
             if(method_exists($this->model, 'getRecord'))
                 $parameters['object']   = call_user_func($this->model . '::getRecord', $parameters);
             else
-                // call builder, by default is instance on Core/Model or in model object
+                // call builder, by default is instance on TraitModel or in model object
                 $parameters['object']   = call_user_func($this->model . '::builder')->find($parameters['id']);
         }
 
         $parameters = $this->editCustomRecord($parameters);
+
+        // set viewParamentes on parameters for throw to view
+        $parameters['viewParameters'] = $this->viewParameters;
 
         // check if exist edit view, default all request go to common view
         if(view()->exists($this->package . '::' . $this->folder . '.edit', $parameters))
@@ -600,8 +603,11 @@ abstract class Controller extends BaseController {
 
         $validation = call_user_func($this->model . '::validate', $this->request->all(), $parameters['specialRules']);
 
+        // validate
         if ($validation->fails())
-            return redirect()->route('edit' . ucfirst($this->routeSuffix), $parameters['urlParameters'])->withErrors($validation);
+            return redirect()
+                ->route('edit' . ucfirst($this->routeSuffix), $parameters['urlParameters'])
+                ->withErrors($validation);
 
         // we use parametersResponse, because updateCustomRecord may be "void"
         $parametersResponse = $this->updateCustomRecord($parameters);
@@ -616,7 +622,7 @@ abstract class Controller extends BaseController {
 
 
         // return to modal view
-        if(isset($parameters['modal']) && $parameters['modal'])
+        if(isset($parameters['redirectModal']) && $parameters['redirectModal'])
             return view('pulsar::common.views.redirect_modal');
 
 

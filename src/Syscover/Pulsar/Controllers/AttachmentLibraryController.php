@@ -26,7 +26,8 @@ class AttachmentLibraryController extends Controller
         'showButton'            => false,
         'editButton'            => false,
         'deleteButton'          => true,
-        'deleteSelectButton'    => true
+        'deleteSelectButton'    => true,
+        'relatedButton'         => false,
     ];
 
     public function customColumnType($row, $aColumn, $aObject)

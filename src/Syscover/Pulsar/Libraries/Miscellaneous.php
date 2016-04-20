@@ -113,71 +113,6 @@ class Miscellaneous
     }
 
     /**
-     *  Función que instancia la vista que se verá para acciones que nos interese, como menus, o reset de variable de sesión de cadena, etc.
-     *
-     * @access    public
-     * @param $page
-     */
-    public static function setParameterSessionPage($page)
-    {
-        if (session('page') != $page)
-        {
-            session(['page' => $page]);
-        }
-    }
-
-    /**
-     *  Funciónes para manejar el menu.
-     *  En cada controller establecemos en que página estamos con la función Miscellaneous::sessionParamterSetPage(), en el menu simplemente dependiendo en que
-     *  página nos envíe el cotroller, configura el menú de la forma apropiada
-     *
-     * @access    public
-     * @param $pages
-     * @return string
-     */
-    public static function setDisplayPage($pages)
-    {
-        if (in_array(session('page'), $pages))
-            return ' style="display: block;"';
-    }
-    
-    public static function setOpenPage($pages)
-    {
-        if (in_array(session('page'), $pages))
-            return ' class="open"';
-    }
-    
-    public static function setOpenDefaultPage($pages)
-    {
-        if (in_array(session('page'), $pages))
-            return ' class="open"';
-    }
-    
-    public static function setCurrentOpenPage($pages)
-    {
-        if (in_array(session('page'), $pages))
-           return ' class="current open"';
-    }
-    
-    public static function setCurrentPage($page)
-    {
-        if(is_array($page))
-        {
-            if (in_array(session('page'), $page))
-            {
-                return ' class="current"';
-            }
-        }
-        else
-        {
-            if (session('page') == $page)
-            {
-                return ' class="current"';
-            }
-        }
-    }
-
-    /**
      *  Función que instancia varibles de sesión en caso de realizar búsquedas múltiples rápida desde la vista de tablas
      *
      * @access  public
@@ -430,9 +365,9 @@ class Miscellaneous
     public static function paginateDataTable($parameters = [])
     {
         // Datatable paginate
-        $parameters['sStart'] = null;
-        $parameters['sLength'] = null;
-	    if(Request::input('iDisplayStart') != null && Request::input('iDisplayLength') != '-1' )
+        $parameters['sStart']   = null;
+        $parameters['sLength']  = null;
+	    if(Request::input('iDisplayStart') != null && Request::input('iDisplayLength') != '-1')
         {
             $parameters['sStart']   = Request::input('iDisplayStart');
             $parameters['sLength']  = Request::input('iDisplayLength');

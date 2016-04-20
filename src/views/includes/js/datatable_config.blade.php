@@ -113,7 +113,7 @@
                     if (typeof responsiveHelper != 'undefined')
                         responsiveHelper.respond()
 
-                    @if($viewParameters['deleteSelectButton'])
+                    @if($viewParameters['deleteSelectButton'] && $viewParameters['deleteSelectButton'] == 'true')
                         $.addDeleteButton()
                     @endif
                 }
@@ -146,7 +146,7 @@
                                 $.fn.dataTableExt.iApiIndex = i
                                 _that.fnFilter(anControl.val())
 
-                                Cookies.set('dtSearch',anControl.val(), { expires: 7, path: '/{{ isset($path)? $path : null }}' })
+                                Cookies.set('dtSearch', anControl.val(), { expires: 7, path: '/{{ isset($path)? $path : null }}' })
 
                             }, iDelay)
                         }

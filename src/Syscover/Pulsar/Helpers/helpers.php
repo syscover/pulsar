@@ -16,3 +16,39 @@ if (! function_exists('base_lang')) {
         return session('baseLang');
     }
 }
+
+if (! function_exists('is_current_resource')) {
+    /**
+     * check if current resource is equeal to proposal resource
+     *
+     * @param   $proposal
+     * @param   bool $open
+     * @return  string
+     */
+    function is_current_resource($proposal, $open = false)
+    {
+        $resource = request()->route()->getAction()['resource'];
+
+        if((is_array($proposal) && in_array($resource, $proposal)) || $resource === $proposal)
+        {
+            if($open)
+                return ' class="current open"';
+            else
+                return ' class="current"';
+        }
+    }
+}
+
+if (! function_exists('is_allowed')) {
+    /**
+     * check if a action is allowed on resource
+     *
+     * @param $resource
+     * @param $action
+     * @return bollean
+     */
+    function is_allowed($resource, $action)
+    {
+        return session('userAcl')->allows($resource, $action);
+    }
+}

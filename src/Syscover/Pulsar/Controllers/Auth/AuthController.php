@@ -97,7 +97,7 @@ class AuthController extends Controller
             session(['userAcl' => AclLibrary::getProfileAcl(auth('pulsar')->user()->profile_010)]);
 
             // check if user has permission to access
-            if (!session('userAcl')->allows('pulsar', 'access'))
+            if (!is_allowed('pulsar', 'access'))
             {
                 auth('pulsar')->logout();
                 return redirect($this->loginPath)

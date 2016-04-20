@@ -23,7 +23,7 @@ class CustomFieldController extends Controller
 
     public function jsonCustomDataBeforeActions($aObject, $actionUrlParameters, $parameters)
     {
-        return session('userAcl')->allows('admin-field-value', 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('customFieldValue', ['field' => $aObject['id_026'], 'lang' => $parameters['lang'], 'offset' => 0]) . '" data-original-title="' . trans_choice('pulsar::pulsar.value', 2) . '"><i class="fa fa-bars"></i></a>' : null;
+        return is_allowed('admin-field-value', 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('customFieldValue', ['field' => $aObject['id_026'], 'lang' => $parameters['lang'], 'offset' => 0]) . '" data-original-title="' . trans_choice('pulsar::pulsar.value', 2) . '"><i class="fa fa-bars"></i></a>' : null;
     }
 
     public function customIndex($parameters)

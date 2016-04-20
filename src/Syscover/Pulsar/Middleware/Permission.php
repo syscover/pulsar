@@ -17,7 +17,7 @@ class Permission
 		$action = $request->route()->getAction();
 
 		if(isset($action['resource']))
-			if(!session('userAcl')->allows($action['resource'], $action['action']))
+			if(!is_allowed($action['resource'], $action['action']))
 				return view('pulsar::errors.default', [
 					'error'     => 403,
 					'message'   => trans('pulsar::pulsar.message_error_403')

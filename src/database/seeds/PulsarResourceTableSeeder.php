@@ -9,6 +9,7 @@ class PulsarResourceTableSeeder extends Seeder {
     {
         Resource::insert([
             ['id_007' => 'admin',                       'name_007' => 'Administration Package',                 'package_007' => '2'],
+            ['id_007' => 'admin-dashboard',             'name_007' => 'Dashboard',                              'package_007' => '2'],
             ['id_007' => 'admin-country',               'name_007' => 'Countries',                              'package_007' => '2'],
             ['id_007' => 'admin-country-at1',           'name_007' => 'Countries -- Territorial Areas 1',       'package_007' => '2'],
             ['id_007' => 'admin-country-at2',           'name_007' => 'Countries -- Territorial Areas 2',       'package_007' => '2'],

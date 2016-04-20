@@ -23,7 +23,7 @@ class CronJobController extends Controller
 
     public function jsonCustomDataBeforeActions($aObject, $actionUrlParameters, $parameters)
     {
-        return session('userAcl')->allows($this->resource, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('run' . ucfirst($this->routeSuffix), [$aObject['id_011'], $this->request->input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.run') . '"><i class="fa fa-bolt"></i></a>' : null;
+        return is_allowed($this->resource, 'access')? '<a class="btn btn-xs bs-tooltip" href="' . route('run' . ucfirst($this->routeSuffix), [$aObject['id_011'], $this->request->input('iDisplayStart')]) . '" data-original-title="' . trans('pulsar::pulsar.run') . '"><i class="fa fa-bolt"></i></a>' : null;
     }
 
     public function run($id, $offset = 0)

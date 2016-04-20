@@ -12,7 +12,7 @@ Route::group(['middleware' => ['web']], function() {
     | DASHBOARD
     |--------------------------------------------------------------------------
     */
-    Route::get(config('pulsar.appName') . '/pulsar/dashboard', ['middleware' => 'auth.pulsar', 'as' => 'dashboard', 'uses' => 'Syscover\Pulsar\Controllers\DashboardController@index']);
+    Route::get(config('pulsar.appName') . '/pulsar/dashboard', ['middleware' => 'auth.pulsar', 'as' => 'dashboard', 'uses' => 'Syscover\Pulsar\Controllers\DashboardController@index',                          'resource' => 'admin-dashboard']);
 
     /*
     |--------------------------------------------------------------------------
