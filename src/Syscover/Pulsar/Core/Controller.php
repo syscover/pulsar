@@ -210,6 +210,12 @@ abstract class Controller extends BaseController {
             $actionUrlParameters['id']        = $aObject[$instance->getKeyName()];
             $actionUrlParameters['offset']    = $this->request->input('iDisplayStart');
 
+            // set modal parameter for actions from datatable, you need instance all situations
+            if(isset($parameters['modal']) && $parameters['modal'] == 1)
+                $actionUrlParameters['modal'] = 1;
+            else
+                $actionUrlParameters['modal'] = 0;
+
             // if we have parentOffset, we instantiate it
             if(isset($parameters['parentOffset'])) $actionUrlParameters['parentOffset'] = $parameters['parentOffset'];
 
@@ -326,6 +332,12 @@ abstract class Controller extends BaseController {
         $parameters = $this->request->route()->parameters();
 
         $parameters['urlParameters']  = $parameters;
+
+        // check if this element is modal, to mark in your url petition
+        if(isset($parameters['modal']) && $parameters['modal'] == 1)
+            $parameters['urlParameters']['modal'] = 1;
+        else
+            $parameters['urlParameters']['modal'] = 0;
 
         // get lang object
         if(isset($parameters['lang']))
@@ -450,6 +462,12 @@ abstract class Controller extends BaseController {
         $parameters = $this->request->route()->parameters();
 
         $parameters['urlParameters']  = $parameters;
+
+        // check if this element is modal, to mark in your url petition
+        if(isset($parameters['modal']) && $parameters['modal'] == 1)
+            $parameters['urlParameters']['modal'] = 1;
+        else
+            $parameters['urlParameters']['modal'] = 0;
 
         // set path variable to save in cookie, search param datatable component,
         // after creating urlParameters to don't send value, to URL create
