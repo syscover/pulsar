@@ -225,7 +225,6 @@ abstract class Controller extends BaseController {
             if(method_exists($this, 'customActionUrlParameters'))
                 $actionUrlParameters = $this->customActionUrlParameters($actionUrlParameters, $parameters);
 
-
             // check if is necesary add div before actions
             $actions = isset($parameters['lang'])? '<div class="btn-group">' : null;
 
