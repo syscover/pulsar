@@ -150,7 +150,7 @@
         <div class="col-md-12">
             <div class="widget box">
                 <div class="widget-header">
-                    <h4><i class="fa fa-reorder"></i> {{ trans_choice($objectTrans, 2) }}</h4>
+                    <h4><i class="fa fa-reorder"></i> {{ trans_choice($objectTrans, 2) }} - {{ trans_choice('pulsar::pulsar.profile', 1) }}: {{ $profile->name_006 }}</h4>
                     <div class="toolbar no-padding">
                         <div class="btn-group">
                             <span class="btn btn-xs widget-collapse"><i class="fa fa-angle-down"></i></span>
