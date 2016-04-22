@@ -654,7 +654,9 @@ abstract class Controller extends BaseController {
 
         return redirect()->route($this->routeSuffix, $parameters['urlParameters'])->with([
             'msg'        => 1,
-            'txtMsg'     => trans('pulsar::pulsar.message_update_record', ['name' => $this->request->input('name')])
+            'txtMsg'     => trans('pulsar::pulsar.message_update_record', [
+                'name' => $this->request->input('name')
+            ])
         ]);
     }
 
