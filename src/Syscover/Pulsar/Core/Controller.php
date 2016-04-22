@@ -345,6 +345,10 @@ abstract class Controller extends BaseController {
 
         $parameters = $this->createCustomRecord($parameters);
 
+        // check if parameters is a RedirectResponse object, to send request to other url
+        if(is_object($parameters) && get_class($parameters) == \Illuminate\Http\RedirectResponse::class)
+            return $parameters;
+
         $parameters['package']        = $this->package;
         $parameters['folder']         = $this->folder;
         $parameters['routeSuffix']    = $this->routeSuffix;
@@ -575,6 +579,10 @@ abstract class Controller extends BaseController {
         }
 
         $parameters = $this->editCustomRecord($parameters);
+
+        // check if parameters is a RedirectResponse object, to send request to other url
+        if(is_object($parameters) && get_class($parameters) == \Illuminate\Http\RedirectResponse::class)
+            return $parameters;
 
         // set viewParamentes on parameters for throw to view
         $parameters['viewParameters'] = $this->viewParameters;

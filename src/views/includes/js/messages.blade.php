@@ -19,7 +19,7 @@
     <script>
         $(document).ready(function() {
             new PNotify({
-                type:   'success',
+                type:   'error',
                 title:  '{{ trans('pulsar::pulsar.action_error') }}',
                 text:   '{!! session('txtMsg') !!}',
                 opacity: .9,
