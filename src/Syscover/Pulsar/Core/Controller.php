@@ -236,7 +236,7 @@ abstract class Controller extends BaseController {
 
             // buttons actions
             if($this->viewParameters['relatedButton'])
-                $actions .= is_allowed($this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip related-record" data-json=\'' . json_encode($aObject) . '\' data-original-title="' . trans('pulsar::pulsar.related_record') . '"><i class="fa fa-link"></i></a>' : null;
+                $actions .= is_allowed($this->resource, 'access')? '<a class="btn btn-xs bs-tooltip related-record" data-json=\'' . json_encode($aObject) . '\' data-original-title="' . trans('pulsar::pulsar.related_record') . '"><i class="fa fa-link"></i></a>' : null;
 
             // TODO: para que es isset($actionUrlParameters['modal']) && $actionUrlParameters['modal']??
             if($this->viewParameters['showButton'])
