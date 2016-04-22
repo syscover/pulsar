@@ -4,7 +4,7 @@
     @parent
     <!-- pulsar::layouts.index -->
     @include('pulsar::includes.js.header_list')
-    @include('pulsar::includes.js.success_message')
+    @include('pulsar::includes.js.messages')
     @include('pulsar::includes.js.datatable_config')
     <!-- /.pulsar::layouts.index -->
 @stop

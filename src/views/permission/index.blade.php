@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/jquery.select2.custom/css/select2.css') }}">
 
     @include('pulsar::includes.js.header_list')
-    @include('pulsar::includes.js.success_message')
+    @include('pulsar::includes.js.messages')
     @include('pulsar::includes.js.datatable_config')
 
     <script src="{{ asset('packages/syscover/pulsar/vendor/jquery.select2.custom/js/select2.min.js') }}"></script>
