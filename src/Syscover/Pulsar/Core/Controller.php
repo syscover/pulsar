@@ -233,6 +233,7 @@ abstract class Controller extends BaseController {
             if(method_exists($this, 'jsonCustomDataBeforeActions'))
                 $actions = $actions . $this->jsonCustomDataBeforeActions($aObject, $actionUrlParameters, $parameters);
 
+
             // buttons actions
             if($this->viewParameters['relatedButton'])
                 $actions .= is_allowed($this->resource, 'edit')? '<a class="btn btn-xs bs-tooltip related-record" data-json=\'' . json_encode($aObject) . '\' data-original-title="' . trans('pulsar::pulsar.related_record') . '"><i class="fa fa-link"></i></a>' : null;
@@ -430,8 +431,8 @@ abstract class Controller extends BaseController {
 
 
         // return to modal view
-        if(isset($parameters['redirectModal']) && $parameters['redirectModal'])
-            return view('pulsar::common.views.redirect_modal');
+        if(isset($parameters['redirectParentJs']) && $parameters['redirectParentJs'])
+            return view('pulsar::common.views.redirect_parent_js');
 
 
         return redirect()->route($this->routeSuffix, $parameters['urlParameters'])->with([
@@ -639,8 +640,8 @@ abstract class Controller extends BaseController {
 
 
         // return to modal view
-        if(isset($parameters['redirectModal']) && $parameters['redirectModal'])
-            return view('pulsar::common.views.redirect_modal');
+        if(isset($parameters['redirectParentJs']) && ($parameters['redirectParentJs'] === '1'|| $parameters['redirectParentJs'] === true))
+            return view('pulsar::common.views.redirect_parent_js');
 
 
         return redirect()->route($this->routeSuffix, $parameters['urlParameters'])->with([
@@ -678,7 +679,13 @@ abstract class Controller extends BaseController {
         unset($parameters['id']);
 
         if(method_exists($this, 'deleteCustomRecordRedirect'))
-            return $this->deleteCustomRecordRedirect($object, $parameters);
+        {
+            $response = $this->deleteCustomRecordRedirect($object, $parameters);
+
+            // check that we have any  different to false
+            if($response !== false)
+                return $response;
+        }
 
         return redirect()->route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,
@@ -765,9 +772,15 @@ abstract class Controller extends BaseController {
         // delete records after deleteCustomRecords, if we need do a select
         call_user_func($this->model . '::deleteRecords', $ids);
 
-        if(method_exists($this, 'deleteCustomRecordsRedirect'))
-            return $this->deleteCustomRecordsRedirect($parameters);
 
+        if(method_exists($this, 'deleteCustomRecordsRedirect'))
+        {
+            $response = $this->deleteCustomRecordsRedirect($parameters);
+
+            // check that we have any  different to false
+            if($response !== false)
+                return $response;
+        }
 
         return redirect()->route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,
