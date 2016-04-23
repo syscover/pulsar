@@ -113,7 +113,7 @@
                     if (typeof responsiveHelper != 'undefined')
                         responsiveHelper.respond()
 
-                    @if($viewParameters['deleteSelectButton'] && $viewParameters['deleteSelectButton'] == 'true')
+                    @if($viewParameters['deleteSelectButton'] && $viewParameters['deleteSelectButton'] == 'true' && is_allowed($resource, 'delete'))
                         $.addDeleteButton()
                     @endif
                 }
