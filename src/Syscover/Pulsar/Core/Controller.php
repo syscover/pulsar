@@ -487,7 +487,6 @@ abstract class Controller extends BaseController {
         if(isset($parameters['lang']))
         {
             $parameters['object']   = call_user_func($this->model . '::getTranslationRecord', ['id' => $parameters['id'], 'lang' => $parameters['lang']]);
-
             $parameters['lang']     = $parameters['object']->lang;
         }
         else
@@ -496,7 +495,7 @@ abstract class Controller extends BaseController {
             if(method_exists($this->model, 'getRecord'))
                 $parameters['object']   = call_user_func($this->model . '::getRecord', $parameters);
             else
-                $parameters['object']   = call_user_func($this->model . '::find', $parameters['id']);
+                $parameters['object']   = call_user_func($this->model . '::builder')->find($parameters['id']);
         }
 
         $parameters = $this->showCustomRecord($parameters);
@@ -575,6 +574,7 @@ abstract class Controller extends BaseController {
                 $parameters['object']   = call_user_func($this->model . '::getRecord', $parameters);
             else
                 // call builder, by default is instance on TraitModel or in model object
+                // this method is deprecated
                 $parameters['object']   = call_user_func($this->model . '::builder')->find($parameters['id']);
         }
 
