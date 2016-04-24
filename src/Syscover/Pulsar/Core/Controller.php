@@ -56,7 +56,6 @@ abstract class Controller extends BaseController {
     {
         // get parameters from url route
         $parameters = $this->request->route()->parameters();
-        $action     = $this->request->route()->getAction();
 
         // check if url contain offset parameter, if not exist, create variable with 0 value
         if(! isset($parameters['offset'])) $parameters['offset'] = 0;
@@ -67,16 +66,16 @@ abstract class Controller extends BaseController {
         // set path variable to save in cookie, search param datatable component,
         // after creating urlParameters to don't send value, to URL create
         $parameters['path']                 = $this->request->path();
-        $parameters['package']              = $this->package;
-        $parameters['folder']               = $this->folder;
-        $parameters['routeSuffix']          = $this->routeSuffix;
         $parameters['resource']             = $this->resource;
+        $parameters['routeSuffix']          = $this->routeSuffix;
+        $parameters['folder']               = $this->folder;
+        $parameters['package']              = $this->package;
         $parameters['icon']                 = $this->icon;
         $parameters['objectTrans']          = isset($this->objectTrans) &&  $this->objectTrans != null? Miscellaneous::getObjectTransValue($parameters, $this->objectTrans) : null;
 
         // check if show create button
-        if(isset($action['resource']))
-            if(! is_allowed($action['resource'], 'create'))
+        if(isset($this->resource))
+            if(! is_allowed($this->resource, 'create'))
                 $this->viewParameters['newButton'] = false;
 
         $parametersResponse = $this->customIndex($parameters);
@@ -349,6 +348,7 @@ abstract class Controller extends BaseController {
         if(is_object($parameters) && get_class($parameters) == \Illuminate\Http\RedirectResponse::class)
             return $parameters;
 
+        $parameters['resource']       = $this->resource;
         $parameters['package']        = $this->package;
         $parameters['folder']         = $this->folder;
         $parameters['routeSuffix']    = $this->routeSuffix;
@@ -476,6 +476,7 @@ abstract class Controller extends BaseController {
         // set path variable to save in cookie, search param datatable component,
         // after creating urlParameters to don't send value, to URL create
         $parameters['path']           = $this->request->path();
+        $parameters['resource']       = $this->resource;
         $parameters['action']         = 'show';
         $parameters['package']        = $this->package;
         $parameters['folder']         = $this->folder;
@@ -543,6 +544,7 @@ abstract class Controller extends BaseController {
         // set path variable to save in cookie, search param datatable component,
         // after creating urlParameters to don't send value, to URL create
         $parameters['path']         = $this->request->path();
+        $parameters['resource']     = $this->resource;
         $parameters['action']       = 'update';
         $parameters['package']      = $this->package;
         $parameters['folder']       = $this->folder;
