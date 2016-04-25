@@ -4,10 +4,10 @@
         <input class="form-control" type="{{ isset($type)? $type : 'text' }}" name="{{ $name }}" value="{{ isset($value)? $value : null }}"{!! isset($data)? Miscellaneous::setDataAttributes($data) : null !!} @if(isset($placeholder)) placeholder="{{ $placeholder }}"@endif @if(isset($maxLength)) maxlength="{{ $maxLength }}"@endif @if(isset($rangeLength))rangelength="{{ $rangeLength }}"@endif @if(isset($min)) min="{{ $min }}"@endif{{ isset($readOnly) && $readOnly || ! isset($readOnly)? ' readonly' : null }}{{ isset($required) && $required? ' required' : null }}>
         {!! $errors->first($name . 'Id', config('pulsar.errorDelimiters')) !!}
     </div>
-    @if(! isset($disabled) ||  isset($disabled) && ! $disabled)
-        <div class="col-md-{{ $iconSize or 2 }}">
+    <div class="col-md-{{ $iconSize or 2 }}">
+        @if(! isset($disabled) ||  isset($disabled) && ! $disabled)
             <a href="{{ $modalUrl }}" class="magnific-popup"><span class="black-text fa-2x fa fa-external-link"></span></a>
-            <input type="hidden" name="{{ $name . 'Id' }}" value="{{ isset($valueId)? $valueId : null }}"{{ isset($required) && $required? ' required' : null }}>
-        </div>
-    @endif
+        @endif
+        <input type="hidden" name="{{ $name . 'Id' }}" value="{{ isset($valueId)? $valueId : null }}"{{ isset($required) && $required? ' required' : null }}>
+    </div>
 </div>
