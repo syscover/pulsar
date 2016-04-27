@@ -48,6 +48,7 @@ return [
     'budget'                                => 'Budget|Budgets',
     'cancel'                                => 'Cancel',
     'change_password_successful'            => 'Great, We\'ve sent an email',
+    'cost'                                  => 'Cost|Costs',
     'create'                                => 'Create',
     'custom_field'                          => 'Custom field|Custom fields',
     'confirmed'                             => 'Confirmed',

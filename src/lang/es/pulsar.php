@@ -48,6 +48,7 @@ return [
     'budget'                                => 'Presupuesto|Presupuestos',
     'cancel'                                => 'Cancelar',
     'change_password_successful'            => 'Estupendo, le hemos enviado un email',
+    'cost'                                  => 'Coste|Costes',
     'create'                                => 'Crear',
     'custom_field'                          => 'Campo personalizado|Campos personalizados',
     'confirmed'                             => 'Confirmado',
