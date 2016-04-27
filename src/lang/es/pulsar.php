@@ -69,6 +69,7 @@ return [
     'error'                                 => 'Error|Errores',
     'error_reset_password'                  => 'Por favor introduzca su email',
     'error2_reset_password'                 => 'Error, su usuario no existe',
+    'expire_date'                           => 'Fecha de caducidad',
     'family'                                => 'Familia|Familias',
     'feature'                               => 'Característica|Características',
     'featured'                              => 'Destacado',

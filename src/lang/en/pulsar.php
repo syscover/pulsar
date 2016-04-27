@@ -69,6 +69,7 @@ return [
     'error'                                 => 'Error|Errors',
     'error_reset_password'                  => 'Please enter your email',
     'error2_reset_password'                 => 'Error, the user doesn\'t exist',
+    'expire_date'                           => 'Expire date',
     'family'                                => 'Family|Families',
     'feature'                               => 'Feature|Features',
     'featured'                              => 'Featured',
