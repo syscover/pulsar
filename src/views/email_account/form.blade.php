@@ -70,7 +70,7 @@
         'fieldSize' => 5
     ])
     @include('pulsar::includes.html.form_select_group', [
-        'label' => trans('pulsar::pulsar.incoming_secure'),
+        'label' => trans('pulsar::pulsar.outgoing_secure'),
         'name' => 'outgoingSecure',
         'value' => old('outgoingSecure', isset($object->outgoing_secure_013)? $object->outgoing_secure_013: null),
         'objects' => $outgoingSecures,
