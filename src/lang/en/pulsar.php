@@ -121,6 +121,7 @@ return [
     'message_user_pass'                     => 'Enter your username and password',
     'mime'                                  => 'Mime|Mimes',
     'mode'                                  => 'Mode|Modes',
+    'model'                                 => 'Model|Models',
     'mr'                                    => 'Mr.',
     'mrs'                                   => 'Mrs.',
     'ms'                                    => 'Ms.',

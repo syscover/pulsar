@@ -121,6 +121,7 @@ return [
     'message_user_pass'                     => 'Indique su usuario y contraseña',
     'mime'                                  => 'Mime|Mimes',
     'mode'                                  => 'Modo|Modos',
+    'model'                                 => 'Modelo|Modelos',
     'mr'                                    => 'Sr.',
     'mrs'                                   => 'Sra.',
     'ms'                                    => 'Srta.',
