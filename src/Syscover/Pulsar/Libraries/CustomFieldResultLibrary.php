@@ -90,6 +90,8 @@ class CustomFieldResultLibrary
     }
 
     /**
+     * Function to get html from custom fields
+     *
      * @param $parameters
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception

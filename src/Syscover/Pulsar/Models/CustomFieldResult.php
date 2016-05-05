@@ -72,6 +72,8 @@ class CustomFieldResult extends Model
     }
 
     /**
+     * Accessor function, when call value_028 set cast to value
+     *
      * @param $value
      * @return string
      */
