@@ -2,6 +2,7 @@
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Syscover\Pulsar\Exceptions\InvalidArgumentException;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Models\Lang;
@@ -209,11 +210,16 @@ abstract class Controller extends BaseController {
             $actionUrlParameters['id']        = $aObject[$instance->getKeyName()];
             $actionUrlParameters['offset']    = $this->request->input('iDisplayStart');
 
-            // set modal parameter for actions from datatable, you need instance all situations
-            if(isset($parameters['modal']) && $parameters['modal'] == 1)
-                $actionUrlParameters['modal'] = 1;
-            else
-                $actionUrlParameters['modal'] = 0;
+            // check if create route has modal
+            // is necessary to have modal paramenter in all routes for proper operation
+            if(Route::current()->hasParameter('modal'))
+            {
+                // set modal parameter for actions from datatable, you need instance all situations
+                if (isset($parameters['modal']) && $parameters['modal'] == 1)
+                    $actionUrlParameters['modal'] = 1;
+                else
+                    $actionUrlParameters['modal'] = 0;
+            }
 
             // if we have parentOffset, we instantiate it
             if(isset($parameters['parentOffset'])) $actionUrlParameters['parentOffset'] = $parameters['parentOffset'];
@@ -332,11 +338,16 @@ abstract class Controller extends BaseController {
 
         $parameters['urlParameters']  = $parameters;
 
-        // check if this element is modal, to mark in your url petition
-        if(isset($parameters['modal']) && $parameters['modal'] == 1)
-            $parameters['urlParameters']['modal'] = 1;
-        else
-            $parameters['urlParameters']['modal'] = 0;
+        // check if create route has modal
+        // is necessary to have modal paramenter in all routes for proper operation
+        if(Route::current()->hasParameter('modal'))
+        {
+            // check if this element is modal, to mark in your url petition
+            if(isset($parameters['modal']) && $parameters['modal'] == 1)
+                $parameters['urlParameters']['modal'] = 1;
+            else
+                $parameters['urlParameters']['modal'] = 0;
+        }
 
         // get lang object
         if(isset($parameters['lang']))
@@ -467,11 +478,16 @@ abstract class Controller extends BaseController {
 
         $parameters['urlParameters']  = $parameters;
 
-        // check if this element is modal, to mark in your url petition
-        if(isset($parameters['modal']) && $parameters['modal'] == 1)
-            $parameters['urlParameters']['modal'] = 1;
-        else
-            $parameters['urlParameters']['modal'] = 0;
+        // check if create route has modal
+        // is necessary to have modal paramenter in all routes for proper operation
+        if(Route::current()->hasParameter('modal'))
+        {
+            // check if this element is modal, to mark in your url petition
+            if (isset($parameters['modal']) && $parameters['modal'] == 1)
+                $parameters['urlParameters']['modal'] = 1;
+            else
+                $parameters['urlParameters']['modal'] = 0;
+        }
 
         // set path variable to save in cookie, search param datatable component,
         // after creating urlParameters to don't send value, to URL create
