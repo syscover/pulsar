@@ -59,7 +59,7 @@
     @include('pulsar::includes.html.form_select_group', [
         'label' => trans_choice('pulsar::pulsar.field_type', 1),
         'name' => 'fieldType',
-        'value' => old('fieldType', isset($object->field_type_026)? $object->field_type_026 : null),
+        'value' => old('fieldType', isset($object->field_type_id_026)? $object->field_type_id_026 : null),
         'required' => true,
         'objects' => $fieldTypes,
         'idSelect' => 'id',
@@ -70,7 +70,7 @@
     @include('pulsar::includes.html.form_select_group', [
         'label' => trans_choice('pulsar::pulsar.data_type', 1),
         'name' => 'dataType',
-        'value' => old('dataType', isset($object->data_type_026)? $object->data_type_026 : null),
+        'value' => old('dataType', isset($object->data_type_id_026)? $object->data_type_id_026 : null),
         'required' => true,
         'objects' => $dataTypes,
         'idSelect' => 'id',

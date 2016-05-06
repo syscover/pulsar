@@ -15,7 +15,7 @@ class CustomFieldController extends Controller
     protected $routeSuffix  = 'customField';
     protected $folder       = 'field';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_026', 'name_025', 'name_026', 'field_type_text_026', 'data_type_text_026', ['data' => 'required_026', 'type' => 'active'], 'sorting_026', 'max_length_026'];
+    protected $aColumns     = ['id_026', 'name_025', 'name_026', 'field_type_name_026', 'data_type_name_026', ['data' => 'required_026', 'type' => 'active'], 'sorting_026', 'max_length_026'];
     protected $nameM        = 'name_026';
     protected $model        = CustomField::class;
     protected $icon         = 'fa fa-i-cursor';
@@ -81,10 +81,10 @@ class CustomFieldController extends Controller
                 'id_026'                => $id,
                 'group_026'             => $this->request->input('group'),
                 'name_026'              => $this->request->input('name'),
-                'field_type_026'        => $this->request->input('fieldType'),
-                'field_type_text_026'   => collect(config('pulsar.fieldTypes'))->keyBy('id')[$this->request->input('fieldType')]->name,
-                'data_type_026'         => $this->request->input('dataType'),
-                'data_type_text_026'    => collect(config('pulsar.dataTypes'))->keyBy('id')[$this->request->input('dataType')]->name,
+                'field_type_id_026'     => $this->request->input('fieldType'),
+                'field_type_name_026'   => collect(config('pulsar.fieldTypes'))->keyBy('id')[$this->request->input('fieldType')]->name,
+                'data_type_id_026'      => $this->request->input('dataType'),
+                'data_type_name_026'    => collect(config('pulsar.dataTypes'))->keyBy('id')[$this->request->input('dataType')]->name,
                 'required_026'          => $this->request->has('required'),
                 'sorting_026'           => empty($this->request->input('sorting'))? null : $this->request->input('sorting'),
                 'max_length_026'        => empty($this->request->input('maxLength'))? null : $this->request->input('maxLength'),
@@ -118,12 +118,12 @@ class CustomFieldController extends Controller
         $data['labels'][$this->request->input('lang')]    = $this->request->input('label');
 
         CustomField::where('id_026', $parameters['id'])->update([
-            'group_026'            => $this->request->input('group'),
+            'group_026'             => $this->request->input('group'),
             'name_026'              => $this->request->input('name'),
-            'field_type_026'        => $this->request->input('fieldType'),
-            'field_type_text_026'   => collect(config('pulsar.fieldTypes'))->keyBy('id')[$this->request->input('fieldType')]->name,
-            'data_type_026'         => $this->request->input('dataType'),
-            'data_type_text_026'    => collect(config('pulsar.dataTypes'))->keyBy('id')[$this->request->input('dataType')]->name,
+            'field_type_id_026'     => $this->request->input('fieldType'),
+            'field_type_name_026'   => collect(config('pulsar.fieldTypes'))->keyBy('id')[$this->request->input('fieldType')]->name,
+            'data_type_id_026'      => $this->request->input('dataType'),
+            'data_type_name_026'    => collect(config('pulsar.dataTypes'))->keyBy('id')[$this->request->input('dataType')]->name,
             'required_026'          => $this->request->has('required'),
             'sorting_026'           => empty($this->request->input('sorting'))? null : $this->request->input('sorting'),
             'max_length_026'        => empty($this->request->input('maxLength'))? null : $this->request->input('maxLength'),

@@ -22,7 +22,7 @@ class CustomFieldResult extends Model
     protected $primaryKey   = 'object_028';
     protected $suffix       = '028';
     public $timestamps      = false;
-    protected $fillable     = ['object_028', 'lang_028', 'resource_028', 'field_028', 'data_type_028', 'value_028'];
+    protected $fillable     = ['object_028', 'lang_028', 'resource_028', 'field_028', 'data_type_type_028', 'value_028'];
     protected $maps         = [];
     protected $relationMaps = [
         'lang'          => \Syscover\Pulsar\Models\Lang::class,
@@ -79,10 +79,10 @@ class CustomFieldResult extends Model
      */
     public function getValue028Attribute($value)
     {
-        if($this->data_type_028 == 'array')
+        if($this->data_type_type_028 == 'array')
             $value = explode(',', $value);
         else
-            settype($value, $this->data_type_028);
+            settype($value, $this->data_type_type_028);
 
         return $value;
     }
@@ -93,7 +93,7 @@ class CustomFieldResult extends Model
      */
 //    public function setValue028Attribute($value)
 //    {
-//        if($this->data_type_028 == 'array')
+//        if($this->data_type_type_028 == 'array')
 //            $this->attributes['value_028'] = implode(',', $value);
 //        else
 //            $this->attributes['value_028'] = $value;

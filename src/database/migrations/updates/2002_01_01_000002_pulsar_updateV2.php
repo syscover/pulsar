@@ -12,7 +12,7 @@ class PulsarUpdateV2 extends Migration
 	 */
 	public function up()
 	{
-		if(!Schema::hasColumn('001_018_preference', 'created_at'))
+		if(! Schema::hasColumn('001_018_preference', 'created_at'))
 		{
 			Schema::table('001_018_preference', function (Blueprint $table) {
 				$table->timestamps();

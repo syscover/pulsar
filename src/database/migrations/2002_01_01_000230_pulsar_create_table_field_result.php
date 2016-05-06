@@ -21,7 +21,7 @@ class PulsarCreateTableFieldResult extends Migration {
                 $table->string('lang_028', 2);
                 $table->string('resource_028', 30);
                 $table->integer('field_028')->unsigned();       //
-                $table->string('data_type_028')->default('string');
+                $table->string('data_type_type_028')->default('string');
                 // data type
                 // 1 - String
                 // 2 - Boolean

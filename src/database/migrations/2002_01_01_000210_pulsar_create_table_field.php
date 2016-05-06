@@ -22,8 +22,8 @@ class PulsarCreateTableField extends Migration {
                 // lang_026 set in json on data_026
                 // label_026 set in json on data_026
 
-                $table->tinyInteger('field_type_026')->unsigned(); // see config/pulsar.php
-                $table->string('field_type_text_026');
+                $table->tinyInteger('field_type_id_026')->unsigned(); // see config/pulsar.php
+                $table->string('field_type_name_026');
                 // 1 - Text
                 // 2 - Select
                 // 3 - Select multiple
@@ -35,8 +35,8 @@ class PulsarCreateTableField extends Migration {
                 // 9 - Text area
                 // 10 - Wysiwyg
 
-                $table->tinyInteger('data_type_026')->unsigned();
-                $table->string('data_type_text_026');
+                $table->tinyInteger('data_type_id_026')->unsigned();
+                $table->string('data_type_name_026');
                 // 1 - String
                 // 2 - Boolean
                 // 3 - Integer

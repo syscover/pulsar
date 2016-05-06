@@ -76,4 +76,22 @@ class CustomFieldValue extends Model
 
         return $query;
     }
+
+    /**
+     * Accessor function, when call id_026 set cast to value
+     *
+     * @param $value
+     * @return string
+     */
+    public function getId027Attribute($value)
+    {
+        $type = collect(config('pulsar.dataTypes'))->keyBy('id')[$this->data_type_id_026]->type;
+
+        if($type == 'array')
+            $value = explode(',', $value);
+        else
+            settype($value, $type);
+
+        return $value;
+    }
 }

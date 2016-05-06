@@ -12,11 +12,11 @@ class PulsarUpdateV4 extends Migration
 	 */
 	public function up()
 	{
-		if(!Schema::hasColumn('001_026_field', 'field_type_text_026'))
+		if(! Schema::hasColumn('001_026_field', 'field_type_name_026'))
 		{
 			Schema::table('001_026_field', function (Blueprint $table) {
-				$table->string('field_type_text_026', 100)->after('field_type_026');
-				$table->string('data_type_text_026', 100)->after('data_type_026');
+				$table->string('field_type_name_026', 100)->after('field_type_id_026');
+				$table->string('data_type_name_026', 100)->after('data_type_id_026');
 			});
 		}
 	}

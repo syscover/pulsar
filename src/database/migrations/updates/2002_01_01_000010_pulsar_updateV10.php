@@ -13,7 +13,7 @@ class PulsarUpdateV10 extends Migration
 	 */
 	public function up()
 	{
-		if(!Schema::hasColumn('001_027_field_value', 'counter_027'))
+		if(! Schema::hasColumn('001_027_field_value', 'counter_027'))
 		{
 			Schema::table('001_027_field_value', function (Blueprint $table) {
 
