@@ -12,7 +12,7 @@ class PulsarCreateTableEmailAccount extends Migration
      */
     public function up()
     {
-        if(!Schema::hasTable('001_013_email_account'))
+        if(! Schema::hasTable('001_013_email_account'))
         {
             Schema::create('001_013_email_account', function (Blueprint $table) {
                 $table->engine = 'InnoDB';

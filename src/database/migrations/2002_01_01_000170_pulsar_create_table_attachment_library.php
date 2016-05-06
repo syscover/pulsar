@@ -12,7 +12,7 @@ class PulsarCreateTableAttachmentLibrary extends Migration {
      */
     public function up()
     {
-        if(!Schema::hasTable('001_014_attachment_library'))
+        if(! Schema::hasTable('001_014_attachment_library'))
         {
             Schema::create('001_014_attachment_library', function (Blueprint $table) {
                 $table->engine = 'InnoDB';

@@ -12,7 +12,7 @@ class PulsarCreateTableAttachmentFamily extends Migration {
      */
     public function up()
     {
-        if(!Schema::hasTable('001_015_attachment_family'))
+        if(! Schema::hasTable('001_015_attachment_family'))
         {
             Schema::create('001_015_attachment_family', function (Blueprint $table) {
                 $table->engine = 'InnoDB';

@@ -12,7 +12,7 @@ class PulsarCreateTablePermission extends Migration
 	 */
 	public function up()
 	{
-		if(!Schema::hasTable('001_009_permission'))
+		if(! Schema::hasTable('001_009_permission'))
 		{
 			Schema::create('001_009_permission', function (Blueprint $table) {
 				$table->engine = 'InnoDB';

@@ -12,7 +12,7 @@ class PulsarCreateTablePreference extends Migration
 	 */
 	public function up()
 	{
-		if(!Schema::hasTable('001_018_preference'))
+		if(! Schema::hasTable('001_018_preference'))
 		{
 			Schema::create('001_018_preference', function (Blueprint $table) {
 				$table->string('id_018', 50)->primary();

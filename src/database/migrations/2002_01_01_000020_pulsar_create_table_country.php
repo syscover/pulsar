@@ -12,7 +12,7 @@ class PulsarCreateTableCountry extends Migration
 	 */
 	public function up()
 	{
-        if(!Schema::hasTable('001_002_country'))
+        if(! Schema::hasTable('001_002_country'))
         {
             Schema::create('001_002_country', function (Blueprint $table) {
                 $table->engine = 'InnoDB';

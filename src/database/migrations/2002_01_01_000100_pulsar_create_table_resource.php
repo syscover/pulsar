@@ -12,7 +12,7 @@ class PulsarCreateTableResource extends Migration
 	 */
 	public function up()
 	{
-		if(!Schema::hasTable('001_007_resource'))
+		if(! Schema::hasTable('001_007_resource'))
 		{
 			Schema::create('001_007_resource', function (Blueprint $table) {
 				$table->engine = 'InnoDB';

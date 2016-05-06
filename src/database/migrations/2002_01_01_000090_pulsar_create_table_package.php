@@ -12,7 +12,7 @@ class PulsarCreateTablePackage extends Migration
 	 */
 	public function up()
 	{
-		if(!Schema::hasTable('001_012_package'))
+		if(! Schema::hasTable('001_012_package'))
 		{
 			Schema::create('001_012_package', function (Blueprint $table) {
 				$table->engine = 'InnoDB';

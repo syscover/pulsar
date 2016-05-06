@@ -12,7 +12,7 @@ class PulsarCreateTableCronJob extends Migration
 	 */
 	public function up()
 	{
-		if(!Schema::hasTable('001_011_cron_job'))
+		if(! Schema::hasTable('001_011_cron_job'))
 		{
 			Schema::create('001_011_cron_job', function (Blueprint $table) {
 				$table->engine = 'InnoDB';

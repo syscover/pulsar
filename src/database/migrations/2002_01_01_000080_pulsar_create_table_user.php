@@ -12,7 +12,7 @@ class PulsarCreateTableUser extends Migration
 	 */
 	public function up()
 	{
-        if(!Schema::hasTable('001_010_user'))
+        if(! Schema::hasTable('001_010_user'))
         {
             Schema::create('001_010_user', function (Blueprint $table) {
                 $table->engine = 'InnoDB';

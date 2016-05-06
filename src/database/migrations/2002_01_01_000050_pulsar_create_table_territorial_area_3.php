@@ -12,7 +12,7 @@ class PulsarCreateTableTerritorialArea3 extends Migration
 	 */
 	public function up()
 	{
-		if(!Schema::hasTable('001_005_territorial_area_3'))
+		if(! Schema::hasTable('001_005_territorial_area_3'))
 		{
 			Schema::create('001_005_territorial_area_3', function (Blueprint $table) {
 				$table->engine = 'InnoDB';

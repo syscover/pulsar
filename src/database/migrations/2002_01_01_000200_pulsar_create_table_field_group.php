@@ -12,7 +12,7 @@ class PulsarCreateTableFieldGroup extends Migration {
      */
     public function up()
     {
-        if(!Schema::hasTable('001_025_field_group'))
+        if(! Schema::hasTable('001_025_field_group'))
         {
             Schema::create('001_025_field_group', function (Blueprint $table) {
                 $table->engine = 'InnoDB';

@@ -12,13 +12,14 @@ class PulsarCreateTableField extends Migration {
      */
     public function up()
     {
-        if(!Schema::hasTable('001_026_field'))
+        if(! Schema::hasTable('001_026_field'))
         {
             Schema::create('001_026_field', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id_026')->unsigned();
                 $table->integer('group_026')->unsigned();
                 $table->string('name_026')->nullable();
+                
                 // lang_026 set in json on data_026
                 // label_026 set in json on data_026
 

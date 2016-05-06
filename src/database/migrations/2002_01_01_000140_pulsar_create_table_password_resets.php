@@ -12,7 +12,7 @@ class PulsarCreateTablePasswordResets extends Migration
 	 */
 	public function up()
 	{
-		if(!Schema::hasTable('001_021_password_resets'))
+		if(! Schema::hasTable('001_021_password_resets'))
 		{
 			Schema::create('001_021_password_resets', function (Blueprint $table) {
 				$table->string('email')->index();

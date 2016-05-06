@@ -12,7 +12,7 @@ class PulsarCreateTableFieldResult extends Migration {
      */
     public function up()
     {
-        if(!Schema::hasTable('001_028_field_result'))
+        if(! Schema::hasTable('001_028_field_result'))
         {
             Schema::create('001_028_field_result', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
@@ -20,7 +20,7 @@ class PulsarCreateTableFieldResult extends Migration {
                 $table->integer('object_028')->unsigned();      // ID of record who owns the result
                 $table->string('lang_028', 2);
                 $table->string('resource_028', 30);
-                $table->integer('field_028')->unsigned();       //
+                $table->integer('field_028')->unsigned();
                 $table->string('data_type_type_028')->default('string');
                 // data type
                 // 1 - String

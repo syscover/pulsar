@@ -12,7 +12,7 @@ class PulsarCreateTableFieldValue extends Migration {
      */
     public function up()
     {
-        if(!Schema::hasTable('001_027_field_value'))
+        if(! Schema::hasTable('001_027_field_value'))
         {
             Schema::create('001_027_field_value', function (Blueprint $table) {
                 $table->engine = 'InnoDB';

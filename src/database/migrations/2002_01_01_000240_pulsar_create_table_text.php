@@ -12,7 +12,7 @@ class PulsarCreateTableText extends Migration
 	 */
 	public function up()
 	{
-        if(!Schema::hasTable('001_017_text'))
+        if(! Schema::hasTable('001_017_text'))
         {
             Schema::create('001_017_text', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
