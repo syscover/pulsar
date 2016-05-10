@@ -155,11 +155,11 @@ abstract class Controller extends BaseController {
                     switch ($aColumn['type'])
                     {
                         case 'email':
-                            $row[] = !empty($aObject->{$aColumn['data']})? '<a href="mailto:' . $aObject->{$aColumn['data']} . '">' . $aObject->{$aColumn['data']} . '</a>' : null;
+                            $row[] = ! empty($aObject->{$aColumn['data']})? '<a href="mailto:' . $aObject->{$aColumn['data']} . '">' . $aObject->{$aColumn['data']} . '</a>' : null;
                             break;
 
                         case 'img':
-                            $row[] = !empty($aObject->{$aColumn['data']})? '<img src="' . asset($aColumn['url'] . $aObject[$aColumn['data']]) . '">' : null;
+                            $row[] = ! empty($aObject->{$aColumn['data']})? '<img src="' . asset($aColumn['url'] . $aObject[$aColumn['data']]) . '">' : null;
                             break;
 
                         case 'check':
@@ -187,6 +187,10 @@ abstract class Controller extends BaseController {
 
                         case 'color':
                             $row[] = '<i class="color' . (isset($aColumn['tooltip']) && $aColumn['tooltip']? ' bs-tooltip' : null) . '"' . (isset($aColumn['title'])? ' title="' . $aObject[$aColumn['title']] . '"' : null) . ' style="background-color: ' . $aObject[$aColumn['data']] . '"></i>';
+                            break;
+
+                        case 'alias':
+                            $row[] = $aObject->{$aColumn['alias']};
                             break;
                     }
 
