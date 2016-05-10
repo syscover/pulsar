@@ -134,8 +134,6 @@ class CustomFieldResultLibrary
                     ->where('lang_027', session('baseLang')->id_001)
                     ->get();
                 
-                dd($customFieldValues);
-
                 $multipleSelectValue = null;
 
                 if($setValue)
