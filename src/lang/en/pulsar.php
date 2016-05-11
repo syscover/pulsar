@@ -139,6 +139,7 @@ return [
     'prefix'                                => 'Prefix',
     'preview'                               => 'Preview',
     'price'                                 => 'Price|Prices',
+    'product'                               => 'Product|Products',
     'profile'                               => 'Profile|Profiles',
     'related_record'                        => 'Related record',
     'remember_password'                     => 'Remember password',

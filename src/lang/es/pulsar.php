@@ -139,6 +139,7 @@ return [
     'prefix'                                => 'Prefijo',
     'preview'                               => 'Vista previa',
     'price'                                 => 'Precio|Precios',
+    'product'                               => 'Producto|Productos',
     'profile'                               => 'Perfil|Perfiles',
     'related_record'                        => 'Relacionar registro',
     'remember_password'                     => '¿Olvidó su contraseña?',
