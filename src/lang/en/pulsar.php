@@ -86,6 +86,7 @@ return [
     'hour'                                  => 'Hour|Hours',
     'int_value'                             => 'Int value',
     'instructions'                          => 'Instructions',
+    'invoice'                               => 'Invoice|Invoices',
     'ip'                                    => 'IP',
     'key'                                   => 'Key',
     'label_size'                            => 'Label size',
@@ -95,7 +96,8 @@ return [
     'male'                                  => 'Male',
     'married'                               => 'Married',
     'maximum_length'                        => 'Maximum length',
-    'message_create_all_permissions'        => 'Permissions to profile <strong>:profile</strong> has been properly recorded',
+    'message_create_all_permissions'        => 'Permissions to 
+ <strong>:profile</strong> has been properly recorded',
     'message_create_permission_error'       => '<strong>:action</strong> permission for the <strong>:resource</strong> was not created.<br><strong>Please, contact with administrator.</strong>',
     'message_create_permission_successful'  => '<strong>:action</strong> permission for the <strong>:resource</strong> resource has been created successfully',
     'message_create_record_successful'      => 'Registration <strong>:name</strong> has been properly recorded',

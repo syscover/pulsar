@@ -86,6 +86,7 @@ return [
     'hour'                                  => 'Hora|Horas',
     'int_value'                             => 'Valor entero',
     'instructions'                          => 'Instrucciones',
+    'invoice'                               => 'Factura|Facturas',
     'ip'                                    => 'IP',
     'key'                                   => 'Key',
     'label_size'                            => 'Tamaño etiqueta',
