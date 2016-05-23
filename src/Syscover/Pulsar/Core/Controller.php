@@ -30,6 +30,7 @@ abstract class Controller extends BaseController {
     protected $request;
     protected $viewParameters = [
         'newButton'             => true,    // button from index view to create record
+        'cancelButton'          => true,    // button from form view to cancel and return to index
         'checkBoxColumn'        => true,    // checkbox from index view to select various records
         'showButton'            => false,   // button from ajax response, to view record
         'editButton'            => true,    // button from ajax response, to edit record

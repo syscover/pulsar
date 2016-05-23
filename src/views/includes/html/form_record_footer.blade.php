@@ -6,7 +6,7 @@
         @if($action != 'show')
             <button type="submit" class="btn margin-r10">{{ trans('pulsar::pulsar.save') }}</button>
         @endif
-        @if(!isset($cancelButton) || isset($cancelButton) && $cancelButton)
+        @if($viewParameters['cancelButton'])
             <a id="cancel" class="btn btn-inverse" href="{{ route($routeSuffix, $urlParameters) }}">{{ trans('pulsar::pulsar.cancel') }}</a>
         @endif
         @if($action == 'update' && isset($lang) && $lang->id_001 != session('baseLang')->id_001)

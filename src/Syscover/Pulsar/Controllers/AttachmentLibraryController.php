@@ -1,6 +1,7 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
 use Syscover\Pulsar\Core\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Syscover\Pulsar\Libraries\ImageManagerLibrary;
 use Syscover\Pulsar\Models\AttachmentLibrary;
@@ -20,15 +21,13 @@ class AttachmentLibraryController extends Controller
     protected $model        = AttachmentLibrary::class;
     protected $icon         = 'fa fa-book';
     protected $objectTrans  = 'library';
-    protected $viewParameters   = [
-        'newButton'             => true,
-        'checkBoxColumn'        => true,
-        'showButton'            => false,
-        'editButton'            => false,
-        'deleteButton'          => true,
-        'deleteSelectButton'    => true,
-        'relatedButton'         => false,
-    ];
+    
+    function __construct(Request $request)
+    {
+        parent::__construct($request);
+
+        $this->viewParameters['editButton'] = false;
+    }
 
     public function customColumnType($row, $aColumn, $aObject)
     {
