@@ -10,10 +10,10 @@ return [
     |
     */
 
-    //Cron alarmas Vinipad Sales Force
+    // Cron alarmas Vinipad Sales Force
     //'01' => '\Syscover\Vinipadsalesforcefrontend\Libraries\Cron::checkCallsToQueue',
 
-    //Cron check citas Módulo de Cabinas
+    // Cron check citas Módulo de Cabinas
     //'02' => '\Syscover\Cabinas\Libraries\Cron::checkCitas',
 
     // cron para comprobar que hay correos de campañas por enviar a cola de envío o con persistencia activa
@@ -24,16 +24,18 @@ return [
 
 
 
-    //Cron envios de sms
+    // Cron envios de sms
     //'05' => '\Syscover\Comunik\Libraries\Cron::checkCallQueueSendSms',
 
-    //Cron vinipad
+    // Cron vinipad
     //'06' => '\Syscover\Vinipadcuadernocata\Libraries\Cron::checkCallsToQueue',
 
     //Cron comprobación de correos rebotados y número de correos en cada cuenta
     '07' => '\Syscover\Comunik\Libraries\Cron::checkBouncedEmailsAccounts',
 
     //Cron comprobación de correos rebotados y número de correos en cada cuenta
-    '08' =>  '\Syscover\Forms\Libraries\Cron::checkMessageToSend'
-
+    '08' =>  '\Syscover\Forms\Libraries\Cron::checkMessageToSend',
+    
+    //Cron comprobación de correos rebotados y número de correos en cada cuenta
+    '09' =>  '\Syscover\Booking\Libraries\Cron::checkVouchersToCreate',
 ];

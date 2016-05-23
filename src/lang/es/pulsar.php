@@ -130,6 +130,7 @@ return [
     'new'                                   => 'Nuevo',
     'new2'                                  => 'Nueva',
     'new_window'                            => 'Nueva ventana',
+    'no'                                    => 'No',
     'notifications_account'                 => 'Cuenta de notificaciones',
     'objects_list'                          => 'Lista de objetos',
     'or'                                    => 'O',
@@ -175,6 +176,7 @@ return [
     'weight'                                => 'Peso|Pesos',
     'widower'                               => 'Viudo/a',
     'work'                                  => 'Trabajo|Trabajos',
+    'yes'                                   => 'Si',
 
 
 

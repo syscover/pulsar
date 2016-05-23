@@ -130,6 +130,7 @@ return [
     'new'                                   => 'New',
     'new2'                                  => 'New',
     'new_window'                            => 'New window',
+    'no'                                    => 'No',
     'notifications_account'                 => 'Notifications account',
     'objects_list'                          => 'Objects list',
     'or'                                    => 'OR',
@@ -175,6 +176,7 @@ return [
     'view_record'                           => 'View record',
     'widower'                               => 'Widower',
     'work'                                  => 'Work|Works',
+    'yes'                                   => 'Yes',
 
 
 
