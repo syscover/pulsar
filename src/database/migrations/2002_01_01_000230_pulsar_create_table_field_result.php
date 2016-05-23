@@ -36,7 +36,7 @@ class PulsarCreateTableFieldResult extends Migration {
                 $table->foreign('lang_028', 'fk01_001_028_field_result')->references('id_001')->on('001_001_lang')
                     ->onDelete('restrict')->onUpdate('cascade');
                 $table->foreign('field_028', 'fk02_001_028_field_result')->references('id_026')->on('001_026_field')
-                    ->onDelete('restrict')->onUpdate('cascade');
+                    ->onDelete('cascade')->onUpdate('cascade');
                 $table->foreign('resource_028', 'fk03_001_028_field_result')->references('id_007')->on('001_007_resource')
                     ->onDelete('cascade')->onUpdate('cascade');
             });
