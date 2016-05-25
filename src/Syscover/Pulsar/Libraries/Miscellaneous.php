@@ -388,11 +388,12 @@ class Miscellaneous
     {
 	    $args['sOrder'] = null;
         $args['sTypeOrder'] = null;
-        if(Request::input('iSortCol_0')!=null)
+        
+        if(Request::input('iSortCol_0') != null)
         {
             for($i=0; $i < intval(Request::input('iSortingCols')); $i++)
             {
-                if (Request::input('bSortable_'.intval(Request::input('iSortCol_'.$i))) == "true")
+                if (Request::input('bSortable_' . intval(Request::input('iSortCol_'.$i))) == "true")
                 {
                     $args['sOrder']       = is_array($aColumns[intval(Request::input('iSortCol_'.$i))])?  $aColumns[intval(Request::input('iSortCol_'.$i))]['data'] : $aColumns[intval(Request::input('iSortCol_'.$i))];
                     $args['sTypeOrder']   = Request::input('sSortDir_'.$i);

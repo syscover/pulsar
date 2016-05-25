@@ -108,7 +108,7 @@ abstract class Controller extends BaseController {
     {
         // get parameters from url route
         $parameters = $this->request->route()->parameters();
-
+        
         // get active langs if object has multiple langs
         if(isset($parameters['lang']))
             $langs = Lang::getActivesLangs();
