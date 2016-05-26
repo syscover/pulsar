@@ -23,7 +23,7 @@ abstract class Model extends BaseModel
         $fields = $this->fillable;
 
         // set maps if not exist
-        if(!isset($this->maps) || !is_array($this->maps))
+        if(! isset($this->maps) || ! is_array($this->maps))
         {
             throw new InvalidArgumentException('The array maps is not instantiated, you must instantiate in model ' . get_class($this));
         }
@@ -40,7 +40,7 @@ abstract class Model extends BaseModel
                 $maps       = $object->getMaps();
 
                 foreach($maps as $keyMap => $map)
-                    $this->maps[$key. '_' . $keyMap] = $map;
+                    $this->maps[$key . '_' . $keyMap] = $map;
             }
         }
 

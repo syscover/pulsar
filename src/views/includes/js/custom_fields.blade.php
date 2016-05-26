@@ -11,17 +11,17 @@
                 // get html doing a request to controller to render the views
                 @if($action == 'edit' || isset($id))
                     var request = {
-                            customFieldGroup: $("[name=customFieldGroup]").val(),
-                            lang: '{{ $lang->id_001 }}',
-                            object: '{{ $id }}',
-                            resource: '{{ $resource }}',
-                            action: '{{ $action }}'
-                        }
+                        customFieldGroup: $("[name=customFieldGroup]").val(),
+                        lang: '{{ $lang->id_001 }}',
+                        object: '{{ $id }}',
+                        resource: '{{ $resource }}',
+                        action: '{{ $action }}'
+                    };
                 @else
                     var request = {
-                            customFieldGroup: $("[name=customFieldGroup]").val(),
-                            lang: '{{ $lang->id_001 }}'
-                        }
+                        customFieldGroup: $("[name=customFieldGroup]").val(),
+                        lang: '{{ $lang->id_001 }}'
+                    };
                 @endif
 
                 $.ajax({
@@ -32,13 +32,13 @@
                     data: request,
                     success: function (data) {
                         // set html custom fields section
-                        $('#wrapperCustomFields').html(data.html)
+                        $('#wrapperCustomFields').html(data.html);
 
                         if ($.fn.select2)
                             $('.select2').each(function() {
-                                var self = $(this)
-                                $(self).select2(self.data())
-                            })
+                                var self = $(this);
+                                $(self).select2(self.data());
+                            });
 
                         if($.fn.froalaEditor)
                             $('.wysiwyg').froalaEditor({
@@ -52,28 +52,28 @@
                                 heightMin: 130,
                                 enter: $.FroalaEditor.ENTER_BR,
                                 key: '{{ config('pulsar.froalaEditorKey') }}'
-                            })
+                            });
 
                         if (data.html != '')
                         {
-                            $(".uniform").uniform()
-                            $('#headerCustomFields').fadeIn()
-                            $('#wrapperCustomFields').fadeIn()
+                            $(".uniform").uniform();
+                            $('#headerCustomFields').fadeIn();
+                            $('#wrapperCustomFields').fadeIn();
                         }
                     }
                 })
             }
             else
             {
-                $('#headerCustomFields').fadeOut()
-                $('#wrapperCustomFields').fadeOut()
-                $('#wrapperCustomFields').html('')
+                $('#headerCustomFields').fadeOut();
+                $('#wrapperCustomFields').fadeOut();
+                $('#wrapperCustomFields').html('');
             }
-        })
+        });
 
         // if we have customFieldGroup value, throw event to show or hide elements
         if($("[name=customFieldGroup]").val())
-            $("[name=customFieldGroup]").trigger('change')
+            $("[name=customFieldGroup]").trigger('change');
 
     })
 </script>
