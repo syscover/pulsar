@@ -48,11 +48,13 @@
                     responsiveHelper.createExpandIcon(nRow)
                 },
                 fnDrawCallback: function(oSettings) {
-                    $('input[name="nElementsDataTable"]').attr('value', this.fnPagingInfo().iTotal)
+
+                    console.log(this.fnPagingInfo().iTotal)
+                    $('input[name="nElementsDataTable"]').val(this.fnPagingInfo().iTotal);
 
                     //activacion de los tooltips en la datatables
                     if ($.fn.tooltip)
-                        $('.bs-tooltip').tooltip({container: 'body'})
+                        $('.bs-tooltip').tooltip({container: 'body'});
 
                     if ($.fn.uniform)
                         $(':radio.uniform, :checkbox.uniform').uniform()

@@ -826,7 +826,6 @@ abstract class Controller extends BaseController {
      * function to be overridden
      *
      * @access	public
-     * @param   \Illuminate\Http\Request    $request
      * @param   array                       $ids
      * @return	void
      */

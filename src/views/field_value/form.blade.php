@@ -62,7 +62,7 @@
         'name' => 'lang',
         'nameImage' => $lang->name_001,
         'value' => $lang->id_001,
-        'url' => asset('/packages/syscover/pulsar/storage/langs/' . $lang->image_001)
+        'url' => asset('packages/syscover/pulsar/storage/langs/' . $lang->image_001)
     ])
     @include('pulsar::includes.html.form_text_group', [
         'label' => trans_choice('pulsar::pulsar.name', 1),

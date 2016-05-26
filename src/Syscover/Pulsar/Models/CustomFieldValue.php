@@ -64,7 +64,10 @@ class CustomFieldValue extends Model
 
     public static function customCount($request, $parameters)
     {
-        return CustomFieldResult::builder()->where('lang_027', $parameters['lang'])->where('field_027', $parameters['field'])->getQuery();
+        return CustomFieldValue::builder()
+            ->where('lang_027', $parameters['lang'])
+            ->where('field_027', $parameters['field'])
+            ->getQuery();
     }
 
     public function addToGetIndexRecords($request, $parameters)
