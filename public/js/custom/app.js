@@ -163,7 +163,11 @@ var PulsarApp = function() {
         // Run validate on forms
         if ($.fn.validate)
         {
-            $("form").validate();
+            $("form").validate({
+                submitHandler: function(form) {
+                    $('button[type=submit], input[type=submit]').prop('disabled',true);
+                }
+            });
         }
     }
 

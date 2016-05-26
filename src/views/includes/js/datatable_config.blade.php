@@ -48,8 +48,6 @@
                     responsiveHelper.createExpandIcon(nRow)
                 },
                 fnDrawCallback: function(oSettings) {
-
-                    console.log(this.fnPagingInfo().iTotal)
                     $('input[name="nElementsDataTable"]').val(this.fnPagingInfo().iTotal);
 
                     //activacion de los tooltips en la datatables
