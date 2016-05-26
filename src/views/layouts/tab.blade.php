@@ -10,6 +10,9 @@
             @endforeach
         </ul>
         <div class="tab-content">
+
+        @yield('commonTabHeaderContent')
+
         @foreach($tabs as $tab)
             <div class="tab-pane" id="{{ $tab['id'] }}">
                 @yield($tab['id'])
