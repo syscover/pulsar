@@ -1,8 +1,8 @@
 <script>
     $(document).ready(function() {
         // hide every elements
-        $('#headerCustomFields').hide()
-        $('#wrapperCustomFields').hide()
+        $('#headerCustomFields').hide();
+        $('#wrapperCustomFields').hide();
 
         // on change family show fields and custom fields
         $("[name=customFieldGroup]").on('change', function() {
@@ -61,7 +61,7 @@
                             $('#wrapperCustomFields').fadeIn();
                         }
                     }
-                })
+                });
             }
             else
             {
@@ -75,5 +75,5 @@
         if($("[name=customFieldGroup]").val())
             $("[name=customFieldGroup]").trigger('change');
 
-    })
+    });
 </script>
