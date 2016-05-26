@@ -43,6 +43,7 @@ return [
     'administration'                        => 'Administration',
     'amount'                                => 'Amount|Amounts',
     'and'                                   => 'AND',
+    'article'                               => 'Article|Articles',
     'assign_id'                             => 'Assign ID',
     'attachment_mime'                       => 'Attachment mime|Attachment mimes',
     'bearer'                                => 'Bearer|Bearers',
@@ -52,6 +53,7 @@ return [
     'cost'                                  => 'Cost|Costs',
     'create'                                => 'Create',
     'custom_field'                          => 'Custom field|Custom fields',
+    'comment'                               => 'Comment|Comments',
     'confirmed'                             => 'Confirmed',
     'dashboard'                             => 'Dashboard',
     'data_type'                             => 'Data type|Data types',
@@ -180,7 +182,7 @@ return [
 
 
 
-    'article'                               => 'Article|Articles',
+    
     'cronjob'                               => 'Cron Job|Cron Jobs',
     'cron_expression'                       => 'Cron Expression',
     'country'                               => 'Country|Countries',

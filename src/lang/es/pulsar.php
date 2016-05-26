@@ -43,6 +43,7 @@ return [
     'administration'                        => 'Administración',
     'amount'                                => 'Cantidad|Cantidades',
     'and'                                   => 'Y',
+    'article'                               => 'Artículo|Artículos',
     'assign_id'                             => 'Asignar ID',
     'attachment_mime'                       => 'Mime de adjunto|mimes de adjunto',
     'bearer'                                => 'Portador|Portadores',
@@ -53,6 +54,7 @@ return [
     'create'                                => 'Crear',
     'custom_field'                          => 'Campo personalizado|Campos personalizados',
     'confirmed'                             => 'Confirmado',
+    'comment'                               => 'Comentario|Commentarios',
     'dashboard'                             => 'Escritorio',
     'data_type'                             => 'Tipo de dato|Tipo de datos',
     'date'                                  => 'Fecha|Fechas',
@@ -180,7 +182,7 @@ return [
 
 
 
-    'article'                               => 'Artículo|Artículos',
+    
     'company_name'                          => 'Nombre empresa',
     'country'                               => 'País|Paises',
     'cp'                                    => 'CP',
