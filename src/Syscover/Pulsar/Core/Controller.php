@@ -376,12 +376,11 @@ abstract class Controller extends BaseController {
         // check if action is store or storeLang
         if(isset($parameters['id']) && isset($parameters['lang']))
         {
-            $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', [
-                'id' => $parameters['id'],
-                'lang' => session('baseLang')->id_001
-            ]);
+            $parametersAux          =  $parameters;
+            $parametersAux['lang']  = session('baseLang')->id_001;
+            $parameters['object']   = call_user_func($this->model . '::getTranslationRecord', $parametersAux);
 
-            $parameters['action'] = 'storeLang';
+            $parameters['action']   = 'storeLang';
         }
         else
         {

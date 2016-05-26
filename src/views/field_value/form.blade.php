@@ -92,7 +92,7 @@
     ])
     @include('pulsar::includes.html.form_hidden', [
         'name' => 'field',
-        'value' => $field->id_026
+        'value' => $fieldObject->id_026
     ])
     @include('pulsar::includes.html.form_hidden', [
         'name' => 'action',
