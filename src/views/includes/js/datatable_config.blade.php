@@ -76,8 +76,8 @@
 
                         $('.ajax-magnific-popup').magnificPopup({
                             type: 'ajax',
-                            removalDelay: 300,
-                            mainClass: 'mfp-fade'
+                            alignTop: true,
+                            overflowY: 'scroll'
                         });
                     }
 
