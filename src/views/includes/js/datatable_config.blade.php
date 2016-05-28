@@ -6,11 +6,11 @@
     $(document).ready(function() {
         if ($.fn.dataTable) {
             //--------------- Data tables ------------------//
-            var responsiveHelper
+            var responsiveHelper;
             var breakpointDefinition = {
                 tablet: 1024,
                 phone: 480
-            }
+            };
 
             // Preserve old function from $.extend above to extend a function
             //var old_fnDrawCallback = $.fn.dataTable.defaults.fnDrawCallback
@@ -42,10 +42,10 @@
                 fnPreDrawCallback: function() {
                     // Initialize the responsive datatables helper once.
                     if (!responsiveHelper)
-                        responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition)
+                        responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
                 },
                 fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                    responsiveHelper.createExpandIcon(nRow)
+                    responsiveHelper.createExpandIcon(nRow);
                 },
                 fnDrawCallback: function(oSettings) {
                     $('input[name="nElementsDataTable"]').val(this.fnPagingInfo().iTotal);
@@ -55,15 +55,15 @@
                         $('.bs-tooltip').tooltip({container: 'body'});
 
                     if ($.fn.uniform)
-                        $(':radio.uniform, :checkbox.uniform').uniform()
+                        $(':radio.uniform, :checkbox.uniform').uniform();
 
-                    $('.dataTables_length select').addClass('form-control')
+                    $('.dataTables_length select').addClass('form-control');
 
                     // function call parent function to send every data on json format
                     @if(isset($modal) && $modal)
                         $('.related-record').on('click', function(){
-                            parent.{{ isset($callback)? $callback : 'relatedRecord' }}($(this).data('json'))
-                        })
+                            parent.{{ isset($callback)? $callback : 'relatedRecord' }}($(this).data('json'));
+                        });
                     @endif
 
                     if($.fn.magnificPopup)
@@ -72,12 +72,18 @@
                             type: 'iframe',
                             removalDelay: 300,
                             mainClass: 'mfp-fade'
-                        })
+                        });
+
+                        $('.ajax-magnific-popup').magnificPopup({
+                            type: 'ajax',
+                            removalDelay: 300,
+                            mainClass: 'mfp-fade'
+                        });
                     }
 
                     @if(!isset($areDeleteRecord))
                         $('.delete-record').bind('click', function() {
-                            var that = this
+                            var that = this;
                             $.msgbox('{!! trans('pulsar::pulsar.message_delete_record') !!}',
                                 {
                                     type:'confirm',
@@ -94,75 +100,75 @@
                                     }
                                 }
                             )
-                        })
+                        });
                     @endif
 
                     // SEARCH - Add the placeholder for Search and Turn this into in-line formcontrol
-                    var search_input = $(this).closest('.dataTables_wrapper').find('div[id$=_filter] input')
+                    var search_input = $(this).closest('.dataTables_wrapper').find('div[id$=_filter] input');
 
                     // Only apply settings once
                     if (search_input.parent().hasClass('input-group'))
-                        return
+                        return;
 
-                    search_input.attr('placeholder', '{{ trans('pulsar::datatable.bSearch') }}')
-                    search_input.addClass('form-control')
-                    search_input.wrap('<div class="input-group"></div>')
-                    search_input.parent().prepend('<span class="input-group-addon"><i class="fa fa-search"></i></span>')
+                    search_input.attr('placeholder', '{{ trans('pulsar::datatable.bSearch') }}');
+                    search_input.addClass('form-control');
+                    search_input.wrap('<div class="input-group"></div>');
+                    search_input.parent().prepend('<span class="input-group-addon"><i class="fa fa-search"></i></span>');
 
                     // Responsive
                     if (typeof responsiveHelper != 'undefined')
-                        responsiveHelper.respond()
+                        responsiveHelper.respond();
 
                     @if($viewParameters['deleteSelectButton'] && $viewParameters['deleteSelectButton'] == 'true' && is_allowed($resource, 'delete'))
-                        $.addDeleteButton()
+                        $.addDeleteButton();
                     @endif
                 }
-            })
+            });
 
             //Número de elementos por página
             //$.fn.dataTable.defaults.aLengthMenu = [[10, 25, 50, 100, -1], [10, 25, 50, 100, "{{ trans('pulsar::pulsar.all') }}"]]
-            $.fn.dataTable.defaults.aLengthMenu = [[10, 25, 50, 100], [10, 25, 50, 100]]
+            $.fn.dataTable.defaults.aLengthMenu = [[10, 25, 50, 100], [10, 25, 50, 100]];
 
             //función para controlar el dalay del filtrado de datatable
             jQuery.fn.dataTableExt.oApi.fnSetFilteringDelay = function(oSettings, iDelay) {
-                var _that = this
+                var _that = this;
 
                 if (iDelay === undefined)
-                    iDelay = 300
+                    iDelay = 300;
 
                 this.each(function(i) {
-                    $.fn.dataTableExt.iApiIndex = i
+                    $.fn.dataTableExt.iApiIndex = i;
                     var oTimerId = null,
                         sPreviousSearch = null,
-                        anControl = $('input', _that.fnSettings().aanFeatures.f)
+                        anControl = $('input', _that.fnSettings().aanFeatures.f);
 
                     //
                     anControl.unbind('keyup').bind('keyup', function() {
 
                         if (sPreviousSearch === null || sPreviousSearch != anControl.val())
                         {
-                            window.clearTimeout(oTimerId)
-                            sPreviousSearch = anControl.val()
+                            window.clearTimeout(oTimerId);
+                            sPreviousSearch = anControl.val();
                             oTimerId = window.setTimeout(function() {
-                                $.fn.dataTableExt.iApiIndex = i
-                                _that.fnFilter(anControl.val())
+                                $.fn.dataTableExt.iApiIndex = i;
+                                _that.fnFilter(anControl.val());
 
                                 Cookies.set('dtSearch', anControl.val(), { expires: 7, path: '/{{ isset($path)? $path : null }}' })
 
                             }, iDelay)
                         }
-                    })
+                    });
                     return this
-                })
+                });
                 return this
             }
         }
-    })
+    });
 
     $.addDeleteButton = function(){
         // button to delete multiple records
         $("div.buttonsDataTables").html('<a class="btn" href="javascript:deleteRecords()"><i class="fa fa-trash"></i> {{ trans('pulsar::pulsar.delete') }}</a>')
-    }
+    };
 
     // function to delete multiple records from datatable
     function deleteRecords()
@@ -181,7 +187,7 @@
                 if(buttonPressed == '{{ trans('pulsar::pulsar.accept') }}'){
                     $('#formView').submit()
                 }
-            })
+            });
         }
         else
         {
@@ -189,9 +195,9 @@
             {
                 type:'info',
                 buttons: [
-                    {type: 'cancel', value: {{ trans('pulsar::pulsar.accept') }}}
+                    {type: 'cancel', value: '{{ trans('pulsar::pulsar.accept') }}'}
                 ]
-            })
+            });
         }
     }
 </script>
