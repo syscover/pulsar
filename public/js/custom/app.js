@@ -166,10 +166,11 @@ var PulsarApp = function() {
             $("form").validate({
                 submitHandler: function(form) {
                     $('button[type=submit], input[type=submit]').prop('disabled',true);
+                    return true;
                 }
             });
         }
-    }
+    };
 
     /**************************
      * Uniform                *
@@ -179,7 +180,7 @@ var PulsarApp = function() {
         {
             $(".uniform").uniform();
         }
-    }
+    };
 
     /**************************
      * Colorpicker            *
@@ -189,7 +190,7 @@ var PulsarApp = function() {
         {
             $('.color-picker').colorpicker();
         }
-    }
+    };
 
     /**************************
      * Datetimepicker         *
@@ -202,7 +203,7 @@ var PulsarApp = function() {
                 $(self).datetimepicker(self.data());
             });
         }
-    }
+    };
 
     /**************************
      * Select2                *
@@ -215,7 +216,7 @@ var PulsarApp = function() {
                 $(self).select2(self.data());
             });
         }
-    }
+    };
 
     /**************************
      * Inputlimiter           *
@@ -235,7 +236,7 @@ var PulsarApp = function() {
                 });
             });
         }
-    }
+    };
 
     /**************************
      * FileInput              *
@@ -247,7 +248,7 @@ var PulsarApp = function() {
                 $input.fileInput($input.data());
             });
         }
-    }
+    };
 
 
 
