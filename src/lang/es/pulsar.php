@@ -97,6 +97,7 @@ return [
     'key'                                   => 'Key',
     'label_size'                            => 'Tamaño etiqueta',
     'link'                                  => 'Enlace',
+    'log'                                   => 'Registro|Registros',
     'login'                                 => 'Iniciar sesión',
     'logout'                                => 'Cerrar sesión',
     'male'                                  => 'Varón',

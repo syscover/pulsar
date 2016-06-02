@@ -98,6 +98,7 @@ return [
     'label_size'                            => 'Label size',
     'link'                                  => 'Link',
     'login'                                 => 'Login',
+    'log'                                   => 'Log|Logs',
     'logout'                                => 'Logout',
     'male'                                  => 'Male',
     'married'                               => 'Married',
