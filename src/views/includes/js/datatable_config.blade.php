@@ -81,7 +81,7 @@
                         });
                     }
 
-                    @if(!isset($areDeleteRecord))
+                    @if(! isset($areDeleteRecord))
                         $('.delete-record').bind('click', function() {
                             var that = this;
                             $.msgbox('{!! trans('pulsar::pulsar.message_delete_record') !!}',
