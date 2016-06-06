@@ -10,9 +10,9 @@
                 $('.datatable-pulsar').dataTable({
                     'displayStart' : {{ $offset }},
                     'columnDefs': [
-                        { 'bSortable': false, 'aTargets': [8,9]},
-                        { 'sClass': 'checkbox-column', 'aTargets': [8]},
-                        { 'sClass': 'align-center', 'aTargets': [9]}
+                        { 'bSortable': false, 'targets': [8,9]},
+                        { 'class': 'checkbox-column', 'targets': [8]},
+                        { 'class': 'align-center', 'targets': [9]}
                     ],
                     "processing": true,
                     "serverSide": true,

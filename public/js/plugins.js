@@ -277,7 +277,7 @@ var Plugins = function() {
 				if (self.hasClass('table-checkable')) {
 					$.extend(true, options, {
 						'columnDefs': [
-							{ 'sortable': false, 'aTargets': [0] }
+							{ 'sortable': false, 'targets': [0] }
 						]
 					});
 				}

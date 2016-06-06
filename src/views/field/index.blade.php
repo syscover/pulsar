@@ -11,8 +11,8 @@
                     'displayStart' : {{ $offset }},
                     'columnDefs': [
                         { 'sortable': false, 'targets': [8,9]},
-                        { 'sClass': 'checkbox-column', 'aTargets': [8]},
-                        { 'sClass': 'align-center', 'aTargets': [5,6,7,9]}
+                        { 'class': 'checkbox-column', 'targets': [8]},
+                        { 'class': 'align-center', 'targets': [5,6,7,9]}
                     ],
                     "processing": true,
                     "serverSide": true,
