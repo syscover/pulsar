@@ -42,6 +42,7 @@ return [
     'additional_information'                => 'Información adicional',
     'address'                               => 'Dirección|Direcciones',
     'administration'                        => 'Administración',
+    'advanced_search'                       => 'Búsqueda avanzada',
     'amount'                                => 'Cantidad|Cantidades',
     'and'                                   => 'Y',
     'article'                               => 'Artículo|Artículos',

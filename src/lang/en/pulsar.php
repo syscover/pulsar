@@ -42,6 +42,7 @@ return [
     'additional_information'                => 'Additional information',
     'address'                               => 'Address|Addresses',
     'administration'                        => 'Administration',
+    'advanced_search'                       => 'Advanced search',
     'amount'                                => 'Amount|Amounts',
     'and'                                   => 'AND',
     'article'                               => 'Article|Articles',

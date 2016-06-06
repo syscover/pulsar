@@ -36,7 +36,7 @@ class CountryController extends Controller
         switch ($aColumn['type'])
         {
             case 'territorialArea':
-                $row[] = '<a href="' . route($aColumn['route'], ['country' => $aObject['id_002'], 'parentOffset' => $this->request->input('iDisplayStart')]) . '">' . $aObject[$aColumn['data']] . '</a>';
+                $row[] = '<a href="' . route($aColumn['route'], ['country' => $aObject['id_002'], 'parentOffset' => $this->request->input('start')]) . '">' . $aObject[$aColumn['data']] . '</a>';
                 break;
         }
         return $row;

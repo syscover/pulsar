@@ -114,11 +114,11 @@ abstract class Controller extends BaseController {
             $langs = Lang::getActivesLangs();
 
         // table paginated
-        $parameters =  Miscellaneous::paginateDataTable($parameters);
+        $parameters =  Miscellaneous::paginateDataTable($this->request, $parameters);
         // table sorting
-        $parameters =  Miscellaneous::dataTableSorting($parameters, $this->aColumns);
+        $parameters =  Miscellaneous::dataTableSorting($this->request, $parameters, $this->aColumns);
         // quick search data table
-        $parameters =  Miscellaneous::filteringDataTable($parameters);
+        $parameters =  Miscellaneous::filteringDataTable($this->request, $parameters);
 
         // set columns in parameters array
         $parameters['aColumns']     = $this->aColumns;
@@ -211,9 +211,9 @@ abstract class Controller extends BaseController {
             {
                 $row[] = '<input type="checkbox" class="uniform" name="element' . $key . '" value="' . $aObject[$instance->getKeyName()] . '">';
             }
-
+            
             $actionUrlParameters['id']        = $aObject[$instance->getKeyName()];
-            $actionUrlParameters['offset']    = $this->request->input('iDisplayStart');
+            $actionUrlParameters['offset']    = $this->request->input('start');
 
             // check if create route has modal
             // is necessary to have modal paramenter in all routes for proper operation

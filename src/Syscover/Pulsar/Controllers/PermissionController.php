@@ -26,6 +26,7 @@ class PermissionController extends Controller
     protected $model                = \Syscover\Pulsar\Models\Resource::class;
     protected $icon                 = 'icon-shield';
     protected $objectTrans          = 'permission';
+    protected $request;
     
     public function customIndex($parameters)
     {
@@ -44,9 +45,9 @@ class PermissionController extends Controller
         $actionsAcl     = Action::get();
         $acl            = AclLibrary::getProfileAcl($parameters['profile']);
 
-        $parameters         =  Miscellaneous::paginateDataTable($parameters);
-        $parameters         =  Miscellaneous::dataTableSorting($parameters, $this->aColumns);
-        $parameters         =  Miscellaneous::filteringDataTable($parameters);
+        $parameters         =  Miscellaneous::paginateDataTable($this->request, $parameters);
+        $parameters         =  Miscellaneous::dataTableSorting($this->request, $parameters, $this->aColumns);
+        $parameters         =  Miscellaneous::filteringDataTable($this->request, $parameters);
 
         // set columns in parameters array
         $parameters['aColumns']     = $this->aColumns;

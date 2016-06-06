@@ -1,7 +1,7 @@
 <!-- pulsar::includes.js.datatable_config -->
-<script src="{{ asset('packages/syscover/pulsar/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('packages/syscover/pulsar/plugins/datatables/DT_bootstrap.js') }}"></script>
-<script src="{{ asset('packages/syscover/pulsar/plugins/datatables/responsive/datatables.responsive.js') }}"></script>
+<script src="{{ asset('packages/syscover/pulsar/vendor/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('packages/syscover/pulsar/vendor/datatables/custom/DT_bootstrap.js') }}"></script>
+<script src="{{ asset('packages/syscover/pulsar/vendor/datatables/custom/responsive/datatables.responsive.js') }}"></script>
 <script>
     $(document).ready(function() {
         if ($.fn.dataTable) {
@@ -16,32 +16,33 @@
             //var old_fnDrawCallback = $.fn.dataTable.defaults.fnDrawCallback
 
             jQuery.extend(true, $.fn.dataTable.defaults, {
-                "oLanguage": {
-                    "sSearch": "_INPUT_",
-                    "sLengthMenu": "{{ trans('pulsar::datatable.sLengthMenu') }}",
-                    "sInfo": "{{ trans('pulsar::datatable.sInfo01') }}",
-                    "sInfoEmpty": "{{ trans('pulsar::datatable.sInfoEmpty') }}",
-                    "sEmptyTable": "{{ trans('pulsar::datatable.sEmptyTable') }}",
-                    "sZeroRecords" : "{{ trans('pulsar::datatable.sZeroRecords') }}",
-                    "sInfoFiltered": "{{ trans('pulsar::datatable.sInfoFiltered') }}",
-                    "sLoadingRecords": "{{ trans('pulsar::datatable.sLoadingRecords') }}",
-                    "sProcessing": "{{ trans('pulsar::datatable.sProcessing') }}",
-                    "oPaginate": {"sFirst": "{{ trans('pulsar::datatable.sFirst') }}",
-                    "sPrevious": "{{ trans('pulsar::datatable.sPrevious') }}",
-                    "sNext": "{{ trans('pulsar::datatable.sNext') }}",
-                    "sLast": "{{ trans('pulsar::datatable.sLast') }}"}
+                "language": {
+                    "learch": "_INPUT_",
+                    "lengthMenu": "{{ trans('pulsar::datatable.sLengthMenu') }}",
+                    "info": "{{ trans('pulsar::datatable.sInfo01') }}",
+                    "infoEmpty": "{{ trans('pulsar::datatable.sInfoEmpty') }}",
+                    "emptyTable": "{{ trans('pulsar::datatable.sEmptyTable') }}",
+                    "zeroRecords" : "{{ trans('pulsar::datatable.sZeroRecords') }}",
+                    "infoFiltered": "{{ trans('pulsar::datatable.sInfoFiltered') }}",
+                    "loadingRecords": "{{ trans('pulsar::datatable.sLoadingRecords') }}",
+                    "processing": "{{ trans('pulsar::datatable.sProcessing') }}",
+                    "paginate": {"sFirst": "{{ trans('pulsar::datatable.sFirst') }}",
+                    "previous": "{{ trans('pulsar::datatable.sPrevious') }}",
+                    "next": "{{ trans('pulsar::datatable.sNext') }}",
+                    "last": "{{ trans('pulsar::datatable.sLast') }}"}
                 },
+                "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
                 "search": {
                     "search": Cookies.get('dtSearch')
                 },
-                "sPaginationType": "bootstrap",
-                "sDom": "<'row'<'dataTables_header clearfix'<'col-md-6'f><'col-md-6'<'buttonsDataTables'>>r>>t<'row'<'dataTables_footer clearfix'<'col-md-6'l><'col-md-6'<'row'p><'row'i>>>>",
+                "pagingType": "bootstrap",
+                "dom": "<'row'<'dataTables_header clearfix'<'col-md-6'f><'col-md-6'<'buttonsDataTables'>>r>>t<'row'<'dataTables_footer clearfix'<'col-md-6'l><'col-md-6'<'row'p><'row'i>>>>",
                 // set the initial value
-                "iDisplayLength": 10,
+                "displayLength": 10,
                 bAutoWidth: false,
                 fnPreDrawCallback: function() {
                     // Initialize the responsive datatables helper once.
-                    if (!responsiveHelper)
+                    if (! responsiveHelper)
                         responsiveHelper = new ResponsiveDatatablesHelper(this, breakpointDefinition);
                 },
                 fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
@@ -124,10 +125,6 @@
                     @endif
                 }
             });
-
-            //Número de elementos por página
-            //$.fn.dataTable.defaults.aLengthMenu = [[10, 25, 50, 100, -1], [10, 25, 50, 100, "{{ trans('pulsar::pulsar.all') }}"]]
-            $.fn.dataTable.defaults.aLengthMenu = [[10, 25, 50, 100], [10, 25, 50, 100]];
 
             //función para controlar el dalay del filtrado de datatable
             jQuery.fn.dataTableExt.oApi.fnSetFilteringDelay = function(oSettings, iDelay) {

@@ -62,7 +62,8 @@ abstract class Model extends BaseModel
      * Function to get data record to list objects
      *
      * @access	public
-     * @param   array     $parameters
+     * @param   \Illuminate\Http\Request    $request
+     * @param   array                       $parameters
      * @return	array|\Illuminate\Database\Eloquent\Model[]
      */
     public static function getIndexRecords($request, $parameters)
@@ -77,7 +78,7 @@ abstract class Model extends BaseModel
             else
                 $query = $instance->query();
 
-        $query = Miscellaneous::getQueryWhere($query, isset($parameters['aColumns'])? $parameters['aColumns'] : null, isset($parameters['sWhere'])? $parameters['sWhere'] : null, isset($parameters['sWhereColumns'])? $parameters['sWhereColumns'] : null);
+        $query = Miscellaneous::getQueryWhere($request, $query, isset($parameters['aColumns'])? $parameters['aColumns'] : null, isset($parameters['where'])? $parameters['where'] : null, isset($parameters['whereColumns'])? $parameters['whereColumns'] : null);
 
         if(isset($parameters['count']) &&  $parameters['count'])
         {
@@ -90,9 +91,9 @@ abstract class Model extends BaseModel
         else
         {
             // if we need limit and order results
-            if(isset($parameters['sLength']))     $query->take($parameters['sLength']);
-            if(isset($parameters['sStart']))      $query->skip($parameters['sStart']);
-            if(isset($parameters['sOrder']))      $query->orderBy($parameters['sOrder'], isset($parameters['sTypeOrder'])? $parameters['sTypeOrder'] : 'asc');
+            if(isset($parameters['length']))     $query->take($parameters['length']);
+            if(isset($parameters['start']))      $query->skip($parameters['start']);
+            if(isset($parameters['order']) && is_array($parameters['order']))   $query->orderBy($parameters['order']['column'], isset($parameters['order']['dir'])? $parameters['order']['dir'] : 'asc');
 
             if(method_exists($instance, 'getCustomReturnIndexRecords'))
                 // if we need a custom get()

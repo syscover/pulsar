@@ -356,140 +356,6 @@ class Miscellaneous
     }
 
     /**
-     *  Function to set config arguments datatable
-     *
-     * @access  public
-     * @param   array $parameters
-     * @return  array
-     */
-    public static function paginateDataTable($parameters = [])
-    {
-        // Datatable paginate
-        $parameters['sStart']   = null;
-        $parameters['sLength']  = null;
-	    if(Request::input('iDisplayStart') != null && Request::input('iDisplayLength') != '-1')
-        {
-            $parameters['sStart']   = Request::input('iDisplayStart');
-            $parameters['sLength']  = Request::input('iDisplayLength');
-        }
-        
-        return $parameters;
-    }
-
-    /**
-     *  Function to set config arguments to sorting datatable
-     *
-     * @access  public
-     * @param   array   $args
-     * @param   array   $aColumns
-     * @return  array
-     */
-    public static function dataTableSorting($args, $aColumns)
-    {
-	    $args['sOrder'] = null;
-        $args['sTypeOrder'] = null;
-        
-        if(Request::input('iSortCol_0') != null)
-        {
-            for($i=0; $i < intval(Request::input('iSortingCols')); $i++)
-            {
-                if (Request::input('bSortable_' . intval(Request::input('iSortCol_'.$i))) == "true")
-                {
-                    $args['sOrder']       = is_array($aColumns[intval(Request::input('iSortCol_'.$i))])?  $aColumns[intval(Request::input('iSortCol_'.$i))]['data'] : $aColumns[intval(Request::input('iSortCol_'.$i))];
-                    $args['sTypeOrder']   = Request::input('sSortDir_'.$i);
-                }
-            }
-        }
-        return $args;
-    }
-
-    /**
-     *  Function to set arguments to search on datatable
-     *
-     * @access  public
-     * @param   array   $args
-     * @return  array
-     */
-    public static function filteringDataTable($args)
-    {
-        //filtrado de la tabla
-        $args['sWhere'] = null;
-        if(Request::input('sSearch') != null && Request::input('sSearch') != "")
-        {
-                $args['sWhere'] = Request::input('sSearch');
-        }
-        return $args;
-    }
-
-    /**
-     *  Function to set arguments to search on datatable
-     *
-     * @access  public
-     * @param   array   $args
-     * @param   array   $aColumns
-     * @return  array
-     */
-    public static function individualFilteringDataTable($args, $aColumns)
-    {
-        $args['sWhereColumns'] = null;
-        for($i=0; $i < count($aColumns); $i++)
-        {
-            if(Request::input('bSearchable_'.$i) != null && Request::input('bSearchable_'.$i) == "true" && Request::input('sSearch_'.$i) != '')
-            {
-                $sWhereColumn['sWhere']     = Request::input('sSearch_'.$i);
-                $sWhereColumn['aColumn']    = is_array($aColumns[$i])? $aColumns[$i]['name'] : $aColumns[$i];
-
-                if(!is_array($args['sWhereColumns']))$args['sWhereColumns'] = array();
-
-                array_push($args['sWhereColumns'], $sWhereColumn);
-            }
-        }
-        return $args;
-    }
-
-    /**
-     *  Function to set arguments to SQL query
-     *
-     * @access  public
-     * @param   array   $query
-     * @param   array   $aColumns
-     * @param   array   $sWhere
-     * @param   array   $sWhereColumns
-     * @return  Illuminate/Database/Eloquent/Builder
-     */
-    public static function getQueryWhere($query, $aColumns, $sWhere, $sWhereColumns)
-    {
-        if($sWhere != null)
-        {
-            $query->where(function($query) use ($aColumns, $sWhere){
-                $i=0;
-                foreach($aColumns as $aColumn)
-                {
-                    // check if column if is searchable
-                    if(Request::input('bSearchable_'.$i) === 'true')
-                    {
-                        if(is_array($aColumn)) $aColumn = $aColumn['data'];
-                        $query->orWhere($aColumn, 'LIKE', '%'.$sWhere.'%');
-                    }
-                    $i++;
-                }
-            });
-        }
-        
-        if($sWhereColumns != null)
-        {
-            $query->where(function($query) use ($sWhereColumns){
-                foreach($sWhereColumns as $sWhereColumn)
-                {
-                     $query->where($sWhereColumn['aColumn'], 'LIKE', '%'.$sWhereColumn['sWhere'].'%');
-                }
-           });
-        }
-        
-        return $query;
-    }
-
-    /**
      *  Function to format phone
      *
      * @access  public
@@ -658,5 +524,145 @@ class Miscellaneous
             }
         }
         return $obj;
+    }
+
+
+    /**
+     * START DATATABLES FUNCTIONS
+     */
+
+    /**
+     *  Function to set config arguments datatable
+     *
+     * @access  public
+     * @param   \Illuminate\Http\Request $request
+     * @param   array $parameters
+     * @return  array
+     */
+    public static function paginateDataTable($request, $parameters = [])
+    {
+        // Datatable paginate
+        $parameters['start']   = null;
+        $parameters['length']  = null;
+
+        if($request->input('start') != null && $request->input('length') != '-1')
+        {
+            $parameters['start']    = $request->input('start');
+            $parameters['length']   = $request->input('length');
+        }
+
+        return $parameters;
+    }
+
+    /**
+     *  Function to set config arguments to sorting datatable
+     *
+     * @access  public
+     * @param   \Illuminate\Http\Request $request
+     * @param   array   $parameters
+     * @param   array   $aColumns
+     * @return  array
+     */
+    public static function dataTableSorting($request, $parameters, $aColumns)
+    {
+        $order                  = $request->input('order');
+        $columns                = $request->input('columns');
+
+        if(is_array($order[0]) && isset($order[0]['column']) && isset($order[0]['dir']) && $columns[(int)$order[0]['column']]['orderable'] == 'true')
+        {
+            $parameters['order']['column']  = is_array($aColumns[$order[0]['column']])? $aColumns[$order[0]['column']]['data'] : $aColumns[$order[0]['column']];
+            $parameters['order']['dir']     = $order[0]['dir'];
+        }
+
+        return $parameters;
+    }
+
+    /**
+     *  Function to set arguments to search on datatable
+     *
+     * @access  public
+     * @param   \Illuminate\Http\Request $request
+     * @param   array   $parameters
+     * @return  array
+     */
+    public static function filteringDataTable($request, $parameters)
+    {
+        $args['where'] = null;
+        if($request->input('search')['value'] !== "")
+        {
+            $parameters['where'] = $request->input('search')['value'];
+        }
+        return $parameters;
+    }
+
+    /**
+     *  Function to set arguments to search on datatable
+     *
+     * @access  public
+     * @param   array   $args
+     * @param   array   $aColumns
+     * @return  array
+     */
+    public static function individualFilteringDataTable($args, $aColumns)
+    {
+        $args['sWhereColumns'] = null;
+        for($i=0; $i < count($aColumns); $i++)
+        {
+            if(Request::input('bSearchable_'.$i) != null && Request::input('bSearchable_'.$i) == "true" && Request::input('sSearch_'.$i) != '')
+            {
+                $sWhereColumn['sWhere']     = Request::input('sSearch_'.$i);
+                $sWhereColumn['aColumn']    = is_array($aColumns[$i])? $aColumns[$i]['name'] : $aColumns[$i];
+
+                if(!is_array($args['sWhereColumns']))$args['sWhereColumns'] = array();
+
+                array_push($args['sWhereColumns'], $sWhereColumn);
+            }
+        }
+        return $args;
+    }
+
+    /**
+     *  Function to set arguments to SQL query
+     *
+     * @access  public
+     * @param   \Illuminate\Http\Request $request
+     * @param   array   $query
+     * @param   array   $aColumns
+     * @param   array   $where
+     * @param   array   $whereColumns
+     * @return  Illuminate/Database/Eloquent/Builder
+     */
+    public static function getQueryWhere($request, $query, $aColumns, $where, $whereColumns)
+    {
+        if($where != null)
+        {
+            $columns = $request->input('columns');
+
+            $query->where(function($query) use ($columns, $aColumns, $where){
+                $i=0;
+                foreach($aColumns as $aColumn)
+                {
+                    // check if column if is searchable
+                    if($columns[$i]['searchable'] === 'true')
+                    {
+                        if(is_array($aColumn)) $aColumn = $aColumn['data'];
+                        $query->orWhere($aColumn, 'LIKE', '%' . $where . '%');
+                    }
+                    $i++;
+                }
+            });
+        }
+
+//        if($whereColumns != null)
+//        {
+//            $query->where(function($query) use ($whereColumns) {
+//                foreach($whereColumns as $whereColumn)
+//                {
+//                    $query->where($whereColumn['aColumn'], 'LIKE', '%' . $whereColumn['sWhere'] . '%');
+//                }
+//            });
+//        }
+
+        return $query;
     }
 }
