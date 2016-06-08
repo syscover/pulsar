@@ -18,14 +18,20 @@
             if ($.fn.dataTable)
             {
                 $('.datatable-pulsar').dataTable({
-                    'displayStart' : {{ $offset }},
-                    'columnDefs': [
-                        { 'sortable': false, 'targets': [3]},
-                        { 'class': 'align-center', 'targets': [3]}
+                    "displayStart": {{ $offset }},
+                    "columnDefs": [
+                        { "sortable": false, "targets": [3]},
+                        { "class": "align-center", "targets": [3]}
                     ],
                     "processing": true,
                     "serverSide": true,
-                    "ajax": "{{ route('jsonDataPermission', $profile->id_006) }}",
+                    "ajax": {
+                        "url": "{{ route('jsonDataPermission', $profile->id_006) }}",
+                        "type": "POST",
+                        "headers": {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        }
+                    },
                     fnDrawCallback: function() {
 
                         $("[id^='re']").select2({

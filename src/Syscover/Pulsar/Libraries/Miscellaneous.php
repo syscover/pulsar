@@ -565,8 +565,8 @@ class Miscellaneous
      */
     public static function dataTableSorting($request, $parameters, $aColumns)
     {
-        $order                  = $request->input('order');
-        $columns                = $request->input('columns');
+        $order      = $request->input('order');
+        $columns    = $request->input('columns');
 
         if(is_array($order[0]) && isset($order[0]['column']) && isset($order[0]['dir']) && $columns[(int)$order[0]['column']]['orderable'] == 'true')
         {

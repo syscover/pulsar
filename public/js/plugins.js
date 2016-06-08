@@ -276,8 +276,8 @@ var Plugins = function() {
 				// Checkable Tables
 				if (self.hasClass('table-checkable')) {
 					$.extend(true, options, {
-						'columnDefs': [
-							{ 'sortable': false, 'targets': [0] }
+						"columnDefs": [
+							{ "sortable": false, "targets": [0] }
 						]
 					});
 				}

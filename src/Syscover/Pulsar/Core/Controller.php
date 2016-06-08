@@ -108,7 +108,7 @@ abstract class Controller extends BaseController {
     {
         // get parameters from url route
         $parameters = $this->request->route()->parameters();
-        
+
         // get active langs if object has multiple langs
         if(isset($parameters['lang']))
             $langs = Lang::getActivesLangs();
@@ -119,6 +119,8 @@ abstract class Controller extends BaseController {
         $parameters =  Miscellaneous::dataTableSorting($this->request, $parameters, $this->aColumns);
         // quick search data table
         $parameters =  Miscellaneous::filteringDataTable($this->request, $parameters);
+
+        //dd($parameters);
 
         // set columns in parameters array
         $parameters['aColumns']     = $this->aColumns;
