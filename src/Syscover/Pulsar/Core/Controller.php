@@ -113,6 +113,10 @@ abstract class Controller extends BaseController {
         if(isset($parameters['lang']))
             $langs = Lang::getActivesLangs();
 
+        // set advanced search
+        //Miscellaneous::dataTableAdvancedSearch($this->request, $parameters);
+
+
         // table paginated
         $parameters =  Miscellaneous::paginateDataTable($this->request, $parameters);
         // table sorting

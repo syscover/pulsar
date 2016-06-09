@@ -14,10 +14,12 @@
     <div class="row">
         <div class="col-md-12">
             @if($viewParameters['newButton'])
-                <a class="btn margin-b10" href="{{ route('create' . ucfirst($routeSuffix), $urlParameters) }}"><i class="{{ isset($icon)? $icon : 'icomoon-icon-power' }}"></i> {{ trans('pulsar::pulsar.' . $newTrans) }} {{ isset($customTrans)? $customTrans : trans_choice($objectTrans, 1) }}</a>
+                <a class="btn margin-b10" href="{{ route('create' . ucfirst($routeSuffix), $urlParameters) }}"><i class="{{ isset($icon)? $icon : 'icomoon-icon-power' }}"></i> {{ trans('pulsar::pulsar.' . (isset($newTrans)? $newTrans : 'new')) }} {{ isset($customTrans)? $customTrans : trans_choice($objectTrans, 1) }}</a>
             @endif
+
             @yield('headButtons')
-            <div class="row">
+
+                <div class="row">
                 <div class="col-md-{{ $firstColSize or 12 }}">
                     <div class="widget box">
                         <div class="widget-header">
