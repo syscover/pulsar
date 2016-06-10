@@ -52,6 +52,7 @@ return [
     'bearer'                                => 'Bearer|Bearers',
     'budget'                                => 'Budget|Budgets',
     'cancel'                                => 'Cancel',
+    'change_password_message'               => 'He has made a request for password change.<br><br>Click here to reset your password: <a href=":token">Click here</a>',
     'change_password_successful'            => 'Great, We\'ve sent an email',
     'cost'                                  => 'Cost|Costs',
     'create'                                => 'Create',

@@ -1,1 +1,1 @@
-Click here to reset your password: <a href="{{ route('showResetForm', $token) }}">Click here</a>
+{!! trans('pulsar::pulsar.change_password_message', ['token' => route('showResetForm', $token)]) !!}

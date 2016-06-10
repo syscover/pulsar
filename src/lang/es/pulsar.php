@@ -52,6 +52,7 @@ return [
     'bearer'                                => 'Portador|Portadores',
     'budget'                                => 'Presupuesto|Presupuestos',
     'cancel'                                => 'Cancelar',
+    'change_password_message'               => 'Ha realizado una petición de cambio de contraseña..<br><br>Pulse aquí para cambiar su contraseña: <a href=":token">Pinche aquí</a>',
     'change_password_successful'            => 'Estupendo, le hemos enviado un email',
     'cost'                                  => 'Coste|Costes',
     'create'                                => 'Crear',
