@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.3.2 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -8,7 +8,7 @@
  * Korean
  */
 
-$.FroalaEditor.LANGUAGE['ko'] = {
+$.FE.LANGUAGE['ko'] = {
   translation: {
     // Place holder
     "Type something": "\ub0b4\uc6a9\uc744 \uc785\ub825\ud558\uc138\uc694",
@@ -106,7 +106,10 @@ $.FroalaEditor.LANGUAGE['ko'] = {
 
     // Tables
     "Insert Table": "\ud14c\uc774\ube14 \uc0bd\uc785",
-    "Header": "\ud5e4\ub354",
+    "Table Header": "\ud14c\uc774\ube14 \ud5e4\ub354",
+    "Remove Table": "\ud14c\uc774\ube14\uc744 \uc81c\uac70",
+    "Table Style": "\ud45c \uc2a4\ud0c0\uc77c",
+    "Horizontal Align": "\uc218\ud3c9 \uc815\ub82c",
     "Row": "\uc5f4",
     "Insert row above": "\uc55e\uc5d0 \uc5f4\uc744 \uc0bd\uc785",
     "Insert row below": "\ub4a4\uc5d0 \uc5f4\uc744 \uc0bd\uc785",
@@ -221,7 +224,10 @@ $.FroalaEditor.LANGUAGE['ko'] = {
     // Quote
     "Quote": "\uc778\uc6a9",
     "Increase": "\uc99d\uac00",
-    "Decrease": "\uac10\uc18c"
+    "Decrease": "\uac10\uc18c",
+
+    // Quick Insert
+    "Quick Insert": "\ube60\ub978 \uc0bd\uc785"
   },
   direction: "ltr"
 };

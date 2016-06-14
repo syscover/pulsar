@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.3.2 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -8,7 +8,7 @@
  * Japanese
  */
 
-$.FroalaEditor.LANGUAGE['ja'] = {
+$.FE.LANGUAGE['ja'] = {
   translation: {
     // Place holder
     "Type something": "\u4f55\u304b\u5165\u529b",
@@ -106,7 +106,10 @@ $.FroalaEditor.LANGUAGE['ja'] = {
 
     // Tables
     "Insert Table": "\u8868\u306e\u633f\u5165",
-    "Header": "\u30d8\u30c3\u30c0",
+    "Table Header": "\u8868\u306e\u30d8\u30c3\u30c0\u30fc",
+    "Remove Table": "\u30c6\u30fc\u30d6\u30eb\u3092\u524a\u9664\u3057\u307e\u3059",
+    "Table Style": "\u8868\u306e\u30b9\u30bf\u30a4\u30eb",
+    "Horizontal Align": "\u5e73\u9762\u7dda\u5f62",
     "Row": "\u884c",
     "Insert row above": "\u4e0a\u5074\u306b\u884c\u3092\u633f\u5165",
     "Insert row below": "\u4e0b\u5074\u306b\u884c\u3092\u633f\u5165",
@@ -221,7 +224,10 @@ $.FroalaEditor.LANGUAGE['ja'] = {
     // Quote
     "Quote": "\u5f15\u7528",
     "Increase": "\u5897\u52a0",
-    "Decrease": "\u6e1b\u5c11"
+    "Decrease": "\u6e1b\u5c11",
+
+    // Quick Insert
+    "Quick Insert": "\u30af\u30a4\u30c3\u30af\u30a4\u30f3\u30b5\u30fc\u30c8"
   },
   direction: "ltr"
 };

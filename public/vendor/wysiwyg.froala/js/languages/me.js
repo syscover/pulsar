@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.3.2 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -8,7 +8,7 @@
  * Montenegrin
  */
 
-$.FroalaEditor.LANGUAGE['me'] = {
+$.FE.LANGUAGE['me'] = {
   translation: {
     // Place holder
     "Type something": "Ukucajte ne\u0161tp",
@@ -106,7 +106,10 @@ $.FroalaEditor.LANGUAGE['me'] = {
 
     // Tables
     "Insert Table": "Umetni tabelu",
-    "Header": "Zaglavlje",
+    "Table Header": "Zaglavlje tabelu",
+    "Remove Table": "Izbri\u0161i tabelu",
+    "Table Style": "Tabelu stil",
+    "Horizontal Align": "Horizontalna poravnanje",
     "Row": "Red",
     "Insert row above": "Umetni red iznad",
     "Insert row below": "Umetni red ispod",
@@ -221,7 +224,10 @@ $.FroalaEditor.LANGUAGE['me'] = {
     // Quote
     "Quote": "Citat",
     "Increase": "Pove\u0107ati",
-    "Decrease": "Smanjenje"
+    "Decrease": "Smanjenje",
+
+    // Quick Insert
+    "Quick Insert": "Brzo umetni"
   },
   direction: "ltr"
 };

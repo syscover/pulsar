@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.3.2 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -8,7 +8,7 @@
  * Hungarian
  */
 
-$.FroalaEditor.LANGUAGE['hu'] = {
+$.FE.LANGUAGE['hu'] = {
   translation: {
     // Place holder
     "Type something": "T\u00edpus valami",
@@ -106,7 +106,10 @@ $.FroalaEditor.LANGUAGE['hu'] = {
 
     // Tables
     "Insert Table": "T\u00e1bl\u00e1zat beilleszt\u00e9se",
-    "Header": "Fejl\u00e9c",
+    "Table Header": "T\u00e1bl\u00e1zat fejl\u00e9ce",
+    "Remove Table": "T\u00e1bla elt\u00e1vol\u00edt\u00e1sa",
+    "Table Style": "T\u00e1bl\u00e1zat st\u00edlus",
+    "Horizontal Align": "V\u00edzszintes igaz\u00edt\u00e1s",
     "Row": "Sor",
     "Insert row above": "Sor besz\u00far\u00e1sa el\u00e9",
     "Insert row below": "Sor besz\u00far\u00e1sa m\u00f6g\u00e9",
@@ -221,7 +224,10 @@ $.FroalaEditor.LANGUAGE['hu'] = {
     // Quote
     "Quote": "Id\u00e9zet",
     "Increase": "N\u00f6veked\u00e9s",
-    "Decrease": "Cs\u00f6kkent"
+    "Decrease": "Cs\u00f6kkent",
+
+    // Quick Insert
+    "Quick Insert": "Gyors bet\u00e9t"
   },
   direction: "ltr"
 };

@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.3.2 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -8,7 +8,7 @@
  * Czech
  */
 
-$.FroalaEditor.LANGUAGE['cs'] = {
+$.FE.LANGUAGE['cs'] = {
   translation: {
     // Place holder
     "Type something": "Napi\u0161te n\u011bco",
@@ -106,7 +106,10 @@ $.FroalaEditor.LANGUAGE['cs'] = {
 
     // Tables
     "Insert Table": "Vlo\u017eit tabulku",
-    "Header": "Hlavi\u010dka",
+    "Table Header": "Hlavi\u010dka tabulky",
+    "Remove Table": "Odstranit tabulku",
+    "Table Style": "Styl tabulky",
+    "Horizontal Align": "Horizont\u00e1ln\u00ed zarovn\u00e1n\u00ed",
     "Row": "\u0158\u00e1dek",
     "Insert row above": "Vlo\u017eit \u0159\u00e1dek nad",
     "Insert row below": "Vlo\u017eit \u0159\u00e1dek pod",
@@ -221,7 +224,10 @@ $.FroalaEditor.LANGUAGE['cs'] = {
     // Quote
     "Quote": "Cit\u00e1t",
     "Increase": "Nav\u00fd\u0161it",
-    "Decrease": "Sn\u00ed\u017een\u00ed"
+    "Decrease": "Sn\u00ed\u017een\u00ed",
+
+    // Quick Insert
+    "Quick Insert": "Rychl\u00e1 vlo\u017eka"
   },
   direction: "ltr"
 };

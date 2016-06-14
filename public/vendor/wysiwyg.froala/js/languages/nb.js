@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.3.2 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -8,7 +8,7 @@
  * Norwegian
  */
 
-$.FroalaEditor.LANGUAGE['nb'] = {
+$.FE.LANGUAGE['nb'] = {
   translation: {
     // Place holder
     "Type something": "Skriv noe",
@@ -106,7 +106,10 @@ $.FroalaEditor.LANGUAGE['nb'] = {
 
     // Tables
     "Insert Table": "Sett inn tabell",
-    "Header": "Header",
+    "Table Header": "Tabell header",
+    "Remove Table": "Fjern tabell",
+    "Table Style": "Tabell stil",
+    "Horizontal Align": "Horisontal justering",
     "Row": "Rad",
     "Insert row above": "Sett inn rad f\u00f8r",
     "Insert row below": "Sett in rad etter",
@@ -120,7 +123,7 @@ $.FroalaEditor.LANGUAGE['nb'] = {
     "Horizontal split": "Horisontalt delt",
     "Vertical split": "Vertikal split",
     "Cell Background": "Celle bakgrunn",
-    "Vertical Align": "Vertikal sluttar",
+    "Vertical Align": "Vertikal justering",
     "Top": "Topp",
     "Middle": "Midten",
     "Bottom": "Bunn",
@@ -221,7 +224,10 @@ $.FroalaEditor.LANGUAGE['nb'] = {
     // Quote
     "Quote": "Sitat",
     "Increase": "\u00d8ke",
-    "Decrease": "Nedgang"
+    "Decrease": "Nedgang",
+
+    // Quick Insert
+    "Quick Insert": "Hurtiginnsats"
   },
   direction: "ltr"
 };

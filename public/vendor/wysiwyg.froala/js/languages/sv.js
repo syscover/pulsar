@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.3.2 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -8,7 +8,7 @@
  * Swedish
  */
 
-$.FroalaEditor.LANGUAGE['sv'] = {
+$.FE.LANGUAGE['sv'] = {
   translation: {
     // Place holder
     "Type something": "Ange n\u00e5got",
@@ -106,7 +106,10 @@ $.FroalaEditor.LANGUAGE['sv'] = {
 
     // Tables
     "Insert Table": "Infoga tabell",
-    "Header": "Header",
+    "Table Header": "Tabell huvud",
+    "Remove Table": "Ta bort tabellen",
+    "Table Style": "Tabellformat",
+    "Horizontal Align": "Horisontell justering",
     "Row": "Rad",
     "Insert row above": "Infoga rad f\u00f6re",
     "Insert row below": "Infoga rad efter",
@@ -221,7 +224,10 @@ $.FroalaEditor.LANGUAGE['sv'] = {
     // Quote
     "Quote": "Citerar",
     "Increase": "\u00d6ka",
-    "Decrease": "Minska"
+    "Decrease": "Minska",
+
+    // Quick Insert
+    "Quick Insert": "Snabb insats"
   },
   direction: "ltr"
 };

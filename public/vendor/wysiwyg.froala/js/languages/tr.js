@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.3.2 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -8,7 +8,7 @@
  * Turkish
  */
 
-$.FroalaEditor.LANGUAGE['tr'] = {
+$.FE.LANGUAGE['tr'] = {
   translation: {
     // Place holder
     "Type something": "Bir \u015fey yaz\u0131n",
@@ -106,7 +106,10 @@ $.FroalaEditor.LANGUAGE['tr'] = {
 
     // Tables
     "Insert Table": "Tablo ekle",
-    "Header": "\u00dcstbilgi",
+    "Table Header": "Tablo \u00fcstbilgisi",
+    "Remove Table": "Tablo kald\u0131rma",
+    "Table Style": "Tablo stili",
+    "Horizontal Align": "Yatay hizalama",
     "Row": "Sat\u0131r",
     "Insert row above": "\u00d6ncesine yeni sat\u0131r ekle",
     "Insert row below": "Sonras\u0131na yeni sat\u0131r ekle",
@@ -221,7 +224,10 @@ $.FroalaEditor.LANGUAGE['tr'] = {
     // Quote
     "Quote": "Al\u0131nt\u0131",
     "Increase": "Art\u0131rmak",
-    "Decrease": "Azal\u0131\u015f"
+    "Decrease": "Azal\u0131\u015f",
+
+    // Quick Insert
+    "Quick Insert": "H\u0131zl\u0131 insert"
   },
   direction: "ltr"
 };

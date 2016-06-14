@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.3.2 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -8,7 +8,7 @@
  * Danish
  */
 
-$.FroalaEditor.LANGUAGE['da'] = {
+$.FE.LANGUAGE['da'] = {
   translation: {
     // Place holder
     "Type something": "Skriv noget",
@@ -106,7 +106,10 @@ $.FroalaEditor.LANGUAGE['da'] = {
 
     // Tables
     "Insert Table": "Inds\u00e6t tabel",
-    "Header": "Header",
+    "Table Header": "Tabel header",
+    "Remove Table": "Fjern tabel",
+    "Table Style": "Tabel stil",
+    "Horizontal Align": "Vandret tilpasning",
     "Row": "R\u00e6kke",
     "Insert row above": "Inds\u00e6t r\u00e6kke over",
     "Insert row below": "Inds\u00e6t r\u00e6kke under",
@@ -221,7 +224,10 @@ $.FroalaEditor.LANGUAGE['da'] = {
     // Quote
     "Quote": "Citat",
     "Increase": "For\u00f8ge",
-    "Decrease": "Mindsk"
+    "Decrease": "Mindsk",
+
+    // Quick Insert
+    "Quick Insert": "Hurtig indsats"
   },
   direction: "ltr"
 };

@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.3.2 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -8,7 +8,7 @@
  * Indonesian
  */
 
-$.FroalaEditor.LANGUAGE['id'] = {
+$.FE.LANGUAGE['id'] = {
   translation: {
     // Place holder
     "Type something": "Ketik sesuatu",
@@ -106,7 +106,11 @@ $.FroalaEditor.LANGUAGE['id'] = {
 
     // Tables
     "Insert Table": "Sisipkan tabel",
-    "Header": "Header",
+    "Table Header": "Header tabel",
+    "Remove Table": "Hapus tabel",
+    "Table Style": "Gaya tabel",
+    "Horizontal Align": "Menyelaraskan horisontal",
+
     "Row": "Baris",
     "Insert row above": "Sisipkan baris di atas",
     "Insert row below": "Sisipkan baris di bawah",
@@ -221,7 +225,10 @@ $.FroalaEditor.LANGUAGE['id'] = {
     // Quote
     "Quote": "Kutipan",
     "Increase": "Meningkat",
-    "Decrease": "Penurunan"
+    "Decrease": "Penurunan",
+
+    // Quick Insert
+    "Quick Insert": "Memasukkan cepat"
   },
   direction: "ltr"
 };

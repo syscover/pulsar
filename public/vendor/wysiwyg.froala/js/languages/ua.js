@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.3.2 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -8,7 +8,7 @@
  * Ukrainian
  */
 
-$.FroalaEditor.LANGUAGE['ua'] = {
+$.FE.LANGUAGE['ua'] = {
   translation: {
     // Place holder
     "Type something": "\u041d\u0430\u043f\u0438\u0448\u0456\u0442\u044c \u0431\u0443\u0434\u044c-\u0449\u043e",
@@ -106,7 +106,10 @@ $.FroalaEditor.LANGUAGE['ua'] = {
 
     // Tables
     "Insert Table": "\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u0438 \u0442\u0430\u0431\u043b\u0438\u0446\u044e",
-    "Header": "\u0422\u0435\u043c\u0430",
+    "Table Header": "\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a \u0442\u0430\u0431\u043b\u0438\u0446\u0456",
+    "Remove Table": "\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0442\u0430\u0431\u043b\u0438\u0446\u0456",
+    "Table Style": "\u0421\u0442\u0438\u043b\u044c \u0442\u0430\u0431\u043b\u0438\u0446\u0456",
+    "Horizontal Align": "\u0413\u043e\u0440\u0438\u0437\u043e\u043d\u0442\u0430\u043b\u044c\u043d\u0435 \u0432\u0438\u0440\u0456\u0432\u043d\u044e\u0432\u0430\u043d\u043d\u044f",
     "Row": "\u0420\u044f\u0434\u043e\u043a",
     "Insert row above": "\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u0438 \u043f\u043e\u0440\u043e\u0436\u043d\u0456\u0439 \u0440\u044f\u0434\u043e\u043a \u0437\u0432\u0435\u0440\u0445\u0443",
     "Insert row below": "\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u0438 \u043f\u043e\u0440\u043e\u0436\u043d\u0456\u0439 \u0440\u044f\u0434\u043e\u043a \u0437\u043d\u0438\u0437\u0443",
@@ -221,7 +224,10 @@ $.FroalaEditor.LANGUAGE['ua'] = {
     // Quote
     "Quote": "\u0426\u0438\u0442\u0430\u0442\u0430",
     "Increase": "\u0417\u0431\u0456\u043b\u044c\u0448\u0438\u0442\u0438",
-    "Decrease": "\u0437\u043d\u0438\u0436\u0435\u043d\u043d\u044f"
+    "Decrease": "\u0437\u043d\u0438\u0436\u0435\u043d\u043d\u044f",
+
+    // Quick Insert
+    "Quick Insert": "\u0428\u0432\u0438\u0434\u043a\u0438\u0439 \u0432\u0441\u0442\u0430\u0432\u043a\u0430"
   },
   direction: "ltr"
 };

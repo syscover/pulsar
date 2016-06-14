@@ -1,6 +1,6 @@
 /*!
- * froala_editor v2.1.0 (https://www.froala.com/wysiwyg-editor)
- * License https://froala.com/wysiwyg-editor/terms
+ * froala_editor v2.3.2 (https://www.froala.com/wysiwyg-editor)
+ * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2016 Froala Labs
  */
 
@@ -8,7 +8,7 @@
  * Dutch
  */
 
-$.FroalaEditor.LANGUAGE['nl'] = {
+$.FE.LANGUAGE['nl'] = {
   translation: {
     // Place holder
     "Type something": "Typ iets",
@@ -106,7 +106,10 @@ $.FroalaEditor.LANGUAGE['nl'] = {
 
     // Tables
     "Insert Table": "Tabel invoegen",
-    "Header": "Hoofd",
+    "Table Header": "Tabel hoofd",
+    "Remove Table": "Verwijder tafel",
+    "Table Style": "Tabelstijl",
+    "Horizontal Align": "Horizontale uitlijning",
     "Row": "Rij",
     "Insert row above": "Voeg rij boven toe",
     "Insert row below": "Voeg rij onder toe",
@@ -120,7 +123,7 @@ $.FroalaEditor.LANGUAGE['nl'] = {
     "Horizontal split": "Horizontaal splitsen",
     "Vertical split": "Verticaal splitsen",
     "Cell Background": "Cel achtergrond",
-    "Vertical Align": "Verticaal uitlijnen",
+    "Vertical Align": "Verticaal uitlijning",
     "Top": "Top",
     "Middle": "Midden",
     "Bottom": "Bodem",
@@ -221,7 +224,10 @@ $.FroalaEditor.LANGUAGE['nl'] = {
     // Quote
     "Quote": "Citaat",
     "Increase": "Toenemen",
-    "Decrease": "Daling"
+    "Decrease": "Daling",
+
+    // Quick Insert
+    "Quick Insert": "Snel invoegen"
   },
   direction: "ltr"
 };
