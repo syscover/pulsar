@@ -48,6 +48,7 @@ return [
     'article'                               => 'Article|Articles',
     'assign_id'                             => 'Assign ID',
     'attachment_mime'                       => 'Attachment mime|Attachment mimes',
+    'available'                             => 'Available',
     'base_language'                         => 'Base language',
     'bearer'                                => 'Bearer|Bearers',
     'budget'                                => 'Budget|Budgets',

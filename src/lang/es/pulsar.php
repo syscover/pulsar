@@ -48,6 +48,7 @@ return [
     'article'                               => 'Artículo|Artículos',
     'assign_id'                             => 'Asignar ID',
     'attachment_mime'                       => 'Mime de adjunto|mimes de adjunto',
+    'available'                             => 'Disponible',
     'base_language'                         => 'Idioma base',
     'bearer'                                => 'Portador|Portadores',
     'budget'                                => 'Presupuesto|Presupuestos',
