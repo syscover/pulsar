@@ -113,6 +113,11 @@ abstract class Controller extends BaseController {
         if(isset($parameters['lang']))
             $langs = Lang::getActivesLangs();
 
+        // set custom route suffix, if we need get data from other controller
+        if($this->request->has('routeSuffix'))
+            $this->routeSuffix = $this->request->input('routeSuffix');
+
+
         // set advanced search
         //Miscellaneous::dataTableAdvancedSearch($this->request, $parameters);
 
