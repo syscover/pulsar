@@ -539,7 +539,7 @@ class Miscellaneous
      * @param   array $parameters
      * @return  array
      */
-    public static function paginateDataTable($request, $parameters = [])
+    public static function dataTablePaginate($request, $parameters = [])
     {
         // Datatable paginate
         $parameters['start']   = null;
@@ -585,7 +585,7 @@ class Miscellaneous
      * @param   array   $parameters
      * @return  array
      */
-    public static function filteringDataTable($request, $parameters)
+    public static function dataTableFiltering($request, $parameters)
     {
         $args['where'] = null;
         if($request->input('search')['value'] !== "")
@@ -595,30 +595,32 @@ class Miscellaneous
         return $parameters;
     }
 
+
     /**
-     *  Function to set arguments to search on datatable
-     *
-     * @access  public
-     * @param   array   $args
-     * @param   array   $aColumns
+     * @param   \Illuminate\Http\Request    $request
+     * @param   array                       $parameters
      * @return  array
      */
-    public static function individualFilteringDataTable($args, $aColumns)
+    public static function dataTableColumnFiltering($request, $parameters)
     {
-        $args['sWhereColumns'] = null;
-        for($i=0; $i < count($aColumns); $i++)
+        if(is_array($request->input('searchColumns')))
         {
-            if(Request::input('bSearchable_'.$i) != null && Request::input('bSearchable_'.$i) == "true" && Request::input('sSearch_'.$i) != '')
+            $parameters['whereColumns'] = [];
+            $fieldSearchColumns         = collect($request->input('searchColumns'));
+            
+            foreach ($fieldSearchColumns as $fieldSearchColumn)
             {
-                $sWhereColumn['sWhere']     = Request::input('sSearch_'.$i);
-                $sWhereColumn['aColumn']    = is_array($aColumns[$i])? $aColumns[$i]['name'] : $aColumns[$i];
-
-                if(!is_array($args['sWhereColumns']))$args['sWhereColumns'] = array();
-
-                array_push($args['sWhereColumns'], $sWhereColumn);
+                if(! empty($fieldSearchColumn['value']) && $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_operator')->count() > 0 && $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_column')->count() > 0)
+                {
+                    $parameters['whereColumns'][] = [
+                        'column'    => $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_column')->first()['value'],
+                        'operator'  => $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_operator')->first()['value'],
+                        'value'     => $fieldSearchColumn['value']
+                    ];
+                }
             }
         }
-        return $args;
+        return $parameters;
     }
 
     /**
@@ -646,6 +648,7 @@ class Miscellaneous
                     if($columns[$i]['searchable'] === 'true')
                     {
                         if(is_array($aColumn)) $aColumn = $aColumn['data'];
+                        
                         $query->orWhere($aColumn, 'LIKE', '%' . $where . '%');
                     }
                     $i++;
@@ -653,15 +656,15 @@ class Miscellaneous
             });
         }
 
-//        if($whereColumns != null)
-//        {
-//            $query->where(function($query) use ($whereColumns) {
-//                foreach($whereColumns as $whereColumn)
-//                {
-//                    $query->where($whereColumn['aColumn'], 'LIKE', '%' . $whereColumn['sWhere'] . '%');
-//                }
-//            });
-//        }
+        if(is_array($whereColumns))
+        {
+            $query->where(function($query) use ($whereColumns) {
+                foreach($whereColumns as $whereColumn)
+                {
+                    $query->where($whereColumn['column'], $whereColumn['operator'], $whereColumn['value']);
+                }
+            });
+        }
 
         return $query;
     }

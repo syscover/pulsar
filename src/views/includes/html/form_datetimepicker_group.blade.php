@@ -4,7 +4,7 @@
         <div class="input-group date datetimepicker error-placement-after"@if(isset($id)) id="{{ $id }}"@endif{!! isset($data)? Miscellaneous::setDataAttributes($data) : null !!}>
             <input type='text' class="form-control" name="{{ $name }}" data-error-placement-after='datetimepicker' value="{{ isset($value)? $value : null }}" @if(isset($placeholder)) placeholder="{{ $placeholder }}"@endif{{ isset($readOnly) && $readOnly? ' readonly' : null }}{{ isset($required) && $required? ' required' : null }}>
             <span class="input-group-addon">
-                <span class="glyphicon glyphicon-calendar"></span>
+                <span class="fa fa-calendar"></span>
             </span>
         </div>
         {!! $errors->first($name, config('pulsar.errorDelimiters')) !!}

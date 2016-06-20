@@ -45,9 +45,9 @@ class PermissionController extends Controller
         $actionsAcl     = Action::get();
         $acl            = AclLibrary::getProfileAcl($parameters['profile']);
 
-        $parameters         =  Miscellaneous::paginateDataTable($this->request, $parameters);
+        $parameters         =  Miscellaneous::dataTablePaginate($this->request, $parameters);
         $parameters         =  Miscellaneous::dataTableSorting($this->request, $parameters, $this->aColumns);
-        $parameters         =  Miscellaneous::filteringDataTable($this->request, $parameters);
+        $parameters         =  Miscellaneous::dataTableFiltering($this->request, $parameters);
 
         // set columns in parameters array
         $parameters['aColumns']     = $this->aColumns;

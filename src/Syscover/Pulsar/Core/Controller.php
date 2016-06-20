@@ -116,20 +116,15 @@ abstract class Controller extends BaseController {
         // set custom route suffix, if we need get data from other controller
         if($this->request->has('routeSuffix'))
             $this->routeSuffix = $this->request->input('routeSuffix');
-
-
-        // set advanced search
-        //Miscellaneous::dataTableAdvancedSearch($this->request, $parameters);
-
-
+        
         // table paginated
-        $parameters =  Miscellaneous::paginateDataTable($this->request, $parameters);
+        $parameters =  Miscellaneous::dataTablePaginate($this->request, $parameters);
         // table sorting
         $parameters =  Miscellaneous::dataTableSorting($this->request, $parameters, $this->aColumns);
         // quick search data table
-        $parameters =  Miscellaneous::filteringDataTable($this->request, $parameters);
-
-        //dd($parameters);
+        $parameters =  Miscellaneous::dataTableFiltering($this->request, $parameters);
+        // set advanced search
+        $parameters = Miscellaneous::dataTableColumnFiltering($this->request, $parameters);
 
         // set columns in parameters array
         $parameters['aColumns']     = $this->aColumns;
