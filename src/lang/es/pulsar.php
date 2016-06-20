@@ -169,6 +169,7 @@ return [
     'row'                                   => 'Fila|Filas',
     'run'                                   => 'Ejecutar',
     'save'                                  => 'Guardar',
+    'search'                                => 'Buscar',
     'searching'                             => 'Buscando',
     'select'                                => 'Seleccionar',
     'select_category'                       => 'Seleccione una categoría',

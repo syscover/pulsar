@@ -169,6 +169,7 @@ return [
     'row'                                   => 'Row|Rows',
     'run'                                   => 'Run',
     'save'                                  => 'Save',
+    'search'                                => 'Search',
     'searching'                             => 'Searching',
     'select'                                => 'Select',
     'select_category'                       => 'Select a category',
