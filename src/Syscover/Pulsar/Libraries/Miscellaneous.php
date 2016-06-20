@@ -607,10 +607,10 @@ class Miscellaneous
         {
             $parameters['whereColumns'] = [];
             $fieldSearchColumns         = collect($request->input('searchColumns'));
-            
+
             foreach ($fieldSearchColumns as $fieldSearchColumn)
             {
-                if(! empty($fieldSearchColumn['value']) && $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_operator')->count() > 0 && $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_column')->count() > 0)
+                if($fieldSearchColumn['value'] !== '' && $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_operator')->count() > 0 && $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_column')->count() > 0)
                 {
                     $parameters['whereColumns'][] = [
                         'column'    => $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_column')->first()['value'],
@@ -620,6 +620,7 @@ class Miscellaneous
                 }
             }
         }
+
         return $parameters;
     }
 
