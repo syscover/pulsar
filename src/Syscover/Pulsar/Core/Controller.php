@@ -8,8 +8,8 @@ use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Models\Lang;
 
 /**
- * Class TraitController
- * @package Syscover\Pulsar\Traits
+ * Class Controller
+ * @package Syscover\Pulsar\Core
  */
 
 abstract class Controller extends BaseController {
@@ -48,6 +48,24 @@ abstract class Controller extends BaseController {
 
         if(isset($action['resource']))
             $this->resource = $action['resource'];
+    }
+
+    //public function exportDataSpreadsheet()
+    
+    public function exportDataCsv()
+    {
+        $parameters = [];
+
+        //$this->request->all()
+
+        // set advanced search
+        $parameters = Miscellaneous::dataTableColumnFiltering($this->request, $parameters, 'array');
+
+        // get data from table
+        $objects = call_user_func($this->model . '::getIndexRecords', $this->request, $parameters);
+
+        dd($objects);
+
     }
 
     /**

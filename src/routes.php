@@ -340,7 +340,6 @@ Route::group(['middleware' => ['web', 'pulsar']], function() {
     Route::get(config('pulsar.appName') . '/pulsar/froala/load/images/{package}',                               ['as'=>'froalaLoadImages',              'uses'=>'Syscover\Pulsar\Controllers\FroalaController@loadImages']);
     Route::post(config('pulsar.appName') . '/pulsar/froala/delete/image',                                       ['as'=>'froalaDeleteImage',             'uses'=>'Syscover\Pulsar\Controllers\FroalaController@deleteImage']);
     Route::post(config('pulsar.appName') . '/pulsar/froala/upload/file',                                        ['as'=>'froalaUploadFile',              'uses'=>'Syscover\Pulsar\Controllers\FroalaController@uploadFile']);
-
     
     /*
     |--------------------------------------------------------------------------

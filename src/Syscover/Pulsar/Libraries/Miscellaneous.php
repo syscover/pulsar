@@ -597,30 +597,51 @@ class Miscellaneous
 
 
     /**
-     * @param   \Illuminate\Http\Request    $request
-     * @param   array                       $parameters
+     * @param   \Illuminate\Http\Request  $request
+     * @param   array                     $parameters
+     * @param   string                    $dataType
      * @return  array
      */
-    public static function dataTableColumnFiltering($request, $parameters)
+    public static function dataTableColumnFiltering($request, $parameters, $dataType = 'request')
     {
-        if(is_array($request->input('searchColumns')))
+        //check if data is a Request object or array
+        if(is_array($request->input('searchColumns')) && $dataType === 'request')
         {
-            $parameters['whereColumns'] = [];
-            $fieldSearchColumns         = collect($request->input('searchColumns'));
+            $fieldSearchColumns = collect($request->input('searchColumns'));
+        }
+        elseif($dataType === 'array')
+        {
+            $fields = $request->all();
+            $fieldSearchColumns = [];
+            foreach ($fields as $key => $value)
+                $fieldSearchColumns[] = ['name' => $key, 'value' => $value];
 
-            foreach ($fieldSearchColumns as $fieldSearchColumn)
-            {
-                if($fieldSearchColumn['value'] !== '' && $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_operator')->count() > 0 && $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_column')->count() > 0)
-                {
-                    $parameters['whereColumns'][] = [
-                        'column'    => $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_column')->first()['value'],
-                        'operator'  => $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_operator')->first()['value'],
-                        'value'     => $fieldSearchColumn['value']
-                    ];
-                }
-            }
+            $fieldSearchColumns = collect($fieldSearchColumns);
+        }
+        else
+        {
+            return $parameters;
         }
 
+        $parameters['whereColumns'] = [];
+
+        foreach ($fieldSearchColumns as $fieldSearchColumn)
+        {
+            if(
+                //isset()
+                $fieldSearchColumn['value'] !== '' &&
+                $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_operator')->count() > 0 &&
+                $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_column')->count() > 0
+            )
+            {
+                $parameters['whereColumns'][] = [
+                    'column'    => $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_column')->first()['value'],
+                    'operator'  => $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_operator')->first()['value'],
+                    'value'     => $fieldSearchColumn['value']
+                ];
+            }
+        }
+        
         return $parameters;
     }
 
