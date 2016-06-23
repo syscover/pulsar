@@ -11,6 +11,18 @@ use Syscover\Pulsar\Libraries\Miscellaneous;
 
 abstract class Model extends BaseModel
 {
+    protected $package;             // package name
+    protected $table;               // string with table name
+    protected $primaryKey;          // string with primary key
+    protected $suffix;              // string with suffix number os table
+    public $timestamps;             // boolean to set timestamps on table
+    protected $fillable;            // array to set columns fillables
+    public $tableTranslation;       // table translation string 
+    public $columnTranslation;      // array that contain translation columns
+    protected $maps;                // set map array sofa eloquent, this array if is empty, in model constructor is instantiated
+    protected $relationMaps;        // array to set relations between columns and others models, to set maps array
+    private static $rules;          // array to set rules to laravel validator
+
     /**
      * Overwritte construct to set params to model
      *
@@ -19,14 +31,27 @@ abstract class Model extends BaseModel
      */
     function __construct(array $attributes = [])
     {
+        // set translation name of table
+        if(! empty($this->package) && empty($this->tableTranslation))
+            $this->tableTranslation = $this->package . '::tables.' . $this->table;
+
+        // set column translations
+        if(empty($this->columnTranslation))
+        {
+            $this->columnTranslation = [];
+            foreach ($this->fillable as $column)
+            {
+                if(trans_has($this->package . '::tables.' . $column))
+                    $this->columnTranslation[$column] = $this->package . '::tables.' . $column;
+            }
+        }
+        
         // set maps to model
         $fields = $this->fillable;
 
         // set maps if not exist
         if(! isset($this->maps) || ! is_array($this->maps))
-        {
             throw new InvalidArgumentException('The array maps is not instantiated, you must instantiate in model ' . get_class($this));
-        }
 
         foreach($fields as $field)
             $this->maps[str_replace('_' . $this->suffix, '', $field)] = $field;
@@ -41,6 +66,12 @@ abstract class Model extends BaseModel
 
                 foreach($maps as $keyMap => $map)
                     $this->maps[$key . '_' . $keyMap] = $map;
+
+                // set translations columns from related models
+                if(is_array($object->columnTranslation) && is_array($this->columnTranslation))
+                    $this->columnTranslation = array_merge($this->columnTranslation, $object->columnTranslation);
+                else
+                    $this->columnTranslation = $object->columnTranslation;
             }
         }
 

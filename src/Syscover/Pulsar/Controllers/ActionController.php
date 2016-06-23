@@ -18,7 +18,7 @@ class ActionController extends Controller
     protected $model        = Action::class;
     protected $icon         = 'fa fa-bolt';
     protected $objectTrans  = 'action';
-
+    
     public function storeCustomRecord($parameters)
     {
         Action::create([

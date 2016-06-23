@@ -85,6 +85,7 @@ return [
     'error2_reset_password'                 => 'Error, the user doesn\'t exist',
     'expire_date'                           => 'Expire date',
     'export'                                => 'Export',
+    'export_table'                          => 'Export table :name',
     'family'                                => 'Family|Families',
     'feature'                               => 'Feature|Features',
     'featured'                              => 'Featured',
