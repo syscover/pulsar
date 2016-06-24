@@ -3,6 +3,7 @@
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 use Syscover\Pulsar\Exceptions\InvalidArgumentException;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Models\Lang;
@@ -50,13 +51,9 @@ abstract class Controller extends BaseController {
             $this->resource = $action['resource'];
     }
 
-    //public function exportDataSpreadsheet()
-    
-    public function exportDataCsv()
+    public function exportData()
     {
         $parameters = [];
-
-        //$this->request->all()
 
         // set advanced search
         $parameters = Miscellaneous::dataTableColumnFiltering($this->request, $parameters, 'array');
@@ -64,8 +61,83 @@ abstract class Controller extends BaseController {
         // get data from table
         $objects = call_user_func($this->model . '::getIndexRecords', $this->request, $parameters);
 
-        dd($objects);
+        // set error by dont contain any data row
+        if (count($objects) < 1)
+            return null;
 
+        $object = $objects->first();
+
+        // set name export file
+        Excel::create(empty($object->tableTranslation)? $object->table : trans($object->tableTranslation), function($excel) use ($objects, $object){
+
+            if(count($objects) > 0)
+            {
+                // Set the title
+                $excel->setTitle('Export table :table');
+                // setters
+                $excel->setCreator('Pulsar')
+                    ->setCompany('SYSCOVER');
+
+                // Set sheet
+                $excel->sheet('Data', function ($sheet) use ($objects, $object) {
+
+                    // get columns names
+                    $headers = collect($object->getAttributes())->keys()->toArray();
+
+                    // get summary columns
+                    if($this->request->has('summaryColumns'))
+                    {
+                        $summaryColumns = collect(json_decode($this->request->input('summaryColumns'), true));
+                        $summaryRow     = array_fill(0, count($headers) -1, '');
+                    }
+
+                    // set translations columns name
+                    foreach ($headers as $key => &$columnName)
+                    {
+                        if($this->request->has('summaryColumns'))
+                        {
+                            // first, check if column has any operation on itseflf
+                            $summaryColumn = $summaryColumns->where('column', $columnName);
+                            if($summaryColumn->count() > 0)
+                            {
+                                // get sumary column array
+                                $summaryColumn = $summaryColumn->first();
+                                switch ($summaryColumn['operation'])
+                                {
+                                    case 'sum':
+                                        $summaryRow[$key] = $objects->sum($columnName);
+                                        break;
+                                }
+                            }
+                        }
+
+                        // get translation column if exist
+                        if(isset($object->columnTranslation[$columnName]))
+                            $columnName = trans($object->columnTranslation[$columnName]);
+
+                    }
+
+                    // set data and headers
+                    $sheet->prependRow($headers);
+                    $sheet->fromModel($objects->toArray(), null, 'A2', false, false);
+                    $sheet->cells('A1:' . $sheet->row(0)->getHighestDataColumn() . '1', function ($cells) {
+                        $cells->setBackground('#CCCCCC');
+                        $cells->setFontWeight('bold');
+                    });
+
+                    // set sumary columns and styles 
+                    if($this->request->has('summaryColumns'))
+                    {
+                        $sheet->appendRow($summaryRow);
+                        $sheet->cells('A' . $sheet->row(0)->getHighestRow() . ':' . $sheet->row(0)->getHighestDataColumn() . $sheet->row(0)->getHighestRow(), function ($cells) {
+                            $cells->setBackground('#F8F8F8');
+                            $cells->setFontWeight('bold');
+                        });
+
+                    }
+                });
+            }
+        })->download($this->request->input('extensionFile'));
     }
 
     /**
