@@ -76,7 +76,7 @@ class AclLibrary extends Acl
     public function allows($resource = null, $privilege = null, $profile = null)
     {
         if($profile === null)
-            $profile = auth('pulsar')->user()->profile_010;
+            $profile = auth('pulsar')->user()->profile_id_010;
 
         try
         {

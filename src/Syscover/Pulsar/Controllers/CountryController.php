@@ -57,7 +57,7 @@ class CountryController extends Controller
     {
         Country::create([
             'id_002'                    => $this->request->input('id'),
-            'lang_002'                  => $this->request->input('lang'),
+            'lang_id_002'                  => $this->request->input('lang'),
             'name_002'                  => $this->request->input('name'),
             'sorting_002'               => $this->request->input('sorting', 0),
             'prefix_002'                => $this->request->input('prefix'),
@@ -70,7 +70,7 @@ class CountryController extends Controller
     
     public function updateCustomRecord($parameters)
     {
-        Country::where('id_002', $parameters['id'])->where('lang_002', $this->request->input('lang'))->update([
+        Country::where('id_002', $parameters['id'])->where('lang_id_002', $this->request->input('lang'))->update([
             'name_002'                  => $this->request->input('name'),
             'sorting_002'               => $this->request->input('sorting', 0),
             'territorial_area_1_002'    => $this->request->input('territorialArea1'),
@@ -94,7 +94,7 @@ class CountryController extends Controller
         else
             return response()->json([
                 'status'    => 'success',
-                'data'      => Country::where('id_002', $country)->where('lang_002', session('baseLang')->id_001)->first()
+                'data'      => Country::where('id_002', $country)->where('lang_id_002', session('baseLang')->id_001)->first()
             ]);
     }
 
@@ -108,7 +108,7 @@ class CountryController extends Controller
         else
             return response()->json([
                 'status'    => 'success',
-                'data'      => Country::where('lang_002', $lang)->get()
+                'data'      => Country::where('lang_id_002', $lang)->get()
             ]);
     }
 }

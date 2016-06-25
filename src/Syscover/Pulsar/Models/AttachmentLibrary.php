@@ -37,7 +37,7 @@ class AttachmentLibrary extends Model
     public function scopeBuilder($query)
     {
         return $query->join('001_007_resource', '001_014_attachment_library.resource_014', '=', '001_007_resource.id_007')
-            ->join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012');
+            ->join('001_012_package', '001_007_resource.package_id_007', '=', '001_012_package.id_012');
     }
 
     public function getResource()

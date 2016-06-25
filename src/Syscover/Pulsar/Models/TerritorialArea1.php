@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
  * Class TerritorialArea1
  *
  * Model with properties
- * <br><b>[id, country, name]</b>
+ * <br><b>[id, country_id, name]</b>
  *
  * @package     Syscover\Pulsar\Models
  */
@@ -23,7 +23,7 @@ class TerritorialArea1 extends Model
     public $incrementing    = false;
     protected $suffix       = '003';
     public $timestamps      = false;
-    protected $fillable     = ['id_003','country_003','name_003'];
+    protected $fillable     = ['id_003','country_id_003','name_003'];
     protected $maps         = [];
     protected $relationMaps = [
         'country'   => Country::class,
@@ -42,23 +42,23 @@ class TerritorialArea1 extends Model
 
     public function scopeBuilder($query)
     {
-        return $query->join('001_002_country', '001_003_territorial_area_1.country_003', '=', '001_002_country.id_002');
+        return $query->join('001_002_country', '001_003_territorial_area_1.country_id_003', '=', '001_002_country.id_002');
     }
 
     public function getTerritorialAreas2()
     {
-        return $this->hasMany('Syscover\Pulsar\Models\TerritorialArea2', 'territorial_area_1_004');
+        return $this->hasMany('Syscover\Pulsar\Models\TerritorialArea2', 'territorial_area_1_id_004');
     }
 
     public function addToGetIndexRecords($request, $parameters)
     {
         $query = $this->builder();
 
-        if(isset($parameters['country'])) $query->where('country_003', $parameters['country']);
+        if(isset($parameters['country'])) $query->where('country_id_003', $parameters['country']);
         if(isset($parameters['lang']))
-            $query->where('lang_002', $parameters['lang']);
+            $query->where('lang_id_002', $parameters['lang']);
         else
-            $query->where('lang_002', base_lang()->id_001);
+            $query->where('lang_id_002', base_lang()->id_001);
 
         return $query;
     }
@@ -67,18 +67,18 @@ class TerritorialArea1 extends Model
     {
         $query = TerritorialArea1::builder();
 
-        if(isset($parameters['country'])) $query->where('country_003', $parameters['country']);
+        if(isset($parameters['country'])) $query->where('country_id_003', $parameters['country']);
         if(isset($parameters['lang']))
-            $query->where('lang_002', $parameters['lang']);
+            $query->where('lang_id_002', $parameters['lang']);
         else
-            $query->where('lang_002', base_lang()->id_001);
+            $query->where('lang_id_002', base_lang()->id_001);
 
         return $query;
     }
 
     public static function getTerritorialAreas1FromCountry($country)
     {
-        return TerritorialArea1::where('country_003', $country)
+        return TerritorialArea1::where('country_id_003', $country)
             ->orderBy('name_003', 'asc')
             ->get();
     }

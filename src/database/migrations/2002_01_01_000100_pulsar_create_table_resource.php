@@ -18,9 +18,9 @@ class PulsarCreateTableResource extends Migration
 				$table->engine = 'InnoDB';
 				$table->string('id_007', 30)->primary();
 				$table->string('name_007');
-				$table->integer('package_007')->unsigned();
+				$table->integer('package_id_007')->unsigned();
 
-				$table->foreign('package_007', 'fk01_001_007_resource')->references('id_012')->on('001_012_package')
+				$table->foreign('package_id_007', 'fk01_001_007_resource')->references('id_012')->on('001_012_package')
 					->onDelete('restrict')->onUpdate('cascade');
 			});
 		}

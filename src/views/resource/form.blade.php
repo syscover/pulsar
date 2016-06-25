@@ -14,7 +14,7 @@
     @include('pulsar::includes.html.form_select_group', [
         'label' => trans_choice('pulsar::pulsar.package', 1),
         'name' => 'package',
-        'value' => old('package', isset($object)? $object->package_007 : null),
+        'value' => old('package', isset($object)? $object->package_id_007 : null),
         'required' => true,
         'objects' => $packages,
         'idSelect' => 'id_012',

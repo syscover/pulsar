@@ -55,7 +55,7 @@
     @include('pulsar::includes.html.form_select_group', [
         'label' => $country->territorial_area_1_002,
         'name' => 'territorialArea1',
-        'value' => old('territorialArea1', isset($object)? $object->territorial_area_1_005 : null),
+        'value' => old('territorialArea1', isset($object)? $object->territorial_area_1_id_005 : null),
         'fieldSize' => 6,
         'objects' => $territorialAreas1,
         'idSelect' => 'id_003',
@@ -65,7 +65,7 @@
     @include('pulsar::includes.html.form_select_group', [
         'label' => $country->territorial_area_2_002,
         'name' => 'territorialArea2',
-        'value' => old('territorialArea2', isset($object)? $object->territorial_area_2_005 : null),
+        'value' => old('territorialArea2', isset($object)? $object->territorial_area_2_id_005 : null),
         'fieldSize' => 6,
         'objects' => $territorialAreas2,
         'idSelect' => 'id_004',

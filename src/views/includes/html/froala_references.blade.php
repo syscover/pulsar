@@ -39,7 +39,7 @@
 <script src="{{ asset('packages/syscover/pulsar/vendor/wysiwyg.froala/js/plugins/save.min.js') }}"></script>
 <script src="{{ asset('packages/syscover/pulsar/vendor/wysiwyg.froala/js/plugins/url.min.js') }}"></script>
 <script src="{{ asset('packages/syscover/pulsar/vendor/wysiwyg.froala/js/plugins/video.min.js') }}"></script>
-@if(auth('pulsar')->user()->lang_010 != 'en')
-    <script src="{{ asset('packages/syscover/pulsar/vendor/wysiwyg.froala/js/languages/' . auth('pulsar')->user()->lang_010 . '.js') }}"></script>
+@if(auth('pulsar')->user()->lang_id_010 != 'en')
+    <script src="{{ asset('packages/syscover/pulsar/vendor/wysiwyg.froala/js/languages/' . auth('pulsar')->user()->lang_id_010 . '.js') }}"></script>
 @endif
 <!-- /.Froala SCRIPT -->

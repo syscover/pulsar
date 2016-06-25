@@ -69,8 +69,8 @@ class ProfileController extends Controller
         Permission::insert($permissions);
 
         // if profile it's same that our profile, overwrite ours permissions
-        if($profile->id_006 == auth('pulsar')->user()->profile_010)
-            session(['userAcl' => AclLibrary::getProfileAcl(auth('pulsar')->user()->profile_010)]);
+        if($profile->id_006 == auth('pulsar')->user()->profile_id_010)
+            session(['userAcl' => AclLibrary::getProfileAcl(auth('pulsar')->user()->profile_id_010)]);
 
         return redirect()->route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,

@@ -25,7 +25,7 @@ class TerritorialArea3Controller extends Controller
 
     public function customIndex($parameters)
     {
-        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_002', session('baseLang')->id_001)->first();
+        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_id_002', session('baseLang')->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_3_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_3_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -48,7 +48,7 @@ class TerritorialArea3Controller extends Controller
         else
             $parameters['territorialAreas2'] = [];
 
-        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_002', session('baseLang')->id_001)->first();
+        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_id_002', session('baseLang')->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_3_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_3_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -59,9 +59,9 @@ class TerritorialArea3Controller extends Controller
     {
         TerritorialArea3::create([
             'id_005'                    => $this->request->input('id'),
-            'country_005'               => $parameters['country'],
-            'territorial_area_1_005'    => $this->request->input('territorialArea1'),
-            'territorial_area_2_005'    => $this->request->input('territorialArea2'),
+            'country_id_005'            => $parameters['country'],
+            'territorial_area_1_id_005' => $this->request->input('territorialArea1'),
+            'territorial_area_2_id_005' => $this->request->input('territorialArea2'),
             'name_005'                  => $this->request->input('name')
         ]);
     }
@@ -69,8 +69,8 @@ class TerritorialArea3Controller extends Controller
     public function editCustomRecord($parameters)
     {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
-        $parameters['territorialAreas2']    = TerritorialArea2::getTerritorialAreas2FromTerritorialArea1($parameters['object']->territorial_area_1_005);
-        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_002', session('baseLang')->id_001)->first();
+        $parameters['territorialAreas2']    = TerritorialArea2::getTerritorialAreas2FromTerritorialArea1($parameters['object']->territorial_area_1_id_005);
+        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_id_002', session('baseLang')->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_3_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_3_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -81,8 +81,8 @@ class TerritorialArea3Controller extends Controller
     {
         TerritorialArea3::where('id_005', $parameters['id'])->update([
             'id_005'                    => $this->request->input('id'),
-            'territorial_area_1_005'    => $this->request->input('territorialArea1'),
-            'territorial_area_2_005'    => $this->request->input('territorialArea2'),
+            'territorial_area_1_id_005' => $this->request->input('territorialArea1'),
+            'territorial_area_2_id_005' => $this->request->input('territorialArea2'),
             'name_005'                  => $this->request->input('name')
         ]);
     }

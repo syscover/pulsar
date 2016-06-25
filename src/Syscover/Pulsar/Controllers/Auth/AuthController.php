@@ -94,7 +94,7 @@ class AuthController extends Controller
             }
 
             // set user access control list
-            session(['userAcl' => AclLibrary::getProfileAcl(auth('pulsar')->user()->profile_010)]);
+            session(['userAcl' => AclLibrary::getProfileAcl(auth('pulsar')->user()->profile_id_010)]);
 
             // check if user has permission to access
             if (!is_allowed('pulsar', 'access'))

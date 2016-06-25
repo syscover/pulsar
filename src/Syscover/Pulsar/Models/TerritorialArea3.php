@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
  * Class TerritorialArea3
  *
  * Model with properties
- * <br><b>[id, country, territorial_area_1, territorial_area_2, name]</b>
+ * <br><b>[id, country_id, territorial_area_1, territorial_area_2, name]</b>
  *
  * @package     Syscover\Pulsar\Models
  */
@@ -23,7 +23,7 @@ class TerritorialArea3 extends Model
     public $incrementing    = false;
     protected $suffix       = '005';
     public $timestamps      = false;
-    protected $fillable     = ['id_005', 'country_005', 'territorial_area_1_005', 'territorial_area_2_005', 'name_005'];
+    protected $fillable     = ['id_005', 'country_id_005', 'territorial_area_1_id_005', 'territorial_area_2_id_005', 'name_005'];
     protected $maps         = [];
     protected $relationMaps = [
         'terrirorial_area_1'   => TerritorialArea1::class,
@@ -45,15 +45,15 @@ class TerritorialArea3 extends Model
 
     public function scopeBuilder($query)
     {
-        return $query->join('001_003_territorial_area_1', '001_005_territorial_area_3.territorial_area_1_005', '=', '001_003_territorial_area_1.id_003')
-            ->join('001_004_territorial_area_2', '001_005_territorial_area_3.territorial_area_2_005', '=', '001_004_territorial_area_2.id_004');
+        return $query->join('001_003_territorial_area_1', '001_005_territorial_area_3.territorial_area_1_id_005', '=', '001_003_territorial_area_1.id_003')
+            ->join('001_004_territorial_area_2', '001_005_territorial_area_3.territorial_area_2_id_005', '=', '001_004_territorial_area_2.id_004');
     }
 
     public function addToGetIndexRecords($request, $parameters)
     {
         $query = $this->builder();
 
-        if(isset($parameters['country'])) $query->where('country_003', $parameters['country']);
+        if(isset($parameters['country'])) $query->where('country_id_003', $parameters['country']);
 
         return $query;
     }
@@ -62,7 +62,7 @@ class TerritorialArea3 extends Model
     {
         $query = TerritorialArea3::query();
 
-        if(isset($parameters['country'])) $query->where('country_005', $parameters['country']);
+        if(isset($parameters['country'])) $query->where('country_id_005', $parameters['country']);
 
         return $query;
     }

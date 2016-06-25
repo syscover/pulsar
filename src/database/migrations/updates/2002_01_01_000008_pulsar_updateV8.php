@@ -17,9 +17,9 @@ class PulsarUpdateV8 extends Migration
 		if(Resource::where('id_007', 'admin-attachment-mime')->count() == 0 && Package::where('id_012', 2)->count() == 1)
 		{
 			Resource::create([
-				'id_007' 		=> 'admin-attachment-mime',
-				'name_007' 		=> 'Attachments - Attachment Mime',
-				'package_007' 	=> '2'
+				'id_007' 			=> 'admin-attachment-mime',
+				'name_007' 			=> 'Attachments - Attachment Mime',
+				'package_id_007' 	=> '2'
 			]);
 		}
 	}

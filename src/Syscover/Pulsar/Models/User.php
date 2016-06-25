@@ -15,7 +15,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * Class User
  *
  * Model with properties
- * <br><b>[id, lang, profile, access, user, password, email, name, surname]</b>
+ * <br><b>[id, lang_id, profile_id, access, user, password, email, name, surname]</b>
  *
  * @package     Syscover\Pulsar\Models
  */
@@ -29,7 +29,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $primaryKey   = 'id_010';
     protected $suffix       = '010';
     public $timestamps      = true;
-    protected $fillable     = ['id_010', 'lang_010', 'profile_010', 'access_010', 'user_010', 'password_010', 'email_010', 'name_010', 'surname_010'];
+    protected $fillable     = ['id_010', 'lang_id_010', 'profile_id_010', 'access_010', 'user_010', 'password_010', 'email_010', 'name_010', 'surname_010'];
     protected $hidden       = ['password_010', 'remember_token_010'];
     protected $maps         = [];
     protected $relationMaps = [
@@ -56,7 +56,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function scopeBuilder($query)
     {
-        return $query->join('001_006_profile', '001_010_user.profile_010', '=', '001_006_profile.id_006');
+        return $query->join('001_006_profile', '001_010_user.profile_id_010', '=', '001_006_profile.id_006');
     }
 
     /**
@@ -66,7 +66,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      */
     public function getProfile()
     {
-        return $this->belongsTo(Profile::class, 'profile_010');
+        return $this->belongsTo(Profile::class, 'profile_id_010');
     }
 
     /**

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
  * Class Resource
  *
  * Model with properties
- * <br><b>[id, name, package]</b>
+ * <br><b>[id, name, package_id]</b>
  *
  * @package     Syscover\Pulsar\Models
  */
@@ -23,7 +23,7 @@ class Resource extends Model
     public $incrementing    = false;
     protected $suffix       = '007';
     public $timestamps      = false;
-    protected $fillable     = ['id_007', 'name_007', 'package_007'];
+    protected $fillable     = ['id_007', 'name_007', 'package_id_007'];
     protected $maps         = [];
     protected $relationMaps = [
         'package'      => Package::class,
@@ -43,17 +43,17 @@ class Resource extends Model
 
     public function scopeBuilder($query)
     {
-        return $query->join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012');
+        return $query->join('001_012_package', '001_007_resource.package_id_007', '=', '001_012_package.id_012');
     }
 
     public function getPackage()
     {
-        return $this->belongsTo('Syscover\Pulsar\Models\Package', 'package_007');
+        return $this->belongsTo('Syscover\Pulsar\Models\Package', 'package_id_007');
     }
 
     public static function getRecords($args)
     {
-        $query =  Resource::join('001_012_package', '001_007_resource.package_007', '=', '001_012_package.id_012');
+        $query =  Resource::join('001_012_package', '001_007_resource.package_id_007', '=', '001_012_package.id_012');
 
         if(isset($args['active_012']))  $query->where('active_012', $args['active_012']);
         if(isset($args['whereIn']))     $query->whereIn($args['whereIn']['column'], $args['whereIn']['ids']);

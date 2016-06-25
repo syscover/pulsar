@@ -23,7 +23,7 @@ class TerritorialArea1Controller extends Controller
 
     public function customIndex($parameters)
     {
-        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_002', session('baseLang')->id_001)->first();
+        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_id_002', session('baseLang')->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_1_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -39,7 +39,7 @@ class TerritorialArea1Controller extends Controller
     
     public function createCustomRecord($parameters)
     {
-        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_002', session('baseLang')->id_001)->first();
+        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_id_002', session('baseLang')->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_1_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -49,15 +49,15 @@ class TerritorialArea1Controller extends Controller
     public function storeCustomRecord($parameters)
     {
         TerritorialArea1::create([
-            'id_003'        => $this->request->input('id'),
-            'country_003'   => $parameters['country'],
-            'name_003'      => $this->request->input('name')
+            'id_003'            => $this->request->input('id'),
+            'country_id_003'    => $parameters['country'],
+            'name_003'          => $this->request->input('name')
         ]);
     }
     
     public function editCustomRecord($parameters)
     {
-        $parameters['country']              = Country::where('id_002', $parameters['object']->country_003)->where('lang_002', session('baseLang')->id_001)->first();
+        $parameters['country']              = Country::where('id_002', $parameters['object']->country_id_003)->where('lang_id_002', session('baseLang')->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_1_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_1_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -82,7 +82,7 @@ class TerritorialArea1Controller extends Controller
         else
             return response()->json([
                 'status'    => 'success',
-                'data'      => Country::where('id_002', $country)->where('lang_002', session('baseLang')->id_001)->first()->getTerritorialAreas1
+                'data'      => Country::where('id_002', $country)->where('lang_id_002', session('baseLang')->id_001)->first()->getTerritorialAreas1
             ]);
     }
 }

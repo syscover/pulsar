@@ -23,7 +23,7 @@ class DBLibrary
     {
         if(Schema::hasColumn($tableName, $oldColumnName))
         {
-            $keys = DB::select(DB::raw('SHOW KEYS FROM 009_301_customer WHERE Column_name LIKE \'' . $oldColumnName . '\''));
+            $keys = DB::select(DB::raw('SHOW KEYS FROM ' . $tableName . ' WHERE Column_name LIKE \'' . $oldColumnName . '\''));
             
             if(! empty($keys))
             {

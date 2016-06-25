@@ -14,8 +14,8 @@
 $factory->define(Syscover\Pulsar\Models\User::class, function (Faker\Generator $faker) {
     return [
         'id_010'                => 1000,
-        'lang_010'              => 'en',
-        'profile_010'           => 1,
+        'lang_id_010'           => 'en',
+        'profile_id_010'        => 1,
         'access_010'            => true,
         'user_010'              => 'test',
         'password_010'          => bcrypt('123456'),
