@@ -32,14 +32,15 @@ class PulsarCreateTableFieldResult extends Migration {
                 $table->string('data_type_type_028')->default('string');
 
                 $table->longText('value_028');
-
-                $table->index(['lang_id_028', 'field_id_028', 'resource_id_028', 'object_id_028'], 'pk01_001_028_field_result');
+                
                 $table->foreign('lang_id_028', 'fk01_001_028_field_result')->references('id_001')->on('001_001_lang')
                     ->onDelete('restrict')->onUpdate('cascade');
                 $table->foreign('field_id_028', 'fk02_001_028_field_result')->references('id_026')->on('001_026_field')
                     ->onDelete('cascade')->onUpdate('cascade');
                 $table->foreign('resource_id_028', 'fk03_001_028_field_result')->references('id_007')->on('001_007_resource')
                     ->onDelete('cascade')->onUpdate('cascade');
+
+                $table->index(['lang_id_028', 'field_id_028', 'resource_id_028', 'object_id_028'], 'pk01_001_028_field_result');
             });
         }
     }

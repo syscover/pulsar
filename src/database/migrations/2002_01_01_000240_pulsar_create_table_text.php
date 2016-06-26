@@ -20,11 +20,11 @@ class PulsarCreateTableText extends Migration
                 $table->integer('id_017')->unsigned();
                 $table->string('lang_id_017', 2);
                 $table->text('text_017')->nullable();
-
-                $table->primary(['id_017', 'lang_id_017'], 'pk01_001_017_text');
-
+                
                 $table->foreign('lang_id_017', 'fk01_001_017_text')->references('id_001')->on('001_001_lang')
                     ->onDelete('restrict')->onUpdate('cascade');
+
+                $table->primary(['id_017', 'lang_id_017'], 'pk01_001_017_text');
             });
         }
 	}

@@ -19,10 +19,10 @@ class PulsarCreateTablePreference extends Migration
 				$table->integer('package_id_018')->unsigned();
 				$table->text('value_018')->nullable();
 				$table->timestamps();
-
-				$table->primary('id_018', 'pk01_001_018_preference');
+				
 				$table->foreign('package_id_018', 'fk01_001_018_preference')->references('id_012')->on('001_012_package')
 					->onDelete('restrict')->onUpdate('cascade');
+				$table->primary('id_018', 'pk01_001_018_preference');
 			});
 		}
 	}
