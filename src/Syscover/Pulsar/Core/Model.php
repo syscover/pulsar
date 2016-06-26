@@ -160,7 +160,7 @@ abstract class Model extends BaseModel
     public static function getTranslationsRecords($lang)
     {
         $instance = new static;
-        return $instance::where('lang_' . $instance->suffix, $lang)->get();
+        return $instance::where('lang_id_' . $instance->suffix, $lang)->get();
     }
 
     /**
@@ -172,7 +172,7 @@ abstract class Model extends BaseModel
     public static function getTranslationRecord($parameters)
     {
         $instance = new static;
-        return $instance::builder()->where($instance->getKeyName(), $parameters['id'])->where('lang_' . $instance->suffix, $parameters['lang'])->first();
+        return $instance::builder()->where($instance->getKeyName(), $parameters['id'])->where('lang_id_' . $instance->suffix, $parameters['lang'])->first();
     }
 
     /**
@@ -185,7 +185,7 @@ abstract class Model extends BaseModel
     {
         $instance = new static;
 
-        $instance::where($instance->getKeyName(), $parameters['id'])->where('lang_' . $instance->suffix, $parameters['lang'])->delete();
+        $instance::where($instance->getKeyName(), $parameters['id'])->where('lang_id_' . $instance->suffix, $parameters['lang'])->delete();
 
         if($deleteLangDataRecord)
             $instance::deleteLangDataRecord($parameters);
