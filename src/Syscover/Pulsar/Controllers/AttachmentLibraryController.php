@@ -34,7 +34,7 @@ class AttachmentLibraryController extends Controller
         switch ($aColumn['type'])
         {
             case 'library_img':
-                if($aObject['type_014'] == 1)
+                if($aObject['type_id_014'] == 1)
                 {
                     $row[] = '<img src="' . asset(config($aObject['folder_012'] . '.libraryFolder') . '/' . $aObject['file_name_014']) . '" class="image-index-list">';
                 }
@@ -81,7 +81,7 @@ class AttachmentLibraryController extends Controller
                 'file_name_014'     => $file['name'],
                 'mime_014'          => $file['mime'],
                 'size_014'          => $file['size'],
-                'type_014'          => $type['id'],
+                'type_id_014'       => $type['id'],
                 'type_text_014'     => $type['name'],
                 'width_014'         => $width,
                 'height_014'        => $height,

@@ -42,9 +42,9 @@ class AttachmentLibrary {
                 'id_016'                => $idAttachment,
                 'lang_id_016'           => $lang,
                 'resource_id_016'       => $resource,
-                'object_016'            => $objectId,
-                'family_016'            => empty($attachment->family)? null : $attachment->family,
-                'library_016'           => $attachment->library,
+                'object_id_016'         => $objectId,
+                'family_id_016'         => empty($attachment->family)? null : $attachment->family,
+                'library_id_016'        => $attachment->library,
                 'library_file_name_016' => empty($attachment->libraryFileName)? null : $attachment->libraryFileName,
                 'sorting_016'           => $attachment->sorting,
                 //'url_016'               => $attachment->url, videos??
@@ -52,7 +52,7 @@ class AttachmentLibrary {
                 'file_name_016'         => empty($attachment->fileName)? null : $attachment->fileName,
                 'mime_016'              => $attachment->mime,
                 'size_016'              => filesize(public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId .  '/' . $lang . '/' . $attachment->fileName),
-                'type_016'              => $attachment->type->id,
+                'type_id_016'           => $attachment->type->id,
                 'type_text_016'         => $attachment->type->name,
                 'width_016'             => $width,
                 'height_016'            => $height,
@@ -77,7 +77,7 @@ class AttachmentLibrary {
         $response['attachments'] = Attachment::getRecords([
             'lang_id_016'       => $lang,
             'resource_id_016'   => $resource,
-            'object_016'        => $objectId,
+            'object_id_016'     => $objectId,
             'orderBy'           => ['column' => 'sorting_016', 'order' => 'asc']
         ]);
         $attachmentsInput = [];
@@ -101,16 +101,16 @@ class AttachmentLibrary {
 
             $attachmentsInput[] = [
                 'id'                => $attachment->id_016,
-                'family'            => $attachment->family_016,
-                'type'              => ['id' => $attachment->type_016, 'name' => $attachment->type_text_016, 'icon' => $attachmentData->icon],
+                'family'            => $attachment->family_id_016,
+                'type'              => ['id' => $attachment->type_id_016, 'name' => $attachment->type_text_016, 'icon' => $attachmentData->icon],
                 'mime'              => $attachment->mime_016,
                 'name'              => $attachment->name_016,
-                'folder'            => $copyAttachment? config($routesConfigFile . '.tmpFolder') : config($routesConfigFile . '.attachmentFolder') . '/' . $attachment->object_016 . '/' . $attachment->lang_id_016,
+                'folder'            => $copyAttachment? config($routesConfigFile . '.tmpFolder') : config($routesConfigFile . '.attachmentFolder') . '/' . $attachment->object_id_016 . '/' . $attachment->lang_id_016,
                 'tmpFileName'       => $tmpFileName,
                 'fileName'          => $attachment->file_name_016,
                 'width'             => $attachment->width_016,
                 'height'            => $attachment->height_016,
-                'library'           => $attachment->library_016,
+                'library'           => $attachment->library_id_016,
                 'libraryFileName'   => $attachment->library_file_name_016,
                 'sorting'           => $attachment->sorting_016,
             ];
@@ -136,7 +136,7 @@ class AttachmentLibrary {
         Attachment::deleteAttachment([
             'lang_id_016'       => $lang,
             'resource_id_016'   => $resource,
-            'object_016'        => $objectId
+            'object_id_016'     => $objectId
         ]);
 
         if(isset($lang))

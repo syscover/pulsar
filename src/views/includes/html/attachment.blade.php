@@ -22,9 +22,9 @@
                             <div class="attachment-item">
                                 <div class="attachment-img">
                                     @if($action == 'store' || $action == 'storeLang')
-                                        <img{!! $attachment->type_016 == 1? ' class="is-image"' : ' class="no-image"' !!} src="{{ $attachment->type_016 == 1? config($routesConfigFile . '.tmpFolder') . '/' . $attachment->tmp_file_name_016 : config($routesConfigFile . '.iconsFolder') . '/' . $data->icon }}" />
+                                        <img{!! $attachment->type_id_016 == 1? ' class="is-image"' : ' class="no-image"' !!} src="{{ $attachment->type_id_016 == 1? config($routesConfigFile . '.tmpFolder') . '/' . $attachment->tmp_file_name_016 : config($routesConfigFile . '.iconsFolder') . '/' . $data->icon }}" />
                                     @else
-                                        <img{!! $attachment->type_016 == 1? ' class="is-image"' : ' class="no-image"' !!} src="{{ $attachment->type_016 == 1? config($routesConfigFile . '.attachmentFolder') . '/' . $attachment->object_016 . '/' . $attachment->lang_id_016 . '/' . $attachment->file_name_016 : config($routesConfigFile . '.iconsFolder') . '/' . $data->icon }}" />
+                                        <img{!! $attachment->type_id_016 == 1? ' class="is-image"' : ' class="no-image"' !!} src="{{ $attachment->type_id_016 == 1? config($routesConfigFile . '.attachmentFolder') . '/' . $attachment->object_id_016 . '/' . $attachment->lang_id_016 . '/' . $attachment->file_name_016 : config($routesConfigFile . '.iconsFolder') . '/' . $data->icon }}" />
                                     @endif
                                 </div>
                                 <div class="attachment-over">
@@ -42,10 +42,10 @@
                                                 <input type="text" class="form-control image-name" placeholder="{{ trans('pulsar::pulsar.image_name') }}" data-previous="{{ $attachment->name_016 }}" value="{{ $attachment->name_016 }}">
                                             </div>
                                             <div class="form-group">
-                                                <select class="form-control attachment-family" name="attachmentFamily" data-previous="{{ $attachment->family_016 }}">
+                                                <select class="form-control attachment-family" name="attachmentFamily" data-previous="{{ $attachment->family_id_016 }}">
                                                     <option value="">{{ trans('pulsar::pulsar.select_family') }}</option>
                                                     @foreach($attachmentFamilies as $attachmentFamily)
-                                                        <option value="{{ $attachmentFamily->id_015 }}"{{ $attachment->family_016 == $attachmentFamily->id_015? ' selected' : null }}>{{ $attachmentFamily->name_015 }}</option>
+                                                        <option value="{{ $attachmentFamily->id_015 }}"{{ $attachment->family_id_016 == $attachmentFamily->id_015? ' selected' : null }}>{{ $attachmentFamily->name_015 }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

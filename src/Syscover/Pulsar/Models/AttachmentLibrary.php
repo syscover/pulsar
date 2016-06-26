@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
  * Class AttachmentLibrary
  *
  * Model with properties
- * <br><b>[id, resource, url, file_name, mime, size, type, type_text, width, height, data]</b>
+ * <br><b>[id, resource, url, file_name, mime, size, type_id, type_text, width, height, data]</b>
  *
  * @package     Syscover\Pulsar\Models
  */
@@ -22,7 +22,7 @@ class AttachmentLibrary extends Model
     protected $primaryKey   = 'id_014';
     protected $suffix       = '014';
     public $timestamps      = false;
-    protected $fillable     = ['id_014', 'resource_id_014', 'url_014', 'file_name_014', 'mime_014', 'size_014', 'type_014', 'type_text_014', 'width_014', 'height_014', 'data_014'];
+    protected $fillable     = ['id_014', 'resource_id_014', 'url_014', 'file_name_014', 'mime_014', 'size_014', 'type_id_014', 'type_text_014', 'width_014', 'height_014', 'data_014'];
     protected $maps         = [];
     protected $relationMaps = [
         'resource'   => \Syscover\Pulsar\Models\Resource::class,

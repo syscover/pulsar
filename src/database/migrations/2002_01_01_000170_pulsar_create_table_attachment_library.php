@@ -23,7 +23,7 @@ class PulsarCreateTableAttachmentLibrary extends Migration {
                 $table->string('mime_014');
                 $table->integer('size_014')->unsigned();
 
-                $table->tinyInteger('type_014')->unsigned();                    // 1 = image, 2 = file, 3 = video
+                $table->tinyInteger('type_id_014')->unsigned();                    // 1 = image, 2 = file, 3 = video
                 $table->string('type_text_014');
 
                 $table->smallInteger('width_014')->unsigned()->nullable();

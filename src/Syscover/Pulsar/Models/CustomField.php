@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
  * Class CustomField
  *
  * Model with properties
- * <br><b>[id, group, name, field_type_id, field_type_name, data_type_id, data_type_name, required, sorting, max_length, pattern, label_size, field_size, data_lang, data]</b>
+ * <br><b>[id, group_id, name, field_type_id, field_type_name, data_type_id, data_type_name, required, sorting, max_length, pattern, label_size, field_size, data_lang, data]</b>
  *
  * @package     Syscover\Pulsar\Models
  */
@@ -22,7 +22,7 @@ class CustomField extends Model
     protected $primaryKey   = 'id_026';
     protected $suffix       = '026';
     public $timestamps      = false;
-    protected $fillable     = ['id_026', 'group_026', 'name_026', 'field_type_id_026', 'field_type_name_026', 'data_type_id_026', 'data_type_name_026', 'required_026', 'sorting_026', 'max_length_026', 'pattern_026', 'label_size_026', 'field_size_026', 'data_lang_026', 'data_026'];
+    protected $fillable     = ['id_026', 'group_id_026', 'name_026', 'field_type_id_026', 'field_type_name_026', 'data_type_id_026', 'data_type_name_026', 'required_026', 'sorting_026', 'max_length_026', 'pattern_026', 'label_size_026', 'field_size_026', 'data_lang_026', 'data_026'];
     protected $maps         = [];
     protected $relationMaps = [
         'group'   => \Syscover\Pulsar\Models\CustomFieldGroup::class
@@ -41,7 +41,7 @@ class CustomField extends Model
 
     public function scopeBuilder($query)
     {
-        return $query->join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025');
+        return $query->join('001_025_field_group', '001_026_field.group_id_026', '=', '001_025_field_group.id_025');
     }
 
     public function getLang()
@@ -60,26 +60,26 @@ class CustomField extends Model
      */
     public function getValues()
     {
-        return $this->hasMany('Syscover\Pulsar\Models\CustomFieldValue', 'field_027')->builder();
+        return $this->hasMany('Syscover\Pulsar\Models\CustomFieldValue', 'field_id_027')->builder();
     }
 
     public function getResults()
     {
-        return $this->hasMany('Syscover\Pulsar\Models\CustomFieldResult', 'field_028');
+        return $this->hasMany('Syscover\Pulsar\Models\CustomFieldResult', 'field_id_028');
     }
 
     public function addToGetIndexRecords($request, $parameters)
     {
-        $query = $this->join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025');
+        $query = $this->join('001_025_field_group', '001_026_field.group_id_026', '=', '001_025_field_group.id_025');
 
         return $query;
     }
 
     public static function getRecords($parameters)
     {
-        $query =  CustomField::join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025');
+        $query =  CustomField::join('001_025_field_group', '001_026_field.group_id_026', '=', '001_025_field_group.id_025');
 
-        if(isset($parameters['group_026'])) $query->where('group_026', $parameters['group_026']);
+        if(isset($parameters['group_id_026'])) $query->where('group_id_026', $parameters['group_id_026']);
 
         $customFields = $query->get();
 
@@ -112,7 +112,7 @@ class CustomField extends Model
 
     public static function getTranslationRecord($parameters)
     {
-        $customField =  CustomField::join('001_025_field_group', '001_026_field.group_026', '=', '001_025_field_group.id_025')
+        $customField =  CustomField::join('001_025_field_group', '001_026_field.group_id_026', '=', '001_025_field_group.id_025')
             ->where('id_026', $parameters['id'])
             ->first();
 

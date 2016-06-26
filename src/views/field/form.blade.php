@@ -18,7 +18,7 @@
         'label' => trans_choice('pulsar::pulsar.group', 1),
         'id' => 'group',
         'name' => 'group',
-        'value' => old('group', isset($object->group_026)? $object->group_026 : null),
+        'value' => old('group', isset($object->group_id_026)? $object->group_id_026 : null),
         'required' => true,
         'objects' => $groups,
         'idSelect' => 'id_025',

@@ -53,7 +53,7 @@ class CustomFieldValueController extends Controller
         }
         else
         {
-            $counter    = CustomFieldValue::where('field_027', $this->request->input('field'))->max('counter_027');
+            $counter    = CustomFieldValue::where('field_id_027', $this->request->input('field'))->max('counter_027');
             $counter++;
             $id         = $counter;
         }
@@ -66,8 +66,8 @@ class CustomFieldValueController extends Controller
         // create new object
         CustomFieldValue::create([
             'id_027'            => $id,
-            'lang_027'          => $this->request->input('lang'),
-            'field_027'         => $this->request->input('field'),
+            'lang_id_027'       => $this->request->input('lang'),
+            'field_id_027'      => $this->request->input('field'),
             'counter_027'       => $counter,
             'name_027'          => $this->request->input('name'),
             'sorting_027'       => empty($this->request->input('sorting'))? null : $this->request->input('sorting'),
@@ -94,12 +94,12 @@ class CustomFieldValueController extends Controller
         }
         else
         {
-            $counter    = CustomFieldValue::where('field_027', $this->request->input('field'))->max('counter_027');
+            $counter    = CustomFieldValue::where('field_id_027', $this->request->input('field'))->max('counter_027');
             $counter++;
             $id         = $counter;
         }
 
-        CustomFieldValue::where('id_027', $parameters['id'])->where('lang_027', $this->request->input('lang'))->where('field_027', $this->request->input('field'))->update([
+        CustomFieldValue::where('id_027', $parameters['id'])->where('lang_id_027', $this->request->input('lang'))->where('field_id_027', $this->request->input('field'))->update([
             'id_027'            => $id,
             'counter_027'       => $counter,
             'name_027'          => $this->request->input('name'),

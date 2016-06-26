@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 class DBLibrary
 {
-    public static function changeColumnNameWithForeignKey(
+    public static function renameColumnWithForeignKey(
         $tableName, 
         $oldColumnName, 
         $newColumnName,
@@ -97,6 +97,38 @@ class DBLibrary
                     ->on($referenceTable)
                     ->onDelete($onDelete)
                     ->onUpdate($onUpdate);
+            });
+        }
+    }
+
+    public static function renameColumn(
+        $tableName,
+        $oldColumnName,
+        $newColumnName,
+        $type,
+        $length,
+        $unsigned,
+        $nullable
+    )
+    {
+        if(Schema::hasColumn($tableName, $oldColumnName))
+        {
+            Schema::table($tableName, function (Blueprint $table) use
+            ($tableName, $oldColumnName, $newColumnName, $type, $length, $unsigned, $nullable)
+            {
+                switch ($type) {
+                    case 'TINYINT':
+                        $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' TINYINT(' . $length . ') ' . ($unsigned? 'UNSIGNED ' : null) . ($nullable? 'NULL' : 'NOT NULL');
+                        break;
+                    case 'INT':
+                        $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' INT(' . $length . ') ' . ($unsigned? 'UNSIGNED ' : null) . ($nullable? 'NULL' : 'NOT NULL');
+                        break;
+                    case 'VARCHAR':
+                        $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' VARCHAR(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci ' . ($nullable? 'NULL' : 'NOT NULL');
+                        break;
+                }
+
+                DB::select(DB::raw($sql));
             });
         }
     }

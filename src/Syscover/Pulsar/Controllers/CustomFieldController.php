@@ -79,7 +79,7 @@ class CustomFieldController extends Controller
             // create new object
             CustomField::create([
                 'id_026'                => $id,
-                'group_026'             => $this->request->input('group'),
+                'group_id_026'          => $this->request->input('group'),
                 'name_026'              => $this->request->input('name'),
                 'field_type_id_026'     => $this->request->input('fieldType'),
                 'field_type_name_026'   => collect(config('pulsar.fieldTypes'))->keyBy('id')[$this->request->input('fieldType')]->name,
@@ -118,7 +118,7 @@ class CustomFieldController extends Controller
         $data['labels'][$this->request->input('lang')]    = $this->request->input('label');
 
         CustomField::where('id_026', $parameters['id'])->update([
-            'group_026'             => $this->request->input('group'),
+            'group_id_026'          => $this->request->input('group'),
             'name_026'              => $this->request->input('name'),
             'field_type_id_026'     => $this->request->input('fieldType'),
             'field_type_name_026'   => collect(config('pulsar.fieldTypes'))->keyBy('id')[$this->request->input('fieldType')]->name,

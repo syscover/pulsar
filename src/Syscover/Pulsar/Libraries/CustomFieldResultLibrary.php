@@ -20,7 +20,7 @@ class CustomFieldResultLibrary
     public static function storeCustomFieldResults($request, $customFieldGroup, $resource, $objectId, $lang)
     {
         $customFieldGroup   = CustomFieldGroup::find($customFieldGroup);
-        $customFields       = CustomField::getRecords(['lang_026' => $lang, 'group_026' => $customFieldGroup->id_025]);
+        $customFields       = CustomField::getRecords(['lang_026' => $lang, 'group_id_026' => $customFieldGroup->id_025]);
         $dataTypes          = collect(config('pulsar.dataTypes'))->keyBy('id');
         $customFieldResults = [];
 
@@ -32,11 +32,11 @@ class CustomFieldResultLibrary
                 foreach($request->input($customField->name_026 . '_custom') as $value)
                 {
                     $customFieldResult = [
-                        'object_028'            => $objectId,
-                        'lang_028'              => $lang,
-                        'resource_028'          => $resource,
-                        'field_028'             => $customField->id_026,
-                        'data_type_type_028'         => $dataTypes[$customField->data_type_id_026]->type,
+                        'object_id_028'         => $objectId,
+                        'lang_id_028'           => $lang,
+                        'resource_id_028'       => $resource,
+                        'field_id_028'          => $customField->id_026,
+                        'data_type_type_028'    => $dataTypes[$customField->data_type_id_026]->type,
                         'value_028'             => $value
                     ];
 
@@ -46,11 +46,11 @@ class CustomFieldResultLibrary
             else
             {
                 $customFieldResult = [
-                    'object_028'            => $objectId,
-                    'lang_028'              => $lang,
-                    'resource_028'          => $resource,
-                    'field_028'             => $customField->id_026,
-                    'data_type_type_028'         => $dataTypes[$customField->data_type_id_026]->type,
+                    'object_id_028'         => $objectId,
+                    'lang_id_028'           => $lang,
+                    'resource_id_028'       => $resource,
+                    'field_id_028'          => $customField->id_026,
+                    'data_type_type_028'    => $dataTypes[$customField->data_type_id_026]->type,
                 ];
 
                 // if we return an array and the data to be saved is an array, the array will keep like string expression.
@@ -81,10 +81,10 @@ class CustomFieldResultLibrary
 
     public static function deleteCustomFieldResults($resource, $objectId, $lang = null)
     {
-        $query = CustomFieldResult::where('resource_028', $resource)
-            ->where('object_028', $objectId);
+        $query = CustomFieldResult::where('resource_id_028', $resource)
+            ->where('object_id_028', $objectId);
 
-        if(isset($lang)) $query->where('lang_028', $lang);
+        if(isset($lang)) $query->where('lang_id_028', $lang);
 
         $query->delete();
     }
@@ -101,8 +101,8 @@ class CustomFieldResultLibrary
     {
         // get custom fields
         $customFields   = CustomField::getRecords([
-            'lang_026' => $parameters['lang'],
-            'group_026' => $parameters['customFieldGroup']
+            'lang_026'      => $parameters['lang'],
+            'group_id_026'  => $parameters['customFieldGroup']
         ]);
 
         if($parameters['object'])
@@ -114,16 +114,16 @@ class CustomFieldResultLibrary
                 $langFieldResults = $parameters['lang'];
 
             // get results if there is a object
-            $customFieldResults = CustomFieldResult::where('lang_028', $langFieldResults)
-                ->where('object_028', $parameters['object'])
-                ->where('resource_028', $parameters['resource'])
+            $customFieldResults = CustomFieldResult::where('lang_id_028', $langFieldResults)
+                ->where('object_id_028', $parameters['object'])
+                ->where('resource_id_028', $parameters['resource'])
                 ->get();
         }
 
         $html = '';
         foreach($customFields as $customField)
         {
-            $setValue = isset($customFieldResults) && $customFieldResults->where('field_028', $customField->id_026)->count() > 0;
+            $setValue = isset($customFieldResults) && $customFieldResults->where('field_id_028', $customField->id_026)->count() > 0;
 
             // add suffix '_custom' to avoid conflict with other field names
             if(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_id_026]->key == 'selectMultiple' || collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_id_026]->key == 'selectMultiple2')
@@ -131,7 +131,7 @@ class CustomFieldResultLibrary
                 // TODO: se pueden coger todos los valores antes del foreach para evitar multiples consultas
                 $customFieldValues = $customField
                     ->getValues()
-                    ->where('lang_027', session('baseLang')->id_001)
+                    ->where('lang_id_027', session('baseLang')->id_001)
                     ->get();
                 
                 $multipleSelectValue = null;
@@ -141,14 +141,14 @@ class CustomFieldResultLibrary
                     if(collect(config('pulsar.dataTypes'))->keyBy('id')[$customField->data_type_id_026]->type == 'array')
                     {
                         $multipleSelectValue = $customFieldResults
-                            ->where('field_028', $customField->id_026)
+                            ->where('field_id_028', $customField->id_026)
                             ->first()
                             ->value_028;
                     }
                     else
                     {
                         $multipleSelectValue = $customFieldResults
-                            ->where('field_028', $customField->id_026)
+                            ->where('field_id_028', $customField->id_026)
                             ->pluck('value_028')
                             ->toArray();
                     }
@@ -161,20 +161,20 @@ class CustomFieldResultLibrary
             }
             elseif(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_id_026]->key == 'select' || collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_id_026]->key == 'select2')
             {
-                $customFieldValues      = $customField->getValues()->where('lang_027', session('baseLang')->id_001)->get();
+                $customFieldValues      = $customField->getValues()->where('lang_id_027', session('baseLang')->id_001)->get();
 
                 // check if is select2 plugin
                 $isSelect2 = collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_id_026]->key == 'select2';
 
-                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_id_026]->view, ['label' => $customField['label_026'], 'name' => $customField['name_026'] . '_custom', 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'objects' => $customFieldValues, 'idSelect' => 'id_027', 'nameSelect' => 'name_027', 'required' => $customField->required_026, 'class' => $isSelect2? 'select2' : null, 'id' => $customField['name_026'] . '_custom', 'data' => $isSelect2? ['language' => config('app.locale'), 'width' => '100%', 'error-placement' => 'select2-' . $customField['name_026'] . '_custom' . '-outer-container'] : null, 'value' => $setValue? $customFieldResults->where('field_028', $customField->id_026)->first()->value_028 : null])->render();
+                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_id_026]->view, ['label' => $customField['label_026'], 'name' => $customField['name_026'] . '_custom', 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'objects' => $customFieldValues, 'idSelect' => 'id_027', 'nameSelect' => 'name_027', 'required' => $customField->required_026, 'class' => $isSelect2? 'select2' : null, 'id' => $customField['name_026'] . '_custom', 'data' => $isSelect2? ['language' => config('app.locale'), 'width' => '100%', 'error-placement' => 'select2-' . $customField['name_026'] . '_custom' . '-outer-container'] : null, 'value' => $setValue? $customFieldResults->where('field_id_028', $customField->id_026)->first()->value_028 : null])->render();
             }
             elseif(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_id_026]->key == 'checkbox')
             {
-                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_id_026]->view, ['label' => $customField['label_026'], 'name' => $customField['name_026'] . '_custom', 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'required' => $customField->required_026, 'checked' => $setValue? $customFieldResults->where('field_028', $customField->id_026)->first()->value_028 : null])->render();
+                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_id_026]->view, ['label' => $customField['label_026'], 'name' => $customField['name_026'] . '_custom', 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'required' => $customField->required_026, 'checked' => $setValue? $customFieldResults->where('field_id_028', $customField->id_026)->first()->value_028 : null])->render();
             }
             else
             {
-                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_id_026]->view, ['label' => $customField['label_026'], 'name' => $customField['name_026'] . '_custom', 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'required' => $customField->required_026, 'value' => $setValue? $customFieldResults->where('field_028', $customField->id_026)->first()->value_028 : null])->render();
+                $html .= view(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_id_026]->view, ['label' => $customField['label_026'], 'name' => $customField['name_026'] . '_custom', 'fieldSize' => empty($customField['field_size_026'])? 10 : $customField['field_size_026'], 'required' => $customField->required_026, 'value' => $setValue? $customFieldResults->where('field_id_028', $customField->id_026)->first()->value_028 : null])->render();
             }
         }
 

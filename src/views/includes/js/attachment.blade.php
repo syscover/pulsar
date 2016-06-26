@@ -156,12 +156,12 @@
 
                         newAttachments.push({
                             id:                 attachment.id_016,
-                            type:               {id: attachment.type_016, name: attachment.type_text_016},
+                            type:               {id: attachment.type_id_016, name: attachment.type_text_016},
                             mime:               attachment.mime_016,
                             family:             null,
-                            folder:             '{{ config($routesConfigFile . '.attachmentFolder') }}/' + attachment.object_016 + '/' + attachment.lang_id_016,
+                            folder:             '{{ config($routesConfigFile . '.attachmentFolder') }}/' + attachment.object_id_016 + '/' + attachment.lang_id_016,
                             fileName:           attachment.file_name_016,
-                            library:            attachment.library_016,
+                            library:            attachment.library_id_016,
                             libraryFileName:    attachment.library_file_name_016,
                             name:               null,
                             url:                null
@@ -169,9 +169,9 @@
 
                         $('.sortable').loadTemplate('#file', {
                             id:                 attachment.id_016,
-                            image:              attachment.type_016 == 1? '{{ config($routesConfigFile . '.attachmentFolder') }}/' + attachment.object_016 + '/' + attachment.lang_id_016 + '/' + attachment.file_name_016 : '{{ config($routesConfigFile . '.iconsFolder') }}/' + attachmentData.icon,
+                            image:              attachment.type_id_016 == 1? '{{ config($routesConfigFile . '.attachmentFolder') }}/' + attachment.object_id_016 + '/' + attachment.lang_id_016 + '/' + attachment.file_name_016 : '{{ config($routesConfigFile . '.iconsFolder') }}/' + attachmentData.icon,
                             fileName:           attachment.file_name_016,
-                            isImage:            attachment.type_016 == 1? 'is-image' : 'no-image'
+                            isImage:            attachment.type_id_016 == 1? 'is-image' : 'no-image'
                         }, { prepend:true });
 
                         // put id across loadTemple to replace id by data-id, to detect if is a stored database element

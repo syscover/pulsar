@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
  * Class CustomFieldGroup
  *
  * Model with properties
- * <br><b>[id, name, resource, data]</b>
+ * <br><b>[id, name, resource_id, data]</b>
  *
  * @package     Syscover\Pulsar\Models
  */
@@ -22,7 +22,7 @@ class CustomFieldGroup extends Model
     protected $primaryKey   = 'id_025';
     protected $suffix       = '025';
     public $timestamps      = false;
-    protected $fillable     = ['id_025', 'name_025', 'resource_025', 'data_025'];
+    protected $fillable     = ['id_025', 'name_025', 'resource_id_025', 'data_025'];
     protected $maps         = [];
     protected $relationMaps = [
         'resource'   => \Syscover\Pulsar\Models\Resource::class,
@@ -39,7 +39,7 @@ class CustomFieldGroup extends Model
 
     public function scopeBuilder($query)
     {
-        return $query->join('001_007_resource', '001_025_field_group.resource_025', '=', '001_007_resource.id_007');
+        return $query->join('001_007_resource', '001_025_field_group.resource_id_025', '=', '001_007_resource.id_007');
     }
 
     /**
@@ -51,7 +51,7 @@ class CustomFieldGroup extends Model
     {
         $query = CustomFieldGroup::query();
 
-        if(isset($args['resource_025'])) $query->where('resource_025', $args['resource_025']);
+        if(isset($args['resource_id_025'])) $query->where('resource_id_025', $args['resource_id_025']);
 
         return $query->get();
     }

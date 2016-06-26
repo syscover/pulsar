@@ -33,8 +33,8 @@ class CustomFieldGroupController extends Controller
     public function storeCustomRecord($parameters)
     {
         CustomFieldGroup::create([
-            'resource_025'  => $this->request->input('resource'),
-            'name_025'      => $this->request->input('name')
+            'resource_id_025'   => $this->request->input('resource'),
+            'name_025'          => $this->request->input('name')
         ]);
     }
     
@@ -51,8 +51,8 @@ class CustomFieldGroupController extends Controller
     public function updateCustomRecord($parameters)
     {
         CustomFieldGroup::where('id_025', $parameters['id'])->update([
-            'resource_025'  => $this->request->input('resource'),
-            'name_025'      => $this->request->input('name')
+            'resource_id_025'   => $this->request->input('resource'),
+            'name_025'          => $this->request->input('name')
         ]);
     }
 }

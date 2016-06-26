@@ -13,7 +13,7 @@
         'label' => trans_choice('pulsar::pulsar.resource', 1),
         'id' => 'resource',
         'name' => 'resource',
-        'value' => old('resource', isset($object->resource_025)? $object->resource_025 : null),
+        'value' => old('resource', isset($object->resource_id_025)? $object->resource_id_025 : null),
         'objects' => $resources,
         'idSelect' => 'id_007',
         'nameSelect' => 'name_007',

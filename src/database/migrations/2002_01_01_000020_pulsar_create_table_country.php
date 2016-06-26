@@ -24,7 +24,6 @@ class PulsarCreateTableCountry extends Migration
                 $table->string('territorial_area_1_002', 50)->nullable();
                 $table->string('territorial_area_2_002', 50)->nullable();
                 $table->string('territorial_area_3_002', 50)->nullable();
-
                 $table->string('data_lang_002')->nullable();
                 $table->text('data_002')->nullable();
 
