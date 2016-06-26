@@ -64,9 +64,9 @@ class PulsarUpdateV13 extends Migration
 		// change resource_016
 		DBLibrary::renameColumnWithForeignKey('001_016_attachment', 'resource_016', 'resource_id_016', 'VARCHAR', 30, false, false, 'fk02_001_016_attachment', '001_007_resource', 'id_007', 'cascade', 'cascade');
 		// change family_016
-		DBLibrary::renameColumnWithForeignKey('001_016_attachment', 'family_016', 'family_id_016', 'INT', 10, true, true, 'fk03_001_016_attachment', '001_007_resource', 'id_007', 'cascade', 'cascade');
+		DBLibrary::renameColumnWithForeignKey('001_016_attachment', 'family_016', 'family_id_016', 'INT', 10, true, true, 'fk03_001_016_attachment', '001_015_attachment_family', 'id_015');
 		// change library_016
-		DBLibrary::renameColumnWithForeignKey('001_016_attachment', 'library_016', 'library_id_016', 'INT', 10, true, true, 'fk04_001_016_attachment', '001_007_resource', 'id_007', 'set null', 'cascade');
+		DBLibrary::renameColumnWithForeignKey('001_016_attachment', 'library_016', 'library_id_016', 'INT', 10, true, true, 'fk04_001_016_attachment', '001_014_attachment_library', 'id_014', 'set null', 'cascade');
 
 		// change resource_025
 		DBLibrary::renameColumnWithForeignKey('001_025_field_group', 'resource_025', 'resource_id_025', 'VARCHAR', 30, false, false, 'fk01_001_025_field_group', '001_007_resource', 'id_007', 'cascade', 'cascade');
