@@ -16,6 +16,7 @@ class PulsarCreateTableField extends Migration {
         {
             Schema::create('001_026_field', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
+                
                 $table->increments('id_026')->unsigned();
                 $table->integer('group_id_026')->unsigned();
                 $table->string('name_026')->nullable();
@@ -49,10 +50,8 @@ class PulsarCreateTableField extends Migration {
                 $table->smallInteger('sorting_026')->unsigned()->nullable();
                 $table->integer('max_length_026')->unsigned()->nullable();
                 $table->string('pattern_026')->nullable()->nullable();
-
                 $table->tinyInteger('label_size_026')->unsigned()->nullable();  // column bootstrap size
                 $table->tinyInteger('field_size_026')->unsigned()->nullable();  // column bootstrap size
-
                 $table->text('data_lang_026')->nullable();
                 $table->text('data_026')->nullable();
 

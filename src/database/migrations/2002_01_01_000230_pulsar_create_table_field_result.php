@@ -16,6 +16,7 @@ class PulsarCreateTableFieldResult extends Migration {
         {
             Schema::create('001_028_field_result', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
+                
                 $table->increments('id_028')->unsigned();
                 $table->integer('object_id_028')->unsigned();      // ID of record who owns the result
                 $table->string('lang_id_028', 2);
@@ -30,7 +31,6 @@ class PulsarCreateTableFieldResult extends Migration {
                 // 5 - Array
                 // 6 - Object
                 $table->string('data_type_type_028')->default('string');
-
                 $table->longText('value_028');
                 
                 $table->foreign('lang_id_028', 'fk01_001_028_field_result')->references('id_001')->on('001_001_lang')

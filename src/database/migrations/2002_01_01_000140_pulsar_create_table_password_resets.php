@@ -15,6 +15,8 @@ class PulsarCreateTablePasswordResets extends Migration
 		if(! Schema::hasTable('001_021_password_resets'))
 		{
 			Schema::create('001_021_password_resets', function (Blueprint $table) {
+				$table->engine = 'InnoDB';
+				
 				$table->string('email')->index();
 				$table->string('token')->index();
 				$table->timestamp('created_at');

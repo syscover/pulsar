@@ -16,6 +16,7 @@ class PulsarCreateTableAttachment extends Migration {
         {
             Schema::create('001_016_attachment', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
+                
                 $table->integer('id_016')->unsigned();
                 $table->string('lang_id_016', 2);
                 $table->string('resource_id_016', 30);                              // resource which belong to this attachment
@@ -33,7 +34,6 @@ class PulsarCreateTableAttachment extends Migration {
                 $table->string('type_text_016');
                 $table->smallInteger('width_016')->unsigned()->nullable();
                 $table->smallInteger('height_016')->unsigned()->nullable();
-
                 $table->text('data_lang_016')->nullable();
                 $table->text('data_016')->nullable();
                 

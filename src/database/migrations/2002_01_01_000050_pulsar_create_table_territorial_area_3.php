@@ -16,6 +16,7 @@ class PulsarCreateTableTerritorialArea3 extends Migration
 		{
 			Schema::create('001_005_territorial_area_3', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
+				
 				$table->string('id_005', 10);
 				$table->string('country_id_005', 2);
 				$table->string('territorial_area_1_id_005', 6);
@@ -28,6 +29,7 @@ class PulsarCreateTableTerritorialArea3 extends Migration
 					->onDelete('restrict')->onUpdate('cascade');
 				$table->foreign('territorial_area_2_id_005', 'fk03_001_005_territorial_area_3')->references('id_004')->on('001_004_territorial_area_2')
 					->onDelete('restrict')->onUpdate('cascade');
+				
 				$table->primary('id_005', 'pk01_001_005_territorial_area_3');
 			});
 		}

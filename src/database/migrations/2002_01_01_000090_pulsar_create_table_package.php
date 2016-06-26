@@ -16,6 +16,7 @@ class PulsarCreateTablePackage extends Migration
 		{
 			Schema::create('001_012_package', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
+				
 				$table->increments('id_012')->unsigned();
 				$table->string('name_012');
 				$table->string('folder_012');

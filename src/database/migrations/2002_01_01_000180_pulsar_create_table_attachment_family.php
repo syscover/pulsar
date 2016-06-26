@@ -16,6 +16,7 @@ class PulsarCreateTableAttachmentFamily extends Migration {
         {
             Schema::create('001_015_attachment_family', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
+                
                 $table->increments('id_015')->unsigned();
                 $table->string('resource_id_015', 30); // resource which belong to this attachment
                 $table->string('name_015');

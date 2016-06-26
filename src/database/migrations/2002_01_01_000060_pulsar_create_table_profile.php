@@ -16,6 +16,7 @@ class PulsarCreateTableProfile extends Migration
 		{
 			Schema::create('001_006_profile', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
+				
 				$table->increments('id_006')->unsigned();
 				$table->string('name_006');
 			});

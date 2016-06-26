@@ -16,15 +16,14 @@ class PulsarCreateTableFieldValue extends Migration {
         {
             Schema::create('001_027_field_value', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
+                
                 $table->string('id_027', 30);
                 $table->string('lang_id_027', 2);
                 $table->integer('field_id_027')->unsigned();
 
                 // counter to assign number to id_027 if has not ID
                 $table->integer('counter_027')->unsigned()->nullable();
-
                 $table->string('name_027');
-
                 $table->smallInteger('sorting_027')->unsigned()->nullable();
                 $table->boolean('featured_027');
                 $table->string('data_lang_027')->nullable();

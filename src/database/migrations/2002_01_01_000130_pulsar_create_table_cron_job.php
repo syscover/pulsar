@@ -16,6 +16,7 @@ class PulsarCreateTableCronJob extends Migration
 		{
 			Schema::create('001_011_cron_job', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
+				
 				$table->increments('id_011')->unsigned();
 				$table->string('name_011');
 				$table->integer('package_id_011')->unsigned();

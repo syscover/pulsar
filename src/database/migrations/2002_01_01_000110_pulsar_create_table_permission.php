@@ -16,6 +16,7 @@ class PulsarCreateTablePermission extends Migration
 		{
 			Schema::create('001_009_permission', function (Blueprint $table) {
 				$table->engine = 'InnoDB';
+				
 				$table->integer('profile_id_009')->unsigned();
 				$table->string('resource_id_009', 30);
 				$table->string('action_id_009', 25);
@@ -26,6 +27,7 @@ class PulsarCreateTablePermission extends Migration
 					->onDelete('cascade')->onUpdate('cascade');
 				$table->foreign('action_id_009', 'fk03_001_009_permission')->references('id_008')->on('001_008_action')
 					->onDelete('cascade')->onUpdate('cascade');
+				
 				$table->primary(['profile_id_009', 'resource_id_009', 'action_id_009'], 'pk01_001_009_permission');
 			});
 		}

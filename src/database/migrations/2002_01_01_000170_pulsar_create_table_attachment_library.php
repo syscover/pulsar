@@ -16,13 +16,13 @@ class PulsarCreateTableAttachmentLibrary extends Migration {
         {
             Schema::create('001_014_attachment_library', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
+                
                 $table->increments('id_014')->unsigned();
                 $table->string('resource_id_014', 30);                             // resource which belong to this attachment
                 $table->string('url_014', 1020)->nullable();
                 $table->string('file_name_014', 1020)->nullable();
                 $table->string('mime_014');
                 $table->integer('size_014')->unsigned();
-
                 $table->tinyInteger('type_id_014')->unsigned();                    // 1 = image, 2 = file, 3 = video
                 $table->string('type_text_014');
 

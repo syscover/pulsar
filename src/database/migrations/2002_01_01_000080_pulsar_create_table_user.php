@@ -16,6 +16,7 @@ class PulsarCreateTableUser extends Migration
         {
             Schema::create('001_010_user', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
+                
                 $table->increments('id_010')->unsigned();
                 $table->string('name_010');
                 $table->string('surname_010')->nullable();

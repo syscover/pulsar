@@ -16,6 +16,7 @@ class PulsarCreateTableCountry extends Migration
         {
             Schema::create('001_002_country', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
+                
                 $table->string('id_002', 2);
                 $table->string('lang_id_002', 2);
                 $table->string('name_002');
@@ -29,6 +30,7 @@ class PulsarCreateTableCountry extends Migration
                 
                 $table->foreign('lang_id_002', 'fk01_001_002_country')->references('id_001')->on('001_001_lang')
                     ->onDelete('restrict')->onUpdate('cascade');
+                
                 $table->primary(['id_002', 'lang_id_002'], 'pk01_001_002_country');
             });
         }

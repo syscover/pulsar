@@ -16,17 +16,16 @@ class PulsarCreateTableEmailAccount extends Migration
         {
             Schema::create('001_013_email_account', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
+                
                 $table->increments('id_013')->unsigned();
                 $table->string('name_013');
                 $table->string('email_013');
                 $table->string('reply_to_013')->nullable();
-
                 $table->string('outgoing_server_013');
                 $table->string('outgoing_user_013');
                 $table->string('outgoing_pass_013');
                 $table->string('outgoing_secure_013', 5);                // null/TLS/SSL/SSLv2/SSLv3
                 $table->smallInteger('outgoing_port_013');
-
                 $table->string('incoming_type_013', 5);                  // pop, imap, mbox
                 $table->string('incoming_server_013');
                 $table->string('incoming_user_013');
