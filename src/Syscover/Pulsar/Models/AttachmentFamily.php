@@ -22,7 +22,7 @@ class AttachmentFamily extends Model
     protected $primaryKey   = 'id_015';
     protected $suffix       = '015';
     public $timestamps      = false;
-    protected $fillable     = ['id_015', 'resource_015', 'name_015', 'width_015', 'height_015', 'data_015'];
+    protected $fillable     = ['id_015', 'resource_id_015', 'name_015', 'width_015', 'height_015', 'data_015'];
     protected $maps         = [];
     protected $relationMaps = [
         'resource'   => \Syscover\Pulsar\Models\Resource::class,
@@ -41,14 +41,14 @@ class AttachmentFamily extends Model
 
     public function scopeBuilder($query)
     {
-        return $query->join('001_007_resource', '001_015_attachment_family.resource_015', '=', '001_007_resource.id_007');
+        return $query->join('001_007_resource', '001_015_attachment_family.resource_id_015', '=', '001_007_resource.id_007');
     }
 
     public static function getAttachmentFamilies($args)
     {
         $query = AttachmentFamily::builder();
 
-        if(isset($args['resource_015'])) $query->where('resource_015', $args['resource_015']);
+        if(isset($args['resource_id_015'])) $query->where('resource_id_015', $args['resource_id_015']);
 
         return $query->get();
     }

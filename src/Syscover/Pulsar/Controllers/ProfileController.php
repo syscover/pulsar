@@ -61,7 +61,7 @@ class ProfileController extends Controller
         {
             foreach($actions as $action)
             {
-                $permissions[] = ['profile_009' => $parameters['id'], 'resource_009' => $resource->id_007, 'action_009' => $action->id_008];
+                $permissions[] = ['profile_id_009' => $parameters['id'], 'resource_id_009' => $resource->id_007, 'action_id_009' => $action->id_008];
             }
         }
 

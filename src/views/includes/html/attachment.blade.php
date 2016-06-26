@@ -24,7 +24,7 @@
                                     @if($action == 'store' || $action == 'storeLang')
                                         <img{!! $attachment->type_016 == 1? ' class="is-image"' : ' class="no-image"' !!} src="{{ $attachment->type_016 == 1? config($routesConfigFile . '.tmpFolder') . '/' . $attachment->tmp_file_name_016 : config($routesConfigFile . '.iconsFolder') . '/' . $data->icon }}" />
                                     @else
-                                        <img{!! $attachment->type_016 == 1? ' class="is-image"' : ' class="no-image"' !!} src="{{ $attachment->type_016 == 1? config($routesConfigFile . '.attachmentFolder') . '/' . $attachment->object_016 . '/' . $attachment->lang_016 . '/' . $attachment->file_name_016 : config($routesConfigFile . '.iconsFolder') . '/' . $data->icon }}" />
+                                        <img{!! $attachment->type_016 == 1? ' class="is-image"' : ' class="no-image"' !!} src="{{ $attachment->type_016 == 1? config($routesConfigFile . '.attachmentFolder') . '/' . $attachment->object_016 . '/' . $attachment->lang_id_016 . '/' . $attachment->file_name_016 : config($routesConfigFile . '.iconsFolder') . '/' . $data->icon }}" />
                                     @endif
                                 </div>
                                 <div class="attachment-over">

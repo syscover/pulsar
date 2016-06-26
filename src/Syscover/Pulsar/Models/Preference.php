@@ -22,7 +22,7 @@ class Preference extends Model
     public $incrementing    = false;
     protected $suffix       = '018';
     public $timestamps      = true;
-    protected $fillable     = ['id_018', 'value_018', 'package_018'];
+    protected $fillable     = ['id_018', 'value_018', 'package_id_018'];
     protected $maps         = [];
     protected $relationMaps = [];
     private static $rules   = [];
@@ -40,8 +40,8 @@ class Preference extends Model
     public static function getValue($id, $package, $value = null)
     {
         $preference =  Preference::where([
-            'id_018'        => $id,
-            'package_018'   => $package
+            'id_018'            => $id,
+            'package_id_018'    => $package
         ])->first();
 
         if($preference == null)
@@ -57,15 +57,15 @@ class Preference extends Model
     public static function getValues($package)
     {
         return  Preference::where([
-            'package_018'   => $package
+            'package_id_018' => $package
         ])->get();
     }
 
     public static function setValue($id, $package, $value)
     {
         return Preference::updateOrCreate(['id_018' => $id],[
-            'value_018'     => $value,
-            'package_018'   => $package
+            'value_018'         => $value,
+            'package_id_018'    => $package
         ]);
     }
 }

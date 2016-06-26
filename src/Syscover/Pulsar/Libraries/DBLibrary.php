@@ -23,29 +23,64 @@ class DBLibrary
     {
         if(Schema::hasColumn($tableName, $oldColumnName))
         {
-            $keys = DB::select(DB::raw('SHOW KEYS FROM ' . $tableName . ' WHERE Column_name LIKE \'' . $oldColumnName . '\''));
-            
-            if(! empty($keys))
+            // foreign key query
+            $foreignKeys = DB::select(
+                DB::raw('SELECT TABLE_NAME,COLUMN_NAME,CONSTRAINT_NAME, REFERENCED_TABLE_NAME,REFERENCED_COLUMN_NAME FROM 
+                  INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+                  WHERE
+                  REFERENCED_TABLE_SCHEMA = \'' . env('DB_DATABASE') . '\' AND
+                  COLUMN_NAME = \'' . $oldColumnName . '\' AND
+                  TABLE_NAME = \'' . $tableName . '\';' 
+                )
+            );
+
+            if(! empty($foreignKeys))
             {
-                if(count($keys) === 1)
+                if(count($foreignKeys) === 1)
                 {
-                    $oldForeignKey = $keys[0]->Key_name;
-                    
+                    $oldForeignKey = $foreignKeys[0]->CONSTRAINT_NAME;
+
                     Schema::table($tableName, function (Blueprint $table) use ($oldForeignKey) {
                         $table->dropForeign($oldForeignKey);
-                        $table->dropIndex($oldForeignKey);
                     });
                 }
                 else
                 {
-                    exit(0);
+                    throw new \Exception('Multiple foreign keys on table ' . $tableName . ' with column ' . $oldColumnName);
+                    exit;
+                }
+            }
+            
+            // index key query
+            $keys = DB::select(DB::raw('SHOW KEYS FROM ' . $tableName . ' WHERE Column_name LIKE \'' . $oldColumnName . '\''));
+            
+            if(! empty($keys))
+            {
+                foreach($keys as $index => $key)
+                {
+                    if($key->Key_name == 'PRIMARY' || strpos($key->Key_name, 'pk') !== false)
+                        unset($keys[$index]);
+                }
+                $keys = array_values($keys);
+                
+                if(count($keys) === 1)
+                {
+                    $oldIndexKey = $keys[0]->Key_name;
+                    
+                    Schema::table($tableName, function (Blueprint $table) use ($oldIndexKey) {
+                        $table->dropIndex($oldIndexKey);
+                    });
+                }
+                elseif(count($keys) > 1)
+                {
+                    throw new \Exception('Multiple keys on table ' . $tableName . ' with column ' . $oldColumnName);
+                    exit;
                 }
             }
             
             Schema::table($tableName, function (Blueprint $table) use
-                ($tableName, $oldColumnName, $newColumnName, $type, $length, $unsigned, $nullable, $foreignKeyName, $referenceTable, $referenceId, $onDelete, $onUpdate)
+            ($tableName, $oldColumnName, $newColumnName, $type, $length, $unsigned, $nullable, $foreignKeyName, $referenceTable, $referenceId, $onDelete, $onUpdate)
             {
-
                 switch ($type) {
                     case 'INT':
                         $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' INT(' . $length . ') ' . ($unsigned? 'UNSIGNED ' : null) . ($nullable? 'NULL' : 'NOT NULL');

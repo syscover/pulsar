@@ -12,7 +12,7 @@
     @include('pulsar::includes.html.form_select_group', [
         'label' => trans_choice('pulsar::pulsar.resource', 1),
         'id' => 'resource', 'name' => 'resource',
-        'value' => old('resource', isset($object)? $object->resource_015 : null),
+        'value' => old('resource', isset($object)? $object->resource_id_015 : null),
         'objects' => $resources,
         'idSelect' => 'id_007',
         'nameSelect' => 'name_007',

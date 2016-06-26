@@ -33,11 +33,11 @@ class AttachmentFamilyController extends Controller
     public function storeCustomRecord($parameters)
     {
         AttachmentFamily::create([
-            'resource_015'  => $this->request->input('resource'),
-            'name_015'      => $this->request->input('name'),
-            'width_015'     => $this->request->has('width')? $this->request->input('width') : null,
-            'height_015'    => $this->request->has('height')? $this->request->input('height') : null,
-            'data_015'      => null
+            'resource_id_015'   => $this->request->input('resource'),
+            'name_015'          => $this->request->input('name'),
+            'width_015'         => $this->request->has('width')? $this->request->input('width') : null,
+            'height_015'        => $this->request->has('height')? $this->request->input('height') : null,
+            'data_015'          => null
         ]);
     }
 
@@ -54,11 +54,11 @@ class AttachmentFamilyController extends Controller
     public function updateCustomRecord($parameters)
     {
         AttachmentFamily::where('id_015', $parameters['id'])->update([
-            'resource_015'  => $this->request->input('resource'),
-            'name_015'      => $this->request->input('name'),
-            'width_015'     => $this->request->has('width')? $this->request->input('width') : null,
-            'height_015'    => $this->request->has('height')? $this->request->input('height') : null,
-            'data_015'      => null
+            'resource_id_015'   => $this->request->input('resource'),
+            'name_015'          => $this->request->input('name'),
+            'width_015'         => $this->request->has('width')? $this->request->input('width') : null,
+            'height_015'        => $this->request->has('height')? $this->request->input('height') : null,
+            'data_015'          => null
         ]);
     }
 }

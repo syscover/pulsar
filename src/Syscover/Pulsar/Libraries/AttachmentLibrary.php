@@ -40,8 +40,8 @@ class AttachmentLibrary {
 
             Attachment::create([
                 'id_016'                => $idAttachment,
-                'lang_016'              => $lang,
-                'resource_016'          => $resource,
+                'lang_id_016'           => $lang,
+                'resource_id_016'       => $resource,
                 'object_016'            => $objectId,
                 'family_016'            => empty($attachment->family)? null : $attachment->family,
                 'library_016'           => $attachment->library,
@@ -75,10 +75,10 @@ class AttachmentLibrary {
     public static function getRecords($routesConfigFile, $resource, $objectId, $lang, $copyAttachment = false)
     {
         $response['attachments'] = Attachment::getRecords([
-            'lang_016'      => $lang,
-            'resource_016'  => $resource,
-            'object_016'    => $objectId,
-            'orderBy'       => ['column' => 'sorting_016', 'order' => 'asc']
+            'lang_id_016'       => $lang,
+            'resource_id_016'   => $resource,
+            'object_016'        => $objectId,
+            'orderBy'           => ['column' => 'sorting_016', 'order' => 'asc']
         ]);
         $attachmentsInput = [];
 
@@ -105,7 +105,7 @@ class AttachmentLibrary {
                 'type'              => ['id' => $attachment->type_016, 'name' => $attachment->type_text_016, 'icon' => $attachmentData->icon],
                 'mime'              => $attachment->mime_016,
                 'name'              => $attachment->name_016,
-                'folder'            => $copyAttachment? config($routesConfigFile . '.tmpFolder') : config($routesConfigFile . '.attachmentFolder') . '/' . $attachment->object_016 . '/' . $attachment->lang_016,
+                'folder'            => $copyAttachment? config($routesConfigFile . '.tmpFolder') : config($routesConfigFile . '.attachmentFolder') . '/' . $attachment->object_016 . '/' . $attachment->lang_id_016,
                 'tmpFileName'       => $tmpFileName,
                 'fileName'          => $attachment->file_name_016,
                 'width'             => $attachment->width_016,
@@ -134,9 +134,9 @@ class AttachmentLibrary {
     public static function deleteAttachment($routesConfigFile, $resource, $objectId, $lang = null)
     {
         Attachment::deleteAttachment([
-            'lang_016'      => $lang,
-            'resource_016'  => $resource,
-            'object_016'    => $objectId
+            'lang_id_016'       => $lang,
+            'resource_id_016'   => $resource,
+            'object_016'        => $objectId
         ]);
 
         if(isset($lang))

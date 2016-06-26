@@ -22,7 +22,7 @@ class AttachmentLibrary extends Model
     protected $primaryKey   = 'id_014';
     protected $suffix       = '014';
     public $timestamps      = false;
-    protected $fillable     = ['id_014', 'resource_014', 'url_014', 'file_name_014', 'mime_014', 'size_014', 'type_014', 'type_text_014', 'width_014', 'height_014', 'data_014'];
+    protected $fillable     = ['id_014', 'resource_id_014', 'url_014', 'file_name_014', 'mime_014', 'size_014', 'type_014', 'type_text_014', 'width_014', 'height_014', 'data_014'];
     protected $maps         = [];
     protected $relationMaps = [
         'resource'   => \Syscover\Pulsar\Models\Resource::class,
@@ -36,12 +36,12 @@ class AttachmentLibrary extends Model
 
     public function scopeBuilder($query)
     {
-        return $query->join('001_007_resource', '001_014_attachment_library.resource_014', '=', '001_007_resource.id_007')
+        return $query->join('001_007_resource', '001_014_attachment_library.resource_id_014', '=', '001_007_resource.id_007')
             ->join('001_012_package', '001_007_resource.package_id_007', '=', '001_012_package.id_012');
     }
 
     public function getResource()
     {
-        return $this->belongsTo('Syscover\Pulsar\Models\Resource', 'resource_014');
+        return $this->belongsTo('Syscover\Pulsar\Models\Resource', 'resource_id_014');
     }
 }

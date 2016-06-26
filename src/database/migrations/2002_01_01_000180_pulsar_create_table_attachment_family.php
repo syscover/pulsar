@@ -17,13 +17,13 @@ class PulsarCreateTableAttachmentFamily extends Migration {
             Schema::create('001_015_attachment_family', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id_015')->unsigned();
-                $table->string('resource_015', 30);                             // resource which belong to this attachment
+                $table->string('resource_id_015', 30); // resource which belong to this attachment
                 $table->string('name_015');
                 $table->smallInteger('width_015')->unsigned()->nullable();
                 $table->smallInteger('height_015')->unsigned()->nullable();
                 $table->text('data_015')->nullable();
 
-                $table->foreign('resource_015', 'fk01_001_015_attachment_family')->references('id_007')->on('001_007_resource')
+                $table->foreign('resource_id_015', 'fk01_001_015_attachment_family')->references('id_007')->on('001_007_resource')
                     ->onDelete('cascade')->onUpdate('cascade');
             });
         }

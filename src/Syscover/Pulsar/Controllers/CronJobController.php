@@ -52,7 +52,7 @@ class CronJobController extends Controller
 
         CronJob::create([
             'name_011'              => $this->request->input('name'),
-            'package_011'           => $this->request->input('package'),
+            'package_id_011'        => $this->request->input('package'),
             'cron_expression_011'   => $this->request->input('cronExpression'),
             'key_011'               => $this->request->input('key'),
             'last_run_011'          => 0,
@@ -75,7 +75,7 @@ class CronJobController extends Controller
     {
         CronJob::where('id_011', $parameters['id'])->update([
             'name_011'              => $this->request->input('name'),
-            'package_011'           => $this->request->input('package'),
+            'package_id_011'        => $this->request->input('package'),
             'cron_expression_011'   => $this->request->input('cronExpression'),
             'key_011'               => $this->request->input('key'),
             'active_011'            => $this->request->input('active', 0)

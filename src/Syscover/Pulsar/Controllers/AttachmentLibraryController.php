@@ -76,7 +76,7 @@ class AttachmentLibraryController extends Controller
             $type = ImageManagerLibrary::getMimeIconImage($file['mime']);
 
             $objects[] = [
-                'resource_014'      => $this->request->input('resource'),
+                'resource_id_014'   => $this->request->input('resource'),
                 'url_014'           => null,
                 'file_name_014'     => $file['name'],
                 'mime_014'          => $file['mime'],
@@ -143,7 +143,7 @@ class AttachmentLibraryController extends Controller
 
     public function deleteCustomRecordsSelect($ids)
     {
-        $files = AttachmentLibrary::join('001_007_resource', '001_014_attachment_library.resource_014', '=', '001_007_resource.id_007')
+        $files = AttachmentLibrary::join('001_007_resource', '001_014_attachment_library.resource_id_014', '=', '001_007_resource.id_007')
             ->join('001_012_package', '001_007_resource.package_id_007', '=', '001_012_package.id_012')
             ->whereIn('id_014', $ids)
             ->get();

@@ -17,8 +17,8 @@ class PulsarCreateTableAttachment extends Migration {
             Schema::create('001_016_attachment', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
                 $table->integer('id_016')->unsigned();
-                $table->string('lang_016', 2);
-                $table->string('resource_016', 30);                             // resource which belong to this attachment
+                $table->string('lang_id_016', 2);
+                $table->string('resource_id_016', 30); // resource which belong to this attachment
                 $table->integer('object_016')->unsigned()->nullable();
                 $table->integer('family_016')->unsigned()->nullable();
                 $table->integer('library_016')->unsigned()->nullable();         // original element library
@@ -37,9 +37,9 @@ class PulsarCreateTableAttachment extends Migration {
                 $table->text('data_lang_016')->nullable();
                 $table->text('data_016')->nullable();
 
-                $table->foreign('lang_016', 'fk01_001_016_attachment')->references('id_001')->on('001_001_lang')
+                $table->foreign('lang_id_016', 'fk01_001_016_attachment')->references('id_001')->on('001_001_lang')
                     ->onDelete('restrict')->onUpdate('cascade');
-                $table->foreign('resource_016', 'fk02_001_016_attachment')->references('id_007')->on('001_007_resource')
+                $table->foreign('resource_id_016', 'fk02_001_016_attachment')->references('id_007')->on('001_007_resource')
                     ->onDelete('cascade')->onUpdate('cascade');
                 $table->foreign('family_016', 'fk03_001_016_attachment')->references('id_015')->on('001_015_attachment_family')
                     ->onDelete('restrict')->onUpdate('cascade');
@@ -47,7 +47,7 @@ class PulsarCreateTableAttachment extends Migration {
                     ->onDelete('set null')->onUpdate('cascade');
 
                 $table->index(['object_016']);
-                $table->primary(['id_016', 'lang_016']);
+                $table->primary(['id_016', 'lang_id_016']);
             });
         }
     }

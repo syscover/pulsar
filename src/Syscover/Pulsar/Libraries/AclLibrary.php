@@ -33,7 +33,7 @@ class AclLibrary extends Acl
 
         // add resources to acl element
         foreach($permissions as $permission)
-            $acl->allow($profile, $permission->resource_009, $permission->action_009);
+            $acl->allow($profile, $permission->resource_id_009, $permission->action_id_009);
 
         return $acl;
     }

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
  * Class CronJob
  *
  * Model with properties
- * <br><b>[id, name, package, key, cron_expression, last_run, next_run, active]</b>
+ * <br><b>[id, name, package_id, key, cron_expression, last_run, next_run, active]</b>
  *
  * @package     Syscover\Pulsar\Models
  */
@@ -22,7 +22,7 @@ class CronJob extends Model
     protected $primaryKey   = 'id_011';
     protected $suffix       = '011';
     public $timestamps      = false;
-    protected $fillable     = ['id_011', 'name_011', 'package_011', 'key_011', 'cron_expression_011', 'last_run_011', 'next_run_011', 'active_011'];
+    protected $fillable     = ['id_011', 'name_011', 'package_id_011', 'key_011', 'cron_expression_011', 'last_run_011', 'next_run_011', 'active_011'];
     protected $maps         = [];
     protected $relationMaps = [
         'package'   => \Syscover\Pulsar\Models\Package::class
@@ -41,7 +41,7 @@ class CronJob extends Model
 
     public function scopeBuilder($query)
     {
-        return $query->join('001_012_package', '001_011_cron_job.package_011', '=', '001_012_package.id_012');
+        return $query->join('001_012_package', '001_011_cron_job.package_id_011', '=', '001_012_package.id_012');
     }
 
     public static function getCronJobsToRun($date)

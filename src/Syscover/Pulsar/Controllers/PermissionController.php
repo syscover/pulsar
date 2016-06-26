@@ -101,9 +101,9 @@ class PermissionController extends Controller
     public function jsonCreate($profile, $resource, $action)
     {
         Permission::create([
-            'profile_009'       => $profile,
-            'resource_009'      => $resource,
-            'action_009'        => $action
+            'profile_id_009'    => $profile,
+            'resource_id_009'   => $resource,
+            'action_id_009'     => $action
         ]);
     }
     

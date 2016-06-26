@@ -21,7 +21,7 @@
         'fieldSize' => 5,
         'label' => trans_choice('pulsar::pulsar.package', 1),
         'name' => 'package',
-        'value' => (int) old('package', isset($object->package_011)? $object->package_011 : null),
+        'value' => (int) old('package', isset($object->package_id_011)? $object->package_id_011 : null),
         'required' => true,
         'objects' => $packages,
         'idSelect' => 'id_012',

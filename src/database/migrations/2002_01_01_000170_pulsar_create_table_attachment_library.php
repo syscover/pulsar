@@ -17,7 +17,7 @@ class PulsarCreateTableAttachmentLibrary extends Migration {
             Schema::create('001_014_attachment_library', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id_014')->unsigned();
-                $table->string('resource_014', 30);                             // resource which belong to this attachment
+                $table->string('resource_id_014', 30);                             // resource which belong to this attachment
                 $table->string('url_014', 1020)->nullable();
                 $table->string('file_name_014', 1020)->nullable();
                 $table->string('mime_014');
@@ -30,7 +30,7 @@ class PulsarCreateTableAttachmentLibrary extends Migration {
                 $table->smallInteger('height_014')->unsigned()->nullable();
                 $table->text('data_014')->nullable();
 
-                $table->foreign('resource_014', 'fk01_001_014_attachment_library')->references('id_007')->on('001_007_resource')
+                $table->foreign('resource_id_014', 'fk01_001_014_attachment_library')->references('id_007')->on('001_007_resource')
                     ->onDelete('cascade')->onUpdate('cascade');
             });
         }

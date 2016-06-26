@@ -27,8 +27,8 @@ class AttachmentController extends Controller
 
             $attachmentsResponse[] = Attachment::create([
                 'id_016'                => $idAttachment,
-                'lang_016'              => $parameters['lang'],
-                'resource_016'          => $this->request->input('resource'),
+                'lang_id_016'           => $parameters['lang'],
+                'resource_id_016'       => $this->request->input('resource'),
                 'object_016'            => $parameters['object'],
                 'family_016'            => null,
                 'library_016'           => $attachment['library'],
@@ -70,7 +70,7 @@ class AttachmentController extends Controller
                 list($width, $height) = getimagesize(public_path() . $attachment['folder'] . '/' . $attachment['fileName']);
             }
 
-            Attachment::where('id_016', $attachment['id'])->where('lang_016', $parameters['lang'])->update([
+            Attachment::where('id_016', $attachment['id'])->where('lang_id_016', $parameters['lang'])->update([
                 'family_016'            => $attachment['family'] == ""? null : $attachment['family'],
                 'library_016'           => empty($attachment['library'])? null : $attachment['library'],
                 'library_file_name_016' => empty($attachment['libraryFileName'])? null : $attachment['libraryFileName'],
@@ -114,7 +114,7 @@ class AttachmentController extends Controller
                     list($width, $height) = getimagesize(public_path() . $attachment['folder'] . '/' . $attachment['fileName']);
                 }
 
-                Attachment::where('id_016', $attachment['id'])->where('lang_016', $parameters['lang'])->update([
+                Attachment::where('id_016', $attachment['id'])->where('lang_id_016', $parameters['lang'])->update([
                     'family_016'            => $attachment['family'] == ""? null : $attachment['family'],
                     'library_016'           => empty($attachment['library'])? null : $attachment['library'],
                     'library_file_name_016' => empty($attachment['libraryFileName'])? null : $attachment['libraryFileName'],
@@ -149,7 +149,7 @@ class AttachmentController extends Controller
 
         if($attachment->file_name_016 != null && $attachment->file_name_016 != "")
         {
-            File::delete(public_path() . config($this->request->input('routesConfigFile') . '.attachmentFolder') . '/' . $attachment->object_016 . '/' . $attachment->lang_016 . '/' . $attachment->file_name_016);
+            File::delete(public_path() . config($this->request->input('routesConfigFile') . '.attachmentFolder') . '/' . $attachment->object_016 . '/' . $attachment->lang_id_016 . '/' . $attachment->file_name_016);
         }
 
         Attachment::deleteTranslationRecord($parameters);

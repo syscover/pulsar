@@ -35,6 +35,30 @@ class PulsarUpdateV13 extends Migration
 		DBLibrary::changeColumnNameWithForeignKey('001_010_user', 'profile_010', 'profile_id_010', 'INT', 10, true, false, 'fk02_001_010_user', '001_006_profile', 'id_006');
 		// change package_007
 		DBLibrary::changeColumnNameWithForeignKey('001_007_resource', 'package_007', 'package_id_007', 'INT', 10, true, false, 'fk01_001_007_resource', '001_012_package', 'id_012');
+
+		// change profile_009
+		DBLibrary::changeColumnNameWithForeignKey('001_009_permission', 'profile_009', 'profile_id_009', 'INT', 10, true, false, 'fk01_001_009_permission', '001_006_profile', 'id_006', 'cascade', 'cascade');
+		// change resource_009
+		DBLibrary::changeColumnNameWithForeignKey('001_009_permission', 'resource_009', 'resource_id_009', 'VARCHAR', 30, false, false, 'fk02_001_009_permission', '001_007_resource', 'id_007', 'cascade', 'cascade');
+		// change action_009
+		DBLibrary::changeColumnNameWithForeignKey('001_009_permission', 'action_009', 'action_id_009', 'VARCHAR', 25, false, false, 'fk03_001_009_permission', '001_008_action', 'id_008', 'cascade', 'cascade');
+
+		// change package_011
+		DBLibrary::changeColumnNameWithForeignKey('001_011_cron_job', 'package_011', 'package_id_011', 'INT', 10, true, false, 'fk01_001_011_cron_job', '001_012_package', 'id_012');
+
+		// change package_018
+		DBLibrary::changeColumnNameWithForeignKey('001_018_preference', 'package_018', 'package_id_018', 'INT', 10, true, false, 'fk01_001_018_preference', '001_012_package', 'id_012');
+
+		// change resource_014
+		DBLibrary::changeColumnNameWithForeignKey('001_014_attachment_library', 'resource_014', 'resource_id_014', 'VARCHAR', 30, false, false, 'fk01_001_014_attachment_library', '001_007_resource', 'id_007', 'cascade', 'cascade');
+
+		// change resource_015
+		DBLibrary::changeColumnNameWithForeignKey('001_015_attachment_family', 'resource_015', 'resource_id_015', 'VARCHAR', 30, false, false, 'fk01_001_015_attachment_family', '001_007_resource', 'id_007', 'cascade', 'cascade');
+
+		// change lang_016
+		DBLibrary::changeColumnNameWithForeignKey('001_016_attachment', 'lang_016', 'lang_id_016', 'VARCHAR', 2, false, false, 'fk01_001_016_attachment', '001_001_lang', 'id_001');
+		// change resource_016
+		DBLibrary::changeColumnNameWithForeignKey('001_016_attachment', 'resource_016', 'resource_id_016', 'VARCHAR', 30, false, false, 'fk02_001_016_attachment', '001_007_resource', 'id_007', 'cascade', 'cascade');
 	}
 
 	/**
