@@ -33,7 +33,7 @@ class DBLibrary
                   TABLE_NAME = \'' . $tableName . '\';' 
                 )
             );
-
+            
             if(! empty($foreignKeys))
             {
                 if(count($foreignKeys) === 1)

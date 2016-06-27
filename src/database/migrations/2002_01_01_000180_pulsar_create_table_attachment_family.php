@@ -24,8 +24,11 @@ class PulsarCreateTableAttachmentFamily extends Migration {
                 $table->smallInteger('height_015')->unsigned()->nullable();
                 $table->text('data_015')->nullable();
 
-                $table->foreign('resource_id_015', 'fk01_001_015_attachment_family')->references('id_007')->on('001_007_resource')
-                    ->onDelete('cascade')->onUpdate('cascade');
+                $table->foreign('resource_id_015', 'fk01_001_015_attachment_family')
+                    ->references('id_007')
+                    ->on('001_007_resource')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
             });
         }
     }

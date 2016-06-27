@@ -30,10 +30,16 @@ class PulsarCreateTableUser extends Migration
 
                 $table->timestamps();
 
-                $table->foreign('lang_id_010', 'fk01_001_010_user')->references('id_001')->on('001_001_lang')
-                    ->onDelete('restrict')->onUpdate('cascade');
-                $table->foreign('profile_id_010', 'fk02_001_010_user')->references('id_006')->on('001_006_profile')
-                    ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreign('lang_id_010', 'fk01_001_010_user')
+                    ->references('id_001')
+                    ->on('001_001_lang')
+                    ->onDelete('restrict')
+                    ->onUpdate('cascade');
+                $table->foreign('profile_id_010', 'fk02_001_010_user')
+                    ->references('id_006')
+                    ->on('001_006_profile')
+                    ->onDelete('restrict')
+                    ->onUpdate('cascade');
             });
         }
 	}

@@ -26,8 +26,11 @@ class PulsarCreateTableCronJob extends Migration
 				$table->integer('next_run_011')->unsigned();
 				$table->boolean('active_011');
 
-				$table->foreign('package_id_011', 'fk01_001_011_cron_job')->references('id_012')->on('001_012_package')
-					->onDelete('cascade')->onUpdate('cascade');
+				$table->foreign('package_id_011', 'fk01_001_011_cron_job')
+					->references('id_012')
+					->on('001_012_package')
+					->onDelete('cascade')
+					->onUpdate('cascade');
 			});
 		}
 	}

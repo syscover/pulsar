@@ -55,8 +55,11 @@ class PulsarCreateTableField extends Migration {
                 $table->text('data_lang_026')->nullable();
                 $table->text('data_026')->nullable();
 
-                $table->foreign('group_id_026', 'fk01_001_026_field')->references('id_025')->on('001_025_field_group')
-                    ->onDelete('cascade')->onUpdate('cascade');
+                $table->foreign('group_id_026', 'fk01_001_026_field')
+                    ->references('id_025')
+                    ->on('001_025_field_group')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
             });
         }
     }
