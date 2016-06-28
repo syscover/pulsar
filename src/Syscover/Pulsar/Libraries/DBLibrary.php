@@ -54,12 +54,12 @@ class DBLibrary
             
             // index key query
             $keys = DB::select(DB::raw('SHOW KEYS FROM ' . $tableName . ' WHERE Column_name LIKE \'' . $oldColumnName . '\''));
-            
+
             if(! empty($keys))
             {
                 foreach($keys as $index => $key)
                 {
-                    if($key->Key_name == 'PRIMARY' || strpos($key->Key_name, 'pk') !== false)
+                    if($key->Key_name == 'PRIMARY' || strpos($key->Key_name, 'pk') === false)
                         unset($keys[$index]);
                 }
                 $keys = array_values($keys);
