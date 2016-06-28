@@ -158,7 +158,7 @@ este es un envío de pruebas, si está recibiendo este correo, su cuenta se ha c
         if (isset($data['birthDate']))      $data[$index]   = str_replace("#birthDate#",    $data['birthDate'],                 $data[$index]);     // birth date (comunik)
         if (isset($data['email']))          $data[$index]   = str_replace("#email#",        $data['email'],                     $data[$index]);     // Contact email (comunik)
         if (isset($data['campaign']))       $data[$index]   = str_replace("#campaign#",     $data['campaign'],                  $data[$index]);     // Campaign coded ID, to track (comunik)
-        if (isset($data['historicalId']))   $data[$index]   = str_replace("#historicalId#", $data['historicalId'],              $data[$index]);     // Sending coded ID, to track (comunik)
+        if (isset($data['historyId']))      $data[$index]   = str_replace("#historyId#",    $data['historyId'],                 $data[$index]);     // Sending coded ID, to track (comunik)
         $data[$index]                                       = str_replace("#date#",         date(config('pulsar.datePattern')), $data[$index]);     // Current date
 
         // function designed to replace the word #subject# in the title of HTML templates

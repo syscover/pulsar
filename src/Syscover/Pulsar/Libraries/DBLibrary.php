@@ -18,7 +18,8 @@ class DBLibrary
         $referenceTable,
         $referenceId,
         $onDelete = 'restrict',
-        $onUpdate = 'cascade'
+        $onUpdate = 'cascade',
+        $default = null
     )
     {
         if(Schema::hasColumn($tableName, $oldColumnName))
@@ -79,16 +80,9 @@ class DBLibrary
             }
             
             Schema::table($tableName, function (Blueprint $table) use
-            ($tableName, $oldColumnName, $newColumnName, $type, $length, $unsigned, $nullable, $foreignKeyName, $referenceTable, $referenceId, $onDelete, $onUpdate)
+            ($tableName, $oldColumnName, $newColumnName, $type, $length, $unsigned, $nullable, $foreignKeyName, $referenceTable, $referenceId, $onDelete, $onUpdate, $default)
             {
-                switch ($type) {
-                    case 'INT':
-                        $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' INT(' . $length . ') ' . ($unsigned? 'UNSIGNED ' : null) . ($nullable? 'NULL' : 'NOT NULL');
-                        break;
-                    case 'VARCHAR':
-                        $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' VARCHAR(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci ' . ($nullable? 'NULL' : 'NOT NULL');
-                        break;
-                }
+                $sql = DBLibrary::getAlterTableSql($tableName, $oldColumnName, $newColumnName, $type, $length, $unsigned, $nullable, $default);
 
                 DB::select(DB::raw($sql));
 
@@ -108,28 +102,47 @@ class DBLibrary
         $type,
         $length,
         $unsigned,
-        $nullable
+        $nullable,
+        $default = null
     )
     {
         if(Schema::hasColumn($tableName, $oldColumnName))
         {
             Schema::table($tableName, function (Blueprint $table) use
-            ($tableName, $oldColumnName, $newColumnName, $type, $length, $unsigned, $nullable)
+            ($tableName, $oldColumnName, $newColumnName, $type, $length, $unsigned, $nullable, $default)
             {
-                switch ($type) {
-                    case 'TINYINT':
-                        $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' TINYINT(' . $length . ') ' . ($unsigned? 'UNSIGNED ' : null) . ($nullable? 'NULL' : 'NOT NULL');
-                        break;
-                    case 'INT':
-                        $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' INT(' . $length . ') ' . ($unsigned? 'UNSIGNED ' : null) . ($nullable? 'NULL' : 'NOT NULL');
-                        break;
-                    case 'VARCHAR':
-                        $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' VARCHAR(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci ' . ($nullable? 'NULL' : 'NOT NULL');
-                        break;
-                }
+                $sql = DBLibrary::getAlterTableSql($tableName, $oldColumnName, $newColumnName, $type, $length, $unsigned, $nullable, $default);
 
                 DB::select(DB::raw($sql));
             });
         }
+    }
+    
+    private static function getAlterTableSql($tableName, $oldColumnName, $newColumnName, $type, $length, $unsigned, $nullable, $default = null)
+    {
+        $sql = null;
+        switch ($type) {
+            case 'TINYINT':
+                $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' TINYINT(' . $length . ') ' . ($unsigned? 'UNSIGNED ' : null) . ($nullable? 'NULL' : 'NOT NULL') . (empty($default)? null : ' DEFAULT \'' . $default . '\'');
+                break;
+
+            case 'SMALLINT':
+                $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' SMALLINT(' . $length . ') ' . ($unsigned? 'UNSIGNED ' : null) . ($nullable? 'NULL' : 'NOT NULL') . (empty($default)? null : ' DEFAULT \'' . $default . '\'');
+                break;
+
+            case 'INT':
+                $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' INT(' . $length . ') ' . ($unsigned? 'UNSIGNED ' : null) . ($nullable? 'NULL' : 'NOT NULL') . (empty($default)? null : ' DEFAULT \'' . $default . '\'');
+                break;
+
+            case 'BIGINT':
+                $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' BIGINT(' . $length . ') ' . ($unsigned? 'UNSIGNED ' : null) . ($nullable? 'NULL' : 'NOT NULL') . (empty($default)? null : ' DEFAULT \'' . $default . '\'');
+                break;
+
+            case 'VARCHAR':
+                $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' VARCHAR(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci ' . ($nullable? 'NULL' : 'NOT NULL') . (empty($default)? null : ' DEFAULT \'' . $default . '\'');
+                break;
+        }
+
+        return $sql;
     }
 }
