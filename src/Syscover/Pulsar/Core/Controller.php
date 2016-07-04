@@ -674,11 +674,14 @@ abstract class Controller extends BaseController {
         if(isset($parameters['lang']))
         {
             if(method_exists($this->model, 'getTranslationRecord'))
+            {
                 $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $parameters);
+            }
             else
+            {
                 throw new InvalidArgumentException('The methods getTranslationRecord on ' . $this->model . ' is not definite');
-
-
+            }
+            
             if(method_exists($parameters['object'], 'getLang'))
                 $parameters['lang'] = $parameters['object']->getLang;
 
