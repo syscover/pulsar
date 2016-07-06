@@ -145,7 +145,7 @@ este es un envío de pruebas, si está recibiendo este correo, su cuenta se ha c
         // check if comunik package is publish
         if(!is_null($comunikPackage) &&  $comunikPackage->active_012)
         {
-            $data[$index] = str_replace("#link#", route('previewComunikEmailCampaign', ['campaign' => '#campaign#', 'contactKey' => '#contactKey#']), $data[$index]);
+            $data[$index] = str_replace("#link#", route('previewComunikEmailCampaign', ['campaign' => '#campaign#', 'historyId' => '#historyId#']), $data[$index]);
             $data[$index] = str_replace("#unsubscribe#", route('getUnsubscribeComunikContact', ['contactKey' => '#contactKey#']) , $data[$index]);
             $data[$index] = str_replace("#pixel#", url(config('pulsar.appName')) . config('comunik.trackPixel'), $data[$index]);
         }
