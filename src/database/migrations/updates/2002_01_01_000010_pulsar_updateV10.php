@@ -29,10 +29,10 @@ class PulsarUpdateV10 extends Migration
 				DB::select(DB::raw('ALTER TABLE 001_027_field_value CHANGE value_027 name_027 VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL'));
 
 				// set primary key
-				$table->primary(['id_027', 'lang_id_027', 'field_id_027'], 'pk01_001_027_field_value');
+				$table->primary(['id_027', 'lang_027', 'field_027'], 'pk01_001_027_field_value');
 
 				// create counter column
-				$table->integer('counter_027')->unsigned()->nullable()->after('field_id_027');
+				$table->integer('counter_027')->unsigned()->nullable()->after('field_027');
 			});
 		}
 	}
