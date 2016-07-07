@@ -21,8 +21,6 @@ class PulsarCreateTableAdvancedSearchTask extends Migration {
 				$table->integer('user_id_022')->unsigned();
 				$table->string('model_022');
 				$table->string('parameters_022')->nullable();
-				$table->integer('start_022')->unsigned();
-				$table->integer('length_022')->unsigned();
 				$table->string('extension_file_022');
 				$table->string('filename_022');
 

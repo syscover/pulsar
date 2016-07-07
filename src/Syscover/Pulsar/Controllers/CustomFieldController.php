@@ -15,7 +15,7 @@ class CustomFieldController extends Controller
     protected $routeSuffix  = 'customField';
     protected $folder       = 'field';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_026', 'name_025', 'name_026', 'field_type_name_026', 'data_type_name_026', ['data' => 'required_026', 'type' => 'active'], 'sorting_026', 'max_length_026'];
+    protected $indexColumns     = ['id_026', 'name_025', 'name_026', 'field_type_name_026', 'data_type_name_026', ['data' => 'required_026', 'type' => 'active'], 'sorting_026', 'max_length_026'];
     protected $nameM        = 'name_026';
     protected $model        = CustomField::class;
     protected $icon         = 'fa fa-i-cursor';

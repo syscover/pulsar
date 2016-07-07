@@ -15,7 +15,7 @@ class CronJobController extends Controller
     protected $routeSuffix  = 'cronJob';
     protected $folder       = 'cron_job';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_011', 'name_011', 'name_012', 'key_011', 'cron_expression_011', ['data' => 'active_011', 'type' => 'active'], ['data' => 'last_run_011', 'type' => 'date'], ['data' => 'next_run_011', 'type' => 'date']];
+    protected $indexColumns     = ['id_011', 'name_011', 'name_012', 'key_011', 'cron_expression_011', ['data' => 'active_011', 'type' => 'active'], ['data' => 'last_run_011', 'type' => 'date'], ['data' => 'next_run_011', 'type' => 'date']];
     protected $nameM        = 'name_012';
     protected $model        = CronJob::class;
     protected $icon         = 'icomoon-icon-stopwatch';

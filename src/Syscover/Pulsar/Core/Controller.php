@@ -21,7 +21,7 @@ abstract class Controller extends BaseController {
     * protected $routeSuffix;   Suffix of routes
     * protected $folder;        Name of folder that contain views
     * protected $package;       Name of package
-    * protected $aColumns;      Name of column with your data type
+    * protected $indexColumns;  Name of column with your data type
     * protected $nameM;         Name of database column to put on message
     * protected $model;         Name of model
     * protected $icon;          Icon to buttom from entity
@@ -57,8 +57,12 @@ abstract class Controller extends BaseController {
         $parameters = [];
 
         // set advanced search
-        $parameters = Miscellaneous::dataTableColumnFiltering($this->request, $parameters, 'array');
+        $parameters                 = Miscellaneous::dataTableColumnFiltering($this->request, $parameters, 'array');
 
+        // set order table
+        $parameters['order']        = json_decode($this->request->input('order'), true);
+
+        // oonfig variables to count n records
         $parametersCount            = $parameters;
         $parametersCount['count']   = true;
         $nFilteredTotal             = call_user_func($this->model . '::getIndexRecords', $this->request, $parametersCount);
@@ -74,13 +78,9 @@ abstract class Controller extends BaseController {
             $parameters['start']    = 0;
             $parameters['length']   = config('pulsar.advancedSearchLimitLength');
 
-            // TODO SET ORDER
-            $parameters['order']['column']  = 'id';
-            $parameters['order']['dir']     = 'asc';
-
             // get data from model
             $objects = call_user_func($this->model . '::getIndexRecords', $this->request, $parameters);
-
+            
             $object = $objects->first();
 
             // set filename
@@ -165,13 +165,14 @@ abstract class Controller extends BaseController {
                 });
             })->store($this->request->input('extensionFile'));
 
+            // set start to next call
+            $parameters['start']        = config('pulsar.advancedSearchLimitLength');
+            
             AdvancedSearchTask::create([
                 'date_022'              => date('U'),
                 'user_id_022'           => auth('pulsar')->user()->id_010,
                 'model_022'             => $this->model,
                 'parameters_022'        => json_encode($parameters),
-                'start_022'             => config('pulsar.advancedSearchLimitLength'),
-                'length_022'            => config('pulsar.advancedSearchLimitLength'),
                 'extension_file_022'    => $this->request->input('extensionFile'),
                 'filename_022'          => $filename,
             ]);
@@ -334,14 +335,14 @@ abstract class Controller extends BaseController {
         // table paginated
         $parameters =  Miscellaneous::dataTablePaginate($this->request, $parameters);
         // table sorting
-        $parameters =  Miscellaneous::dataTableSorting($this->request, $parameters, $this->aColumns);
+        $parameters =  Miscellaneous::dataTableSorting($this->request, $parameters, $this->indexColumns);
         // quick search data table
         $parameters =  Miscellaneous::dataTableFiltering($this->request, $parameters);
         // set advanced search
         $parameters = Miscellaneous::dataTableColumnFiltering($this->request, $parameters);
 
         // set columns in parameters array
-        $parameters['aColumns']     = $this->aColumns;
+        $parameters['indexColumns'] = $this->indexColumns;
         $parametersCount            = $parameters;
         $parametersCount['count']   = true;
 
@@ -369,60 +370,60 @@ abstract class Controller extends BaseController {
             // start columns instance
             // set columns with your types, check, active, etc.
             $row = [];
-            foreach ($this->aColumns as $aColumn)
+            foreach ($this->indexColumns as $indexColumn)
             {
-                if(is_array($aColumn))
+                if(is_array($indexColumn))
                 {
-                    switch ($aColumn['type'])
+                    switch ($indexColumn['type'])
                     {
                         case 'email':
-                            $row[] = ! empty($aObject->{$aColumn['data']})? '<a href="mailto:' . $aObject->{$aColumn['data']} . '">' . $aObject->{$aColumn['data']} . '</a>' : null;
+                            $row[] = ! empty($aObject->{$indexColumn['data']})? '<a href="mailto:' . $aObject->{$indexColumn['data']} . '">' . $aObject->{$indexColumn['data']} . '</a>' : null;
                             break;
 
                         case 'img':
-                            $row[] = ! empty($aObject->{$aColumn['data']})? '<img src="' . asset($aColumn['url'] . $aObject[$aColumn['data']]) . '">' : null;
+                            $row[] = ! empty($aObject->{$indexColumn['data']})? '<img src="' . asset($indexColumn['url'] . $aObject[$indexColumn['data']]) . '">' : null;
                             break;
 
                         case 'check':
-                            $row[] = $aObject[$aColumn['data']]? '<i class="icomoon-icon-checkmark-3"></i>' : null;
+                            $row[] = $aObject[$indexColumn['data']]? '<i class="icomoon-icon-checkmark-3"></i>' : null;
                             break;
 
                         case 'active':
-                            $row[] = $aObject[$aColumn['data']]? '<i class="icomoon-icon-checkmark-3"></i>' : '<i class="icomoon-icon-blocked"></i>';
+                            $row[] = $aObject[$indexColumn['data']]? '<i class="icomoon-icon-checkmark-3"></i>' : '<i class="icomoon-icon-blocked"></i>';
                             break;
 
                         case 'invertActive':
-                            $row[] = !$aObject[$aColumn['data']]? '<i class="icomoon-icon-checkmark-3"></i>' : '<i class="icomoon-icon-blocked"></i>';
+                            $row[] = !$aObject[$indexColumn['data']]? '<i class="icomoon-icon-checkmark-3"></i>' : '<i class="icomoon-icon-blocked"></i>';
                             break;
 
                         case 'date':
                             $date = new \DateTime();
-                            $row[] = $date->setTimestamp($aObject[$aColumn['data']])->format(isset($aColumn['format'])? $aColumn['format'] : config('pulsar.datePattern') . ' H:i:s');
+                            $row[] = $date->setTimestamp($aObject[$indexColumn['data']])->format(isset($indexColumn['format'])? $indexColumn['format'] : config('pulsar.datePattern') . ' H:i:s');
                             break;
 
                         case 'url':
                             // the prefix is to compose the url
-                            $prefix = isset($aColumn['prefix'])? $aColumn['prefix'] : null;
-                            $row[] = '<a ' . (isset($aColumn['target'])? 'target="' . $aColumn['target'] . '"' : null) . ' href="' . $prefix . $aObject[$aColumn['data']] . '"><i class="icon-link"></i></a>';
+                            $prefix = isset($indexColumn['prefix'])? $indexColumn['prefix'] : null;
+                            $row[] = '<a ' . (isset($indexColumn['target'])? 'target="' . $indexColumn['target'] . '"' : null) . ' href="' . $prefix . $aObject[$indexColumn['data']] . '"><i class="icon-link"></i></a>';
                             break;
 
                         case 'color':
-                            $row[] = '<i class="color' . (isset($aColumn['tooltip']) && $aColumn['tooltip']? ' bs-tooltip' : null) . '"' . (isset($aColumn['title'])? ' title="' . $aObject[$aColumn['title']] . '"' : null) . ' style="background-color: ' . $aObject[$aColumn['data']] . '"></i>';
+                            $row[] = '<i class="color' . (isset($indexColumn['tooltip']) && $indexColumn['tooltip']? ' bs-tooltip' : null) . '"' . (isset($indexColumn['title'])? ' title="' . $aObject[$indexColumn['title']] . '"' : null) . ' style="background-color: ' . $aObject[$indexColumn['data']] . '"></i>';
                             break;
 
                         case 'alias':
-                            $row[] = $aObject->{$aColumn['alias']};
+                            $row[] = $aObject->{$indexColumn['alias']};
                             break;
                     }
 
                     if(method_exists($this, 'customColumnType'))
                     {
-                        $row = $this->customColumnType($row, $aColumn, $aObject);
+                        $row = $this->customColumnType($row, $indexColumn, $aObject);
                     }
                 }
                 else
                 {
-                    $row[] = $aObject->{$aColumn};
+                    $row[] = $aObject->{$indexColumn};
                 }
             }
 

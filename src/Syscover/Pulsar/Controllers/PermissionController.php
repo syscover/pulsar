@@ -21,7 +21,7 @@ class PermissionController extends Controller
     protected $routeSuffix          = 'permission';
     protected $folder               = 'permission';
     protected $package              = 'pulsar';
-    protected $aColumns             = ['id_007', 'name_012', 'name_007'];
+    protected $indexColumns             = ['id_007', 'name_012', 'name_007'];
     protected $nameM                = 'name_008';
     protected $model                = \Syscover\Pulsar\Models\Resource::class;
     protected $icon                 = 'icon-shield';
@@ -46,11 +46,11 @@ class PermissionController extends Controller
         $acl            = AclLibrary::getProfileAcl($parameters['profile']);
 
         $parameters         =  Miscellaneous::dataTablePaginate($this->request, $parameters);
-        $parameters         =  Miscellaneous::dataTableSorting($this->request, $parameters, $this->aColumns);
+        $parameters         =  Miscellaneous::dataTableSorting($this->request, $parameters, $this->indexColumns);
         $parameters         =  Miscellaneous::dataTableFiltering($this->request, $parameters);
 
         // set columns in parameters array
-        $parameters['aColumns']     = $this->aColumns;
+        $parameters['indexColumns'] = $this->indexColumns;
         $parametersCount            = $parameters;
         $parametersCount['count']   = true;
 
@@ -76,9 +76,9 @@ class PermissionController extends Controller
         foreach($aObjects as $aObject)
         {
 		    $row = [];
-		    foreach ($this->aColumns as $aColumn)
+		    foreach ($this->indexColumns as $indexColumn)
             {
-                $row[] = $aObject[$aColumn];
+                $row[] = $aObject[$indexColumn];
             }
 
             $actions = '<div><select id="re' . $aObject[$instance->getKeyName()] . '" data-resource="' . $aObject[$instance->getKeyName()] . '" data-nresource="' . $aObject['name_007'] . '" multiple style="width: 100%;">';

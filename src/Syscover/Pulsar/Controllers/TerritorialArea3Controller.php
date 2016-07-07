@@ -16,7 +16,7 @@ class TerritorialArea3Controller extends Controller
     protected $routeSuffix          = 'territorialArea3';
     protected $folder               = 'territorial_area_3';
     protected $package              = 'pulsar';
-    protected $aColumns             = ['id_005', 'name_003', 'name_004', 'name_005'];
+    protected $indexColumns             = ['id_005', 'name_003', 'name_004', 'name_005'];
     protected $nameM                = 'name_005';
     protected $model                = TerritorialArea3::class;
     protected $icon                 = 'entypo-icon-globe';

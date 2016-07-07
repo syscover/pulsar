@@ -109,7 +109,7 @@ abstract class Model extends BaseModel
             else
                 $query = $instance->query();
 
-        $query = Miscellaneous::getQueryWhere($request, $query, isset($parameters['aColumns'])? $parameters['aColumns'] : null, isset($parameters['where'])? $parameters['where'] : null, isset($parameters['whereColumns'])? $parameters['whereColumns'] : null);
+        $query = Miscellaneous::getQueryWhere($request, $query, $parameters);
 
         if(isset($parameters['count']) &&  $parameters['count'])
         {

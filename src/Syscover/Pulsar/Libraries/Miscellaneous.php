@@ -560,17 +560,17 @@ class Miscellaneous
      * @access  public
      * @param   \Illuminate\Http\Request $request
      * @param   array   $parameters
-     * @param   array   $aColumns
+     * @param   array   $indexColumns
      * @return  array
      */
-    public static function dataTableSorting($request, $parameters, $aColumns)
+    public static function dataTableSorting($request, $parameters, $indexColumns)
     {
         $order      = $request->input('order');
         $columns    = $request->input('columns');
 
         if(is_array($order[0]) && isset($order[0]['column']) && isset($order[0]['dir']) && $columns[(int)$order[0]['column']]['orderable'] == 'true')
         {
-            $parameters['order']['column']  = is_array($aColumns[$order[0]['column']])? $aColumns[$order[0]['column']]['data'] : $aColumns[$order[0]['column']];
+            $parameters['order']['column']  = is_array($indexColumns[$order[0]['column']])? $indexColumns[$order[0]['column']]['data'] : $indexColumns[$order[0]['column']];
             $parameters['order']['dir']     = $order[0]['dir'];
         }
 
@@ -654,27 +654,29 @@ class Miscellaneous
      * @access  public
      * @param   \Illuminate\Http\Request $request
      * @param   array   $query
-     * @param   array   $aColumns
-     * @param   array   $where
-     * @param   array   $whereColumns
+     * @param   array   $parameters
      * @return  Illuminate/Database/Eloquent/Builder
      */
-    public static function getQueryWhere($request, $query, $aColumns, $where, $whereColumns)
+    public static function getQueryWhere($request, $query, $parameters)
     {
+        $indexColumns   = isset($parameters['indexColumns'])? $parameters['indexColumns'] : null;
+        $where          = isset($parameters['where'])? $parameters['where'] : null;
+        $whereColumns   = isset($parameters['whereColumns'])? $parameters['whereColumns'] : null;
+        
         if($where != null)
         {
             $columns = $request->input('columns');
 
-            $query->where(function($query) use ($columns, $aColumns, $where){
+            $query->where(function($query) use ($columns, $indexColumns, $where){
                 $i=0;
-                foreach($aColumns as $aColumn)
+                foreach($indexColumns as $indexColumn)
                 {
                     // check if column if is searchable
                     if($columns[$i]['searchable'] === 'true')
                     {
-                        if(is_array($aColumn)) $aColumn = $aColumn['data'];
+                        if(is_array($indexColumn)) $indexColumn = $indexColumn['data'];
                         
-                        $query->orWhere($aColumn, 'LIKE', '%' . $where . '%');
+                        $query->orWhere($indexColumn, 'LIKE', '%' . $where . '%');
                     }
                     $i++;
                 }

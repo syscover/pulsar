@@ -14,7 +14,7 @@ class CustomFieldValueController extends Controller
     protected $routeSuffix  = 'customFieldValue';
     protected $folder       = 'field_value';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_027', 'name_026', 'name_001', 'name_027', ['data' => 'featured_027', 'type' => 'active']];
+    protected $indexColumns     = ['id_027', 'name_026', 'name_001', 'name_027', ['data' => 'featured_027', 'type' => 'active']];
     protected $nameM        = 'name_027';
     protected $model        = CustomFieldValue::class;
     protected $icon         = 'fa fa-bars';

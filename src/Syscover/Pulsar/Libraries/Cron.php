@@ -12,12 +12,20 @@ class Cron
 
         foreach ($advancedSearchs as $advancedSearch)
         {
-            $parameters['start']    = $advancedSearch->start_022;
-            $parameters['length']   = $advancedSearch->length_022;
-            // TODO SET ORDER
-            $parameters['order']['column']  = 'id';
-            $parameters['order']['dir']     = 'asc';
+            $parameters = json_decode($advancedSearch->parameters_022, true);
 
+            $parametersCount            = $parameters;
+            $parametersCount['count']   = true;
+            $nFilteredTotal             = call_user_func($advancedSearch->model_022 . '::getIndexRecords', null, $parametersCount);
+
+            $lastInteraction = false;
+            // if is the last interaction, set length to get just last record
+            if(($parameters['start'] + $parameters['length']) >= $nFilteredTotal)
+            {
+                $parameters['length'] = $nFilteredTotal;
+                $lastInteraction = true;
+            }
+            
             // get data from model
             $objects = call_user_func($advancedSearch->model_022 . '::getIndexRecords', null, $parameters);
             
@@ -30,8 +38,15 @@ class Cron
 
             }, null, true)->store($advancedSearch->extension_file_022);
 
-            $advancedSearch->start_022 = $advancedSearch->start_022 + $advancedSearch->length_022;
-            $advancedSearch->save();
+            if($lastInteraction)
+            {
+                // send mail an delete record????   
+            }
+            else
+            {
+                $advancedSearch->start_022 = $advancedSearch->start_022 + $advancedSearch->length_022;
+                $advancedSearch->save();
+            }
         }
     }
 }

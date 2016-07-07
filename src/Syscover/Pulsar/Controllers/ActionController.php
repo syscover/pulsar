@@ -13,7 +13,7 @@ class ActionController extends Controller
     protected $routeSuffix  = 'action';
     protected $folder       = 'action';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_008', 'name_008'];
+    protected $indexColumns     = ['id_008', 'name_008'];
     protected $nameM        = 'name_008';
     protected $model        = Action::class;
     protected $icon         = 'fa fa-bolt';

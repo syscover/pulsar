@@ -14,7 +14,7 @@ class AttachmentMimeController extends Controller
     protected $routeSuffix  = 'attachmentMime';
     protected $folder       = 'attachment_mime';
     protected $package      = 'pulsar';
-    protected $aColumns     = ['id_019', 'resource_id_019', 'name_007', 'mime_019'];
+    protected $indexColumns     = ['id_019', 'resource_id_019', 'name_007', 'mime_019'];
     protected $nameM        = 'mime_019';
     protected $model        = AttachmentMime::class;
     protected $icon         = 'fa fa-file';
