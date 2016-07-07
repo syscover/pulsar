@@ -30,6 +30,9 @@ return [
     // app name and url access to application
     'froalaEditorKey'           => env('FROALA_EDITOR_KEY', 'your editor key'),
 
+    // app name and url access to application
+    'advancedSearchLimitLength' => env('ADVANCED_SEARCH_LIMIT_LENGTH', 100),
+
     //******************************************************************************************************************
     //***   Type gender
     //******************************************************************************************************************

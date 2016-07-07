@@ -614,7 +614,9 @@ class Miscellaneous
             $fields = $request->all();
             $fieldSearchColumns = [];
             foreach ($fields as $key => $value)
+            {
                 $fieldSearchColumns[] = ['name' => $key, 'value' => $value];
+            }
 
             $fieldSearchColumns = collect($fieldSearchColumns);
         }
@@ -622,8 +624,6 @@ class Miscellaneous
         {
             return $parameters;
         }
-
-        $parameters['whereColumns'] = [];
 
         foreach ($fieldSearchColumns as $fieldSearchColumn)
         {
@@ -634,6 +634,9 @@ class Miscellaneous
                 $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_column')->count() > 0
             )
             {
+                if(! isset($parameters['whereColumns']))
+                    $parameters['whereColumns'] = [];
+
                 $parameters['whereColumns'][] = [
                     'column'    => $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_column')->first()['value'],
                     'operator'  => $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_operator')->first()['value'],
