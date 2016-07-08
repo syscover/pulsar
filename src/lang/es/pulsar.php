@@ -113,6 +113,7 @@ return [
     'male'                                  => 'Varón',
     'married'                               => 'Casado/a',
     'maximum_length'                        => 'Longitud máxima',
+    'message_advanced_search_exports'       => 'Su búsqueda avanzada ha sido exportada correctamente',
     'message_create_all_permissions'        => 'Los permisos para el perfil <strong>:profile</strong> han sido creados',
     'message_create_permission_error'       => 'El permiso <strong>:action</strong> para el recurso <strong>:resource</strong> no ha sido creado correctamente debido a un problema de permisos.<br><strong>Póngase en contacto con el administrador.</strong>',
     'message_create_permission_successful'  => 'El permiso <strong>:action</strong> para el recurso <strong>:resource</strong> ha sido creado correctamente',

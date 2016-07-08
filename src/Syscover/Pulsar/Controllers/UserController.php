@@ -16,7 +16,7 @@ class UserController extends Controller
     protected $routeSuffix  = 'user';
     protected $folder       = 'user';
     protected $package      = 'pulsar';
-    protected $indexColumns     = ['id_010', 'name_010', 'surname_010', ['data' => 'email_010', 'type' => 'email'], 'name_006', ['data' => 'access_010', 'type' => 'active']];
+    protected $indexColumns = ['id_010', 'name_010', 'surname_010', ['data' => 'email_010', 'type' => 'email'], 'name_006', ['data' => 'access_010', 'type' => 'active']];
     protected $nameM        = 'name_010';
     protected $model        = User::class;
     protected $icon         = 'fa fa-users';

@@ -12,25 +12,33 @@ Route::group(['middleware' => ['web']], function() {
     | DASHBOARD
     |--------------------------------------------------------------------------
     */
-    Route::get(config('pulsar.appName') . '/pulsar/dashboard', ['middleware' => 'auth.pulsar', 'as' => 'dashboard', 'uses' => 'Syscover\Pulsar\Controllers\DashboardController@index',                          'resource' => 'admin-dashboard']);
+    Route::get(config('pulsar.appName') . '/pulsar/dashboard',                          ['middleware' => 'auth.pulsar', 'as' => 'dashboard', 'uses' => 'Syscover\Pulsar\Controllers\DashboardController@index',                          'resource' => 'admin-dashboard']);
 
     /*
     |--------------------------------------------------------------------------
     | LOGIN AND LOGOUT
     |--------------------------------------------------------------------------
     */
-    Route::get(config('pulsar.appName') . '/pulsar/login',      ['as' => 'getLogin',    'uses' => 'Syscover\Pulsar\Controllers\Auth\AuthController@getLogin']);
-    Route::post(config('pulsar.appName') . '/pulsar/login',     ['as' => 'postLogin',   'uses' => 'Syscover\Pulsar\Controllers\Auth\AuthController@authenticate']);
-    Route::get(config('pulsar.appName') . '/pulsar/logout',     ['as' => 'logout',      'uses' => 'Syscover\Pulsar\Controllers\Auth\AuthController@getLogout']);
+    Route::get(config('pulsar.appName') . '/pulsar/login',                              ['as' => 'getLogin',                    'uses' => 'Syscover\Pulsar\Controllers\Auth\AuthController@getLogin']);
+    Route::post(config('pulsar.appName') . '/pulsar/login',                             ['as' => 'postLogin',                   'uses' => 'Syscover\Pulsar\Controllers\Auth\AuthController@authenticate']);
+    Route::get(config('pulsar.appName') . '/pulsar/logout',                             ['as' => 'logout',                      'uses' => 'Syscover\Pulsar\Controllers\Auth\AuthController@getLogout']);
 
     /*
     |--------------------------------------------------------------------------
     | PASSWORD REMINDER
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/email/send/reset/link/email',    ['as' => 'sendResetLinkEmail',      'uses' => 'Syscover\Pulsar\Controllers\Auth\PasswordController@postEmail']);
-    Route::get(config('pulsar.appName') . '/pulsar/password/reset/{token}',         ['as' => 'showResetForm',           'uses' => 'Syscover\Pulsar\Controllers\Auth\PasswordController@getReset']);
-    Route::post(config('pulsar.appName') . '/pulsar/password/reset/{token}',        ['as' => 'postResetPassword',       'uses' => 'Syscover\Pulsar\Controllers\Auth\PasswordController@postReset']);
+    Route::any(config('pulsar.appName') . '/pulsar/email/send/reset/link/email',        ['as' => 'sendResetLinkEmail',          'uses' => 'Syscover\Pulsar\Controllers\Auth\PasswordController@postEmail']);
+    Route::get(config('pulsar.appName') . '/pulsar/password/reset/{token}',             ['as' => 'showResetForm',               'uses' => 'Syscover\Pulsar\Controllers\Auth\PasswordController@getReset']);
+    Route::post(config('pulsar.appName') . '/pulsar/password/reset/{token}',            ['as' => 'postResetPassword',           'uses' => 'Syscover\Pulsar\Controllers\Auth\PasswordController@postReset']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | DOWNLOAD ADVANCED SEARCH
+    |--------------------------------------------------------------------------
+    */
+    Route::get(config('pulsar.appName') . '/pulsar/download/advanced/search/{token}',   ['as' => 'downloadAdvancedSearch',      'uses' => 'Syscover\Pulsar\Controllers\DownloadController@downloadAdvancedSearch']);
+
 });
 
 Route::group(['middleware' => ['web', 'pulsar']], function() {

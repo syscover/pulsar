@@ -15,7 +15,7 @@ class EmailAccountController extends Controller
     protected $routeSuffix  = 'emailAccount';
     protected $folder       = 'email_account';
     protected $package      = 'pulsar';
-    protected $indexColumns     = ['id_013', 'name_013', ['data' => 'email_013', 'type' => 'email']];
+    protected $indexColumns = ['id_013', 'name_013', ['data' => 'email_013', 'type' => 'email']];
     protected $nameM        = 'name_013';
     protected $model        = EmailAccount::class;
     protected $icon         = 'fa fa-envelope';

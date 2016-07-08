@@ -1,14 +1,19 @@
 <?php namespace Syscover\Pulsar\Libraries;
 
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Crypt;
 use Syscover\Pulsar\Models\AdvancedSearchTask;
 use Maatwebsite\Excel\Facades\Excel;
 
 class Cron
 {
 
-    public static function checkAdvancedSearch()
+    public static function checkAdvancedSearchExports()
     {
-        $advancedSearchs = AdvancedSearchTask::builder()->get();
+        // get advanced search without create yet
+        $advancedSearchs = AdvancedSearchTask::builder()
+            ->where('created_022', false)
+            ->get();
 
         foreach ($advancedSearchs as $advancedSearch)
         {
@@ -17,13 +22,13 @@ class Cron
             $parametersCount            = $parameters;
             $parametersCount['count']   = true;
             $nFilteredTotal             = call_user_func($advancedSearch->model_022 . '::getIndexRecords', null, $parametersCount);
-
-            $lastInteraction = false;
+            $lastInteraction            = false;
+            
             // if is the last interaction, set length to get just last record
             if(($parameters['start'] + $parameters['length']) >= $nFilteredTotal)
             {
-                $parameters['length'] = $nFilteredTotal;
-                $lastInteraction = true;
+                $parameters['length']   = $nFilteredTotal;
+                $lastInteraction        = true;
             }
             
             // get data from model
@@ -40,13 +45,32 @@ class Cron
 
             if($lastInteraction)
             {
-                // send mail an delete record????   
+                // get user to send email
+                $user = $advancedSearch->getUser;
+                
+                // send email to user
+                $dataMessage = [
+                    'emailTo'           => $user->email_010,
+                    'nameTo'            => $user->name_010 . ' ' . $user->surname_010,
+                    'subject'           => trans('pulsar::pulsar.message_advanced_search_exports_notification'),
+                    'token'             => Crypt::encrypt($advancedSearch->id_022),
+                    'advancedSearch'    => $advancedSearch
+                ];
+                
+                Mail::send('pulsar::emails.advanced_search_exports_notification', $dataMessage, function($m) use ($dataMessage) {
+                    $m->to($dataMessage['emailTo'], $dataMessage['nameTo'])
+                        ->subject($dataMessage['subject']);
+                });
+
+                // send mail an delete record????
+                $advancedSearch->created_022 = true;
             }
             else
             {
                 $advancedSearch->start_022 = $advancedSearch->start_022 + $advancedSearch->length_022;
-                $advancedSearch->save();
             }
+
+            $advancedSearch->save();
         }
     }
 }

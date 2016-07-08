@@ -67,6 +67,7 @@ abstract class Controller extends BaseController {
         $parametersCount['count']   = true;
         $nFilteredTotal             = call_user_func($this->model . '::getIndexRecords', $this->request, $parametersCount);
 
+        // todo, controlar errro si no hay ningún fichero a exportar
         // set error if does not contain any data row
         if ($nFilteredTotal < 1)
             return null;
@@ -175,6 +176,7 @@ abstract class Controller extends BaseController {
                 'parameters_022'        => json_encode($parameters),
                 'extension_file_022'    => $this->request->input('extensionFile'),
                 'filename_022'          => $filename,
+                'created_022'           => false
             ]);
             
             // TODO, CONTROLAR REDIRECCIÓN
@@ -251,14 +253,14 @@ abstract class Controller extends BaseController {
                         });
 
                         // set sumary columns and styles
-                        if($this->request->has('operationColumns'))
-                        {
-                            $sheet->appendRow($operationRow);
-                            $sheet->cells('A' . $sheet->row(0)->getHighestRow() . ':' . $sheet->row(0)->getHighestDataColumn() . $sheet->row(0)->getHighestRow(), function ($cells) {
-                                $cells->setBackground('#F8F8F8');
-                                $cells->setFontWeight('bold');
-                            });
-                        }
+//                        if($this->request->has('operationColumns'))
+//                        {
+//                            $sheet->appendRow($operationRow);
+//                            $sheet->cells('A' . $sheet->row(0)->getHighestRow() . ':' . $sheet->row(0)->getHighestDataColumn() . $sheet->row(0)->getHighestRow(), function ($cells) {
+//                                $cells->setBackground('#F8F8F8');
+//                                $cells->setFontWeight('bold');
+//                            });
+//                        }
                     });
                 }
             })->download($this->request->input('extensionFile'));

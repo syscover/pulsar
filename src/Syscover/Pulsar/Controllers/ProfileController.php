@@ -17,7 +17,7 @@ class ProfileController extends Controller
     protected $routeSuffix  = 'profile';
     protected $folder       = 'profile';
     protected $package      = 'pulsar';
-    protected $indexColumns     = ['id_006', 'name_006'];
+    protected $indexColumns = ['id_006', 'name_006'];
     protected $nameM        = 'name_006';
     protected $model        = Profile::class;
     protected $icon         = 'icomoon-icon-users-2';

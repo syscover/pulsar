@@ -14,7 +14,7 @@ class CustomFieldGroupController extends Controller
     protected $routeSuffix  = 'customFieldGroup';
     protected $folder       = 'field_group';
     protected $package      = 'pulsar';
-    protected $indexColumns     = ['id_025', 'name_007', 'name_025'];
+    protected $indexColumns = ['id_025', 'name_007', 'name_025'];
     protected $nameM        = 'name_025';
     protected $model        = CustomFieldGroup::class;
     protected $icon         = 'fa fa-th';
