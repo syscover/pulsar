@@ -15,7 +15,7 @@ class DownloadController extends BaseController
     public function downloadAdvancedSearch(Request $request)
     {
         // get parameters from url route
-        $parameters = $this->request->route()->parameters();
+        $parameters = $request->route()->parameters();
 
 
         $advancedSearch = AdvancedSearchTask::find(Crypt::decrypt($parameters['token']));

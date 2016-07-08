@@ -179,12 +179,9 @@ abstract class Controller extends BaseController {
                 'created_022'           => false
             ]);
             
-            // TODO, CONTROLAR REDIRECCIÓN
             return redirect()->route($this->routeSuffix)->with([
                 'msg'        => 1,
-                'txtMsg'     => trans('pulsar::pulsar.message_create_record_successful', [
-                    'name' =>'FATA CONTROLAR ESTO'
-                ])
+                'txtMsg'     => trans('pulsar::pulsar.message_advanced_search_exports_03')
             ]);
         }
         else

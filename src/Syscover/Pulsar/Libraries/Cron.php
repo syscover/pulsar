@@ -52,7 +52,7 @@ class Cron
                 $dataMessage = [
                     'emailTo'           => $user->email_010,
                     'nameTo'            => $user->name_010 . ' ' . $user->surname_010,
-                    'subject'           => trans('pulsar::pulsar.message_advanced_search_exports_notification'),
+                    'subject'           => trans('pulsar::pulsar.message_advanced_search_exports'),
                     'token'             => Crypt::encrypt($advancedSearch->id_022),
                     'advancedSearch'    => $advancedSearch
                 ];
@@ -67,9 +67,10 @@ class Cron
             }
             else
             {
-                $advancedSearch->start_022 = $advancedSearch->start_022 + $advancedSearch->length_022;
+                // set next paginate parameters
+                $parameters['start'] = $parameters['start'] + $parameters['length'];
+                $advancedSearch->parameters_022 = json_encode($parameters);
             }
-
             $advancedSearch->save();
         }
     }
