@@ -127,6 +127,7 @@ MAIL_NAME="MY DOMAIN"
 
 ```
 "post-update-cmd": [
+    "Illuminate\\Foundation\\ComposerScripts::postUpdate",
     "php artisan vendor:publish --force",
     "php artisan migrate",
     "php artisan migrate --path=database/migrations/updates",
