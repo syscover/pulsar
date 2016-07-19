@@ -25,9 +25,6 @@ class PulsarUpdateV10 extends Migration
 				// change id to string value
 				DB::select(DB::raw('ALTER TABLE 001_027_field_value CHANGE id_027 id_027 VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL'));
 
-				// change column value_027 to name_027
-				DB::select(DB::raw('ALTER TABLE 001_027_field_value CHANGE value_027 name_027 VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL'));
-
 				// set primary key
 				$table->primary(['id_027', 'lang_027', 'field_027'], 'pk01_001_027_field_value');
 
@@ -35,6 +32,12 @@ class PulsarUpdateV10 extends Migration
 				$table->integer('counter_027')->unsigned()->nullable()->after('field_027');
 			});
 		}
+
+        if(Schema::hasColumn('001_027_field_value', 'value_027'))
+        {
+            // change column value_027 to name_027
+            DB::select(DB::raw('ALTER TABLE 001_027_field_value CHANGE value_027 name_027 VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL'));
+        }
 	}
 
 	/**
