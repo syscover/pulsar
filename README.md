@@ -43,10 +43,10 @@ Syscover\Pulsar\PulsarServiceProvider::class,
 **4 - Register middlewares auth.pulsar, locale.pulsar and permission.pulsar on file app/Http/Kernel.php add to routeMiddleware array**
 
 ```
-'auth.pulsar' 	        => \Syscover\Pulsar\Middleware\Authenticate::class,
-'locale.pulsar'         => \Syscover\Pulsar\Middleware\Locale::class,
-'permission.pulsar' 	=> \Syscover\Pulsar\Middleware\Permission::class,
-'https.pulsar'          => \Syscover\Pulsar\Middleware\HttpsProtocol::class,
+'pulsar.auth' 	        => \Syscover\Pulsar\Middleware\Authenticate::class,
+'pulsar.locale'         => \Syscover\Pulsar\Middleware\Locale::class,
+'pulsar.permission' 	=> \Syscover\Pulsar\Middleware\Permission::class,
+'pulsar.https'          => \Syscover\Pulsar\Middleware\HttpsProtocol::class,
 
 ```
 
