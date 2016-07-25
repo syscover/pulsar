@@ -138,6 +138,10 @@ class DBLibrary
                 $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' BIGINT(' . $length . ') ' . ($unsigned? 'UNSIGNED ' : null) . ($nullable? 'NULL' : 'NOT NULL') . (empty($default)? null : ' DEFAULT \'' . $default . '\'');
                 break;
 
+            case 'DECIMAL':
+                $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' DECIMAL(' . $length . ') ' . ($unsigned? 'UNSIGNED ' : null) . ($nullable? 'NULL' : 'NOT NULL') . (empty($default)? null : ' DEFAULT \'' . $default . '\'');
+                break;
+
             case 'VARCHAR':
                 $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' VARCHAR(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci ' . ($nullable? 'NULL' : 'NOT NULL') . (empty($default)? null : ' DEFAULT \'' . $default . '\'');
                 break;
