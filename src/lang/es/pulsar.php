@@ -99,6 +99,7 @@ return [
     'gender'                                => 'Género',
     'group'                                 => 'Grupo|Grupos',
     'hour'                                  => 'Hora|Horas',
+    'image'                                 => 'Imagen|Imágenes',
     'info'                                  => 'Info',
     'int_value'                             => 'Valor entero',
     'instructions'                          => 'Instrucciones',
@@ -106,6 +107,7 @@ return [
     'ip'                                    => 'IP',
     'key'                                   => 'Key',
     'label_size'                            => 'Tamaño etiqueta',
+    'language'                              => 'Idioma|Idiomas',
     'link'                                  => 'Enlace',
     'log'                                   => 'Registro|Registros',
     'login'                                 => 'Iniciar sesión',
@@ -192,6 +194,7 @@ return [
     'territorial_area'                      => 'Area territorial|Areas territoriales',
     'to'                                    => 'Para',
     'total'                                 => 'Total|Totales',
+    'translation'                           => 'Traducción|Tranducciones',
     'transport'                             => 'Transporte|Transportes',
     'treatment'                             => 'Tratamiento|Tramientos',
     'type_something'                        => 'Escribe algo',
@@ -207,8 +210,6 @@ return [
 
     
     'name'                                  => 'Nombre',
-    'language'                              => 'Idioma|Idiomas',
-    'image'                                 => 'Imagen|Imágenes',
     'preference'                            => 'Preferencia|Preferencias',
     'repeat_password'                       => 'Repita contraseña',
     'select_a'                              => 'Elija un',

@@ -99,6 +99,7 @@ return [
     'gender'                                => 'Gender',
     'group'                                 => 'Group|Groups',
     'hour'                                  => 'Hour|Hours',
+    'image'                                 => 'Image|Images',
     'info'                                  => 'Info',
     'int_value'                             => 'Int value',
     'instructions'                          => 'Instructions',
@@ -106,6 +107,7 @@ return [
     'ip'                                    => 'IP',
     'key'                                   => 'Key',
     'label_size'                            => 'Label size',
+    'language'                              => 'Language|Languages',
     'link'                                  => 'Link',
     'login'                                 => 'Login',
     'log'                                   => 'Log|Logs',
@@ -192,6 +194,7 @@ return [
     'territorial_area'                      => 'Territorial area|Territorial areas',
     'to'                                    => 'To',
     'total'                                 => 'Total|Totals',
+    'translation'                           => 'Translation|Translations',
     'transport'                             => 'Transport|Transports',
     'treatment'                             => 'Treatment|Treatment',
     'type_something'                        => 'Type something',
@@ -207,8 +210,6 @@ return [
 
     
     'name'                                  => 'Name',
-    'language'                              => 'Language|Languages',
-    'image'                                 => 'Image|Images',
     'preference'                            => 'Preference|Preferences',
     'repeat_password'                       => 'Repeat password',
     'select_a'                              => 'Select a',
