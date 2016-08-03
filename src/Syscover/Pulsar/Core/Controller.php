@@ -809,7 +809,6 @@ abstract class Controller extends BaseController {
             if(method_exists($parameters['object'], 'getLang'))
                 $parameters['lang'] = $parameters['object']->getLang;
 
-
             // check that we have lang object
             if($parameters['lang'] === null)
                 throw new InvalidArgumentException('The language object is not instantiated, method getLang on model ' . $this->model . ' is not defined');
