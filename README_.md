@@ -15,7 +15,7 @@ Pulsar is an application that generates a control panel where you start creating
 ```
 execute on console:
 ```
-composer update
+composer install
 ```
 
 **2 - Register service provider, on file config/app.php add to providers array**
@@ -123,7 +123,26 @@ MAIL_ADDRESS=info@mydomain.local
 MAIL_NAME="MY DOMAIN"
 ```
 
-**9 - setup your composer.json, to updates and installation pulsar package, replace post-update-cmd for this code**
+**9 - Run publish command**
+
+```
+php artisan vendor:publish --force
+```
+
+**10 - Run migrate command**
+
+```
+php artisan migrate
+```
+
+**11 - Run seed database**
+
+```
+php artisan db:seed --class="PulsarTableSeeder"
+```
+
+
+**12 - setup your composer.json, to updates and installation pulsar package, replace post-update-cmd for this code**
 
 ```
 "post-update-cmd": [
@@ -136,18 +155,7 @@ MAIL_NAME="MY DOMAIN"
 
 ```
 
-**10 - execute on console:**
-```
-composer update
-```
-
-**11 - Run seed database**
-
-```
-php artisan db:seed --class="PulsarTableSeeder"
-```
-
-**12 - When the installation is complete you can access these data**
+**13 - When the installation is complete you can access these data**
 ```
 url: http://www.your-domain.com/pulsar
 user: admin@pulsar.local
