@@ -135,9 +135,10 @@ php artisan vendor:publish --force
 php artisan migrate
 ```
 
-**11 - Run seed database**
+**11 - Run seed database, but before you must execute optimize command to load seeds classes**
 
 ```
+php artisan optimize
 php artisan db:seed --class="PulsarTableSeeder"
 ```
 
