@@ -36,6 +36,11 @@ class Package extends Model
         return Validator::make($data, static::$rules);
 	}
 
+    public function scopeBuilder($query)
+    {
+        return $query;
+    }
+
     public static function getRecords($args)
     {
         $query = Package::query();
