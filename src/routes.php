@@ -44,14 +44,28 @@ Route::group(['middleware' => ['web']], function() {
     | COUNTRIES
     |--------------------------------------------------------------------------
     */
-    Route::any(config('pulsar.appName') . '/pulsar/countries/json/countries/{lang?}',                   ['as'=>'jsonGetCountries',          'uses'=>'Syscover\Pulsar\Controllers\CountryController@jsonCountries',            'resource' => 'admin-country',          'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/countries/json/countries/{lang?}',                               ['as'=>'jsonGetCountries',          'uses'=>'Syscover\Pulsar\Controllers\CountryController@jsonCountries', 'resource' => 'admin-country', 'action' => 'access']);
 
     /*
     |--------------------------------------------------------------------------
     | TERRITORIAL AREAS 1
     |--------------------------------------------------------------------------
     */
-    Route::post(config('pulsar.appName') . '/pulsar/territorialareas1/json/from/country/{country?}',    ['as'=>'jsonGetTerritorialArea1',   'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea1Controller@jsonTerritorialAreas1FromCountry',     'resource' => 'admin-country-at1',  'action' => 'access']);
+    Route::post(config('pulsar.appName') . '/pulsar/territorialareas1/json/from/country/{country?}',                ['as'=>'jsonGetTerritorialArea1',   'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea1Controller@jsonTerritorialAreas1FromCountry', 'resource' => 'admin-country-at1', 'action' => 'access']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | TERRITORIAL AREAS 2
+    |--------------------------------------------------------------------------
+    */
+    Route::any(config('pulsar.appName') . '/pulsar/territorialareas2/json/from/territorialarea1/{country}/{id}',    ['as'=>'jsonTerritorialArea2',      'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea2Controller@jsonTerritorialAreas2FromTerritorialArea1', 'resource' => 'admin-country-at2', 'action' => 'access']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | TERRITORIAL AREAS 3
+    |--------------------------------------------------------------------------
+    */
+    Route::any(config('pulsar.appName') . '/pulsar/territorialareas3/json/from/territorialarea2/{country}/{id?}',   ['as'=>'jsonTerritorialArea3',      'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea3Controller@jsonTerritorialAreas3FromTerritorialArea2', 'resource' => 'admin-country-at3', 'action' => 'access']);
 });
 
 Route::group(['middleware' => ['web', 'pulsar']], function() {
@@ -197,7 +211,6 @@ Route::group(['middleware' => ['web', 'pulsar']], function() {
     Route::put(config('pulsar.appName') . '/pulsar/territorialareas2/update/{country}/{parentOffset}/{id}/{offset}',            ['as'=>'updateTerritorialArea2',                'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea2Controller@updateRecord',                              'resource' => 'admin-country-at2',  'action' => 'edit']);
     Route::get(config('pulsar.appName') . '/pulsar/territorialareas2/delete/{country}/{parentOffset}/{id}/{offset}',            ['as'=>'deleteTerritorialArea2',                'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea2Controller@deleteRecord',                              'resource' => 'admin-country-at2',  'action' => 'delete']);
     Route::delete(config('pulsar.appName') . '/pulsar/territorialareas2/delete/select/records/{country}/{parentOffset}',        ['as'=>'deleteSelectTerritorialArea2',          'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea2Controller@deleteRecordsSelect',                       'resource' => 'admin-country-at2',  'action' => 'delete']);
-    Route::any(config('pulsar.appName') . '/pulsar/territorialareas2/json/from/territorialarea1/{country}/{id}',                ['as'=>'jsonTerritorialArea2',                  'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea2Controller@jsonTerritorialAreas2FromTerritorialArea1', 'resource' => 'admin-country-at2',  'action' => 'access']);
 
     /*
     |--------------------------------------------------------------------------
@@ -212,7 +225,6 @@ Route::group(['middleware' => ['web', 'pulsar']], function() {
     Route::put(config('pulsar.appName') . '/pulsar/territorialareas3/update/{country}/{parentOffset}/{id}/{offset}',            ['as'=>'updateTerritorialArea3',                'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea3Controller@updateRecord',                                 'resource' => 'admin-country-at3',  'action' => 'edit']);
     Route::get(config('pulsar.appName') . '/pulsar/territorialareas3/delete/{country}/{parentOffset}/{id}/{offset}',            ['as'=>'deleteTerritorialArea3',                'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea3Controller@deleteRecord',                                 'resource' => 'admin-country-at3',  'action' => 'delete']);
     Route::delete(config('pulsar.appName') . '/pulsar/territorialareas3/delete/select/records/{country}/{parentOffset}',        ['as'=>'deleteSelectTerritorialArea3',          'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea3Controller@deleteRecordsSelect',                          'resource' => 'admin-country-at3',  'action' => 'delete']);
-    Route::any(config('pulsar.appName') . '/pulsar/territorialareas3/json/from/territorialarea2/{country}/{id?}',               ['as'=>'jsonTerritorialArea3',                  'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea3Controller@jsonTerritorialAreas3FromTerritorialArea2',    'resource' => 'admin-country-at3',  'action' => 'access']);
 
     /*
     |--------------------------------------------------------------------------
