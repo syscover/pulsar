@@ -15,7 +15,7 @@
         'size' => '2',
         'required' => true,
         'fieldSize' => 2,
-        'readOnly' => $lang->id_001 == session('baseLang')->id_001? false : true
+        'readOnly' => $lang->id_001 == base_lang()->id_001? false : true
     ])
     @include('pulsar::includes.html.form_image_group', [
         'label' => trans_choice('pulsar::pulsar.language', 1),

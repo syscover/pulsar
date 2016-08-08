@@ -26,7 +26,7 @@ class CountryController extends Controller
     
     public function customIndex($parameters)
     {
-        $parameters['urlParameters']['lang']    = session('baseLang')->id_001;
+        $parameters['urlParameters']['lang']    = base_lang()->id_001;
 
         return $parameters;
     }
@@ -45,7 +45,7 @@ class CountryController extends Controller
     public function checkSpecialRulesToStore($parameters)
     {
         // check special rule to objects with multiple language if is new object translation or new object
-        if($this->request->has('lang') && $this->request->input('lang') != session('baseLang')->id_001)
+        if($this->request->has('lang') && $this->request->input('lang') != base_lang()->id_001)
         {
             $parameters['specialRules']['idRule'] = true;
         }
@@ -94,7 +94,7 @@ class CountryController extends Controller
         else
             return response()->json([
                 'status'    => 'success',
-                'data'      => Country::where('id_002', $country)->where('lang_id_002', session('baseLang')->id_001)->first()
+                'data'      => Country::where('id_002', $country)->where('lang_id_002', base_lang()->id_001)->first()
             ]);
     }
 

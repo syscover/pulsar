@@ -2,16 +2,14 @@
 
 if (! function_exists('base_lang')) {
     /**
-     * Get base lang from session.
+     * Get base lang object from session.
      *
-     * @return string
+     * @return \Syscover\Pulsar\Models\Lang
      */
     function base_lang()
     {
         if(session('baseLang') === null)
-        {
             session(['baseLang' => \Syscover\Pulsar\Models\Lang::getBaseLang()]);
-        }
 
         return session('baseLang');
     }

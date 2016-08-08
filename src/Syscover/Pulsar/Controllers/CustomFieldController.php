@@ -28,7 +28,7 @@ class CustomFieldController extends Controller
 
     public function customIndex($parameters)
     {
-        $parameters['urlParameters']['lang'] = session('baseLang')->id_001;
+        $parameters['urlParameters']['lang'] = base_lang()->id_001;
 
         return $parameters;
     }

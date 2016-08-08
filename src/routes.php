@@ -39,6 +39,19 @@ Route::group(['middleware' => ['web']], function() {
     */
     Route::get(config('pulsar.appName') . '/pulsar/download/advanced/search/{token}',   ['as' => 'downloadAdvancedSearch',      'uses' => 'Syscover\Pulsar\Controllers\DownloadController@downloadAdvancedSearch']);
 
+    /*
+    |--------------------------------------------------------------------------
+    | COUNTRIES
+    |--------------------------------------------------------------------------
+    */
+    Route::any(config('pulsar.appName') . '/pulsar/countries/json/countries/{lang?}',                   ['as'=>'jsonGetCountries',          'uses'=>'Syscover\Pulsar\Controllers\CountryController@jsonCountries',            'resource' => 'admin-country',          'action' => 'access']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | TERRITORIAL AREAS 1
+    |--------------------------------------------------------------------------
+    */
+    Route::post(config('pulsar.appName') . '/pulsar/territorialareas1/json/from/country/{country?}',    ['as'=>'jsonGetTerritorialArea1',   'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea1Controller@jsonTerritorialAreas1FromCountry',     'resource' => 'admin-country-at1',  'action' => 'access']);
 });
 
 Route::group(['middleware' => ['web', 'pulsar']], function() {
@@ -155,7 +168,6 @@ Route::group(['middleware' => ['web', 'pulsar']], function() {
     Route::get(config('pulsar.appName') . '/pulsar/countries/delete/translation/{lang}/{id}/{offset}',  ['as'=>'deleteTranslationCountry',  'uses'=>'Syscover\Pulsar\Controllers\CountryController@deleteTranslationRecord',  'resource' => 'admin-country',          'action' => 'delete']);
     Route::delete(config('pulsar.appName') . '/pulsar/countries/delete/select/records/{lang}',          ['as'=>'deleteSelectCountry',       'uses'=>'Syscover\Pulsar\Controllers\CountryController@deleteRecordsSelect',      'resource' => 'admin-country',          'action' => 'delete']);
     Route::post(config('pulsar.appName') . '/pulsar/countries/json/country/{country?}',                 ['as'=>'jsonGetCountry',            'uses'=>'Syscover\Pulsar\Controllers\CountryController@jsonCountry',              'resource' => 'admin-country',          'action' => 'access']);
-    Route::any(config('pulsar.appName') . '/pulsar/countries/json/countries/{lang?}',                   ['as'=>'jsonGetCountries',          'uses'=>'Syscover\Pulsar\Controllers\CountryController@jsonCountries',            'resource' => 'admin-country',          'action' => 'access']);
 
     /*
     |--------------------------------------------------------------------------
@@ -171,7 +183,6 @@ Route::group(['middleware' => ['web', 'pulsar']], function() {
     Route::put(config('pulsar.appName') . '/pulsar/territorialareas1/update/{country}/{parentOffset}/{id}/{offset}',            ['as'=>'updateTerritorialArea1',                'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea1Controller@updateRecord',                         'resource' => 'admin-country-at1',  'action' => 'edit']);
     Route::get(config('pulsar.appName') . '/pulsar/territorialareas1/delete/{country}/{parentOffset}/{id}/{offset}',            ['as'=>'deleteTerritorialArea1',                'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea1Controller@deleteRecord',                         'resource' => 'admin-country-at1',  'action' => 'delete']);
     Route::delete(config('pulsar.appName') . '/pulsar/territorialareas1/delete/select/records/{country}/{parentOffset}',        ['as'=>'deleteSelectTerritorialArea1',          'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea1Controller@deleteRecordsSelect',                  'resource' => 'admin-country-at1',  'action' => 'delete']);
-    Route::post(config('pulsar.appName') . '/pulsar/territorialareas1/json/from/country/{country?}',                            ['as'=>'jsonGetTerritorialArea1',               'uses'=>'Syscover\Pulsar\Controllers\TerritorialArea1Controller@jsonTerritorialAreas1FromCountry',     'resource' => 'admin-country-at1',  'action' => 'access']);
 
     /*
     |--------------------------------------------------------------------------

@@ -36,7 +36,7 @@
             tA3LabelPrefix:             '',
             tA3LabelSuffix:             '',
 
-            countrySelect:              'country',                                  // name Select conutry
+            countrySelect:              'country',                                  // name Select country
             prefixInput:                'prefix',                                   // name Select conutry
             tA1Select:                  'territorialArea1',                         // name Select territorial area 1
             tA2Select:                  'territorialArea2',                         // name Select territorial area 2

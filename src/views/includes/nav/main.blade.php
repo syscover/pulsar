@@ -8,7 +8,7 @@
             <li{!! is_current_resource('admin-lang') !!}><a href="{{ route('lang') }}"><i class="fa fa-language"></i>{{ trans_choice('pulsar::pulsar.language', 2) }}</a></li>
         @endif
         @if(is_allowed('admin-country', 'access'))
-            <li{!! is_current_resource(['admin-country','admin-country-at1','admin-country-at2','admin-country-at3']) !!}><a href="{{ route('country', [session('baseLang')->id_001]) }}"><i class="fa fa-globe"></i>{{ trans_choice('pulsar::pulsar.country', 2) }}</a></li>
+            <li{!! is_current_resource(['admin-country','admin-country-at1','admin-country-at2','admin-country-at3']) !!}><a href="{{ route('country', [base_lang()->id_001]) }}"><i class="fa fa-globe"></i>{{ trans_choice('pulsar::pulsar.country', 2) }}</a></li>
         @endif
         @if(is_allowed('admin-package', 'access'))
             <li{!! is_current_resource('admin-package') !!}><a href="{{ route('package') }}"><i class="cut-icon-grid"></i>{{ trans_choice('pulsar::pulsar.package', 2) }}</a></li>
@@ -24,7 +24,7 @@
                 <a href="javascript:void(0)"><i class="fa fa-cubes"></i>{{ trans_choice('pulsar::pulsar.custom_field', 2) }}<span class="arrow"></span></a>
                 <ul class="sub-menu">
                     @if(is_allowed('admin-field', 'access'))
-                        <li{!! is_current_resource(['admin-field', 'admin-field-value']) !!}><a href="{{ route('customField', [session('baseLang')->id_001]) }}"><i class="fa fa-i-cursor"></i>{{ trans_choice('pulsar::pulsar.field', 2) }}</a></li>
+                        <li{!! is_current_resource(['admin-field', 'admin-field-value']) !!}><a href="{{ route('customField', [base_lang()->id_001]) }}"><i class="fa fa-i-cursor"></i>{{ trans_choice('pulsar::pulsar.field', 2) }}</a></li>
                     @endif
                     @if(is_allowed('admin-field-group', 'access'))
                         <li{!! is_current_resource('admin-field-group') !!}><a href="{{ route('customFieldGroup') }}"><i class="fa fa-th"></i>{{ trans_choice('pulsar::pulsar.field_group', 2) }}</a></li>
