@@ -629,7 +629,7 @@ class Miscellaneous
      */
     public static function dataTableColumnFiltering($request, $parameters, $dataType = 'request')
     {
-        //check if data is a Request object or array
+        // check if data is a Request object or array
         if(is_array($request->input('searchColumns')) && $dataType === 'request')
         {
             $fieldSearchColumns = collect($request->input('searchColumns'));
@@ -669,7 +669,6 @@ class Miscellaneous
                 ];
             }
         }
-        
         return $parameters;
     }
 

@@ -122,9 +122,12 @@ abstract class Model extends BaseModel
         else
         {
             // if we need limit and order results
-            if(isset($parameters['length']))     $query->take($parameters['length']);
-            if(isset($parameters['start']))      $query->skip($parameters['start']);
-            if(isset($parameters['order']) && is_array($parameters['order']))   $query->orderBy($parameters['order']['column'], isset($parameters['order']['dir'])? $parameters['order']['dir'] : 'asc');
+            if(isset($parameters['length']))
+                $query->take($parameters['length']);
+            if(isset($parameters['start']))
+                $query->skip($parameters['start']);
+            if(isset($parameters['order']) && is_array($parameters['order']))
+                $query->orderBy($parameters['order']['column'], isset($parameters['order']['dir'])? $parameters['order']['dir'] : 'asc');
 
             if(method_exists($instance, 'getCustomReturnIndexRecords'))
                 // if we need a custom get()

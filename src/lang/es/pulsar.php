@@ -153,6 +153,7 @@ return [
     'new2'                                  => 'Nueva',
     'new_window'                            => 'Nueva ventana',
     'no'                                    => 'No',
+    'no_data_advanced_search_to_export'     => 'No hay datos para exportar',
     'notifications_account'                 => 'Cuenta de notificaciones',
     'objects_list'                          => 'Lista de objetos',
     'or'                                    => 'O',
