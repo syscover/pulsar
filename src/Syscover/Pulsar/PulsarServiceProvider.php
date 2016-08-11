@@ -40,7 +40,7 @@ class PulsarServiceProvider extends ServiceProvider
 		$this->publishes([
             __DIR__ . '/../../config/pulsar.php' 				=> config_path('pulsar.php'),
             __DIR__ . '/../../config/cron.php'					=> config_path('cron.php'),
-			__DIR__ . '/../../config/google_api.php' 			=> config_path('google_api.php')
+			__DIR__ . '/../../config/googleApi.php' 			=> config_path('googleApi.php')
         ]);
 
         // register migrations
