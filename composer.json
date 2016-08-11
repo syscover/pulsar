@@ -1,9 +1,7 @@
 {
     "name": "syscover/pulsar",
-    "version": "5.2",
     "description": "Pulsar package",
     "keywords": ["syscover","pulsar","laravel","syscover","intranet"],
-    "license": "MIT",
     "authors": [
         {
             "name": "SYSCOVER SL",
