@@ -59,7 +59,7 @@ class PasswordController extends Controller
     public function __construct()
     {
         $this->subject      = trans('pulsar::pulsar.subject_password_reset');
-        $this->redirectPath = route('getLogin');
+        $this->redirectPath = route('pulsarGetLogin');
     }
 
 

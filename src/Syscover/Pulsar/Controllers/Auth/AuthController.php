@@ -53,7 +53,7 @@ class AuthController extends Controller
 	public function __construct()
 	{
         $this->redirectTo   = route('dashboard');
-        $this->loginPath    = route('getLogin');
+        $this->loginPath    = route('pulsarGetLogin');
 	}
 
     /**

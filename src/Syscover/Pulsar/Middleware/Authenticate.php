@@ -19,7 +19,7 @@ class Authenticate
 			if($request->ajax())
 				return response('Unauthorized.', 401);
 			else
-				return redirect()->guest(route('getLogin'));
+				return redirect()->guest(route('pulsarGetLogin'));
 		}
 
 		return $next($request);

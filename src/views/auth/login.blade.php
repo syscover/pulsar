@@ -51,7 +51,7 @@
 
 @section('mainContent')
 <!-- Login Formular -->
-<form class="form-vertical login-form" action="{{ route('postLogin') }}" method="post">
+<form class="form-vertical login-form" action="{{ route('pulsarPostLogin') }}" method="post">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
     <h3 class="form-title">{{ trans('pulsar::pulsar.access_your_account') }}</h3>

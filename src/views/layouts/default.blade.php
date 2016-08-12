@@ -154,7 +154,7 @@
                                 <i class="fa fa-caret-down small"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ route('logout') }}"><i class="fa fa-power-off"></i> {{ trans('pulsar::pulsar.logout') }}</a></li>
+                                <li><a href="{{ route('pulsarLogout') }}"><i class="fa fa-power-off"></i> {{ trans('pulsar::pulsar.logout') }}</a></li>
                             </ul>
                         </li><!-- /user login dropdown -->
                     </ul><!-- /Top Right Menu -->
