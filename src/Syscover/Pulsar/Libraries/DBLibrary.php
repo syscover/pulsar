@@ -145,6 +145,10 @@ class DBLibrary
             case 'VARCHAR':
                 $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' VARCHAR(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci ' . ($nullable? 'NULL' : 'NOT NULL') . (empty($default)? null : ' DEFAULT \'' . $default . '\'');
                 break;
+
+            case 'TEXT':
+                $sql = 'ALTER TABLE ' . $tableName . ' CHANGE ' . $oldColumnName . ' '. $newColumnName .' TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci ' . ($nullable? 'NULL' : 'NOT NULL') . (empty($default)? null : ' DEFAULT \'' . $default . '\'');
+                break;
         }
 
         return $sql;
