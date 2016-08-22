@@ -15,11 +15,10 @@ Pulsar is an application that generates a control panel where you start creating
 ```
 execute on console:
 ```
-composer install
+composer update
 ```
 
 **2 - Register service provider, on file config/app.php add to providers array**
-
 ```
 /*
  * Thirdparty Application Service Providers...
@@ -30,18 +29,36 @@ Maatwebsite\Excel\ExcelServiceProvider::class,
  * Pulsar Application Service Providers...
  */
 Syscover\Pulsar\PulsarServiceProvider::class,
-
 ```
 
-**3 - Register alias, on file config/app.php add to aliases array**
+**3 - Execute publish command**
+```
+php artisan vendor:publish
+```
 
+**4 - Execute optimize command load new classes**
+```
+php artisan optimize
+```
+
+**5 - And execute migrations and seed database**
+```
+php artisan migrate
+php artisan db:seed --class="PulsarTableSeeder"
+```
+
+**6 - Execute command to load all updates**
+```
+php artisan migrate --path=database/migrations/updates
+```
+
+**7 - Register alias, on file config/app.php add to aliases array**
 ```
 'Miscellaneous'	=> Syscover\Pulsar\Libraries\Miscellaneous::class,
 
 ```
 
-**4 - Register middlewares auth.pulsar, locale.pulsar and permission.pulsar on file app/Http/Kernel.php add to routeMiddleware array**
-
+**8 - Register middlewares auth.pulsar, locale.pulsar and permission.pulsar on file app/Http/Kernel.php add to routeMiddleware array**
 ```
 'pulsar.auth' 	        => \Syscover\Pulsar\Middleware\Authenticate::class,
 'pulsar.locale'         => \Syscover\Pulsar\Middleware\Locale::class,
@@ -51,7 +68,6 @@ Syscover\Pulsar\PulsarServiceProvider::class,
 ```
 
 also you must to add inside $middlewareGroups array this values:
-
 ```
 'noCsrWeb' => [
     \App\Http\Middleware\EncryptCookies::class,
@@ -67,14 +83,14 @@ also you must to add inside $middlewareGroups array this values:
 ],
 ```
 
-**5 - Register cron command on file app/Console/Kernel.php add to $commands array**
+**9 - Register cron command on file app/Console/Kernel.php add to $commands array**
 
 ```
 \Syscover\Pulsar\Commands\Cron::class,
 
 ```
 
-**6 - Change on file config/mail.php this line**
+**10 - Change on file config/mail.php this line**
 
 ```
 'from' => ['address' => null, 'name' => null],
@@ -86,7 +102,7 @@ for that
 'from' => ['address' => env('MAIL_ADDRESS'), 'name' => env('MAIL_NAME')],
 ```
 
-**7 - include this arrays in config/auth.php**
+**11 - include this arrays in config/auth.php**
 
 Inside guards array
 ```
@@ -114,46 +130,13 @@ Inside passwords array
 ],
 ```
 
-**8 - Config .env file with your database parameters connections and this example parameters**
+**12 - Config .env file with your database parameters connections and this example parameters**
 ```
 APP_URL=http://mydomain.local
 APP_LOG=daily
 
 MAIL_ADDRESS=info@mydomain.local
 MAIL_NAME="MY DOMAIN"
-```
-
-**9 - Run publish command**
-
-```
-php artisan vendor:publish --force
-```
-
-**10 - Run migrate command**
-
-```
-php artisan migrate
-```
-
-**11 - Run seed database, but before you must execute optimize command to load seeds classes**
-
-```
-php artisan optimize
-php artisan db:seed --class="PulsarTableSeeder"
-```
-
-
-**12 - setup your composer.json, to updates and installation pulsar package, replace post-update-cmd for this code**
-
-```
-"post-update-cmd": [
-    "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-    "php artisan vendor:publish --force",
-    "php artisan migrate",
-    "php artisan migrate --path=database/migrations/updates",
-    "php artisan optimize"
-]
-
 ```
 
 **13 - When the installation is complete you can access these data**
