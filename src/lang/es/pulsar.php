@@ -73,6 +73,7 @@ return [
     'delete_record'                         => 'Borrar registro',
     'delete_translation'                    => 'Borrar traducción',
     'description_title'                     => 'Título de la descripción',
+    'discount'                              => 'Descuento|Descuentos',
     'divorced'                              => 'Divorciado/a',
     'edit'                                  => 'Editar',
     'edit_permissions'                      => 'Editar permisos',

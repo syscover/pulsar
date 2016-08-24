@@ -73,6 +73,7 @@ return [
     'delete_record'                         => 'Delete record',
     'delete_translation'                    => 'Delete translation',
     'description_title'                     => 'Description title',
+    'discount'                              => 'Discount|Discounts',
     'divorced'                              => 'Divorced',
     'edit'                                  => 'Edit',
     'edit_permissions'                      => 'Edit permissions',
