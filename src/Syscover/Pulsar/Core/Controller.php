@@ -52,6 +52,11 @@ abstract class Controller extends BaseController {
             $this->resource = $action['resource'];
     }
 
+    /**
+     * Function to count results, to prevent export files without data
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function countAdvancedSearchData()
     {
         $parameters = [];
@@ -77,7 +82,7 @@ abstract class Controller extends BaseController {
     {
         $parameters = [];
 
-        // set advanced search
+        // set advanced search, with this function get only inputs to do advanced search
         $parameters                 = Miscellaneous::dataTableColumnFiltering($this->request, $parameters, 'array');
 
         // set order table
@@ -95,6 +100,8 @@ abstract class Controller extends BaseController {
         // if there are more than 100 rows, set a cron job to generate a export
         if($nFilteredTotal > 1000)
         {
+            //we need create a cron job, because has too much rows
+
             // set paginate parameters
             $parameters['start']    = 0;
             $parameters['length']   = config('pulsar.advancedSearchLimitLength');
@@ -204,10 +211,14 @@ abstract class Controller extends BaseController {
                 'txtMsg'     => trans('pulsar::pulsar.message_advanced_search_exports_03')
             ]);
         }
+        // we can create rows directly, without create cron job
         else
         {
+
             // get data from model
             $objects = call_user_func($this->model . '::getIndexRecords', $this->request, $parameters);
+
+            dd($objects);
 
             $object = $objects->first();
 

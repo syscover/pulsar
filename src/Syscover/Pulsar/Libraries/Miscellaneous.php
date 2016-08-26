@@ -629,19 +629,22 @@ class Miscellaneous
      */
     public static function dataTableColumnFiltering($request, $parameters, $dataType = 'request')
     {
-        // check if data is a Request object or array
+        // create $fieldSearchColumns than contain key/value to search column/value from database,
+        // in both case convert $fieldSearchColumns to collection object
+
+        // if request come from ajax, get searchColumns input that contain a array
         if(is_array($request->input('searchColumns')) && $dataType === 'request')
         {
             $fieldSearchColumns = collect($request->input('searchColumns'));
         }
+        // if request come from form, get all input and create fieldSearchColumns variable
         elseif($dataType === 'array')
         {
             $fields = $request->all();
             $fieldSearchColumns = [];
+
             foreach ($fields as $key => $value)
-            {
                 $fieldSearchColumns[] = ['name' => $key, 'value' => $value];
-            }
 
             $fieldSearchColumns = collect($fieldSearchColumns);
         }
@@ -650,10 +653,13 @@ class Miscellaneous
             return $parameters;
         }
 
+        /**
+         * Only add parameters each input that has _operator and _column to the end of your name,
+         * like that, we rid us inputs that don't need
+         */
         foreach ($fieldSearchColumns as $fieldSearchColumn)
         {
             if(
-                //isset()
                 $fieldSearchColumn['value'] !== '' &&
                 $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_operator')->count() > 0 &&
                 $fieldSearchColumns->where('name', $fieldSearchColumn['name'] . '_column')->count() > 0

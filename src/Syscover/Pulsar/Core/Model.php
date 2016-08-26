@@ -129,11 +129,20 @@ abstract class Model extends BaseModel
             if(isset($parameters['order']) && is_array($parameters['order']))
                 $query->orderBy($parameters['order']['column'], isset($parameters['order']['dir'])? $parameters['order']['dir'] : 'asc');
 
+
             if(method_exists($instance, 'getCustomReturnIndexRecords'))
+            {
                 // if we need a custom get()
                 return $instance->getCustomReturnIndexRecords($query, $parameters);
+            }
             else
-                return $query->get();
+            {
+                // if has columns variable
+                if(isset($parameters['columns']) && is_array($parameters['columns']) && count($parameters['columns']) > 0)
+                    return $query->get($parameters['columns']);
+                else
+                    return $query->get();
+            }
         }
     }
 
