@@ -83,15 +83,19 @@ abstract class Controller extends BaseController {
         $parameters = [];
 
         // set advanced search, with this function get only inputs to do advanced search
-        $parameters                 = Miscellaneous::dataTableColumnFiltering($this->request, $parameters, 'array');
+        $parameters                     = Miscellaneous::dataTableColumnFiltering($this->request, $parameters, 'array');
 
         // set order table
-        $parameters['order']        = json_decode($this->request->input('order'), true);
+        $parameters['order']            = json_decode($this->request->input('order'), true);
+
+        // set columns to display in export file
+        $parameters['displayColumns']   = json_decode($this->request->input('displayColumns'), true);
 
         // config variables to count n records
-        $parametersCount            = $parameters;
-        $parametersCount['count']   = true;
-        $nFilteredTotal             = call_user_func($this->model . '::getIndexRecords', $this->request, $parametersCount);
+        $parametersCount                = $parameters;
+        $parametersCount['count']       = true;
+        $nFilteredTotal                 = call_user_func($this->model . '::getIndexRecords', $this->request, $parametersCount);
+
 
         // check than there are any data to export
         if ($nFilteredTotal < 1)
@@ -211,14 +215,12 @@ abstract class Controller extends BaseController {
                 'txtMsg'     => trans('pulsar::pulsar.message_advanced_search_exports_03')
             ]);
         }
+
         // we can create rows directly, without create cron job
         else
         {
-
             // get data from model
             $objects = call_user_func($this->model . '::getIndexRecords', $this->request, $parameters);
-
-            dd($objects);
 
             $object = $objects->first();
 

@@ -137,9 +137,9 @@ abstract class Model extends BaseModel
             }
             else
             {
-                // if has columns variable
-                if(isset($parameters['columns']) && is_array($parameters['columns']) && count($parameters['columns']) > 0)
-                    return $query->get($parameters['columns']);
+                // if has diplayColumns variable
+                if(isset($parameters['displayColumns']) && is_array($parameters['displayColumns']) && count($parameters['displayColumns']) > 0)
+                    return $query->get($parameters['displayColumns']);
                 else
                     return $query->get();
             }
