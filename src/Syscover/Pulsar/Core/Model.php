@@ -124,8 +124,10 @@ abstract class Model extends BaseModel
             // if we need limit and order results
             if(isset($parameters['length']))
                 $query->take($parameters['length']);
+
             if(isset($parameters['start']))
                 $query->skip($parameters['start']);
+
             if(isset($parameters['order']) && is_array($parameters['order']))
                 $query->orderBy($parameters['order']['column'], isset($parameters['order']['dir'])? $parameters['order']['dir'] : 'asc');
 

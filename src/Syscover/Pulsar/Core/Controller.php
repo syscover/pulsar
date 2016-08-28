@@ -80,7 +80,10 @@ abstract class Controller extends BaseController {
 
     public function exportData()
     {
-        $parameters = [];
+        $parameters                     = [];
+
+        // Maximum rows from request to direct download
+        $maximumRowsToDownload          = 100;
 
         // set advanced search, with this function get only inputs to do advanced search
         $parameters                     = Miscellaneous::dataTableColumnFiltering($this->request, $parameters, 'array');
@@ -101,105 +104,117 @@ abstract class Controller extends BaseController {
         if ($nFilteredTotal < 1)
             return null;
 
-        // if there are more than 100 rows, set a cron job to generate a export
-        if($nFilteredTotal > 1000)
+        // if there are more than $maximumRowsToDownload rows, set start and length element to storage in file
+        if($nFilteredTotal > $maximumRowsToDownload)
         {
-            //we need create a cron job, because has too much rows
-
             // set paginate parameters
-            $parameters['start']    = 0;
-            $parameters['length']   = config('pulsar.advancedSearchLimitLength');
+            $parameters['start']    = 0;    // take first row
+            $parameters['length']   = config('pulsar.advancedSearchLimitLength'); // get limit to rows to take
+        }
 
-            // get data from model
-            $objects = call_user_func($this->model . '::getIndexRecords', $this->request, $parameters);
-            
-            $object = $objects->first();
+        // get data from model
+        $objects = call_user_func($this->model . '::getIndexRecords', $this->request, $parameters);
 
-            // set filename
-            $filename = uniqid() . '_' . (empty($object->tableTranslation)? $object->table : trans($object->tableTranslation));
-            
-            // set name export file
-            Excel::create($filename, function($excel) use ($objects, $object) {
-                
-                // Set the title
-                $excel->setTitle('Export table :table');
+        // get de first object, to konow properties from model, table name, columns, etc.
+        $object = $objects->first();
 
-                // Setters
-                $excel->setCreator('Pulsar')
-                    ->setCompany('SYSCOVER');
+        // get filename to download
+        $filename = ($nFilteredTotal > $maximumRowsToDownload?  uniqid() . '_' : null) . (empty($object->tableTranslation)? $object->table : trans($object->tableTranslation));
 
-                // Set sheet
-                $excel->sheet('Data', function ($sheet) use ($objects, $object) {
+        // create spreadsheet to export data
+        $excel = Excel::create($filename, function($excel) use (&$parameters, $objects, $object) {
 
-                    // get columns names
-                    $headers = collect($object->getAttributes())->keys()->toArray();
+            // set the title
+            $excel->setTitle('Export table :table')
+                ->setCreator('Pulsar')
+                ->setCompany('SYSCOVER');
 
-                    /**
-                     * Get operation columns, this value is sent from advanced search form, with this structure on json format
-                     *
-                     * [
-                     *   ['column' => 'column_database_000', 'operation' => 'sum'],
-                     *   ['column' => 'column_database_001', 'operation' => 'sum'],
-                     *   ...
-                     * ]
-                    **/
-                    if($this->request->has('operationColumns'))
-                    {
-                        // convert array to collection to drive elements
-                        $operationColumns = collect(json_decode($this->request->input('operationColumns'), true));
-                        // set row that contain sum values
-                        $operationRow     = array_fill(0, count($headers) -1, '');
-                    }
+            // set sheet
+            $excel->sheet('Data', function ($sheet) use (&$parameters, $objects, $object) {
 
-                    // set translations columns name
+                // get all attributes from model and transform
+                // to array only the keys, to know columns names
+                $headers = collect($object->getAttributes())
+                    ->keys()
+                    ->toArray();
+
+                /***********************************************************************
+                 * Get operation columns, this value is sent from advanced search form,
+                 * with this structure on json format
+                 *
+                 * [
+                 *   ['column' => 'column_database_000', 'operation' => 'sum'],
+                 *   ['column' => 'column_database_001', 'operation' => 'sum'],
+                 *   ...
+                 * ]
+                 ***********************************************************************/
+                if($this->request->has('operationColumns'))
+                {
+                    // set operations columns in parameters to be saved in AdvancedSearchTask model
+                    $parameters['operationColumns']     = json_decode($this->request->input('operationColumns'), true);
+
+                    // transform array to collection to manage elements
+                    $operationColumns                   = collect($parameters['operationColumns']);
+
+                    // create empty operations row to be filled after
+                    $operationsRow                       = array_fill(0, count($headers) -1, '');
+
+                    // set operations columns row
                     foreach ($headers as $key => &$columnName)
                     {
-//                        if($this->request->has('operationColumns'))
-//                        {
-//                            // first, check if column has any operation on itself
-//                            $operationColumn = $operationColumns->where('column', $columnName);
-//                            if($operationColumn->count() > 0)
-//                            {
-//                                // get sumary column array
-//                                $operationColumn = $operationColumn->first();
-//                                switch ($operationColumn['operation'])
-//                                {
-//                                    case 'sum':
-//                                        $operationRow[$key] = $objects->sum($columnName);
-//                                        break;
-//                                }
-//                            }
-//                        }
+                        // first, check if column has any operation on itself
+                        $operationColumn = $operationColumns->where('column', $columnName);
 
-                        // get translation column if exist
-                        if(isset($object->columnTranslation[$columnName]))
-                            $columnName = trans($object->columnTranslation[$columnName]);
-
+                        if($operationColumn->count() > 0)
+                        {
+                            // set operation
+                            $operationColumn = $operationColumn->first();
+                            switch ($operationColumn['operation'])
+                            {
+                                case 'sum':
+                                    $operationsRow[$key] = $objects->sum($columnName);
+                                    break;
+                            }
+                        }
                     }
+                }
 
-                    // set data and headers
-                    $sheet->prependRow($headers);
-                    $sheet->fromArray($objects->toArray(), null, 'A2', false, false);
-                    $sheet->cells('A1:' . $sheet->row(0)->getHighestDataColumn() . '1', function ($cells) {
-                        $cells->setBackground('#CCCCCC');
+                foreach ($headers as $key => &$columnName)
+                {
+                    // get translation column if exist
+                    if(isset($object->columnTranslation[$columnName]))
+                        $columnName = trans($object->columnTranslation[$columnName]);
+                }
+
+                // set data and headers
+                $sheet->prependRow($headers);
+                $sheet->fromArray($objects->toArray(), null, 'A2', false, false);
+                $sheet->cells('A1:' . $sheet->row(0)->getHighestDataColumn() . '1', function ($cells) {
+                    $cells->setBackground('#CCCCCC');
+                    $cells->setFontWeight('bold');
+                });
+
+                // set operations row and styles
+                if($this->request->has('operationColumns'))
+                {
+                    $sheet->appendRow($operationsRow);
+                    $sheet->cells('A' . $sheet->row(0)->getHighestRow() . ':' . $sheet->row(0)->getHighestDataColumn() . $sheet->row(0)->getHighestRow(), function ($cells) {
+                        $cells->setBackground('#F8F8F8');
                         $cells->setFontWeight('bold');
                     });
+                }
+            });
+        });
 
-                    // add sumary columns and styles
-//                    if($this->request->has('operationColumns'))
-//                    {
-//                        $sheet->appendRow($operationRow);
-//                        $sheet->cells('A' . $sheet->row(0)->getHighestRow() . ':' . $sheet->row(0)->getHighestDataColumn() . $sheet->row(0)->getHighestRow(), function ($cells) {
-//                            $cells->setBackground('#F8F8F8');
-//                            $cells->setFontWeight('bold');
-//                        });
-//                    }
-                });
-            })->store($this->request->input('extensionFile'));
+        // if there are more than $maximumRowsToDownload rows, create AdvancedSearchTask to execute with cron after
+        if($nFilteredTotal > $maximumRowsToDownload)
+        {
+            $excel->store($this->request->input('extensionFile'));
 
             // set start to next call
             $parameters['start']        = config('pulsar.advancedSearchLimitLength');
-            
+
+            // crete task to download after
             AdvancedSearchTask::create([
                 'date_022'              => date('U'),
                 'user_id_022'           => auth('pulsar')->user()->id_010,
@@ -209,91 +224,15 @@ abstract class Controller extends BaseController {
                 'filename_022'          => $filename,
                 'created_022'           => false
             ]);
-            
+
             return redirect()->route($this->routeSuffix)->with([
                 'msg'        => 1,
                 'txtMsg'     => trans('pulsar::pulsar.message_advanced_search_exports_03')
             ]);
         }
-
-        // we can create rows directly, without create cron job
         else
         {
-            // get data from model
-            $objects = call_user_func($this->model . '::getIndexRecords', $this->request, $parameters);
-
-            $object = $objects->first();
-
-            // create spreadsheet to export data
-            Excel::create(empty($object->tableTranslation)? $object->table : trans($object->tableTranslation), function($excel) use ($objects, $object) {
-
-                if(count($objects) > 0)
-                {
-                    // Set the title
-                    $excel->setTitle('Export table :table')
-                        ->setCreator('Pulsar')
-                        ->setCompany('SYSCOVER');
-
-                    // Set sheet
-                    $excel->sheet('Data', function ($sheet) use ($objects, $object) {
-
-                        // get columns names
-                        $headers = collect($object->getAttributes())->keys()->toArray();
-
-                        // get summary columns
-                        if($this->request->has('operationColumns'))
-                        {
-                            $operationColumns   = collect(json_decode($this->request->input('operationColumns'), true));
-                            $operationRow       = array_fill(0, count($headers) -1, '');
-                        }
-
-                        // set translations columns name and operations row
-                        foreach ($headers as $key => &$columnName)
-                        {
-                            if($this->request->has('operationColumns'))
-                            {
-                                // first, check if column has any operation on itself
-                                $summaryColumn = $operationColumns->where('column', $columnName);
-
-                                if($summaryColumn->count() > 0)
-                                {
-                                    // get sumary column array
-                                    $summaryColumn = $summaryColumn->first();
-                                    switch ($summaryColumn['operation'])
-                                    {
-                                        case 'sum':
-                                            $operationRow[$key] = $objects->sum($columnName);
-                                            break;
-                                    }
-                                }
-                            }
-
-                            // get translation column if exist
-                            if(isset($object->columnTranslation[$columnName]))
-                                $columnName = trans($object->columnTranslation[$columnName]);
-
-                        }
-
-                        // set data and headers
-                        $sheet->prependRow($headers);
-                        $sheet->fromModel($objects->toArray(), null, 'A2', false, false);
-                        $sheet->cells('A1:' . $sheet->row(0)->getHighestDataColumn() . '1', function ($cells) {
-                            $cells->setBackground('#CCCCCC');
-                            $cells->setFontWeight('bold');
-                        });
-
-                        // set operations row and styles
-                        if($this->request->has('operationColumns'))
-                        {
-                            $sheet->appendRow($operationRow);
-                            $sheet->cells('A' . $sheet->row(0)->getHighestRow() . ':' . $sheet->row(0)->getHighestDataColumn() . $sheet->row(0)->getHighestRow(), function ($cells) {
-                                $cells->setBackground('#F8F8F8');
-                                $cells->setFontWeight('bold');
-                            });
-                        }
-                    });
-                }
-            })->download($this->request->input('extensionFile'));
+            $excel->download($this->request->input('extensionFile'));
         }
     }
 
@@ -991,7 +930,6 @@ abstract class Controller extends BaseController {
      */
     public function deleteCustomRecord($object) {}
 
-
     /**
      * @access      public
      * @return      \Illuminate\Support\Facades\Redirect
@@ -1036,7 +974,6 @@ abstract class Controller extends BaseController {
      * @return	void
      */
     public function deleteCustomTranslationRecord($object) {}
-
 
     /**
      * @access      public
