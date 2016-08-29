@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use Syscover\Pulsar\Models\AdvancedSearchTask;
 use Maatwebsite\Excel\Facades\Excel;
+use Syscover\Pulsar\Models\ReportTask;
 
 class Cron
 {
@@ -149,6 +150,19 @@ class Cron
 
             // save model with new data interaction
             $advancedSearch->save();
+        }
+    }
+
+    public static function checkReportTaskDelivery()
+    {
+        $reportTasks = ReportTask::builder()
+            ->get();
+
+        foreach ($reportTasks as $reportTask)
+        {
+            $response = DB::select(DB::raw($reportTask->sql_023));
+
+            dd($response);
         }
     }
 }

@@ -22,8 +22,6 @@ return [
     // Cron envios de emails
     '04' => '\Syscover\Comunik\Libraries\Cron::checkSendEmails',
 
-
-
     // Cron envios de sms
     //'05' => '\Syscover\Comunik\Libraries\Cron::checkCallQueueSendSms',
 
@@ -41,4 +39,7 @@ return [
 
     // Cron to create advanced search exports
     '10' =>  '\Syscover\Pulsar\Libraries\Cron::checkAdvancedSearchExports',
+
+    // Cron to delivery schedule reports
+    '11' =>  '\Syscover\Pulsar\Libraries\Cron::checkReportTaskDelivery',
 ];

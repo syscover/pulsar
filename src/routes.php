@@ -161,6 +161,21 @@ Route::group(['middleware' => ['web', 'pulsar']], function() {
 
     /*
     |--------------------------------------------------------------------------
+    | REPORTS
+    |--------------------------------------------------------------------------
+    */
+    Route::any(config('pulsar.appName') . '/pulsar/reports/{offset?}',                          ['as'=>'reportTask',              'uses'=>'Syscover\Pulsar\Controllers\ReportTaskController@index',                'resource' => 'admin-report',             'action' => 'access']);
+    Route::any(config('pulsar.appName') . '/pulsar/reports/json/data',                          ['as'=>'jsonDataReportTask',      'uses'=>'Syscover\Pulsar\Controllers\ReportTaskController@jsonData',             'resource' => 'admin-report',             'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/reports/create/{offset}',                    ['as'=>'createReportTask',        'uses'=>'Syscover\Pulsar\Controllers\ReportTaskController@createRecord',         'resource' => 'admin-report',             'action' => 'create']);
+    Route::post(config('pulsar.appName') . '/pulsar/reports/store/{offset}',                    ['as'=>'storeReportTask',         'uses'=>'Syscover\Pulsar\Controllers\ReportTaskController@storeRecord',          'resource' => 'admin-report',             'action' => 'create']);
+    Route::get(config('pulsar.appName') . '/pulsar/reports/{id}/edit/{offset}',                 ['as'=>'editReportTask',          'uses'=>'Syscover\Pulsar\Controllers\ReportTaskController@editRecord',           'resource' => 'admin-report',             'action' => 'access']);
+    Route::put(config('pulsar.appName') . '/pulsar/reports/update/{id}/{offset}',               ['as'=>'updateReportTask',        'uses'=>'Syscover\Pulsar\Controllers\ReportTaskController@updateRecord',         'resource' => 'admin-report',             'action' => 'edit']);
+    Route::get(config('pulsar.appName') . '/pulsar/reports/delete/{id}/{offset}',               ['as'=>'deleteReportTask',        'uses'=>'Syscover\Pulsar\Controllers\ReportTaskController@deleteRecord',         'resource' => 'admin-report',             'action' => 'delete']);
+    Route::delete(config('pulsar.appName') . '/pulsar/reports/delete/select/records',           ['as'=>'deleteSelectReportTask',  'uses'=>'Syscover\Pulsar\Controllers\ReportTaskController@deleteRecordsSelect',  'resource' => 'admin-report',             'action' => 'delete']);
+
+
+    /*
+    |--------------------------------------------------------------------------
     | LANGUAGES
     |--------------------------------------------------------------------------
     */

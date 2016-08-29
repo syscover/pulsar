@@ -38,5 +38,5 @@
         'type' => 'number',
         'fieldSize' => 2
     ])
-    <!-- /.pulsar::packages.create -->
+    <!-- /pulsar::packages.create -->
 @stop

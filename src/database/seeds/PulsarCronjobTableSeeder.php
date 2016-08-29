@@ -8,7 +8,8 @@ class PulsarCronjobTableSeeder extends Seeder {
     public function run()
     {   
         CronJob::insert([
-            ['name_011' => 'Check to create advanced search exports',     'package_id_011' => 2,     'cron_expression_011' => '*/2 * * * *',     'key_011' => '10',  'last_run_011' => 0,    'next_run_011' => 0,    'active_011' => 1],
+            ['name_011' => 'Check to create advanced search exports',       'package_id_011' => 2,     'cron_expression_011' => '*/2 * * * *',  'key_011' => '10',  'last_run_011' => 0,    'next_run_011' => 0,    'active_011' => 1],
+            ['name_011' => 'Check to delivery reports task',                'package_id_011' => 2,     'cron_expression_011' => '0 0 * * *',    'key_011' => '11',  'last_run_011' => 0,    'next_run_011' => 0,    'active_011' => 1],
         ]);
     }
 }

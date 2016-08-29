@@ -4,6 +4,9 @@
         @if(is_allowed('admin-user', 'access'))
             <li{!! is_current_resource('admin-user') !!}><a href="{{ route('user') }}"><i class="fa fa-users"></i>{{ trans_choice('pulsar::pulsar.user', 2) }}</a></li>
         @endif
+        @if(is_allowed('admin-report', 'access'))
+            <li{!! is_current_resource('admin-report') !!}><a href="{{ route('reportTask') }}"><i class="fa fa-area-chart"></i>{{ trans_choice('pulsar::pulsar.report', 2) }}</a></li>
+        @endif
         @if(is_allowed('admin-lang', 'access'))
             <li{!! is_current_resource('admin-lang') !!}><a href="{{ route('lang') }}"><i class="fa fa-language"></i>{{ trans_choice('pulsar::pulsar.language', 2) }}</a></li>
         @endif
