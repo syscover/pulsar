@@ -157,107 +157,52 @@ class Cron
 
     public static function checkReportTaskDelivery()
     {
-
-        $from   = strtotime('first day of last month 00:00:00');
-        $to     = strtotime('last day of last month 23:59:59');
-
-        dd(date('d-m-Y H:i:s', $to));
-
-        $month  = (int)date("n");
-        $year   = (int)date("Y");
-        $day    = (int)date("j");
-
-
-
-        //mktime(0,0,0, );
-
-
+        // get report tasks
         $reportTasks = ReportTask::builder()
             ->get();
 
         foreach ($reportTasks as $reportTask)
         {
-            $from   = null;
-            $to     = null;
-
-            // daily, get values of last day
-            if($reportTask->frequency_023 == 2)
+            // set time stamp according frequency
+            switch ($reportTask->frequency_023)
             {
-                $from   = strtotime('last day 00:00:00');
-                $to     = strtotime('last day 23:59:59');
-            }
+                case 1: // daily, get values of last day
+                    $from                   = null;
+                    $until                  = null;
+                    break;
 
-            // weekly, get values of last week
-            if($reportTask->frequency_023 == 3)
-            {
-                $from   = strtotime('monday last week 00:00:00');
-                $to     = strtotime('sunday last week 23:59:59');
-            }
+                case 2: // daily, get values of last day
+                    $from                   = strtotime('last day 00:00:00');
+                    $until                  = strtotime('last day 23:59:59');
+                    $reportTask->sql_023    = str_replace('#FROM#', $from, $reportTask->sql_023);
+                    $reportTask->sql_023    = str_replace('#UNTIL#', $until, $reportTask->sql_023);
+                    break;
 
-            // monthly, get values of last month
-            if($reportTask->frequency_023 == 4)
-            {
-                $from   = strtotime('first day of last month 00:00:00');
-                $to     = strtotime('last day of last month 23:59:59');
-            }
+                case 3: // weekly, get values of last week
+                    $from                   = strtotime('monday last week 00:00:00');
+                    $until                  = strtotime('sunday last week 23:59:59');
+                    $reportTask->sql_023    = str_replace('#FROM#', $from, $reportTask->sql_023);
+                    $reportTask->sql_023    = str_replace('#UNTIL#', $until, $reportTask->sql_023);
+                    break;
 
-            // quarterly, get values of last quarter
-            if($reportTask->frequency_023 == 4)
-            {
+                case 4: // monthly, get values of last month
+                    $from                   = strtotime('first day of last month 00:00:00');
+                    $until                  = strtotime('last day of last month 23:59:59');
+                    $reportTask->sql_023    = str_replace('#FROM#', $from, $reportTask->sql_023);
+                    $reportTask->sql_023    = str_replace('#UNTIL#', $until, $reportTask->sql_023);
+                    break;
 
+                case 5: // quarterly, get values of last quarter
+                    $response               = Miscellaneous::getQuarter('last');
+                    $from                   = $response['starDate'];
+                    $until                  = $response['endDate'];
+                    $reportTask->sql_023    = str_replace('#FROM#', $from, $reportTask->sql_023);
+                    $reportTask->sql_023    = str_replace('#UNTIL#', $until, $reportTask->sql_023);
+                    break;
 
-//            case 'this_quarter':
-//
-//                  $current_month = date('m');
-//                  $current_year = date('Y');
-//                  if($current_month>=1 && $current_month<=3)
-//                  {
-//                      $start_date = strtotime('1-January-'.$current_year);  // timestamp or 1-Januray 12:00:00 AM
-//                      $end_date = strtotime('1-April-'.$current_year);  // timestamp or 1-April 12:00:00 AM means end of 31 March
-//                  }
-//                  else  if($current_month>=4 && $current_month<=6)
-//                  {
-//                      $start_date = strtotime('1-April-'.$current_year);  // timestamp or 1-April 12:00:00 AM
-//                      $end_date = strtotime('1-July-'.$current_year);  // timestamp or 1-July 12:00:00 AM means end of 30 June
-//                  }
-//                  else  if($current_month>=7 && $current_month<=9)
-//                  {
-//                      $start_date = strtotime('1-July-'.$current_year);  // timestamp or 1-July 12:00:00 AM
-//                      $end_date = strtotime('1-October-'.$current_year);  // timestamp or 1-October 12:00:00 AM means end of 30 September
-//                  }
-//                  else  if($current_month>=10 && $current_month<=12)
-//                  {
-//                      $start_date = strtotime('1-October-'.$current_year);  // timestamp or 1-October 12:00:00 AM
-//                      $end_date = strtotime('1-January-'.($current_year+1));  // timestamp or 1-January Next year 12:00:00 AM means end of 31 December this year
-//                  }
-//                break;
-//
-//                case 'last_quarter':
-//
-//                    $current_month = date('m');
-//                    $current_year = date('Y');
-//
-//                    if($current_month>=1 && $current_month<=3)
-//                    {
-//                      $start_date = strtotime('1-October-'.($current_year-1));  // timestamp or 1-October Last Year 12:00:00 AM
-//                      $end_date = strtotime('1-January-'.$current_year);  // // timestamp or 1-January  12:00:00 AM means end of 31 December Last year
-//                    }
-//                    else if($current_month>=4 && $current_month<=6)
-//                    {
-//                      $start_date = strtotime('1-January-'.$current_year);  // timestamp or 1-Januray 12:00:00 AM
-//                      $end_date = strtotime('1-April-'.$current_year);  // timestamp or 1-April 12:00:00 AM means end of 31 March
-//                    }
-//                    else  if($current_month>=7 && $current_month<=9)
-//                    {
-//                      $start_date = strtotime('1-April-'.$current_year);  // timestamp or 1-April 12:00:00 AM
-//                      $end_date = strtotime('1-July-'.$current_year);  // timestamp or 1-July 12:00:00 AM means end of 30 June
-//                    }
-//                    else  if($current_month>=10 && $current_month<=12)
-//                    {
-//                      $start_date = strtotime('1-July-'.$current_year);  // timestamp or 1-July 12:00:00 AM
-//                      $end_date = strtotime('1-October-'.$current_year);  // timestamp or 1-October 12:00:00 AM means end of 30 September
-//                    }
-//                break;
+                default:
+                    $from       = null;
+                    $until      = null;
             }
 
 
