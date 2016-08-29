@@ -57,7 +57,8 @@
     @include('pulsar::includes.html.form_textarea_group', [
         'label' => trans('pulsar::pulsar.sql'),
         'name' => 'sql',
-        'value' => old('sql', isset($object->sql_023)? $object->sql_023 : null)
+        'value' => old('sql', isset($object->sql_023)? $object->sql_023 : null),
+        'required' => true
     ])
     <!-- /pulsar::reports.create -->
 @stop

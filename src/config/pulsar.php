@@ -127,8 +127,8 @@ return [
     //***   Extensions export file
     //******************************************************************************************************************
     'extensionsExportFile'   => [
-        (object)['id' => 1,      'name' => 'csv'],
-        (object)['id' => 2,      'name' => 'xls'],
-        (object)['id' => 3,      'name' => 'xlsx'],
+        (object)['id' => 'csv',      'name' => '.csv'],
+        (object)['id' => 'xls',      'name' => '.xls'],
+        (object)['id' => 'xlsx',     'name' => '.xlsx'],
     ]
 ];

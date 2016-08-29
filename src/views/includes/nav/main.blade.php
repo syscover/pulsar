@@ -1,4 +1,4 @@
-<li{!! is_current_resource(['admin-user', 'admin-lang', 'admin-country', 'admin-country-at1', 'admin-country-at2', 'admin-country-at3', 'admin-package', 'admin-cron', 'admin-perm-profile', 'admin-perm-resource', 'admin-perm-action', 'admin-perm-perm', 'admin-email-account', 'admin-attachment-family', 'admin-attachment-mime', 'admin-attachment-library','admin-field', 'admin-field-value', 'admin-field-group']) !!}>
+<li{!! is_current_resource(['admin-user', 'admin-report','admin-lang', 'admin-country', 'admin-country-at1', 'admin-country-at2', 'admin-country-at3', 'admin-package', 'admin-cron', 'admin-perm-profile', 'admin-perm-resource', 'admin-perm-action', 'admin-perm-perm', 'admin-email-account', 'admin-attachment-family', 'admin-attachment-mime', 'admin-attachment-library','admin-field', 'admin-field-value', 'admin-field-group']) !!}>
     <a href="javascript:void(0)"><i class="fa fa-cog"></i>{{ trans('pulsar::pulsar.administration') }}</a>
     <ul class="sub-menu">
         @if(is_allowed('admin-user', 'access'))

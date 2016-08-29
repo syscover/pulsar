@@ -23,7 +23,10 @@ class ReportTaskController extends Controller
     public function createCustomRecord($parameters)
     {
         $parameters['extensionsExportFile'] = config('pulsar.extensionsExportFile');
-        $parameters['frequencies']          = config('pulsar.frequencies');
+        $parameters['frequencies']          = array_map(function($object) {
+            $object->name = trans($object->name);
+            return $object;
+        }, config('pulsar.frequencies'));
 
         return $parameters;
     }
@@ -32,25 +35,38 @@ class ReportTaskController extends Controller
     {
         ReportTask::create([
             'date_023'              => date('U'),
-            'user_id_023'           => auth()->user()->id_010,
+            'user_id_023'           => auth('pulsar')->user()->id_010,
             'email_023'             => $this->request->input('email'),
             'subject_023'           => $this->request->input('subject'),
             'filename_023'          => $this->request->input('filename'),
             'extension_file_023'    => $this->request->input('extensionFile'),
             'frequency_023'         => $this->request->input('frequency'),
-            'delivery_day_023'      => $this->request->input('delivery_day'),
-            'last_run_023'          => 0,
-            'next_run_023'          => 0,
+            'delivery_day_023'      => $this->request->has('delivery_day')? $this->request->input('delivery_day') : null,
+            'last_run_023'          => null,
+            'next_run_023'          => null,
             'parameters_023'        => null,
-            'sql_023'               => $this->request->input('sql'),
-
+            'sql_023'               => $this->request->input('sql')
         ]);
+    }
+
+    public function editCustomRecord($parameters)
+    {
+        $parameters['extensionsExportFile'] = config('pulsar.extensionsExportFile');
+        $parameters['frequencies']          = array_map(function($object) {
+            $object->name = trans($object->name);
+            return $object;
+        }, config('pulsar.frequencies'));
+
+        return $parameters;
     }
 
     public function updateCustomRecord($parameters)
     {
         ReportTask::where('id_023', $parameters['id'])->update([
             'email_023'             => $this->request->input('email'),
+            'extension_file_023'    => $this->request->input('extensionFile'),
+            'frequency_023'         => $this->request->input('frequency'),
+            'sql_023'               => $this->request->input('sql')
         ]);
     }
 }
