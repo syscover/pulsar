@@ -620,14 +620,20 @@ abstract class Controller extends BaseController {
         if(! isset($parameters['specialRules']))
             $parameters['specialRules']  = [];
 
-        $validation = call_user_func($this->model . '::validate', $this->request->all(), $parameters['specialRules']);
+        // if exist model, we validation
+        if(isset($this->model))
+        {
+            $validation = call_user_func($this->model . '::validate', $this->request->all(), $parameters['specialRules']);
 
-        // validate
-        if($validation->fails())
-            return redirect()
-                ->route('create' . ucfirst($this->routeSuffix), $parameters['urlParameters'])
-                ->withErrors($validation)
-                ->withInput();
+            // validate
+            if($validation->fails())
+            {
+                return redirect()
+                    ->route('create' . ucfirst($this->routeSuffix), $parameters['urlParameters'])
+                    ->withErrors($validation)
+                    ->withInput();
+            }
+        }
 
         // we use parametersResponse, because storeCustomRecord may be "void"
         $parametersResponse = $this->storeCustomRecord($parameters);
