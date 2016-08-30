@@ -40,7 +40,9 @@
                                         @yield('tHead')
                                     </tr>
                                     </thead>
-                                    <tbody></tbody>
+                                    <tbody>
+                                        @yield('tBody')
+                                    </tbody>
                                 </table>
                                 <input type="hidden" name="nElementsDataTable">
                             </form>
