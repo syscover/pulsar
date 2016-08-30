@@ -249,7 +249,7 @@ abstract class Controller extends BaseController {
         if(! isset($parameters['offset'])) $parameters['offset'] = 0;
 
         // save original url parameters
-        $parameters['urlParameters'] = $parameters;
+        $parameters['urlParameters']        = $parameters;
 
         // set path variable to save in cookie, search param datatable component,
         // after creating urlParameters to don't send value, to URL create
