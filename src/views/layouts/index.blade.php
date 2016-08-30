@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="widget-content no-padding">
-                            <form id="formView" method="post" action="{{ route('deleteSelect' . ucfirst($routeSuffix), $urlParameters) }}">
+                            <form id="formView" method="post" action="{{ $viewParameters['deleteSelectButton'] && $viewParameters['deleteSelectButton'] == 'true' && is_allowed($resource, 'delete')? route('deleteSelect' . ucfirst($routeSuffix), $urlParameters) : null }}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <table class="table table-striped table-bordered table-hover table-checkable table-responsive datatable-pulsar">
