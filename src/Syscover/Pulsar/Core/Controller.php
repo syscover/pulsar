@@ -825,7 +825,7 @@ abstract class Controller extends BaseController {
 
     /**
      * @access	public
-     * @return	\Illuminate\Support\Facades\Redirect
+     * @return $this|array|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function updateRecord()
     {
@@ -895,12 +895,16 @@ abstract class Controller extends BaseController {
         // get parameters from url route
         $parameters = $this->request->route()->parameters();
 
-        $object = call_user_func($this->model . '::find', $parameters['id']);
+        if(isset($this->model))
+            $object = call_user_func($this->model . '::find', $parameters['id']);
+        else
+            $object = $parameters;
 
         $this->deleteCustomRecord($object);
 
-        // delete records after deleteCustomRecords, if we need do a select
-        call_user_func($this->model . '::destroy', $parameters['id']);
+        if(isset($this->model))
+            // delete records after deleteCustomRecords, if we need do a select
+            call_user_func($this->model . '::destroy', $parameters['id']);
 
         // delete id variable to don't send to route
         unset($parameters['id']);
