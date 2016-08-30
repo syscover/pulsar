@@ -769,11 +769,11 @@ abstract class Controller extends BaseController {
         // check if object has multiple language
         if(isset($parameters['lang']))
         {
-            if(method_exists($this->model, 'getTranslationRecord'))
+            if(isset($this->model) && method_exists($this->model, 'getTranslationRecord'))
             {
                 $parameters['object'] = call_user_func($this->model . '::getTranslationRecord', $parameters);
             }
-            else
+            elseif(isset($this->model))
             {
                 throw new InvalidArgumentException('The methods getTranslationRecord on ' . $this->model . ' is not definite');
             }
@@ -788,11 +788,10 @@ abstract class Controller extends BaseController {
         else
         {
             // check if is implements getRecord function in model, for objects with joins
-            if(method_exists($this->model, 'getRecord'))
+            if(isset($this->model) && method_exists($this->model, 'getRecord'))
                 $parameters['object']   = call_user_func($this->model . '::getRecord', $parameters);
-            else
-                // call builder, by default is instance on TraitModel or in model object
-                // this method is deprecated
+            elseif(isset($this->model))
+                // call builder, by default is instance on Syscover\Pulsar\Core\Model or in model object
                 $parameters['object']   = call_user_func($this->model . '::builder')->find($parameters['id']);
         }
 
