@@ -908,11 +908,15 @@ abstract class Controller extends BaseController {
         $parameters = $this->request->route()->parameters();
 
         if(isset($this->model))
+        {
             $object = call_user_func($this->model . '::find', $parameters['id']);
+            $this->deleteCustomRecord($object);
+        }
         else
-            $object = $parameters;
-
-        $this->deleteCustomRecord($object);
+        {
+            $id = $parameters['id'];
+            $this->deleteCustomRecord($parameters);
+        }
 
         if(isset($this->model))
             // delete records after deleteCustomRecords, if we need do a select
@@ -923,7 +927,7 @@ abstract class Controller extends BaseController {
 
         if(method_exists($this, 'deleteCustomRecordRedirect'))
         {
-            $response = $this->deleteCustomRecordRedirect($object, $parameters);
+            $response = $this->deleteCustomRecordRedirect(isset($object)? $object : $id, $parameters);
 
             // check that we have any  different to false
             if($response !== false)
@@ -932,7 +936,7 @@ abstract class Controller extends BaseController {
 
         return redirect()->route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,
-            'txtMsg'     => trans('pulsar::pulsar.message_delete_record_successful', ['name' => $object->{$this->nameM}])
+            'txtMsg'     => trans('pulsar::pulsar.message_delete_record_successful', ['name' => isset($object)? $object->{$this->nameM} : $id])
         ]);
     }
 
