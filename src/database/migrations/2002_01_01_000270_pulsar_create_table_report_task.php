@@ -21,6 +21,7 @@ class PulsarCreateTableReportTask extends Migration {
 				$table->integer('user_id_023')->unsigned();
 
                 $table->string('email_023');
+                $table->text('cc_023')->nullable(); // emails to send copy
                 $table->string('subject_023');
 
                 $table->string('filename_023');
@@ -33,11 +34,16 @@ class PulsarCreateTableReportTask extends Migration {
                 // 5 - quarterly
                 $table->tinyInteger('frequency_023')->unsigned();
 
-                // day of week or day of month to delivery report
+                // if frequency is one time, you can define data range
+                $table->integer('from_023')->unsigned()->nullable();    // this field will be replace by #FROM# in query
+                $table->integer('until_023')->unsigned()->nullable();   // this field will be replace by #UNTIL# in query
+
+                // if frequency is daily, weekly, monthly or quarterly, you can define day of week or day of month to delivery report
                 $table->tinyInteger('delivery_day_023')->unsigned()->nullable();
 
                 $table->integer('last_run_023')->unsigned()->nullable();
                 $table->integer('next_run_023')->unsigned()->nullable();
+
 				$table->text('parameters_023')->nullable();
                 $table->text('sql_023');
 

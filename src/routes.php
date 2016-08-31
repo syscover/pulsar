@@ -165,6 +165,7 @@ Route::group(['middleware' => ['web', 'pulsar']], function() {
     |--------------------------------------------------------------------------
     */
     Route::any(config('pulsar.appName') . '/pulsar/reports/{offset?}',                          ['as' => 'reportTask',              'uses' => 'Syscover\Pulsar\Controllers\ReportTaskController@index',                'resource' => 'admin-report',             'action' => 'access']);
+    Route::get(config('pulsar.appName') . '/pulsar/reports/{id}/run/{offset}',                  ['as' => 'runReportTask',           'uses' => 'Syscover\Pulsar\Controllers\ReportTaskController@run',                  'resource' => 'admin-report',             'action' => 'access']);
     Route::any(config('pulsar.appName') . '/pulsar/reports/json/data',                          ['as' => 'jsonDataReportTask',      'uses' => 'Syscover\Pulsar\Controllers\ReportTaskController@jsonData',             'resource' => 'admin-report',             'action' => 'access']);
     Route::get(config('pulsar.appName') . '/pulsar/reports/create/{offset}',                    ['as' => 'createReportTask',        'uses' => 'Syscover\Pulsar\Controllers\ReportTaskController@createRecord',         'resource' => 'admin-report',             'action' => 'create']);
     Route::post(config('pulsar.appName') . '/pulsar/reports/store/{offset}',                    ['as' => 'storeReportTask',         'uses' => 'Syscover\Pulsar\Controllers\ReportTaskController@storeRecord',          'resource' => 'admin-report',             'action' => 'create']);

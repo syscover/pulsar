@@ -2,9 +2,15 @@
 
 @section('head')
     @parent
+    <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/tokenfield/css/bootstrap-tokenfield.css') }}">
+    <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/tokenfield/css/tokenfield-typeahead.css') }}">
+    <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/datetimepicker/css/bootstrap-datetimepicker.min.css') }}">
 
     <script src="{{ asset('packages/syscover/pulsar/vendor/ace/src-noconflict/ace.js') }}"></script>
     <script src="{{ asset('packages/syscover/pulsar/vendor/ace/src-noconflict/ext-language_tools.js') }}"></script>
+    <script src="{{ asset('packages/syscover/pulsar/vendor/tokenfield/bootstrap-tokenfield.js') }}"></script>
+    <script src="{{ asset('packages/syscover/pulsar/vendor/datetimepicker/js/moment.min.js') }}"></script>
+    <script src="{{ asset('packages/syscover/pulsar/vendor/datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             var editor = ace.edit('aceEditor');
@@ -18,9 +24,67 @@
             });
 
             // save sql data to submit value
-            $('#recordForm').on('submit', function ($e) {
+            $('#recordForm').on('submit', function () {
                 $('[name=sql]').val(editor.getValue());
+                $("[name=jsonCcEmails]").val(JSON.stringify($('[name=ccEmails]').tokenfield('getTokens')));
             });
+
+            // tags element, on edit we load values across javascript
+            $('[name=ccEmails]').tokenfield({
+                autocomplete: {
+                    source: {!! json_encode($ccEmails) !!},
+                    delay: 100
+                },
+                showAutocompleteOnFocus: true
+            })@if(isset($ccEmails)).tokenfield('setTokens', {!! json_encode($ccEmails) !!});@else; @endif
+
+            // rutine to avoid introduce a repeat token
+            $('[name=ccEmails]').on('tokenfield:createtoken', function (event) {
+                var existingTokens  = $(this).tokenfield('getTokens');
+                var autocomplete    = $(this).tokenfield('getAutocomplete');
+
+                // search if there is a object with the same label
+                if(event.attrs.value === 'null')
+                {
+                    $.each(autocomplete.source, function (index, object) {
+                        if(object.label === event.attrs.label)
+                        {
+                            event.preventDefault();
+                            $('[name=ccEmails]').tokenfield('createToken', object);
+                        }
+                    });
+                }
+
+                $.each(existingTokens, function(index, token)
+                {
+                    if (event.attrs.value === 'null' && token.label === event.attrs.label)
+                    {
+                        event.preventDefault();
+                    }
+                    else if(event.attrs.value !== 'null' && token.value === event.attrs.value)
+                    {
+                        event.preventDefault();
+                    }
+                });
+            });
+
+            $('[name=frequency]').on('change', function() {
+
+                if($(this).val() == 1)
+                {
+                    $('#dates').slideToggle("slow");
+                }
+                else
+                {
+                    if($('#dates').is(':visible'))
+                        $('#dates').slideToggle("slow");
+                }
+            });
+
+            @if(! isset($object) && $object->frequency_023 != 1)
+                // hide elements
+                $('#dates').hide();
+            @endif
         });
     </script>
 @stop
@@ -37,10 +101,18 @@
     @include('pulsar::includes.html.form_text_group', [
         'label' => trans('pulsar::pulsar.email'),
         'name' => 'email',
-        'value' => old('email', isset($object)? $object->email_023 : null),
+        'value' => old('email', isset($object)? $object->email_023 : auth('pulsar')->user()->email_010),
         'maxLength' => '255',
         'rangeLength' => '2,255',
         'required' => true
+    ])
+    @include('pulsar::includes.html.form_text_group', [
+        'label' => trans('pulsar::pulsar.cc'),
+        'name' => 'ccEmails',
+        'placeholder' => trans('pulsar::pulsar.write_emails')
+    ])
+    @include('pulsar::includes.html.form_hidden', [
+        'name' => 'jsonCcEmails'
     ])
     @include('pulsar::includes.html.form_text_group', [
         'label' => trans('pulsar::pulsar.subject'),
@@ -88,6 +160,37 @@
         'nameSelect' => 'name',
         'fieldSize' => 3
     ])
+
+    <div id="dates" class="row">
+        <div class="col-md-6">
+            @include('pulsar::includes.html.form_datetimepicker_group', [
+                'labelSize' => 4,
+                'fieldSize' => 8,
+                'label' => trans('pulsar::pulsar.from'),
+                'name' => 'from',
+                'id' => 'idFrom',
+                'value' => old('from', isset($object->from_023)? date(config('pulsar.datePattern') . ' H:i', $object->from_023) : null),
+                'data' => [
+                    'format' => Miscellaneous::convertFormatDate(config('pulsar.datePattern')) . ' HH:mm',
+                    'locale' => config('app.locale')
+                ]
+            ])
+        </div>
+        <div class="col-md-6">
+            @include('pulsar::includes.html.form_datetimepicker_group', [
+                'labelSize' => 4,
+                'fieldSize' => 8,
+                'label' => trans('pulsar::pulsar.until'),
+                'name' => 'until',
+                'id' => 'idUntil',
+                'value' => old('until', isset($object->until_023)? date(config('pulsar.datePattern') . ' H:i', $object->until_023) : null),
+                'data' => [
+                    'format' => Miscellaneous::convertFormatDate(config('pulsar.datePattern')) . ' HH:mm',
+                    'locale' => config('app.locale')
+                ]
+            ])
+        </div>
+    </div>
     @include('pulsar::includes.html.form_ace_editor_group', [
         'fieldHeight' => 300,
         'label' => trans('pulsar::pulsar.sql'),

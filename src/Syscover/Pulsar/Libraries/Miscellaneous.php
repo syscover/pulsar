@@ -746,23 +746,23 @@ class Miscellaneous
 
                 if($currentMonth >= 1 && $currentMonth <= 3)
                 {
-                    $response['startDate']  = strtotime('1-January-'.$currentYear);  // timestamp or 1-Januray 12:00:00 AM
-                    $response['endDate']    = strtotime('1-April-'.$currentYear);  // timestamp or 1-April 12:00:00 AM means end of 31 March
+                    $response['startDate']  = strtotime('1-January-' . $currentYear);  // timestamp or 1-Januray 12:00:00 AM
+                    $response['endDate']    = strtotime('1-April-' . $currentYear);  // timestamp or 1-April 12:00:00 AM means end of 31 March
                 }
                 elseif($currentMonth >= 4 && $currentMonth <= 6)
                 {
-                    $response['startDate']  = strtotime('1-April-'.$currentYear);  // timestamp or 1-April 12:00:00 AM
-                    $response['endDate']    = strtotime('1-July-'.$currentYear);  // timestamp or 1-July 12:00:00 AM means end of 30 June
+                    $response['startDate']  = strtotime('1-April-' . $currentYear);  // timestamp or 1-April 12:00:00 AM
+                    $response['endDate']    = strtotime('1-July-' . $currentYear);  // timestamp or 1-July 12:00:00 AM means end of 30 June
                 }
                 elseif($currentMonth >= 7 && $currentMonth <= 9)
                 {
-                    $response['startDate']  = strtotime('1-July-'.$currentYear);  // timestamp or 1-July 12:00:00 AM
-                    $response['endDate']    = strtotime('1-October-'.$currentYear);  // timestamp or 1-October 12:00:00 AM means end of 30 September
+                    $response['startDate']  = strtotime('1-July-' . $currentYear);  // timestamp or 1-July 12:00:00 AM
+                    $response['endDate']    = strtotime('1-October-' . $currentYear);  // timestamp or 1-October 12:00:00 AM means end of 30 September
                 }
                 elseif($currentMonth >= 10 && $currentMonth <= 12)
                 {
-                    $response['startDate']  = strtotime('1-October-'.$currentYear);  // timestamp or 1-October 12:00:00 AM
-                    $response['endDate']    = strtotime('1-January-'.($currentYear+1));  // timestamp or 1-January Next year 12:00:00 AM means end of 31 December this year
+                    $response['startDate']  = strtotime('1-October-' . $currentYear);  // timestamp or 1-October 12:00:00 AM
+                    $response['endDate']    = strtotime('1-January-' . ($currentYear + 1));  // timestamp or 1-January Next year 12:00:00 AM means end of 31 December this year
                 }
                 break;
 
@@ -772,23 +772,23 @@ class Miscellaneous
 
                 if($currentMonth >= 1 && $currentMonth <= 3)
                 {
-                    $response['startDate']  = strtotime('1-October-'.($currentYear-1));  // timestamp or 1-October Last Year 12:00:00 AM
-                    $response['endDate']    = strtotime('1-January-'.$currentYear);  // // timestamp or 1-January  12:00:00 AM means end of 31 December Last year
+                    $response['startDate']  = strtotime('1-October-' . ($currentYear - 1));  // timestamp or 1-October Last Year 12:00:00 AM
+                    $response['endDate']    = strtotime('1-January-' . $currentYear);  // // timestamp or 1-January  12:00:00 AM means end of 31 December Last year
                 }
                 elseif($currentMonth >= 4 && $currentMonth <= 6)
                 {
-                    $response['startDate']  = strtotime('1-January-'.$currentYear);  // timestamp or 1-Januray 12:00:00 AM
-                    $response['endDate']    = strtotime('1-April-'.$currentYear);  // timestamp or 1-April 12:00:00 AM means end of 31 March
+                    $response['startDate']  = strtotime('1-January-' . $currentYear);  // timestamp or 1-Januray 12:00:00 AM
+                    $response['endDate']    = strtotime('1-April-' . $currentYear);  // timestamp or 1-April 12:00:00 AM means end of 31 March
                 }
                 elseif($currentMonth >= 7 && $currentMonth <= 9)
                 {
-                    $response['startDate']  = strtotime('1-April-'.$currentYear);  // timestamp or 1-April 12:00:00 AM
-                    $response['endDate']    = strtotime('1-July-'.$currentYear);  // timestamp or 1-July 12:00:00 AM means end of 30 June
+                    $response['startDate']  = strtotime('1-April-' . $currentYear);  // timestamp or 1-April 12:00:00 AM
+                    $response['endDate']    = strtotime('1-July-' . $currentYear);  // timestamp or 1-July 12:00:00 AM means end of 30 June
                 }
                 elseif($currentMonth >= 10 && $currentMonth <= 12)
                 {
-                    $response['startDate']  = strtotime('1-July-'.$currentYear);  // timestamp or 1-July 12:00:00 AM
-                    $response['endDate']    = strtotime('1-October-'.$currentYear);  // timestamp or 1-October 12:00:00 AM means end of 30 September
+                    $response['startDate']  = strtotime('1-July-' . $currentYear);  // timestamp or 1-July 12:00:00 AM
+                    $response['endDate']    = strtotime('1-October-' . $currentYear);  // timestamp or 1-October 12:00:00 AM means end of 30 September
                 }
                 break;
         }

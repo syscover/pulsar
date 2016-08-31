@@ -53,6 +53,7 @@ return [
     'bearer'                                => 'Portador|Portadores',
     'budget'                                => 'Presupuesto|Presupuestos',
     'cancel'                                => 'Cancelar',
+    'cc'                                    => 'CC',
     'change_password_message'               => 'Ha realizado una petición de cambio de contraseña..<br><br>Pulse aquí para cambiar su contraseña: <a href=":token">Pinche aquí</a>',
     'change_password_successful'            => 'Estupendo, le hemos enviado un email',
     'comment'                               => 'Comentario|Commentarios',
@@ -213,6 +214,7 @@ return [
     'transport'                             => 'Transporte|Transportes',
     'treatment'                             => 'Tratamiento|Tramientos',
     'type_something'                        => 'Escribe algo',
+    'until'                                 => 'Hasta',
     'user'                                  => 'Usuario|Usuarios',
     'value'                                 => 'Valor|Valores',
     'view_record'                           => 'Ver registro',
@@ -222,6 +224,7 @@ return [
     'widower'                               => 'Viudo/a',
     'wildcard'                              => 'Comodín|Comodines',
     'work'                                  => 'Trabajo|Trabajos',
+    'write_emails'                          => 'Escribe los emails para enviar una copia',
     'yes'                                   => 'Si',
 
 

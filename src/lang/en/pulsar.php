@@ -53,6 +53,7 @@ return [
     'bearer'                                => 'Bearer|Bearers',
     'budget'                                => 'Budget|Budgets',
     'cancel'                                => 'Cancel',
+    'cc'                                    => 'CC',
     'change_password_message'               => 'He has made a request for password change.<br><br>Click here to reset your password: <a href=":token">Click here</a>',
     'change_password_successful'            => 'Great, We\'ve sent an email',
     'comment'                               => 'Comment|Comments',
@@ -213,6 +214,7 @@ return [
     'transport'                             => 'Transport|Transports',
     'treatment'                             => 'Treatment|Treatment',
     'type_something'                        => 'Type something',
+    'until'                                 => 'Until',
     'user'                                  => 'User|Users',
     'value'                                 => 'Value|Values',
     'web_url'                               => 'Web URL',
@@ -222,6 +224,7 @@ return [
     'widower'                               => 'Widower',
     'wildcard'                              => 'Wildcard|Wildcards',
     'work'                                  => 'Work|Works',
+    'write_emails'                          => 'Write emails to delivery a copy',
     'yes'                                   => 'Yes',
 
 

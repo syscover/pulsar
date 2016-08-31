@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
  * Class ReportTask
  *
  * Model with properties
- * <br><b>[id, date, user_id, email, subject, extension_file, filename, frequency, delivery_day, last_run, next_run, parameters, sql]</b>
+ * <br><b>[id, date, user_id, email, cc, subject, filename, extension_file, frequency, from, until_023, delivery_day, last_run, next_run, parameters, sql]</b>
  *
  * @package     Syscover\Pulsar\Models
  */
@@ -22,7 +22,7 @@ class ReportTask extends Model
     protected $primaryKey   = 'id_023';
     protected $suffix       = '023';
     public $timestamps      = false;
-    protected $fillable     = ['id_023', 'date_023', 'user_id_023', 'email_023', 'subject_023', 'extension_file_023', 'filename_023', 'frequency_023', 'delivery_day_023', 'last_run_023', 'next_run_023', 'parameters_023', 'sql_023'];
+    protected $fillable     = ['id_023', 'date_023', 'user_id_023', 'email_023', 'cc_023', 'subject_023', 'filename_023', 'extension_file_023', 'frequency_023', 'from_023', 'until_023', 'delivery_day_023', 'last_run_023', 'next_run_023', 'parameters_023', 'sql_023'];
     protected $maps         = [
         'user'   => \Syscover\Pulsar\Models\User::class
     ];
