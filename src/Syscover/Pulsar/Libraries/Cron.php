@@ -11,6 +11,9 @@ use Syscover\Pulsar\Models\User;
 class Cron
 {
 
+    /**
+     * Function to manage queue from advanced search
+     */
     public static function checkAdvancedSearchExports()
     {
         // get advanced search without create yet
@@ -155,6 +158,11 @@ class Cron
         }
     }
 
+    /**
+     * Function to manage reports task to delivery
+     *
+     * @return null
+     */
     public static function checkReportTaskDelivery()
     {
         // get report tasks

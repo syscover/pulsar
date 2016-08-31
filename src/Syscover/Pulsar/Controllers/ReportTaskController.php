@@ -64,8 +64,11 @@ class ReportTaskController extends Controller
     {
         ReportTask::where('id_023', $parameters['id'])->update([
             'email_023'             => $this->request->input('email'),
+            'subject_023'           => $this->request->input('subject'),
+            'filename_023'          => $this->request->input('filename'),
             'extension_file_023'    => $this->request->input('extensionFile'),
             'frequency_023'         => $this->request->input('frequency'),
+            'delivery_day_023'      => $this->request->has('delivery_day')? $this->request->input('delivery_day') : null,
             'sql_023'               => $this->request->input('sql')
         ]);
     }

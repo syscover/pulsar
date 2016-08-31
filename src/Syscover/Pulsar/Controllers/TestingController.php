@@ -1,9 +1,11 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Syscover\Pulsar\Core\Controller;
 
 // uses to testing
 use Maatwebsite\Excel\Facades\Excel;
+use Syscover\Pulsar\Models\ReportTask;
 
 
 /**
@@ -15,48 +17,28 @@ class TestingController extends Controller
 {
     public function testing()
     {
-        $this->request;
 
-        //dd('ok');
-        $objects = [];
+        $reportTasks = ReportTask::builder()
+            ->get();
 
-        Excel::load(storage_path('exports') . '/test-vouchers.xls', function($excel)  use ($objects) {
+        foreach ($reportTasks as $reportTask)
+        {
+            // Execute query from report task
+            $response = DB::select(DB::raw($reportTask->sql_023));
 
-            //dd($excel->limit(false,1));
+            // if has results from query
+            if(count($response) === 0)
+                dd('no hay resultados');
 
-            $sheet          = $excel->sheet('Data');            // get sheet by name
-            $highestRow     = $sheet->getHighestRow();          // get highest row
-            $highestColumn  = $sheet->getHighestColumn();       // get highest column
+            // format response to manage with collections
+            $response = collect(array_map(function($item) {
+                return $item;
+            }, $response));
 
-            $row            = $sheet->rangeToArray('A' . $highestRow . ':' . $highestColumn . $highestRow, null, true, false);
-
-            dd($row);
-
-            //$sheet->removeRow($highestRow);
+            dd($response);
+        }
 
 
-            //dd($row);
-            // get las row
-//            $excel->sheet('Data', function ($sheet) {
-//
-//
-//                dd($sheet->row($sheet->getHighestRow())->getView());
-//
-//            });
-
-            // if has operations column, read las row (operations row), and delete
-//                if($this->request->has('operationColumns'))
-//                {
-//                    $excel->limit($skip, $take);
-//                }
-
-            // Set rows in spreadsheet
-//            $excel->sheet('Data', function ($sheet) use ($objects) {
-//                $sheet->fromArray($objects->toArray(), null, 'A' . ($sheet->getHighestRow() + 1), false, false);
-//            });
-
-        }, null, true);
-        //->store('xls')
 
     }
 }
