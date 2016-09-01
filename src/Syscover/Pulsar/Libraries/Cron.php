@@ -177,29 +177,36 @@ class Cron
     }
 
     /**
+     * Function to return data from query, return false if has not any result
+     *
      * @param   ReportTask  $reportTask
      * @param   string      $action
-     * @param   array       $parameters
-     * @return  null
+     * @return  boolean
      */
-    public static function executeReportTask(ReportTask $reportTask, $action = 'store', $parameters = [])
+    public static function executeReportTask(ReportTask $reportTask, $action = 'store')
     {
+        $parameters = [];
+        if($reportTask->frequency_023 == 1) // one time
+        {
+            $parameters['from']    = $reportTask->from_023;
+            $parameters['until']   = $reportTask->until_023;
+        }
+
         // get data about frequency
-        $frequency                  = self::getFrequencyData($reportTask->frequency_023);
+        $frequency                  = self::getFrequencyData($reportTask->frequency_023, $parameters);
 
         // replace wildcards
-        if(isset($from))
-            $reportTask->sql_023   = str_replace("#FROM#", $reportTask->sql_023, $frequency['from']);
-        if(isset($until))
-            $reportTask->sql_023   = str_replace("#UNTIL#", $reportTask->sql_023, $frequency['until']);
-
+        if(isset($frequency['from']))
+            $reportTask->sql_023    = str_replace("#FROM#", $frequency['from'], $reportTask->sql_023);
+        if(isset($frequency['until']))
+            $reportTask->sql_023    = str_replace("#UNTIL#", $frequency['until'], $reportTask->sql_023);
 
         // Execute query from report task
         $response = DB::select(DB::raw($reportTask->sql_023));
 
         // if has results from query
         if(count($response) === 0)
-            return null;
+            return false;
 
         // format response to manage with collections
         $response = collect(array_map(function($item) {
@@ -276,15 +283,16 @@ class Cron
         $reportTask->last_run_023 = $frequency['lastRun'];
         $reportTask->next_run_023 = $frequency['nextRun'];
         $reportTask->save();
+
+        return true;
     }
 
     /**
      * @param   integer   $frequency
-     * @param   string    $from
-     * @param   string    $until
+     * @param   $parameters
      * @return  array
      */
-    public static function getFrequencyData($frequency, $from = null, $until = null)
+    public static function getFrequencyData($frequency, $parameters)
     {
         $response['lastRun'] = date('U');
         $response['nextRun'] = null;
@@ -294,7 +302,7 @@ class Cron
         {
             case 1: // one time, set dates values from fields
                 $response['from']       = isset($parameters['from'])? $parameters['from'] : null;
-                $response['until']      = isset($parameters['until'])? $parameters['from'] : null;
+                $response['until']      = isset($parameters['until'])? $parameters['until'] : null;
                 break;
 
             case 2: // daily, get values of last day

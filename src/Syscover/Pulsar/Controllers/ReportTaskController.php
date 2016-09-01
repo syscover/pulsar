@@ -29,12 +29,24 @@ class ReportTaskController extends Controller
     {
         $reportTask = ReportTask::builder()->find($id);
 
-        Cron::executeReportTask($reportTask, 'download');
+        // run task
+        $response = Cron::executeReportTask($reportTask, 'download');
 
-        return redirect()->route($this->routeSuffix, $offset)->with([
-            'msg'        => 1,
-            'txtMsg'     => trans('pulsar::pulsar.action_successful', ['name' => $reportTask->subject_023])
-        ]);
+
+        if(! $response)
+        {
+            return redirect()->route($this->routeSuffix, $offset)->with([
+                'msg'        => 2,
+                'txtMsg'     => trans('pulsar::pulsar.message_error_has_not_results', ['name' => $reportTask->subject_023])
+            ]);
+        }
+        else
+        {
+            return redirect()->route($this->routeSuffix, $offset)->with([
+                'msg'        => 1,
+                'txtMsg'     => trans('pulsar::pulsar.action_successful', ['name' => $reportTask->subject_023])
+            ]);
+        }
     }
 
     public function createCustomRecord($parameters)

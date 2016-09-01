@@ -139,6 +139,7 @@ return [
     'message_delete_records'                => 'Do you want to delete the selected records?',
     'message_delete_records_successful'     => 'Selected records have been deleted successfully',
     'message_delete_translation_record'     => 'Do you want to delete the translation record with <strong>ID :id </strong>?',
+    'message_error_has_not_results'         => 'No results to :name',
     'message_error_login'                   => 'Access denied',
     'message_error_login_msg_1'             => 'The username or password do not match a valid user',
     'message_error_login_msg_2'             => 'The specified user doesn\'t have permissions to application access, please contact with the administrator',
