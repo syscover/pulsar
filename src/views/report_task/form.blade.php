@@ -81,7 +81,7 @@
                 }
             });
 
-            @if(! isset($object) && $object->frequency_023 != 1)
+            @if(! isset($object) || (isset($object) && $object->frequency_023 != 1))
                 // hide elements
                 $('#dates').hide();
             @endif
