@@ -20,11 +20,9 @@ class Cron extends Command {
 	 */
 	protected $description = 'Comand to run cron.';
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
+    /**
+     * Cron constructor.
+     */
 	public function __construct()
 	{
 		parent::__construct();
@@ -43,9 +41,8 @@ class Cron extends Command {
             exit;
         }
 
-        $now = date('U');
-
-        $cronJobs = CronJob::getCronJobsToRun($now);
+        $now        = date('U');
+        $cronJobs   = CronJob::getCronJobsToRun($now);
 
         foreach($cronJobs as $cronJob)
         {

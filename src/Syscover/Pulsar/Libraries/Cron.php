@@ -206,8 +206,10 @@ class Cron
             return collect($item);
         }, $response));
 
+        $filename = $reportTask->filename_023 . '-' . uniqid();
+
         // create spreadsheet to export data
-        $excel = Excel::create($reportTask->filename_023 . '-' . uniqid(), function($excel) use ($response) {
+        $excel = Excel::create($filename, function($excel) use ($response) {
 
             // set the title
             $excel->setTitle('Report')
@@ -235,8 +237,6 @@ class Cron
         {
             $excel->store($reportTask->extension_file_023);
 
-
-
             // transform json to array and get ccEmails object
             $ccEmailsJson   = json_decode($reportTask->cc_023);
             $ccEmails       = [];
@@ -254,10 +254,11 @@ class Cron
                 'cc'                => $ccEmails,
                 'subject'           => $reportTask->subject_023,
                 'token'             => Crypt::encrypt($reportTask->id_023),
+                'filename'          => Crypt::encrypt($filename),
                 'reportTask'        => $reportTask
             ];
 
-            Mail::send('pulsar::emails.advanced_search_exports_notification', $dataMessage, function($m) use ($dataMessage) {
+            Mail::send('pulsar::emails.report_task_notification', $dataMessage, function($m) use ($dataMessage) {
                 $m->to($dataMessage['emailTo'])
                     ->subject($dataMessage['subject']);
 

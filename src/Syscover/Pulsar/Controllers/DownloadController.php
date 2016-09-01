@@ -32,10 +32,11 @@ class DownloadController extends BaseController
         $parameters = $request->route()->parameters();
 
         $reportTask = ReportTask::builder()->find(Crypt::decrypt($parameters['token']));
+        $filename   = Crypt::decrypt($parameters['filename']);
 
         if($reportTask === null)
             abort(404);
 
-        return response()->download(storage_path('exports') . '/' . $reportTask->filename_023 . '.' . $reportTask->extension_file_023);
+        return response()->download(storage_path('exports') . '/' . $filename . '.' . $reportTask->extension_file_023);
     }
 }

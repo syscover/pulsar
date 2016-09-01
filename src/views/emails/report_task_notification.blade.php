@@ -14,7 +14,7 @@
     <tr>
         <td colspan="2" class="content_body" style='background:#ffffff;text-align:left;vertical-align:top;font-size:15px;line-height:19px;border-collapse:collapse;color:#000000;border-spacing:0;font-family:"Helvetica Neue",helvetica,arial,sans-serif;padding:0 0 0 55px'>
             <div class="formatted_content" style="padding-bottom:19px;padding:0 !important;border:none !important;margin:0 0 5px !important;max-width:none !important">
-                {!! trans('pulsar::pulsar.message_advanced_search_exports_02', ['url' => route('downloadReportTask', ['token' => $token])]) !!}
+                {!! trans('pulsar::pulsar.message_advanced_search_exports_02', ['url' => route('downloadReportTask', ['filename' => $filename, 'token' => $token])]) !!}
             </div>
             <br>
         </td>

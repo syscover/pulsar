@@ -52,7 +52,7 @@ class ReportTaskController extends Controller
     public function storeCustomRecord($parameters)
     {
         // get data about frequency
-        $frequency                  = self::getFrequencyData((int)$this->request->input('frequency'));
+        $frequency                  = Cron::getFrequencyData((int)$this->request->input('frequency'));
 
         ReportTask::create([
             'date_023'              => date('U'),
@@ -100,6 +100,9 @@ class ReportTaskController extends Controller
 
     public function updateCustomRecord($parameters)
     {
+        // get data about frequency
+        $frequency                  = Cron::getFrequencyData((int)$this->request->input('frequency'));
+
         ReportTask::where('id_023', $parameters['id'])->update([
             'email_023'             => $this->request->input('email'),
             'cc_023'                => $this->request->input('jsonCcEmails'),
@@ -110,7 +113,7 @@ class ReportTaskController extends Controller
             'from_023'              => $this->request->has('from')? \DateTime::createFromFormat(config('pulsar.datePattern') . ' H:i', $this->request->input('from'))->getTimestamp() : null,
             'until_023'             => $this->request->has('until')? \DateTime::createFromFormat(config('pulsar.datePattern') . ' H:i', $this->request->input('until'))->getTimestamp() : null,
             'delivery_day_023'      => $this->request->has('delivery_day')? $this->request->input('delivery_day') : null,
-            'next_run_023'          => null,
+            'next_run_023'          => $frequency['nextRun'],
             'parameters_023'        => null,
             'sql_023'               => $this->request->input('sql')
         ]);
