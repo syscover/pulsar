@@ -146,6 +146,8 @@ return [
     'message_error_reset_password'          => 'Enter your email and new password',
     'message_pass'                          => 'Enter your password',
     'message_record_no_select'              => 'No record selected to perform this action',
+    'message_report_task_01'                => 'File :file with report with subject: :subject is ready.',
+    'message_report_task_02'                => 'Click <a href=":url"><strong>here</strong></a> to start download.',
     'message_set_all_permissions'           => 'Do you want set all permissions for the selected profile?',
     'message_update_record'                 => 'Registration <strong>:name</strong> has been updated successfully',
     'message_user'                          => 'Enter your username',

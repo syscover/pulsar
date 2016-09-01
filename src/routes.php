@@ -37,7 +37,7 @@ Route::group(['middleware' => ['web']], function() {
     | DOWNLOAD ADVANCED SEARCH
     |--------------------------------------------------------------------------
     */
-    Route::get(config('pulsar.appName') . '/pulsar/download/advanced/search/{token}',   ['as' => 'downloadAdvancedSearch',      'uses' => 'Syscover\Pulsar\Controllers\DownloadController@downloadAdvancedSearch']);
+    Route::get(config('pulsar.appName') . '/pulsar/advanced/search/download/{token}',   ['as' => 'downloadAdvancedSearch',      'uses' => 'Syscover\Pulsar\Controllers\DownloadController@downloadAdvancedSearch']);
 
     /*
     |--------------------------------------------------------------------------
@@ -173,7 +173,7 @@ Route::group(['middleware' => ['web', 'pulsar']], function() {
     Route::put(config('pulsar.appName') . '/pulsar/reports/update/{id}/{offset}',               ['as' => 'updateReportTask',        'uses' => 'Syscover\Pulsar\Controllers\ReportTaskController@updateRecord',         'resource' => 'admin-report',             'action' => 'edit']);
     Route::get(config('pulsar.appName') . '/pulsar/reports/delete/{id}/{offset}',               ['as' => 'deleteReportTask',        'uses' => 'Syscover\Pulsar\Controllers\ReportTaskController@deleteRecord',         'resource' => 'admin-report',             'action' => 'delete']);
     Route::delete(config('pulsar.appName') . '/pulsar/reports/delete/select/records',           ['as' => 'deleteSelectReportTask',  'uses' => 'Syscover\Pulsar\Controllers\ReportTaskController@deleteRecordsSelect',  'resource' => 'admin-report',             'action' => 'delete']);
-
+    Route::get(config('pulsar.appName') . '/pulsar/reports/download/{token}',                   ['as' => 'downloadReportTask',      'uses' => 'Syscover\Pulsar\Controllers\DownloadController@downloadAReportTask']);
 
     /*
     |--------------------------------------------------------------------------

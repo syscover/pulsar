@@ -304,11 +304,11 @@ abstract class Controller extends BaseController {
             $this->routeSuffix = $this->request->input('routeSuffix');
         
         // table paginated
-        $parameters =  Miscellaneous::dataTablePaginate($this->request, $parameters);
+        $parameters = Miscellaneous::dataTablePaginate($this->request, $parameters);
         // table sorting
-        $parameters =  Miscellaneous::dataTableSorting($this->request, $parameters, $this->indexColumns);
+        $parameters = Miscellaneous::dataTableSorting($this->request, $parameters, $this->indexColumns);
         // quick search data table
-        $parameters =  Miscellaneous::dataTableFiltering($this->request, $parameters);
+        $parameters = Miscellaneous::dataTableFiltering($this->request, $parameters);
         // set advanced search
         $parameters = Miscellaneous::dataTableColumnFiltering($this->request, $parameters);
 

@@ -146,6 +146,8 @@ return [
     'message_error_reset_password'          => 'Indique su email y nueva contraseña',
     'message_pass'                          => 'Indique su contraseña',
     'message_record_no_select'              => 'No hay ningún registro seleccionado para realizar esta acción',
+    'message_report_task_01'                => 'El fichero :file con el informe con asunto: :subject está listo.',
+    'message_report_task_02'                => 'Pincha <a href=":url"><strong>aquí</strong></a> para comenzar la descarga.',
     'message_set_all_permissions'           => '¿Desea establecer todos los permisos para el perfil seleccionado?',
     'message_update_record'                 => 'El registro <strong>:name</strong> ha sido actualizado correctamente',
     'message_user'                          => 'Indique su usuario',

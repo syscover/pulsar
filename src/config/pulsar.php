@@ -130,5 +130,18 @@ return [
         (object)['id' => 'csv',      'name' => '.csv'],
         (object)['id' => 'xls',      'name' => '.xls'],
         (object)['id' => 'xlsx',     'name' => '.xlsx'],
+    ],
+
+    //******************************************************************************************************************
+    //***   Weekdays
+    //******************************************************************************************************************
+    'weekdays'   => [
+        (object)['id' => 1,     'name' => 'pulsar::pulsar.monday'],
+        (object)['id' => 2,     'name' => 'pulsar::pulsar.tuesday'],
+        (object)['id' => 3,     'name' => 'pulsar::pulsar.wednesday'],
+        (object)['id' => 4,     'name' => 'pulsar::pulsar.thursday'],
+        (object)['id' => 5,     'name' => 'pulsar::pulsar.friday'],
+        (object)['id' => 6,     'name' => 'pulsar::pulsar.saturday'],
+        (object)['id' => 7,     'name' => 'pulsar::pulsar.sunday'],
     ]
 ];

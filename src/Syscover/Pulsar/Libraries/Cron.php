@@ -235,19 +235,36 @@ class Cron
         {
             $excel->store($reportTask->extension_file_023);
 
-//            // send email to user
-//            $dataMessage = [
-//                'emailTo'           => $user->email_010,
-//                'nameTo'            => $user->name_010 . ' ' . $user->surname_010,
-//                'subject'           => trans('pulsar::pulsar.message_advanced_search_exports'),
-//                'token'             => Crypt::encrypt($advancedSearch->id_022),
-//                'advancedSearch'    => $advancedSearch
-//            ];
-//
-//            Mail::send('pulsar::emails.advanced_search_exports_notification', $dataMessage, function($m) use ($dataMessage) {
-//                $m->to($dataMessage['emailTo'], $dataMessage['nameTo'])
-//                    ->subject($dataMessage['subject']);
-//            });
+
+
+            // transform json to array and get ccEmails object
+            $ccEmailsJson   = json_decode($reportTask->cc_023);
+            $ccEmails       = [];
+            if(is_array($ccEmailsJson) && count($ccEmailsJson) > 0)
+            {
+                foreach($ccEmailsJson as $ccEmail)
+                {
+                    $ccEmails[] = $ccEmail->label;
+                }
+            }
+
+            // delivery reports
+            $dataMessage = [
+                'emailTo'           => $reportTask->email_023,
+                'cc'                => $ccEmails,
+                'subject'           => $reportTask->subject_023,
+                'token'             => Crypt::encrypt($reportTask->id_023),
+                'reportTask'        => $reportTask
+            ];
+
+            Mail::send('pulsar::emails.advanced_search_exports_notification', $dataMessage, function($m) use ($dataMessage) {
+                $m->to($dataMessage['emailTo'])
+                    ->subject($dataMessage['subject']);
+
+                // send copy to alternative emails
+                foreach ($dataMessage['cc'] as $cc)
+                    $m->cc($cc);
+            });
         }
         else
         {
