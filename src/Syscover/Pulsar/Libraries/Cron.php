@@ -292,7 +292,7 @@ class Cron
      * @param   $parameters
      * @return  array
      */
-    public static function getFrequencyData($frequency, $parameters)
+    public static function getFrequencyData($frequency, $parameters = [])
     {
         $response['lastRun'] = date('U');
         $response['nextRun'] = null;
