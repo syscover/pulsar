@@ -41,6 +41,21 @@ class Cron
             // get data from model
             $objects = call_user_func($advancedSearch->model_022 . '::getIndexRecords', null, $parameters);
 
+            // *************************************************************
+            // transform string data to number data, to operate with excel
+            // *************************************************************
+            $objects->transform(function ($item, $key) {
+                $attributes = $item->getAttributes();
+                foreach ($attributes as $key => $value)
+                {
+                    if(is_numeric($value) && strpos($value, '.') === false)
+                        $item->{$key} = (int) $value;
+                    elseif(is_numeric($value) && strpos($value, '.') !== false)
+                        $item->{$key} = (float) $value;
+                }
+                return $item;
+            });
+
             // get de first object, to konow properties from model, table name, columns, etc.
             $object = $objects->first();
 
@@ -202,21 +217,52 @@ class Cron
             $reportTask->sql_023    = str_replace("#UNTIL#", $frequency['until'], $reportTask->sql_023);
 
         // Execute query from report task
-        $response = DB::select(DB::raw($reportTask->sql_023));
+        $objects = DB::select(DB::raw($reportTask->sql_023));
 
         // if has results from query
-        if(count($response) === 0)
+        if(count($objects) == 0)
             return false;
 
+        // *************************************************************
+        // transform string data to number data, to operate with excel
+        // *************************************************************
+        foreach ($objects as &$object)
+        {
+            $fields = get_object_vars($object);
+            foreach ($fields as $key => $value)
+            {
+                if(is_numeric($value) && strpos($value, '.') === false)
+                {
+                    $object->{$key} = (int) $value;
+                }
+                elseif(is_numeric($value) && strpos($value, '.') !== false)
+                {
+                    $object->{$key} = (float) $value;
+                }
+            }
+        }
+
         // format response to manage with collections
-        $response = collect(array_map(function($item) {
+        $objects = collect(array_map(function($item) {
             return collect($item);
-        }, $response));
+        }, $objects));
+
+        // ***************************
+        // get sum columns from numerics fields
+        // ***************************
+        $object         = $objects->first();
+        $operationsRow  = [];
+        $object->map(function ($item, $key) use (&$operationsRow, $objects) {
+            if(is_numeric($item))
+                $operationsRow[$key] = $objects->sum($key);
+            else
+                $operationsRow[$key] = null;
+        });
 
         $filename = $reportTask->filename_023 . '-' . uniqid();
 
         // create spreadsheet to export data
-        $excel = Excel::create($filename, function($excel) use ($response) {
+        $excel = Excel::create($filename, function($excel) use ($objects, $operationsRow) {
 
             // set the title
             $excel->setTitle('Report')
@@ -224,18 +270,28 @@ class Cron
                 ->setCompany('SYSCOVER');
 
             // set sheet
-            $excel->sheet('Data', function ($sheet) use ($response) {
+            $excel->sheet('Data', function ($sheet) use ($objects, $operationsRow) {
 
                 // get keys from first element
-                $headers = $response->first()->keys()->toArray();
+                $headers = $objects->first()->keys()->toArray();
 
                 // set data and headers
                 $sheet->prependRow($headers);
-                $sheet->fromArray($response->toArray(), null, 'A2', false, false);
+                $sheet->fromArray($objects->toArray(), null, 'A2', true, false);
                 $sheet->cells('A1:' . $sheet->row(0)->getHighestDataColumn() . '1', function ($cells) {
                     $cells->setBackground('#CCCCCC');
                     $cells->setFontWeight('bold');
                 });
+
+                // append row with sum numeric columns
+                if(count($operationsRow) > 0)
+                {
+                    $sheet->appendRow($operationsRow);
+                    $sheet->cells('A' . $sheet->row(0)->getHighestRow() . ':' . $sheet->row(0)->getHighestDataColumn() . $sheet->row(0)->getHighestRow(), function ($cells) {
+                        $cells->setBackground('#F8F8F8');
+                        $cells->setFontWeight('bold');
+                    });
+                }
             });
         });
 

@@ -115,6 +115,21 @@ abstract class Controller extends BaseController {
         // get data from model
         $objects = call_user_func($this->model . '::getIndexRecords', $this->request, $parameters);
 
+        // *************************************************************
+        // transform string data to number data, to operate with excel
+        // *************************************************************
+        $objects->transform(function ($item, $key) {
+            $attributes = $item->getAttributes();
+            foreach ($attributes as $key => $value)
+            {
+                if(is_numeric($value) && strpos($value, '.') === false)
+                    $item->{$key} = (int) $value;
+                elseif(is_numeric($value) && strpos($value, '.') !== false)
+                    $item->{$key} = (float) $value;
+            }
+            return $item;
+        });
+
         // get de first object, to konow properties from model, table name, columns, etc.
         $object = $objects->first();
 
@@ -157,7 +172,7 @@ abstract class Controller extends BaseController {
                     $operationColumns                   = collect($parameters['operationColumns']);
 
                     // create empty operations row to be filled after
-                    $operationsRow                       = array_fill(0, count($headers) -1, '');
+                    $operationsRow                      = array_fill(0, count($headers) -1, '');
 
                     // set operations columns row
                     foreach ($headers as $key => &$columnName)
