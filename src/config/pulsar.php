@@ -2,8 +2,8 @@
 
 return [
     // app name and url access to application
-    'appName'                   => 'pulsar',
-	
+    'name'                      => 'pulsar',
+
     // html error delimiter
     'errorDelimiters'           =>  '<label class="has-error help-block" for="req1" generated="true">:message</label>',
 
