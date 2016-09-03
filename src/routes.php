@@ -16,12 +16,12 @@ Route::group(['middleware' => ['web']], function() {
 
     /*
     |--------------------------------------------------------------------------
-    | LOGIN AND LOGOUT
+    | AUTHENTICATION
     |--------------------------------------------------------------------------
     */
-    Route::get(config('pulsar.name') . '/pulsar/login',                              ['as' => 'pulsarGetLogin',              'uses' => 'Syscover\Pulsar\Controllers\Auth\AuthController@getLogin']);
-    Route::post(config('pulsar.name') . '/pulsar/login',                             ['as' => 'pulsarPostLogin',             'uses' => 'Syscover\Pulsar\Controllers\Auth\AuthController@authenticate']);
-    Route::get(config('pulsar.name') . '/pulsar/logout',                             ['as' => 'pulsarLogout',                'uses' => 'Syscover\Pulsar\Controllers\Auth\AuthController@getLogout']);
+    Route::get(config('pulsar.name') . '/pulsar/login',                              ['as' => 'pulsarGetLogin',              'uses' => 'Syscover\Pulsar\Controllers\Auth\LoginController@getLogin']);
+    Route::post(config('pulsar.name') . '/pulsar/login',                             ['as' => 'pulsarPostLogin',             'uses' => 'Syscover\Pulsar\Controllers\Auth\LoginController@postLogin']);
+    Route::get(config('pulsar.name') . '/pulsar/logout',                             ['as' => 'pulsarLogout',                'uses' => 'Syscover\Pulsar\Controllers\Auth\LoginController@getLogout']);
 
     /*
     |--------------------------------------------------------------------------

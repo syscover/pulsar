@@ -7,7 +7,7 @@ use Syscover\Pulsar\Libraries\AclLibrary;
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Models\Lang;
 
-class AuthController extends Controller
+class LoginController extends Controller
 {
 
 	/*
@@ -37,14 +37,6 @@ class AuthController extends Controller
      */
     protected $loginPath;
 
-    /**
-     * Here you can customize your guard, this guar has to set in auth.php config
-     *
-     * @var string
-     */
-    protected $guard;
-
-
 	/**
 	 * Create a new authentication controller instance.
 	 */
@@ -70,10 +62,11 @@ class AuthController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function authenticate(Request $request)
+    public function postLogin(Request $request)
     {
         $this->validate($request, [
-            'user_010' => 'required', 'password' => 'required',
+            'user_010' => 'required',
+            'password' => 'required',
         ]);
 
         $credentials = $request->only('user_010', 'password');
@@ -127,6 +120,7 @@ class AuthController extends Controller
     {
         auth('pulsar')->logout();
         session()->flush();
+
         return redirect(config('pulsar.name'));
     }
 }
