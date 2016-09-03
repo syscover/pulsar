@@ -29,25 +29,12 @@ class ResetPasswordController extends Controller
     protected $resetView = 'pulsar::auth.reset';
 
     /**
-     * Subject of reset email.
-     *
-     * @var string
-     */
-    protected $subject;
-
-    /**
      * Create a new password controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
-        $this->subject      = trans('pulsar::pulsar.subject_password_reset');
-        $this->redirectPath = route('pulsarGetLogin');
+        $this->redirectTo = route('pulsarGetLogin');
     }
-
-
-
 
     /**
      * Display the password reset view for the given token.
@@ -85,19 +72,18 @@ class ResetPasswordController extends Controller
     {
         $this->validate($request, [
             'token'         => 'required',
-            'email_010'     => 'required|email',
+            'email'         => 'required|email',
             'password'      => 'required|confirmed|min:6',
         ]);
 
-        $credentials = $request->only(
-            'email_010', 'password', 'password_confirmation', 'token'
+        // Here we will attempt to reset the user's password. If it is successful we
+        // will update the password on an actual user model and persist it to the
+        // database. Otherwise we will parse the error and return the response.
+        $response = $this->broker()->reset(
+            $this->credentials($request), function ($user, $password) {
+                $this->resetPassword($user, $password);
+            }
         );
-
-        $broker = $this->broker();
-
-        $response = Password::broker($broker)->reset($credentials, function ($user, $password) {
-            $this->resetPassword($user, $password);
-        });
 
         switch ($response) {
             case Password::PASSWORD_RESET:
@@ -131,8 +117,8 @@ class ResetPasswordController extends Controller
     protected function getResetFailureResponse(Request $request, $response)
     {
         return redirect()->back()
-            ->withInput($request->only('email_010'))
-            ->withErrors(['email_010' => trans($response)]);
+            ->withInput($request->only('email'))
+            ->withErrors(['email' => trans($response)]);
     }
 
 

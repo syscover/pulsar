@@ -189,7 +189,7 @@ var Login = function() {
                         	'X-CSRF-TOKEN': $('input[name=_token]').val()
                         },
                         data: {
-                            'email_010': $('input[name=email_010]').val()
+                            'email': $('input[name=email]').val()
                         },
                         success: function(data)
                         {

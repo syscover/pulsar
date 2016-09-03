@@ -65,7 +65,7 @@
     <div class="form-group">
         <div class="input-icon">
             <i class="fa fa-user"></i>
-            <input type="text" name="user_010" value="{{ old('user_010') }}" class="form-control" placeholder="{{ trans_choice('pulsar::pulsar.user', 1) }}" autofocus="autofocus" data-rule-required="true" data-msg-required="{{ trans('pulsar::pulsar.message_user') }}">
+            <input type="text" name="user" value="{{ old('user') }}" class="form-control" placeholder="{{ trans_choice('pulsar::pulsar.user', 1) }}" autofocus="autofocus" data-rule-required="true" data-msg-required="{{ trans('pulsar::pulsar.message_user') }}">
         </div>
     </div>
     <div class="form-group">
@@ -100,7 +100,7 @@
             <div class="form-group">
                 <div class="input-icon">
                     <i class="fa fa-envelope"></i>
-                    <input type="email" name="email_010" class="form-control" placeholder="{{ trans('pulsar::pulsar.enter_email') }}" data-rule-required="true" data-rule-email="true" data-msg-required="{{ trans('pulsar::pulsar.error_reset_password') }}">
+                    <input type="email" name="email" class="form-control" placeholder="{{ trans('pulsar::pulsar.enter_email') }}" data-rule-required="true" data-rule-email="true" data-msg-required="{{ trans('pulsar::pulsar.error_reset_password') }}">
                 </div>
             </div>
 

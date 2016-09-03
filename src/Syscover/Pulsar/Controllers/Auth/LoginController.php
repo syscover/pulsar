@@ -53,11 +53,11 @@ class LoginController extends Controller
     public function postLogin(Request $request)
     {
         $this->validate($request, [
-            'user_010' => 'required',
-            'password' => 'required',
+            'user'      => 'required',
+            'password'  => 'required',
         ]);
 
-        $credentials = $request->only('user_010', 'password');
+        $credentials = $request->only('user', 'password');
 
         if(auth('pulsar')->attempt($credentials, $request->has('remember')))
         {
@@ -66,7 +66,7 @@ class LoginController extends Controller
             {
                 auth('pulsar')->logout();
                 return redirect($this->loginPath)
-                    ->withInput($request->only('user_010', 'remember'))
+                    ->withInput($request->only('user', 'remember'))
                     ->withErrors([
                         'loginErrors' => 3
                     ]);
@@ -80,7 +80,7 @@ class LoginController extends Controller
             {
                 auth('pulsar')->logout();
                 return redirect($this->loginPath)
-                    ->withInput($request->only('user_010', 'remember'))
+                    ->withInput($request->only('user', 'remember'))
                     ->withErrors([
                         'loginErrors' => 2
                     ]);
@@ -93,7 +93,7 @@ class LoginController extends Controller
         }
 
         return redirect($this->loginPath)
-            ->withInput($request->only('user_010', 'remember'))
+            ->withInput($request->only('user', 'remember'))
             ->withErrors([
                 'loginErrors' => 1
             ]);

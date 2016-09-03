@@ -21,8 +21,8 @@
     <div class="form-group">
         <div class="input-icon">
             <i class="icon-envelope"></i>
-            <input type="email" name="email_010" class="form-control required" placeholder="{{ trans('pulsar::pulsar.email') }}" autofocus="autofocus">
-            {!! $errors->first('email_010', config('pulsar.errorDelimiters')) !!}
+            <input type="email" name="email" class="form-control required" placeholder="{{ trans('pulsar::pulsar.email') }}" autofocus="autofocus">
+            {!! $errors->first('email', config('pulsar.errorDelimiters')) !!}
             {!! $errors->first('token', config('pulsar.errorDelimiters')) !!}
         </div>
     </div>
