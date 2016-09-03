@@ -1,4 +1,4 @@
-# Pulsar App for Laravel 5.2
+# Pulsar App for Laravel 5.3
 
 [![Total Downloads](https://poser.pugx.org/syscover/pulsar/downloads)](https://packagist.org/packages/syscover/pulsar)
 
@@ -90,19 +90,7 @@ also you must to add inside $middlewareGroups array this values:
 
 ```
 
-**10 - Change on file config/mail.php this line**
-
-```
-'from' => ['address' => null, 'name' => null],
-```
-
-for that
-
-```
-'from' => ['address' => env('MAIL_ADDRESS'), 'name' => env('MAIL_NAME')],
-```
-
-**11 - include this arrays in config/auth.php**
+**10 - include this arrays in config/auth.php**
 
 Inside guards array
 ```
@@ -130,7 +118,7 @@ Inside passwords array
 ],
 ```
 
-**12 - Config .env file with your database parameters connections and this example parameters**
+**11 - Config .env file with your database parameters connections and this example parameters**
 ```
 APP_URL=http://mydomain.local
 APP_LOG=daily
@@ -139,7 +127,7 @@ MAIL_ADDRESS=info@mydomain.local
 MAIL_NAME="MY DOMAIN"
 ```
 
-**13 - When the installation is complete you can access these data**
+**12 - When the installation is complete you can access these data**
 ```
 url: http://www.your-domain.com/pulsar
 user: admin@pulsar.local
