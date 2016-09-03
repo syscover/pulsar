@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class ForgotPasswordController extends Controller
 {
@@ -36,16 +37,20 @@ class ForgotPasswordController extends Controller
         $response = $this->broker()->sendResetLink(
             $request->only('email_010'), $this->resetNotifier()
         );
-        if ($response === Password::RESET_LINK_SENT) {
-            return back()->with('status', trans($response));
-        }
 
-        // If an error was returned by the password broker, we will get this message
-        // translated so we can notify a user of the problem. We'll redirect back
-        // to where the users came from so they can attempt this process again.
-        return back()->withErrors(
-            ['email_010' => trans($response)]
-        );
+        switch ($response) {
+            case Password::RESET_LINK_SENT:
+                return response()->json([
+                    'success' => true
+                ]);
+
+            case Password::INVALID_USER:
+            default:
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid user'
+                ]);
+        }
     }
 
     /**
