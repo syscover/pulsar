@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "php": ">=5.5.9",
+        "php": ">=5.6.4",
         "zendframework/zend-permissions-acl": "2.5.*",
         "mtdowling/cron-expression": "^1.1",
         "tecnickcom/tcpdf": "^6.2",
