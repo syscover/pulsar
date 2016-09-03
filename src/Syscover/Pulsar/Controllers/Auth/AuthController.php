@@ -3,8 +3,6 @@
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Pulsar\Support\Facades\Config;
 use Syscover\Pulsar\Libraries\AclLibrary;
 use Syscover\Pulsar\Models\Package;
 use Syscover\Pulsar\Models\Lang;
@@ -23,7 +21,7 @@ class AuthController extends Controller
 	|
 	*/
 
-	use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+	use ThrottlesLogins;
 
     /**
      * Where to redirect users after login / registration.
@@ -110,7 +108,7 @@ class AuthController extends Controller
             session(['packages' => Package::getRecords(['active_012' => true, 'orderBy' => ['column' => 'sorting_012', 'order' => 'desc']])]);
             session(['baseLang' => Lang::getBaseLang()]);
 
-            return redirect()->intended($this->redirectPath());
+            return redirect()->intended($this->redirectTo);
         }
 
         return redirect($this->loginPath)
@@ -129,6 +127,6 @@ class AuthController extends Controller
     {
         auth('pulsar')->logout();
         session()->flush();
-        return redirect(config('pulsar.appName'));
+        return redirect(config('pulsar.name'));
     }
 }

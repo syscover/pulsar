@@ -2,13 +2,11 @@
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Session;
 
-class PasswordController extends Controller
+class ResetPasswordController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -22,20 +20,6 @@ class PasswordController extends Controller
     */
 
     use ResetsPasswords;
-
-    /**
-     * The authentication guard that should be used.
-     *
-     * @var string
-     */
-    protected $guard = 'pulsar';
-
-    /**
-     * The password broker that should be used.
-     *
-     * @var string
-     */
-    protected $broker = 'pulsarPasswordBroker';
 
     /**
      * The view to reset email.
@@ -63,36 +47,6 @@ class PasswordController extends Controller
     }
 
 
-    /**
-     * Send a reset link to the given user.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function postEmail(Request $request)
-    {
-        $this->validate($request, ['email_010' => 'required|email']);
-
-        $broker = $this->getBroker();
-
-        $response = Password::broker($broker)->sendResetLink($request->only('email_010'), function (Message $message) {
-            $message->subject($this->getEmailSubject());
-        });
-
-        switch ($response) {
-            case Password::RESET_LINK_SENT:
-                return response()->json([
-                    'success' => true
-                ]);
-
-            case Password::INVALID_USER:
-            default:
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Invalid user'
-                ], 400);
-        }
-    }
 
 
     /**
@@ -139,7 +93,7 @@ class PasswordController extends Controller
             'email_010', 'password', 'password_confirmation', 'token'
         );
 
-        $broker = $this->getBroker();
+        $broker = $this->broker();
 
         $response = Password::broker($broker)->reset($credentials, function ($user, $password) {
             $this->resetPassword($user, $password);
@@ -197,5 +151,25 @@ class PasswordController extends Controller
 
         // if redirect to user zone, we set new user on Auth
         //auth($this->getGuard())->login($user);
+    }
+
+    /**
+     * Get the broker to be used during password reset.
+     *
+     * @return PasswordBroker
+     */
+    public function broker()
+    {
+        return Password::broker('pulsarPasswordBroker');
+    }
+
+    /**
+     * Get the guard to be used during password reset.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard('pulsar');
     }
 }
