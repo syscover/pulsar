@@ -62,8 +62,17 @@
 
                     // function call parent function to send every data on json format
                     @if(isset($modal) && $modal)
-                        $('.related-record').on('click', function(){
-                            parent.{{ isset($callback)? $callback : 'relatedRecord' }}($(this).data('json'));
+                        $('.related-record').on('click', function() {
+
+                            // we contemplate jquery function and javascript function
+                            if($.isFunction(parent.{{ isset($callback)? $callback : 'relatedRecord' }} ))
+                            {
+                                parent.{{ isset($callback)? $callback : 'relatedRecord' }}($(this).data('json'));
+                            }
+                            else if($.isFunction(parent.$.{{ isset($callback)? $callback : 'relatedRecord' }} ))
+                            {
+                                parent.$.{{ isset($callback)? $callback : 'relatedRecord' }}($(this).data('json'));
+                            }
                         });
                     @endif
 
