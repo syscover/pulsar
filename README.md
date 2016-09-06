@@ -1,6 +1,7 @@
 # Pulsar App for Laravel 5.3
 
 [![Total Downloads](https://poser.pugx.org/syscover/pulsar/downloads)](https://packagist.org/packages/syscover/pulsar)
+[![Latest Stable Version](http://img.shields.io/github/release/syscover/pulsar.svg)](https://packagist.org/packages/syscover/pulsar)
 
 Pulsar is an application that generates a control panel where you start creating custom solutions, provides the resources necessary for any web application.
 

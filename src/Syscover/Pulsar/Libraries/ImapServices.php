@@ -1,6 +1,6 @@
 <?php namespace Syscover\Pulsar\Libraries;
 
-use Fetch\Server;
+use Syscover\EmailReader\Server;
 
 class ImapServices
 {

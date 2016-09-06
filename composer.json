@@ -16,7 +16,8 @@
         "phpoffice/phpexcel": "1.8.1",
         "leafo/scssphp": "0.6.3",
         "sofa/eloquence": "~5.2",
-        "maatwebsite/excel": "~2.1.0"
+        "maatwebsite/excel": "~2.1.0",
+        "syscover/email-reader": "~2.0"
     },
     "autoload": {
         "psr-4": {
