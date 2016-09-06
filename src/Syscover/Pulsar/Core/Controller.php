@@ -473,7 +473,7 @@ abstract class Controller extends BaseController {
             {
                 // set language to object
                 $jsonObject = json_decode($aObject['data_lang_' . call_user_func($this->model . '::getSuffix')]);
-                $colorFlag = "MY_green";
+                $colorFlag  = "MY_green";
 
                 foreach ($langs as $lang)
                 {
