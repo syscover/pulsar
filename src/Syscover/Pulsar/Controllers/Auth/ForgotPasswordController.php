@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class ForgotPasswordController extends Controller
 {
@@ -56,7 +55,7 @@ class ForgotPasswordController extends Controller
     /**
      * Get the broker to be used during password reset.
      *
-     * @return PasswordBroker
+     * @return \Illuminate\Support\Facades\Password
      */
     public function broker()
     {

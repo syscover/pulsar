@@ -33,6 +33,7 @@ class ResetPasswordController extends Controller
      */
     public function __construct()
     {
+        // redirect after reset password
         $this->redirectTo = route('pulsarGetLogin');
     }
 
@@ -41,9 +42,9 @@ class ResetPasswordController extends Controller
      *
      * If no token is present, display the link request form.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string|null  $token
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request     $request
+     * @param  string|null                  $token
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getReset(Request $request, $token = null)
     {
@@ -60,7 +61,6 @@ class ResetPasswordController extends Controller
 
         return view('auth.reset')->with(compact('token', 'email'));
     }
-
 
     /**
      * Reset the given user's password.
@@ -102,9 +102,8 @@ class ResetPasswordController extends Controller
      */
     protected function getResetSuccessResponse($response)
     {
-        Session::flash('status', trans($response));
-
-        return redirect($this->redirectPath());
+        return redirect($this->redirectPath())
+            ->with('status', trans($response)); // set message to show
     }
 
     /**
@@ -120,7 +119,6 @@ class ResetPasswordController extends Controller
             ->withInput($request->only('email'))
             ->withErrors(['email' => trans($response)]);
     }
-
 
     /**
      * Reset the given user's password.
@@ -142,7 +140,7 @@ class ResetPasswordController extends Controller
     /**
      * Get the broker to be used during password reset.
      *
-     * @return PasswordBroker
+     * @return \Illuminate\Support\Facades\Password;
      */
     public function broker()
     {
@@ -152,10 +150,10 @@ class ResetPasswordController extends Controller
     /**
      * Get the guard to be used during password reset.
      *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     * @return \Illuminate\Contracts\Auth\Factory|\Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard
      */
     protected function guard()
     {
-        return Auth::guard('pulsar');
+        return auth('pulsar');
     }
 }
