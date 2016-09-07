@@ -114,7 +114,6 @@ Inside passwords array
 ```
 'pulsarPasswordBroker' => [
     'provider'  => 'pulsarUser',
-    'email'     => 'pulsar::emails.password',
     'table'     => '001_021_password_resets',
     'expire'    => 60,
 ],

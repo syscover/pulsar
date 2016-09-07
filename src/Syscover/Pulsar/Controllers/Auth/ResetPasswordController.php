@@ -4,7 +4,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use Illuminate\Support\Facades\Session;
+
 
 class ResetPasswordController extends Controller
 {
@@ -26,7 +26,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $resetView = 'pulsar::auth.reset';
+    protected $resetView = 'pulsar::auth.reset_password';
 
     /**
      * Create a new password controller instance.
