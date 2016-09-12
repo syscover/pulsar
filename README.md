@@ -122,9 +122,6 @@ Inside passwords array
 ```
 APP_URL=http://mydomain.local
 APP_LOG=daily
-
-MAIL_ADDRESS=info@mydomain.local
-MAIL_NAME="MY DOMAIN"
 ```
 
 **12 - When the installation is complete you can access these data**
