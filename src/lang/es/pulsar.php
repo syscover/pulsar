@@ -182,6 +182,7 @@ return [
     'paid'                                      => 'Pagado',
     'password'                                  => 'Contraseña',
     'pattern'                                   => 'Patrón|Patrones',
+    'people'                                    => 'Personas',
     'permission'                                => 'Permiso|Permisos',
     'preference'                                => 'Preferencia|Preferencias',
     'prefix'                                    => 'Prefijo',

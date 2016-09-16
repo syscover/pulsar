@@ -182,6 +182,7 @@ return [
     'paid'                                      => 'Paid',
     'password'                                  => 'Password',
     'pattern'                                   => 'Pattern|Patterns',
+    'people'                                    => 'People',
     'permission'                                => 'Permission|Permissions',
     'preference'                                => 'Preference|Preferences',
     'prefix'                                    => 'Prefix',
