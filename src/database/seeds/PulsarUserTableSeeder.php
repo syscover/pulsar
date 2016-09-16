@@ -13,7 +13,7 @@ class PulsarUserTableSeeder extends Seeder
                 'name_010'              => 'Pulsar',
                 'surname_010'           => 'Pulsar',
                 'lang_id_010'           => 'en',
-                'email_010'             => 'adminn@pulsar.local',
+                'email_010'             => 'admin@pulsar.local',
                 'profile_id_010'        => '1',
                 'access_010'            => '1',
                 'user_010'              => 'admin@pulsar.local',
@@ -27,6 +27,6 @@ class PulsarUserTableSeeder extends Seeder
 }
 
 /*
- * Comand to run:
+ * Command to run:
  * php artisan db:seed --class="PulsarUserTableSeeder"
  */

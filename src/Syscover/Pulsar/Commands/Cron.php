@@ -18,7 +18,7 @@ class Cron extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Comand to run cron.';
+	protected $description = 'Command to run cron.';
 
     /**
      * Cron constructor.
