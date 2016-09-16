@@ -2,6 +2,7 @@
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 use Syscover\Pulsar\Exceptions\InvalidArgumentException;
@@ -937,6 +938,8 @@ abstract class Controller extends BaseController {
             // delete records after deleteCustomRecords, if we need do a select
             call_user_func($this->model . '::destroy', $parameters['id']);
 
+        Log::info('Delete record with data:', ['record' => isset($object)? $object : $parameters['id']]);
+
         // delete id variable to don't send to route
         unset($parameters['id']);
 
@@ -982,6 +985,7 @@ abstract class Controller extends BaseController {
 
         $this->deleteCustomTranslationRecord($object);
 
+
         if(isset($this->langModel))
         {
             // this option is to tables that dependent of other tables to set your languages, example 007_170_hotel and 007_171_hotel_lang
@@ -993,6 +997,8 @@ abstract class Controller extends BaseController {
         {
             call_user_func($this->model . '::deleteTranslationRecord', $parameters);
         }
+
+        Log::info('Delete translation record with data:', ['record' => $object]);
 
         return redirect()->route($this->routeSuffix, $parameters)->with([
             'msg'        => 1,
