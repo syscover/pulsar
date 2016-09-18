@@ -19,7 +19,7 @@
     <style type="text/css">
         {{ $css or null }}
     </style>
-    <!-- /.theme css -->
+    <!-- /theme css -->
 
     <script>
         $(document).ready(function($){

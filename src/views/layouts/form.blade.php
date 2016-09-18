@@ -7,5 +7,5 @@
     @include('pulsar::includes.html.form_record_footer')
 
     @yield('outForm') <!-- popups forms inline -->
-    <!-- /.pulsar::layouts.form -->
+    <!-- /pulsar::layouts.form -->
 @stop

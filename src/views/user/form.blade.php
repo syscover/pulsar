@@ -94,5 +94,5 @@
         'fieldSize' => 6,
         'required' => ! isset($object)
     ])
-    <!-- /.pulsar::users.create -->
+    <!-- /pulsar::users.create -->
 @stop

@@ -17,4 +17,4 @@
         @endif
     </div>
 </form>
-<!-- /.pulsar::includes.html.form_record_footer -->
+<!-- /pulsar::includes.html.form_record_footer -->

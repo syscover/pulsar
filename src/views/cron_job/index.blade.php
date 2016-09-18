@@ -27,7 +27,7 @@
             }
         });
     </script>
-    <!-- /.pulsar::cron_job.index -->
+    <!-- /pulsar::cron_job.index -->
 @stop
 
 @section('tHead')
@@ -42,5 +42,5 @@
     <th data-hide="phone,tablet">{{ trans('pulsar::pulsar.next_run') }}</th>
     <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
     <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>
-    <!-- /.pulsar::cron_job.index -->
+    <!-- /pulsar::cron_job.index -->
 @stop

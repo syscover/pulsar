@@ -27,7 +27,7 @@
             }
         });
     </script>
-    <!-- /.pulsar::lang.index -->
+    <!-- /pulsar::lang.index -->
 @stop
 
 @section('tHead')
@@ -40,5 +40,5 @@
     <th data-hide="phone">{{ trans('pulsar::pulsar.sorting') }}</th>
     <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
     <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>
-    <!-- /.pulsar::lang.index -->
+    <!-- /pulsar::lang.index -->
 @stop

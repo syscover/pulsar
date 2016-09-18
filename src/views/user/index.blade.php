@@ -27,7 +27,7 @@
             }
         });
     </script>
-    <!-- /.pulsar::users.index -->
+    <!-- /pulsar::users.index -->
 @stop
 
 @section('tHead')
@@ -40,5 +40,5 @@
     <th data-hide="phone,tablet">{{ trans('pulsar::pulsar.access') }}</th>
     <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
     <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>
-    <!-- /.pulsar::users.index -->
+    <!-- /pulsar::users.index -->
 @stop

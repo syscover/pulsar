@@ -94,7 +94,7 @@
                 <!--=== Page Content ===-->
                 @yield('mainContent')
                 <!-- /Page Content -->
-            </div> <!-- /.content -->
+            </div> <!-- /content -->
 
             <!-- Forgot Password Form -->
             @yield('reminder')

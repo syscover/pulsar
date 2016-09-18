@@ -29,7 +29,7 @@
             }
         });
     </script>
-    <!-- /.pulsar::territorial_areas_1.index -->
+    <!-- /pulsar::territorial_areas_1.index -->
 @stop
 
 @section('tHead')
@@ -38,5 +38,5 @@
     <th data-class="expand">{{ $country->territorial_area_1_002 }}</th>
     <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
     <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>
-    <!-- /.pulsar::actions.index -->
+    <!-- /pulsar::actions.index -->
 @stop

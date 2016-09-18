@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/wysiwyg.froala/css/plugins/line_breaker.css') }}">
 <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/wysiwyg.froala/css/plugins/table.css') }}">
 <link rel="stylesheet" href="{{ asset('packages/syscover/pulsar/vendor/wysiwyg.froala/css/plugins/video.css') }}">
-<!-- /.Froala CSS -->
+<!-- /Froala CSS -->
 
 <!-- Froala SCRIPT -->
 <script src="{{ asset('packages/syscover/pulsar/vendor/wysiwyg.froala/js/froala_editor.min.js') }}"></script>
@@ -42,4 +42,4 @@
 @if(auth('pulsar')->user()->lang_id_010 != 'en')
     <script src="{{ asset('packages/syscover/pulsar/vendor/wysiwyg.froala/js/languages/' . auth('pulsar')->user()->lang_id_010 . '.js') }}"></script>
 @endif
-<!-- /.Froala SCRIPT -->
+<!-- /Froala SCRIPT -->

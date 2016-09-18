@@ -207,4 +207,4 @@
         }
     }
 </script>
-<!-- /.pulsar::includes.js.datatable_config -->
+<!-- /pulsar::includes.js.datatable_config -->

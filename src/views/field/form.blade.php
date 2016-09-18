@@ -136,5 +136,5 @@
                 'readOnly' => $action == 'update' || $action == 'store'? false : true
             ]
     ]])
-    <!-- /.pulsar::field.form -->
+    <!-- /pulsar::field.form -->
 @stop

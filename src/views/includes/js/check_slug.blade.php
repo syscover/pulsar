@@ -21,4 +21,4 @@
         });
     }
 </script>
-<!-- /.pulsar::includes.js.check_slug -->
+<!-- /pulsar::includes.js.check_slug -->

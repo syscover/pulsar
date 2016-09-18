@@ -52,4 +52,4 @@
         );
     }
 </script>
-<!-- /.pulsar::includes.js.delete_image -->
+<!-- /pulsar::includes.js.delete_image -->

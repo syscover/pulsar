@@ -8,4 +8,4 @@
 <li class="current">
     <a href="{{ route($routeSuffix, [$offset, $profile, $offsetProfile]) }}">{{ trans_choice($objectTrans, 2) }}</a>
 </li>
-<!-- /.pulsar::permission.breadcrumbs -->
+<!-- /pulsar::permission.breadcrumbs -->

@@ -21,5 +21,5 @@
         </div>
     </div>
     @yield('layoutTabFooter')
-    <!-- /.pulsar::layouts.tab -->
+    <!-- /pulsar::layouts.tab -->
 @stop

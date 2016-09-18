@@ -5,4 +5,4 @@
 <li class="current">
     <a href="{{ route($routeSuffix, [base_lang()->id_001]) }}">{{ trans_choice($objectTrans, 2) }}</a>
 </li>
-<!-- /.pulsar::field.breadcrumbs -->
+<!-- /pulsar::field.breadcrumbs -->

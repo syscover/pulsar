@@ -99,6 +99,6 @@
             <!--=== Page Content ===-->
             @yield('mainContent')
             <!-- /Page Content -->
-        </div><!-- /.container -->
+        </div><!-- /container -->
     </body>
 </html>

@@ -102,7 +102,7 @@
                 <!--=== Page Content ===-->
                 @yield('mainContent')
                 <!-- /Page Content -->
-            </div><!-- /.container -->
+            </div><!-- /container -->
         @else
             <!-- Header -->
             <header class="header navbar navbar-fixed-top" role="banner">
@@ -159,7 +159,7 @@
                         </li><!-- /user login dropdown -->
                     </ul><!-- /Top Right Menu -->
                 </div><!-- /top navigation bar -->
-            </header> <!-- /.header -->
+            </header> <!-- /header -->
 
             <div id="container">
                 <div id="sidebar" class="sidebar-fixed">
@@ -195,9 +195,9 @@
                         @yield('mainContent')
                         <!-- /Page Content -->
 
-                    </div><!-- /.container -->
-                </div><!-- /.content -->
-            </div><!-- /.container -->
+                    </div><!-- /container -->
+                </div><!-- /content -->
+            </div><!-- /container -->
         @endif
         @yield('endBody')
     </body>

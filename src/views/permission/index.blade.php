@@ -147,7 +147,7 @@
             }
         });
     </script>
-    <!-- /.pulsar::permission.index -->
+    <!-- /pulsar::permission.index -->
 @stop
 
 @section('mainContent')
@@ -180,5 +180,5 @@
             </div>
         </div>
     </div>
-    <!-- /.pulsar::permission.index -->
+    <!-- /pulsar::permission.index -->
 @stop

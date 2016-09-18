@@ -28,4 +28,4 @@
         {!! $errors->first($name, config('pulsar.errorDelimiters')) !!}
     </div>
 </div>
-<!-- /.pulsar::includes.html.form_file_group -->
+<!-- /pulsar::includes.html.form_file_group -->

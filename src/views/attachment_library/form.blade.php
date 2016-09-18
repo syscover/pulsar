@@ -34,5 +34,5 @@
         'min' => '0',
         'fieldSize' => 2
     ])
-    <!-- /.pulsar::attachment_library.create -->
+    <!-- /pulsar::attachment_library.create -->
 @stop

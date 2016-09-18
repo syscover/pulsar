@@ -27,7 +27,7 @@
             }
         });
     </script>
-    <!-- /.pulsar::attachment_mime.index -->
+    <!-- /pulsar::attachment_mime.index -->
 @stop
 
 @section('tHead')
@@ -38,5 +38,5 @@
     <th data-class="expand">{{ trans_choice('pulsar::pulsar.mime', 1) }}</th>
     <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
     <th>{{ trans_choice('pulsar::pulsar.action', 1) }}</th>
-    <!-- /.pulsar::attachment_mime.index -->
+    <!-- /pulsar::attachment_mime.index -->
 @stop

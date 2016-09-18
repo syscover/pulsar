@@ -98,5 +98,5 @@
         'name' => 'action',
         'value' => $action
     ])
-    <!-- /.pulsar::field_value.create -->
+    <!-- /pulsar::field_value.create -->
 @stop

@@ -27,7 +27,7 @@
             }
         });
     </script>
-    <!-- /.pulsar::actions.index -->
+    <!-- /pulsar::actions.index -->
 @stop
 
 @section('tHead')
@@ -36,5 +36,5 @@
     <th data-class="expand">{{ trans('pulsar::pulsar.name') }}</th>
     <th class="checkbox-column"><input type="checkbox" class="uniform"></th>
     <th>{{ trans_choice('pulsar::pulsar.action', 2) }}</th>
-    <!-- /.pulsar::actions.index -->
+    <!-- /pulsar::actions.index -->
 @stop

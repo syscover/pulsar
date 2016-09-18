@@ -24,5 +24,5 @@
             })
         })
     </script>
-    <!-- /.pulsar::includes.js.delete_translation_record -->
+    <!-- /pulsar::includes.js.delete_translation_record -->
 @endif

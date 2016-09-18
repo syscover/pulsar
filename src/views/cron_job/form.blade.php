@@ -65,5 +65,5 @@
         'rangeLength' => '2,50',
         'required' => true
     ])
-    <!-- /.pulsar::cron_jobs.form -->
+    <!-- /pulsar::cron_jobs.form -->
 @stop

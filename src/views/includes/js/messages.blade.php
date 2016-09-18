@@ -11,7 +11,7 @@
             });
         });
     </script>
-    <!-- /.pulsar::includes.js.messages -->
+    <!-- /pulsar::includes.js.messages -->
 @endif
 
 @if(session('msg') != null && session('msg') == 2)
@@ -27,5 +27,5 @@
             });
         });
     </script>
-    <!-- /.pulsar::includes.js.messages -->
+    <!-- /pulsar::includes.js.messages -->
 @endif

@@ -34,5 +34,5 @@
         'rangeLength' => '2,255',
         'required' => true
     ])
-    <!-- /.pulsar::field_group.create -->
+    <!-- /pulsar::field_group.create -->
 @stop
