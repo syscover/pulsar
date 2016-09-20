@@ -107,6 +107,7 @@ return [
     'frequency'                                 => 'Frecuencia',
     'from'                                      => 'De',
     'gender'                                    => 'Género',
+    'go_back'                                   => 'Volvar atrás',
     'group'                                     => 'Grupo|Grupos',
     'hello'                                     => 'Hola',
     'hour'                                      => 'Hora|Horas',
@@ -146,6 +147,8 @@ return [
     'message_delete_records'                    => '¿Desea borrar los registros seleccionados?',
     'message_delete_records_successful'         => 'Los registros seleccionados han sido borrados correctamente',
     'message_delete_translation_record'         => '¿Desea borrar el registro traducido con <strong>ID :id </strong>?',
+    'message_error_403'                         => 'No dispone de permisos para acceder a esta sección',
+    'message_error_404'                         => '¡Ups! página no encontrada',
     'message_error_has_not_results'             => 'No hay resultados para :name',
     'message_error_login'                       => 'Acceso denegado',
     'message_error_login_msg_1'                 => 'El usuario o la contraseña no coinciden con un usuario válido',
@@ -219,6 +222,7 @@ return [
     'selected_objects'                          => 'Objetos seleccionados',
     'set_all_permissions'                       => 'Establecer todos los permisos',
     'setting'                                   => 'Ajuste|Ajustes',
+    'server'                                    => 'Servidor|Servidores',
     'single'                                    => 'Soltero/a',
     'shipping'                                  => 'Envío|Envíos',
     'show_file'                                 => 'Ver fichero',
@@ -237,6 +241,7 @@ return [
     'treatment'                                 => 'Tratamiento|Tramientos',
     'type_something'                            => 'Escribe algo',
     'until'                                     => 'Hasta',
+    'url'                                       => 'Url',
     'user'                                      => 'Usuario|Usuarios',
     'value'                                     => 'Valor|Valores',
     'view_record'                               => 'Ver registro',
@@ -250,9 +255,7 @@ return [
     'yes'                                       => 'Si',
 
 
-    'message_error_403'                         => 'No dispone de permisos para acceder a esta sección',
-    'message_error_404'                         => '¡Ups! página no encontrada',
-    'go_back'                                   => 'Volvar atrás',
+
     'category'                                  => 'Categoría|Categorías',
     'contact'                                   => 'Contacto|Contactos',
     'business'                                  => 'Negocio|Negocios',
