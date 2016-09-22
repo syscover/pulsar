@@ -199,8 +199,7 @@ var PulsarApp = function() {
         if ($.fn.datetimepicker)
         {
             $('.datetimepicker').each(function() {
-                var self = $(this);
-                $(self).datetimepicker(self.data());
+                $(this).datetimepicker($(this).data());
             });
         }
     };

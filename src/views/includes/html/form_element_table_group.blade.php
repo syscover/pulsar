@@ -30,7 +30,7 @@
 
 @section('outForm')
     @parent
-    <!-- PopUp -->
+    <!-- popup -->
     <div id="{{ $id }}Popup" class="container white-popup mfp-hide">
         <div class="row">
             <div class="col-md-12">
@@ -55,5 +55,5 @@
             </div>
         </div>
     </div>
-    <!--/ PopUp -->
+    <!--/ popup -->
 @stop
