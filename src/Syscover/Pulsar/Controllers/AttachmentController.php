@@ -40,8 +40,8 @@ class AttachmentController extends Controller
                 'size_016'              => filesize(public_path() . config($this->request->input('routesConfigFile') . '.attachmentFolder') . '/' . $parameters['object'] . '/' . $parameters['lang'] . '/' . $attachment['fileName']),
                 'type_id_016'           => $attachment['type']['id'],
                 'type_text_016'         => $attachment['type']['name'],
-                'width_016'             => $attachment['width'],
-                'height_016'            => $attachment['height'],
+                'width_016'             => empty($attachment['width'])? null : $attachment['width'],
+                'height_016'            => empty($attachment['height'])? null : $attachment['height'],
                 'data_016'              => json_encode(['icon' => $attachment['type']['icon']])
             ]);
         }
