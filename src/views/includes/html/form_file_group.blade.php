@@ -1,6 +1,6 @@
 <!-- pulsar::includes.html.form_file_group -->
 <div class="form-group">
-    <label class="col-md-{{ $labelSize or 2 }} control-label">{{ $label }} @if(isset($required)) @include('pulsar::includes.html.required') @endif</label>
+    <label class="col-md-{{ $labelSize or 2 }} control-label">{{ $label }} @if(isset($required)) @include('pulsar::elements.required') @endif</label>
     <div class="col-md-{{ $fieldSize or 10 }} file-container">
         @if(! isset($disabled) ||  isset($disabled) && ! $disabled)
             <div class="fileinput fileinput-new input-group" @if(isset($value)) style="display: none" @endif data-provides="fileinput">

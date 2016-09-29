@@ -7,7 +7,7 @@
     @if(isset($inputs) && is_array($inputs))
         @foreach($inputs as $input)
             @if(isset($input['label']))
-                <label class="col-md-{{ $labelSize or 2 }} control-label">{{ $input['label'] }} @if(isset($input['required']) && $input['required']) @include('pulsar::includes.html.required') @endif</label>
+                <label class="col-md-{{ $labelSize or 2 }} control-label">{{ $input['label'] }} @if(isset($input['required']) && $input['required']) @include('pulsar::elements.required') @endif</label>
             @endif
             <div class="col-md-{{ $input['fieldSize'] or 10 }}">
                 <input class="uniform" type="checkbox" name="{{ $input['name'] }}" value="{{ $input['value'] or 1 }}"{{ isset($input['disabled'])? ' disabled' : null }}{{ isset($input['checked']) && $input['checked']? ' checked' : null }}>
