@@ -19,10 +19,10 @@ class PulsarCreateTableAttachment extends Migration {
                 
                 $table->integer('id_016')->unsigned();
                 $table->string('lang_id_016', 2);
-                $table->string('resource_id_016', 30);                              // resource which belong to this attachment
+                $table->string('resource_id_016', 30);                                  // resource which belong to this attachment
                 $table->integer('object_id_016')->unsigned()->nullable();
                 $table->integer('family_id_016')->unsigned()->nullable();
-                $table->integer('library_id_016')->unsigned()->nullable();         // original element library
+                $table->integer('library_id_016')->unsigned()->nullable();              // original element library
                 $table->string('library_file_name_016', 1020)->nullable();
                 $table->integer('sorting_016')->unsigned()->nullable();
                 $table->string('url_016', 1020)->nullable();
@@ -30,7 +30,7 @@ class PulsarCreateTableAttachment extends Migration {
                 $table->string('file_name_016', 1020)->nullable();
                 $table->string('mime_016')->nullable();
                 $table->integer('size_016')->unsigned()->nullable();
-                $table->tinyInteger('type_id_016')->unsigned();                        // 1 = image, 2 = file, 3 = video
+                $table->tinyInteger('type_id_016')->unsigned();                         // 1 = image, 2 = file, 3 = video
                 $table->string('type_text_016');
                 $table->smallInteger('width_016')->unsigned()->nullable();
                 $table->smallInteger('height_016')->unsigned()->nullable();

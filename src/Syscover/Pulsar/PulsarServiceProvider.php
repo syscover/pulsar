@@ -59,11 +59,6 @@ class PulsarServiceProvider extends ServiceProvider
 			__DIR__ . '/../../database/factories/' 				=> base_path('/database/factories')
 		], 'factories');
 
-		// register tests
-		$this->publishes([
-			__DIR__ . '/../../tests/' 							=> base_path('/tests')
-		], 'tests');
-
 		// custom validator rules
 		Validator::extend('digit', function($attribute, $value, $parameters, $validator) {
 			return (strlen($value) == $parameters[0])? true : false;

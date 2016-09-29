@@ -111,6 +111,7 @@ return [
     'group'                                     => 'Grupo|Grupos',
     'hello'                                     => 'Hola',
     'hour'                                      => 'Hora|Horas',
+    'id'                                        => 'Id|IDs',
     'image'                                     => 'Imagen|Imágenes',
     'included'                                  => 'Incluido',
     'info'                                      => 'Info',
