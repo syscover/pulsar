@@ -120,7 +120,6 @@ Inside passwords array
 
 **11 - Config .env file with your database parameters connections and this example parameters**
 ```
-APP_URL=http://mydomain.local
 APP_LOG=daily
 ```
 
