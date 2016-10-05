@@ -147,7 +147,7 @@ este es un envío de pruebas, si está recibiendo este correo, su cuenta se ha c
         {
             $data[$index] = str_replace("#link#", route('previewComunikEmailCampaign', ['campaign' => '#campaign#', 'historyId' => '#historyId#']), $data[$index]);
             $data[$index] = str_replace("#unsubscribe#", route('getUnsubscribeComunikContact', ['contactKey' => '#contactKey#']) , $data[$index]);
-            $data[$index] = str_replace("#pixel#", url(config('pulsar.appName')) . config('comunik.trackPixel'), $data[$index]);
+            $data[$index] = str_replace("#pixel#", url(config('pulsar.name')) . config('comunik.trackPixel'), $data[$index]);
         }
 
         // Message body
