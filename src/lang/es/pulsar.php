@@ -81,6 +81,7 @@ return [
     'description_title'                         => 'Título de la descripción',
     'discount'                                  => 'Descuento|Descuentos',
     'divorced'                                  => 'Divorciado/a',
+    'draft'                                     => 'Borrador',
     'edit'                                      => 'Editar',
     'edit_permissions'                          => 'Editar permisos',
     'edit_record'                               => 'Editar registro',

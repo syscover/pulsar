@@ -81,6 +81,7 @@ return [
     'description_title'                         => 'Description title',
     'discount'                                  => 'Discount|Discounts',
     'divorced'                                  => 'Divorced',
+    'draft'                                     => 'Draft',
     'edit'                                      => 'Edit',
     'edit_permissions'                          => 'Edit permissions',
     'edit_record'                               => 'Edit record',
