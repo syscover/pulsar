@@ -718,6 +718,10 @@ class Miscellaneous
             $query->where(function($query) use ($whereColumns) {
                 foreach($whereColumns as $whereColumn)
                 {
+                    // enable option to be null value, with NULL
+                    if($whereColumn['value'] == 'NULL')
+                        $whereColumn['value'] = null;
+
                     $query->where($whereColumn['column'], $whereColumn['operator'], $whereColumn['value']);
                 }
             });
