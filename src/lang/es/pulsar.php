@@ -235,6 +235,7 @@ return [
     'status'                                    => 'Estado|Estados',
     'subtotal'                                  => 'Subtotal|Subtotales',
     'surname'                                   => 'Apellido',
+    'tax'                                       => 'Impuesto|Impuestoss',
     'territorial_area'                          => 'Area territorial|Areas territoriales',
     'to'                                        => 'Para',
     'total'                                     => 'Total|Totales',

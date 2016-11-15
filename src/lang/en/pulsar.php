@@ -235,6 +235,7 @@ return [
     'status'                                    => 'Status|Statuses',
     'subtotal'                                  => 'Subtotal|Subtotals',
     'surname'                                   => 'Surname',
+    'tax'                                       => 'Tax|Taxes',
     'territorial_area'                          => 'Territorial area|Territorial areas',
     'to'                                        => 'To',
     'total'                                     => 'Total|Totals',
