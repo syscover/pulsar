@@ -209,6 +209,8 @@ return [
     'remember_password'                         => 'Remember password',
     'repeat_password'                           => 'Repeat password',
     'report'                                    => 'Report|Reports',
+    'request_title_update_record'               => 'Registry update',
+    'request_update_record'                     => 'Do you want to update the registry?',
     'required'                                  => 'Required',
     'reset_password'                            => 'Reset your password',
     'reset_password_successful'                 => 'Great, we are sending you an email',

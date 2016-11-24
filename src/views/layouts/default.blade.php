@@ -198,6 +198,16 @@
                     </div><!-- /container -->
                 </div><!-- /content -->
             </div><!-- /container -->
+
+            <!-- status vail -->
+            <div id="statusVeil" class="status-veil">
+                <div id="processVeil" class="status-veil-content">
+                    <h3 id="veilMsg" class="align-center veil-color-text veil-msg"></h3>
+                    <h1 id="veilIcon" class="align-center veil-color-text"><i class="fa fa-circle-o-notch fa-spin fa-2x"></i></h1>
+                </div>
+            </div>
+            <!-- /status vail -->
+
         @endif
         @yield('endBody')
     </body>

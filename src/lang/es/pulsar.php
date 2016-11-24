@@ -209,6 +209,8 @@ return [
     'remember_password'                         => '¿Olvidó su contraseña?',
     'repeat_password'                           => 'Repita contraseña',
     'report'                                    => 'Informe|Informes',
+    'request_title_update_record'               => 'Actualización de registro',
+    'request_update_record'                     => '¿Quieres actualizar el registro?',
     'required'                                  => 'Necesario',
     'reset_password'                            => 'cambiar su contraseña',
     'reset_password_successful'                 => 'Perfecto, le hemos enviado un email',

@@ -14,6 +14,10 @@ and open the template in the editor.
     }
 }
 
+.align-center{
+    text-align: center !important;
+}
+
 i.color{
     display: inline-block;
     width: 16px;
@@ -381,3 +385,42 @@ select{
     padding-bottom: 8px;
 }
 
+/* START VEIL */
+.status-veil{
+    display: none;
+    position: fixed;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    height: 100%;
+    width:100%;
+    background-color: rgba(255,255,255,0.8);
+    z-index: 9999;
+}
+
+.status-veil-content{
+    position: absolute;
+    width:50%;
+    top: 35%;
+    left:25%;
+    padding:30px 15px;
+}
+
+.veil-color-text{
+    color: #4d7496
+}
+
+.veil-msg{
+    margin-bottom: 25px;
+}
+
+@media(max-width:767px){
+    .status-veil-content{
+        position: absolute;
+        width:90%;
+        top: 30%;
+        left:5%;
+    }
+}
+/* END VEIL */
