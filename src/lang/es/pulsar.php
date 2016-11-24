@@ -209,6 +209,8 @@ return [
     'remember_password'                         => '¿Olvidó su contraseña?',
     'repeat_password'                           => 'Repita contraseña',
     'report'                                    => 'Informe|Informes',
+    'request_title_store_record'                => 'Guardar registro',
+    'request_store_record'                      => '¿Quieres guardar el registro?',
     'request_title_update_record'               => 'Actualización de registro',
     'request_update_record'                     => '¿Quieres actualizar el registro?',
     'required'                                  => 'Necesario',
