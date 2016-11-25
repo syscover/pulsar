@@ -549,7 +549,7 @@ abstract class Controller extends BaseController {
         // get parameters from url route
         $parameters = $this->request->route()->parameters();
 
-        $parameters['urlParameters']  = $parameters;
+        $parameters['urlParameters'] = $parameters;
 
         // check if create route has modal
         // is necessary to have modal paramenter in all routes for proper operation
