@@ -1,5 +1,6 @@
 <?php namespace Syscover\Pulsar\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Syscover\Pulsar\Core\Controller;
 use Illuminate\Support\Facades\File;
 use Syscover\Pulsar\Models\Attachment;
@@ -98,8 +99,8 @@ class AttachmentController extends Controller
 
     public function apiUpdatesAttachment()
     {
-        $parameters = $this->request->route()->parameters();
-        $attachments = $this->request->input('attachments');
+        $parameters     = $this->request->route()->parameters();
+        $attachments    = $this->request->input('attachments');
 
         foreach($attachments as $attachment)
         {
@@ -136,6 +137,29 @@ class AttachmentController extends Controller
             'success'   => true,
             'message'   => "Attachments updated",
             'function'  => "apiUpdatesAttachment"
+        ];
+
+        return response()->json($response);
+    }
+
+    public function apiSortingUpdatesAttachment()
+    {
+        $parameters     = $this->request->route()->parameters();
+        $attachments    = collect($this->request->input('attachments'))->sortBy('sorting');
+
+        DB::select(DB::raw("SET @x = 0;"));
+        DB::select(DB::raw("                
+                UPDATE 001_016_attachment 
+                    SET sorting_016 = (@x:=@x+1) 
+                    WHERE lang_id_016 = '" . $parameters['lang'] . "' 
+                    AND id_016 IN (" . $attachments->implode('id', ',') . ") 
+                    ORDER BY FIELD(id_016, " . $attachments->implode('id', ',') . ");
+           "));
+
+        $response = [
+            'success'   => true,
+            'message'   => "Attachments sorting updated",
+            'function'  => "apiSortingUpdatesAttachment"
         ];
 
         return response()->json($response);

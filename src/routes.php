@@ -282,11 +282,12 @@ Route::group(['middleware' => ['web', 'pulsar']], function() {
     | ATTACHMENT
     |--------------------------------------------------------------------------
     */
-    Route::post(config('pulsar.name') . '/pulsar/attachment/store/{object}/{lang}',          ['as' => 'storeAttachment',        'uses' => 'Syscover\Pulsar\Controllers\AttachmentController@storeAttachment',            'resource' => 'pulsar',    'action' => 'create']);
-    Route::put(config('pulsar.name') . '/pulsar/attachment/update/{object}/{lang}/{id}',     ['as' => 'updateAttachment',       'uses' => 'Syscover\Pulsar\Controllers\AttachmentController@apiUpdateAttachment',        'resource' => 'pulsar',    'action' => 'edit']);
-    Route::put(config('pulsar.name') . '/pulsar/attachment/update/{object}/{lang}',          ['as' => 'updatesAttachment',      'uses' => 'Syscover\Pulsar\Controllers\AttachmentController@apiUpdatesAttachment',       'resource' => 'pulsar',    'action' => 'edit']);
-    Route::delete(config('pulsar.name') . '/pulsar/attachment/delete/{lang}/{id}',           ['as' => 'deleteAttachment',       'uses' => 'Syscover\Pulsar\Controllers\AttachmentController@apiDeleteAttachment',        'resource' => 'pulsar',    'action' => 'delete']);
-    Route::delete(config('pulsar.name') . '/pulsar/attachment/delete/tmp',                   ['as' => 'deleteTmpAttachment',    'uses' => 'Syscover\Pulsar\Controllers\AttachmentController@apiDeleteTmpAttachment',     'resource' => 'pulsar',    'action' => 'delete']);
+    Route::post(config('pulsar.name') . '/pulsar/attachment/store/{object}/{lang}',          ['as' => 'storeAttachment',            'uses' => 'Syscover\Pulsar\Controllers\AttachmentController@storeAttachment',               'resource' => 'pulsar',    'action' => 'create']);
+    Route::put(config('pulsar.name') . '/pulsar/attachment/update/{object}/{lang}/{id}',     ['as' => 'updateAttachment',           'uses' => 'Syscover\Pulsar\Controllers\AttachmentController@apiUpdateAttachment',           'resource' => 'pulsar',    'action' => 'edit']);
+    Route::put(config('pulsar.name') . '/pulsar/attachment/update/{object}/{lang}',          ['as' => 'updatesAttachment',          'uses' => 'Syscover\Pulsar\Controllers\AttachmentController@apiUpdatesAttachment',          'resource' => 'pulsar',    'action' => 'edit']);
+    Route::put(config('pulsar.name') . '/pulsar/attachment/sorting/update/{object}/{lang}',  ['as' => 'sortingUpdatesAttachment',   'uses' => 'Syscover\Pulsar\Controllers\AttachmentController@apiSortingUpdatesAttachment',   'resource' => 'pulsar',    'action' => 'edit']);
+    Route::delete(config('pulsar.name') . '/pulsar/attachment/delete/{lang}/{id}',           ['as' => 'deleteAttachment',           'uses' => 'Syscover\Pulsar\Controllers\AttachmentController@apiDeleteAttachment',           'resource' => 'pulsar',    'action' => 'delete']);
+    Route::delete(config('pulsar.name') . '/pulsar/attachment/delete/tmp',                   ['as' => 'deleteTmpAttachment',        'uses' => 'Syscover\Pulsar\Controllers\AttachmentController@apiDeleteTmpAttachment',        'resource' => 'pulsar',    'action' => 'delete']);
 
     /*
     |--------------------------------------------------------------------------

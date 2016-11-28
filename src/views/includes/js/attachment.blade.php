@@ -427,7 +427,7 @@
         @if($action == 'update')
             // update attachment across ajax
             $.ajax({
-                url:    '{{ route('updatesAttachment', ['object' => isset($objectId)? $objectId : null ,'lang' => $lang->id_001]) }}',
+                url:    '{{ route('sortingUpdatesAttachment', ['object' => isset($objectId)? $objectId : null ,'lang' => $lang->id_001]) }}',
                 headers:  {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
