@@ -425,6 +425,14 @@
         });
 
         @if($action == 'update')
+
+            var attachmentIds = attachments.sort(function(a, b){
+                    return parseFloat(a.sorting) - parseFloat(b.sorting);
+                })
+                .map(function(a) {
+                    return a.id;
+                });
+
             // update attachment across ajax
             $.ajax({
                 url:    '{{ route('sortingUpdatesAttachment', ['object' => isset($objectId)? $objectId : null ,'lang' => $lang->id_001]) }}',
@@ -433,7 +441,7 @@
                 },
                 data: {
                     _method: 'PUT',
-                    attachments:        attachments,
+                    attachments:        attachmentIds,
                     action:             '{{ $action }}',
                     routesConfigFile:   '{{ $routesConfigFile }}'
                 },
