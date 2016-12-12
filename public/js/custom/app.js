@@ -248,7 +248,7 @@ var PulsarApp = function() {
             });
         }
     };
-    
+
     return {
         // main function to initiate all plugins
         init: function () {
