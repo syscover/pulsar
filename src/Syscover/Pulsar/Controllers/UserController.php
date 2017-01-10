@@ -68,16 +68,14 @@ class UserController extends Controller
         $user = [
             'name_010'          => $this->request->input('name'),
             'surname_010'       => $this->request->input('surname'),
-            'email_010'         => $this->request->input('email'),
             'lang_id_010'       => $this->request->input('lang'),
             'access_010'        => $this->request->input('access',0),
             'profile_id_010'    => $this->request->input('profile'),
-            'user_010'          => $this->request->input('user'),
         ];
 
-        if($parameters['specialRules']['emailRule'])  $user['email_010']      = $this->request->input('email');
-        if($parameters['specialRules']['userRule'])   $user['user_010']       = $this->request->input('user');
-        if(! $parameters['specialRules']['passRule']) $user['password_010']   = Hash::make($this->request->input('password'));
+        if(! $parameters['specialRules']['emailRule'])  $user['email_010']      = $this->request->input('email');
+        if(! $parameters['specialRules']['userRule'])   $user['user_010']       = $this->request->input('user');
+        if(! $parameters['specialRules']['passRule'])   $user['password_010']   = Hash::make($this->request->input('password'));
 
         User::where('id_010', $parameters['id'])->update($user);
     }

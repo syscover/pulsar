@@ -53,9 +53,9 @@ class User extends Model implements
 
     public static function validate($data, $specialRules = [])
     {
-        if(isset($specialRules['emailRule']) && $specialRules['emailRule']) static::$rules['email'] = 'required|between:2,255|email';
-        if(isset($specialRules['userRule']) && $specialRules['userRule'])   static::$rules['user'] = 'required|between:2,255';
-        if(isset($specialRules['passRule']) && $specialRules['passRule'])   static::$rules['password'] = '';
+        if(isset($specialRules['emailRule']) && $specialRules['emailRule']) static::$rules['email']     = 'required|between:2,255|email';
+        if(isset($specialRules['userRule']) && $specialRules['userRule'])   static::$rules['user']      = 'required|between:2,255';
+        if(isset($specialRules['passRule']) && $specialRules['passRule'])   static::$rules['password']  = '';
 
         return Validator::make($data, static::$rules);
     }
