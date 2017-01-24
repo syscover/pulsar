@@ -9,14 +9,9 @@ Pulsar is an application that generates a control panel where you start creating
 
 ## Installation
 
-**1 - After install Laravel framework, insert on file composer.json, inside require object this value**
+**1 - After install Laravel framework, execute on console:**
 ```
-"syscover/pulsar": "~2.0"
-```
-
-execute on console:
-```
-composer update
+composer require syscover/pulsar
 ```
 
 **2 - Register service provider, on file config/app.php add to providers array**
