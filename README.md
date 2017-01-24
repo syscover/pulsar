@@ -17,11 +17,6 @@ composer require syscover/pulsar
 **2 - Register service provider, on file config/app.php add to providers array**
 ```
 /*
- * Thirdparty Application Service Providers...
- */
-Maatwebsite\Excel\ExcelServiceProvider::class,
-
-/*
  * Pulsar Application Service Providers...
  */
 Syscover\Pulsar\PulsarServiceProvider::class,
