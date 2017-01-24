@@ -23,6 +23,9 @@
     "autoload": {
         "psr-4": {
             "Syscover\\Pulsar\\": "src/Syscover/Pulsar"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     }
 }

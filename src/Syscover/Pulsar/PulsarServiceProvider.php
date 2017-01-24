@@ -16,9 +16,6 @@ class PulsarServiceProvider extends ServiceProvider
 		if (!$this->app->routesAreCached())
 			require __DIR__ . '/../../routes.php';
 
-		// include helpers file
-		require __DIR__ . '/Helpers/helpers.php';
-
 		// register views
 		$this->loadViewsFrom(__DIR__ . '/../../views', 'pulsar');
 
