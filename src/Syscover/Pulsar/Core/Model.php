@@ -24,7 +24,7 @@ abstract class Model extends BaseModel
     private static $rules;          // array to set rules to laravel validator
 
     /**
-     * Overwritte construct to set params to model
+     * Overwrite construct to set params to model
      *
      * Model constructor.
      * @param array $attributes
@@ -232,7 +232,6 @@ abstract class Model extends BaseModel
      * @access	public
      * @param   int $id
      * @param   string $lang
-     * @param   string|null $jsonData
      * @return	string
      */
     public static function addLangDataRecord($lang, $id = null)
