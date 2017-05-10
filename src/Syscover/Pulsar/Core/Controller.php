@@ -982,7 +982,6 @@ abstract class Controller extends BaseController {
         else
             $object = call_user_func($this->model . '::getTranslationRecord', $parameters);
 
-
         $this->deleteCustomTranslationRecord($object);
 
 
