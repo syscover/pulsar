@@ -19,7 +19,7 @@ class AttachmentLibrary {
      */
     public static function storeAttachments($attachments, $routesConfigFile, $resource, $objectId, $lang)
     {
-        if(!File::exists(public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId . '/'. $lang))
+        if(! File::exists(public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId . '/'. $lang))
         {
             File::makeDirectory(public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId . '/'. $lang, 0755, true);
         }

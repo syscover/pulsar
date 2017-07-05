@@ -43,7 +43,7 @@ class CustomFieldResultLibrary
                     $customFieldResults[]  = $customFieldResult;
                 }
             }
-            else
+            elseif($request->input($customField->name_026 . '_custom') !== null)
             {
                 $customFieldResult = [
                     'object_id_028'         => $objectId,

@@ -43,12 +43,12 @@
                             // añadimos los indices de los elementos con errores
                             errorFiles.push(index);
                         }
-                    })
+                    });
 
                     // borramos del los ficheros, aquellos que contienen algún error
                     $.each(errorFiles, function(index, value){
                         dataUploaded.files.splice(value, 1);
-                    })
+                    });
 
                     // si hay ficheros que subir los guardamos
                     if(dataUploaded.files.length > 0)
