@@ -11,6 +11,7 @@ use Syscover\Pulsar\Libraries\Miscellaneous;
 
 abstract class Model extends BaseModel
 {
+    protected $connection           = 'mysql2';
     protected $package;             // package name
     protected $table;               // string with table name
     protected $primaryKey;          // string with primary key
