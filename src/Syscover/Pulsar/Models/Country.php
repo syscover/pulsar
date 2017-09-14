@@ -29,7 +29,7 @@ class Country extends Model
         'lang' => Lang::class
     ];
     private static $rules   = [
-        'id'                => 'required|alpha|size:2|mysql2.unique:001_002_country,id_002',
+        'id'                => 'required|alpha|size:2|unique:mysql2.001_002_country,id_002',
         'name'              => 'required|between:2,100',
         'sorting'           => 'min:0|numeric',
         'prefix'            => 'between:1,5',

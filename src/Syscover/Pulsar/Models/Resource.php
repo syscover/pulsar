@@ -29,7 +29,7 @@ class Resource extends Model
         'package'      => Package::class,
     ];
     private static $rules   = [
-        'id'        =>  'required|between:2,30|mysql2.unique:001_007_resource,id_007',
+        'id'        =>  'required|between:2,30|unique:mysql2.001_007_resource,id_007',
         'module'    =>  'not_in:null',
         'name'      =>  'required|between:2,50'
     ];

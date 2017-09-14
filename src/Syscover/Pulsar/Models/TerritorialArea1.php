@@ -29,7 +29,7 @@ class TerritorialArea1 extends Model
         'country'   => Country::class,
     ];
     private static $rules   = [
-        'id'      => 'required|between:1,6|mysql2.unique:001_003_territorial_area_1,id_003',
+        'id'      => 'required|between:1,6|unique:mysql2.001_003_territorial_area_1,id_003',
         'name'    => 'required|between:2,50'
     ];
 
