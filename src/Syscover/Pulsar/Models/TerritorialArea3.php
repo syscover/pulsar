@@ -30,7 +30,7 @@ class TerritorialArea3 extends Model
         'terrirorial_area_2'   => TerritorialArea2::class
     ];
     private static $rules   = [
-        'id'                => 'required|between:1,10|unique:001_005_territorial_area_3,id_005',
+        'id'                => 'required|between:1,10|mysql2.unique:001_005_territorial_area_3,id_005',
         'name'              => 'required|between:2,50',
         'territorialArea1'  => 'not_in:null',
         'territorialArea2'  => 'not_in:null'

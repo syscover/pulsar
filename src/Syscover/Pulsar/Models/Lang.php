@@ -27,7 +27,7 @@ class Lang extends Model
     protected $maps         = [];
     protected $relationMaps = [];
     private static $rules   = [
-        'id'        => 'required|alpha|size:2|unique:001_001_lang,id_001',
+        'id'        => 'required|alpha|size:2|mysql2.unique:001_001_lang,id_001',
         'name'      => 'required|between:2,255',
         'sorting'   => 'min:0|numeric',
         'image'     => 'required'

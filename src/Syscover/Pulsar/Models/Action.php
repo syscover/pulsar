@@ -26,7 +26,7 @@ class Action extends Model
     protected $fillable     = ['id_008', 'name_008'];
     protected $maps         = [];
     private static $rules   = [
-        'id'    => 'required|between:2,25|unique:001_008_action,id_008',
+        'id'    => 'required|between:2,25|mysql2.unique:001_008_action,id_008',
         'name'  => 'required|between:2,50'
     ];
 

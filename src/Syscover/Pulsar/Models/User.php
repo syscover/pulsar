@@ -44,10 +44,10 @@ class User extends Model implements
     private static $rules    = [
         'name'      => 'required|between:2,255',
         'surname'   => 'required|between:2,255',
-        'email'     => 'required|between:2,255|email|unique:001_010_user,email_010',
+        'email'     => 'required|between:2,255|email|mysql2.unique:001_010_user,email_010',
         'lang'      => 'not_in:null',
         'profile'   => 'not_in:null',
-        'user'      => 'required|between:2,255|unique:001_010_user,user_010',
+        'user'      => 'required|between:2,255|mysql2.unique:001_010_user,user_010',
         'password'  => 'required|between:4,50|same:repassword'
     ];
 
