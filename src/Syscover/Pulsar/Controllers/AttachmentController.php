@@ -147,8 +147,8 @@ class AttachmentController extends Controller
         $parameters     = $this->request->route()->parameters();
         $attachments    = collect($this->request->input('attachments'));
 
-        DB::select(DB::connection('mysql2')->raw("SET @x = 0;"));
-        DB::select(DB::connection('mysql2')->raw("                
+        DB::connection('mysql2')->select(DB::raw("SET @x = 0;"));
+        DB::connection('mysql2')->select(DB::raw("                
                 UPDATE 001_016_attachment 
                     SET sorting_016 = (@x:=@x+1) 
                     WHERE lang_id_016 = '" . $parameters['lang'] . "' 
