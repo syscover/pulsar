@@ -22,7 +22,7 @@ class CustomFieldValueController extends Controller
 
     public function customIndex($parameters)
     {
-        $parameters['urlParameters']['lang']    = base_lang()->id_001;
+        $parameters['urlParameters']['lang']    = base_lang2()->id_001;
         $parameters['field']                    = CustomField::getTranslationRecord(['id' => $parameters['field'], 'lang' => $parameters['lang']]);
         $parameters['customTransHeader']        = trans_choice($this->objectTrans, 2) . ' (' .trans_choice('pulsar::pulsar.field', 1) . ': ' . $parameters['field']->name_026 . ')';
 

@@ -6,7 +6,7 @@ if (! function_exists('base_lang')) {
      *
      * @return \Syscover\Pulsar\Models\Lang
      */
-    function base_lang()
+    function base_lang2()
     {
         if(session('baseLang') === null)
             session(['baseLang' => \Syscover\Pulsar\Models\Lang::getBaseLang()]);

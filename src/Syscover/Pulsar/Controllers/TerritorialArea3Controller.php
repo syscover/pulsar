@@ -25,7 +25,7 @@ class TerritorialArea3Controller extends Controller
 
     public function customIndex($parameters)
     {
-        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_id_002', base_lang()->id_001)->first();
+        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_id_002', base_lang2()->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_3_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_3_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -48,7 +48,7 @@ class TerritorialArea3Controller extends Controller
         else
             $parameters['territorialAreas2'] = [];
 
-        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_id_002', base_lang()->id_001)->first();
+        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_id_002', base_lang2()->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_3_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_3_002 . ' (' . $parameters['country']->name_002 . ')';
 
@@ -70,7 +70,7 @@ class TerritorialArea3Controller extends Controller
     {
         $parameters['territorialAreas1']    = TerritorialArea1::getTerritorialAreas1FromCountry($parameters['country']);
         $parameters['territorialAreas2']    = TerritorialArea2::getTerritorialAreas2FromTerritorialArea1($parameters['object']->territorial_area_1_id_005);
-        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_id_002', base_lang()->id_001)->first();
+        $parameters['country']              = Country::where('id_002', $parameters['country'])->where('lang_id_002', base_lang2()->id_001)->first();
         $parameters['customTrans']          = $parameters['country']->territorial_area_3_002;
         $parameters['customTransHeader']    = $parameters['country']->territorial_area_3_002 . ' (' . $parameters['country']->name_002 . ')';
 

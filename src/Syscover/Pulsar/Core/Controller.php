@@ -586,7 +586,7 @@ abstract class Controller extends BaseController {
         {
             // set baseLang to get baseLang object
             $parametersAux          =  $parameters;
-            $parametersAux['lang']  = base_lang()->id_001;
+            $parametersAux['lang']  = base_lang2()->id_001;
             
             $parameters['object']   = call_user_func($this->model . '::getTranslationRecord', $parametersAux);
 

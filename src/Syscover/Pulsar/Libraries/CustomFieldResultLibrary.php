@@ -109,7 +109,7 @@ class CustomFieldResultLibrary
         {
             if(!empty($parameters['action']) && $parameters['action'] == 'storeLang')
                 // if is a new object translated
-                $langFieldResults = base_lang()->id_001;
+                $langFieldResults = base_lang2()->id_001;
             else
                 $langFieldResults = $parameters['lang'];
 
@@ -131,7 +131,7 @@ class CustomFieldResultLibrary
                 // TODO: se pueden coger todos los valores antes del foreach para evitar multiples consultas
                 $customFieldValues = $customField
                     ->getValues()
-                    ->where('lang_id_027', base_lang()->id_001)
+                    ->where('lang_id_027', base_lang2()->id_001)
                     ->get();
                 
                 $multipleSelectValue = null;
@@ -161,7 +161,7 @@ class CustomFieldResultLibrary
             }
             elseif(collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_id_026]->key == 'select' || collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_id_026]->key == 'select2')
             {
-                $customFieldValues      = $customField->getValues()->where('lang_id_027', base_lang()->id_001)->get();
+                $customFieldValues      = $customField->getValues()->where('lang_id_027', base_lang2()->id_001)->get();
 
                 // check if is select2 plugin
                 $isSelect2 = collect(config('pulsar.fieldTypes'))->keyBy('id')[$customField->field_type_id_026]->key == 'select2';

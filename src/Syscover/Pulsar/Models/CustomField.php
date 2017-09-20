@@ -94,10 +94,10 @@ class CustomField extends Model
                     $customField->label_026     = $data[$parameters['lang_026']];
                     $customField->lang_026      = $parameters['lang_026'];
                 }
-                elseif(isset($data[base_lang()->id_001]))
+                elseif(isset($data[base_lang2()->id_001]))
                 {
-                    $customField->label_026     = $data[base_lang()->id_001];
-                    $customField->lang_026      = base_lang()->id_001;
+                    $customField->label_026     = $data[base_lang2()->id_001];
+                    $customField->lang_026      = base_lang2()->id_001;
                 }
                 else
                 {
@@ -123,10 +123,10 @@ class CustomField extends Model
             $customField->label_026     = $data[$parameters['lang']];
             $customField->lang_026      = $parameters['lang'];
         }
-        elseif(isset($data[base_lang()->id_001]))
+        elseif(isset($data[base_lang2()->id_001]))
         {
-            $customField->label_026     = $data[base_lang()->id_001];
-            $customField->lang_026      = base_lang()->id_001;
+            $customField->label_026     = $data[base_lang2()->id_001];
+            $customField->lang_026      = base_lang2()->id_001;
         }
         else
         {

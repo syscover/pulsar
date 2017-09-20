@@ -91,7 +91,7 @@ class AttachmentLibrary {
                 // function to duplicate files if we create a new lang object
                 // copy attachments base lang article to temp folder
                 $tmpFileName = uniqid();
-                File::copy(public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId . '/' . base_lang()->id_001 . '/' . $attachment->file_name_016, public_path() . config($routesConfigFile . '.tmpFolder') . '/' . $tmpFileName);
+                File::copy(public_path() . config($routesConfigFile . '.attachmentFolder') . '/' . $objectId . '/' . base_lang2()->id_001 . '/' . $attachment->file_name_016, public_path() . config($routesConfigFile . '.tmpFolder') . '/' . $tmpFileName);
                 // store tmp file name in attachment to know temporal name
                 $attachment['tmp_file_name_016'] = $tmpFileName;
             }

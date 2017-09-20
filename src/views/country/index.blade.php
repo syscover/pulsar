@@ -17,7 +17,7 @@
                     "processing": true,
                     "serverSide": true,
                     "ajax": {
-                        "url": "{{ route('jsonData' . ucfirst($routeSuffix), [base_lang()->id_001]) }}",
+                        "url": "{{ route('jsonData' . ucfirst($routeSuffix), [base_lang2()->id_001]) }}",
                         "type": "POST",
                         "headers": {
                             "X-CSRF-TOKEN": "{{ csrf_token() }}"

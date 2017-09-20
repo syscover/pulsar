@@ -58,7 +58,7 @@ class TerritorialArea1 extends Model
         if(isset($parameters['lang']))
             $query->where('lang_id_002', $parameters['lang']);
         else
-            $query->where('lang_id_002', base_lang()->id_001);
+            $query->where('lang_id_002', base_lang2()->id_001);
 
         return $query;
     }
@@ -71,7 +71,7 @@ class TerritorialArea1 extends Model
         if(isset($parameters['lang']))
             $query->where('lang_id_002', $parameters['lang']);
         else
-            $query->where('lang_id_002', base_lang()->id_001);
+            $query->where('lang_id_002', base_lang2()->id_001);
 
         return $query;
     }
