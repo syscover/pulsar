@@ -217,7 +217,7 @@ class Cron
             $reportTask->sql_023    = str_replace("#UNTIL#", $frequency['until'], $reportTask->sql_023);
 
         // Execute query from report task
-        $objects = DB::select(DB::raw($reportTask->sql_023));
+        $objects = DB::connection('mysql2')->select(DB::raw($reportTask->sql_023));
 
         // if has results from query
         if(count($objects) == 0)
