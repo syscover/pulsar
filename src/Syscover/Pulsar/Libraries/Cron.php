@@ -336,9 +336,10 @@ class Cron
         }
 
         // updates time stamp of executions
-        $reportTask->last_run_023 = $frequency['lastRun'];
-        $reportTask->next_run_023 = $frequency['nextRun'];
-        $reportTask->save();
+        ReportTask::where('id_023', $reportTask->id_023)->update([
+            'last_run_023' => $frequency['lastRun'],
+            'next_run_023' => $frequency['nextRun']
+        ]);
 
         return true;
     }
