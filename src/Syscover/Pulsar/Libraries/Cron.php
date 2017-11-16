@@ -181,14 +181,13 @@ class Cron
     {
         // get report tasks
         $reportTasks = ReportTask::builder()
+            ->whereNotNull('next_run_023')
+            ->where('next_run_023', '<', date('U'))
             ->get();
 
         foreach ($reportTasks as $reportTask)
-        {
-            // check if report task has to be executed
-            if($reportTask->next_run_023 != null && $reportTask->next_run_023 < date('U'))
-                self::executeReportTask($reportTask);
-        }
+            self::executeReportTask($reportTask);
+
     }
 
     /**
