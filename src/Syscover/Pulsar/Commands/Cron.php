@@ -11,7 +11,7 @@ class Cron extends Command {
 	 *
 	 * @var string
 	 */
-	protected $signature = 'cron {--v : Cron version}';
+	protected $signature = 'cronold {--v : Cron version}';
 
 	/**
 	 * The console command description.
