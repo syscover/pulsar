@@ -1,6 +1,5 @@
 /*
  *	mappoint v1.0 - 2015-09-1
- *	Loader build on css3
  *	(c) 2015 Syscover S.L. - http://www.syscover.com/
  *	All rights reserved
  */
