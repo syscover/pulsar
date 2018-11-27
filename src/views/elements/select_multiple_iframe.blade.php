@@ -1,5 +1,5 @@
 <a class="btn btn-info margin-b10 magnific-popup" href="{{ $modalUrl }}"><i class="{{ $icon }}"></i> {{ $label }}</a>
-<input type="hidden" name="{{ $id }}Data" value="{{ $dataJson or '[]' }}">
+<input type="hidden" name="{{ $id }}Data" value="{{ $dataJson ?? '[]' }}">
 <table id="{{ $id }}" class="table table-hover table-striped">
     <thead>
     <tr>

@@ -1,6 +1,6 @@
 <div class="form-group">
-    <label class="col-md-{{ $labelSize or 2 }} control-label">{{ $label }}</label>
-    <div class="col-md-{{ $fieldSize or 10 }} height-field">
+    <label class="col-md-{{ $labelSize ?? 2 }} control-label">{{ $label }}</label>
+    <div class="col-md-{{ $fieldSize ?? 10 }} height-field">
         <img src="{{ $url }}">
         {{ $nameImage }}
         <input type="hidden" name="{{ $name }}" value="{{ $value }}">

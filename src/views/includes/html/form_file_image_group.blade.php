@@ -1,7 +1,7 @@
 <!-- pulsar::includes.html.form_file_image_group -->
 <div class="form-group">
-    <label class="col-md-{{ $labelSize or 2 }} control-label">{{ $label }} @if(isset($required)) @include('pulsar::elements.required') @endif</label>
-    <div class="col-md-{{ $fieldSize or 10 }}">
+    <label class="col-md-{{ $labelSize ?? 2 }} control-label">{{ $label }} @if(isset($required)) @include('pulsar::elements.required') @endif</label>
+    <div class="col-md-{{ $fieldSize ?? 10 }}">
         <!-- If the file has logo field is hidden from JavasScript -->
         <div id="inputFile"@if(isset($value)) style="display: none"@endif>
             <input type="file" data-style="fileinput" name="image" accept="image/*"{{ isset($required)? ' required' : null }}>
