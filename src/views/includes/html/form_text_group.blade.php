@@ -1,7 +1,7 @@
 <div @if(isset($containerId)) id="{{ $containerId }}"@endif class="form-group">
     <label class="col-md-{{ $labelSize ?? 2 }} control-label">{{ $label }} @if(isset($required) && $required) @include('pulsar::elements.required') @endif</label>
     <div class="col-md-{{ $fieldSize or 10 }}">
-        <input class="form-control{{ isset($class)? ' ' . $class : null }}" type="{{ $type or 'text' }}" name="{{ $name }}" value="{{ $value or null }}"{!! isset($data)? Miscellaneous::setDataAttributes($data) : null !!} @if(isset($placeholder)) placeholder="{{ $placeholder }}"@endif @if(isset($maxLength)) maxlength="{{ $maxLength }}"@endif @if(isset($rangeLength))rangelength="{{ $rangeLength }}"@endif @if(isset($min)) min="{{ $min }}"@endif @if(isset($max)) max="{{ $max }}"@endif{{ isset($readOnly) && $readOnly? ' readonly' : null }}{{ isset($required) && $required? ' required' : null }}>
+        <input class="form-control{{ isset($class)? ' ' . $class : null }}" type="{{ $type ?? 'text' }}" name="{{ $name }}" value="{{ $value or null }}"{!! isset($data)? Miscellaneous::setDataAttributes($data) : null !!} @if(isset($placeholder)) placeholder="{{ $placeholder }}"@endif @if(isset($maxLength)) maxlength="{{ $maxLength }}"@endif @if(isset($rangeLength))rangelength="{{ $rangeLength }}"@endif @if(isset($min)) min="{{ $min }}"@endif @if(isset($max)) max="{{ $max }}"@endif{{ isset($readOnly) && $readOnly? ' readonly' : null }}{{ isset($required) && $required? ' required' : null }}>
         {!! $errors->first($name, config('pulsar.errorDelimiters')) !!}
     </div>
     @if(isset($inputs) && is_array($inputs))
