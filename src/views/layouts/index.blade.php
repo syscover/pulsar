@@ -20,7 +20,7 @@
             @yield('headButtons')
 
                 <div class="row">
-                <div class="col-md-{{ $firstColSize or 12 }}">
+                <div class="col-md-{{ $firstColSize ?? 12 }}">
                     <div class="widget box">
                         <div class="widget-header">
                             <h4><i class="fa fa-reorder"></i> {{ isset($customTransHeader)? $customTransHeader : trans_choice($objectTrans, 2) }}</h4>
