@@ -11,7 +11,6 @@
     "require": {
         "php": ">=5.6.4",
         "zendframework/zend-permissions-acl": "2.5.*",
-        "mtdowling/cron-expression": "^1.1",
         "tecnickcom/tcpdf": "^6.2",
         "phpoffice/phpexcel": "1.8.1",
         "leafo/scssphp": "0.6.3",
