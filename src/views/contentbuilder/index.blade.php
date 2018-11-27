@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="{{ asset(config($package . '.themesFolder') . $theme . '/content.css') }}">
     @endif
     <style type="text/css">
-        {{ $css or null }}
+        {{ $css ?? null }}
     </style>
     <!-- /theme css -->
 
