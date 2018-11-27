@@ -233,7 +233,7 @@ abstract class Controller extends BaseController {
             // crete task to download after
             AdvancedSearchTask::create([
                 'date_022'              => date('U'),
-                'user_id_022'           => auth('pulsar')->user()->id_010,
+                'user_id_022'           => auth()->guard('pulsar')->user()->id_010,
                 'model_022'             => $this->model,
                 'parameters_022'        => json_encode($parameters),
                 'extension_file_022'    => $this->request->input('extensionFile'),

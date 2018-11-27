@@ -101,7 +101,7 @@
     @include('pulsar::includes.html.form_text_group', [
         'label' => trans('pulsar::pulsar.email'),
         'name' => 'email',
-        'value' => old('email', isset($object)? $object->email_023 : auth('pulsar')->user()->email_010),
+        'value' => old('email', isset($object)? $object->email_023 : auth()->guard('pulsar')->user()->email_010),
         'maxLength' => '255',
         'rangeLength' => '2,255',
         'required' => true

@@ -68,7 +68,7 @@ class ReportTaskController extends Controller
 
         ReportTask::create([
             'date_023'              => date('U'),
-            'user_id_023'           => auth('pulsar')->user()->id_010,
+            'user_id_023'           => auth()->guard('pulsar')->user()->id_010,
             'email_023'             => $this->request->input('email'),
             'cc_023'                => $this->request->input('jsonCcEmails'),
             'subject_023'           => $this->request->input('subject'),

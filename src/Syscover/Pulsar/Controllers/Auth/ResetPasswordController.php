@@ -154,6 +154,6 @@ class ResetPasswordController extends Controller
      */
     protected function guard()
     {
-        return auth('pulsar');
+        return auth()->guard('pulsar');
     }
 }

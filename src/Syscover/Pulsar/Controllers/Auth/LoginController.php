@@ -59,12 +59,12 @@ class LoginController extends Controller
 
         $credentials = $request->only('user', 'password');
 
-        if(auth('pulsar')->attempt($credentials, $request->has('remember')))
+        if(auth()->guard('pulsar')->attempt($credentials, $request->has('remember')))
         {
             // check if user has access
-            if(!auth('pulsar')->user()->access_010)
+            if(!auth()->guard('pulsar')->user()->access_010)
             {
-                auth('pulsar')->logout();
+                auth()->guard('pulsar')->logout();
                 return redirect($this->loginPath)
                     ->withInput($request->only('user', 'remember'))
                     ->withErrors([
@@ -73,12 +73,12 @@ class LoginController extends Controller
             }
 
             // set user access control list
-            session(['userAcl' => AclLibrary::getProfileAcl(auth('pulsar')->user()->profile_id_010)]);
+            session(['userAcl' => AclLibrary::getProfileAcl(auth()->guard('pulsar')->user()->profile_id_010)]);
 
             // check if user has permission to access
             if (!is_allowed('pulsar', 'access'))
             {
-                auth('pulsar')->logout();
+                auth()->guard('pulsar')->logout();
                 return redirect($this->loginPath)
                     ->withInput($request->only('user', 'remember'))
                     ->withErrors([
@@ -106,7 +106,7 @@ class LoginController extends Controller
      */
     public function getLogout()
     {
-        auth('pulsar')->logout();
+        auth()->guard('pulsar')->logout();
         session()->flush();
 
         return redirect(config('pulsar.name'));
