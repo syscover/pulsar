@@ -1,6 +1,7 @@
 <?php namespace Syscover\Pulsar\Libraries;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use Syscover\Pulsar\Models\AdvancedSearchTask;
@@ -253,9 +254,20 @@ class Cron
         $operationsRow  = [];
         $object->map(function ($item, $key) use (&$operationsRow, $objects) {
             if(is_numeric($item))
-                $operationsRow[$key] = $objects->sum($key);
+            {
+                try
+                {
+                    $operationsRow[$key] = $objects->sum($key);
+                }
+                catch (\Exception $e)
+                {
+                    Log::error($e->getMessage());
+                }
+            }
             else
+            {
                 $operationsRow[$key] = null;
+            }
         });
 
         $filename = $reportTask->filename_023 . '-' . uniqid();
