@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use Syscover\Pulsar\Models\AdvancedSearchTask;
-use Maatwebsite\Excel\Facades\Excel;
+use MaatwebsiteOld\ExcelOld\Facades\Excel;
 use Syscover\Pulsar\Models\ReportTask;
 
 class Cron

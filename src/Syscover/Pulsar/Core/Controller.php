@@ -4,7 +4,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
-use Maatwebsite\Excel\Facades\Excel;
+use MaatwebsiteOld\ExcelOld\Facades\Excel;
 use Syscover\Pulsar\Exceptions\InvalidArgumentException;
 use Syscover\Pulsar\Libraries\Miscellaneous;
 use Syscover\Pulsar\Models\AdvancedSearchTask;

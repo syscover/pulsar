@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\DB;
 use Syscover\Pulsar\Core\Controller;
 
 // uses to testing
-use Maatwebsite\Excel\Facades\Excel;
+use MaatwebsiteOld\ExcelOld\Facades\Excel;
 use Syscover\Pulsar\Models\ReportTask;
 
 
